@@ -8,7 +8,7 @@ import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { theme, pressedDefault } from "utils/helpers";
 
 type NextProps = {
-  setShowList: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowTags: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Next(props: NextProps) {
@@ -35,8 +35,13 @@ export default function Next(props: NextProps) {
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Pressable onPress={() => props.setShowList(true)} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
-        <CircleArrowRight color={colors.primary} size={Device.deviceType !== 1 ? 88 : 64} absoluteStrokeWidth />
+      <Pressable onPress={() => props.setShowTags(true)} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+        <CircleArrowRight
+          color={colors.primary}
+          size={Device.deviceType !== 1 ? 88 : 64}
+          absoluteStrokeWidth
+          strokeWidth={3}
+        />
       </Pressable>
     </Animated.View>
   );
@@ -45,10 +50,10 @@ export default function Next(props: NextProps) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 0,
     justifyContent: "center",
   },
   portrait: {
+    bottom: 0,
     height: "50%",
   },
   landscape: {

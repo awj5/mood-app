@@ -39,7 +39,7 @@ export default function Heading() {
           },
         ]}
       >
-        How are{dimensions.width > dimensions.height ? "\n" : " "}you feeling?
+        How's work?
       </Text>
     </Animated.View>
   );
@@ -48,19 +48,19 @@ export default function Heading() {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    top: 0,
     justifyContent: "center",
   },
   portrait: {
     height: "50%",
+    top: 0,
   },
   landscape: {
     height: "100%",
     width: "50%",
     left: 0,
+    alignItems: "center",
   },
   text: {
     fontFamily: "Circular-Bold",
-    textAlign: "center",
   },
 });

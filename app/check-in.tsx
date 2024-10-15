@@ -4,6 +4,7 @@ import { Stack, useFocusEffect } from "expo-router";
 import EmotionData from "data/emotions.json";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
+import Background from "components/check-in/Background";
 import Instructions from "components/check-in/Instructions";
 import Heading from "components/check-in/Heading";
 import Next from "components/check-in/Next";
@@ -23,35 +24,35 @@ export default function CheckIn() {
   const [angle, setAngle] = useState(0);
   const [emotion, setEmotion] = useState<EmotionType>(EmotionData[0]);
   const [visible, setVisible] = useState(false);
-  const [showList, setShowList] = useState(false);
+  const [showTags, setShowTags] = useState(false);
   const [words, setWords] = useState<number[]>([]);
 
   useEffect(() => {
     // Snap to 1 of 12 angles (groups of 30 degrees)
     if ((angle >= 345 && angle <= 360 && emotion.angle !== 0) || (angle >= 0 && angle < 15 && emotion.angle !== 0)) {
-      setEmotion(EmotionData[0]); // White
+      setEmotion(EmotionData[0]);
     } else if (angle >= 15 && angle < 45 && emotion.angle !== 30) {
-      setEmotion(EmotionData[1]); // Red
+      setEmotion(EmotionData[1]);
     } else if (angle >= 45 && angle < 75 && emotion.angle !== 60) {
-      setEmotion(EmotionData[2]); // Magenta red
+      setEmotion(EmotionData[2]);
     } else if (angle >= 75 && angle < 105 && emotion.angle !== 90) {
-      setEmotion(EmotionData[3]); // Magenta
+      setEmotion(EmotionData[3]);
     } else if (angle >= 105 && angle < 135 && emotion.angle !== 120) {
-      setEmotion(EmotionData[4]); // Blue magenta
+      setEmotion(EmotionData[4]);
     } else if (angle >= 135 && angle < 165 && emotion.angle !== 150) {
-      setEmotion(EmotionData[5]); // Blue
+      setEmotion(EmotionData[5]);
     } else if (angle >= 165 && angle < 195 && emotion.angle !== 180) {
-      setEmotion(EmotionData[6]); // Black
+      setEmotion(EmotionData[6]);
     } else if (angle >= 195 && angle < 225 && emotion.angle !== 210) {
-      setEmotion(EmotionData[7]); // Cyan
+      setEmotion(EmotionData[7]);
     } else if (angle >= 225 && angle < 255 && emotion.angle !== 240) {
-      setEmotion(EmotionData[8]); // Green cyan
+      setEmotion(EmotionData[8]);
     } else if (angle >= 255 && angle < 285 && emotion.angle !== 270) {
-      setEmotion(EmotionData[9]); // Green
+      setEmotion(EmotionData[9]);
     } else if (angle >= 285 && angle < 315 && emotion.angle !== 300) {
-      setEmotion(EmotionData[10]); // Yellow green
+      setEmotion(EmotionData[10]);
     } else if (angle >= 315 && angle < 345 && emotion.angle !== 330) {
-      setEmotion(EmotionData[11]); // Yellow
+      setEmotion(EmotionData[11]);
     }
   }, [angle]);
 
@@ -59,7 +60,7 @@ export default function CheckIn() {
     useCallback(() => {
       setEmotion(EmotionData[0]);
       setVisible(true);
-      setShowList(false);
+      setShowTags(false);
 
       return () => {
         // Wait for screen transition to finish
@@ -77,17 +78,18 @@ export default function CheckIn() {
       {visible && (
         <>
           <Heading />
-          <Emoji emotion={emotion} showList={showList} />
           <Instructions />
-          <Next setShowList={setShowList} />
+          <Next setShowTags={setShowTags} />
+          <Background emotion={emotion} showTags={showTags} />
           <Wheel setAngle={setAngle} />
+          <Emoji emotion={emotion} showTags={showTags} />
 
-          {showList && (
+          {showTags && (
             <>
               <ListHeading angle={emotion.angle} />
               <Done angle={emotion.angle} words={words} />
               <List emotion={emotion} words={words} setWords={setWords} />
-              <Close setShowList={setShowList} angle={emotion.angle} />
+              <Close setShowList={setShowTags} angle={emotion.angle} />
             </>
           )}
         </>

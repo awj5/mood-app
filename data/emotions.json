@@ -1,74 +1,74 @@
 [
   {
     "angle": 0,
-    "color": "#FFFFFF",
-    "emoji": "peace",
+    "color": "#FF8001",
+    "emoji": "flushed",
     "words": ["Calm", "Clear", "Peaceful", "Serene", "Tranquil"]
   },
   {
     "angle": 30,
-    "color": "#FF0000",
+    "color": "#BF0001",
     "emoji": "angry",
     "words": ["Angry", "Frustrated", "Furious", "Irritated", "Resentful"]
   },
   {
     "angle": 60,
-    "color": "#FF0080",
-    "emoji": "love",
+    "color": "#800040",
+    "emoji": "unamused",
     "words": ["Adoring", "Affectionate", "Caring", "Loving", "Tender"]
   },
   {
     "angle": 90,
-    "color": "#FF00FF",
-    "emoji": "stars",
+    "color": "#400040",
+    "emoji": "fearful",
     "words": ["Appreciated", "Connected", "Supported", "Understood", "Valued"]
   },
   {
     "angle": 120,
-    "color": "#8000FF",
-    "emoji": "sad",
+    "color": "#400080",
+    "emoji": "crying",
     "words": ["Contemplative", "Pensive", "Reflective", "Thoughtful", "Regretful"]
   },
   {
     "angle": 150,
-    "color": "#0000FF",
-    "emoji": "cry",
+    "color": "#0400BF",
+    "emoji": "weary",
     "words": ["Disappointed", "Down", "Gloomy", "Lonely", "Sad"]
   },
   {
     "angle": 180,
-    "color": "#000000",
-    "emoji": "dead",
+    "color": "#0280FF",
+    "emoji": "sleeping",
     "words": ["Burnt-out", "Fearful", "Lost", "Numb", "Overwhelmed"]
   },
   {
     "angle": 210,
-    "color": "#00FFFF",
-    "emoji": "sleepy",
+    "color": "#01D5FF",
+    "emoji": "relieved",
     "words": ["Drowsy", "Lethargic", "Sleepy", "Sluggish", "Tired"]
   },
   {
     "angle": 240,
-    "color": "#00FF80",
-    "emoji": "cool",
+    "color": "#05FFAA",
+    "emoji": "smilingEyes",
     "words": ["Carefree", "Chill", "Easygoing", "Laid-back", "Mellow"]
   },
   {
     "angle": 270,
-    "color": "#00FF00",
-    "emoji": "smile",
+    "color": "#02FF00",
+    "emoji": "slightlySmiling",
     "words": ["Proud", "Balanced", "Content", "Grateful", "Satisfied"]
   },
   {
     "angle": 300,
-    "color": "#80FF00",
-    "emoji": "grin",
+    "color": "#AAFF02",
+    "emoji": "grinning",
     "words": ["Confident", "Eager", "Encouraged", "Hopeful", "Positive"]
   },
   {
     "angle": 330,
-    "color": "#FFFF00",
-    "emoji": "excited",
+    "color": "#FFD500",
+    "emoji": "bigEyes",
     "words": ["Cheerful", "Enthusiastic", "Excited", "Joyful", "Optimistic"]
   }
 ]

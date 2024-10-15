@@ -31,7 +31,8 @@ export default function Layout() {
   }, [fontsLoaded, fontError]);
 
   useEffect(() => {
-    const subscription = ScreenOrientation.addOrientationChangeListener((e) => {
+    // Hack! - RN dimensions not returning acurate values on iPad rotation
+    const listener = ScreenOrientation.addOrientationChangeListener((e) => {
       if (
         (initOrientation === "portrait" && e.orientationInfo.orientation === 3) ||
         (initOrientation === "portrait" && e.orientationInfo.orientation === 4) ||
@@ -43,7 +44,7 @@ export default function Layout() {
       }
     });
 
-    return () => ScreenOrientation.removeOrientationChangeListener(subscription); // Clean up
+    return () => ScreenOrientation.removeOrientationChangeListener(listener); // Clean up
   }, []);
 
   const changeScreenOrientation = async () => {

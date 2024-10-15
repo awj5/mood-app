@@ -11,11 +11,11 @@ type WheelProps = {
 };
 
 export default function Wheel(props: WheelProps) {
-  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const opacity = useSharedValue(0);
   const rotation = useSharedValue(-360);
   const previousRotation = useSharedValue(0);
   const startAngle = useSharedValue(0);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const size = Device.deviceType !== 1 ? 448 : 304; // Smaller on phones
 
   const pan = Gesture.Pan()
@@ -51,7 +51,10 @@ export default function Wheel(props: WheelProps) {
 
   useEffect(() => {
     // Animate in
-    rotation.value = withTiming(0, { duration: 1000, easing: Easing.out(Easing.cubic) });
+    const randomAngle = Math.floor(Math.random() * 361);
+    previousRotation.value = randomAngle;
+    props.setAngle(randomAngle);
+    rotation.value = withTiming(randomAngle, { duration: 1000, easing: Easing.out(Easing.cubic) });
     opacity.value = withTiming(1, { duration: 1000, easing: Easing.in(Easing.cubic) });
   }, []);
 
