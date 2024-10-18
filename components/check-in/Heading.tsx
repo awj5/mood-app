@@ -6,14 +6,22 @@ import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-n
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { theme } from "utils/helpers";
 
-export default function Heading() {
+type HeadingProps = {
+  text: string;
+  angle?: number;
+};
+
+export default function Heading(props: HeadingProps) {
   const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   useEffect(() => {
-    opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    opacity.value = withDelay(
+      props.angle !== undefined ? 500 : 1000,
+      withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
+    );
   }, []);
 
   return (
@@ -24,6 +32,7 @@ export default function Heading() {
         {
           opacity,
           paddingTop: insets.top,
+          zIndex: props.angle !== undefined ? 1 : 0,
         },
         dimensions.width > dimensions.height
           ? { paddingRight: Device.deviceType !== 1 ? 224 : 152, paddingBottom: insets.bottom }
@@ -34,12 +43,15 @@ export default function Heading() {
         style={[
           styles.text,
           {
-            color: colors.primary,
+            color:
+              props.angle === undefined ? colors.primary : props.angle >= 15 && props.angle < 195 ? "white" : "black",
             fontSize: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 36 : 48) : 30,
+            paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+            maxWidth: Device.deviceType !== 1 ? 512 : 320,
           },
         ]}
       >
-        How's work?
+        {props.text}
       </Text>
     </Animated.View>
   );
@@ -58,9 +70,9 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "50%",
     left: 0,
-    alignItems: "center",
   },
   text: {
     fontFamily: "Circular-Bold",
+    textAlign: "center",
   },
 });

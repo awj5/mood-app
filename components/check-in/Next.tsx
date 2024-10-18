@@ -8,7 +8,9 @@ import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { theme, pressedDefault } from "utils/helpers";
 
 type NextProps = {
-  setShowTags: React.Dispatch<React.SetStateAction<boolean>>;
+  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  angle?: number;
+  disabled?: boolean;
 };
 
 export default function Next(props: NextProps) {
@@ -18,8 +20,18 @@ export default function Next(props: NextProps) {
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   useEffect(() => {
-    opacity.value = withDelay(1500, withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) }));
-  }, []);
+    if (!props.disabled) {
+      opacity.value = withDelay(
+        props.angle === undefined ? 1500 : 0,
+        withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) })
+      );
+    } else {
+      opacity.value = withDelay(
+        !opacity.value ? 1500 : 0,
+        withTiming(0.25, { duration: 300, easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic) })
+      );
+    }
+  }, [props.disabled]);
 
   return (
     <Animated.View
@@ -29,18 +41,26 @@ export default function Next(props: NextProps) {
         {
           opacity,
           paddingBottom: insets.bottom,
+          zIndex: props.angle !== undefined ? 1 : 0,
         },
         dimensions.width > dimensions.height
           ? { paddingLeft: Device.deviceType !== 1 ? 224 : 152, paddingTop: insets.top }
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Pressable onPress={() => props.setShowTags(true)} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+      <Pressable
+        onPress={() => props.setState(true)}
+        style={({ pressed }) => pressedDefault(pressed)}
+        hitSlop={8}
+        disabled={props.disabled}
+      >
         <CircleArrowRight
-          color={colors.primary}
+          color={
+            props.angle === undefined ? colors.primary : props.angle >= 15 && props.angle < 195 ? "white" : "black"
+          }
           size={Device.deviceType !== 1 ? 88 : 64}
           absoluteStrokeWidth
-          strokeWidth={3}
+          strokeWidth={Device.deviceType !== 1 ? 4 : 3}
         />
       </Pressable>
     </Animated.View>

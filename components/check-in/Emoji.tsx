@@ -3,12 +3,12 @@ import { StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
-import { EmotionType } from "app/check-in";
+import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import { MoodType } from "app/check-in";
 import { theme } from "utils/helpers";
 
 type EmojiProps = {
-  emotion: EmotionType;
+  mood: MoodType;
   showTags: boolean;
 };
 
@@ -18,23 +18,19 @@ export default function Emoji(props: EmojiProps) {
   const size = Device.deviceType !== 1 ? 382 : 260; // Smaller on phones
 
   const emoji = {
-    flushed: require("../../assets/img/emoji/flushed.svg"),
-    angry: require("../../assets/img/emoji/angry.svg"),
-    unamused: require("../../assets/img/emoji/unamused.svg"),
-    weary: require("../../assets/img/emoji/weary.svg"),
-    sleeping: require("../../assets/img/emoji/sleeping.svg"),
-    relieved: require("../../assets/img/emoji/relieved.svg"),
-    slightlySmiling: require("../../assets/img/emoji/slightly-smiling.svg"),
-    bigEyes: require("../../assets/img/emoji/big-eyes.svg"),
-    fearful: require("../../assets/img/emoji/fearful.svg"),
-    crying: require("../../assets/img/emoji/crying.svg"),
-    smilingEyes: require("../../assets/img/emoji/smiling-eyes.svg"),
-    grinning: require("../../assets/img/emoji/grinning.svg"),
+    1: require("../../assets/img/emoji/big-eyes.svg"),
+    2: require("../../assets/img/emoji/grinning.svg"),
+    3: require("../../assets/img/emoji/slightly-smiling.svg"),
+    4: require("../../assets/img/emoji/smiling-eyes.svg"),
+    5: require("../../assets/img/emoji/relieved.svg"),
+    6: require("../../assets/img/emoji/sleeping.svg"),
+    7: require("../../assets/img/emoji/weary.svg"),
+    8: require("../../assets/img/emoji/crying.svg"),
+    9: require("../../assets/img/emoji/fearful.svg"),
+    10: require("../../assets/img/emoji/unamused.svg"),
+    11: require("../../assets/img/emoji/angry.svg"),
+    12: require("../../assets/img/emoji/flushed.svg"),
   };
-
-  const animatedStyles = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-  }));
 
   useEffect(() => {
     opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
@@ -42,11 +38,7 @@ export default function Emoji(props: EmojiProps) {
 
   return (
     <Animated.View
-      style={[
-        styles.container,
-        animatedStyles,
-        { width: size, height: size, display: props.showTags ? "none" : "flex" },
-      ]}
+      style={[styles.container, { opacity, width: size, height: size, display: props.showTags ? "none" : "flex" }]}
       pointerEvents="none"
     >
       <Ionicons
@@ -61,7 +53,7 @@ export default function Emoji(props: EmojiProps) {
         ]}
       />
 
-      <Image source={emoji[props.emotion.emoji as keyof typeof emoji]} style={styles.image} />
+      <Image source={emoji[props.mood.id as keyof typeof emoji]} style={styles.image} />
     </Animated.View>
   );
 }

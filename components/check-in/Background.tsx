@@ -11,10 +11,10 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { EmotionType } from "app/check-in";
+import { MoodType } from "app/check-in";
 
 type BackgroundProps = {
-  emotion: EmotionType;
+  mood: MoodType;
   showTags: boolean;
 };
 
@@ -36,17 +36,17 @@ export default function Background(props: BackgroundProps) {
   }));
 
   useEffect(() => {
-    backgroundColor.value = withTiming(props.emotion.color, { duration: 200, easing: Easing.linear });
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-  }, [props.emotion]);
+    backgroundColor.value = withTiming(props.mood.color, { duration: 200, easing: Easing.linear });
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  }, [props.mood]);
 
   useEffect(() => {
     if (props.showTags) {
       // Expand background fullscreen
       const fullscreen = dimensions.width > dimensions.height ? dimensions.width : dimensions.height;
-      width.value = withTiming(fullscreen, { duration: 500, easing: Easing.in(Easing.cubic) });
-      height.value = withTiming(fullscreen, { duration: 500, easing: Easing.in(Easing.cubic) });
-      borderRadius.value = withTiming(0, { duration: 500, easing: Easing.in(Easing.cubic) });
+      width.value = withTiming(fullscreen, { duration: 500, easing: Easing.out(Easing.cubic) });
+      height.value = withTiming(fullscreen, { duration: 500, easing: Easing.out(Easing.cubic) });
+      borderRadius.value = withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) });
     } else {
       // Reset
       runOnJS(() => {

@@ -37,6 +37,7 @@ export default function Wheel(props: WheelProps) {
         newRotation %= 360;
       }
 
+      newRotation = Math.round(newRotation);
       rotation.value = newRotation;
       runOnJS(props.setAngle)(newRotation);
     })
