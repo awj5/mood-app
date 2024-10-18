@@ -70,7 +70,7 @@ export default function CheckIn() {
 
           {showTags && (
             <>
-              <Heading text="Select tags that describe your mood" angle={angle} />
+              <Heading text="How do you feel right now?" angle={angle} />
               <Next setState={setShowQuestion} angle={angle} disabled={selectedTags.length ? false : true} />
               <Tags mood={mood} setSelectedTags={setSelectedTags} selectedTags={selectedTags} angle={angle} />
               <Close setShowTags={setShowTags} angle={angle} />

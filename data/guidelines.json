@@ -1,0 +1,110 @@
+[
+  {
+    "categories": [
+      { "id": 1, "title": "Roles and Expectations" },
+      { "id": 2, "title": "Job Control and Autonomy" },
+      { "id": 3, "title": "Job Demands" },
+      { "id": 4, "title": "Organizational Change Management" },
+      { "id": 5, "title": "Remote and Isolated Work" },
+      { "id": 6, "title": "Working Hours and Schedule" },
+      { "id": 7, "title": "Job Security and Precarious Work" },
+      { "id": 8, "title": "Interpersonal Relationships" },
+      { "id": 9, "title": "Leadership" },
+      { "id": 10, "title": "Organizational/Workgroup Culture" }
+      { "id": 11, "title": "Recognition and Reward" },
+      { "id": 12, "title": "Career Development" },
+      { "id": 13, "title": "Support" },
+      { "id": 14, "title": "Supervision" },
+      { "id": 15, "title": "Civility and Respect" },
+      { "id": 16, "title": "Work/Life Balance" },
+      { "id": 17, "title": "Violence at Work" },
+      { "id": 18, "title": "Harassment" },
+      { "id": 19, "title": "Bullying and Victimization" },
+      { "id": 20, "title": "Work Environment, Equipment and Hazardous Tasks" }
+    ],
+    "competencies": [
+      {
+        "id": 1.01,
+        "statement": "I clearly understand my role and what is expected of me at work."
+      },
+      {
+        "id": 1.02,
+        "statement": "My role expectations are consistent and manageable."
+      },
+      {
+        "id": 1.03,
+        "statement": "I feel confident in my duty of care for others as part of my role."
+      },
+      {
+        "id": 1.04,
+        "statement": "The tasks I am expected to do are clearly defined."
+      },
+      {
+        "id": 1.05,
+        "statement": "The expectations in my role are aligned and supportive of each other."
+      },
+      {
+        "id": 1.06,
+        "statement": "My tasks and work standards are consistent and well-communicated."
+      },
+      {
+        "id": 1.07,
+        "statement": "The work I do feels valuable and purposeful."
+      },
+      {
+        "id": 2.01,
+        "statement": "I have opportunities to participate in decision-making processes.",
+        "category": 0
+      },
+      {
+        "id": 2.02,
+        "statement": "I have control over my workload.",
+        "category": 0
+      },
+      {
+        "id": 2.03,
+        "statement": "I have minimal influence and independence in how my work is carried out."
+      },
+      {
+        "id": 3.01,
+        "statement": "My skills are fully utilized in my current role."
+      },
+      {
+        "id": 3.02,
+        "statement": "I have a balanced level of interaction with people in my work."
+      },
+      {
+        "id": 3.03,
+        "statement": "My workload is reasonable and achievable within the given time."
+      },
+      {
+        "id": 3.04,
+        "statement": "I manage demands and deadlines effectively."
+      },
+      {
+        "id": 3.05,
+        "statement": "The expectations of my competence and responsibilities are realistic."
+      },
+      {
+        "id": 3.06,
+        "statement": "I have a variety of tasks in my work."
+      },
+      {
+        "id": 3.07,
+        "statement": "My work is meaningful and cohesive."
+      },
+      {
+        "id": 3.08,
+        "statement": "My job requires a balanced level of alertness and concentration."
+      },
+      {
+        "id": 3.09,
+        "statement": "I feel safe and supported when working with aggressive or distressed people."
+      },
+      {
+        "id": 3.1,
+        "statement": "I am rarely exposed to traumatic events or situations at work."
+      }
+    ]
+  }
+]
