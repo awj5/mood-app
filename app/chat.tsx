@@ -21,6 +21,7 @@ export default function Chat() {
               labelStyle={{ fontFamily: "Circular-Book" }}
               tintColor={colors.primary}
               allowFontScaling={false}
+              style={{ marginLeft: -8 }}
             />
           ),
         }}

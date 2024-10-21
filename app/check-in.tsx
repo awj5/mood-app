@@ -40,9 +40,32 @@ export default function CheckIn() {
 
   useEffect(() => {
     // Snap to 1 of 12 angles (groups of 30 degrees)
-    const normalizedAngle = angle % 360;
-    const index = Math.floor((normalizedAngle + 15) / 30) % 12;
-    setMood(MoodsData[index]);
+    if (angle >= 15 && angle < 45) {
+      setMood(MoodsData[1]);
+    } else if (angle >= 45 && angle < 75) {
+      setMood(MoodsData[2]);
+    } else if (angle >= 75 && angle < 105) {
+      setMood(MoodsData[3]);
+    } else if (angle >= 105 && angle < 135) {
+      setMood(MoodsData[4]);
+    } else if (angle >= 135 && angle < 165) {
+      setMood(MoodsData[5]);
+    } else if (angle >= 165 && angle < 195) {
+      setMood(MoodsData[6]);
+    } else if (angle >= 195 && angle < 225) {
+      setMood(MoodsData[7]);
+    } else if (angle >= 225 && angle < 255) {
+      setMood(MoodsData[8]);
+    } else if (angle >= 255 && angle < 285) {
+      setMood(MoodsData[9]);
+    } else if (angle >= 285 && angle < 315) {
+      setMood(MoodsData[10]);
+    } else if (angle >= 315 && angle < 345) {
+      setMood(MoodsData[11]);
+    } else {
+      setMood(MoodsData[0]);
+    }
+
     setForeground(angle >= 15 && angle < 195 ? "white" : "black");
     setBackground(angle >= 15 && angle < 195 ? "black" : "white");
   }, [angle]);
