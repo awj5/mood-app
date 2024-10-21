@@ -23,7 +23,7 @@ export default function Done(props: DoneProps) {
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     } else {
       opacity.value = withDelay(
-        !opacity.value ? 1500 : 0,
+        !opacity.value ? 1000 : 0,
         withTiming(0.25, { duration: 300, easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic) })
       );
     }

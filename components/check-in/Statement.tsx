@@ -54,7 +54,7 @@ export default function Statement(props: StatementProps) {
     );
 
     props.setStatement(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0].statement);
-    opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    opacity.value = withDelay(700, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (
@@ -75,7 +75,11 @@ export default function Statement(props: StatementProps) {
           minimumTrackTintColor={colors.secondary}
           maximumTrackTintColor={colors.secondary}
           thumbTintColor={props.mood.color}
-          thumbStyle={{ width: 24, height: 24, borderRadius: 999 }}
+          thumbStyle={{
+            width: Device.deviceType !== 1 ? 28 : 24,
+            height: Device.deviceType !== 1 ? 28 : 24,
+            borderRadius: 999,
+          }}
         />
 
         <View style={styles.labels}>
