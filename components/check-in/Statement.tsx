@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
-import Slider from "@react-native-community/slider";
+import { Slider } from "@miblanchard/react-native-slider";
+import tagsData from "data/tags.json";
+import guidelinesData from "data/guidelines.json";
 import { MoodType } from "app/check-in";
 import { theme } from "utils/helpers";
 
@@ -11,17 +13,48 @@ type StatementProps = {
   mood: MoodType;
   text: string;
   color: string;
-  setStatementValue: React.Dispatch<React.SetStateAction<number>>;
-  statementValue: number;
+  setStatementValue: React.Dispatch<React.SetStateAction<number | number[]>>;
+  statementValue: number | number[];
+  setStatement: React.Dispatch<React.SetStateAction<string>>;
+  selectedTags: number[];
 };
 
 export default function Statement(props: StatementProps) {
   const opacity = useSharedValue(0);
   const colors = theme();
 
+  const shuffleArray = (array: number[]) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let rand = Math.floor(Math.random() * (i + 1));
+      [array[i], array[rand]] = [array[rand], array[i]];
+    }
+
+    return array;
+  };
+
   useEffect(() => {
-    opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
     props.setStatementValue(50); // Reset
+    const competencies: number[] = [];
+
+    // Loop selected tags and get competencies
+    for (let i = 0; i < props.selectedTags.length; i++) {
+      let tag = tagsData.filter((item) => item.id === props.selectedTags[i])[0];
+
+      // Loop competencies
+      for (let i = 0; i < tag.competencies.length; i++) {
+        competencies.push(tag.competencies[i]);
+      }
+    }
+
+    const shuffled = shuffleArray(competencies);
+
+    // Get most common competency in selected tags
+    const mostFrequent = Array.from(new Set(shuffled)).reduce((prev, curr) =>
+      shuffled.filter((item) => item === curr).length > shuffled.filter((item) => item === prev).length ? curr : prev
+    );
+
+    props.setStatement(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0].statement);
+    opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (
@@ -42,6 +75,7 @@ export default function Statement(props: StatementProps) {
           minimumTrackTintColor={colors.secondary}
           maximumTrackTintColor={colors.secondary}
           thumbTintColor={props.mood.color}
+          thumbStyle={{ width: 24, height: 24, borderRadius: 999 }}
         />
 
         <View style={styles.labels}>
@@ -49,14 +83,17 @@ export default function Statement(props: StatementProps) {
             style={[styles.label, { color: props.color, fontSize: Device.deviceType !== 1 ? 18 : 14 }]}
             allowFontScaling={false}
           >
-            Strongly disagree
+            Strongly{"\n"}disagree
           </Text>
 
           <Text
-            style={[styles.label, { color: props.color, fontSize: Device.deviceType !== 1 ? 18 : 14 }]}
+            style={[
+              styles.label,
+              { color: props.color, fontSize: Device.deviceType !== 1 ? 18 : 14, textAlign: "right" },
+            ]}
             allowFontScaling={false}
           >
-            Strongly agree
+            Strongly{"\n"}agree
           </Text>
         </View>
       </View>
@@ -71,6 +108,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     maxWidth: 448 + 48,
+    width: "100%",
     paddingHorizontal: 24,
     gap: 48,
   },

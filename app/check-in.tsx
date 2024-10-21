@@ -33,10 +33,8 @@ export default function CheckIn() {
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [showStatement, setShowStatement] = useState(false);
-  const [statement, setStatement] = useState(
-    "I feel respected regardless of my race, gender identity, or other personal attributes."
-  );
-  const [statementValue, setStatementValue] = useState(0);
+  const [statement, setStatement] = useState("");
+  const [statementValue, setStatementValue] = useState<number | number[]>(0);
   const [foreground, setForeground] = useState("");
   const [background, setBackground] = useState("");
 
@@ -97,6 +95,8 @@ export default function CheckIn() {
                     color={background}
                     setStatementValue={setStatementValue}
                     statementValue={statementValue}
+                    setStatement={setStatement}
+                    selectedTags={selectedTags}
                   />
 
                   <Close setState={setShowStatement} color={background} />

@@ -64,6 +64,7 @@ export default function Done(props: DoneProps) {
             {
               color: props.color,
               fontSize: Device.deviceType !== 1 ? 36 : 30,
+              lineHeight: Device.deviceType !== 1 ? 44 : 38,
             },
           ]}
           allowFontScaling={false}
