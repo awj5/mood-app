@@ -8,7 +8,7 @@ import { theme } from "utils/helpers";
 
 type HeadingProps = {
   text: string;
-  angle?: number;
+  color?: string;
 };
 
 export default function Heading(props: HeadingProps) {
@@ -19,7 +19,7 @@ export default function Heading(props: HeadingProps) {
 
   useEffect(() => {
     opacity.value = withDelay(
-      props.angle !== undefined ? 500 : 1000,
+      props.color !== undefined ? 500 : 1000,
       withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
     );
   }, []);
@@ -32,7 +32,7 @@ export default function Heading(props: HeadingProps) {
         {
           opacity,
           paddingTop: insets.top,
-          zIndex: props.angle !== undefined ? 1 : 0,
+          zIndex: props.color !== undefined ? 1 : 0,
         },
         dimensions.width > dimensions.height
           ? { paddingRight: Device.deviceType !== 1 ? 224 : 152, paddingBottom: insets.bottom }
@@ -43,13 +43,13 @@ export default function Heading(props: HeadingProps) {
         style={[
           styles.text,
           {
-            color:
-              props.angle === undefined ? colors.primary : props.angle >= 15 && props.angle < 195 ? "white" : "black",
+            color: props.color !== undefined ? props.color : colors.primary,
             fontSize: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 36 : 48) : 30,
             paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
             maxWidth: Device.deviceType !== 1 ? 512 : 320,
           },
         ]}
+        allowFontScaling={false}
       >
         {props.text}
       </Text>

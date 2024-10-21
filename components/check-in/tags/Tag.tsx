@@ -8,7 +8,7 @@ import { pressedDefault } from "utils/helpers";
 type TagProps = {
   tag: TagType;
   num: number;
-  angle: number;
+  color: string;
   selectedTags: number[];
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
 };
@@ -51,10 +51,10 @@ export default function Tag(props: TagProps) {
           styles.container,
           {
             borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
-            borderColor: props.angle >= 15 && props.angle < 195 ? "white" : "black",
+            borderColor: props.color,
             paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
             paddingVertical: Device.deviceType !== 1 ? 8 : 6,
-            backgroundColor: !selected ? "transparent" : props.angle >= 15 && props.angle < 195 ? "white" : "black",
+            backgroundColor: !selected ? "transparent" : props.color,
           },
         ]}
         hitSlop={4}
@@ -64,15 +64,10 @@ export default function Tag(props: TagProps) {
             styles.text,
             {
               fontSize: Device.deviceType !== 1 ? 22 : 18,
-              color: selected
-                ? props.angle >= 15 && props.angle < 195
-                  ? "black"
-                  : "white"
-                : props.angle >= 15 && props.angle < 195
-                ? "white"
-                : "black",
+              color: selected && props.color === "black" ? "white" : selected ? "black" : props.color,
             },
           ]}
+          allowFontScaling={false}
         >
           {props.tag.name}
         </Text>

@@ -10,6 +10,9 @@ import Heading from "components/check-in/Heading";
 import Next from "components/check-in/Next";
 import Close from "components/check-in/Close";
 import Tags from "components/check-in/Tags";
+import Background2 from "components/check-in/Background2";
+import Done from "components/check-in/Done";
+import Statement from "components/check-in/Statement";
 
 export type MoodType = {
   id: number;
@@ -29,14 +32,21 @@ export default function CheckIn() {
   const [visible, setVisible] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const [showQuestion, setShowQuestion] = useState(false);
-  const [question, setQuestion] = useState(0);
+  const [showStatement, setShowStatement] = useState(false);
+  const [statement, setStatement] = useState(
+    "I feel respected regardless of my race, gender identity, or other personal attributes."
+  );
+  const [statementValue, setStatementValue] = useState(0);
+  const [foreground, setForeground] = useState("");
+  const [background, setBackground] = useState("");
 
   useEffect(() => {
     // Snap to 1 of 12 angles (groups of 30 degrees)
     const normalizedAngle = angle % 360;
     const index = Math.floor((normalizedAngle + 15) / 30) % 12;
     setMood(MoodsData[index]);
+    setForeground(angle >= 15 && angle < 195 ? "white" : "black");
+    setBackground(angle >= 15 && angle < 195 ? "black" : "white");
   }, [angle]);
 
   useFocusEffect(
@@ -44,7 +54,7 @@ export default function CheckIn() {
       setMood(MoodsData[0]);
       setVisible(true);
       setShowTags(false);
-      setShowQuestion(false);
+      setShowStatement(false);
 
       return () => {
         // Wait for screen transition to finish
@@ -70,12 +80,28 @@ export default function CheckIn() {
 
           {showTags && (
             <>
-              <Heading text="How do you feel right now?" angle={angle} />
-              <Next setState={setShowQuestion} angle={angle} disabled={selectedTags.length ? false : true} />
-              <Tags mood={mood} setSelectedTags={setSelectedTags} selectedTags={selectedTags} angle={angle} />
-              <Close setShowTags={setShowTags} angle={angle} />
+              <Heading text="How do you feel right now?" color={foreground} />
+              <Next setState={setShowStatement} color={foreground} disabled={selectedTags.length ? false : true} />
+              <Tags mood={mood} setSelectedTags={setSelectedTags} selectedTags={selectedTags} color={foreground} />
+              <Close setState={setShowTags} color={foreground} />
 
-              {showQuestion && <></>}
+              {showStatement && (
+                <>
+                  <Background2 color={foreground} />
+                  <Heading text="Do you agree with this statement?" color={background} />
+                  <Done color={background} disabled={statementValue === 50 ? true : false} />
+
+                  <Statement
+                    mood={mood}
+                    text={statement}
+                    color={background}
+                    setStatementValue={setStatementValue}
+                    statementValue={statementValue}
+                  />
+
+                  <Close setState={setShowStatement} color={background} />
+                </>
+              )}
             </>
           )}
         </>

@@ -10,7 +10,7 @@ type TagsProps = {
   mood: MoodType;
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   selectedTags: number[];
-  angle: number;
+  color: string;
 };
 
 export default function Tags(props: TagsProps) {
@@ -61,13 +61,13 @@ export default function Tags(props: TagsProps) {
           key={index}
           tag={item}
           num={index}
-          angle={props.angle}
+          color={props.color}
           selectedTags={props.selectedTags}
           setSelectedTags={props.setSelectedTags}
         />
       ))}
 
-      <StatusBar style={props.angle >= 15 && props.angle < 195 ? "light" : "dark"} />
+      <StatusBar style={props.color === "white" ? "light" : "dark"} />
     </View>
   );
 }

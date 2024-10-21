@@ -1,30 +1,26 @@
 import { useContext, useEffect } from "react";
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
-import { CircleArrowRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault } from "utils/helpers";
 
-type NextProps = {
-  setState: React.Dispatch<React.SetStateAction<boolean>>;
-  color?: string;
+type DoneProps = {
+  color: string;
   disabled?: boolean;
 };
 
-export default function Next(props: NextProps) {
+export default function Done(props: DoneProps) {
   const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const colors = theme();
+  const router = useRouter();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   useEffect(() => {
     if (!props.disabled) {
-      opacity.value = withDelay(
-        props.color === undefined ? 1500 : 0,
-        withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) })
-      );
+      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     } else {
       opacity.value = withDelay(
         !opacity.value ? 1500 : 0,
@@ -41,7 +37,6 @@ export default function Next(props: NextProps) {
         {
           opacity,
           paddingBottom: insets.bottom,
-          zIndex: props.color !== undefined ? 1 : 0,
         },
         dimensions.width > dimensions.height
           ? { paddingLeft: Device.deviceType !== 1 ? 224 : 152, paddingTop: insets.top }
@@ -49,17 +44,32 @@ export default function Next(props: NextProps) {
       ]}
     >
       <Pressable
-        onPress={() => props.setState(true)}
-        style={({ pressed }) => pressedDefault(pressed)}
+        onPress={() => router.push("chat")}
+        style={({ pressed }) => [
+          pressedDefault(pressed),
+          styles.button,
+          {
+            borderColor: props.color,
+            paddingHorizontal: Device.deviceType !== 1 ? 24 : 18,
+            paddingVertical: Device.deviceType !== 1 ? 8 : 6,
+            borderWidth: Device.deviceType !== 1 ? 3.5 : 2.5,
+          },
+        ]}
         hitSlop={8}
         disabled={props.disabled}
       >
-        <CircleArrowRight
-          color={props.color !== undefined ? props.color : colors.primary}
-          size={Device.deviceType !== 1 ? 88 : 64}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 4 : 3}
-        />
+        <Text
+          style={[
+            styles.text,
+            {
+              color: props.color,
+              fontSize: Device.deviceType !== 1 ? 36 : 30,
+            },
+          ]}
+          allowFontScaling={false}
+        >
+          Done
+        </Text>
       </Pressable>
     </Animated.View>
   );
@@ -69,6 +79,7 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     justifyContent: "center",
+    zIndex: 1,
   },
   portrait: {
     bottom: 0,
@@ -79,5 +90,11 @@ const styles = StyleSheet.create({
     width: "50%",
     right: 0,
     alignItems: "center",
+  },
+  button: {
+    borderRadius: 999,
+  },
+  text: {
+    fontFamily: "Circular-Book",
   },
 });
