@@ -9,7 +9,8 @@ import { pressedDefault } from "utils/helpers";
 
 type DoneProps = {
   color: string;
-  disabled?: boolean;
+  statementValue: React.MutableRefObject<number>;
+  disabled: boolean;
 };
 
 export default function Done(props: DoneProps) {
@@ -18,12 +19,17 @@ export default function Done(props: DoneProps) {
   const router = useRouter();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
+  const press = () => {
+    //console.log(props.statementValue.current);
+    router.push("chat");
+  };
+
   useEffect(() => {
     if (!props.disabled) {
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     } else {
       opacity.value = withDelay(
-        !opacity.value ? 1000 : 0,
+        1000,
         withTiming(0.25, { duration: 300, easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic) })
       );
     }
@@ -44,7 +50,7 @@ export default function Done(props: DoneProps) {
       ]}
     >
       <Pressable
-        onPress={() => router.push("chat")}
+        onPress={press}
         style={({ pressed }) => [
           pressedDefault(pressed),
           styles.button,

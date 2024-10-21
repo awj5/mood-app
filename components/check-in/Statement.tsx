@@ -13,8 +13,8 @@ type StatementProps = {
   mood: MoodType;
   text: string;
   color: string;
-  setStatementValue: React.Dispatch<React.SetStateAction<number | number[]>>;
-  statementValue: number | number[];
+  statementValue: React.MutableRefObject<number>;
+  setStatementValueSelected: React.Dispatch<React.SetStateAction<boolean>>;
   setStatement: React.Dispatch<React.SetStateAction<string>>;
   selectedTags: number[];
 };
@@ -33,7 +33,8 @@ export default function Statement(props: StatementProps) {
   };
 
   useEffect(() => {
-    props.setStatementValue(50); // Reset
+    props.statementValue.current = 50; // Reset
+    props.setStatementValueSelected(false); // Reset
     const competencies: number[] = [];
 
     // Loop selected tags and get competencies
@@ -70,8 +71,9 @@ export default function Statement(props: StatementProps) {
         <Slider
           minimumValue={0}
           maximumValue={100}
-          value={props.statementValue}
-          onValueChange={props.setStatementValue}
+          value={props.statementValue.current}
+          onValueChange={(value) => (props.statementValue.current = Number(value))}
+          onSlidingStart={() => props.setStatementValueSelected(true)}
           minimumTrackTintColor={colors.secondary}
           maximumTrackTintColor={colors.secondary}
           thumbTintColor={props.mood.color}

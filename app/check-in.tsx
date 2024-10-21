@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect } from "expo-router";
 import MoodsData from "data/moods.json";
@@ -34,7 +34,8 @@ export default function CheckIn() {
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [showStatement, setShowStatement] = useState(false);
   const [statement, setStatement] = useState("");
-  const [statementValue, setStatementValue] = useState<number | number[]>(0);
+  const [statementValueSelected, setStatementValueSelected] = useState(false);
+  const statementValue = useRef(0);
   const [foreground, setForeground] = useState("");
   const [background, setBackground] = useState("");
 
@@ -110,14 +111,19 @@ export default function CheckIn() {
                 <>
                   <Background2 color={foreground} />
                   <Heading text="Do you agree with this statement?" color={background} />
-                  <Done color={background} disabled={statementValue === 50 ? true : false} />
+
+                  <Done
+                    color={background}
+                    statementValue={statementValue}
+                    disabled={!statementValueSelected ? true : false}
+                  />
 
                   <Statement
                     mood={mood}
                     text={statement}
                     color={background}
-                    setStatementValue={setStatementValue}
                     statementValue={statementValue}
+                    setStatementValueSelected={setStatementValueSelected}
                     setStatement={setStatement}
                     selectedTags={selectedTags}
                   />
