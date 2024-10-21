@@ -80,6 +80,7 @@ export default function Statement(props: StatementProps) {
             height: Device.deviceType !== 1 ? 28 : 24,
             borderRadius: 999,
           }}
+          trackStyle={{ height: 3 }}
         />
 
         <View style={styles.labels}>
