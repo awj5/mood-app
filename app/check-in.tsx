@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { Stack, useFocusEffect } from "expo-router";
+import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
 import Wheel from "components/check-in/Wheel";
@@ -28,9 +28,10 @@ export type TagType = {
 };
 
 export default function CheckIn() {
+  const router = useRouter();
   const rotation = useSharedValue(-360);
   const statementVal = useSharedValue(50);
-  const mood = useSharedValue<MoodType>(MoodsData[0]);
+  const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
   const foreground = useSharedValue("");
   const background = useSharedValue("");
   const [visible, setVisible] = useState(false);
@@ -42,7 +43,7 @@ export default function CheckIn() {
   useAnimatedReaction(
     () => rotation.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue >= 0) {
+      if (currentValue !== previousValue && currentValue >= 0 && visible) {
         const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
         mood.value = MoodsData[index];
         foreground.value = currentValue >= 15 && currentValue < 195 ? "white" : "black";
@@ -53,6 +54,10 @@ export default function CheckIn() {
 
   useFocusEffect(
     useCallback(() => {
+      if (mood.value.id) {
+        router.dismiss(); // Already checked in. Go back to home
+      }
+
       setVisible(true);
       setShowTags(false);
       setShowStatement(false);

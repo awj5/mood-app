@@ -40,7 +40,7 @@ export default function Background(props: BackgroundProps) {
   useAnimatedReaction(
     () => props.mood.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue) {
+      if (currentValue !== previousValue && currentValue.color) {
         backgroundColor.value = withTiming(currentValue.color, { duration: 200, easing: Easing.linear });
         if (opacity.value === 1) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
       }

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Dimensions, Platform } from "react-native";
+import { Dimensions } from "react-native";
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Device from "expo-device";
-import * as NavigationBar from "expo-navigation-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { theme } from "../utils/helpers";
@@ -53,7 +52,6 @@ export default function Layout() {
   };
 
   if (Device.deviceType === 2) changeScreenOrientation(); // Allow landscape on tablets
-  if (Platform.OS === "android") NavigationBar.setVisibilityAsync("hidden");
   if (!fontsLoaded && !fontError) return null; // Show splash until fonts ready
 
   return (
