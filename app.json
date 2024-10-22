@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ai.mood",
+      "bundleIdentifier": "com.moodai",
       "buildNumber": "1"
     },
     "android": {
@@ -23,7 +23,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "ai.mood",
+      "package": "com.moodai",
       "versionCode": 1
     },
     "web": {
@@ -36,7 +36,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "9ea0b390-db49-4803-8b57-336258d535e2"
+        "projectId": "2b8ca858-934d-4a78-af52-d8291006bb9a"
       }
     }
   }
