@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect } from "expo-router";
+import { useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
@@ -28,14 +29,14 @@ export type TagType = {
 
 export default function CheckIn() {
   const [angle, setAngle] = useState(0);
+  const rotation = useSharedValue(-360);
+  const statementVal = useSharedValue(50);
   const [mood, setMood] = useState<MoodType>(MoodsData[0]);
   const [visible, setVisible] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [showStatement, setShowStatement] = useState(false);
   const [statement, setStatement] = useState("");
-  const [statementValueSelected, setStatementValueSelected] = useState(false);
-  const statementValue = useRef(0);
   const [foreground, setForeground] = useState("");
   const [background, setBackground] = useState("");
 
@@ -96,8 +97,8 @@ export default function CheckIn() {
           <Heading text="How's work?" />
           <Instructions />
           <Next setState={setShowTags} />
-          <Background mood={mood} showTags={showTags} />
-          <Wheel setAngle={setAngle} />
+          <Background showTags={showTags} rotation={rotation} />
+          <Wheel setAngle={setAngle} rotation={rotation} />
           <Emoji mood={mood} showTags={showTags} />
 
           {showTags && (
@@ -111,19 +112,13 @@ export default function CheckIn() {
                 <>
                   <Background2 color={foreground} />
                   <Heading text="Do you agree with this statement?" color={background} />
-
-                  <Done
-                    color={background}
-                    statementValue={statementValue}
-                    disabled={!statementValueSelected ? true : false}
-                  />
+                  <Done color={background} statementVal={statementVal} />
 
                   <Statement
                     mood={mood}
                     text={statement}
                     color={background}
-                    statementValue={statementValue}
-                    setStatementValueSelected={setStatementValueSelected}
+                    statementVal={statementVal}
                     setStatement={setStatement}
                     selectedTags={selectedTags}
                   />

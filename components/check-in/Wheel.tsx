@@ -3,16 +3,16 @@ import { StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import * as Device from "expo-device";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, runOnJS } from "react-native-reanimated";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, SharedValue } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 
 type WheelProps = {
   setAngle: React.Dispatch<React.SetStateAction<number>>;
+  rotation: SharedValue<number>;
 };
 
 export default function Wheel(props: WheelProps) {
   const opacity = useSharedValue(0);
-  const rotation = useSharedValue(-360);
   const previousRotation = useSharedValue(0);
   const startAngle = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
@@ -38,15 +38,14 @@ export default function Wheel(props: WheelProps) {
       }
 
       newRotation = Math.round(newRotation);
-      rotation.value = newRotation;
-      runOnJS(props.setAngle)(newRotation);
+      props.rotation.value = newRotation;
     })
     .onEnd(() => {
-      previousRotation.value = rotation.value;
+      previousRotation.value = props.rotation.value;
     });
 
   const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${rotation.value}deg` }],
+    transform: [{ rotate: `${props.rotation.value}deg` }],
     opacity: opacity.value,
   }));
 
@@ -55,7 +54,7 @@ export default function Wheel(props: WheelProps) {
     const randomAngle = Math.floor(Math.random() * 361);
     previousRotation.value = randomAngle;
     props.setAngle(randomAngle);
-    rotation.value = withTiming(randomAngle, { duration: 1000, easing: Easing.out(Easing.cubic) });
+    props.rotation.value = withTiming(randomAngle, { duration: 1000, easing: Easing.out(Easing.cubic) });
     opacity.value = withTiming(1, { duration: 1000, easing: Easing.in(Easing.cubic) });
   }, []);
 

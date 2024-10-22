@@ -3,14 +3,20 @@ import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  SharedValue,
+  useAnimatedReaction,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { pressedDefault } from "utils/helpers";
 
 type DoneProps = {
   color: string;
-  statementValue: React.MutableRefObject<number>;
-  disabled: boolean;
+  statementVal: SharedValue<number>;
 };
 
 export default function Done(props: DoneProps) {
@@ -20,20 +26,24 @@ export default function Done(props: DoneProps) {
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const press = () => {
-    //console.log(props.statementValue.current);
-    router.push("chat");
+    if (opacity.value > 0.25) {
+      console.log(props.statementVal.value);
+      //router.push("chat");
+    }
   };
 
-  useEffect(() => {
-    if (!props.disabled) {
-      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-    } else {
-      opacity.value = withDelay(
-        1000,
-        withTiming(0.25, { duration: 300, easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic) })
-      );
+  useAnimatedReaction(
+    () => props.statementVal.value,
+    () => {
+      if (opacity.value === 0.25) {
+        opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+      }
     }
-  }, [props.disabled]);
+  );
+
+  useEffect(() => {
+    opacity.value = withDelay(1000, withTiming(0.25, { duration: 300, easing: Easing.in(Easing.cubic) }));
+  }, []);
 
   return (
     <Animated.View
@@ -52,7 +62,7 @@ export default function Done(props: DoneProps) {
       <Pressable
         onPress={press}
         style={({ pressed }) => [
-          pressedDefault(pressed),
+          opacity.value > 0.25 && pressedDefault(pressed),
           styles.button,
           {
             borderColor: props.color,
@@ -62,7 +72,6 @@ export default function Done(props: DoneProps) {
           },
         ]}
         hitSlop={8}
-        disabled={props.disabled}
       >
         <Text
           style={[

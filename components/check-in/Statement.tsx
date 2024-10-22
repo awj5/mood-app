@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
-import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { Slider } from "@miblanchard/react-native-slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
@@ -13,8 +13,7 @@ type StatementProps = {
   mood: MoodType;
   text: string;
   color: string;
-  statementValue: React.MutableRefObject<number>;
-  setStatementValueSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  statementVal: SharedValue<number>;
   setStatement: React.Dispatch<React.SetStateAction<string>>;
   selectedTags: number[];
 };
@@ -33,8 +32,6 @@ export default function Statement(props: StatementProps) {
   };
 
   useEffect(() => {
-    props.statementValue.current = 50; // Reset
-    props.setStatementValueSelected(false); // Reset
     const competencies: number[] = [];
 
     // Loop selected tags and get competencies
@@ -71,9 +68,8 @@ export default function Statement(props: StatementProps) {
         <Slider
           minimumValue={0}
           maximumValue={100}
-          value={props.statementValue.current}
-          onValueChange={(value) => (props.statementValue.current = Number(value))}
-          onSlidingStart={() => props.setStatementValueSelected(true)}
+          value={50}
+          onValueChange={(value) => (props.statementVal.value = Number(value))}
           minimumTrackTintColor={colors.secondary}
           maximumTrackTintColor={colors.secondary}
           thumbTintColor={props.mood.color}
