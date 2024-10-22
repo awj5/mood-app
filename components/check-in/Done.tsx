@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
+import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   Easing,
@@ -27,8 +28,9 @@ export default function Done(props: DoneProps) {
 
   const press = () => {
     if (opacity.value > 0.25) {
-      console.log(props.statementVal.value);
-      //router.push("chat");
+      //console.log(props.statementVal.value);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      router.push("chat");
     }
   };
 

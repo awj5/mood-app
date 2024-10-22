@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
+import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { CircleArrowRight } from "lucide-react-native";
@@ -18,6 +19,11 @@ export default function Next(props: NextProps) {
   const insets = useSafeAreaInsets();
   const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+
+  const press = () => {
+    props.setState(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  };
 
   useEffect(() => {
     if (!props.disabled) {
@@ -48,12 +54,7 @@ export default function Next(props: NextProps) {
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Pressable
-        onPress={() => props.setState(true)}
-        style={({ pressed }) => pressedDefault(pressed)}
-        hitSlop={8}
-        disabled={props.disabled}
-      >
+      <Pressable onPress={press} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8} disabled={props.disabled}>
         <CircleArrowRight
           color={props.color !== undefined ? props.color : colors.primary}
           size={Device.deviceType !== 1 ? 88 : 64}
