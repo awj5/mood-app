@@ -24,7 +24,7 @@ export default function Emoji(props: EmojiProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
   const top = useSharedValue<DimensionValue>(0);
-  const size = Device.deviceType !== 1 ? 382 : 260; // Smaller on phones
+  const size = Device.deviceType !== 1 ? 448 : 304; // Smaller on phones
 
   useAnimatedReaction(
     () => props.mood.value,
@@ -60,18 +60,18 @@ export default function Emoji(props: EmojiProps) {
 
       <View style={[styles.imageWrapper, styles.image]}>
         <Animated.View style={[styles.image, animatedStyles]}>
-          <Image source={require("../../assets/img/emoji/big-eyes.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/grinning.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/slightly-smiling.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/smiling-eyes.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/relieved.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/sleeping.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/weary.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/crying.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/fearful.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/unamused.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/angry.svg")} style={styles.image} />
-          <Image source={require("../../assets/img/emoji/flushed.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/yellow.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/chartreuse.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/green.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/spring-green.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/cyan.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/azure.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/blue.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/dark-violet.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/dark-magenta.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/dark-rose.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/red.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/orange.svg")} style={styles.image} />
         </Animated.View>
       </View>
     </Animated.View>

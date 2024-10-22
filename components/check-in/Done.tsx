@@ -70,7 +70,7 @@ export default function Done(props: DoneProps) {
             borderColor: props.color,
             paddingHorizontal: Device.deviceType !== 1 ? 24 : 18,
             paddingVertical: Device.deviceType !== 1 ? 8 : 6,
-            borderWidth: Device.deviceType !== 1 ? 3.5 : 2.5,
+            borderWidth: Device.deviceType !== 1 ? 3.5 : 3,
           },
         ]}
         hitSlop={8}

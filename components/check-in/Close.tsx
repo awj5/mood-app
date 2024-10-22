@@ -26,7 +26,7 @@ export default function Close(props: CloseProps) {
         color={props.color}
         size={Device.deviceType !== 1 ? 40 : 32}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+        strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
       />
     </Pressable>
   );
