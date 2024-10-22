@@ -3,11 +3,11 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { StatusBar } from "expo-status-bar";
 import tagsData from "data/tags.json";
-import { MoodType, TagType } from "app/check-in";
+import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
 
 type TagsProps = {
-  mood: MoodType;
+  tags: number[];
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   selectedTags: number[];
   color: string;
@@ -27,7 +27,7 @@ export default function Tags(props: TagsProps) {
   };
 
   useEffect(() => {
-    const moodTags = tagsData.filter((item) => props.mood.tags.includes(item.id));
+    const moodTags = tagsData.filter((item) => props.tags.includes(item.id));
     const shuffled = shuffleArray(moodTags);
 
     // Display a balance of 12 pos and neg tags

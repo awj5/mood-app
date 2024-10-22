@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect } from "expo-router";
-import { useSharedValue } from "react-native-reanimated";
+import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
@@ -28,53 +28,31 @@ export type TagType = {
 };
 
 export default function CheckIn() {
-  const [angle, setAngle] = useState(0);
   const rotation = useSharedValue(-360);
   const statementVal = useSharedValue(50);
-  const [mood, setMood] = useState<MoodType>(MoodsData[0]);
+  const mood = useSharedValue<MoodType>(MoodsData[0]);
+  const foreground = useSharedValue("");
+  const background = useSharedValue("");
   const [visible, setVisible] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [showStatement, setShowStatement] = useState(false);
   const [statement, setStatement] = useState("");
-  const [foreground, setForeground] = useState("");
-  const [background, setBackground] = useState("");
 
-  useEffect(() => {
-    // Snap to 1 of 12 angles (groups of 30 degrees)
-    if (angle >= 15 && angle < 45) {
-      setMood(MoodsData[1]);
-    } else if (angle >= 45 && angle < 75) {
-      setMood(MoodsData[2]);
-    } else if (angle >= 75 && angle < 105) {
-      setMood(MoodsData[3]);
-    } else if (angle >= 105 && angle < 135) {
-      setMood(MoodsData[4]);
-    } else if (angle >= 135 && angle < 165) {
-      setMood(MoodsData[5]);
-    } else if (angle >= 165 && angle < 195) {
-      setMood(MoodsData[6]);
-    } else if (angle >= 195 && angle < 225) {
-      setMood(MoodsData[7]);
-    } else if (angle >= 225 && angle < 255) {
-      setMood(MoodsData[8]);
-    } else if (angle >= 255 && angle < 285) {
-      setMood(MoodsData[9]);
-    } else if (angle >= 285 && angle < 315) {
-      setMood(MoodsData[10]);
-    } else if (angle >= 315 && angle < 345) {
-      setMood(MoodsData[11]);
-    } else {
-      setMood(MoodsData[0]);
+  useAnimatedReaction(
+    () => rotation.value,
+    (currentValue, previousValue) => {
+      if (currentValue !== previousValue && currentValue >= 0) {
+        const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
+        mood.value = MoodsData[index];
+        foreground.value = currentValue >= 15 && currentValue < 195 ? "white" : "black";
+        background.value = currentValue >= 15 && currentValue < 195 ? "black" : "white";
+      }
     }
-
-    setForeground(angle >= 15 && angle < 195 ? "white" : "black");
-    setBackground(angle >= 15 && angle < 195 ? "black" : "white");
-  }, [angle]);
+  );
 
   useFocusEffect(
     useCallback(() => {
-      setMood(MoodsData[0]);
       setVisible(true);
       setShowTags(false);
       setShowStatement(false);
@@ -97,33 +75,45 @@ export default function CheckIn() {
           <Heading text="How's work?" />
           <Instructions />
           <Next setState={setShowTags} />
-          <Background showTags={showTags} rotation={rotation} />
-          <Wheel setAngle={setAngle} rotation={rotation} />
-          <Emoji mood={mood} showTags={showTags} />
+          <Background showTags={showTags} mood={mood} />
+          <Wheel rotation={rotation} />
+          <Emoji showTags={showTags} mood={mood} />
 
           {showTags && (
             <>
-              <Heading text="How do you feel right now?" color={foreground} />
-              <Next setState={setShowStatement} color={foreground} disabled={selectedTags.length ? false : true} />
-              <Tags mood={mood} setSelectedTags={setSelectedTags} selectedTags={selectedTags} color={foreground} />
-              <Close setState={setShowTags} color={foreground} />
+              <Heading text="How do you feel right now?" color={foreground.value} />
+
+              <Next
+                setState={setShowStatement}
+                color={foreground.value}
+                disabled={selectedTags.length ? false : true}
+              />
+
+              <Tags
+                tags={mood.value.tags}
+                setSelectedTags={setSelectedTags}
+                selectedTags={selectedTags}
+                color={foreground.value}
+              />
+
+              <Close setState={setShowTags} color={foreground.value} />
 
               {showStatement && (
                 <>
-                  <Background2 color={foreground} />
-                  <Heading text="Do you agree with this statement?" color={background} />
-                  <Done color={background} statementVal={statementVal} />
+                  <Background2 color={foreground.value} />
+                  <Heading text="Do you agree with this statement?" color={background.value} />
+                  <Done color={background.value} statementVal={statementVal} />
 
                   <Statement
-                    mood={mood}
+                    moodColor={mood.value.color}
                     text={statement}
-                    color={background}
+                    color={background.value}
                     statementVal={statementVal}
                     setStatement={setStatement}
                     selectedTags={selectedTags}
                   />
 
-                  <Close setState={setShowStatement} color={background} />
+                  <Close setState={setShowStatement} color={background.value} />
                 </>
               )}
             </>

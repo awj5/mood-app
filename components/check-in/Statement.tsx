@@ -6,11 +6,10 @@ import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } 
 import { Slider } from "@miblanchard/react-native-slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { MoodType } from "app/check-in";
 import { theme } from "utils/helpers";
 
 type StatementProps = {
-  mood: MoodType;
+  moodColor: string;
   text: string;
   color: string;
   statementVal: SharedValue<number>;
@@ -58,7 +57,7 @@ export default function Statement(props: StatementProps) {
   return (
     <Animated.View style={[styles.container, { opacity }]}>
       <Text
-        style={[styles.text, { color: props.mood.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
+        style={[styles.text, { color: props.moodColor, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
         {props.text}
@@ -72,7 +71,7 @@ export default function Statement(props: StatementProps) {
           onValueChange={(value) => (props.statementVal.value = Number(value))}
           minimumTrackTintColor={colors.secondary}
           maximumTrackTintColor={colors.secondary}
-          thumbTintColor={props.mood.color}
+          thumbTintColor={props.moodColor}
           thumbStyle={{
             width: Device.deviceType !== 1 ? 28 : 24,
             height: Device.deviceType !== 1 ? 28 : 24,

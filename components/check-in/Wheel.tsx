@@ -7,7 +7,6 @@ import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, SharedV
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 
 type WheelProps = {
-  setAngle: React.Dispatch<React.SetStateAction<number>>;
   rotation: SharedValue<number>;
 };
 
@@ -53,7 +52,6 @@ export default function Wheel(props: WheelProps) {
     // Animate in
     const randomAngle = Math.floor(Math.random() * 361);
     previousRotation.value = randomAngle;
-    props.setAngle(randomAngle);
     props.rotation.value = withTiming(randomAngle, { duration: 1000, easing: Easing.out(Easing.cubic) });
     opacity.value = withTiming(1, { duration: 1000, easing: Easing.in(Easing.cubic) });
   }, []);

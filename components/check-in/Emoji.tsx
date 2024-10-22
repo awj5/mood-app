@@ -1,36 +1,41 @@
 import { useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { DimensionValue, StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  SharedValue,
+  useAnimatedReaction,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 import { MoodType } from "app/check-in";
 import { theme } from "utils/helpers";
 
 type EmojiProps = {
-  mood: MoodType;
   showTags: boolean;
+  mood: SharedValue<MoodType>;
 };
 
 export default function Emoji(props: EmojiProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
+  const top = useSharedValue<DimensionValue>(0);
   const size = Device.deviceType !== 1 ? 382 : 260; // Smaller on phones
 
-  const emoji = {
-    1: require("../../assets/img/emoji/big-eyes.svg"),
-    2: require("../../assets/img/emoji/grinning.svg"),
-    3: require("../../assets/img/emoji/slightly-smiling.svg"),
-    4: require("../../assets/img/emoji/smiling-eyes.svg"),
-    5: require("../../assets/img/emoji/relieved.svg"),
-    6: require("../../assets/img/emoji/sleeping.svg"),
-    7: require("../../assets/img/emoji/weary.svg"),
-    8: require("../../assets/img/emoji/crying.svg"),
-    9: require("../../assets/img/emoji/fearful.svg"),
-    10: require("../../assets/img/emoji/unamused.svg"),
-    11: require("../../assets/img/emoji/angry.svg"),
-    12: require("../../assets/img/emoji/flushed.svg"),
-  };
+  useAnimatedReaction(
+    () => props.mood.value,
+    (currentValue, previousValue) => {
+      if (currentValue !== previousValue) top.value = `${0 - 100 * (currentValue.id - 1)}%`;
+    }
+  );
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    top: top.value,
+  }));
 
   useEffect(() => {
     opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
@@ -53,7 +58,22 @@ export default function Emoji(props: EmojiProps) {
         ]}
       />
 
-      <Image source={emoji[props.mood.id as keyof typeof emoji]} style={styles.image} />
+      <View style={[styles.imageWrapper, styles.image]}>
+        <Animated.View style={[styles.image, animatedStyles]}>
+          <Image source={require("../../assets/img/emoji/big-eyes.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/grinning.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/slightly-smiling.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/smiling-eyes.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/relieved.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/sleeping.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/weary.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/crying.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/fearful.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/unamused.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/angry.svg")} style={styles.image} />
+          <Image source={require("../../assets/img/emoji/flushed.svg")} style={styles.image} />
+        </Animated.View>
+      </View>
     </Animated.View>
   );
 }
@@ -66,6 +86,9 @@ const styles = StyleSheet.create({
   caret: {
     position: "absolute",
     top: "50%",
+  },
+  imageWrapper: {
+    overflow: "hidden",
   },
   image: {
     width: "100%",

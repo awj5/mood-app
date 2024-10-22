@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
@@ -12,12 +12,12 @@ import Animated, {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
-import MoodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { MoodType } from "app/check-in";
 
 type BackgroundProps = {
   showTags: boolean;
-  rotation: SharedValue<number>;
+  mood: SharedValue<MoodType>;
 };
 
 export default function Background(props: BackgroundProps) {
@@ -27,7 +27,6 @@ export default function Background(props: BackgroundProps) {
   const width = useSharedValue(0);
   const height = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
-  const colorRef = useRef("");
   const size = Device.deviceType !== 1 ? 386 : 264; // Smaller on phones
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -39,18 +38,11 @@ export default function Background(props: BackgroundProps) {
   }));
 
   useAnimatedReaction(
-    () => props.rotation.value,
+    () => props.mood.value,
     (currentValue, previousValue) => {
-      // currentValue must be 0 or greater to return data
-      if (currentValue !== previousValue && currentValue >= 0) {
-        const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
-        const mood = MoodsData[index];
-
-        if (mood.color !== colorRef.current) {
-          backgroundColor.value = withTiming(mood.color, { duration: 200, easing: Easing.linear });
-          if (opacity.value === 1) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
-          colorRef.current = mood.color;
-        }
+      if (currentValue !== previousValue) {
+        backgroundColor.value = withTiming(currentValue.color, { duration: 200, easing: Easing.linear });
+        if (opacity.value === 1) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
       }
     }
   );
