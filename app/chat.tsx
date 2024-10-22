@@ -15,7 +15,6 @@ export default function Chat() {
       <Stack.Screen
         options={{
           headerTitle: "",
-          gestureEnabled: false,
           headerLeft: () => (
             <HeaderBackButton
               onPress={() => router.dismissAll()}

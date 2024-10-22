@@ -73,7 +73,7 @@ export default function CheckIn() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false }} />
+      <Stack.Screen options={{ headerShown: false, animation: "none" }} />
 
       {visible && (
         <>
