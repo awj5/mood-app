@@ -17,7 +17,7 @@ import { pressedDefault } from "utils/helpers";
 
 type DoneProps = {
   color: string;
-  statementVal: SharedValue<number>;
+  sliderVal: SharedValue<number>;
 };
 
 export default function Done(props: DoneProps) {
@@ -28,14 +28,14 @@ export default function Done(props: DoneProps) {
 
   const press = () => {
     if (opacity.value > 0.25) {
-      //console.log(props.statementVal.value);
+      //console.log(props.sliderVal.value);
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       router.push("chat");
     }
   };
 
   useAnimatedReaction(
-    () => props.statementVal.value,
+    () => props.sliderVal.value,
     () => {
       if (opacity.value === 0.25) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });

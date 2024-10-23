@@ -5,20 +5,17 @@ import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } 
 import { Slider } from "@miblanchard/react-native-slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { theme } from "utils/helpers";
 
 type StatementProps = {
-  moodColor: string;
-  text: string;
   color: string;
-  statementVal: SharedValue<number>;
+  sliderVal: SharedValue<number>;
+  statement: string;
   setStatement: React.Dispatch<React.SetStateAction<string>>;
   selectedTags: number[];
 };
 
 export default function Statement(props: StatementProps) {
   const opacity = useSharedValue(0);
-  const colors = theme();
 
   const shuffleArray = (array: number[]) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -30,7 +27,7 @@ export default function Statement(props: StatementProps) {
   };
 
   useEffect(() => {
-    props.statementVal.value = 0.5; // Reset
+    props.sliderVal.value = 0.5; // Reset
     const competencies: number[] = [];
 
     // Loop selected tags and get competencies
@@ -60,28 +57,26 @@ export default function Statement(props: StatementProps) {
         style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
-        {props.text}
+        {props.statement}
       </Text>
 
-      <View style={{ gap: Device.deviceType !== 1 ? 12 : 4 }}>
+      <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>
         <Slider
           minimumValue={0}
           maximumValue={1}
           value={0.5}
-          onValueChange={(value) => (props.statementVal.value = Number(value))}
+          onValueChange={(value) => (props.sliderVal.value = Number(value))}
           minimumTrackTintColor={props.color}
           maximumTrackTintColor="transparent"
-          thumbTintColor={props.moodColor}
+          thumbTintColor={props.color}
           thumbStyle={{
             width: Device.deviceType !== 1 ? 40 : 32,
             height: Device.deviceType !== 1 ? 40 : 32,
             borderRadius: 999,
-            borderWidth: Device.deviceType !== 1 ? 4 : 3,
-            borderColor: props.color,
           }}
           minimumTrackStyle={{
             width: "100%", // Hack! - Stop squishing of left side
-            height: Device.deviceType !== 1 ? 32 : 24,
+            height: Device.deviceType !== 1 ? 40 : 32,
             borderRadius: 999,
             opacity: 0.25,
           }}

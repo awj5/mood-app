@@ -30,7 +30,7 @@ export type TagType = {
 export default function CheckIn() {
   const router = useRouter();
   const rotation = useSharedValue(-360);
-  const statementVal = useSharedValue(50);
+  const sliderVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
   const foreground = useSharedValue("");
   const [visible, setVisible] = useState(false);
@@ -103,15 +103,14 @@ export default function CheckIn() {
 
               {showStatement && (
                 <>
-                  <BackgroundOverlay statementVal={statementVal} />
+                  <BackgroundOverlay sliderVal={sliderVal} />
                   <Heading text="Do you agree with this statement?" color={foreground.value} index={2} />
-                  <Done color={foreground.value} statementVal={statementVal} />
+                  <Done color={foreground.value} sliderVal={sliderVal} />
 
                   <Statement
-                    moodColor={mood.value.color}
-                    text={statement}
                     color={foreground.value}
-                    statementVal={statementVal}
+                    sliderVal={sliderVal}
+                    statement={statement}
                     setStatement={setStatement}
                     selectedTags={selectedTags}
                   />

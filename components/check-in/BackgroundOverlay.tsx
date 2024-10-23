@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import Animated, { SharedValue, useAnimatedReaction, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 
 type BackgroundOverlayProps = {
-  statementVal: SharedValue<number>;
+  sliderVal: SharedValue<number>;
 };
 
 export default function BackgroundOverlay(props: BackgroundOverlayProps) {
@@ -10,7 +10,7 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
   const backgroundColor = useSharedValue("white");
 
   useAnimatedReaction(
-    () => props.statementVal.value,
+    () => props.sliderVal.value,
     (currentValue, previousValue) => {
       if (currentValue !== previousValue) {
         backgroundColor.value = currentValue >= 0.5 ? "white" : "black";
