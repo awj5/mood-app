@@ -99,8 +99,6 @@ export default function CheckIn() {
                 color={foreground.value}
               />
 
-              <Close setState={setShowTags} color={foreground.value} index={1} />
-
               {showStatement && (
                 <>
                   <BackgroundOverlay sliderVal={sliderVal} />
@@ -114,10 +112,10 @@ export default function CheckIn() {
                     setStatement={setStatement}
                     selectedTags={selectedTags}
                   />
-
-                  <Close setState={setShowStatement} color={foreground.value} index={2} />
                 </>
               )}
+
+              <Close setShowTags={setShowTags} setShowStatement={setShowStatement} color={foreground.value} />
             </>
           )}
         </>

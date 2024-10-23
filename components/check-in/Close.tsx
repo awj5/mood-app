@@ -5,21 +5,26 @@ import { CircleX } from "lucide-react-native";
 import { pressedDefault } from "utils/helpers";
 
 type CloseProps = {
-  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowTags: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowStatement: React.Dispatch<React.SetStateAction<boolean>>;
   color: string;
-  index: number;
 };
 
 export default function Close(props: CloseProps) {
   const insets = useSafeAreaInsets();
 
+  const press = () => {
+    props.setShowTags(false);
+    props.setShowStatement(false);
+  };
+
   return (
     <Pressable
-      onPress={() => props.setState(false)}
+      onPress={press}
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
-        { marginTop: insets.top, padding: Device.deviceType !== 1 ? 24 : 16, zIndex: props.index },
+        { marginTop: insets.top, padding: Device.deviceType !== 1 ? 24 : 16 },
       ]}
       hitSlop={16}
     >
@@ -38,5 +43,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     right: 0,
+    zIndex: 2,
   },
 });
