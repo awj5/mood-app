@@ -108,6 +108,7 @@ export default function CheckIn() {
                   <Done color={foreground.value} statementVal={statementVal} />
 
                   <Statement
+                    moodColor={mood.value.color}
                     text={statement}
                     color={foreground.value}
                     statementVal={statementVal}

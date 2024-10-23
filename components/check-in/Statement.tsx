@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
 import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { Slider } from "@miblanchard/react-native-slider";
@@ -9,6 +8,7 @@ import guidelinesData from "data/guidelines.json";
 import { theme } from "utils/helpers";
 
 type StatementProps = {
+  moodColor: string;
   text: string;
   color: string;
   statementVal: SharedValue<number>;
@@ -63,21 +63,28 @@ export default function Statement(props: StatementProps) {
         {props.text}
       </Text>
 
-      <View>
+      <View style={{ gap: Device.deviceType !== 1 ? 12 : 4 }}>
         <Slider
           minimumValue={0}
           maximumValue={1}
           value={0.5}
           onValueChange={(value) => (props.statementVal.value = Number(value))}
-          minimumTrackTintColor={colors.secondary}
-          maximumTrackTintColor={colors.secondary}
-          thumbTintColor={colors.secondary}
+          minimumTrackTintColor={props.color}
+          maximumTrackTintColor="transparent"
+          thumbTintColor={props.moodColor}
           thumbStyle={{
-            width: Device.deviceType !== 1 ? 28 : 24,
-            height: Device.deviceType !== 1 ? 28 : 24,
+            width: Device.deviceType !== 1 ? 40 : 32,
+            height: Device.deviceType !== 1 ? 40 : 32,
             borderRadius: 999,
+            borderWidth: Device.deviceType !== 1 ? 4 : 3,
+            borderColor: props.color,
           }}
-          trackStyle={{ height: 3 }}
+          minimumTrackStyle={{
+            width: "100%", // Hack! - Stop squishing of left side
+            height: Device.deviceType !== 1 ? 32 : 24,
+            borderRadius: 999,
+            opacity: 0.25,
+          }}
         />
 
         <View style={styles.labels}>
@@ -121,6 +128,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   label: {
-    fontFamily: "Circular-Book",
+    fontFamily: "Circular-Medium",
   },
 });
