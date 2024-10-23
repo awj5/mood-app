@@ -18,6 +18,7 @@ import { MoodType } from "app/check-in";
 type BackgroundProps = {
   showTags: boolean;
   mood: SharedValue<MoodType>;
+  showStatement: boolean;
 };
 
 export default function Background(props: BackgroundProps) {
@@ -68,7 +69,11 @@ export default function Background(props: BackgroundProps) {
     opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
-  return <Animated.View style={[styles.container, animatedStyles, { zIndex: props.showTags ? 1 : 0 }]} />;
+  return (
+    <Animated.View
+      style={[styles.container, animatedStyles, { zIndex: props.showStatement ? 2 : props.showTags ? 1 : 0 }]}
+    />
+  );
 }
 
 const styles = StyleSheet.create({

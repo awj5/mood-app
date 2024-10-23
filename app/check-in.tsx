@@ -11,9 +11,9 @@ import Heading from "components/check-in/Heading";
 import Next from "components/check-in/Next";
 import Close from "components/check-in/Close";
 import Tags from "components/check-in/Tags";
-import Background2 from "components/check-in/Background2";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
+import BackgroundOverlay from "components/check-in/BackgroundOverlay";
 
 export type MoodType = {
   id: number;
@@ -33,7 +33,6 @@ export default function CheckIn() {
   const statementVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
   const foreground = useSharedValue("");
-  const background = useSharedValue("");
   const [visible, setVisible] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
@@ -47,7 +46,6 @@ export default function CheckIn() {
         const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
         mood.value = MoodsData[index];
         foreground.value = currentValue >= 15 && currentValue < 195 ? "white" : "black";
-        background.value = currentValue >= 15 && currentValue < 195 ? "black" : "white";
       }
     }
   );
@@ -80,13 +78,13 @@ export default function CheckIn() {
           <Heading text="How's work?" />
           <Instructions />
           <Next setState={setShowTags} />
-          <Background showTags={showTags} mood={mood} />
+          <Background showTags={showTags} mood={mood} showStatement={showStatement} />
           <Wheel rotation={rotation} />
           <Emoji showTags={showTags} mood={mood} />
 
           {showTags && (
             <>
-              <Heading text="How do you feel right now?" color={foreground.value} />
+              <Heading text="How do you feel right now?" color={foreground.value} index={1} />
 
               <Next
                 setState={setShowStatement}
@@ -101,24 +99,23 @@ export default function CheckIn() {
                 color={foreground.value}
               />
 
-              <Close setState={setShowTags} color={foreground.value} />
+              <Close setState={setShowTags} color={foreground.value} index={1} />
 
               {showStatement && (
                 <>
-                  <Background2 color={foreground.value} />
-                  <Heading text="Do you agree with this statement?" color={background.value} />
-                  <Done color={background.value} statementVal={statementVal} />
+                  <BackgroundOverlay statementVal={statementVal} />
+                  <Heading text="Do you agree with this statement?" color={foreground.value} index={2} />
+                  <Done color={foreground.value} statementVal={statementVal} />
 
                   <Statement
-                    moodColor={mood.value.color}
                     text={statement}
-                    color={background.value}
+                    color={foreground.value}
                     statementVal={statementVal}
                     setStatement={setStatement}
                     selectedTags={selectedTags}
                   />
 
-                  <Close setState={setShowStatement} color={background.value} />
+                  <Close setState={setShowStatement} color={foreground.value} index={2} />
                 </>
               )}
             </>

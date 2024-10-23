@@ -9,7 +9,6 @@ import guidelinesData from "data/guidelines.json";
 import { theme } from "utils/helpers";
 
 type StatementProps = {
-  moodColor: string;
   text: string;
   color: string;
   statementVal: SharedValue<number>;
@@ -31,6 +30,7 @@ export default function Statement(props: StatementProps) {
   };
 
   useEffect(() => {
+    props.statementVal.value = 0.5; // Reset
     const competencies: number[] = [];
 
     // Loop selected tags and get competencies
@@ -51,13 +51,13 @@ export default function Statement(props: StatementProps) {
     );
 
     props.setStatement(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0].statement);
-    opacity.value = withDelay(700, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    opacity.value = withDelay(300, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (
     <Animated.View style={[styles.container, { opacity }]}>
       <Text
-        style={[styles.text, { color: props.moodColor, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
+        style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
         {props.text}
@@ -66,12 +66,12 @@ export default function Statement(props: StatementProps) {
       <View>
         <Slider
           minimumValue={0}
-          maximumValue={100}
-          value={50}
+          maximumValue={1}
+          value={0.5}
           onValueChange={(value) => (props.statementVal.value = Number(value))}
           minimumTrackTintColor={colors.secondary}
           maximumTrackTintColor={colors.secondary}
-          thumbTintColor={props.moodColor}
+          thumbTintColor={colors.secondary}
           thumbStyle={{
             width: Device.deviceType !== 1 ? 28 : 24,
             height: Device.deviceType !== 1 ? 28 : 24,
@@ -99,8 +99,6 @@ export default function Statement(props: StatementProps) {
           </Text>
         </View>
       </View>
-
-      <StatusBar style={props.color === "white" ? "light" : "dark"} />
     </Animated.View>
   );
 }
@@ -108,7 +106,7 @@ export default function Statement(props: StatementProps) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    zIndex: 1,
+    zIndex: 2,
     maxWidth: 448 + 48,
     width: "100%",
     paddingHorizontal: 24,

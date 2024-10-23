@@ -9,6 +9,7 @@ import { theme } from "utils/helpers";
 type HeadingProps = {
   text: string;
   color?: string;
+  index?: number;
 };
 
 export default function Heading(props: HeadingProps) {
@@ -19,7 +20,7 @@ export default function Heading(props: HeadingProps) {
 
   useEffect(() => {
     opacity.value = withDelay(
-      props.color !== undefined ? 500 : 1000,
+      props.index === undefined ? 1000 : props.index === 1 ? 500 : 0,
       withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
     );
   }, []);
@@ -32,7 +33,7 @@ export default function Heading(props: HeadingProps) {
         {
           opacity,
           paddingTop: insets.top,
-          zIndex: props.color !== undefined ? 1 : 0,
+          zIndex: props.index !== undefined ? props.index : 0,
         },
         dimensions.width > dimensions.height
           ? { paddingRight: Device.deviceType !== 1 ? 224 : 152, paddingBottom: insets.bottom }

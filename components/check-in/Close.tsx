@@ -7,6 +7,7 @@ import { pressedDefault } from "utils/helpers";
 type CloseProps = {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
   color: string;
+  index: number;
 };
 
 export default function Close(props: CloseProps) {
@@ -18,7 +19,7 @@ export default function Close(props: CloseProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
-        { marginTop: insets.top, padding: Device.deviceType !== 1 ? 24 : 16 },
+        { marginTop: insets.top, padding: Device.deviceType !== 1 ? 24 : 16, zIndex: props.index },
       ]}
       hitSlop={16}
     >
@@ -37,6 +38,5 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     right: 0,
-    zIndex: 1,
   },
 });
