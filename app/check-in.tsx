@@ -14,6 +14,7 @@ import Tags from "components/check-in/Tags";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
+import Background2 from "components/check-in/Background2";
 
 export type MoodType = {
   id: number;
@@ -78,13 +79,13 @@ export default function CheckIn() {
           <Heading text="How's work?" />
           <Instructions />
           <Next setState={setShowTags} />
-          <Background showTags={showTags} mood={mood} showStatement={showStatement} />
+          <Background showTags={showTags} mood={mood} />
           <Wheel rotation={rotation} />
           <Emoji showTags={showTags} mood={mood} />
 
           {showTags && (
             <>
-              <Heading text="How do you feel right now?" color={foreground.value} index={1} />
+              <Heading text="How do you feel right now?" color={foreground.value} />
 
               <Next
                 setState={setShowStatement}
@@ -101,11 +102,13 @@ export default function CheckIn() {
 
               {showStatement && (
                 <>
+                  <Background2 color={mood.value.color} />
                   <BackgroundOverlay sliderVal={sliderVal} />
-                  <Heading text="Do you agree with this statement?" color={foreground.value} index={2} />
+                  <Heading text="Do you agree with this statement?" color={foreground.value} />
                   <Done color={foreground.value} sliderVal={sliderVal} />
 
                   <Statement
+                    moodColor={mood.value.color}
                     color={foreground.value}
                     sliderVal={sliderVal}
                     statement={statement}

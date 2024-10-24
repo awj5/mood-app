@@ -7,6 +7,7 @@ import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 
 type StatementProps = {
+  moodColor: string;
   color: string;
   sliderVal: SharedValue<number>;
   statement: string;
@@ -48,7 +49,7 @@ export default function Statement(props: StatementProps) {
     );
 
     props.setStatement(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0].statement);
-    opacity.value = withDelay(300, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    opacity.value = withDelay(700, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (
@@ -68,15 +69,17 @@ export default function Statement(props: StatementProps) {
           onValueChange={(value) => (props.sliderVal.value = Number(value))}
           minimumTrackTintColor={props.color}
           maximumTrackTintColor="transparent"
-          thumbTintColor={props.color}
+          thumbTintColor={props.moodColor}
           thumbStyle={{
             width: Device.deviceType !== 1 ? 40 : 32,
             height: Device.deviceType !== 1 ? 40 : 32,
             borderRadius: 999,
+            borderWidth: Device.deviceType !== 1 ? 3.5 : 3,
+            borderColor: props.color,
           }}
           minimumTrackStyle={{
             width: "100%", // Hack! - Stop squishing of left side
-            height: Device.deviceType !== 1 ? 40 : 32,
+            height: Device.deviceType !== 1 ? 32 : 24,
             borderRadius: 999,
             opacity: 0.25,
           }}
@@ -108,7 +111,7 @@ export default function Statement(props: StatementProps) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    zIndex: 2,
+    zIndex: 1,
     maxWidth: 448 + 48,
     width: "100%",
     paddingHorizontal: 24,

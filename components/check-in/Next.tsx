@@ -59,7 +59,7 @@ export default function Next(props: NextProps) {
           color={props.color !== undefined ? props.color : colors.primary}
           size={Device.deviceType !== 1 ? 88 : 64}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
+          strokeWidth={Device.deviceType !== 1 ? 4.5 : 3.5}
         />
       </Pressable>
     </Animated.View>

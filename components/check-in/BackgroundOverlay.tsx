@@ -37,7 +37,7 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    zIndex: 2,
+    zIndex: 1,
     width: "100%",
     height: "100%",
   },
