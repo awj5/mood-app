@@ -12,7 +12,7 @@ export default function Response() {
 
   useEffect(() => {
     const text =
-      "Hello, I'm MOOD, your go-to resource for supporting employee psychological safety. <break>Through mood check-ins, I help you navigate how you're feeling at work and provide guidance based on the latest research from Nathan Jones, ISO standards, and your company's policies. <break>While I'm still learning and can't chat just yet, I'm excited to assist you in managing your mental well-being in the workplace soon.";
+      "Hello, I'm MOOD. I help you navigate your feelings at work and provide guidance based on the latest research from Dr. Nathan Jones, ISO standards, local workplace safety laws, and your company's policies. <break>While I'm still learning and can't chat just yet, I'm excited to assist you in managing your mental well-being at work soon.";
 
     const words = text.split(" ");
 
@@ -27,7 +27,7 @@ export default function Response() {
           setTyping(false); // Finished
         }
       },
-      !index ? 500 : 100
+      !index ? 500 : 50 // Wait for screen transition to finish
     );
 
     return () => clearTimeout(timer);

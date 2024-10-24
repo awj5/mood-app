@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { StatusBar } from "expo-status-bar";
 import tagsData from "data/tags.json";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
 
@@ -15,7 +16,7 @@ type TagsProps = {
 
 export default function Tags(props: TagsProps) {
   const [tags, setTags] = useState<TagType[]>([]);
-  const height = Dimensions.get("screen").height;
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const shuffleArray = (array: TagType[]) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -52,7 +53,9 @@ export default function Tags(props: TagsProps) {
       style={[
         styles.container,
         {
-          gap: Device.deviceType !== 1 ? 16 : height <= 667 ? 8 : 12,
+          gap: Device.deviceType !== 1 ? 16 : dimensions.height <= 667 ? 8 : 12,
+          maxWidth: dimensions.width > dimensions.height ? 448 + 48 : "auto",
+          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
         },
       ]}
     >
@@ -80,7 +83,5 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignContent: "center",
-    maxWidth: 448 + 32,
-    paddingHorizontal: 16,
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
+import { ScrollView, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import Response from "components/chat/Response";
@@ -11,7 +11,7 @@ export default function Chat() {
   const colors = theme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           headerTitle: "",
@@ -28,7 +28,7 @@ export default function Chat() {
       />
 
       <KeyboardAvoidingView
-        style={styles.container}
+        style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={headerHeight}
       >
@@ -41,9 +41,3 @@ export default function Chat() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

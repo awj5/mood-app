@@ -1,23 +1,15 @@
 import { useState } from "react";
-import { Keyboard, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import * as Device from "expo-device";
-import { CircleArrowUp } from "lucide-react-native";
-import { pressedDefault, theme } from "utils/helpers";
+import { theme } from "utils/helpers";
 
 export default function Input() {
   const colors = theme();
   const [text, setText] = useState("");
   const [focused, setFocused] = useState(false);
 
-  const send = () => {
-    Keyboard.dismiss();
-    setText("");
-  };
-
   return (
-    <View
-      style={[styles.container, { padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 12 : 8 }]}
-    >
+    <View style={[styles.container, { padding: Device.deviceType !== 1 ? 24 : 16 }]}>
       <TextInput
         onChangeText={setText}
         value={text}
@@ -26,11 +18,12 @@ export default function Input() {
         style={[
           styles.input,
           {
+            borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
             borderColor: focused ? colors.primary : colors.secondary,
             color: colors.primary,
-            paddingHorizontal: Device.deviceType !== 1 ? 20 : 16,
+            paddingHorizontal: Device.deviceType !== 1 ? 24 : 20,
+            paddingVertical: Device.deviceType !== 1 ? 16 : 12,
             fontSize: Device.deviceType !== 1 ? 24 : 18,
-            height: Device.deviceType !== 1 ? 54 : 42,
           },
         ]}
         onFocus={() => setFocused(true)}
@@ -38,32 +31,18 @@ export default function Input() {
         autoCapitalize="none"
         onSubmitEditing={() => setText("")}
       />
-
-      <Pressable
-        onPress={send}
-        style={({ pressed }) => pressedDefault(pressed)}
-        hitSlop={8}
-        disabled={focused ? false : true}
-      >
-        <CircleArrowUp
-          color={focused ? colors.primary : colors.secondary}
-          size={Device.deviceType !== 1 ? 64 : 48}
-          absoluteStrokeWidth
-        />
-      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     alignItems: "center",
   },
   input: {
     borderRadius: 999,
-    flex: 1,
     fontFamily: "Circular-Book",
-    borderWidth: 2,
+    width: "100%",
+    maxWidth: 512,
   },
 });
