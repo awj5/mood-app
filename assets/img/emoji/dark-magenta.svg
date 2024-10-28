@@ -1,7 +1,7 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M88 88C88 74.7452 77.2548 64 64 64C50.7452 64 40 74.7452 40 88L88 88Z" fill="white"/>
-<path d="M41.8269 53.5964L54.7612 48.2388" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M41.6956 42.8268L54.6299 48.1844" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M73 48.2388L85.9343 53.5964" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M73.0386 48.1459L85.9729 42.7884" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<path d="M80 80C75.7539 76.1997 70.1468 73.8889 64 73.8889C57.8532 73.8889 52.2461 76.1997 48 80" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M80 53.4723L95.0351 48" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M80 54L95.0351 59.4723" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M48.0352 53.4723L33.0001 48" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M48.0352 54L33.0001 59.4723" stroke="black" stroke-width="6" stroke-linecap="round"/>
 </svg>

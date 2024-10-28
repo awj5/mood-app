@@ -1,7 +1,7 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M96 96C96 78.3269 81.6731 64 64 64C46.3269 64 32 78.3269 32 96L96 96Z" fill="white"/>
-<path d="M73 48H87" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M73 47.8995L82.8995 38" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M41 48H55" stroke="white" stroke-width="6" stroke-linecap="round"/>
-<path d="M45 38L54.8995 47.8995" stroke="white" stroke-width="6" stroke-linecap="round"/>
+<path d="M80 53.4723L95.0351 48" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M80 54L95.0351 59.4723" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M48.0352 53.4723L33.0001 48" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path d="M48.0352 54L33.0001 59.4723" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M45 83C45 72.5066 53.5066 64 64 64C74.4934 64 83 72.5066 83 83H45Z" fill="black"/>
 </svg>
