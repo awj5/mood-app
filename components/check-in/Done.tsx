@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
-import { useRouter } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
@@ -18,19 +17,18 @@ import { pressedDefault } from "utils/helpers";
 type DoneProps = {
   color: string;
   sliderVal: SharedValue<number>;
+  submitCheckIn: () => void;
 };
 
 export default function Done(props: DoneProps) {
   const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const router = useRouter();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const press = () => {
     if (opacity.value > 0.25) {
-      //console.log(props.sliderVal.value);
+      props.submitCheckIn();
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-      router.push("chat");
     }
   };
 

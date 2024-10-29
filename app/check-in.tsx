@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
 import Wheel from "components/check-in/Wheel";
@@ -28,7 +29,13 @@ export type TagType = {
   type: string;
 };
 
+export type CompetencyType = {
+  id: number;
+  statement: string;
+};
+
 export default function CheckIn() {
+  const db = useSQLiteContext();
   const router = useRouter();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
@@ -38,7 +45,24 @@ export default function CheckIn() {
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [showStatement, setShowStatement] = useState(false);
-  const [statement, setStatement] = useState("");
+  const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
+
+  const submitCheckIn = async () => {
+    try {
+      const checkInMood = {
+        color: mood.value.id,
+        tags: selectedTags,
+        competency: competency.id,
+        statementResponse: sliderVal.value,
+      };
+
+      await db.runAsync(`INSERT INTO check_ins (mood) VALUES ('${JSON.stringify(checkInMood)}')`);
+    } catch (error) {
+      console.log(error);
+    }
+
+    router.push("chat");
+  };
 
   useAnimatedReaction(
     () => rotation.value,
@@ -105,14 +129,14 @@ export default function CheckIn() {
                   <Background2 color={mood.value.color} />
                   <BackgroundOverlay sliderVal={sliderVal} />
                   <Heading text="Do you agree with this statement?" color={foreground.value} />
-                  <Done color={foreground.value} sliderVal={sliderVal} />
+                  <Done color={foreground.value} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
                   <Statement
                     moodColor={mood.value.color}
                     color={foreground.value}
                     sliderVal={sliderVal}
-                    statement={statement}
-                    setStatement={setStatement}
+                    competency={competency}
+                    setCompetency={setCompetency}
                     selectedTags={selectedTags}
                   />
                 </>

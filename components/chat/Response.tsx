@@ -48,7 +48,6 @@ export default function Response() {
             marginTop: Device.deviceType !== 1 ? 14 : 10,
           },
         ]}
-        allowFontScaling={false}
       >
         {displayedText.replace(/<break>/g, "\n\n")}
       </Text>

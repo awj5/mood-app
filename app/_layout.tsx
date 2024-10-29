@@ -4,7 +4,9 @@ import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Device from "expo-device";
+import { SQLiteProvider } from "expo-sqlite";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { initDB } from "data/database";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { theme } from "../utils/helpers";
 
@@ -55,21 +57,23 @@ export default function Layout() {
   if (!fontsLoaded && !fontError) return null; // Show splash until fonts ready
 
   return (
-    <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Stack
-          screenOptions={{
-            contentStyle: {
-              backgroundColor: colors.primaryBg,
-            },
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: colors.primaryBg,
-            },
-            headerTintColor: colors.primary,
-          }}
-        />
-      </GestureHandlerRootView>
-    </DimensionsContext.Provider>
+    <SQLiteProvider databaseName="mood.db" onInit={initDB}>
+      <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Stack
+            screenOptions={{
+              contentStyle: {
+                backgroundColor: colors.primaryBg,
+              },
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: colors.primaryBg,
+              },
+              headerTintColor: colors.primary,
+            }}
+          />
+        </GestureHandlerRootView>
+      </DimensionsContext.Provider>
+    </SQLiteProvider>
   );
 }

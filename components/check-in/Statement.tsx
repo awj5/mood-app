@@ -5,13 +5,14 @@ import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } 
 import { Slider } from "@miblanchard/react-native-slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
+import { CompetencyType } from "app/check-in";
 
 type StatementProps = {
   moodColor: string;
   color: string;
   sliderVal: SharedValue<number>;
-  statement: string;
-  setStatement: React.Dispatch<React.SetStateAction<string>>;
+  competency: CompetencyType;
+  setCompetency: React.Dispatch<React.SetStateAction<CompetencyType>>;
   selectedTags: number[];
 };
 
@@ -48,7 +49,7 @@ export default function Statement(props: StatementProps) {
       shuffled.filter((item) => item === curr).length > shuffled.filter((item) => item === prev).length ? curr : prev
     );
 
-    props.setStatement(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0].statement);
+    props.setCompetency(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0]);
     opacity.value = withDelay(700, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
@@ -58,7 +59,7 @@ export default function Statement(props: StatementProps) {
         style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
-        {props.statement}
+        {props.competency.statement}
       </Text>
 
       <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>
@@ -66,7 +67,7 @@ export default function Statement(props: StatementProps) {
           minimumValue={0}
           maximumValue={1}
           value={0.5}
-          onValueChange={(value) => (props.sliderVal.value = Number(value))}
+          onValueChange={(value) => (props.sliderVal.value = Math.round(Number(value) * 100) / 100)}
           minimumTrackTintColor="black"
           maximumTrackTintColor="transparent"
           thumbTintColor={props.moodColor}
