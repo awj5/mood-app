@@ -67,7 +67,7 @@ export default function Statement(props: StatementProps) {
           maximumValue={1}
           value={0.5}
           onValueChange={(value) => (props.sliderVal.value = Number(value))}
-          minimumTrackTintColor={props.color}
+          minimumTrackTintColor="black"
           maximumTrackTintColor="transparent"
           thumbTintColor={props.moodColor}
           thumbStyle={{
