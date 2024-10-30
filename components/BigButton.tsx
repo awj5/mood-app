@@ -20,8 +20,8 @@ export default function BigButton(props: BigButtonProps) {
         styles.container,
         {
           backgroundColor: colors.primary,
-          paddingVertical: Device.deviceType !== 1 ? 28 : 20,
-          paddingHorizontal: Device.deviceType !== 1 ? 32 : 24,
+          paddingVertical: Device.deviceType !== 1 ? 24 : 20,
+          paddingHorizontal: Device.deviceType !== 1 ? 28 : 24,
         },
       ]}
       hitSlop={8}

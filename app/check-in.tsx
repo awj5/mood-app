@@ -56,7 +56,7 @@ export default function CheckIn() {
         statementResponse: sliderVal.value,
       };
 
-      await db.runAsync(`INSERT INTO check_ins (mood) VALUES ('${JSON.stringify(checkInMood)}')`);
+      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?)`, [JSON.stringify(checkInMood)]);
     } catch (error) {
       console.log(error);
     }

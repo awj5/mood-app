@@ -43,6 +43,5 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     fontFamily: "Circular-Book",
     width: "100%",
-    maxWidth: 512,
   },
 });

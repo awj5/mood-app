@@ -16,6 +16,6 @@ export const theme = () => {
   return {
     primary: colorScheme === "light" ? "black" : "white",
     secondary: colorScheme === "light" ? "#999999" : "#666666",
-    primaryBg: colorScheme === "light" ? "white" : "black",
+    primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
   };
 };

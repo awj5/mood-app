@@ -1,5 +1,4 @@
 import * as SQLite from "expo-sqlite";
-import { Timestamp } from "react-native-reanimated/lib/typescript/reanimated2/commonTypes";
 
 export type CheckInMoodType = {
   color: number;
@@ -10,12 +9,12 @@ export type CheckInMoodType = {
 
 export type CheckInType = {
   id: number;
-  date: Timestamp;
+  date: Date;
   mood: string;
 };
 
 export const initDB = async (db: SQLite.SQLiteDatabase) => {
-  //db.closeAsync();
+  //await db.closeAsync();
   //SQLite.deleteDatabaseSync("mood.db");
   //await db.runAsync(`DELETE FROM check_ins WHERE id = 1`);
 

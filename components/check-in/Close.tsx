@@ -24,7 +24,10 @@ export default function Close(props: CloseProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
-        { marginTop: insets.top, padding: Device.deviceType !== 1 ? 24 : 16 },
+        {
+          marginTop: insets.top,
+          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+        },
       ]}
       hitSlop={16}
     >
