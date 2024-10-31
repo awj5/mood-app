@@ -68,7 +68,7 @@ export default function Wheel(props: WheelProps) {
         ]}
         hitSlop={8}
       >
-        <Image source={require("../../assets/img/wheel.png")} style={styles.image} />
+        <Image source={require("../../assets/img/check-in-wheel.png")} style={styles.image} />
       </Animated.View>
     </GestureDetector>
   );
