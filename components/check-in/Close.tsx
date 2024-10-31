@@ -26,7 +26,7 @@ export default function Close(props: CloseProps) {
         styles.container,
         {
           marginTop: insets.top,
-          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+          padding: Device.deviceType !== 1 ? 24 : 16,
         },
       ]}
       hitSlop={16}

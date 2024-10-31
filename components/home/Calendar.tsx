@@ -1,44 +1,68 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Entry from "./calendar/Entry";
+import * as Device from "expo-device";
+import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
+import Week from "./calendar/Week";
+import { CalendarDatesType } from "app";
 
-type CalendarProps = {};
+type CalendarProps = {
+  calendarDates: CalendarDatesType | undefined;
+  setCalendarDates: React.Dispatch<React.SetStateAction<CalendarDatesType | undefined>>;
+};
 
 export default function Calendar(props: CalendarProps) {
-  const [days, setDays] = useState<Date[]>();
+  const [weeks, setWeeks] = useState<Date[]>([]);
+  const paddingX = Device.deviceType !== 1 ? 24 : 16;
+
+  const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
+    props.setCalendarDates({
+      weekStart: weeks[e.nativeEvent.position],
+    });
+  };
 
   useEffect(() => {
-    const today = new Date();
+    // Set Monday of current week
+    const today = new Date(); // Local
     const day = today.getDay();
     const daysFromMonday = day === 0 ? 6 : day - 1;
     const monday = new Date(today);
     monday.setDate(today.getDate() - daysFromMonday);
-    const week: Date[] = [];
 
-    // Get dates from current week starting from Monday
-    for (let i = 0; i < 7; i++) {
-      let date = new Date(monday);
-      date.setDate(monday.getDate() + i);
-      week.push(date);
+    props.setCalendarDates({
+      weekStart: monday,
+    });
+
+    const mondays = [];
+
+    // Get 11 previous Mondays
+    for (let i = 11; i >= 1; i--) {
+      let prevMonday = new Date(monday);
+      prevMonday.setDate(monday.getDate() - i * 7);
+      mondays.push(prevMonday);
     }
 
-    setDays(week);
+    mondays.push(monday); // Add current
+    setWeeks(mondays);
   }, []);
 
   return (
-    <View style={styles.container}>
-      {days?.map((item, index) => (
-        <Entry key={index} date={item} />
+    <PagerView
+      style={{ height: Device.deviceType !== 1 ? 128 : 96 }}
+      initialPage={weeks.length - 1}
+      onPageSelected={(e) => pageSelected(e)}
+    >
+      {weeks.map((item, index) => (
+        <View style={[styles.page, { paddingHorizontal: paddingX }]} key={index}>
+          <Week monday={item} />
+        </View>
       ))}
-    </View>
+    </PagerView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    width: "100%",
-    maxWidth: 512,
-    justifyContent: "space-between",
+  page: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

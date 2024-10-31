@@ -41,7 +41,6 @@ export default function CheckIn() {
   const sliderVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
   const foreground = useSharedValue("");
-  const [visible, setVisible] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [showStatement, setShowStatement] = useState(false);
@@ -49,25 +48,26 @@ export default function CheckIn() {
 
   const submitCheckIn = async () => {
     try {
-      const checkInMood = {
-        color: mood.value.id,
-        tags: selectedTags,
-        competency: competency.id,
-        statementResponse: sliderVal.value,
-      };
+      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?)`, [
+        JSON.stringify({
+          color: mood.value.id,
+          tags: selectedTags,
+          competency: competency.id,
+          statementResponse: sliderVal.value,
+        }),
+      ]);
 
-      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?)`, [JSON.stringify(checkInMood)]);
+      router.push("chat");
     } catch (error) {
       console.log(error);
+      alert("An unexpected error has occurred.");
     }
-
-    router.push("chat");
   };
 
   useAnimatedReaction(
     () => rotation.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue >= 0 && visible) {
+      if (currentValue !== previousValue && currentValue >= 0) {
         const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
         mood.value = MoodsData[index];
         foreground.value = currentValue >= 15 && currentValue < 195 ? "black" : "white";
@@ -77,74 +77,58 @@ export default function CheckIn() {
 
   useFocusEffect(
     useCallback(() => {
-      if (mood.value.id) {
-        router.dismiss(); // Already checked in. Go back to home
-      }
-
-      setVisible(true);
-      setShowTags(false);
-      setShowStatement(false);
-
-      return () => {
-        // Wait for screen transition to finish
-        setTimeout(() => {
-          setVisible(false); // Reset
-        }, 500);
-      };
+      if (mood.value.id) router.dismiss(); // Already checked in. Go back to home
     }, [])
   );
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false, animation: "none" }} />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+          animation: "none",
+        }}
+      />
 
-      {visible && (
+      <Heading text="How's work?" />
+      <Instructions />
+      <Next setState={setShowTags} />
+      <Background showTags={showTags} mood={mood} />
+      <Wheel rotation={rotation} />
+      <Emoji showTags={showTags} mood={mood} />
+
+      {showTags && (
         <>
-          <Heading text="How's work?" />
-          <Instructions />
-          <Next setState={setShowTags} />
-          <Background showTags={showTags} mood={mood} />
-          <Wheel rotation={rotation} />
-          <Emoji showTags={showTags} mood={mood} />
+          <Heading text="How do you feel right now?" color={foreground.value} />
 
-          {showTags && (
+          <Next setState={setShowStatement} color={foreground.value} disabled={selectedTags.length ? false : true} />
+
+          <Tags
+            tags={mood.value.tags}
+            setSelectedTags={setSelectedTags}
+            selectedTags={selectedTags}
+            color={foreground.value}
+          />
+
+          {showStatement && (
             <>
-              <Heading text="How do you feel right now?" color={foreground.value} />
+              <Background2 color={mood.value.color} />
+              <BackgroundOverlay sliderVal={sliderVal} />
+              <Heading text="Do you agree with this statement?" color={foreground.value} />
+              <Done color={foreground.value} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
-              <Next
-                setState={setShowStatement}
+              <Statement
+                moodColor={mood.value.color}
                 color={foreground.value}
-                disabled={selectedTags.length ? false : true}
-              />
-
-              <Tags
-                tags={mood.value.tags}
-                setSelectedTags={setSelectedTags}
+                sliderVal={sliderVal}
+                competency={competency}
+                setCompetency={setCompetency}
                 selectedTags={selectedTags}
-                color={foreground.value}
               />
-
-              {showStatement && (
-                <>
-                  <Background2 color={mood.value.color} />
-                  <BackgroundOverlay sliderVal={sliderVal} />
-                  <Heading text="Do you agree with this statement?" color={foreground.value} />
-                  <Done color={foreground.value} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
-
-                  <Statement
-                    moodColor={mood.value.color}
-                    color={foreground.value}
-                    sliderVal={sliderVal}
-                    competency={competency}
-                    setCompetency={setCompetency}
-                    selectedTags={selectedTags}
-                  />
-                </>
-              )}
-
-              <Close setShowTags={setShowTags} setShowStatement={setShowStatement} color={foreground.value} />
             </>
           )}
+
+          <Close setShowTags={setShowTags} setShowStatement={setShowStatement} color={foreground.value} />
         </>
       )}
     </View>

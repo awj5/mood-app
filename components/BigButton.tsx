@@ -27,7 +27,10 @@ export default function BigButton(props: BigButtonProps) {
       hitSlop={8}
     >
       <Text
-        style={[styles.text, { color: colors.primaryBg, fontSize: Device.deviceType !== 1 ? 24 : 18 }]}
+        style={[
+          styles.text,
+          { color: colors.primary === "white" ? "black" : "white", fontSize: Device.deviceType !== 1 ? 24 : 18 },
+        ]}
         allowFontScaling={false}
       >
         {props.text}
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 999,
     width: "100%",
-    maxWidth: 512,
+    maxWidth: 448,
     alignItems: "center",
   },
   text: {

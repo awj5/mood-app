@@ -24,7 +24,7 @@ export default function Instructions() {
         style={[styles.text, { color: colors.secondary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
         allowFontScaling={false}
       >
-        Rotate the color wheel to{"\n"}express your current mood
+        Rotate the colour wheel to{"\n"}express your current mood
       </Text>
     </Animated.View>
   );

@@ -12,7 +12,7 @@ export default function Response() {
 
   useEffect(() => {
     const text =
-      "Hello, I'm MOOD. I help you navigate your feelings at work and provide guidance based on the latest research from Dr. Nathan Jones, ISO standards, local workplace safety laws, and your company's policies. <break>While I'm still learning and can't chat just yet, I'm excited to assist you in managing your mental well-being at work soon.";
+      "Hello, I'm MOOD. I help you navigate your feelings at work and provide guidance based on research from Dr. Nathan Jones, ISO standards, local workplace safety laws, and your company's HR policies. <break>While I'm still learning and can't chat just yet, I'm excited to assist you in managing your mental well-being at work soon.";
 
     const words = text.split(" ");
 

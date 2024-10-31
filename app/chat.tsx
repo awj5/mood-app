@@ -14,6 +14,7 @@ export default function Chat() {
     <SafeAreaView style={{ flex: 1 }}>
       <Stack.Screen
         options={{
+          gestureEnabled: false,
           headerTitle: "",
           headerLeft: () => (
             <HeaderBackButton
