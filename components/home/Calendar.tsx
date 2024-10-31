@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
@@ -12,7 +12,7 @@ type CalendarProps = {
 
 export default function Calendar(props: CalendarProps) {
   const [weeks, setWeeks] = useState<Date[]>([]);
-  const paddingX = Device.deviceType !== 1 ? 24 : 16;
+  const pagerViewRef = useRef<PagerView>(null);
 
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
     props.setCalendarDates({
@@ -43,16 +43,22 @@ export default function Calendar(props: CalendarProps) {
 
     mondays.push(monday); // Add current
     setWeeks(mondays);
+
+    // Hack! - Set the initial page on Android
+    setTimeout(() => {
+      pagerViewRef.current?.setPageWithoutAnimation(mondays.length - 1);
+    }, 0);
   }, []);
 
   return (
     <PagerView
+      ref={pagerViewRef}
       style={{ height: Device.deviceType !== 1 ? 128 : 96 }}
       initialPage={weeks.length - 1}
       onPageSelected={(e) => pageSelected(e)}
     >
       {weeks.map((item, index) => (
-        <View style={[styles.page, { paddingHorizontal: paddingX }]} key={index}>
+        <View key={index} style={styles.page}>
           <Week monday={item} />
         </View>
       ))}
@@ -64,5 +70,6 @@ const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 16,
   },
 });

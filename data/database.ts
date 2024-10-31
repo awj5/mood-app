@@ -20,7 +20,7 @@ export const initDB = async (db: SQLite.SQLiteDatabase) => {
 
   try {
     await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS check_ins (id INTEGER PRIMARY KEY NOT NULL, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, mood TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS check_ins (id INTEGER PRIMARY KEY NOT NULL, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, mood TEXT NOT NULL, note TEXT);
         `);
   } catch (error) {
     console.log(error);

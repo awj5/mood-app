@@ -1,5 +1,6 @@
 import { ScrollView, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
 import { Stack, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import Response from "components/chat/Response";
 import Input from "components/chat/Input";
@@ -39,6 +40,8 @@ export default function Chat() {
 
         <Input />
       </KeyboardAvoidingView>
+
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
