@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Pressable, ScrollView, Text } from "react-native";
-import { Stack } from "expo-router";
+import { View, StyleSheet, Pressable, Text } from "react-native";
+import { SplashScreen, Stack, useRouter } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Settings, CalendarIcon } from "lucide-react-native";
 import BigButton from "components/BigButton";
 import Calendar from "components/home/Calendar";
-import { pressedDefault, theme } from "utils/helpers";
+import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 export type CalendarDatesType = {
   weekStart: Date;
@@ -17,9 +18,31 @@ export type CalendarDatesType = {
 export default function Home() {
   const insets = useSafeAreaInsets();
   const colors = theme();
+  const router = useRouter();
+  const db = useSQLiteContext();
   const [calendarDates, setCalendarDates] = useState<CalendarDatesType>();
   const [rangeText, setRangeText] = useState("");
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const verifyCheckIn = async () => {
+    // Redirect if user hasn't checked-in today
+    try {
+      const today = new Date();
+
+      // Check for check-in today (date column converted to local)
+      const query = `
+    SELECT * FROM check_ins
+    WHERE DATE(datetime(date, 'localtime')) = ?
+  `;
+
+      const row = await db.getFirstAsync(query, [convertToISO(today)]);
+      if (row) router.push("check-in"); // Redirect
+    } catch (error) {
+      console.log(error);
+    }
+
+    SplashScreen.hideAsync();
+  };
 
   useEffect(() => {
     if (calendarDates) {
@@ -41,6 +64,10 @@ export default function Home() {
     }
   }, [calendarDates]);
 
+  useEffect(() => {
+    verifyCheckIn();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -48,7 +75,7 @@ export default function Home() {
           headerTitle: "",
           headerLeft: () => (
             <Pressable
-              onPress={() => null}
+              onPress={() => alert("Coming soon")}
               style={({ pressed }) => [styles.headerLeft, pressedDefault(pressed)]}
               hitSlop={16}
             >
@@ -73,7 +100,11 @@ export default function Home() {
             </Pressable>
           ),
           headerRight: () => (
-            <Pressable onPress={() => null} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+            <Pressable
+              onPress={() => alert("Coming soon")}
+              style={({ pressed }) => pressedDefault(pressed)}
+              hitSlop={16}
+            >
               <Settings
                 color={colors.primary}
                 size={Device.deviceType !== 1 ? 36 : 28}
@@ -86,7 +117,12 @@ export default function Home() {
       />
 
       <Calendar calendarDates={calendarDates} setCalendarDates={setCalendarDates} />
-      <ScrollView></ScrollView>
+      <View style={{ padding: 24 }}>
+        <Text style={{ textAlign: "center", color: colors.secondary, fontSize: 16 }}>
+          This screen will display AI insights from selected mood check-in dates, as well as original content from
+          MOOD.ai and company resources.
+        </Text>
+      </View>
 
       <View
         style={[

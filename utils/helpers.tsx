@@ -19,3 +19,14 @@ export const theme = () => {
     primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
   };
 };
+
+export const convertToISO = (date: Date) => {
+  const isoDate =
+    date.getFullYear() +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(date.getDate()).padStart(2, "0");
+
+  return isoDate;
+};

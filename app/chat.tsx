@@ -1,10 +1,12 @@
-import { ScrollView, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
+import { ScrollView, SafeAreaView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
+import { Sparkles } from "lucide-react-native";
 import Response from "components/chat/Response";
 import Input from "components/chat/Input";
-import { theme } from "utils/helpers";
+import { pressedDefault, theme } from "utils/helpers";
 
 export default function Chat() {
   const headerHeight = useHeaderHeight();
@@ -20,11 +22,38 @@ export default function Chat() {
           headerLeft: () => (
             <HeaderBackButton
               onPress={() => router.dismissAll()}
+              label="Home"
               labelStyle={{ fontFamily: "Circular-Book" }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
+          ),
+          headerRight: () => (
+            <Pressable
+              onPress={() => alert("Coming soon")}
+              style={({ pressed }) => [styles.headerRight, pressedDefault(pressed)]}
+              hitSlop={16}
+            >
+              <Sparkles
+                color={colors.primary}
+                size={Device.deviceType !== 1 ? 32 : 24}
+                absoluteStrokeWidth
+                strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+              />
+              <Text
+                style={[
+                  styles.headerText,
+                  {
+                    fontSize: Device.deviceType !== 1 ? 20 : 16,
+                    color: colors.primary,
+                  },
+                ]}
+                allowFontScaling={false}
+              >
+                Company Insights
+              </Text>
+            </Pressable>
           ),
         }}
       />
@@ -45,3 +74,14 @@ export default function Chat() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  headerRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  headerText: {
+    fontFamily: "Circular-Bold",
+  },
+});

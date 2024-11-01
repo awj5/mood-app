@@ -1,11 +1,11 @@
 import { useCallback, useState, useRef } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { theme } from "utils/helpers";
+import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 type DayProps = {
   date: Date;
@@ -15,11 +15,14 @@ export default function Day(props: DayProps) {
   const db = useSQLiteContext();
   const colors = theme();
   const [checkInMood, setCheckInMood] = useState<CheckInMoodType>();
+  const [checkInCount, setCheckInCount] = useState(0);
   const [isToday, setIsToday] = useState(false);
   const queriedRef = useRef(false);
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const today = new Date();
 
   const emojis = {
+    empty: require("../../../assets/img/emoji/small/white-empty.svg"),
     0: require("../../../assets/img/emoji/small/white.svg"),
     1: require("../../../assets/img/emoji/small/yellow.svg"),
     2: require("../../../assets/img/emoji/small/chartreuse.svg"),
@@ -36,8 +39,6 @@ export default function Day(props: DayProps) {
   };
 
   const getData = async () => {
-    const today = new Date();
-
     const todayCheck =
       today.getDate() === props.date.getDate() &&
       today.getMonth() === props.date.getMonth() &&
@@ -50,25 +51,18 @@ export default function Day(props: DayProps) {
     // If date is current day then query again to get latest check-in
     if (!queriedRef.current || (queriedRef.current && todayCheck)) {
       try {
-        // Convert to ISO format but remain local
-        const isoDate =
-          props.date.getFullYear() +
-          "-" +
-          String(props.date.getMonth() + 1).padStart(2, "0") +
-          "-" +
-          String(props.date.getDate()).padStart(2, "0");
-
         // Check for check-ins on this date (date column converted to local)
         const query = `
       SELECT * FROM check_ins
       WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC
     `;
 
-        const row: CheckInType | null = await db.getFirstAsync(query, [isoDate]);
+        const rows: CheckInType[] | null = await db.getAllAsync(query, [convertToISO(props.date)]);
 
-        if (row) {
-          const mood: CheckInMoodType = JSON.parse(row.mood);
+        if (rows.length) {
+          const mood: CheckInMoodType = JSON.parse(rows[0].mood);
           setCheckInMood(mood);
+          setCheckInCount(rows.length);
         }
 
         queriedRef.current = true;
@@ -85,9 +79,34 @@ export default function Day(props: DayProps) {
   );
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      onPress={() => alert("Coming soon")}
+      style={({ pressed }) => [styles.container, pressedDefault(pressed)]}
+      hitSlop={4}
+      disabled={!checkInMood}
+    >
+      <View
+        style={[
+          styles.count,
+          {
+            display: checkInCount ? "flex" : "none",
+            width: Device.deviceType !== 1 ? 20 : 16,
+          },
+        ]}
+      >
+        <Text style={[styles.countText, { fontSize: Device.deviceType !== 1 ? 12 : 10 }]} allowFontScaling={false}>
+          {checkInCount}
+        </Text>
+      </View>
+
       <Image
-        source={checkInMood ? emojis[checkInMood.color as keyof typeof emojis] : emojis[0]}
+        source={
+          checkInMood
+            ? emojis[checkInMood.color as keyof typeof emojis]
+            : props.date < today
+            ? emojis["empty"]
+            : emojis[0]
+        }
         style={[styles.image, { width: Device.deviceType !== 1 ? 52 : 40 }]}
       />
 
@@ -103,7 +122,7 @@ export default function Day(props: DayProps) {
       >
         {days[props.date.getDay()]}
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -111,6 +130,21 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     gap: 4,
+  },
+  count: {
+    position: "absolute",
+    top: -4,
+    right: -2,
+    zIndex: 1,
+    backgroundColor: "black",
+    borderRadius: 999,
+    aspectRatio: "1/1",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  countText: {
+    fontFamily: "Circular-Medium",
+    color: "white",
   },
   image: {
     aspectRatio: "1/1",

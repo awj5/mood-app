@@ -16,6 +16,7 @@ import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
 import Background2 from "components/check-in/Background2";
+import { theme } from "utils/helpers";
 
 export type MoodType = {
   id: number;
@@ -37,6 +38,7 @@ export type CompetencyType = {
 export default function CheckIn() {
   const db = useSQLiteContext();
   const router = useRouter();
+  const colors = theme();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
@@ -87,6 +89,9 @@ export default function CheckIn() {
         options={{
           headerShown: false,
           animation: "none",
+          contentStyle: {
+            backgroundColor: colors.primary === "white" ? "black" : "white",
+          },
         }}
       />
 

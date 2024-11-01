@@ -28,9 +28,9 @@ export default function Layout() {
     "Circular-Medium": require("../assets/fonts/lineto-circular-medium.ttf"),
   });
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (fontsLoaded || fontError) SplashScreen.hideAsync();
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded, fontError]); */
 
   useEffect(() => {
     // Hack! - RN dimensions not returning acurate values on iPad rotation
