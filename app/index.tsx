@@ -36,7 +36,7 @@ export default function Home() {
   `;
 
       const row = await db.getFirstAsync(query, [convertToISO(today)]);
-      if (row) router.push("check-in"); // Redirect
+      if (!row) router.push("check-in"); // Redirect
     } catch (error) {
       console.log(error);
     }
