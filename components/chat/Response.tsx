@@ -45,7 +45,6 @@ export default function Response() {
           {
             color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
-            marginTop: Device.deviceType !== 1 ? 14 : 10,
           },
         ]}
       >
