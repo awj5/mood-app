@@ -89,7 +89,7 @@ export default function Day(props: DayProps) {
         style={[
           styles.count,
           {
-            display: checkInCount ? "flex" : "none",
+            display: checkInCount > 1 ? "flex" : "none",
             width: Device.deviceType !== 1 ? 20 : 16,
           },
         ]}
