@@ -85,11 +85,12 @@ export default function Home() {
                 absoluteStrokeWidth
                 strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
               />
+
               <Text
                 style={[
                   styles.headerText,
                   {
-                    fontSize: Device.deviceType !== 1 ? 24 : 18,
+                    fontSize: Device.deviceType !== 1 ? 20 : 16,
                     color: colors.primary,
                   },
                 ]}

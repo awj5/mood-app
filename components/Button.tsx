@@ -1,35 +1,30 @@
 import { StyleSheet, Pressable, Text } from "react-native";
-import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { pressedDefault, theme } from "utils/helpers";
 
-type BigButtonProps = {
+type ButtonProps = {
   text: string;
-  route: string;
 };
 
-export default function BigButton(props: BigButtonProps) {
-  const router = useRouter();
+export default function Button(props: ButtonProps) {
   const colors = theme();
 
   return (
     <Pressable
-      onPress={() => router.push(props.route)}
+      onPress={() => null}
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
         {
-          backgroundColor: colors.primary,
-          paddingVertical: Device.deviceType !== 1 ? 24 : 20,
+          paddingVertical: Device.deviceType !== 1 ? 20 : 12,
+          borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
+          borderColor: colors.primary,
         },
       ]}
       hitSlop={8}
     >
       <Text
-        style={[
-          styles.text,
-          { color: colors.primary === "white" ? "black" : "white", fontSize: Device.deviceType !== 1 ? 24 : 18 },
-        ]}
+        style={[styles.text, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
         allowFontScaling={false}
       >
         {props.text}
@@ -41,11 +36,10 @@ export default function BigButton(props: BigButtonProps) {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 999,
-    width: "100%",
-    maxWidth: 448,
+    flex: 1,
     alignItems: "center",
   },
   text: {
-    fontFamily: "Circular-Bold",
+    fontFamily: "Circular-Medium",
   },
 });

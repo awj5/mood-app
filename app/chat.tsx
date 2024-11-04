@@ -14,7 +14,7 @@ export default function Chat() {
   const colors = theme();
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Stack.Screen
         options={{
           gestureEnabled: false,
@@ -23,7 +23,7 @@ export default function Chat() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Home"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 24 : 18 }}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
@@ -41,9 +41,10 @@ export default function Chat() {
                 absoluteStrokeWidth
                 strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
               />
+
               <Text
                 style={[
-                  styles.headerText,
+                  styles.headerRightText,
                   {
                     fontSize: Device.deviceType !== 1 ? 20 : 16,
                     color: colors.primary,
@@ -59,7 +60,7 @@ export default function Chat() {
       />
 
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={headerHeight}
       >
@@ -76,12 +77,15 @@ export default function Chat() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
   },
-  headerText: {
+  headerRightText: {
     fontFamily: "Circular-Bold",
   },
 });
