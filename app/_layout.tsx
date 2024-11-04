@@ -70,8 +70,18 @@ export default function Layout() {
                 backgroundColor: colors.primaryBg,
               },
               headerTintColor: colors.primary,
+              headerLargeTitleStyle: {
+                fontFamily: "Circular-Bold",
+              },
             }}
-          />
+          >
+            <Stack.Screen
+              name="date-filters"
+              options={{
+                presentation: "modal",
+              }}
+            />
+          </Stack>
         </GestureHandlerRootView>
       </DimensionsContext.Provider>
     </SQLiteProvider>

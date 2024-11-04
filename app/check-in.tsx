@@ -72,7 +72,7 @@ export default function CheckIn() {
       if (currentValue !== previousValue && currentValue >= 0) {
         const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
         mood.value = MoodsData[index];
-        foreground.value = currentValue >= 15 && currentValue < 195 ? "black" : "white";
+        foreground.value = (currentValue >= 0 && currentValue < 165) || currentValue >= 345 ? "black" : "white";
       }
     }
   );
@@ -123,7 +123,7 @@ export default function CheckIn() {
               <Done color={foreground.value} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
               <Statement
-                moodColor={mood.value.color}
+                moodID={mood.value.id}
                 color={foreground.value}
                 sliderVal={sliderVal}
                 competency={competency}

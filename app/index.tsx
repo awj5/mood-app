@@ -75,7 +75,7 @@ export default function Home() {
           headerTitle: "",
           headerLeft: () => (
             <Pressable
-              onPress={() => alert("Coming soon")}
+              onPress={() => router.push("date-filters")}
               style={({ pressed }) => [styles.headerLeft, pressedDefault(pressed)]}
               hitSlop={16}
             >
