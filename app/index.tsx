@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Settings, CalendarIcon, Share } from "lucide-react-native";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { Settings, Share } from "lucide-react-native";
 import BigButton from "components/BigButton";
 import Calendar from "components/home/Calendar";
+import HeaderLeft from "components/home/HeaderLeft";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 export default function Home() {
@@ -15,9 +15,6 @@ export default function Home() {
   const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const [rangeText, setRangeText] = useState("");
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   const verifyCheckIn = async () => {
     // Redirect if user hasn't checked-in today
@@ -40,26 +37,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (homeDates) {
-      const today = new Date();
-      const year = today.getFullYear();
-
-      const start = `${months[homeDates.weekStart.getMonth()]} ${homeDates.weekStart.getDate()}${
-        homeDates.weekStart.getFullYear() !== year ? ` ${homeDates.weekStart.getFullYear()}` : ""
-      }`;
-
-      const endDate = new Date(homeDates.weekStart);
-      endDate.setDate(homeDates.weekStart.getDate() + 6); // Sunday
-
-      const end = `${months[endDate.getMonth()]} ${endDate.getDate()}${
-        endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
-      }`;
-
-      setRangeText(`${start} - ${end}`);
-    }
-  }, [homeDates]);
-
-  useEffect(() => {
     verifyCheckIn();
   }, []);
 
@@ -68,33 +45,7 @@ export default function Home() {
       <Stack.Screen
         options={{
           headerTitle: "",
-          headerLeft: () => (
-            <Pressable
-              onPress={() => router.push("date-filters")}
-              style={({ pressed }) => [styles.headerLeft, pressedDefault(pressed)]}
-              hitSlop={16}
-            >
-              <CalendarIcon
-                color={colors.primary}
-                size={Device.deviceType !== 1 ? 32 : 24}
-                absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-              />
-
-              <Text
-                style={[
-                  styles.headerText,
-                  {
-                    fontSize: Device.deviceType !== 1 ? 20 : 16,
-                    color: colors.primary,
-                  },
-                ]}
-                allowFontScaling={false}
-              >
-                {rangeText}
-              </Text>
-            </Pressable>
-          ),
+          headerLeft: () => <HeaderLeft />,
           headerRight: () => (
             <View style={[styles.headerRight, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
               <Pressable
@@ -154,14 +105,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  headerText: {
-    fontFamily: "Circular-Book",
   },
   headerRight: {
     flexDirection: "row",

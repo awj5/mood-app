@@ -34,6 +34,19 @@ export default function DateFilters() {
     router.back();
   };
 
+  const setThisMonth = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1);
+    const monday = getMonday(firstDayOfMonth);
+    const firstDayOfNextMonth = new Date(year, month + 1, 1);
+    const lastDayOfMonth = new Date(firstDayOfNextMonth);
+    lastDayOfMonth.setDate(firstDayOfNextMonth.getDate() - 1);
+    setHomeDates({ weekStart: monday, rangeStart: firstDayOfMonth, rangeEnd: lastDayOfMonth });
+    router.back();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -57,7 +70,7 @@ export default function DateFilters() {
         </View>
 
         <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-          <Button text="This month" func={setLastWeek}></Button>
+          <Button text="This month" func={setThisMonth}></Button>
           <Button text="Last month" func={setLastWeek}></Button>
         </View>
 

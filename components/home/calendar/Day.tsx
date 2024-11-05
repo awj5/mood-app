@@ -14,10 +14,10 @@ type DayProps = {
 export default function Day(props: DayProps) {
   const db = useSQLiteContext();
   const colors = theme();
+  const queriedRef = useRef(false);
   const [checkInMood, setCheckInMood] = useState<CheckInMoodType>();
   const [checkInCount, setCheckInCount] = useState(0);
   const [isToday, setIsToday] = useState(false);
-  const queriedRef = useRef(false);
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
 
@@ -120,7 +120,8 @@ export default function Day(props: DayProps) {
         ]}
         allowFontScaling={false}
       >
-        {days[props.date.getDay()]}
+        {/* days[props.date.getDay()]*/}
+        {props.date.getDate()}/{props.date.getMonth() + 1}
       </Text>
     </Pressable>
   );

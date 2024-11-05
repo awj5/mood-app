@@ -32,7 +32,11 @@ export default function Chat() {
           headerRight: () => (
             <Pressable
               onPress={() => alert("Coming soon")}
-              style={({ pressed }) => [styles.headerRight, pressedDefault(pressed)]}
+              style={({ pressed }) => [
+                styles.headerRight,
+                pressedDefault(pressed),
+                { gap: Device.deviceType !== 1 ? 10 : 8 },
+              ]}
               hitSlop={16}
             >
               <Sparkles
@@ -83,7 +87,6 @@ const styles = StyleSheet.create({
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
   },
   headerRightText: {
     fontFamily: "Circular-Bold",

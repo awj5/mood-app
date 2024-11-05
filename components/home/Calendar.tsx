@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, AppState } from "react-native";
 import * as Device from "expo-device";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
@@ -8,15 +8,27 @@ import { getMonday } from "utils/helpers";
 
 export default function Calendar() {
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const [weeks, setWeeks] = useState<Date[]>([]);
   const pagerViewRef = useRef<PagerView>(null);
+  const appState = useRef(AppState.currentState);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [weeks, setWeeks] = useState<Date[]>([]);
+  const [visible, setVisible] = useState(false);
+  const [initPage, setInitPage] = useState(0);
+  const [page, setPage] = useState(0);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
-    setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
+    if (!homeDates?.rangeStart) {
+      setPage(e.nativeEvent.position);
+      setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
+    }
   };
 
-  useEffect(() => {
-    // Set Monday of current week
+  const getCurrentMondays = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     const today = new Date();
     const monday = getMonday(today);
     const mondays = [];
@@ -31,44 +43,106 @@ export default function Calendar() {
     mondays.push(monday); // Add current
     setWeeks(mondays);
 
-    // Hack! - Set the initial page on Android
-    setTimeout(() => {
-      pagerViewRef.current?.setPageWithoutAnimation(mondays.length - 1);
-      setHomeDates({ ...homeDates, weekStart: monday });
+    timeoutRef.current = setTimeout(() => {
+      setVisible(true);
     }, 0);
-  }, []);
+  };
+
+  const isLastWeek = (date: Date) => {
+    const today = new Date();
+    const monday = getMonday(today);
+    const prevMonday = new Date(monday);
+    prevMonday.setDate(monday.getDate() - 7);
+    return prevMonday.toLocaleDateString() === date.toLocaleDateString();
+  };
+
+  useEffect(() => {
+    // Set calendar to current week on init and when app returns to focus
+    if (appStateVisible === "active") {
+      setVisible(false);
+      setInitPage(11);
+      const today = new Date();
+      const monday = getMonday(today);
+      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+      getCurrentMondays();
+    }
+  }, [appStateVisible]);
+
+  useEffect(() => {
+    if (homeDates?.rangeStart && homeDates.rangeEnd) {
+      // Date range has been set
+      setVisible(false);
+      setInitPage(0);
+      const startMonday = homeDates.weekStart;
+      const endMonday = getMonday(homeDates.rangeEnd);
+      const mondays = [];
+
+      // Get mondays within date range
+      while (homeDates.weekStart <= endMonday) {
+        mondays.push(new Date(startMonday));
+        startMonday.setDate(startMonday.getDate() + 7);
+      }
+
+      setWeeks(mondays);
+
+      const timeout = setTimeout(() => {
+        setVisible(true);
+      }, 0);
+
+      return () => clearTimeout(timeout);
+    } else if (homeDates?.weekStart) {
+      // Date range no longer applied
+      setVisible(false);
+      setInitPage(isLastWeek(homeDates?.weekStart) ? 10 : 11);
+      getCurrentMondays();
+    }
+  }, [homeDates?.rangeStart]);
 
   useEffect(() => {
     // Automatically move to current or last week
     const today = new Date();
     const monday = getMonday(today);
-    const prevMonday = new Date(monday);
-    prevMonday.setDate(monday.getDate() - 7);
 
-    if (prevMonday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
-      pagerViewRef.current?.setPageWithoutAnimation(weeks.length - 2); // Last week
-    } else if (monday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
-      pagerViewRef.current?.setPageWithoutAnimation(weeks.length - 1); // Current week
+    if (page !== 10 && homeDates?.weekStart && isLastWeek(homeDates.weekStart)) {
+      pagerViewRef.current?.setPageWithoutAnimation(10); // Last week
+    } else if (page !== 11 && monday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
+      pagerViewRef.current?.setPageWithoutAnimation(11); // Current week
     }
   }, [homeDates]);
 
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+    });
+
+    return () => subscription.remove();
+  }, []);
+
   return (
-    <PagerView
-      ref={pagerViewRef}
-      style={{ height: Device.deviceType !== 1 ? 128 : 96 }}
-      initialPage={weeks.length - 1}
-      onPageSelected={(e) => pageSelected(e)}
-    >
-      {weeks.map((item, index) => (
-        <View key={index} style={styles.page}>
-          <Week monday={item} />
-        </View>
-      ))}
-    </PagerView>
+    <View style={{ height: Device.deviceType !== 1 ? 128 : 96 }}>
+      {visible && (
+        <PagerView
+          ref={pagerViewRef}
+          initialPage={initPage}
+          style={styles.viewer}
+          onPageSelected={(e) => pageSelected(e)}
+        >
+          {weeks.map((item, index) => (
+            <View key={index} style={styles.page}>
+              <Week monday={item} />
+            </View>
+          ))}
+        </PagerView>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  viewer: {
+    height: "100%",
+  },
   page: {
     justifyContent: "center",
     alignItems: "center",
