@@ -1,37 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
-import { CalendarDatesType } from "app";
+import { getMonday } from "utils/helpers";
 
-type CalendarProps = {
-  calendarDates: CalendarDatesType | undefined;
-  setCalendarDates: React.Dispatch<React.SetStateAction<CalendarDatesType | undefined>>;
-};
-
-export default function Calendar(props: CalendarProps) {
+export default function Calendar() {
+  const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [weeks, setWeeks] = useState<Date[]>([]);
   const pagerViewRef = useRef<PagerView>(null);
 
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
-    props.setCalendarDates({
-      weekStart: weeks[e.nativeEvent.position],
-    });
+    setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
   };
 
   useEffect(() => {
     // Set Monday of current week
-    const today = new Date(); // Local
-    const day = today.getDay();
-    const daysFromMonday = day === 0 ? 6 : day - 1;
-    const monday = new Date(today);
-    monday.setDate(today.getDate() - daysFromMonday);
-
-    props.setCalendarDates({
-      weekStart: monday,
-    });
-
+    const today = new Date();
+    const monday = getMonday(today);
     const mondays = [];
 
     // Get 11 previous Mondays
@@ -47,8 +34,23 @@ export default function Calendar(props: CalendarProps) {
     // Hack! - Set the initial page on Android
     setTimeout(() => {
       pagerViewRef.current?.setPageWithoutAnimation(mondays.length - 1);
+      setHomeDates({ ...homeDates, weekStart: monday });
     }, 0);
   }, []);
+
+  useEffect(() => {
+    // Automatically move to current or last week
+    const today = new Date();
+    const monday = getMonday(today);
+    const prevMonday = new Date(monday);
+    prevMonday.setDate(monday.getDate() - 7);
+
+    if (prevMonday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
+      pagerViewRef.current?.setPageWithoutAnimation(weeks.length - 2); // Last week
+    } else if (monday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
+      pagerViewRef.current?.setPageWithoutAnimation(weeks.length - 1); // Current week
+    }
+  }, [homeDates]);
 
   return (
     <PagerView

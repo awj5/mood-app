@@ -52,7 +52,7 @@ export default function Chat() {
                 ]}
                 allowFontScaling={false}
               >
-                Company Insights
+                Acme, Inc. Insights
               </Text>
             </Pressable>
           ),

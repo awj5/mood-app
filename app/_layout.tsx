@@ -8,6 +8,7 @@ import { SQLiteProvider } from "expo-sqlite";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "data/database";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
+import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
 import { theme } from "../utils/helpers";
 
 SplashScreen.preventAutoHideAsync();
@@ -17,6 +18,7 @@ export default function Layout() {
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
+  const [homeDates, setHomeDates] = useState<CalendarDatesType>();
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
@@ -27,10 +29,6 @@ export default function Layout() {
     "Circular-Book": require("../assets/fonts/lineto-circular-book.ttf"),
     "Circular-Medium": require("../assets/fonts/lineto-circular-medium.ttf"),
   });
-
-  /* useEffect(() => {
-    if (fontsLoaded || fontError) SplashScreen.hideAsync();
-  }, [fontsLoaded, fontError]); */
 
   useEffect(() => {
     // Hack! - RN dimensions not returning acurate values on iPad rotation
@@ -59,30 +57,32 @@ export default function Layout() {
   return (
     <SQLiteProvider databaseName="mood.db" onInit={initDB}>
       <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack
-            screenOptions={{
-              contentStyle: {
-                backgroundColor: colors.primaryBg,
-              },
-              headerShadowVisible: false,
-              headerStyle: {
-                backgroundColor: colors.primaryBg,
-              },
-              headerTintColor: colors.primary,
-              headerLargeTitleStyle: {
-                fontFamily: "Circular-Bold",
-              },
-            }}
-          >
-            <Stack.Screen
-              name="date-filters"
-              options={{
-                presentation: "modal",
+        <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Stack
+              screenOptions={{
+                contentStyle: {
+                  backgroundColor: colors.primaryBg,
+                },
+                headerShadowVisible: false,
+                headerStyle: {
+                  backgroundColor: colors.primaryBg,
+                },
+                headerTintColor: colors.primary,
+                headerLargeTitleStyle: {
+                  fontFamily: "Circular-Bold",
+                },
               }}
-            />
-          </Stack>
-        </GestureHandlerRootView>
+            >
+              <Stack.Screen
+                name="date-filters"
+                options={{
+                  presentation: "modal",
+                }}
+              />
+            </Stack>
+          </GestureHandlerRootView>
+        </HomeDatesContext.Provider>
       </DimensionsContext.Provider>
     </SQLiteProvider>
   );

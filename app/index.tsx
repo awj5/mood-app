@@ -1,26 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Settings, CalendarIcon } from "lucide-react-native";
+import { Settings, CalendarIcon, Share } from "lucide-react-native";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import BigButton from "components/BigButton";
 import Calendar from "components/home/Calendar";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
-
-export type CalendarDatesType = {
-  weekStart: Date;
-  rangeStart?: Date;
-  rangeEnd?: Date;
-};
 
 export default function Home() {
   const insets = useSafeAreaInsets();
   const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
-  const [calendarDates, setCalendarDates] = useState<CalendarDatesType>();
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [rangeText, setRangeText] = useState("");
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -45,16 +40,16 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (calendarDates) {
+    if (homeDates) {
       const today = new Date();
       const year = today.getFullYear();
 
-      const start = `${months[calendarDates.weekStart.getMonth()]} ${calendarDates.weekStart.getDate()}${
-        calendarDates.weekStart.getFullYear() !== year ? ` ${calendarDates.weekStart.getFullYear()}` : ""
+      const start = `${months[homeDates.weekStart.getMonth()]} ${homeDates.weekStart.getDate()}${
+        homeDates.weekStart.getFullYear() !== year ? ` ${homeDates.weekStart.getFullYear()}` : ""
       }`;
 
-      const endDate = new Date(calendarDates.weekStart);
-      endDate.setDate(calendarDates.weekStart.getDate() + 6); // Sunday
+      const endDate = new Date(homeDates.weekStart);
+      endDate.setDate(homeDates.weekStart.getDate() + 6); // Sunday
 
       const end = `${months[endDate.getMonth()]} ${endDate.getDate()}${
         endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
@@ -62,7 +57,7 @@ export default function Home() {
 
       setRangeText(`${start} - ${end}`);
     }
-  }, [calendarDates]);
+  }, [homeDates]);
 
   useEffect(() => {
     verifyCheckIn();
@@ -101,23 +96,39 @@ export default function Home() {
             </Pressable>
           ),
           headerRight: () => (
-            <Pressable
-              onPress={() => alert("Coming soon")}
-              style={({ pressed }) => pressedDefault(pressed)}
-              hitSlop={16}
-            >
-              <Settings
-                color={colors.primary}
-                size={Device.deviceType !== 1 ? 36 : 28}
-                absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-              />
-            </Pressable>
+            <View style={[styles.headerRight, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
+              <Pressable
+                onPress={() => alert("Coming soon")}
+                style={({ pressed }) => pressedDefault(pressed)}
+                hitSlop={8}
+              >
+                <Share
+                  color={colors.primary}
+                  size={Device.deviceType !== 1 ? 36 : 28}
+                  absoluteStrokeWidth
+                  strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+                />
+              </Pressable>
+
+              <Pressable
+                onPress={() => alert("Coming soon")}
+                style={({ pressed }) => pressedDefault(pressed)}
+                hitSlop={8}
+              >
+                <Settings
+                  color={colors.primary}
+                  size={Device.deviceType !== 1 ? 36 : 28}
+                  absoluteStrokeWidth
+                  strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+                />
+              </Pressable>
+            </View>
           ),
         }}
       />
 
-      <Calendar calendarDates={calendarDates} setCalendarDates={setCalendarDates} />
+      <Calendar />
+
       <View style={{ padding: 24 }}>
         <Text style={{ textAlign: "center", color: colors.secondary, fontSize: 16 }}>
           This screen will display AI insights from selected mood check-in dates, as well as original content from
@@ -151,6 +162,9 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontFamily: "Circular-Book",
+  },
+  headerRight: {
+    flexDirection: "row",
   },
   footer: {
     position: "absolute",

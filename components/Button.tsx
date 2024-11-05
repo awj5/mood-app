@@ -4,6 +4,7 @@ import { pressedDefault, theme } from "utils/helpers";
 
 type ButtonProps = {
   text: string;
+  func: () => void;
 };
 
 export default function Button(props: ButtonProps) {
@@ -11,7 +12,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <Pressable
-      onPress={() => null}
+      onPress={() => props.func()}
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,

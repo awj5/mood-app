@@ -1,20 +1,38 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pressable, StyleSheet, SafeAreaView, Text, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Button from "components/Button";
-import { theme, pressedDefault } from "utils/helpers";
+import { theme, pressedDefault, getMonday } from "utils/helpers";
 
 export default function DateFilters() {
   const colors = theme();
   const router = useRouter();
+  const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   //const [date, setDate] = useState(new Date(1598051730000));
 
   /*const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate;
     setDate(currentDate);
   };*/
+
+  const setThisWeek = () => {
+    const today = new Date();
+    const monday = getMonday(today);
+    setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+    router.back();
+  };
+
+  const setLastWeek = () => {
+    const today = new Date();
+    const monday = getMonday(today);
+    const prevMonday = new Date(monday);
+    prevMonday.setDate(monday.getDate() - 7);
+    setHomeDates({ weekStart: prevMonday, rangeStart: undefined, rangeEnd: undefined });
+    router.back();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,18 +52,18 @@ export default function DateFilters() {
 
       <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 24 : 16 }]}>
         <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-          <Button text="This week"></Button>
-          <Button text="Last week"></Button>
+          <Button text="This week" func={setThisWeek}></Button>
+          <Button text="Last week" func={setLastWeek}></Button>
         </View>
 
         <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-          <Button text="This month"></Button>
-          <Button text="Last month"></Button>
+          <Button text="This month" func={setLastWeek}></Button>
+          <Button text="Last month" func={setLastWeek}></Button>
         </View>
 
         <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-          <Button text="Past 6 months"></Button>
-          <Button text="Past year"></Button>
+          <Button text="Past 6 months" func={setLastWeek}></Button>
+          <Button text="Past year" func={setLastWeek}></Button>
         </View>
 
         {/*<DateTimePicker testID="dateTimePicker" value={date} mode="date" is24Hour={true} onChange={onChange} />*/}

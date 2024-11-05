@@ -20,6 +20,8 @@ export const theme = () => {
   };
 };
 
+/* Dates */
+
 export const convertToISO = (date: Date) => {
   const isoDate =
     date.getFullYear() +
@@ -29,4 +31,12 @@ export const convertToISO = (date: Date) => {
     String(date.getDate()).padStart(2, "0");
 
   return isoDate;
+};
+
+export const getMonday = (date: Date) => {
+  const day = date.getDay();
+  const daysFromMonday = day === 0 ? 6 : day - 1;
+  const monday = new Date(date);
+  monday.setDate(date.getDate() - daysFromMonday);
+  return monday;
 };
