@@ -16,6 +16,15 @@ export default function Calendar() {
   const [initPage, setInitPage] = useState(0);
   const [page, setPage] = useState(0);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const defaultPageCount = 11; // Display 12 weeks
+
+  const isLastWeek = (date: Date) => {
+    const today = new Date();
+    const monday = getMonday(today);
+    const prevMonday = new Date(monday);
+    prevMonday.setDate(monday.getDate() - 7);
+    return prevMonday.toLocaleDateString() === date.toLocaleDateString();
+  };
 
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
     if (!homeDates?.rangeStart) {
@@ -24,7 +33,7 @@ export default function Calendar() {
     }
   };
 
-  const getCurrentMondays = () => {
+  const setDefaultPages = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -34,7 +43,7 @@ export default function Calendar() {
     const mondays = [];
 
     // Get 11 previous Mondays
-    for (let i = 11; i >= 1; i--) {
+    for (let i = defaultPageCount; i >= 1; i--) {
       let prevMonday = new Date(monday);
       prevMonday.setDate(monday.getDate() - i * 7);
       mondays.push(prevMonday);
@@ -48,23 +57,15 @@ export default function Calendar() {
     }, 0);
   };
 
-  const isLastWeek = (date: Date) => {
-    const today = new Date();
-    const monday = getMonday(today);
-    const prevMonday = new Date(monday);
-    prevMonday.setDate(monday.getDate() - 7);
-    return prevMonday.toLocaleDateString() === date.toLocaleDateString();
-  };
-
   useEffect(() => {
     // Set calendar to current week on init and when app returns to focus
     if (appStateVisible === "active") {
       setVisible(false);
-      setInitPage(11);
+      setInitPage(defaultPageCount);
       const today = new Date();
       const monday = getMonday(today);
-      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
-      getCurrentMondays();
+      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined }); // Reset
+      setDefaultPages();
     }
   }, [appStateVisible]);
 
@@ -93,8 +94,8 @@ export default function Calendar() {
     } else if (homeDates?.weekStart) {
       // Date range no longer applied
       setVisible(false);
-      setInitPage(isLastWeek(homeDates?.weekStart) ? 10 : 11);
-      getCurrentMondays();
+      setInitPage(isLastWeek(homeDates?.weekStart) ? defaultPageCount - 1 : defaultPageCount); // Current or last week
+      setDefaultPages();
     }
   }, [homeDates?.rangeStart]);
 
@@ -103,10 +104,10 @@ export default function Calendar() {
     const today = new Date();
     const monday = getMonday(today);
 
-    if (page !== 10 && homeDates?.weekStart && isLastWeek(homeDates.weekStart)) {
-      pagerViewRef.current?.setPageWithoutAnimation(10); // Last week
-    } else if (page !== 11 && monday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
-      pagerViewRef.current?.setPageWithoutAnimation(11); // Current week
+    if (page !== defaultPageCount - 1 && homeDates?.weekStart && isLastWeek(homeDates.weekStart)) {
+      pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount - 1); // Last week
+    } else if (page !== defaultPageCount && monday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
+      pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount); // Current week
     }
   }, [homeDates]);
 
