@@ -1,10 +1,12 @@
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useContext } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
+import { getLocales } from "expo-localization";
 import { CheckInMoodType, CheckInType } from "data/database";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 type DayProps = {
@@ -14,6 +16,8 @@ type DayProps = {
 export default function Day(props: DayProps) {
   const db = useSQLiteContext();
   const colors = theme();
+  const localization = getLocales();
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const queriedRef = useRef(false);
   const [checkInMood, setCheckInMood] = useState<CheckInMoodType>();
   const [checkInCount, setCheckInCount] = useState(0);
@@ -120,8 +124,11 @@ export default function Day(props: DayProps) {
         ]}
         allowFontScaling={false}
       >
-        {/* days[props.date.getDay()]*/}
-        {props.date.getDate()}/{props.date.getMonth() + 1}
+        {!homeDates?.rangeStart
+          ? days[props.date.getDay()]
+          : localization[0].languageTag === "en-US"
+          ? `${props.date.getMonth() + 1}/${props.date.getDate()}`
+          : `${props.date.getDate()}/${props.date.getMonth() + 1}`}
       </Text>
     </Pressable>
   );
