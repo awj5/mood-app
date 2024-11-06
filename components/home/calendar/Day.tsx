@@ -21,7 +21,6 @@ export default function Day(props: DayProps) {
   const queriedRef = useRef(false);
   const [checkInMood, setCheckInMood] = useState<CheckInMoodType>();
   const [checkInCount, setCheckInCount] = useState(0);
-  const [isToday, setIsToday] = useState(false);
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
 
@@ -42,18 +41,41 @@ export default function Day(props: DayProps) {
     12: require("../../../assets/img/emoji/small/orange.svg"),
   };
 
-  const getData = async () => {
-    const todayCheck =
+  const isInRange = () => {
+    if (homeDates?.rangeStart && homeDates?.rangeEnd) {
+      const start = new Date(
+        homeDates.rangeStart.getFullYear(),
+        homeDates.rangeStart.getMonth(),
+        homeDates.rangeStart.getDate()
+      );
+
+      const end = new Date(
+        homeDates.rangeEnd.getFullYear(),
+        homeDates.rangeEnd.getMonth(),
+        homeDates.rangeEnd.getDate()
+      );
+
+      const date = new Date(props.date.getFullYear(), props.date.getMonth(), props.date.getDate());
+      return date >= start && date <= end ? true : false;
+    } else {
+      return true;
+    }
+  };
+
+  const isToday = () => {
+    const result =
       today.getDate() === props.date.getDate() &&
       today.getMonth() === props.date.getMonth() &&
       today.getFullYear() === props.date.getFullYear()
         ? true
         : false;
 
-    setIsToday(todayCheck);
+    return result;
+  };
 
+  const getData = async () => {
     // If date is current day then query again to get latest check-in
-    if (!queriedRef.current || (queriedRef.current && todayCheck)) {
+    if (!queriedRef.current || (queriedRef.current && isToday())) {
       try {
         // Check for check-ins on this date (date column converted to local)
         const query = `
@@ -85,51 +107,68 @@ export default function Day(props: DayProps) {
   return (
     <Pressable
       onPress={() => alert("Coming soon")}
-      style={({ pressed }) => [styles.container, pressedDefault(pressed)]}
+      style={({ pressed }) => [pressedDefault(pressed)]}
       hitSlop={4}
-      disabled={!checkInMood}
+      disabled={checkInMood && isInRange() ? false : true}
     >
-      <View
-        style={[
-          styles.count,
-          {
-            display: checkInCount > 1 ? "flex" : "none",
-            width: Device.deviceType !== 1 ? 20 : 16,
-          },
-        ]}
-      >
-        <Text style={[styles.countText, { fontSize: Device.deviceType !== 1 ? 12 : 10 }]} allowFontScaling={false}>
-          {checkInCount}
+      <View style={[styles.container, { opacity: isInRange() ? 1 : 0.25 }]}>
+        <View
+          style={[
+            styles.count,
+            {
+              display: checkInCount > 1 ? "flex" : "none",
+              width: Device.deviceType !== 1 ? 20 : 16,
+            },
+          ]}
+        >
+          <Text style={[styles.countText, { fontSize: Device.deviceType !== 1 ? 12 : 10 }]} allowFontScaling={false}>
+            {checkInCount}
+          </Text>
+        </View>
+
+        <Image
+          source={
+            checkInMood
+              ? emojis[checkInMood.color as keyof typeof emojis]
+              : props.date < today
+              ? emojis["empty"]
+              : emojis[0]
+          }
+          style={[styles.image, { width: Device.deviceType !== 1 ? 52 : 40 }]}
+        />
+
+        <Text
+          style={[
+            styles.text,
+            {
+              fontSize:
+                Device.deviceType !== 1
+                  ? props.date.getFullYear() !== today.getFullYear()
+                    ? 14
+                    : 18
+                  : props.date.getFullYear() !== today.getFullYear()
+                  ? 10
+                  : 14,
+              color: isToday() ? colors.primary : colors.secondary,
+            },
+          ]}
+          allowFontScaling={false}
+        >
+          {!homeDates?.rangeStart
+            ? days[props.date.getDay()]
+            : localization[0].languageTag === "en-US"
+            ? `${props.date.getMonth() + 1}/${props.date.getDate()}${
+                props.date.getFullYear() !== today.getFullYear()
+                  ? `/${props.date.getFullYear().toString().slice(-2)}`
+                  : ""
+              }`
+            : `${props.date.getDate()}/${props.date.getMonth() + 1}${
+                props.date.getFullYear() !== today.getFullYear()
+                  ? `/${props.date.getFullYear().toString().slice(-2)}`
+                  : ""
+              }`}
         </Text>
       </View>
-
-      <Image
-        source={
-          checkInMood
-            ? emojis[checkInMood.color as keyof typeof emojis]
-            : props.date < today
-            ? emojis["empty"]
-            : emojis[0]
-        }
-        style={[styles.image, { width: Device.deviceType !== 1 ? 52 : 40 }]}
-      />
-
-      <Text
-        style={[
-          styles.text,
-          {
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
-            color: isToday ? colors.primary : colors.secondary,
-          },
-        ]}
-        allowFontScaling={false}
-      >
-        {!homeDates?.rangeStart
-          ? days[props.date.getDay()]
-          : localization[0].languageTag === "en-US"
-          ? `${props.date.getMonth() + 1}/${props.date.getDate()}`
-          : `${props.date.getDate()}/${props.date.getMonth() + 1}`}
-      </Text>
     </Pressable>
   );
 }

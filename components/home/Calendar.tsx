@@ -1,12 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { StyleSheet, View, AppState } from "react-native";
+import { StyleSheet, View, AppState, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
-import { getMonday } from "utils/helpers";
+import { getMonday, theme } from "utils/helpers";
 
 export default function Calendar() {
+  const colors = theme();
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const pagerViewRef = useRef<PagerView>(null);
   const appState = useRef(AppState.currentState);
@@ -54,7 +55,7 @@ export default function Calendar() {
 
     timeoutRef.current = setTimeout(() => {
       setVisible(true);
-    }, 0);
+    }, 500);
   };
 
   useEffect(() => {
@@ -88,7 +89,7 @@ export default function Calendar() {
 
       const timeout = setTimeout(() => {
         setVisible(true);
-      }, 0);
+      }, 500);
 
       return () => clearTimeout(timeout);
     } else if (homeDates?.weekStart) {
@@ -121,8 +122,8 @@ export default function Calendar() {
   }, []);
 
   return (
-    <View style={{ height: Device.deviceType !== 1 ? 128 : 96 }}>
-      {visible && (
+    <View style={[styles.container, { height: Device.deviceType !== 1 ? 128 : 96 }]}>
+      {visible ? (
         <PagerView
           ref={pagerViewRef}
           initialPage={initPage}
@@ -135,12 +136,17 @@ export default function Calendar() {
             </View>
           ))}
         </PagerView>
+      ) : (
+        <ActivityIndicator color={colors.primary} />
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+  },
   viewer: {
     height: "100%",
   },

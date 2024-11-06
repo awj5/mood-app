@@ -47,6 +47,41 @@ export default function DateFilters() {
     router.back();
   };
 
+  const setLastMonth = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const prevMonth = month === 0 ? 11 : month - 1;
+    const prevMonthYear = month === 0 ? year - 1 : year;
+    const firstDayOfPrevMonth = new Date(prevMonthYear, prevMonth, 1);
+    const firstMondayOfPrevMonth = getMonday(firstDayOfPrevMonth);
+    const firstDayOfNextMonth = new Date(prevMonthYear, prevMonth + 1, 1);
+    const lastDayOfPrevMonth = new Date(firstDayOfNextMonth);
+    lastDayOfPrevMonth.setDate(firstDayOfNextMonth.getDate() - 1);
+    setHomeDates({ weekStart: firstMondayOfPrevMonth, rangeStart: firstDayOfPrevMonth, rangeEnd: lastDayOfPrevMonth });
+    router.back();
+  };
+
+  const setThisYear = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const firstDayOfYear = new Date(year, 0, 1);
+    const monday = getMonday(firstDayOfYear);
+    const lastDayOfYear = new Date(year, 11, 31);
+    setHomeDates({ weekStart: monday, rangeStart: firstDayOfYear, rangeEnd: lastDayOfYear });
+    router.back();
+  };
+
+  const setLastYear = () => {
+    const today = new Date();
+    const year = today.getFullYear() - 1;
+    const firstDayOfLastYear = new Date(year, 0, 1);
+    const firstMondayOfLastYear = getMonday(firstDayOfLastYear);
+    const lastDayOfLastYear = new Date(year, 11, 31);
+    setHomeDates({ weekStart: firstMondayOfLastYear, rangeStart: firstDayOfLastYear, rangeEnd: lastDayOfLastYear });
+    router.back();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -71,12 +106,12 @@ export default function DateFilters() {
 
         <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
           <Button text="This month" func={setThisMonth}></Button>
-          <Button text="Last month" func={setLastWeek}></Button>
+          <Button text="Last month" func={setLastMonth}></Button>
         </View>
 
         <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-          <Button text="Past 6 months" func={setLastWeek}></Button>
-          <Button text="Past year" func={setLastWeek}></Button>
+          <Button text="This year" func={setThisYear}></Button>
+          <Button text="Last year" func={setLastYear}></Button>
         </View>
 
         {/*<DateTimePicker testID="dateTimePicker" value={date} mode="date" is24Hour={true} onChange={onChange} />*/}
