@@ -22,7 +22,7 @@ export default function BigButton(props: BigButtonProps) {
         {
           backgroundColor: colors.primary,
           paddingVertical: Device.deviceType !== 1 ? 24 : 20,
-          gap: Device.deviceType !== 1 ? 10 : 8,
+          gap: Device.deviceType !== 1 ? 8 : 6,
         },
       ]}
       hitSlop={8}
