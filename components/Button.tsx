@@ -4,7 +4,7 @@ import { CalendarDays } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
 type ButtonProps = {
-  text: string;
+  children: string;
   func: () => void;
   fill?: boolean;
   icon?: string;
@@ -20,11 +20,12 @@ export default function Button(props: ButtonProps) {
         pressedDefault(pressed),
         styles.container,
         {
-          paddingVertical: Device.deviceType !== 1 ? 20 : 12,
+          height: Device.deviceType !== 1 ? (props.fill ? 64 : 52) : props.fill ? 48 : 40,
+          paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
           borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
           borderColor: colors.primary,
           backgroundColor: props.fill ? colors.primary : "transparent",
-          gap: Device.deviceType !== 1 ? 10 : 6,
+          gap: Device.deviceType !== 1 ? 12 : 8,
         },
       ]}
       hitSlop={8}
@@ -43,12 +44,12 @@ export default function Button(props: ButtonProps) {
           styles.text,
           {
             color: !props.fill ? colors.primary : colors.primary === "white" ? "black" : "white",
-            fontSize: Device.deviceType !== 1 ? 24 : 16,
+            fontSize: Device.deviceType !== 1 ? 20 : 16,
           },
         ]}
         allowFontScaling={false}
       >
-        {props.text}
+        {props.children}
       </Text>
     </Pressable>
   );
@@ -57,7 +58,6 @@ export default function Button(props: ButtonProps) {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 999,
-    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

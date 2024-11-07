@@ -47,7 +47,7 @@ export default function Home() {
           headerTitle: "",
           headerLeft: () => <HeaderLeft />,
           headerRight: () => (
-            <View style={[styles.headerRight, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
+            <View style={[styles.headerRight, { gap: Device.deviceType !== 1 ? 24 : 20 }]}>
               <Pressable
                 onPress={() => alert("Coming soon")}
                 style={({ pressed }) => pressedDefault(pressed)}
@@ -55,7 +55,7 @@ export default function Home() {
               >
                 <Share
                   color={colors.primary}
-                  size={Device.deviceType !== 1 ? 36 : 28}
+                  size={Device.deviceType !== 1 ? 32 : 24}
                   absoluteStrokeWidth
                   strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
                 />
@@ -68,7 +68,7 @@ export default function Home() {
               >
                 <Settings
                   color={colors.primary}
-                  size={Device.deviceType !== 1 ? 36 : 28}
+                  size={Device.deviceType !== 1 ? 32 : 24}
                   absoluteStrokeWidth
                   strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
                 />
@@ -96,7 +96,7 @@ export default function Home() {
           },
         ]}
       >
-        <BigButton text="Check-in" route="check-in" />
+        <BigButton route="check-in">Check-in</BigButton>
       </View>
     </View>
   );

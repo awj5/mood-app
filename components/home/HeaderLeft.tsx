@@ -42,20 +42,20 @@ export default function HeaderLeft() {
   return (
     <Pressable
       onPress={() => router.push("date-filters")}
-      style={({ pressed }) => [styles.container, pressedDefault(pressed), { gap: Device.deviceType !== 1 ? 8 : 6 }]}
+      style={({ pressed }) => [styles.container, pressedDefault(pressed), { gap: Device.deviceType !== 1 ? 12 : 8 }]}
       hitSlop={16}
     >
       {homeDates?.rangeStart ? (
         <CalendarRange
           color={colors.primary}
-          size={Device.deviceType !== 1 ? 36 : 28}
+          size={Device.deviceType !== 1 ? 32 : 24}
           absoluteStrokeWidth
           strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
         />
       ) : (
         <CalendarDays
           color={colors.primary}
-          size={Device.deviceType !== 1 ? 36 : 28}
+          size={Device.deviceType !== 1 ? 32 : 24}
           absoluteStrokeWidth
           strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
         />
@@ -66,7 +66,7 @@ export default function HeaderLeft() {
           styles.wrapper,
           {
             backgroundColor: homeDates?.rangeStart ? colors.primary : "transparent",
-            paddingVertical: !homeDates?.rangeStart ? 0 : Device.deviceType !== 1 ? 6 : 4,
+            height: Device.deviceType !== 1 ? 36 : 28,
             paddingHorizontal: !homeDates?.rangeStart ? 0 : Device.deviceType !== 1 ? 16 : 12,
           },
         ]}
@@ -74,7 +74,7 @@ export default function HeaderLeft() {
         <Text
           style={{
             fontFamily: homeDates?.rangeStart ? "Circular-Bold" : "Circular-Book",
-            fontSize: Device.deviceType !== 1 ? (homeDates?.rangeStart ? 20 : 24) : homeDates?.rangeStart ? 16 : 18,
+            fontSize: Device.deviceType !== 1 ? 20 : 16,
             color: !homeDates?.rangeStart ? colors.primary : colors.primary === "white" ? "black" : "white",
           }}
           allowFontScaling={false}
@@ -93,5 +93,6 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     borderRadius: 999,
+    justifyContent: "center",
   },
 });

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, ScrollView } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import Range from "components/date-filters/Range";
@@ -10,13 +10,16 @@ export default function DateFilters() {
   const router = useRouter();
 
   return (
-    <ScrollView>
+    <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 32 : 24 }]}>
       <Stack.Screen
         options={{
           title: "",
           headerRight: () => (
             <Pressable onPress={() => router.back()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
-              <Text style={[styles.headerText, { fontSize: Device.deviceType !== 1 ? 24 : 18, color: colors.primary }]}>
+              <Text
+                style={[styles.text, { fontSize: Device.deviceType !== 1 ? 20 : 16, color: colors.primary }]}
+                allowFontScaling={false}
+              >
                 Done
               </Text>
             </Pressable>
@@ -24,16 +27,33 @@ export default function DateFilters() {
         }}
       />
 
-      <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 48 : 32 }]}>
-        <Range />
-        <Shortcuts />
+      <View style={{ gap: Device.deviceType !== 1 ? 8 : 4 }}>
+        <Text
+          style={[styles.title, { fontSize: Device.deviceType !== 1 ? 48 : 36, color: colors.primary }]}
+          allowFontScaling={false}
+        >
+          History
+        </Text>
+
+        <Text
+          style={[styles.text, { color: colors.secondary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
+          allowFontScaling={false}
+        >
+          Explore your mood check-in history by selecting a specific date range or tapping a shortcut.
+        </Text>
       </View>
-    </ScrollView>
+
+      <Range />
+      <Shortcuts />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerText: {
+  title: {
+    fontFamily: "Circular-Bold",
+  },
+  text: {
     fontFamily: "Circular-Book",
   },
 });

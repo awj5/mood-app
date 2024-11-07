@@ -5,7 +5,7 @@ import { BadgeCheck } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
 type BigButtonProps = {
-  text: string;
+  children: string;
   route: string;
 };
 
@@ -21,17 +21,17 @@ export default function BigButton(props: BigButtonProps) {
         styles.container,
         {
           backgroundColor: colors.primary,
-          paddingVertical: Device.deviceType !== 1 ? 24 : 20,
-          gap: Device.deviceType !== 1 ? 8 : 6,
+          height: Device.deviceType !== 1 ? 96 : 72,
+          gap: Device.deviceType !== 1 ? 12 : 8,
         },
       ]}
       hitSlop={8}
     >
       <BadgeCheck
         color={colors.primary === "white" ? "black" : "white"}
-        size={Device.deviceType !== 1 ? 36 : 28}
+        size={Device.deviceType !== 1 ? 32 : 24}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
+        strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
       />
 
       <Text
@@ -41,7 +41,7 @@ export default function BigButton(props: BigButtonProps) {
         ]}
         allowFontScaling={false}
       >
-        {props.text}
+        {props.children}
       </Text>
     </Pressable>
   );

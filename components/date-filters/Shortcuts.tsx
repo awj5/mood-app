@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Button from "components/Button";
-import { theme, getMonday } from "utils/helpers";
+import { getMonday, theme } from "utils/helpers";
 
 export default function Shortcuts() {
-  const colors = theme();
   const router = useRouter();
+  const colors = theme();
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
 
   const setThisWeek = () => {
@@ -37,6 +37,14 @@ export default function Shortcuts() {
     const lastDayOfMonth = new Date(firstDayOfNextMonth);
     lastDayOfMonth.setDate(firstDayOfNextMonth.getDate() - 1);
     setHomeDates({ weekStart: monday, rangeStart: firstDayOfMonth, rangeEnd: lastDayOfMonth });
+    router.back();
+  };
+
+  const setPrevDays = (days: number) => {
+    const today = new Date();
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(today.getDate() - days);
+    setHomeDates({ weekStart: getMonday(thirtyDaysAgo), rangeStart: thirtyDaysAgo, rangeEnd: today });
     router.back();
   };
 
@@ -76,53 +84,33 @@ export default function Shortcuts() {
   };
 
   return (
-    <View style={{ gap: Device.deviceType !== 1 ? 24 : 16 }}>
-      <Text style={[styles.title, { fontSize: Device.deviceType !== 1 ? 48 : 36, color: colors.primary }]}>
+    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 16 : 12 }]}>
+      <Text
+        style={[styles.label, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
+        allowFontScaling={false}
+      >
         Shortcuts
       </Text>
 
-      <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-        <View style={styles.col}>
-          <Button text="This week" func={setThisWeek}></Button>
-        </View>
-
-        <View style={styles.col}>
-          <Button text="Last week" func={setLastWeek}></Button>
-        </View>
-      </View>
-
-      <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-        <View style={styles.col}>
-          <Button text="This month" func={setThisMonth}></Button>
-        </View>
-
-        <View style={styles.col}>
-          <Button text="Last month" func={setLastMonth}></Button>
-        </View>
-      </View>
-
-      <View style={[styles.row, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-        <View style={styles.col}>
-          <Button text="This year" func={setThisYear}></Button>
-        </View>
-
-        <View style={styles.col}>
-          <Button text="Last year" func={setLastYear}></Button>
-        </View>
-      </View>
+      <Button func={setThisWeek}>This week</Button>
+      <Button func={setLastWeek}>Last week</Button>
+      <Button func={setThisMonth}>This month</Button>
+      <Button func={setLastMonth}>Last month</Button>
+      <Button func={() => setPrevDays(30)}>Past 30 days</Button>
+      <Button func={() => setPrevDays(60)}>Past 60 days</Button>
+      <Button func={setThisYear}>This year</Button>
+      <Button func={setLastYear}>Last year</Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontFamily: "Circular-Bold",
-  },
-  row: {
+  container: {
     flexDirection: "row",
+    flexWrap: "wrap",
   },
-  col: {
-    flex: 1,
-    alignItems: "center",
+  label: {
+    fontFamily: "Circular-Book",
+    width: "100%",
   },
 });
