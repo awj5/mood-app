@@ -15,6 +15,8 @@ export default function Home() {
   const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
+  const iconSize = Device.deviceType !== 1 ? 32 : 24;
+  const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
 
   const verifyCheckIn = async () => {
     // Redirect if user hasn't checked-in today
@@ -53,12 +55,7 @@ export default function Home() {
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >
-                <Share
-                  color={colors.primary}
-                  size={Device.deviceType !== 1 ? 32 : 24}
-                  absoluteStrokeWidth
-                  strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-                />
+                <Share color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
               </Pressable>
 
               <Pressable
@@ -66,12 +63,7 @@ export default function Home() {
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >
-                <Settings
-                  color={colors.primary}
-                  size={Device.deviceType !== 1 ? 32 : 24}
-                  absoluteStrokeWidth
-                  strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-                />
+                <Settings color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
               </Pressable>
             </View>
           ),

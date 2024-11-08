@@ -8,18 +8,16 @@ import { theme, pressedDefault } from "utils/helpers";
 export default function DateFilters() {
   const colors = theme();
   const router = useRouter();
+  const textSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
-    <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 32 : 24 }]}>
+    <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 48 : 32 }]}>
       <Stack.Screen
         options={{
           title: "",
           headerRight: () => (
             <Pressable onPress={() => router.back()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
-              <Text
-                style={[styles.text, { fontSize: Device.deviceType !== 1 ? 20 : 16, color: colors.primary }]}
-                allowFontScaling={false}
-              >
+              <Text style={[styles.text, { fontSize: textSize, color: colors.primary }]} allowFontScaling={false}>
                 Done
               </Text>
             </Pressable>
@@ -35,10 +33,7 @@ export default function DateFilters() {
           History
         </Text>
 
-        <Text
-          style={[styles.text, { color: colors.secondary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
-          allowFontScaling={false}
-        >
+        <Text style={[styles.text, { color: colors.secondary, fontSize: textSize }]} allowFontScaling={false}>
           Explore your mood check-in history by selecting a specific date range or tapping a shortcut.
         </Text>
       </View>

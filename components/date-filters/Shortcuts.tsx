@@ -86,7 +86,7 @@ export default function Shortcuts() {
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 16 : 12 }]}>
       <Text
-        style={[styles.label, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
+        style={[styles.label, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }]}
         allowFontScaling={false}
       >
         Shortcuts

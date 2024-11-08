@@ -12,6 +12,7 @@ export default function Chat() {
   const headerHeight = useHeaderHeight();
   const router = useRouter();
   const colors = theme();
+  const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -23,7 +24,7 @@ export default function Chat() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Home"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: headerTextSize }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
@@ -50,7 +51,7 @@ export default function Chat() {
                 style={[
                   styles.headerRightText,
                   {
-                    fontSize: Device.deviceType !== 1 ? 20 : 16,
+                    fontSize: headerTextSize,
                     color: colors.primary,
                   },
                 ]}
