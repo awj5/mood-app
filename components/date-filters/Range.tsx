@@ -11,7 +11,7 @@ export default function Range() {
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const labelFontSize = Device.deviceType !== 1 ? 24 : 18;
   const colGap = Device.deviceType !== 1 ? 16 : 4;
-  const labelWidth = Device.deviceType !== 1 ? 108 : 40;
+  const labelWidth = Device.deviceType !== 1 ? 120 : 40;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const weekEnd = new Date(!homeDates ? today : homeDates.weekStart);
@@ -58,7 +58,7 @@ export default function Range() {
           style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
           allowFontScaling={false}
         >
-          Start{Device.deviceType !== 1 && " date"}
+          Start{Device.deviceType !== 1 && " date:"}
         </Text>
 
         {/*<Button func={() => null} fill icon="calendar">
@@ -78,7 +78,7 @@ export default function Range() {
           style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
           allowFontScaling={false}
         >
-          End{Device.deviceType !== 1 && " date"}
+          End{Device.deviceType !== 1 && " date:"}
         </Text>
 
         {/*<Button func={() => null} fill icon="calendar">
