@@ -24,7 +24,6 @@ export default function Range() {
   const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
       const date = selectedDate as Date;
-      date.setHours(0, 0, 0, 0);
       const monday = getMonday(date);
       const weekLater = new Date(date);
       weekLater.setDate(date.getDate() + 7);
@@ -47,14 +46,13 @@ export default function Range() {
   const onEndChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
       const date = selectedDate as Date;
-      date.setHours(0, 0, 0, 0);
       const prevWeek = new Date(date);
       prevWeek.setDate(date.getDate() - 7);
       const monday = getMonday(prevWeek);
 
       setHomeDates({
         ...homeDates,
-        weekStart: homeDates?.rangeStart ?? monday,
+        weekStart: homeDates?.rangeStart ? getMonday(homeDates.rangeStart) : monday,
         rangeStart: homeDates?.rangeStart ?? prevWeek,
         rangeEnd: date,
       });

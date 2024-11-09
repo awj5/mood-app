@@ -101,7 +101,7 @@ export default function Calendar() {
       setInitPage(isLastWeek(homeDates?.weekStart) ? defaultPageCount - 1 : defaultPageCount); // Current or last week
       setDefaultPages();
     }
-  }, [homeDates?.rangeStart]);
+  }, [homeDates?.rangeStart, homeDates?.rangeEnd]);
 
   useEffect(() => {
     // Automatically move to current or last week
