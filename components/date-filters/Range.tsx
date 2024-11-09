@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
@@ -9,9 +9,13 @@ import { getMonday, theme } from "utils/helpers";
 export default function Range() {
   const colors = theme();
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const [showStartPicker, setShowStartPicker] = useState(Platform.OS === "ios");
+  const [showEndPicker, setShowEndPicker] = useState(Platform.OS === "ios");
   const labelFontSize = Device.deviceType !== 1 ? 24 : 18;
-  const colGap = Device.deviceType !== 1 ? 16 : 4;
-  const labelWidth = Device.deviceType !== 1 ? 120 : 40;
+  const colGap = Device.deviceType !== 1 ? 16 : Platform.OS === "ios" ? 4 : 12;
+  const labelWidth = Device.deviceType !== 1 ? 120 : Platform.OS === "ios" ? 40 : "auto";
+  const colDirection = Platform.OS === "ios" ? "row" : "column";
+  const colAlign = Platform.OS === "ios" ? "center" : "stretch";
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const weekEnd = new Date(!homeDates ? today : homeDates.weekStart);
@@ -34,6 +38,12 @@ export default function Range() {
     }
   };
 
+  useEffect(() => {
+    // Hide pickers on Android
+    setShowStartPicker(Platform.OS === "ios");
+    setShowEndPicker(Platform.OS === "ios");
+  }, [homeDates]);
+
   const onEndChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
       const date = selectedDate as Date;
@@ -53,7 +63,7 @@ export default function Range() {
 
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-      <View style={[styles.col, { gap: colGap }]}>
+      <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
         <Text
           style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
           allowFontScaling={false}
@@ -61,19 +71,28 @@ export default function Range() {
           Start{Device.deviceType !== 1 && " date:"}
         </Text>
 
-        {/*<Button func={() => null} fill icon="calendar">
-          {props.startDate.toLocaleDateString()}
-        </Button>*/}
-        <DateTimePicker
-          value={!homeDates ? today : homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart}
-          mode="date"
-          onChange={onStartChange}
-          accentColor={colors.primary}
-          style={{ flex: 1 }}
-        />
+        {Platform.OS !== "ios" && (
+          <Button func={() => setShowStartPicker(true)} fill icon="calendar">
+            {!homeDates
+              ? today.toLocaleDateString()
+              : homeDates.rangeStart
+              ? homeDates.rangeStart.toLocaleDateString()
+              : homeDates.weekStart.toLocaleDateString()}
+          </Button>
+        )}
+
+        {showStartPicker && (
+          <DateTimePicker
+            value={!homeDates ? today : homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart}
+            mode="date"
+            onChange={onStartChange}
+            accentColor={colors.primary}
+            style={{ flex: 1 }}
+          />
+        )}
       </View>
 
-      <View style={[styles.col, { gap: colGap }]}>
+      <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
         <Text
           style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
           allowFontScaling={false}
@@ -81,16 +100,25 @@ export default function Range() {
           End{Device.deviceType !== 1 && " date:"}
         </Text>
 
-        {/*<Button func={() => null} fill icon="calendar">
-          {props.endDate.toLocaleDateString()}
-        </Button>*/}
-        <DateTimePicker
-          value={!homeDates ? today : homeDates.rangeEnd ? homeDates.rangeEnd : weekEnd}
-          mode="date"
-          onChange={onEndChange}
-          accentColor={colors.primary}
-          style={{ flex: 1 }}
-        />
+        {Platform.OS !== "ios" && (
+          <Button func={() => setShowEndPicker(true)} fill icon="calendar">
+            {!homeDates
+              ? today.toLocaleDateString()
+              : homeDates.rangeEnd
+              ? homeDates.rangeEnd.toLocaleDateString()
+              : weekEnd.toLocaleDateString()}
+          </Button>
+        )}
+
+        {showEndPicker && (
+          <DateTimePicker
+            value={!homeDates ? today : homeDates.rangeEnd ? homeDates.rangeEnd : weekEnd}
+            mode="date"
+            onChange={onEndChange}
+            accentColor={colors.primary}
+            style={{ flex: 1 }}
+          />
+        )}
       </View>
     </View>
   );
@@ -102,8 +130,6 @@ const styles = StyleSheet.create({
   },
   col: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
   },
   label: {
     fontFamily: "Circular-Book",

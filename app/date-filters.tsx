@@ -14,6 +14,7 @@ export default function DateFilters() {
     <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 48 : 32 }]}>
       <Stack.Screen
         options={{
+          headerBackVisible: false,
           title: "",
           headerRight: () => (
             <Pressable onPress={() => router.back()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
