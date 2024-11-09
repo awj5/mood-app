@@ -13,6 +13,7 @@ type IconProps = {
 export default function Icon(props: IconProps) {
   const colors = theme();
   const rotation = useSharedValue(0);
+  const size = Device.deviceType !== 1 ? 52 : 40;
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value * 360}deg` }],
@@ -23,7 +24,7 @@ export default function Icon(props: IconProps) {
   }, [props.thinking]);
 
   return (
-    <View style={{ width: Device.deviceType !== 1 ? 52 : 40, height: Device.deviceType !== 1 ? 52 : 40 }}>
+    <View style={{ width: size, height: size }}>
       <Animated.View style={animatedStyles}>
         <Image source={require("../../assets/img/wheel.png")} style={styles.image} />
       </Animated.View>

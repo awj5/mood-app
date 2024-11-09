@@ -12,6 +12,7 @@ type ButtonProps = {
 
 export default function Button(props: ButtonProps) {
   const colors = theme();
+  const stroke = Device.deviceType !== 1 ? 2.5 : 2;
 
   return (
     <Pressable
@@ -22,7 +23,7 @@ export default function Button(props: ButtonProps) {
         {
           height: Device.deviceType !== 1 ? (props.fill ? 64 : 52) : props.fill ? 48 : 40,
           paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-          borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
+          borderWidth: stroke,
           borderColor: colors.primary,
           backgroundColor: props.fill ? colors.primary : "transparent",
           gap: Device.deviceType !== 1 ? 12 : 8,
@@ -35,7 +36,7 @@ export default function Button(props: ButtonProps) {
           color={!props.fill ? colors.primary : colors.primary === "white" ? "black" : "white"}
           size={Device.deviceType !== 1 ? 28 : 20}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          strokeWidth={stroke}
         />
       )}
 

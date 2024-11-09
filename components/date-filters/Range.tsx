@@ -11,22 +11,24 @@ export default function Range() {
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const labelFontSize = Device.deviceType !== 1 ? 24 : 18;
   const colGap = Device.deviceType !== 1 ? 16 : 4;
+  const labelWidth = Device.deviceType !== 1 ? 108 : 40;
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const weekEnd = new Date(!homeDates ? today : homeDates.weekStart);
   weekEnd.setDate((!homeDates ? today : homeDates.weekStart).getDate() + 6); // Sunday
 
   const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
       const date = selectedDate as Date;
-      const formatted = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-      const monday = getMonday(formatted);
-      const weekLater = new Date(formatted);
-      weekLater.setDate(formatted.getDate() + 7);
+      date.setHours(0, 0, 0, 0);
+      const monday = getMonday(date);
+      const weekLater = new Date(date);
+      weekLater.setDate(date.getDate() + 7);
 
       setHomeDates({
         ...homeDates,
         weekStart: monday,
-        rangeStart: formatted,
+        rangeStart: date,
         rangeEnd: homeDates?.rangeEnd ?? weekLater,
       });
     }
@@ -35,16 +37,16 @@ export default function Range() {
   const onEndChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
       const date = selectedDate as Date;
-      const formatted = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-      const prevWeek = new Date(formatted);
-      prevWeek.setDate(formatted.getDate() - 7);
+      date.setHours(0, 0, 0, 0);
+      const prevWeek = new Date(date);
+      prevWeek.setDate(date.getDate() - 7);
       const monday = getMonday(prevWeek);
 
       setHomeDates({
         ...homeDates,
         weekStart: homeDates?.rangeStart ?? monday,
         rangeStart: homeDates?.rangeStart ?? prevWeek,
-        rangeEnd: formatted,
+        rangeEnd: date,
       });
     }
   };
@@ -52,8 +54,11 @@ export default function Range() {
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
       <View style={[styles.col, { gap: colGap }]}>
-        <Text style={[styles.label, { color: colors.primary, fontSize: labelFontSize }]} allowFontScaling={false}>
-          Start{Device.deviceType !== 1 && " date"}:
+        <Text
+          style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
+          allowFontScaling={false}
+        >
+          Start{Device.deviceType !== 1 && " date"}
         </Text>
 
         {/*<Button func={() => null} fill icon="calendar">
@@ -69,8 +74,11 @@ export default function Range() {
       </View>
 
       <View style={[styles.col, { gap: colGap }]}>
-        <Text style={[styles.label, { color: colors.primary, fontSize: labelFontSize }]} allowFontScaling={false}>
-          End{Device.deviceType !== 1 && " date"}:
+        <Text
+          style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
+          allowFontScaling={false}
+        >
+          End{Device.deviceType !== 1 && " date"}
         </Text>
 
         {/*<Button func={() => null} fill icon="calendar">

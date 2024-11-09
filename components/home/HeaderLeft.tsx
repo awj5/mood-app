@@ -12,6 +12,8 @@ export default function HeaderLeft() {
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [rangeText, setRangeText] = useState("");
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const stroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   useEffect(() => {
     if (homeDates) {
@@ -46,19 +48,9 @@ export default function HeaderLeft() {
       hitSlop={16}
     >
       {homeDates?.rangeStart ? (
-        <CalendarRange
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 32 : 24}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-        />
+        <CalendarRange color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
       ) : (
-        <CalendarDays
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 32 : 24}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-        />
+        <CalendarDays color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
       )}
 
       <View

@@ -13,6 +13,7 @@ export default function Shortcuts() {
 
   const setThisWeek = () => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
     setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
     router.back();
@@ -20,6 +21,7 @@ export default function Shortcuts() {
 
   const setLastWeek = () => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
     const prevMonday = new Date(monday);
     prevMonday.setDate(monday.getDate() - 7);
@@ -42,9 +44,11 @@ export default function Shortcuts() {
 
   const setPrevDays = (days: number) => {
     const today = new Date();
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(today.getDate() - days);
-    setHomeDates({ weekStart: getMonday(thirtyDaysAgo), rangeStart: thirtyDaysAgo, rangeEnd: today });
+    today.setHours(0, 0, 0, 0);
+    const daysAgo = new Date();
+    daysAgo.setHours(0, 0, 0, 0);
+    daysAgo.setDate(today.getDate() - days);
+    setHomeDates({ weekStart: getMonday(daysAgo), rangeStart: daysAgo, rangeEnd: today });
     router.back();
   };
 

@@ -23,6 +23,7 @@ export default function Day(props: DayProps) {
   const [checkInCount, setCheckInCount] = useState(0);
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const emojis = {
     empty: require("../../../assets/img/emoji/small/white-empty.svg"),
@@ -42,40 +43,18 @@ export default function Day(props: DayProps) {
   };
 
   const isInRange = () => {
-    if (homeDates?.rangeStart && homeDates?.rangeEnd) {
-      const start = new Date(
-        homeDates.rangeStart.getFullYear(),
-        homeDates.rangeStart.getMonth(),
-        homeDates.rangeStart.getDate()
-      );
-
-      const end = new Date(
-        homeDates.rangeEnd.getFullYear(),
-        homeDates.rangeEnd.getMonth(),
-        homeDates.rangeEnd.getDate()
-      );
-
-      const date = new Date(props.date.getFullYear(), props.date.getMonth(), props.date.getDate());
-      return date >= start && date <= end ? true : false;
-    } else {
-      return true;
-    }
-  };
-
-  const isToday = () => {
-    const result =
-      today.getDate() === props.date.getDate() &&
-      today.getMonth() === props.date.getMonth() &&
-      today.getFullYear() === props.date.getFullYear()
-        ? true
-        : false;
-
-    return result;
+    return (
+      !homeDates?.rangeStart ||
+      (homeDates.rangeStart &&
+        homeDates.rangeEnd &&
+        props.date >= homeDates.rangeStart &&
+        props.date <= homeDates.rangeEnd)
+    );
   };
 
   const getData = async () => {
     // If date is current day then query again to get latest check-in
-    if (!queriedRef.current || (queriedRef.current && isToday())) {
+    if (!queriedRef.current || (queriedRef.current && today.getTime() === props.date.getTime())) {
       try {
         // Check for check-ins on this date (date column converted to local)
         const query = `
@@ -149,7 +128,7 @@ export default function Day(props: DayProps) {
                   : props.date.getFullYear() !== today.getFullYear()
                   ? 10
                   : 14,
-              color: isToday() ? colors.primary : colors.secondary,
+              color: today.getTime() === props.date.getTime() ? colors.primary : colors.secondary,
             },
           ]}
           allowFontScaling={false}

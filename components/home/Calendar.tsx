@@ -21,10 +21,11 @@ export default function Calendar() {
 
   const isLastWeek = (date: Date) => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
     const prevMonday = new Date(monday);
     prevMonday.setDate(monday.getDate() - 7);
-    return prevMonday.toLocaleDateString() === date.toLocaleDateString();
+    return prevMonday.getTime() === date.getTime();
   };
 
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
@@ -40,6 +41,7 @@ export default function Calendar() {
     }
 
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
     const mondays = [];
 
@@ -64,6 +66,7 @@ export default function Calendar() {
       setVisible(false);
       setInitPage(defaultPageCount);
       const today = new Date();
+      today.setHours(0, 0, 0, 0);
       const monday = getMonday(today);
       setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined }); // Reset
       setDefaultPages();
@@ -103,11 +106,12 @@ export default function Calendar() {
   useEffect(() => {
     // Automatically move to current or last week
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
 
     if (page !== defaultPageCount - 1 && homeDates?.weekStart && isLastWeek(homeDates.weekStart)) {
       pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount - 1); // Last week
-    } else if (page !== defaultPageCount && monday.toLocaleDateString() === homeDates?.weekStart.toLocaleDateString()) {
+    } else if (page !== defaultPageCount && monday.getTime() === homeDates?.weekStart.getTime()) {
       pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount); // Current week
     }
   }, [homeDates]);
