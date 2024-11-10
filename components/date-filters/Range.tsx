@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
@@ -20,10 +20,12 @@ export default function Range() {
   today.setHours(0, 0, 0, 0);
   const weekEnd = new Date(homeDates.weekStart);
   weekEnd.setDate(homeDates.weekStart.getDate() + 6); // Sunday
+  const endOfYear = new Date(new Date().getFullYear(), 11, 31);
 
   const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    setShowStartPicker(Platform.OS === "ios"); // Hide picker on Android
+
     if (event.type === "set") {
-      setShowStartPicker(false); // Hide picker on Android
       const date = selectedDate as Date;
       const monday = getMonday(date);
       const weekLater = new Date(date);
@@ -39,8 +41,9 @@ export default function Range() {
   };
 
   const onEndChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    setShowEndPicker(Platform.OS === "ios"); // Hide picker on Android
+
     if (event.type === "set") {
-      setShowEndPicker(false); // Hide picker on Android
       const date = selectedDate as Date;
       const prevWeek = new Date(date);
       prevWeek.setDate(date.getDate() - 7);
@@ -80,6 +83,8 @@ export default function Range() {
             onChange={onStartChange}
             accentColor={colors.primary}
             style={{ flex: 1 }}
+            minimumDate={new Date(2024, 0, 1)}
+            maximumDate={endOfYear}
           />
         )}
       </View>
@@ -105,6 +110,8 @@ export default function Range() {
             onChange={onEndChange}
             accentColor={colors.primary}
             style={{ flex: 1 }}
+            minimumDate={new Date(2024, 0, 1)}
+            maximumDate={endOfYear}
           />
         )}
       </View>
