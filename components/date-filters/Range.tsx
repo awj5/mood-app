@@ -23,6 +23,7 @@ export default function Range() {
 
   const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
+      setShowStartPicker(false); // Hide picker on Android
       const date = selectedDate as Date;
       const monday = getMonday(date);
       const weekLater = new Date(date);
@@ -37,14 +38,9 @@ export default function Range() {
     }
   };
 
-  useEffect(() => {
-    // Hide pickers on Android
-    setShowStartPicker(Platform.OS === "ios");
-    setShowEndPicker(Platform.OS === "ios");
-  }, [homeDates]);
-
   const onEndChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
+      setShowEndPicker(false); // Hide picker on Android
       const date = selectedDate as Date;
       const prevWeek = new Date(date);
       prevWeek.setDate(date.getDate() - 7);
