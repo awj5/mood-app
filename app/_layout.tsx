@@ -18,7 +18,7 @@ export default function Layout() {
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
-  const [homeDates, setHomeDates] = useState<CalendarDatesType>();
+  const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";

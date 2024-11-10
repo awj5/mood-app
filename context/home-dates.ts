@@ -7,11 +7,11 @@ export type CalendarDatesType = {
 };
 
 export type HomeDatesContextType = {
-  homeDates?: CalendarDatesType;
+  homeDates: CalendarDatesType;
   setHomeDates: (homeDates: CalendarDatesType) => void;
 };
 
 export const HomeDatesContext = createContext<HomeDatesContextType>({
-  homeDates: undefined,
+  homeDates: { weekStart: new Date() },
   setHomeDates: () => undefined,
 });

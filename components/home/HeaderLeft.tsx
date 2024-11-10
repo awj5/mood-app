@@ -16,29 +16,27 @@ export default function HeaderLeft() {
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   useEffect(() => {
-    if (homeDates) {
-      const today = new Date();
-      const year = today.getFullYear();
-      const startDate = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
+    const today = new Date();
+    const year = today.getFullYear();
+    const startDate = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
 
-      const start = `${months[startDate.getMonth()]} ${startDate.getDate()}${
-        startDate.getFullYear() !== year ? ` ${startDate.getFullYear()}` : ""
-      }`;
+    const start = `${months[startDate.getMonth()]} ${startDate.getDate()}${
+      startDate.getFullYear() !== year ? ` ${startDate.getFullYear()}` : ""
+    }`;
 
-      var endDate = new Date(startDate);
+    var endDate = new Date(startDate);
 
-      if (homeDates.rangeEnd) {
-        endDate = homeDates.rangeEnd;
-      } else {
-        endDate.setDate(homeDates.weekStart.getDate() + 6); // Sunday
-      }
-
-      const end = `${months[endDate.getMonth()]} ${endDate.getDate()}${
-        endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
-      }`;
-
-      setRangeText(`${start} - ${end}`);
+    if (homeDates.rangeEnd) {
+      endDate = homeDates.rangeEnd;
+    } else {
+      endDate.setDate(homeDates.weekStart.getDate() + 6); // Sunday
     }
+
+    const end = `${months[endDate.getMonth()]} ${endDate.getDate()}${
+      endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
+    }`;
+
+    setRangeText(`${start} - ${end}`);
   }, [homeDates]);
 
   return (
@@ -47,7 +45,7 @@ export default function HeaderLeft() {
       style={({ pressed }) => [styles.container, pressedDefault(pressed), { gap: Device.deviceType !== 1 ? 12 : 8 }]}
       hitSlop={16}
     >
-      {homeDates?.rangeStart ? (
+      {homeDates.rangeStart ? (
         <CalendarRange color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
       ) : (
         <CalendarDays color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
@@ -57,17 +55,17 @@ export default function HeaderLeft() {
         style={[
           styles.wrapper,
           {
-            backgroundColor: homeDates?.rangeStart ? colors.primary : "transparent",
+            backgroundColor: homeDates.rangeStart ? colors.primary : "transparent",
             height: Device.deviceType !== 1 ? 36 : 28,
-            paddingHorizontal: !homeDates?.rangeStart ? 0 : Device.deviceType !== 1 ? 16 : 12,
+            paddingHorizontal: !homeDates.rangeStart ? 0 : Device.deviceType !== 1 ? 16 : 12,
           },
         ]}
       >
         <Text
           style={{
-            fontFamily: homeDates?.rangeStart ? "Circular-Bold" : "Circular-Book",
+            fontFamily: homeDates.rangeStart ? "Circular-Bold" : "Circular-Book",
             fontSize: Device.deviceType !== 1 ? 20 : 16,
-            color: !homeDates?.rangeStart ? colors.primary : colors.primary === "white" ? "black" : "white",
+            color: !homeDates.rangeStart ? colors.primary : colors.primary === "white" ? "black" : "white",
           }}
           allowFontScaling={false}
         >

@@ -18,8 +18,8 @@ export default function Range() {
   const colAlign = Platform.OS === "ios" ? "center" : "stretch";
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const weekEnd = new Date(!homeDates ? today : homeDates.weekStart);
-  weekEnd.setDate((!homeDates ? today : homeDates.weekStart).getDate() + 6); // Sunday
+  const weekEnd = new Date(homeDates.weekStart);
+  weekEnd.setDate(homeDates.weekStart.getDate() + 6); // Sunday
 
   const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (event.type === "set") {
@@ -52,8 +52,8 @@ export default function Range() {
 
       setHomeDates({
         ...homeDates,
-        weekStart: homeDates?.rangeStart ? getMonday(homeDates.rangeStart) : monday,
-        rangeStart: homeDates?.rangeStart ?? prevWeek,
+        weekStart: homeDates.rangeStart ? homeDates.weekStart : monday,
+        rangeStart: homeDates.rangeStart ?? prevWeek,
         rangeEnd: date,
       });
     }
@@ -71,9 +71,7 @@ export default function Range() {
 
         {Platform.OS !== "ios" && (
           <Button func={() => setShowStartPicker(true)} fill icon="calendar">
-            {!homeDates
-              ? today.toLocaleDateString()
-              : homeDates.rangeStart
+            {homeDates.rangeStart
               ? homeDates.rangeStart.toLocaleDateString()
               : homeDates.weekStart.toLocaleDateString()}
           </Button>
@@ -81,7 +79,7 @@ export default function Range() {
 
         {showStartPicker && (
           <DateTimePicker
-            value={!homeDates ? today : homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart}
+            value={homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart}
             mode="date"
             onChange={onStartChange}
             accentColor={colors.primary}
@@ -100,17 +98,13 @@ export default function Range() {
 
         {Platform.OS !== "ios" && (
           <Button func={() => setShowEndPicker(true)} fill icon="calendar">
-            {!homeDates
-              ? today.toLocaleDateString()
-              : homeDates.rangeEnd
-              ? homeDates.rangeEnd.toLocaleDateString()
-              : weekEnd.toLocaleDateString()}
+            {homeDates.rangeEnd ? homeDates.rangeEnd.toLocaleDateString() : weekEnd.toLocaleDateString()}
           </Button>
         )}
 
         {showEndPicker && (
           <DateTimePicker
-            value={!homeDates ? today : homeDates.rangeEnd ? homeDates.rangeEnd : weekEnd}
+            value={homeDates.rangeEnd ? homeDates.rangeEnd : weekEnd}
             mode="date"
             onChange={onEndChange}
             accentColor={colors.primary}

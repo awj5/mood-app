@@ -29,7 +29,7 @@ export default function Calendar() {
   };
 
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
-    if (!homeDates?.rangeStart) {
+    if (!homeDates.rangeStart) {
       setPage(e.nativeEvent.position);
       setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
     }
@@ -74,18 +74,21 @@ export default function Calendar() {
   }, [appStateVisible]);
 
   useEffect(() => {
-    if (homeDates?.rangeStart && homeDates.rangeEnd) {
+    if (homeDates.rangeStart && homeDates.rangeEnd) {
       // Date range has been set
       setVisible(false);
       setInitPage(0);
-      const startMonday = homeDates.weekStart;
+      const startMonday = new Date(homeDates.weekStart);
       const endMonday = getMonday(homeDates.rangeEnd);
       const mondays = [];
 
       // Get mondays within date range
-      while (homeDates.weekStart <= endMonday) {
-        mondays.push(new Date(startMonday));
-        startMonday.setDate(startMonday.getDate() + 7);
+      for (
+        let currentMonday = new Date(startMonday);
+        currentMonday <= endMonday;
+        currentMonday.setDate(currentMonday.getDate() + 7)
+      ) {
+        mondays.push(new Date(currentMonday));
       }
 
       setWeeks(mondays);
@@ -95,13 +98,13 @@ export default function Calendar() {
       }, 500);
 
       return () => clearTimeout(timeout);
-    } else if (homeDates?.weekStart) {
+    } else {
       // Date range no longer applied
       setVisible(false);
-      setInitPage(isLastWeek(homeDates?.weekStart) ? defaultPageCount - 1 : defaultPageCount); // Current or last week
+      setInitPage(isLastWeek(homeDates.weekStart) ? defaultPageCount - 1 : defaultPageCount); // Current or last week
       setDefaultPages();
     }
-  }, [homeDates?.rangeStart, homeDates?.rangeEnd]);
+  }, [homeDates.rangeStart, homeDates.rangeEnd]);
 
   useEffect(() => {
     // Automatically move to current or last week
@@ -109,9 +112,9 @@ export default function Calendar() {
     today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
 
-    if (page !== defaultPageCount - 1 && homeDates?.weekStart && isLastWeek(homeDates.weekStart)) {
+    if (page !== defaultPageCount - 1 && isLastWeek(homeDates.weekStart)) {
       pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount - 1); // Last week
-    } else if (page !== defaultPageCount && monday.getTime() === homeDates?.weekStart.getTime()) {
+    } else if (page !== defaultPageCount && monday.getTime() === homeDates.weekStart.getTime()) {
       pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount); // Current week
     }
   }, [homeDates]);

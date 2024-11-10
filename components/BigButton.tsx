@@ -31,7 +31,7 @@ export default function BigButton(props: BigButtonProps) {
         color={colors.primary === "white" ? "black" : "white"}
         size={Device.deviceType !== 1 ? 32 : 24}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+        strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
       />
 
       <Text

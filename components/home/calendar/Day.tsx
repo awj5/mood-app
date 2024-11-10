@@ -44,7 +44,7 @@ export default function Day(props: DayProps) {
 
   const isInRange = () => {
     return (
-      !homeDates?.rangeStart ||
+      !homeDates.rangeStart ||
       (homeDates.rangeStart &&
         homeDates.rangeEnd &&
         props.date >= homeDates.rangeStart &&
@@ -133,7 +133,7 @@ export default function Day(props: DayProps) {
           ]}
           allowFontScaling={false}
         >
-          {!homeDates?.rangeStart
+          {!homeDates.rangeStart
             ? days[props.date.getDay()]
             : localization[0].languageTag === "en-US"
             ? `${props.date.getMonth() + 1}/${props.date.getDate()}${
