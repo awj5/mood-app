@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, StyleSheet, Pressable, ScrollView } from "react-native";
+import { View, StyleSheet, Pressable, ScrollView, Text } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
@@ -20,6 +20,7 @@ export default function Home() {
   const db = useSQLiteContext();
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const edgePadding = Device.deviceType !== 1 ? 24 : 16;
 
   const verifyCheckIn = async () => {
     // Redirect if user hasn't checked-in today
@@ -79,21 +80,94 @@ export default function Home() {
 
       <Bg />
 
-      <View style={{ marginTop: headerHeight }}>
+      <View style={{ flex: 1, marginTop: headerHeight }}>
         <Calendar />
-        <ScrollView contentContainerStyle={{ flex: 1 }}></ScrollView>
+
+        <ScrollView>
+          <View
+            style={{
+              paddingHorizontal: edgePadding,
+              paddingBottom: edgePadding * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
+            }}
+          >
+            <Text style={{ color: colors.primary, display: "none" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id
+              fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum.
+              Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero
+              porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis
+              consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero
+              ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est
+              a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur
+              est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at
+              risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras
+              bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum
+              dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id fermentum
+              turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum. Vivamus
+              porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero porttitor,
+              sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis consectetur
+              ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero ultricies velit,
+              non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra
+              ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium,
+              id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique.
+              Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum
+              tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum
+              finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis.
+              Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget
+              diam consequat, nec efficitur est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus
+              pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi
+              volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum
+              ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros
+              ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum
+              mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare
+              nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam
+              sagittis consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis
+              libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut
+              semper est a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat,
+              nec efficitur est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in
+              tortor at risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget.
+              Cras bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id
+              fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum.
+              Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero
+              porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis
+              consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero
+              ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est
+              a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur
+              est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at
+              risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras
+              bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum
+              dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id fermentum
+              turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum. Vivamus
+              porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero porttitor,
+              sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis consectetur
+              ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero ultricies velit,
+              non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra
+              ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium,
+              id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique.
+              Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum
+              tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum
+              finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi.
+            </Text>
+          </View>
+        </ScrollView>
       </View>
 
       <View
         style={[
           styles.footer,
           {
-            padding: Device.deviceType !== 1 ? 24 : 16,
+            padding: edgePadding,
             paddingBottom: Device.deviceType !== 1 ? 24 + insets.bottom : 16 + insets.bottom,
           },
         ]}
       >
-        <BigButton route="check-in">Check-in</BigButton>
+        <BigButton route="check-in" shadow>
+          Check-in
+        </BigButton>
       </View>
     </View>
   );

@@ -7,6 +7,7 @@ import { pressedDefault, theme } from "utils/helpers";
 type BigButtonProps = {
   children: string;
   route: string;
+  shadow?: boolean;
 };
 
 export default function BigButton(props: BigButtonProps) {
@@ -19,6 +20,7 @@ export default function BigButton(props: BigButtonProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
+        props.shadow && styles.shadow,
         {
           backgroundColor: colors.primary,
           height: Device.deviceType !== 1 ? 96 : 72,
@@ -56,5 +58,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+  shadow: {
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
 });

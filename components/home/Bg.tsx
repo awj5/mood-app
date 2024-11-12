@@ -10,16 +10,16 @@ export default function Bg() {
   const colors = theme();
   const headerHeight = useHeaderHeight();
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
-  const heightOffset = Device.deviceType !== 1 ? 128 : 96;
+  const heightOffset = headerHeight + (Device.deviceType !== 1 ? 128 : 96);
 
   const getCanvasDimensions = (e: LayoutChangeEvent) => {
     const { width, height } = e.nativeEvent.layout;
-    setCanvasDimensions({ width: width, height: height - (heightOffset + headerHeight) });
+    setCanvasDimensions({ width: width, height: height - heightOffset });
   };
 
   return (
     <View style={styles.container} onLayout={(e) => getCanvasDimensions(e)}>
-      <Canvas style={{ flex: 1, top: heightOffset + headerHeight }}>
+      <Canvas style={{ flex: 1, top: heightOffset }}>
         <Rect x={0} y={0} width={canvasDimensions.width} height={canvasDimensions.height}>
           <LinearGradient
             start={vec(0, 0)}
