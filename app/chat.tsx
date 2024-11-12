@@ -2,7 +2,7 @@ import { ScrollView, SafeAreaView, KeyboardAvoidingView, Platform, Pressable, Te
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
-import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
+import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { Sparkles } from "lucide-react-native";
 import Response from "components/chat/Response";
 import Input from "components/chat/Input";
@@ -15,7 +15,7 @@ export default function Chat() {
   const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           gestureEnabled: false,
@@ -48,13 +48,7 @@ export default function Chat() {
               />
 
               <Text
-                style={[
-                  styles.headerRightText,
-                  {
-                    fontSize: headerTextSize,
-                    color: colors.primary,
-                  },
-                ]}
+                style={{ fontFamily: "Circular-Bold", fontSize: headerTextSize, color: colors.primary }}
                 allowFontScaling={false}
               >
                 Acme, Inc. Insights
@@ -65,7 +59,7 @@ export default function Chat() {
       />
 
       <KeyboardAvoidingView
-        style={styles.container}
+        style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={headerHeight}
       >
@@ -82,14 +76,8 @@ export default function Chat() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  headerRightText: {
-    fontFamily: "Circular-Bold",
   },
 });

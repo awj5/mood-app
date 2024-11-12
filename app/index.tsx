@@ -1,17 +1,20 @@
 import { useEffect } from "react";
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable, ScrollView } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Settings, Share } from "lucide-react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { Settings, Download } from "lucide-react-native";
 import BigButton from "components/BigButton";
 import Calendar from "components/home/Calendar";
 import HeaderLeft from "components/home/HeaderLeft";
+import Bg from "components/home/Bg";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 export default function Home() {
   const insets = useSafeAreaInsets();
+  const headerHeight = useHeaderHeight();
   const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
@@ -43,19 +46,23 @@ export default function Home() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           headerTitle: "",
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+          headerTransparent: true,
           headerLeft: () => <HeaderLeft />,
           headerRight: () => (
-            <View style={[styles.headerRight, { gap: Device.deviceType !== 1 ? 24 : 20 }]}>
+            <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 24 : 20 }}>
               <Pressable
                 onPress={() => alert("Coming soon")}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >
-                <Share color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
+                <Download color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
               </Pressable>
 
               <Pressable
@@ -70,13 +77,11 @@ export default function Home() {
         }}
       />
 
-      <Calendar />
+      <Bg />
 
-      <View style={{ padding: 24 }}>
-        <Text style={{ textAlign: "center", color: colors.secondary, fontSize: 16 }}>
-          This screen will display AI insights from selected mood check-in dates, as well as original content from
-          MOOD.ai and company resources.
-        </Text>
+      <View style={{ marginTop: headerHeight }}>
+        <Calendar />
+        <ScrollView contentContainerStyle={{ flex: 1 }}></ScrollView>
       </View>
 
       <View
@@ -95,12 +100,6 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  headerRight: {
-    flexDirection: "row",
-  },
   footer: {
     position: "absolute",
     bottom: 0,

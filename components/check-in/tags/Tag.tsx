@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { TagType } from "app/check-in";
@@ -48,8 +48,8 @@ export default function Tag(props: TagProps) {
         onPress={press}
         style={({ pressed }) => [
           pressedDefault(pressed),
-          styles.container,
           {
+            borderRadius: 999,
             borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
             borderColor: props.color,
             paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
@@ -60,13 +60,11 @@ export default function Tag(props: TagProps) {
         hitSlop={4}
       >
         <Text
-          style={[
-            styles.text,
-            {
-              fontSize: Device.deviceType !== 1 ? 22 : 18,
-              color: selected && props.color === "black" ? "white" : selected ? "black" : props.color,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Medium",
+            fontSize: Device.deviceType !== 1 ? 22 : 18,
+            color: selected && props.color === "black" ? "white" : selected ? "black" : props.color,
+          }}
           allowFontScaling={false}
         >
           {props.tag.name}
@@ -75,12 +73,3 @@ export default function Tag(props: TagProps) {
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 999,
-  },
-  text: {
-    fontFamily: "Circular-Medium",
-  },
-});

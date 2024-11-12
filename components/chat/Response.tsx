@@ -35,7 +35,11 @@ export default function Response() {
 
   return (
     <View
-      style={[styles.container, { padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 16 : 12 }]}
+      style={{
+        flexDirection: "row",
+        padding: Device.deviceType !== 1 ? 24 : 16,
+        gap: Device.deviceType !== 1 ? 16 : 12,
+      }}
     >
       <Icon thinking={typing} />
 
@@ -55,9 +59,6 @@ export default function Response() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
   text: {
     flexShrink: 1,
     fontFamily: "Circular-Book",

@@ -113,24 +113,22 @@ export default function Day(props: DayProps) {
               ? emojis["empty"]
               : emojis[0]
           }
-          style={[styles.image, { width: Device.deviceType !== 1 ? 52 : 40 }]}
+          style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 52 : 40 }}
         />
 
         <Text
-          style={[
-            styles.text,
-            {
-              fontSize:
-                Device.deviceType !== 1
-                  ? props.date.getFullYear() !== today.getFullYear()
-                    ? 14
-                    : 18
-                  : props.date.getFullYear() !== today.getFullYear()
-                  ? 10
-                  : 14,
-              color: today.getTime() === props.date.getTime() ? colors.primary : colors.secondary,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Book",
+            fontSize:
+              Device.deviceType !== 1
+                ? props.date.getFullYear() !== today.getFullYear()
+                  ? 14
+                  : 18
+                : props.date.getFullYear() !== today.getFullYear()
+                ? 10
+                : 14,
+            color: today.getTime() === props.date.getTime() ? colors.primary : colors.secondary,
+          }}
           allowFontScaling={false}
         >
           {!homeDates.rangeStart
@@ -171,11 +169,5 @@ const styles = StyleSheet.create({
   countText: {
     fontFamily: "Circular-Medium",
     color: "white",
-  },
-  image: {
-    aspectRatio: "1/1",
-  },
-  text: {
-    fontFamily: "Circular-Book",
   },
 });

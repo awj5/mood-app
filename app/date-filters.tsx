@@ -28,7 +28,7 @@ export default function DateFilters() {
 
       <View style={{ gap: Device.deviceType !== 1 ? 8 : 4 }}>
         <Text
-          style={[styles.title, { fontSize: Device.deviceType !== 1 ? 48 : 36, color: colors.primary }]}
+          style={{ fontFamily: "Circular-Bold", fontSize: Device.deviceType !== 1 ? 48 : 36, color: colors.primary }}
           allowFontScaling={false}
         >
           History
@@ -46,9 +46,6 @@ export default function DateFilters() {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontFamily: "Circular-Bold",
-  },
   text: {
     fontFamily: "Circular-Book",
   },

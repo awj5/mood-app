@@ -41,13 +41,11 @@ export default function Button(props: ButtonProps) {
       )}
 
       <Text
-        style={[
-          styles.text,
-          {
-            color: !props.fill ? colors.primary : colors.primary === "white" ? "black" : "white",
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
-          },
-        ]}
+        style={{
+          fontFamily: "Circular-Medium",
+          color: !props.fill ? colors.primary : colors.primary === "white" ? "black" : "white",
+          fontSize: Device.deviceType !== 1 ? 20 : 16,
+        }}
         allowFontScaling={false}
       >
         {props.children}
@@ -62,8 +60,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-  },
-  text: {
-    fontFamily: "Circular-Medium",
   },
 });

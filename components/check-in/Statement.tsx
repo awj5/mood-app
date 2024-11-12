@@ -93,7 +93,7 @@ export default function Statement(props: StatementProps) {
       </Text>
 
       <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>
-        <View style={styles.slider}>
+        <View style={{ justifyContent: "center" }}>
           <View style={[styles.sliderTrackWrapper, { height: Device.deviceType !== 1 ? 32 : 24 }]}>
             <View style={[styles.sliderTrack, { marginHorizontal: Platform.OS === "ios" ? 8 : 0 }]}></View>
           </View>
@@ -161,9 +161,6 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "Circular-Book",
     textAlign: "center",
-  },
-  slider: {
-    justifyContent: "center",
   },
   sliderTrackWrapper: {
     width: "100%",

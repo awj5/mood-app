@@ -35,10 +35,11 @@ export default function BigButton(props: BigButtonProps) {
       />
 
       <Text
-        style={[
-          styles.text,
-          { color: colors.primary === "white" ? "black" : "white", fontSize: Device.deviceType !== 1 ? 24 : 18 },
-        ]}
+        style={{
+          fontFamily: "Circular-Bold",
+          color: colors.primary === "white" ? "black" : "white",
+          fontSize: Device.deviceType !== 1 ? 24 : 18,
+        }}
         allowFontScaling={false}
       >
         {props.children}
@@ -55,8 +56,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-  },
-  text: {
-    fontFamily: "Circular-Bold",
   },
 });

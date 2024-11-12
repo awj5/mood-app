@@ -63,8 +63,8 @@ export default function Done(props: DoneProps) {
         onPress={press}
         style={({ pressed }) => [
           opacity.value > 0.25 && pressedDefault(pressed),
-          styles.button,
           {
+            borderRadius: 999,
             borderColor: props.color,
             paddingHorizontal: Device.deviceType !== 1 ? 24 : 18,
             paddingVertical: Device.deviceType !== 1 ? 8 : 6,
@@ -74,14 +74,12 @@ export default function Done(props: DoneProps) {
         hitSlop={8}
       >
         <Text
-          style={[
-            styles.text,
-            {
-              color: props.color,
-              fontSize: Device.deviceType !== 1 ? 36 : 30,
-              lineHeight: Device.deviceType !== 1 ? 44 : 38,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Book",
+            color: props.color,
+            fontSize: Device.deviceType !== 1 ? 36 : 30,
+            lineHeight: Device.deviceType !== 1 ? 44 : 38,
+          }}
           allowFontScaling={false}
         >
           Done
@@ -106,11 +104,5 @@ const styles = StyleSheet.create({
     width: "50%",
     right: 0,
     alignItems: "center",
-  },
-  button: {
-    borderRadius: 999,
-  },
-  text: {
-    fontFamily: "Circular-Book",
   },
 });

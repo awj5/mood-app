@@ -9,7 +9,7 @@ export default function Input() {
   const [focused, setFocused] = useState(false);
 
   return (
-    <View style={[styles.container, { padding: Device.deviceType !== 1 ? 24 : 16 }]}>
+    <View style={{ alignItems: "center", padding: Device.deviceType !== 1 ? 24 : 16 }}>
       <TextInput
         onChangeText={setText}
         value={text}
@@ -36,9 +36,6 @@ export default function Input() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
   input: {
     borderRadius: 999,
     fontFamily: "Circular-Book",

@@ -129,12 +129,17 @@ export default function Calendar() {
   }, []);
 
   return (
-    <View style={[styles.container, { height: Device.deviceType !== 1 ? 128 : 96 }]}>
+    <View
+      style={{
+        justifyContent: "center",
+        height: Device.deviceType !== 1 ? 128 : 96,
+      }}
+    >
       {visible ? (
         <PagerView
           ref={pagerViewRef}
           initialPage={initPage}
-          style={styles.viewer}
+          style={{ height: "100%" }}
           onPageSelected={(e) => pageSelected(e)}
         >
           {weeks.map((item, index) => (
@@ -151,12 +156,6 @@ export default function Calendar() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-  },
-  viewer: {
-    height: "100%",
-  },
   page: {
     justifyContent: "center",
     alignItems: "center",

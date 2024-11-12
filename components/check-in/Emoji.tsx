@@ -58,7 +58,7 @@ export default function Emoji(props: EmojiProps) {
         ]}
       />
 
-      <View style={[styles.imageWrapper, styles.image]}>
+      <View style={styles.imageWrapper}>
         <Animated.View style={[styles.image, animatedStyles]}>
           <Image source={require("../../assets/img/emoji/yellow.svg")} style={styles.image} />
           <Image source={require("../../assets/img/emoji/chartreuse.svg")} style={styles.image} />
@@ -89,6 +89,8 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     overflow: "hidden",
+    width: "100%",
+    height: "100%",
   },
   image: {
     width: "100%",

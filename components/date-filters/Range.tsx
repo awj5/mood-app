@@ -59,7 +59,7 @@ export default function Range() {
   };
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
+    <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 24 : 16 }}>
       <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
         <Text
           style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
@@ -120,9 +120,6 @@ export default function Range() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
   col: {
     flex: 1,
   },
