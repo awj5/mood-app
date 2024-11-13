@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -42,9 +42,10 @@ export default function CheckIn() {
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
-  const foreground = useSharedValue("");
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [foregroundColor, setForegroundColor] = useState("");
+  const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
 
@@ -72,7 +73,6 @@ export default function CheckIn() {
       if (currentValue !== previousValue && currentValue >= 0) {
         const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
         mood.value = MoodsData[index];
-        foreground.value = (currentValue >= 0 && currentValue < 165) || currentValue >= 345 ? "black" : "white";
       }
     }
   );
@@ -82,6 +82,12 @@ export default function CheckIn() {
       if (mood.value.id) router.dismiss(); // Already checked in. Go back to home
     }, [])
   );
+
+  useEffect(() => {
+    setSelectedMood(mood.value);
+    setForegroundColor((rotation.value >= 0 && rotation.value < 165) || rotation.value >= 345 ? "black" : "white");
+    sliderVal.value = 0.5; // Reset
+  }, [showTags]);
 
   return (
     <View style={styles.container}>
@@ -104,27 +110,27 @@ export default function CheckIn() {
 
       {showTags && (
         <>
-          <Heading text="How do you feel right now?" color={foreground.value} />
+          <Heading text="How do you feel right now?" color={foregroundColor} />
 
-          <Next setState={setShowStatement} color={foreground.value} disabled={selectedTags.length ? false : true} />
+          <Next setState={setShowStatement} color={foregroundColor} disabled={selectedTags.length ? false : true} />
 
           <Tags
-            tags={mood.value.tags}
+            tags={selectedMood.tags}
             setSelectedTags={setSelectedTags}
             selectedTags={selectedTags}
-            color={foreground.value}
+            color={foregroundColor}
           />
 
           {showStatement && (
             <>
-              <Background2 color={mood.value.color} />
+              <Background2 color={selectedMood.color} />
               <BackgroundOverlay sliderVal={sliderVal} />
-              <Heading text="Do you agree with this statement?" color={foreground.value} />
-              <Done color={foreground.value} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
+              <Heading text="Do you agree with this statement?" color={foregroundColor} />
+              <Done color={foregroundColor} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
               <Statement
-                moodID={mood.value.id}
-                color={foreground.value}
+                moodID={selectedMood.id}
+                color={foregroundColor}
                 sliderVal={sliderVal}
                 competency={competency}
                 setCompetency={setCompetency}
@@ -133,7 +139,7 @@ export default function CheckIn() {
             </>
           )}
 
-          <Close setShowTags={setShowTags} setShowStatement={setShowStatement} color={foreground.value} />
+          <Close setShowTags={setShowTags} setShowStatement={setShowStatement} color={foregroundColor} />
         </>
       )}
     </View>

@@ -59,7 +59,6 @@ export default function Statement(props: StatementProps) {
   };
 
   useEffect(() => {
-    props.sliderVal.value = 0.5; // Reset
     const competencies: number[] = [];
 
     // Loop selected tags and get competencies

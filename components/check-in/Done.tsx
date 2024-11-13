@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   Easing,
+  runOnJS,
   SharedValue,
   useAnimatedReaction,
   useSharedValue,
@@ -24,12 +25,11 @@ export default function Done(props: DoneProps) {
   const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const [disabled, setDisabled] = useState(true);
 
   const press = () => {
-    if (opacity.value > 0.25) {
-      props.submitCheckIn();
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    }
+    props.submitCheckIn();
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   useAnimatedReaction(
@@ -37,6 +37,7 @@ export default function Done(props: DoneProps) {
     () => {
       if (opacity.value === 0.25) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+        runOnJS(setDisabled)(false);
       }
     }
   );
@@ -62,7 +63,7 @@ export default function Done(props: DoneProps) {
       <Pressable
         onPress={press}
         style={({ pressed }) => [
-          opacity.value > 0.25 && pressedDefault(pressed),
+          pressedDefault(pressed),
           {
             borderRadius: 999,
             borderColor: props.color,
@@ -72,6 +73,7 @@ export default function Done(props: DoneProps) {
           },
         ]}
         hitSlop={8}
+        disabled={disabled}
       >
         <Text
           style={{

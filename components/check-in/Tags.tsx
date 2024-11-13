@@ -46,7 +46,7 @@ export default function Tags(props: TagsProps) {
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
     props.setSelectedTags([]); // Clear
-  }, []);
+  }, [props.tags]);
 
   return (
     <View
