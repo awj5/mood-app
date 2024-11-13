@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     justifyContent: "center",
+    opacity: 0,
   },
   portrait: {
     bottom: 0,

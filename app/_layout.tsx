@@ -3,6 +3,7 @@ import { Dimensions } from "react-native";
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
 import { SQLiteProvider } from "expo-sqlite";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -78,6 +79,8 @@ export default function Layout() {
                 }}
               />
             </Stack>
+
+            <StatusBar style="auto" />
           </GestureHandlerRootView>
         </HomeDatesContext.Provider>
       </DimensionsContext.Provider>

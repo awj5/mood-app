@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 24,
     gap: 48,
+    opacity: 0,
   },
   text: {
     fontFamily: "Circular-Book",

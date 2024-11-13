@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import { StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import Animated, {
@@ -67,5 +68,12 @@ export default function Background(props: BackgroundProps) {
     opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
-  return <Animated.View style={[animatedStyles, { position: "absolute", zIndex: props.showTags ? 1 : 0 }]} />;
+  return <Animated.View style={[styles.container, animatedStyles, { zIndex: props.showTags ? 1 : 0 }]} />;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    opacity: 0,
+  },
+});

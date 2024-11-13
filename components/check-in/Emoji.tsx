@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     alignItems: "center",
+    opacity: 0,
   },
   caret: {
     position: "absolute",

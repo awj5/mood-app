@@ -62,6 +62,7 @@ export default function Wheel(props: WheelProps) {
         style={[
           animatedStyles,
           {
+            opacity: 0,
             width: size,
             height: size,
           },

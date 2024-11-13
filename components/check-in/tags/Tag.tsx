@@ -43,7 +43,7 @@ export default function Tag(props: TagProps) {
   }, []);
 
   return (
-    <Animated.View style={animatedStyles}>
+    <Animated.View style={[animatedStyles, { transform: [{ scale: 0 }] }]}>
       <Pressable
         onPress={press}
         style={({ pressed }) => [

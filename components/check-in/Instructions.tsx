@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     top: "50%",
+    opacity: 0,
   },
   text: {
     fontFamily: "Circular-Book",

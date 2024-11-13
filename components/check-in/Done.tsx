@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     zIndex: 1,
+    opacity: 0,
   },
   portrait: {
     bottom: 0,
