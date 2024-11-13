@@ -4,7 +4,7 @@ import { useColorScheme } from "react-native";
 
 export const pressedDefault = (pressed: boolean) => {
   return {
-    opacity: pressed ? 0.25 : 1,
+    opacity: pressed ? 0.3 : 1,
   };
 };
 

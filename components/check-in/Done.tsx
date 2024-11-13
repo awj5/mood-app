@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   Easing,
-  runOnJS,
   SharedValue,
   useAnimatedReaction,
   useSharedValue,
@@ -13,7 +12,6 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { pressedDefault } from "utils/helpers";
 
 type DoneProps = {
   color: string;
@@ -25,11 +23,24 @@ export default function Done(props: DoneProps) {
   const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
-  const [disabled, setDisabled] = useState(true);
 
   const press = () => {
-    props.submitCheckIn();
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (opacity.value > 0.25) {
+      props.submitCheckIn();
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
+  };
+
+  const pressIn = () => {
+    if (opacity.value === 1) {
+      opacity.value = 0.3;
+    }
+  };
+
+  const pressOut = () => {
+    if (opacity.value > 0.25) {
+      opacity.value = 1;
+    }
   };
 
   useAnimatedReaction(
@@ -37,7 +48,6 @@ export default function Done(props: DoneProps) {
     () => {
       if (opacity.value === 0.25) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-        runOnJS(setDisabled)(false);
       }
     }
   );
@@ -62,18 +72,16 @@ export default function Done(props: DoneProps) {
     >
       <Pressable
         onPress={press}
-        style={({ pressed }) => [
-          pressedDefault(pressed),
-          {
-            borderRadius: 999,
-            borderColor: props.color,
-            paddingHorizontal: Device.deviceType !== 1 ? 24 : 18,
-            paddingVertical: Device.deviceType !== 1 ? 8 : 6,
-            borderWidth: Device.deviceType !== 1 ? 3.5 : 3,
-          },
-        ]}
+        onPressIn={pressIn}
+        onPressOut={pressOut}
+        style={{
+          borderRadius: 999,
+          borderColor: props.color,
+          paddingHorizontal: Device.deviceType !== 1 ? 24 : 18,
+          paddingVertical: Device.deviceType !== 1 ? 8 : 6,
+          borderWidth: Device.deviceType !== 1 ? 3.5 : 3,
+        }}
         hitSlop={8}
-        disabled={disabled}
       >
         <Text
           style={{
