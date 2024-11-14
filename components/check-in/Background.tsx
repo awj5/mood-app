@@ -21,7 +21,7 @@ type BackgroundProps = {
 };
 
 export default function Background(props: BackgroundProps) {
-  const backgroundColor = useSharedValue("transparent");
+  const backgroundColor = useSharedValue("white");
   const opacity = useSharedValue(0);
   const borderRadius = useSharedValue(0);
   const width = useSharedValue(0);
@@ -40,9 +40,9 @@ export default function Background(props: BackgroundProps) {
   useAnimatedReaction(
     () => props.mood.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue.color) {
+      if (currentValue !== previousValue && currentValue.color && opacity.value === 1) {
         backgroundColor.value = withTiming(currentValue.color, { duration: 200, easing: Easing.linear });
-        if (opacity.value === 1) runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
+        runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
       }
     }
   );

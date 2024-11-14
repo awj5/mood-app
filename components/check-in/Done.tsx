@@ -71,7 +71,7 @@ export default function Done(props: DoneProps) {
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} style={{}} hitSlop={8}>
+      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
         <CircleCheck
           color={props.color}
           size={Device.deviceType !== 1 ? 88 : 64}

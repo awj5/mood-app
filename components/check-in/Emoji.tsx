@@ -29,7 +29,7 @@ export default function Emoji(props: EmojiProps) {
   useAnimatedReaction(
     () => props.mood.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue) top.value = `${0 - 100 * (currentValue.id - 1)}%`;
+      if (currentValue !== previousValue && opacity.value === 1) top.value = `${-100 - 100 * (currentValue.id - 1)}%`;
     }
   );
 
@@ -60,6 +60,7 @@ export default function Emoji(props: EmojiProps) {
 
       <View style={styles.imageWrapper}>
         <Animated.View style={[styles.image, animatedStyles]}>
+          <Image source={require("../../assets/img/emoji/white.svg")} style={styles.image} />
           <Image source={require("../../assets/img/emoji/yellow.svg")} style={styles.image} />
           <Image source={require("../../assets/img/emoji/chartreuse.svg")} style={styles.image} />
           <Image source={require("../../assets/img/emoji/green.svg")} style={styles.image} />

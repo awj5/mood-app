@@ -103,7 +103,7 @@ export default function CheckIn() {
 
       <Heading text="How's work?" />
       <Instructions />
-      <Next setState={setShowTags} />
+      <Next setState={setShowTags} disabled mood={mood} />
       <Background showTags={showTags} mood={mood} />
       <Wheel rotation={rotation} />
       <Emoji showTags={showTags} mood={mood} />
@@ -111,7 +111,6 @@ export default function CheckIn() {
       {showTags && (
         <>
           <Heading text="How do you feel right now?" color={foregroundColor} />
-
           <Next setState={setShowStatement} color={foregroundColor} disabled={selectedTags.length ? false : true} />
 
           <Tags

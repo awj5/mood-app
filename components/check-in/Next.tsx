@@ -3,15 +3,24 @@ import { StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  SharedValue,
+  useAnimatedReaction,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 import { CircleArrowRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { theme, pressedDefault } from "utils/helpers";
+import { MoodType } from "app/check-in";
+import { theme } from "utils/helpers";
 
 type NextProps = {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
   color?: string;
   disabled?: boolean;
+  mood?: SharedValue<MoodType>;
 };
 
 export default function Next(props: NextProps) {
@@ -21,16 +30,36 @@ export default function Next(props: NextProps) {
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const press = () => {
-    props.setState(true);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (opacity.value > 0.25) {
+      props.setState(true);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
   };
+
+  const pressIn = () => {
+    if (opacity.value === 1) {
+      opacity.value = 0.3;
+    }
+  };
+
+  const pressOut = () => {
+    if (opacity.value > 0.25) {
+      opacity.value = 1;
+    }
+  };
+
+  useAnimatedReaction(
+    () => props.mood && props.mood.value,
+    (currentValue, previousValue) => {
+      if (currentValue !== previousValue && currentValue?.color && opacity.value === 0.25) {
+        opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+      }
+    }
+  );
 
   useEffect(() => {
     if (!props.disabled) {
-      opacity.value = withDelay(
-        props.color === undefined ? 1500 : 0,
-        withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) })
-      );
+      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     } else {
       opacity.value = withDelay(
         !opacity.value ? 1500 : 0,
@@ -54,7 +83,7 @@ export default function Next(props: NextProps) {
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Pressable onPress={press} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8} disabled={props.disabled}>
+      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
         <CircleArrowRight
           color={props.color !== undefined ? props.color : colors.primary}
           size={Device.deviceType !== 1 ? 88 : 64}
