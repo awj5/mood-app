@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { StyleSheet, Pressable, Text } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -11,6 +11,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
+import { CircleCheck } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 
 type DoneProps = {
@@ -70,30 +71,13 @@ export default function Done(props: DoneProps) {
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Pressable
-        onPress={press}
-        onPressIn={pressIn}
-        onPressOut={pressOut}
-        style={{
-          borderRadius: 999,
-          borderColor: props.color,
-          paddingHorizontal: Device.deviceType !== 1 ? 24 : 18,
-          paddingVertical: Device.deviceType !== 1 ? 8 : 6,
-          borderWidth: Device.deviceType !== 1 ? 3.5 : 3,
-        }}
-        hitSlop={8}
-      >
-        <Text
-          style={{
-            fontFamily: "Circular-Book",
-            color: props.color,
-            fontSize: Device.deviceType !== 1 ? 36 : 30,
-            lineHeight: Device.deviceType !== 1 ? 44 : 38,
-          }}
-          allowFontScaling={false}
-        >
-          Done
-        </Text>
+      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} style={{}} hitSlop={8}>
+        <CircleCheck
+          color={props.color}
+          size={Device.deviceType !== 1 ? 88 : 64}
+          absoluteStrokeWidth
+          strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
+        />
       </Pressable>
     </Animated.View>
   );
