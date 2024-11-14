@@ -1,7 +1,7 @@
 import { StyleSheet, Pressable, Text } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
-import { BadgeCheck } from "lucide-react-native";
+import { CircleCheck } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
 type BigButtonProps = {
@@ -29,11 +29,11 @@ export default function BigButton(props: BigButtonProps) {
       ]}
       hitSlop={8}
     >
-      <BadgeCheck
+      <CircleCheck
         color={colors.primary === "white" ? "black" : "white"}
         size={Device.deviceType !== 1 ? 32 : 24}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
+        strokeWidth={Device.deviceType !== 1 ? 3.25 : 2.5}
       />
 
       <Text

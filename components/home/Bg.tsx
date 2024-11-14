@@ -7,7 +7,8 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
-import { CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "data/database";
+import MoodsData from "data/moods.json";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { convertToISO, theme } from "utils/helpers";
 
@@ -20,27 +21,48 @@ export default function Bg() {
   const color3 = useSharedValue(colors.primaryBg);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
+  const [colorsArray, setColorsArray] = useState([colors.primaryBg]);
   const heightOffset = headerHeight + (Device.deviceType !== 1 ? 128 : 96);
-  const colorsArray = ["red", "blue", "green"];
   const animationDuration = 3000;
+
+  const gradientColors = useDerivedValue(() => {
+    return [colors.primaryBg, color1.value, color2.value, color3.value];
+  }, []);
 
   const getCanvasDimensions = (e: LayoutChangeEvent) => {
     const { width, height } = e.nativeEvent.layout;
     setCanvasDimensions({ width: width, height: height - heightOffset });
   };
 
-  const gradientColors = useDerivedValue(() => {
-    return [colors.primaryBg, color1.value, color2.value, color3.value];
-  }, []);
-
   const getData = async () => {
+    const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
+    var end = new Date(start);
+
+    if (homeDates.rangeEnd) {
+      end = homeDates.rangeEnd;
+    } else {
+      end.setDate(start.getDate() + 6); // Sunday
+    }
+
+    var checkInColors = [colors.primaryBg];
+
     try {
       const query = `
       SELECT * FROM check_ins
-      WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC
+      WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC
     `;
 
-      //const rows: CheckInType[] | null = await db.getAllAsync(query, [convertToISO(props.date)]);
+      const rows: CheckInType[] | null = await db.getAllAsync(query, [convertToISO(start), convertToISO(end)]);
+      if (rows.length) checkInColors = []; // Clear when checkins found
+
+      // Loop checkins and get color
+      for (let i = 0; i < rows.length; i++) {
+        let mood: CheckInMoodType = JSON.parse(rows[i].mood);
+        let data = MoodsData.filter((item) => item.id === mood.color);
+        checkInColors.push(data[0].color);
+      }
+
+      setColorsArray(checkInColors);
     } catch (error) {
       console.log(error);
     }
@@ -84,8 +106,12 @@ export default function Bg() {
       const interval = setInterval(animateColors, animationDuration);
       animateColors();
       return () => clearInterval(interval);
-    }, [homeDates])
+    }, [colorsArray])
   );
+
+  useEffect(() => {
+    getData();
+  }, [homeDates]);
 
   return (
     <View style={styles.container} onLayout={(e) => getCanvasDimensions(e)}>
