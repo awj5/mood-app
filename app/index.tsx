@@ -1,15 +1,18 @@
-import { useEffect } from "react";
-import { View, StyleSheet, Pressable, ScrollView, Text } from "react-native";
-import { SplashScreen, Stack, useRouter } from "expo-router";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { View, StyleSheet, Pressable, ScrollView, AppState } from "react-native";
+import { SplashScreen, Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Settings, Download } from "lucide-react-native";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import BigButton from "components/BigButton";
 import Calendar from "components/home/Calendar";
 import HeaderLeft from "components/home/HeaderLeft";
 import Bg from "components/home/Bg";
+import Insights from "components/home/Insights";
+import Loading from "components/home/Loading";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 export default function Home() {
@@ -18,12 +21,31 @@ export default function Home() {
   const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
+  const appState = useRef(AppState.currentState);
+  const isFirstFocus = useRef(true);
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const [bounceCheckIn, setCheckInBounce] = useState(false);
+  const [loadingContent, setLoadingContent] = useState(true);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
   const edgePadding = Device.deviceType !== 1 ? 24 : 16;
 
-  const verifyCheckIn = async () => {
-    // Redirect if user hasn't checked-in today
+  /*const getCheckInsCount = async () => {
+    try {
+      const query = `
+    SELECT * FROM check_ins
+  `;
+
+      const rows = await db.getAllAsync(query);
+      return rows.length;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
+  };*/
+
+  const getCheckIn = async () => {
     try {
       const today = new Date();
 
@@ -34,16 +56,52 @@ export default function Home() {
   `;
 
       const row = await db.getFirstAsync(query, [convertToISO(today)]);
-      if (!row) router.push("check-in"); // Redirect
+      return row;
     } catch (error) {
       console.log(error);
     }
+  };
 
+  const verifyCheckIn = async () => {
+    // Redirect if user hasn't checked-in today
+    const checkin = await getCheckIn();
+    if (!checkin) router.push("check-in"); // Redirect
     SplashScreen.hideAsync();
   };
 
+  const initCheckInBounce = async () => {
+    console.log("bounce");
+    // Bounce check-in button if user hasn't checked-in today
+    const checkin = await getCheckIn();
+    setCheckInBounce(!checkin ? true : false);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      // Don't fire on mount
+      if (isFirstFocus.current) {
+        isFirstFocus.current = false;
+        return;
+      }
+
+      initCheckInBounce();
+    }, [])
+  );
+
   useEffect(() => {
+    if (appStateVisible === "active") {
+      initCheckInBounce();
+    }
+  }, [appStateVisible]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+    });
+
     verifyCheckIn();
+    return () => subscription.remove();
   }, []);
 
   return (
@@ -83,75 +141,17 @@ export default function Home() {
       <View style={{ flex: 1, marginTop: headerHeight }}>
         <Calendar />
 
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flex: loadingContent ? 1 : 0 }}>
           <View
             style={{
-              paddingHorizontal: edgePadding,
+              alignItems: "center",
+              flex: loadingContent ? 1 : 0,
+              justifyContent: loadingContent ? "center" : "flex-start",
+              paddingTop: edgePadding,
               paddingBottom: edgePadding * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
             }}
           >
-            <Text style={{ color: colors.primary, display: "none" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id
-              fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum.
-              Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero
-              porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis
-              consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero
-              ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est
-              a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur
-              est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at
-              risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras
-              bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id fermentum
-              turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum. Vivamus
-              porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero porttitor,
-              sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis consectetur
-              ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero ultricies velit,
-              non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra
-              ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium,
-              id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique.
-              Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum
-              tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum
-              finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis.
-              Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget
-              diam consequat, nec efficitur est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus
-              pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi
-              volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum
-              ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros
-              ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum
-              mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare
-              nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam
-              sagittis consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis
-              libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut
-              semper est a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat,
-              nec efficitur est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in
-              tortor at risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget.
-              Cras bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id
-              fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum.
-              Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero
-              porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis
-              consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero
-              ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Phasellus viverra ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est
-              a neque pretium, id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur
-              est tristique. Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at
-              risus vestibulum tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras
-              bibendum, ex at dictum finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi. Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit. Phasellus viverra ligula at eros ullamcorper, id fermentum
-              turpis facilisis. Nulla facilisi. Ut semper est a neque pretium, id fermentum mauris vestibulum. Vivamus
-              porttitor nisl eget diam consequat, nec efficitur est tristique. Integer ornare nibh et libero porttitor,
-              sed suscipit purus pulvinar. Nam in tortor at risus vestibulum tincidunt. Nullam sagittis consectetur
-              ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum finibus, turpis libero ultricies velit,
-              non varius lorem ipsum ut nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus viverra
-              ligula at eros ullamcorper, id fermentum turpis facilisis. Nulla facilisi. Ut semper est a neque pretium,
-              id fermentum mauris vestibulum. Vivamus porttitor nisl eget diam consequat, nec efficitur est tristique.
-              Integer ornare nibh et libero porttitor, sed suscipit purus pulvinar. Nam in tortor at risus vestibulum
-              tincidunt. Nullam sagittis consectetur ante, at egestas nisi volutpat eget. Cras bibendum, ex at dictum
-              finibus, turpis libero ultricies velit, non varius lorem ipsum ut nisi.
-            </Text>
+            {!loadingContent ? <Insights /> : <Loading />}
           </View>
         </ScrollView>
       </View>
@@ -165,7 +165,7 @@ export default function Home() {
           },
         ]}
       >
-        <BigButton route="check-in" shadow>
+        <BigButton route="check-in" shadow bounce={bounceCheckIn}>
           Check-in
         </BigButton>
       </View>
