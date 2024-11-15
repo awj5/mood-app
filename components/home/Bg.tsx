@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { View, StyleSheet, LayoutChangeEvent } from "react-native";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
@@ -27,7 +27,7 @@ export default function Bg() {
 
   const gradientColors = useDerivedValue(() => {
     return [colors.primaryBg, color1.value, color2.value, color3.value];
-  }, []);
+  }, [colors.primaryBg]);
 
   const getCanvasDimensions = (e: LayoutChangeEvent) => {
     const { width, height } = e.nativeEvent.layout;
@@ -109,9 +109,11 @@ export default function Bg() {
     }, [colorsArray])
   );
 
-  useEffect(() => {
-    getData();
-  }, [homeDates]);
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, [homeDates])
+  );
 
   return (
     <View style={styles.container} onLayout={(e) => getCanvasDimensions(e)}>
