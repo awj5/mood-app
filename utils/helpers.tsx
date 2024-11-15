@@ -40,3 +40,18 @@ export const getMonday = (date: Date) => {
   monday.setDate(date.getDate() - daysFromMonday);
   return monday;
 };
+
+export const isInRange = (date: Date, start?: Date, end?: Date, weekStart?: Date) => {
+  var sunday: Date | undefined;
+
+  if (weekStart && !start) {
+    sunday = new Date(weekStart);
+    sunday.setDate(weekStart.getDate() + 6);
+  }
+
+  return (
+    (weekStart && sunday && date >= weekStart && date <= sunday) ||
+    (!weekStart && !start) ||
+    (start && end && date >= start && date <= end)
+  );
+};

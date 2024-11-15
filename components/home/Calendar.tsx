@@ -31,7 +31,9 @@ export default function Calendar() {
   const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
     if (!homeDates.rangeStart) {
       setPage(e.nativeEvent.position);
-      setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
+
+      if (homeDates.weekStart.getTime() !== weeks[e.nativeEvent.position].getTime())
+        setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
     }
   };
 
@@ -57,6 +59,7 @@ export default function Calendar() {
 
     timeoutRef.current = setTimeout(() => {
       setVisible(true);
+      timeoutRef.current = null;
     }, 500);
   };
 

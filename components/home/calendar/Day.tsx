@@ -1,13 +1,13 @@
 import { useCallback, useState, useRef, useContext } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import { CheckInMoodType, CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import { pressedDefault, theme, convertToISO } from "utils/helpers";
+import { pressedDefault, theme, convertToISO, isInRange } from "utils/helpers";
 
 type DayProps = {
   date: Date;
@@ -16,6 +16,7 @@ type DayProps = {
 export default function Day(props: DayProps) {
   const db = useSQLiteContext();
   const colors = theme();
+  const router = useRouter();
   const localization = getLocales();
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const queriedRef = useRef(false);
@@ -42,14 +43,12 @@ export default function Day(props: DayProps) {
     12: require("../../../assets/img/emoji/small/orange.svg"),
   };
 
-  const isInRange = () => {
-    return (
-      !homeDates.rangeStart ||
-      (homeDates.rangeStart &&
-        homeDates.rangeEnd &&
-        props.date >= homeDates.rangeStart &&
-        props.date <= homeDates.rangeEnd)
-    );
+  const press = () => {
+    if (!checkInMood && today.getTime() === props.date.getTime()) {
+      router.push("check-in"); // Is current day and not check-ins yet
+    } else {
+      alert("Coming soon");
+    }
   };
 
   const getData = async () => {
@@ -85,12 +84,22 @@ export default function Day(props: DayProps) {
 
   return (
     <Pressable
-      onPress={() => alert("Coming soon")}
+      onPress={press}
       style={({ pressed }) => [pressedDefault(pressed)]}
       hitSlop={4}
-      disabled={checkInMood && isInRange() ? false : true}
+      disabled={
+        (checkInMood && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd)) ||
+        today.getTime() === props.date.getTime()
+          ? false
+          : true
+      }
     >
-      <View style={[styles.container, { opacity: isInRange() ? 1 : 0.25 }]}>
+      <View
+        style={[
+          styles.container,
+          { opacity: isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd) ? 1 : 0.25 },
+        ]}
+      >
         <View
           style={[
             styles.count,
