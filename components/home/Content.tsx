@@ -50,7 +50,10 @@ export default function Content() {
         !dates.rangeStart &&
         dates.weekStart.getTime() === getMonday(today).getTime() &&
         checkInCount !== checkInCounter.current) ||
-      (focused && dates.rangeStart && isInRange(today) && checkInCount !== checkInCounter.current)
+      (focused &&
+        dates.rangeStart &&
+        isInRange(today, dates.rangeStart, dates.rangeEnd) &&
+        checkInCount !== checkInCounter.current)
     ) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);

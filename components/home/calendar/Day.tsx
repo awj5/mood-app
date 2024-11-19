@@ -99,7 +99,7 @@ export default function Day(props: DayProps) {
       hitSlop={4}
       disabled={
         (checkInMood && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd)) ||
-        today.getTime() === props.date.getTime()
+        (today.getTime() === props.date.getTime() && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd))
           ? false
           : true
       }
