@@ -1,7 +1,10 @@
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import * as Device from "expo-device";
 import { CheckInMoodType, CheckInType } from "data/database";
 import Header from "./check-in/Header";
+import Feelings from "./check-in/Feelings";
+import Statement from "./check-in/Statement";
+import { theme } from "utils/helpers";
 
 type CheckInProps = {
   data: CheckInType;
@@ -10,15 +13,33 @@ type CheckInProps = {
 };
 
 export default function CheckIn(props: CheckInProps) {
+  const colors = theme();
   const mood: CheckInMoodType = JSON.parse(props.data.mood);
   const utc = new Date(`${props.data.date}Z`);
   const local = new Date(utc);
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   return (
-    <View style={{ paddingVertical: Device.deviceType !== 1 ? 24 : 16, height: props.itemHeight }}>
-      <Header id={props.data.id} mood={mood} date={local} getData={props.getData} />
+    <View
+      style={{
+        padding: spacing,
+        paddingBottom: 0,
+        height: props.itemHeight,
+      }}
+    >
+      <View
+        style={{
+          gap: spacing,
+          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)",
+          paddingVertical: spacing,
+          borderRadius: spacing,
+          flex: 1,
+        }}
+      >
+        <Header id={props.data.id} mood={mood} date={local} getData={props.getData} />
+        <Feelings tags={mood.tags} />
+        <Statement mood={mood} />
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

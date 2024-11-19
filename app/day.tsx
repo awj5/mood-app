@@ -5,6 +5,7 @@ import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
 import { useSQLiteContext } from "expo-sqlite";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { CheckInType, CheckInMoodType } from "data/database";
@@ -16,6 +17,7 @@ export default function Day() {
   const params = useLocalSearchParams<{ day: string; month: string; year: string }>();
   const db = useSQLiteContext();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
   const colors = theme();
   const opacity = useSharedValue(0);
@@ -26,7 +28,8 @@ export default function Day() {
   const iso = `${params.year}-${params.month}-${params.day}`;
   const date = new Date(iso);
   const title = date.toDateString();
-  const itemHeight = 256;
+  const itemHeight = Device.deviceType !== 1 ? 320 : 256;
+  const edges = Device.deviceType !== 1 ? 24 : 16;
 
   const getData = async () => {
     try {
@@ -37,7 +40,7 @@ export default function Day() {
     `;
 
       const rows: CheckInType[] | null = await db.getAllAsync(query, [iso]);
-      setGradientHeight((rows.length + 1) * itemHeight + headerHeight);
+      setGradientHeight(rows.length * itemHeight + headerHeight + edges);
       const checkInColors = [];
 
       // Get check in colors
@@ -47,8 +50,7 @@ export default function Day() {
         checkInColors.push(data[0].color);
       }
 
-      checkInColors.push(colors.primaryBg); // Add end color
-      const stops = checkInColors.map((_, index) => index / checkInColors.length); // Calculate even stops
+      const stops = checkInColors.map((_, index) => index / checkInColors.length); // Calculate even color stops
       setGradientColors(checkInColors);
       setGradientLocations(stops);
       setCheckIns(rows);
@@ -60,7 +62,7 @@ export default function Day() {
 
   useEffect(() => {
     getData();
-  }, [colors.primaryBg]);
+  }, []);
 
   return (
     <>
@@ -88,7 +90,7 @@ export default function Day() {
       />
 
       <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
-        <Animated.View style={{ opacity, flex: 1 }}>
+        <Animated.View style={{ opacity, flex: 1, backgroundColor: gradientColors[gradientColors.length - 1] }}>
           <View style={[styles.container, { height: gradientHeight }]}>
             <View style={{ height: headerHeight, backgroundColor: gradientColors[0] }} />
 
@@ -102,7 +104,7 @@ export default function Day() {
           <View
             style={{
               marginTop: headerHeight,
-              paddingBottom: itemHeight,
+              paddingBottom: edges + insets.bottom,
             }}
           >
             {checkIns.map((item, index) => (

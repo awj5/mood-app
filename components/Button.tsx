@@ -5,9 +5,10 @@ import { pressedDefault, theme } from "utils/helpers";
 
 type ButtonProps = {
   children: string;
-  func: () => void;
+  func?: () => void;
   fill?: boolean;
   icon?: string;
+  disabled?: boolean;
 };
 
 export default function Button(props: ButtonProps) {
@@ -16,12 +17,12 @@ export default function Button(props: ButtonProps) {
 
   return (
     <Pressable
-      onPress={() => props.func()}
+      onPress={() => props.func && props.func()}
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
         {
-          height: Device.deviceType !== 1 ? (props.fill ? 64 : 52) : props.fill ? 48 : 40,
+          height: Device.deviceType !== 1 ? (props.fill ? 64 : 48) : props.fill ? 48 : 36,
           paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
           borderWidth: stroke,
           borderColor: colors.primary,
@@ -29,6 +30,7 @@ export default function Button(props: ButtonProps) {
           gap: Device.deviceType !== 1 ? 12 : 8,
         },
       ]}
+      disabled={props.disabled}
       hitSlop={8}
     >
       {props.icon && props.icon === "calendar" && (

@@ -90,10 +90,10 @@ export default function Shortcuts() {
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 16 : 12 }]}>
       <Text
-        style={[styles.label, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }]}
+        style={[styles.label, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 18 : 14 }]}
         allowFontScaling={false}
       >
-        Shortcuts
+        SHORTCUTS
       </Text>
 
       <Button func={setThisWeek}>This week</Button>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   label: {
-    fontFamily: "Circular-Book",
+    fontFamily: "Circular-Bold",
     width: "100%",
   },
 });

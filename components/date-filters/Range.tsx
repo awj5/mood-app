@@ -11,7 +11,7 @@ export default function Range() {
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [showStartPicker, setShowStartPicker] = useState(Platform.OS === "ios");
   const [showEndPicker, setShowEndPicker] = useState(Platform.OS === "ios");
-  const labelFontSize = Device.deviceType !== 1 ? 24 : 18;
+  const labelFontSize = Device.deviceType !== 1 ? 20 : 16;
   const colGap = Device.deviceType !== 1 ? 16 : Platform.OS === "ios" ? 4 : 12;
   const labelWidth = Device.deviceType !== 1 ? 120 : Platform.OS === "ios" ? 40 : "auto";
   const colDirection = Platform.OS === "ios" ? "row" : "column";
