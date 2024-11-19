@@ -47,7 +47,10 @@ export default function Day(props: DayProps) {
     if (!checkInMood && today.getTime() === props.date.getTime()) {
       router.push("check-in"); // Is current day and not check-ins yet
     } else {
-      alert("Coming soon");
+      router.push({
+        pathname: "day",
+        params: { day: props.date.getDate(), month: props.date.getMonth() + 1, year: props.date.getFullYear() },
+      });
     }
   };
 

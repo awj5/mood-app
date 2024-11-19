@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import { View, StyleSheet, LayoutChangeEvent } from "react-native";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
@@ -20,6 +20,7 @@ export default function Bg() {
   const color2 = useSharedValue(colors.primaryBg);
   const color3 = useSharedValue(colors.primaryBg);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const latestQueryRef = useRef<symbol | null>(null);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
   const [colorsArray, setColorsArray] = useState([colors.primaryBg]);
   const heightOffset = headerHeight + (Device.deviceType !== 1 ? 128 : 96);
@@ -35,6 +36,9 @@ export default function Bg() {
   };
 
   const getData = async () => {
+    const currentQuery = Symbol("currentQuery");
+    latestQueryRef.current = currentQuery;
+
     const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
     var end = new Date(start);
 
@@ -62,7 +66,7 @@ export default function Bg() {
         checkInColors.push(data[0].color);
       }
 
-      setColorsArray(checkInColors);
+      if (latestQueryRef.current === currentQuery) setColorsArray(checkInColors);
     } catch (error) {
       console.log(error);
     }

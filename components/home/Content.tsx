@@ -17,6 +17,7 @@ export default function Content() {
   const isFirstFocus = useRef(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const checkInCounter = useRef(0);
+  const latestQueryRef = useRef<symbol | null>(null);
   const homeDatesRef = useRef(homeDates);
   const [loadingContent, setLoadingContent] = useState(true);
   const edgePadding = Device.deviceType !== 1 ? 24 : 16;
@@ -36,18 +37,25 @@ export default function Content() {
   };
 
   const getContent = async (dates: CalendarDatesType, focused?: boolean) => {
+    const currentQuery = Symbol("currentQuery");
+    latestQueryRef.current = currentQuery;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const checkInCount = await getCheckInCount();
 
     // Only get updated content if date filters have changed or a new checkin has occurred
     if (
-      !focused ||
-      (focused &&
+      (latestQueryRef.current === currentQuery && !focused) ||
+      (latestQueryRef.current === currentQuery &&
+        focused &&
         !dates.rangeStart &&
         dates.weekStart.getTime() === getMonday(today).getTime() &&
         checkInCount !== checkInCounter.current) ||
-      (focused && dates.rangeStart && isInRange(today) && checkInCount !== checkInCounter.current)
+      (latestQueryRef.current === currentQuery &&
+        focused &&
+        dates.rangeStart &&
+        isInRange(today) &&
+        checkInCount !== checkInCounter.current)
     ) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);

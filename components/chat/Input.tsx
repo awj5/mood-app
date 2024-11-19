@@ -30,6 +30,7 @@ export default function Input() {
         onBlur={() => setFocused(false)}
         autoCapitalize="none"
         onSubmitEditing={() => setText("")}
+        allowFontScaling={false}
       />
     </View>
   );
