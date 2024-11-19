@@ -38,7 +38,7 @@ export default function Content() {
 
   const getContent = async (dates: CalendarDatesType, focused?: boolean) => {
     const currentQuery = Symbol("currentQuery");
-    latestQueryRef.current = currentQuery;
+    if (!focused) latestQueryRef.current = currentQuery;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const checkInCount = await getCheckInCount();
@@ -46,16 +46,11 @@ export default function Content() {
     // Only get updated content if date filters have changed or a new checkin has occurred
     if (
       (latestQueryRef.current === currentQuery && !focused) ||
-      (latestQueryRef.current === currentQuery &&
-        focused &&
+      (focused &&
         !dates.rangeStart &&
         dates.weekStart.getTime() === getMonday(today).getTime() &&
         checkInCount !== checkInCounter.current) ||
-      (latestQueryRef.current === currentQuery &&
-        focused &&
-        dates.rangeStart &&
-        isInRange(today) &&
-        checkInCount !== checkInCounter.current)
+      (focused && dates.rangeStart && isInRange(today) && checkInCount !== checkInCounter.current)
     ) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);

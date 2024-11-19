@@ -56,7 +56,10 @@ export default function Day(props: DayProps) {
 
   const getData = async () => {
     // If date is current day then query again to get latest check-in
-    if (!queriedRef.current || (queriedRef.current && today.getTime() === props.date.getTime())) {
+    if (
+      !queriedRef.current ||
+      (queriedRef.current && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd, homeDates.weekStart))
+    ) {
       try {
         // Check for check-ins on this date (date column converted to local)
         const query = `
@@ -70,6 +73,10 @@ export default function Day(props: DayProps) {
           const mood: CheckInMoodType = JSON.parse(rows[0].mood);
           setCheckInMood(mood);
           setCheckInCount(rows.length);
+        } else {
+          // Clear
+          setCheckInMood(undefined);
+          setCheckInCount(0);
         }
 
         queriedRef.current = true;
