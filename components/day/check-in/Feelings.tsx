@@ -36,11 +36,19 @@ export default function Feelings(props: FeelingsProps) {
         }}
         showsHorizontalScrollIndicator={false}
       >
-        {props.tags.map((item) => (
-          <Button key={item} disabled>
-            {tagsData.filter((tag) => tag.id === item)[0].name}
-          </Button>
-        ))}
+        {props.tags.map((item) => {
+          let tag = tagsData.find((tag) => tag.id === item);
+
+          if (tag) {
+            return (
+              <Button key={item} disabled>
+                {tag.name}
+              </Button>
+            );
+          }
+
+          return null;
+        })}
       </ScrollView>
     </View>
   );
