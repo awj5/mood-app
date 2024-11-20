@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import * as Device from "expo-device";
 import { theme } from "utils/helpers";
 
@@ -10,7 +10,9 @@ export default function Summary(props: SummaryProps) {
   const colors = theme();
 
   return (
-    <View style={{ gap: Device.deviceType !== 1 ? 6 : 4, paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }}>
+    <View
+      style={{ flex: 1, gap: Device.deviceType !== 1 ? 6 : 4, paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }}
+    >
       <Text
         style={{
           fontFamily: "Circular-Bold",
@@ -22,16 +24,18 @@ export default function Summary(props: SummaryProps) {
         SUMMARY
       </Text>
 
-      <Text
-        style={{
-          fontFamily: "Circular-Book",
-          color: props.text ? colors.primary : colors.primary === "white" ? "#999999" : "#666666",
-          fontSize: Device.deviceType !== 1 ? 20 : 16,
-        }}
-        allowFontScaling={false}
-      >
-        {props.text ? props.text : "Not found"}
-      </Text>
+      <ScrollView style={{ flex: 1 }}>
+        <Text
+          style={{
+            fontFamily: "Circular-Book",
+            color: props.text ? colors.primary : colors.primary === "white" ? "#999999" : "#666666",
+            fontSize: Device.deviceType !== 1 ? 20 : 16,
+          }}
+          allowFontScaling={false}
+        >
+          {props.text ? props.text : "Not found"}
+        </Text>
+      </ScrollView>
     </View>
   );
 }

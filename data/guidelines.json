@@ -1,602 +1,439 @@
 [
   {
     "categories": [
-      {
-        "id": 1,
-        "title": "Roles and Expectations"
-      },
-      {
-        "id": 2,
-        "title": "Job Control and Autonomy"
-      },
-      {
-        "id": 3,
-        "title": "Job Demands"
-      },
-      {
-        "id": 4,
-        "title": "Organizational Change Management"
-      },
-      {
-        "id": 5,
-        "title": "Remote and Isolated Work"
-      },
-      {
-        "id": 6,
-        "title": "Working Hours and Schedule"
-      },
-      {
-        "id": 7,
-        "title": "Job Security and Precarious Work"
-      },
-      {
-        "id": 8,
-        "title": "Interpersonal Relationships"
-      },
-      {
-        "id": 9,
-        "title": "Leadership"
-      },
-      {
-        "id": 10,
-        "title": "Organizational/Workgroup Culture"
-      },
-      {
-        "id": 11,
-        "title": "Recognition and Reward"
-      },
-      {
-        "id": 12,
-        "title": "Career Development"
-      },
-      {
-        "id": 13,
-        "title": "Support"
-      },
-      {
-        "id": 14,
-        "title": "Supervision"
-      },
-      {
-        "id": 15,
-        "title": "Civility and Respect"
-      },
-      {
-        "id": 16,
-        "title": "Work/Life Balance"
-      },
-      {
-        "id": 17,
-        "title": "Violence at Work"
-      },
-      {
-        "id": 18,
-        "title": "Harassment"
-      },
-      {
-        "id": 19,
-        "title": "Bullying and Victimization"
-      },
-      {
-        "id": 20,
-        "title": "Work Environment, Equipment and Hazardous Tasks"
-      }
+      { "id": 1, "title": "Roles and Expectations" },
+      { "id": 2, "title": "Job Control and Autonomy" },
+      { "id": 3, "title": "Job Demands" },
+      { "id": 4, "title": "Organizational Change Management" },
+      { "id": 5, "title": "Remote and Isolated Work" },
+      { "id": 6, "title": "Working Hours and Schedule" },
+      { "id": 7, "title": "Job Security and Precarious Work" },
+      { "id": 8, "title": "Interpersonal Relationships" },
+      { "id": 9, "title": "Leadership" },
+      { "id": 10, "title": "Organizational/Workgroup Culture" },
+      { "id": 11, "title": "Recognition and Reward" },
+      { "id": 12, "title": "Career Development" },
+      { "id": 13, "title": "Support" },
+      { "id": 14, "title": "Supervision" },
+      { "id": 15, "title": "Civility and Respect" },
+      { "id": 16, "title": "Work/Life Balance" },
+      { "id": 17, "title": "Violence at Work" },
+      { "id": 18, "title": "Harassment" },
+      { "id": 19, "title": "Bullying and Victimization" },
+      { "id": 20, "title": "Work Environment, Equipment and Hazardous Tasks" }
     ],
     "competencies": [
       {
         "id": 1.01,
-        "statement": "I clearly understand my role and what is expected of me at work.",
-        "response": "I [%] clearly understand my role and what is expected of me at work."
+        "statement": "I clearly understand my role and what is expected of me at work."
       },
       {
         "id": 1.02,
-        "statement": "My role expectations are consistent and manageable.",
-        "response": "My role expectations are [%] consistent and manageable."
+        "statement": "My role expectations are consistent and manageable."
       },
       {
         "id": 1.03,
-        "statement": "I feel confident in my duty of care for others as part of my role.",
-        "response": "I feel [%] confident in my duty of care for others as part of my role."
+        "statement": "I feel confident in my duty of care for others as part of my role."
       },
       {
         "id": 1.04,
-        "statement": "The tasks I am expected to do are clearly defined.",
-        "response": "The tasks I am expected to do are [%] clearly defined."
+        "statement": "The tasks I am expected to do are clearly defined."
       },
       {
         "id": 1.05,
-        "statement": "The expectations in my role are aligned and supportive of each other.",
-        "response": "The expectations in my role are [%] aligned and supportive of each other."
+        "statement": "The expectations in my role are aligned and supportive of each other."
       },
       {
         "id": 1.06,
-        "statement": "My tasks and work standards are consistent and well-communicated.",
-        "response": "My tasks and work standards are [%] consistent and well-communicated."
+        "statement": "My tasks and work standards are consistent and well-communicated."
       },
       {
         "id": 1.07,
-        "statement": "The work I do feels valuable and purposeful.",
-        "response": "The work I do feels [%] valuable and purposeful."
+        "statement": "The work I do feels valuable and purposeful."
       },
       {
         "id": 2.01,
-        "statement": "I have opportunities to participate in decision-making processes.",
-        "response": "I have [%] opportunities to participate in decision-making processes."
+        "statement": "I have opportunities to participate in decision-making processes."
       },
       {
         "id": 2.02,
-        "statement": "I have control over my workload.",
-        "response": "I have [%] control over my workload."
+        "statement": "I have control over my workload."
       },
       {
         "id": 2.03,
-        "statement": "I can influence how my work is carried out.",
-        "response": "I can [%] influence how my work is carried out."
+        "statement": "I can influence how my work is carried out."
       },
       {
         "id": 3.01,
-        "statement": "My skills are fully utilized in my current role.",
-        "response": "My skills are [%] fully utilized in my current role."
+        "statement": "My skills are fully utilized in my current role."
       },
       {
         "id": 3.02,
-        "statement": "I have a balanced level of interaction with people in my work.",
-        "response": "I have a [%] balanced level of interaction with people in my work."
+        "statement": "I have a balanced level of interaction with people in my work."
       },
       {
         "id": 3.03,
-        "statement": "My workload is reasonable and achievable within the given time.",
-        "response": "My workload is [%] reasonable and achievable within the given time."
+        "statement": "My workload is reasonable and achievable within the given time."
       },
       {
         "id": 3.04,
-        "statement": "I manage demands and deadlines effectively.",
-        "response": "I [%] manage demands and deadlines effectively."
+        "statement": "I manage demands and deadlines effectively."
       },
       {
         "id": 3.05,
-        "statement": "The expectations of my competence and responsibilities are realistic.",
-        "response": "The expectations of my competence and responsibilities are [%] realistic."
+        "statement": "The expectations of my competence and responsibilities are realistic."
       },
       {
         "id": 3.06,
-        "statement": "I have a variety of tasks in my work.",
-        "response": "I [%] have a variety of tasks in my work."
+        "statement": "I have a variety of tasks in my work."
       },
       {
         "id": 3.07,
-        "statement": "My work is meaningful and cohesive.",
-        "response": "My work is [%] meaningful and cohesive."
+        "statement": "My work is meaningful and cohesive."
       },
       {
         "id": 3.08,
-        "statement": "My job requires a balanced level of alertness and concentration.",
-        "response": "My job [%] requires a balanced level of alertness and concentration."
+        "statement": "My job requires a balanced level of alertness and concentration."
       },
       {
         "id": 3.09,
-        "statement": "I feel safe and supported when working with aggressive or distressed people.",
-        "response": "I feel [%] safe and supported when working with aggressive or distressed people."
+        "statement": "I feel safe and supported when working with aggressive or distressed people."
       },
       {
         "id": 3.1,
-        "statement": "I am rarely exposed to traumatic events or situations at work.",
-        "response": "I am [%] rarely exposed to traumatic events or situations at work."
+        "statement": "I am rarely exposed to traumatic events or situations at work."
       },
       {
         "id": 4.01,
-        "statement": "I receive adequate support during periods of transition at work.",
-        "response": "I [%] receive adequate support during periods of transition at work."
+        "statement": "I receive adequate support during periods of transition at work."
       },
       {
         "id": 4.02,
-        "statement": "My workplace has a stable structure with minimal disruption.",
-        "response": "My workplace [%] has a stable structure with minimal disruption."
+        "statement": "My workplace has a stable structure with minimal disruption."
       },
       {
         "id": 4.03,
-        "statement": "Workplace changes are communicated clearly and in a timely manner.",
-        "response": "Workplace changes are [%] communicated clearly and in a timely manner."
+        "statement": "Workplace changes are communicated clearly and in a timely manner."
       },
       {
         "id": 5.01,
-        "statement": "I feel connected and supported, even when working far from home.",
-        "response": "I feel [%] connected and supported, even when working far from home."
+        "statement": "I feel connected and supported, even when working far from home."
       },
       {
         "id": 5.02,
-        "statement": "I have opportunities for social interaction, even when working alone.",
-        "response": "I [%] have opportunities for social interaction, even when working alone."
+        "statement": "I have opportunities for social interaction, even when working alone."
       },
       {
         "id": 5.03,
-        "statement": "I feel safe and comfortable when working in private homes.",
-        "response": "I [%] feel safe and comfortable when working in private homes."
+        "statement": "I feel safe and comfortable when working in private homes."
       },
       {
         "id": 5.04,
-        "statement": "My workload is well-balanced, whether I am working remotely or in the office.",
-        "response": "My workload is [%] well-balanced, whether I am working remotely or in the office."
+        "statement": "My workload is well-balanced, whether I am working remotely or in the office."
       },
       {
         "id": 5.05,
-        "statement": "I manage time pressure effectively, even when working remotely.",
-        "response": "I [%] manage time pressure effectively, even when working remotely."
+        "statement": "I manage time pressure effectively, even when working remotely."
       },
       {
         "id": 5.06,
-        "statement": "My work schedule allows for reasonable time management.",
-        "response": "My work schedule [%] allows for reasonable time management."
+        "statement": "My work schedule allows for reasonable time management."
       },
       {
         "id": 5.07,
-        "statement": "My work pace is self-directed and manageable.",
-        "response": "My work pace is [%] self-directed and manageable."
+        "statement": "My work pace is self-directed and manageable."
       },
       {
         "id": 5.08,
-        "statement": "My work is varied and engaging, even when working remotely.",
-        "response": "My work is [%] varied and engaging, even when working remotely."
+        "statement": "My work is varied and engaging, even when working remotely."
       },
       {
         "id": 6.01,
-        "statement": "My work includes a variety of tasks that keep me engaged.",
-        "response": "My work [%] includes a variety of tasks that keep me engaged."
+        "statement": "My work includes a variety of tasks that keep me engaged."
       },
       {
         "id": 6.02,
-        "statement": "My work schedule allows for flexibility and balance, even when doing shift work.",
-        "response": "My work schedule [%] allows for flexibility and balance, even when doing shift work."
+        "statement": "My work schedule allows for flexibility and balance, even when doing shift work."
       },
       {
         "id": 6.03,
-        "statement": "My work schedule allows for flexibility and balance.",
-        "response": "My work schedule [%] allows for flexibility and balance."
+        "statement": "My work schedule allows for flexibility and balance."
       },
       {
         "id": 6.04,
-        "statement": "My working hours are predictable and manageable.",
-        "response": "My working hours are [%] predictable and manageable."
+        "statement": "My working hours are predictable and manageable."
       },
       {
         "id": 6.05,
-        "statement": "My working hours are reasonable and allow for a healthy work-life balance.",
-        "response": "My working hours are [%] reasonable and allow for a healthy work-life balance."
+        "statement": "My working hours are reasonable and allow for a healthy work-life balance."
       },
       {
         "id": 6.06,
-        "statement": "My work is meaningful and aligns with my goals.",
-        "response": "My work is [%] meaningful and aligns with my goals."
+        "statement": "My work is meaningful and aligns with my goals."
       },
       {
         "id": 6.07,
-        "statement": "I am able to complete work within a reasonable timeframe.",
-        "response": "I am able to [%] complete work within a reasonable timeframe."
+        "statement": "I am able to complete work within a reasonable timeframe."
       },
       {
         "id": 7.01,
-        "statement": "I have consistent work availability and know when I will be needed.",
-        "response": "I have [%] consistent work availability and know when I will be needed."
+        "statement": "I have consistent work availability and know when I will be needed."
       },
       {
         "id": 7.02,
-        "statement": "I feel secure in my job and do not worry about redundancy.",
-        "response": "I feel [%] secure in my job and do not worry about redundancy."
+        "statement": "I feel secure in my job and do not worry about redundancy."
       },
       {
         "id": 7.03,
-        "statement": "My employment is stable and well-protected by labour laws.",
-        "response": "My employment is [%] stable and well-protected by labour laws."
+        "statement": "My employment is stable and well-protected by labour laws."
       },
       {
         "id": 7.04,
-        "statement": "My job is secure, and my employment terms are clear.",
-        "response": "My job is [%] secure, and my employment terms are clear."
+        "statement": "My job is secure, and my employment terms are clear."
       },
       {
         "id": 8.01,
-        "statement": "Communication within my team is clear and effective.",
-        "response": "Communication within my team is [%] clear and effective."
+        "statement": "Communication within my team is clear and effective."
       },
       {
         "id": 8.02,
-        "statement": "I have positive and supportive relationships with colleagues and supervisors.",
-        "response": "I [%] have positive and supportive relationships with colleagues and supervisors."
+        "statement": "I have positive and supportive relationships with colleagues and supervisors."
       },
       {
         "id": 8.03,
-        "statement": "Conflicts at work are resolved fairly and respectfully.",
-        "response": "Conflicts at work are [%] resolved fairly and respectfully."
+        "statement": "Conflicts at work are resolved fairly and respectfully."
       },
       {
         "id": 8.04,
-        "statement": "I feel safe from harassment, bullying, and victimization in the workplace.",
-        "response": "I feel [%] safe from harassment, bullying, and victimization in the workplace."
+        "statement": "I feel safe from harassment, bullying, and victimization in the workplace."
       },
       {
         "id": 8.05,
-        "statement": "I have access to social support when needed at work.",
-        "response": "I have [%] access to social support when needed at work."
+        "statement": "I have access to social support when needed at work."
       },
       {
         "id": 8.06,
-        "statement": "Power dynamics at work are fair and respectful.",
-        "response": "Power dynamics at work are [%] fair and respectful."
+        "statement": "Power dynamics at work are fair and respectful."
       },
       {
         "id": 8.07,
-        "statement": "I feel connected and included in my workplace community.",
-        "response": "I feel [%] connected and included in my workplace community."
+        "statement": "I feel connected and included in my workplace community."
       },
       {
         "id": 9.01,
-        "statement": "My leaders provide clear vision and objectives.",
-        "response": "My leaders provide [%] clear vision and objectives."
+        "statement": "My leaders provide clear vision and objectives."
       },
       {
         "id": 9.02,
-        "statement": "My leaders have a management style that suits the nature of our work.",
-        "response": "[%] my leaders have a management style that suits the nature of our work."
+        "statement": "My leaders have a management style that suits the nature of our work."
       },
       {
         "id": 9.03,
-        "statement": "My leaders listen to complaints and suggestions attentively.",
-        "response": "[%] my leaders listen to complaints and suggestions attentively."
+        "statement": "My leaders listen to complaints and suggestions attentively."
       },
       {
         "id": 9.04,
-        "statement": "Information is shared openly and transparently by leadership.",
-        "response": "Information is [%] shared openly and transparently by leadership."
+        "statement": "Information is shared openly and transparently by leadership."
       },
       {
         "id": 9.05,
-        "statement": "My leaders provide adequate communication and support.",
-        "response": "My leaders provide [%] adequate communication and support."
+        "statement": "My leaders provide adequate communication and support."
       },
       {
         "id": 9.06,
-        "statement": "Accountability is upheld by leadership at all levels.",
-        "response": "Accountability is [%] upheld by leadership at all levels."
+        "statement": "Accountability is upheld by leadership at all levels."
       },
       {
         "id": 9.07,
-        "statement": "My workplace decisions are made fairly and consistently.",
-        "response": "My workplace decisions are [%] made fairly and consistently."
+        "statement": "My workplace decisions are made fairly and consistently."
       },
       {
         "id": 9.08,
-        "statement": "My workplace decisions are consistent and well-considered.",
-        "response": "My workplace decisions are [%] consistent and well-considered."
+        "statement": "My workplace decisions are consistent and well-considered."
       },
       {
         "id": 9.09,
-        "statement": "Power is used responsibly and ethically by leadership.",
-        "response": "Power is [%] used responsibly and ethically by leadership."
+        "statement": "Power is used responsibly and ethically by leadership."
       },
       {
         "id": 10.01,
-        "statement": "Communication within my workgroup is effective and supportive.",
-        "response": "Communication within my workgroup is [%] effective and supportive."
+        "statement": "Communication within my workgroup is effective and supportive."
       },
       {
         "id": 10.02,
-        "statement": "I feel supported in solving problems and developing personally.",
-        "response": "I feel [%] supported in solving problems and developing personally."
+        "statement": "I feel supported in solving problems and developing personally."
       },
       {
         "id": 10.03,
-        "statement": "My organization has well-defined and agreed-upon objectives.",
-        "response": "[%] my organization has well-defined and agreed-upon objectives."
+        "statement": "My organization has well-defined and agreed-upon objectives."
       },
       {
         "id": 10.04,
-        "statement": "Policies and procedures are applied fairly and consistently.",
-        "response": "Policies and procedures are [%] applied fairly and consistently."
+        "statement": "Policies and procedures are applied fairly and consistently."
       },
       {
         "id": 11.01,
-        "statement": "My efforts are recognized and rewarded fairly and in a timely manner.",
-        "response": "My efforts are [%] recognized and rewarded fairly and in a timely manner."
+        "statement": "My efforts are recognized and rewarded fairly and in a timely manner."
       },
       {
         "id": 11.02,
-        "statement": "I feel valued for the work I do.",
-        "response": "I [%] feel valued for the work I do."
+        "statement": "I feel valued for the work I do."
       },
       {
         "id": 12.01,
-        "statement": "I have opportunities for skill development and career growth.",
-        "response": "I [%] have opportunities for skill development and career growth."
+        "statement": "I have opportunities for skill development and career growth."
       },
       {
         "id": 13.01,
-        "statement": "I receive adequate support from my supervisors and colleagues.",
-        "response": "I [%] receive adequate support from my supervisors and colleagues."
+        "statement": "I receive adequate support from my supervisors and colleagues."
       },
       {
         "id": 13.02,
-        "statement": "I have access to the support services I need to perform well at work.",
-        "response": "I [%] have access to the support services I need to perform well at work."
+        "statement": "I have access to the support services I need to perform well at work."
       },
       {
         "id": 13.03,
-        "statement": "I receive the information and training necessary to succeed in my role.",
-        "response": "I [%] receive the information and training necessary to succeed in my role."
+        "statement": "I receive the information and training necessary to succeed in my role."
       },
       {
         "id": 14.01,
-        "statement": "My performance is regularly and constructively evaluated.",
-        "response": "My performance is [%] regularly and constructively evaluated."
+        "statement": "My performance is regularly and constructively evaluated."
       },
       {
         "id": 14.02,
-        "statement": "My contributions are acknowledged and encouraged by supervisors.",
-        "response": "My contributions are [%] acknowledged and encouraged by supervisors."
+        "statement": "My contributions are acknowledged and encouraged by supervisors."
       },
       {
         "id": 14.03,
-        "statement": "Communication with my supervisors is clear and effective.",
-        "response": "Communication with my supervisors is [%] clear and effective."
+        "statement": "Communication with my supervisors is clear and effective."
       },
       {
         "id": 14.04,
-        "statement": "My organization has a shared vision and clear objectives.",
-        "response": "[%] my organization has a shared vision and clear objectives."
+        "statement": "My organization has a shared vision and clear objectives."
       },
       {
         "id": 14.05,
-        "statement": "I am given the support and resources needed to improve my performance.",
-        "response": "I am [%] given the support and resources needed to improve my performance."
+        "statement": "I am given the support and resources needed to improve my performance."
       },
       {
         "id": 14.06,
-        "statement": "Fairness is upheld in all supervisory decisions.",
-        "response": "Fairness is [%] upheld in all supervisory decisions."
+        "statement": "Fairness is upheld in all supervisory decisions."
       },
       {
         "id": 14.07,
-        "statement": "Digital tools and surveillance are used appropriately and transparently.",
-        "response": "Digital tools and surveillance are used [%] appropriately and transparently."
+        "statement": "Digital tools and surveillance are used appropriately and transparently."
       },
       {
         "id": 15.01,
-        "statement": "My workplace fosters a culture of trust, honesty, respect, and civility.",
-        "response": "My workplace [%] fosters a culture of trust, honesty, respect, and civility."
+        "statement": "My workplace fosters a culture of trust, honesty, respect, and civility."
       },
       {
         "id": 15.02,
-        "statement": "Interactions at work are respectful and considerate.",
-        "response": "Interactions at work are [%] respectful and considerate."
+        "statement": "Interactions at work are respectful and considerate."
       },
       {
         "id": 16.01,
-        "statement": "My work tasks and schedule allow for a healthy work-life balance.",
-        "response": "My work tasks and schedule [%] allow for a healthy work-life balance."
+        "statement": "My work tasks and schedule allow for a healthy work-life balance."
       },
       {
         "id": 16.02,
-        "statement": "My work does not conflict with my home life.",
-        "response": "My work [%] does not conflict with my home life."
+        "statement": "My work does not conflict with my home life."
       },
       {
         "id": 16.03,
-        "statement": "I am able to recover and recharge after work.",
-        "response": "I am [%] able to recover and recharge after work."
+        "statement": "I am able to recover and recharge after work."
       },
       {
         "id": 17.01,
-        "statement": "I feel safe from abuse in my workplace.",
-        "response": "I feel [%] safe from abuse in my workplace."
+        "statement": "I feel safe from abuse in my workplace."
       },
       {
         "id": 17.02,
-        "statement": "My workplace is free from threats and intimidation.",
-        "response": "My workplace is [%] free from threats and intimidation."
+        "statement": "My workplace is free from threats and intimidation."
       },
       {
         "id": 17.03,
-        "statement": "I feel protected from physical, verbal, or sexual assault at work.",
-        "response": "I [%] feel protected from physical, verbal, or sexual assault at work."
+        "statement": "I feel protected from physical, verbal, or sexual assault at work."
       },
       {
         "id": 17.04,
-        "statement": "My workplace is committed to preventing gender-based violence.",
-        "response": "My workplace is [%] committed to preventing gender-based violence."
+        "statement": "My workplace is committed to preventing gender-based violence."
       },
       {
         "id": 18.01,
-        "statement": "I feel respected regardless of my race, gender identity, or other personal attributes.",
-        "response": "I [%] feel respected regardless of my race, gender identity, or other personal attributes."
+        "statement": "I feel respected regardless of my race, gender identity, or other personal attributes."
       },
       {
         "id": 18.02,
-        "statement": "My workplace respects all gender identities.",
-        "response": "My workplace [%] respects all gender identities."
+        "statement": "My workplace respects all gender identities."
       },
       {
         "id": 18.03,
-        "statement": "My workplace respects my religion or beliefs.",
-        "response": "My workplace [%] respects my religion or beliefs."
+        "statement": "My workplace respects my religion or beliefs."
       },
       {
         "id": 18.04,
-        "statement": "My workplace respects all sexual orientations.",
-        "response": "My workplace [%] respects all sexual orientations."
+        "statement": "My workplace respects all sexual orientations."
       },
       {
         "id": 18.05,
-        "statement": "My workplace is inclusive of all abilities.",
-        "response": "My workplace is [%] inclusive of all abilities."
+        "statement": "My workplace is inclusive of all abilities."
       },
       {
         "id": 18.06,
-        "statement": "My workplace values employees of all ages.",
-        "response": "My workplace [%] values employees of all ages."
+        "statement": "My workplace values employees of all ages."
       },
       {
         "id": 19.01,
-        "statement": "I feel connected and included in my workplace community.",
-        "response": "I [%] feel connected and included in my workplace community."
+        "statement": "I feel connected and included in my workplace community."
       },
       {
         "id": 19.02,
-        "statement": "My tasks are meaningful and fair.",
-        "response": "My tasks are [%] meaningful and fair."
+        "statement": "My tasks are meaningful and fair."
       },
       {
         "id": 19.03,
-        "statement": "I am treated with respect and not subjected to name-calling or insults.",
-        "response": "I [%] am treated with respect and not subjected to name-calling or insults."
+        "statement": "I am treated with respect and not subjected to name-calling or insults."
       },
       {
         "id": 19.04,
-        "statement": "My contributions are valued and not undermined by others.",
-        "response": "My contributions are [%] valued and not undermined by others."
+        "statement": "My contributions are valued and not undermined by others."
       },
       {
         "id": 19.05,
-        "statement": "I receive constructive feedback instead of public criticism.",
-        "response": "I [%] receive constructive feedback instead of public criticism."
+        "statement": "I receive constructive feedback instead of public criticism."
       },
       {
         "id": 19.06,
-        "statement": "I am provided with the necessary information and resources for my job.",
-        "response": "I am [%] provided with the necessary information and resources for my job."
+        "statement": "I am provided with the necessary information and resources for my job."
       },
       {
         "id": 19.07,
-        "statement": "Workplace gossip and rumours are discouraged.",
-        "response": "Workplace gossip and rumours are [%] discouraged."
+        "statement": "Workplace gossip and rumours are discouraged."
       },
       {
         "id": 19.08,
-        "statement": "My deadlines are reasonable and achievable.",
-        "response": "My deadlines are [%] reasonable and achievable."
+        "statement": "My deadlines are reasonable and achievable."
       },
       {
         "id": 20.01,
-        "statement": "I have access to reliable and well-maintained equipment.",
-        "response": "I [%] have access to reliable and well-maintained equipment."
+        "statement": "I have access to reliable and well-maintained equipment."
       },
       {
         "id": 20.02,
-        "statement": "My workplace conditions are safe and conducive to work.",
-        "response": "My workplace conditions are [%] safe and conducive to work."
+        "statement": "My workplace conditions are safe and conducive to work."
       },
       {
         "id": 20.03,
-        "statement": "I have the necessary tools and resources to complete my work tasks.",
-        "response": "I [%] have the necessary tools and resources to complete my work tasks."
+        "statement": "I have the necessary tools and resources to complete my work tasks."
       },
       {
         "id": 20.04,
-        "statement": "I feel safe working in extreme or challenging conditions.",
-        "response": "I feel [%] safe working in extreme or challenging conditions."
+        "statement": "I feel safe working in extreme or challenging conditions."
       },
       {
         "id": 20.05,
-        "statement": "My work environment is stable and secure.",
-        "response": "My work environment is [%] stable and secure."
+        "statement": "My work environment is stable and secure."
       }
     ]
   }
