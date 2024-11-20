@@ -4,6 +4,7 @@ import { CheckInMoodType, CheckInType } from "data/database";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
 import Statement from "./check-in/Statement";
+import Summary from "./check-in/Summary";
 import { theme } from "utils/helpers";
 
 type CheckInProps = {
@@ -30,7 +31,7 @@ export default function CheckIn(props: CheckInProps) {
       <View
         style={{
           gap: spacing,
-          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)",
+          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.5)",
           paddingVertical: spacing,
           borderRadius: spacing,
           flex: 1,
@@ -39,6 +40,7 @@ export default function CheckIn(props: CheckInProps) {
         <Header id={props.data.id} mood={mood} date={local} getData={props.getData} />
         <Feelings tags={mood.tags} />
         <Statement mood={mood} />
+        <Summary text={props.data.note} />
       </View>
     </View>
   );

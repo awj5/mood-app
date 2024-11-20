@@ -11,6 +11,7 @@ export type CheckInType = {
   id: number;
   date: Date;
   mood: string;
+  note: string;
 };
 
 export const initDB = async (db: SQLite.SQLiteDatabase) => {

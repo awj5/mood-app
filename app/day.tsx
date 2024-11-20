@@ -28,7 +28,7 @@ export default function Day() {
   const iso = `${params.year}-${params.month}-${params.day}`;
   const date = new Date(iso);
   const title = date.toDateString();
-  const itemHeight = Device.deviceType !== 1 ? 320 : 256;
+  const itemHeight = Device.deviceType !== 1 ? 448 : 384;
   const edges = Device.deviceType !== 1 ? 24 : 16;
 
   const getData = async () => {
