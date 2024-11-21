@@ -15,7 +15,7 @@ export default function Wheel(props: WheelProps) {
   const previousRotation = useSharedValue(0);
   const startAngle = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
-  const size = Device.deviceType !== 1 ? 448 : 304; // Smaller on phones
+  const size = (Device.deviceType !== 1 ? 448 : 304) + 48; // Smaller on phones (plus padding)
 
   const pan = Gesture.Pan()
     .onBegin((e) => {
@@ -73,13 +73,12 @@ export default function Wheel(props: WheelProps) {
       <Animated.View
         style={[
           animatedStyles,
+          styles.wheel,
           {
-            opacity: 0,
             width: size,
             height: size,
           },
         ]}
-        hitSlop={8}
       >
         <Image source={require("../../assets/img/check-in-wheel.png")} style={styles.image} />
       </Animated.View>
@@ -88,6 +87,10 @@ export default function Wheel(props: WheelProps) {
 }
 
 const styles = StyleSheet.create({
+  wheel: {
+    opacity: 0,
+    padding: 24,
+  },
   image: {
     width: "100%",
     height: "100%",

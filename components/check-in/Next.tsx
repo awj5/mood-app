@@ -84,6 +84,7 @@ export default function Next(props: NextProps) {
           ? { paddingLeft: Device.deviceType !== 1 ? 224 : 152, paddingTop: insets.top }
           : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
       ]}
+      pointerEvents="box-none"
     >
       <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
         <CircleArrowRight

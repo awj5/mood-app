@@ -103,10 +103,10 @@ export default function CheckIn() {
 
       <Heading text="How's work?" />
       <Instructions />
-      <Next setState={setShowTags} disabled mood={mood} />
       <Background showTags={showTags} mood={mood} />
       <Wheel rotation={rotation} />
       <Emoji showTags={showTags} mood={mood} />
+      <Next setState={setShowTags} disabled mood={mood} />
 
       {showTags && (
         <>
