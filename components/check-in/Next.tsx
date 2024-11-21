@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
@@ -28,6 +28,7 @@ export default function Next(props: NextProps) {
   const insets = useSafeAreaInsets();
   const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const fadedIn = useRef(false);
 
   const press = () => {
     if (opacity.value > 0.25) {
@@ -51,8 +52,9 @@ export default function Next(props: NextProps) {
   useAnimatedReaction(
     () => props.mood && props.mood.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue?.color && opacity.value === 0.25) {
+      if (currentValue !== previousValue && currentValue?.color && opacity.value > 0 && !fadedIn.current) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+        fadedIn.current = true;
       }
     }
   );

@@ -19,11 +19,19 @@ export default function Wheel(props: WheelProps) {
 
   const pan = Gesture.Pan()
     .onBegin((e) => {
+      if (opacity.value !== 1) {
+        return; // Not faded in yet
+      }
+
       const deltaX = e.absoluteX - dimensions.width / 2;
       const deltaY = e.absoluteY - dimensions.height / 2;
       startAngle.value = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convert to degrees
     })
     .onUpdate((e) => {
+      if (opacity.value !== 1) {
+        return; // Not faded in yet
+      }
+
       const deltaX = e.absoluteX - dimensions.width / 2;
       const deltaY = e.absoluteY - dimensions.height / 2;
       const currentAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convert to degrees
@@ -40,6 +48,10 @@ export default function Wheel(props: WheelProps) {
       props.rotation.value = newRotation;
     })
     .onEnd(() => {
+      if (opacity.value !== 1) {
+        return; // Not faded in yet
+      }
+
       previousRotation.value = props.rotation.value;
     });
 
