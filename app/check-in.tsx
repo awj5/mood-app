@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -42,6 +42,7 @@ export default function CheckIn() {
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
+  const wheelLoadedRef = useRef(false);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [foregroundColor, setForegroundColor] = useState("");
@@ -70,9 +71,14 @@ export default function CheckIn() {
   useAnimatedReaction(
     () => rotation.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue >= 0) {
-        const index = Math.floor((currentValue + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
+      if (
+        (!wheelLoadedRef.current && currentValue !== previousValue && currentValue >= 0) ||
+        (wheelLoadedRef.current && currentValue !== previousValue)
+      ) {
+        const angle = currentValue < 0 ? currentValue + 360 : currentValue; // Check if negative angle and convert
+        const index = Math.floor((angle + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
         mood.value = MoodsData[index];
+        wheelLoadedRef.current = true;
       }
     }
   );

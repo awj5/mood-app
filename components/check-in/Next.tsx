@@ -28,7 +28,7 @@ export default function Next(props: NextProps) {
   const insets = useSafeAreaInsets();
   const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
-  const fadedIn = useRef(false);
+  const fadedInRef = useRef(false);
 
   const press = () => {
     if (opacity.value > 0.25) {
@@ -52,9 +52,9 @@ export default function Next(props: NextProps) {
   useAnimatedReaction(
     () => props.mood && props.mood.value,
     (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue?.color && opacity.value > 0 && !fadedIn.current) {
+      if (currentValue !== previousValue && currentValue?.color && opacity.value > 0 && !fadedInRef.current) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-        fadedIn.current = true;
+        fadedInRef.current = true;
       }
     }
   );
