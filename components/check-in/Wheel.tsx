@@ -73,8 +73,13 @@ export default function Wheel(props: WheelProps) {
 
       if (newAngle !== undefined) {
         // Calculate the shortest path for rotation
-        const delta = (newAngle - props.rotation.value + 360) % 360;
-        const shortestDelta = delta > 180 ? delta - 360 : delta; // Forward or backward
+        var delta = newAngle - props.rotation.value;
+
+        if (delta < 0) {
+          delta += 360;
+        }
+
+        const shortestDelta = delta > 180 ? delta - 360 : delta; // Backward or forward
         newAngle = props.rotation.value + shortestDelta;
         previousRotation.value = newAngle;
 
@@ -83,7 +88,12 @@ export default function Wheel(props: WheelProps) {
           newAngle,
           { duration: 500, easing: Easing.out(Easing.cubic) },
           (isFinished) => {
-            if (isFinished) props.rotation.value = (props.rotation.value + 360) % 360; // Normalize
+            // Normalize to 0 - 360
+            if (isFinished && props.rotation.value < 0) {
+              props.rotation.value = props.rotation.value + 360;
+            } else if (isFinished && props.rotation.value >= 360) {
+              props.rotation.value = props.rotation.value - 360;
+            }
           }
         );
       }
