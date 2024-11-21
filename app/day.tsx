@@ -7,7 +7,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
-import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useSharedValue, withTiming, runOnJS } from "react-native-reanimated";
 import { CheckInType, CheckInMoodType } from "data/database";
 import MoodsData from "data/moods.json";
 import CheckIn from "components/day/CheckIn";
@@ -25,6 +25,7 @@ export default function Day() {
   const [gradientHeight, setGradientHeight] = useState(0);
   const [gradientColors, setGradientColors] = useState([""]);
   const [gradientLocations, setGradientLocations] = useState([0]);
+  const [bgVisible, setBgVisible] = useState(false);
   const iso = `${params.year}-${params.month.padStart(2, "0")}-${params.day.padStart(2, "0")}`;
   const date = new Date(iso);
   const title = date.toDateString();
@@ -50,11 +51,22 @@ export default function Day() {
         checkInColors.push(data[0].color);
       }
 
-      const stops = checkInColors.map((_, index) => index / checkInColors.length); // Calculate even color stops
       setGradientColors(checkInColors);
+      const stops = checkInColors.map((_, index) => index / checkInColors.length); // Calculate even color stops
       setGradientLocations(stops);
       setCheckIns(rows);
-      opacity.value = withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }); // Fade in
+
+      // Fade in
+      opacity.value = withTiming(
+        1,
+        {
+          duration: 500,
+          easing: Easing.in(Easing.cubic),
+        },
+        (isFinished) => {
+          if (isFinished) runOnJS(setBgVisible)(true); // Background to avoid white/black space on elastic scroll
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -89,8 +101,32 @@ export default function Day() {
         }}
       />
 
+      {bgVisible && gradientColors.length ? (
+        <View style={[styles.container]}>
+          <View style={{ backgroundColor: gradientColors[0], height: gradientColors.length > 1 ? "50%" : "100%" }} />
+
+          <View
+            style={{
+              backgroundColor: gradientColors[gradientColors.length - 1],
+              height: "50%",
+              display: gradientColors.length > 1 ? "flex" : "none",
+            }}
+          />
+
+          <BlurView intensity={50} tint={colors.primary === "white" ? "dark" : "light"} style={styles.container} />
+        </View>
+      ) : (
+        <></>
+      )}
+
       <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
-        <Animated.View style={{ opacity, flex: 1, backgroundColor: gradientColors[gradientColors.length - 1] }}>
+        <Animated.View
+          style={{
+            opacity,
+            flex: 1,
+            backgroundColor: gradientColors.length ? gradientColors[gradientColors.length - 1] : "transparent",
+          }}
+        >
           <View style={[styles.container, { height: gradientHeight }]}>
             <View style={{ height: headerHeight, backgroundColor: gradientColors[0] }} />
 
@@ -99,7 +135,11 @@ export default function Day() {
             )}
           </View>
 
-          <BlurView intensity={50} tint={colors.primary === "white" ? "dark" : "light"} style={styles.blur} />
+          {gradientColors.length ? (
+            <BlurView intensity={50} tint={colors.primary === "white" ? "dark" : "light"} style={styles.container} />
+          ) : (
+            <></>
+          )}
 
           <View
             style={{
@@ -125,10 +165,6 @@ export default function Day() {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    position: "absolute",
-  },
-  blur: {
     width: "100%",
     height: "100%",
     position: "absolute",
