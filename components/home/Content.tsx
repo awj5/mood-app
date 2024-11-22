@@ -6,7 +6,7 @@ import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { CalendarDatesType } from "context/home-dates";
-import Insights from "./Insights";
+import Insights from "./content/Insights";
 import Loading from "./Loading";
 import { getMonday, isInRange } from "utils/helpers";
 
