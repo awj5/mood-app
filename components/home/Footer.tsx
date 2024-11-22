@@ -11,7 +11,6 @@ export default function Footer() {
   const db = useSQLiteContext();
   const insets = useSafeAreaInsets();
   const appState = useRef(AppState.currentState);
-  const isFirstFocus = useRef(true);
   const [bounce, setBounce] = useState(false);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
@@ -35,21 +34,11 @@ export default function Footer() {
 
   useFocusEffect(
     useCallback(() => {
-      // Don't fire on mount
-      if (isFirstFocus.current) {
-        isFirstFocus.current = false;
-        return;
+      if (appStateVisible === "active") {
+        checkBounce();
       }
-
-      checkBounce();
-    }, [])
+    }, [appStateVisible])
   );
-
-  useEffect(() => {
-    if (appStateVisible === "active") {
-      checkBounce();
-    }
-  }, [appStateVisible]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
