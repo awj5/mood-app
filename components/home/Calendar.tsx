@@ -1,6 +1,7 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { StyleSheet, View, AppState, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
+import { useFocusEffect } from "expo-router";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
@@ -10,13 +11,14 @@ export default function Calendar() {
   const colors = theme();
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const pagerViewRef = useRef<PagerView>(null);
-  const appState = useRef(AppState.currentState);
+  const appStateRef = useRef(AppState.currentState);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const todayRef = useRef<Date | null>(null);
   const [weeks, setWeeks] = useState<Date[]>([]);
   const [visible, setVisible] = useState(false);
   const [initPage, setInitPage] = useState(0);
   const [page, setPage] = useState(0);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const [appStateVisible, setAppStateVisible] = useState(appStateRef.current);
   const defaultPageCount = 11; // Display 12 weeks
 
   const isLastWeek = (date: Date) => {
@@ -63,18 +65,27 @@ export default function Calendar() {
     }, 500);
   };
 
-  useEffect(() => {
-    // Set calendar to current week on init and when app returns to focus
-    if (appStateVisible === "active") {
-      setVisible(false);
-      setInitPage(defaultPageCount);
-      const today = new Date();
+  useFocusEffect(
+    useCallback(() => {
+      // Set calendar to current week on init and when app returns to focus
+      var today = new Date();
       today.setHours(0, 0, 0, 0);
-      const monday = getMonday(today);
-      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined }); // Reset
-      setDefaultPages();
-    }
-  }, [appStateVisible]);
+
+      // Only set on focus if day has changed
+      if (
+        (appStateVisible === "active" && !todayRef.current) ||
+        (appStateVisible === "active" && todayRef.current && todayRef.current.getTime() !== today.getTime())
+      ) {
+        setVisible(false);
+        setInitPage(defaultPageCount);
+        const monday = getMonday(today);
+        setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined }); // Reset
+        setDefaultPages();
+      }
+
+      todayRef.current = today;
+    }, [appStateVisible])
+  );
 
   useEffect(() => {
     if (homeDates.rangeStart && homeDates.rangeEnd) {
@@ -124,8 +135,8 @@ export default function Calendar() {
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
+      appStateRef.current = nextAppState;
+      setAppStateVisible(appStateRef.current);
     });
 
     return () => subscription.remove();
