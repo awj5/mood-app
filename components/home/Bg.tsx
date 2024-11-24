@@ -116,7 +116,7 @@ export default function Bg() {
   useFocusEffect(
     useCallback(() => {
       getData();
-    }, [homeDates])
+    }, [homeDates, colors.primaryBg])
   );
 
   return (

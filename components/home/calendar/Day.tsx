@@ -68,7 +68,6 @@ export default function Day(props: DayProps) {
     `;
 
         const rows: CheckInType[] = await db.getAllAsync(query, [convertToISO(props.date)]);
-        console.log(rows);
 
         if (rows.length) {
           const mood: CheckInMoodType = JSON.parse(rows[0].mood);

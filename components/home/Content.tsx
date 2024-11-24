@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
@@ -9,6 +9,7 @@ import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { CalendarDatesType } from "context/home-dates";
 import Insights from "./content/Insights";
 import Loading from "./Loading";
+import NoCheckIns from "./NoCheckIns";
 import { convertToISO, getMonday, isInRange } from "utils/helpers";
 
 export default function Content() {
@@ -132,13 +133,7 @@ export default function Content() {
           paddingBottom: edgePadding * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
         }}
       >
-        {!loadingContent && insights ? (
-          <Insights text={insights} />
-        ) : !loadingContent ? (
-          <Text>No results</Text>
-        ) : (
-          <Loading />
-        )}
+        {!loadingContent && insights ? <Insights text={insights} /> : !loadingContent ? <NoCheckIns /> : <Loading />}
       </View>
     </ScrollView>
   );
