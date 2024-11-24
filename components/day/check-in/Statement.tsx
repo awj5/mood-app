@@ -13,35 +13,26 @@ export default function Statement(props: StatementProps) {
   var response = "";
 
   switch (true) {
-    case props.mood.statementResponse >= 0.9:
-      response = "Absolutely agreed";
+    case props.mood.statementResponse >= 0.85:
+      response = "I strongly agreed % that";
       break;
-    case props.mood.statementResponse >= 0.8:
-      response = "Strongly agreed";
+    case props.mood.statementResponse >= 0.65:
+      response = "I agreed % that";
       break;
-    case props.mood.statementResponse >= 0.7:
-      response = "Agreed";
+    case props.mood.statementResponse >= 0.55:
+      response = "I somewhat agreed % that";
       break;
-    case props.mood.statementResponse >= 0.6:
-      response = "Somewhat agreed";
+    case props.mood.statementResponse >= 0.45:
+      response = "I neither agreed nor disagreed % that";
       break;
-    case props.mood.statementResponse >= 0.5:
-      response = "Slightly agreed";
+    case props.mood.statementResponse >= 0.35:
+      response = "I somewhat disagreed % that";
       break;
-    case props.mood.statementResponse >= 0.4:
-      response = "Slightly disagreed";
-      break;
-    case props.mood.statementResponse >= 0.3:
-      response = "Somewhat disagreed";
-      break;
-    case props.mood.statementResponse >= 0.2:
-      response = "Disagreed";
-      break;
-    case props.mood.statementResponse >= 0.1:
-      response = "Strongly disagreed";
+    case props.mood.statementResponse >= 0.15:
+      response = "I disagreed % that";
       break;
     default:
-      response = "Absolutely disagreed";
+      response = "I strongly disagreed % that";
   }
 
   return (
@@ -54,7 +45,8 @@ export default function Statement(props: StatementProps) {
       }}
       allowFontScaling={false}
     >
-      {guidelinesData[0].competencies.filter((item) => item.id === props.mood.competency)[0].statement}
+      {response.replace("%", `(${props.mood.statementResponse * 100}%)`)}{" "}
+      {guidelinesData[0].competencies.filter((item) => item.id === props.mood.competency)[0].response}
     </Text>
   );
 }
