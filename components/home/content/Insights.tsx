@@ -3,7 +3,11 @@ import * as Device from "expo-device";
 import { Sparkles } from "lucide-react-native";
 import { theme } from "utils/helpers";
 
-export default function Insights() {
+type InsightsProps = {
+  text: string;
+};
+
+export default function Insights(props: InsightsProps) {
   const colors = theme();
 
   return (
@@ -28,8 +32,7 @@ export default function Insights() {
         style={[styles.text, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 20 : 16 }]}
         allowFontScaling={false}
       >
-        Prioritized mental well-being by balancing tasks, taking regular breaks, and practicing mindfulness. Felt more
-        focused, less stressed, and maintained a positive outlook all week.
+        {props.text}
       </Text>
     </View>
   );

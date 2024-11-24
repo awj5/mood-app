@@ -67,7 +67,8 @@ export default function Day(props: DayProps) {
       WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC
     `;
 
-        const rows: CheckInType[] | null = await db.getAllAsync(query, [convertToISO(props.date)]);
+        const rows: CheckInType[] = await db.getAllAsync(query, [convertToISO(props.date)]);
+        console.log(rows);
 
         if (rows.length) {
           const mood: CheckInMoodType = JSON.parse(rows[0].mood);

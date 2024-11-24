@@ -56,7 +56,7 @@ export default function Bg() {
       WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC
     `;
 
-      const rows: CheckInType[] | null = await db.getAllAsync(query, [convertToISO(start), convertToISO(end)]);
+      const rows: CheckInType[] = await db.getAllAsync(query, [convertToISO(start), convertToISO(end)]);
       if (rows.length) checkInColors = []; // Clear when checkins found
 
       // Loop checkins and get color

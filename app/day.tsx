@@ -40,7 +40,7 @@ export default function Day() {
       WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC
     `;
 
-      const rows: CheckInType[] | null = await db.getAllAsync(query, [iso]);
+      const rows: CheckInType[] = await db.getAllAsync(query, [iso]);
       setGradientHeight(rows.length * itemHeight + headerHeight + edges);
       const checkInColors = [];
 
