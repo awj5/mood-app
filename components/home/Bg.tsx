@@ -20,7 +20,7 @@ export default function Bg() {
   const color2 = useSharedValue(colors.primaryBg);
   const color3 = useSharedValue(colors.primaryBg);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const latestQueryRef = useRef<symbol | null>(null);
+  const latestQueryRef = useRef<symbol>();
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
   const [colorsArray, setColorsArray] = useState([colors.primaryBg]);
   const heightOffset = headerHeight + (Device.deviceType !== 1 ? 128 : 96);
