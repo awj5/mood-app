@@ -59,12 +59,12 @@ export default function Insights(props: InsightsProps) {
     var insights = "";
 
     if (props.checkInData) {
-      // If no note, check if AI summary saved locally
+      // !!!!!! If no note, check if AI summary saved locally
       insights = props.checkInData.note ? props.checkInData.note : "";
     } else {
       //const aiResponse = await callAPI("Say this is a test!");
       //console.log(aiResponse.choices[0].message.content);
-      // !!!!!! Check cache and if online
+      // !!!!!! Check cache and if online before calling API
       insights =
         "Lorem ipsum dolor sit amet, workplace well-being consectetur adipiscing elit. Morbi tempus felis non arcu gravida, id sollicitudin turpis viverra. Sed ut nibh at risus efficitur facilisis vitae sit amet massa. Nullam ultricies sapien nec purus viverra volutpat.";
     }

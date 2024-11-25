@@ -45,7 +45,7 @@ export default function Statement(props: StatementProps) {
       }}
       allowFontScaling={false}
     >
-      {response.replace("%", `(${props.mood.statementResponse * 100}%)`)}{" "}
+      {response.replace("%", `(${Math.round(props.mood.statementResponse * 100)}%)`)}{" "}
       {guidelinesData[0].competencies.filter((item) => item.id === props.mood.competency)[0].response}
     </Text>
   );
