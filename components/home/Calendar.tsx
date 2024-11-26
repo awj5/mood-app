@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { StyleSheet, View, AppState, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import { useFocusEffect } from "expo-router";
+import Animated, { FadeIn } from "react-native-reanimated";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
@@ -150,18 +151,20 @@ export default function Calendar() {
       }}
     >
       {visible ? (
-        <PagerView
-          ref={pagerViewRef}
-          initialPage={initPage}
-          style={{ height: "100%" }}
-          onPageSelected={(e) => pageSelected(e)}
-        >
-          {weeks.map((item, index) => (
-            <View key={index} style={styles.page}>
-              <Week monday={item} />
-            </View>
-          ))}
-        </PagerView>
+        <Animated.View entering={FadeIn}>
+          <PagerView
+            ref={pagerViewRef}
+            initialPage={initPage}
+            style={{ height: "100%" }}
+            onPageSelected={(e) => pageSelected(e)}
+          >
+            {weeks.map((item, index) => (
+              <View key={index} style={styles.page}>
+                <Week monday={item} />
+              </View>
+            ))}
+          </PagerView>
+        </Animated.View>
       ) : (
         <ActivityIndicator color={colors.primary} />
       )}

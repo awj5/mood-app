@@ -74,7 +74,7 @@ export default function Content() {
           checkIns !== undefined && (
             <Text
               style={{
-                color: colors.primary,
+                color: colors.primary === "white" ? "#999999" : "#666666",
                 fontFamily: "Circular-Book",
                 fontSize: Device.deviceType !== 1 ? 20 : 16,
               }}

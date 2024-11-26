@@ -2,10 +2,20 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
 import axios from "axios";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
-import { CheckInType } from "data/database";
+import tagsData from "data/tags.json";
+import guidelinesData from "data/guidelines.json";
+import { CheckInMoodType, CheckInType } from "data/database";
 import Loading from "components/Loading";
-import { theme } from "utils/helpers";
+import { theme, getStatement } from "utils/helpers";
+
+type PromptDataType = {
+  date: string;
+  time: string;
+  feelings: string[];
+  statement: string;
+};
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -17,7 +27,7 @@ export default function Insights(props: InsightsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const gap = Device.deviceType !== 1 ? 6 : 4;
 
-  const callAPI = async (prompt: string) => {
+  const callAIAPI = async (promptData: PromptDataType[]) => {
     const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
     try {
@@ -29,11 +39,13 @@ export default function Insights(props: InsightsProps) {
             {
               role: "system",
               content:
-                "You are a helpful and empathetic assistant specializing in mental health in the workplace. You provide evidence-based advice, practical strategies, and emotional support tailored to improving well-being and productivity. Maintain a professional yet approachable tone and adapt your responses to the specific needs of the user.",
+                "Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user's thoughts. Provide concise, insightful analyses, highlighting patterns, trends, or potential areas for improvement. Speak directly to the user in an empathetic and professional tone.",
             },
             {
               role: "user",
-              content: prompt,
+              content:
+                "Analyze these check-ins and summarize the key trends, patterns, or observations in 200 characters or less: " +
+                JSON.stringify(promptData),
             },
           ],
           temperature: 0.7,
@@ -49,18 +61,40 @@ export default function Insights(props: InsightsProps) {
       return response.data;
     } catch (error) {
       console.log(error);
-      return null;
     }
   };
 
-  const getInsights = () => {
-    //const aiResponse = await callAPI("Say this is a test!");
-    //console.log(aiResponse.choices[0].message.content);
-    // !!!!!! Check cache and if online before calling API
-    // 255 chars
-    setText(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec suscipit nulla. Aenean vel velit ac augue fringilla dignissim. Nullam in felis vitae urna dictum pulvinar. Sed convallis, lorem non efficitur euismod, libero risus tincidunt justo, ut finibus neque purus eget nunc."
-    );
+  const getInsights = async () => {
+    // !!!!!! Check cache first
+    const promptData: PromptDataType[] = [];
+
+    // Loop check-ins and create prompt object
+    for (let i = 0; i < props.checkIns.length; i++) {
+      let checkIn = props.checkIns[i];
+      let utc = new Date(`${checkIn.date}Z`);
+      let local = new Date(utc);
+      let mood: CheckInMoodType = JSON.parse(checkIn.mood);
+      let tags: string[] = [];
+
+      // Get tag names
+      for (let i = 0; i < mood.tags.length; i++) {
+        tags.push(tagsData.filter((tag) => tag.id === mood.tags[i])[0].name);
+      }
+
+      promptData.push({
+        date: local.toDateString(),
+        time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
+        feelings: tags,
+        statement: getStatement(
+          guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].response,
+          mood.statementResponse
+        ),
+      });
+    }
+
+    const aiResponse = await callAIAPI(promptData);
+    console.log(aiResponse.choices[0].message.content);
+    setText(aiResponse ? aiResponse.choices[0].message.content : "");
     setIsLoading(false);
   };
 
@@ -81,13 +115,14 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating" />
         </View>
       ) : (
-        <View
+        <Animated.View
+          entering={FadeIn}
           style={{
             gap: gap,
             alignItems: "center",
           }}
         >
-          <View style={[styles.title, { gap: gap }]}>
+          <View style={[styles.title, { gap: gap, display: text ? "flex" : "none" }]}>
             <Sparkles
               color={colors.primary}
               size={Device.deviceType !== 1 ? 28 : 20}
@@ -117,9 +152,9 @@ export default function Insights(props: InsightsProps) {
             ]}
             allowFontScaling={false}
           >
-            {text.slice(0, 300)}
+            {text ? text : "Unable to generate insights at the moment.\nPlease try again later."}
           </Text>
-        </View>
+        </Animated.View>
       )}
     </View>
   );
