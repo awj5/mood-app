@@ -18,19 +18,34 @@ export default function Header(props: HeaderProps) {
   const db = useSQLiteContext();
   const time = props.date.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 
-  const emojis = {
-    1: require("../../../assets/img/emoji/small/yellow.svg"),
-    2: require("../../../assets/img/emoji/small/chartreuse.svg"),
-    3: require("../../../assets/img/emoji/small/green.svg"),
-    4: require("../../../assets/img/emoji/small/spring-green.svg"),
-    5: require("../../../assets/img/emoji/small/cyan.svg"),
-    6: require("../../../assets/img/emoji/small/azure.svg"),
-    7: require("../../../assets/img/emoji/small/blue.svg"),
-    8: require("../../../assets/img/emoji/small/dark-violet.svg"),
-    9: require("../../../assets/img/emoji/small/dark-magenta.svg"),
-    10: require("../../../assets/img/emoji/small/dark-rose.svg"),
-    11: require("../../../assets/img/emoji/small/red.svg"),
-    12: require("../../../assets/img/emoji/small/orange.svg"),
+  const emojisBlack = {
+    1: require("../../../assets/img/emoji/small/black/yellow.svg"),
+    2: require("../../../assets/img/emoji/small/black/chartreuse.svg"),
+    3: require("../../../assets/img/emoji/small/black/green.svg"),
+    4: require("../../../assets/img/emoji/small/black/spring-green.svg"),
+    5: require("../../../assets/img/emoji/small/black/cyan.svg"),
+    6: require("../../../assets/img/emoji/small/black/azure.svg"),
+    7: require("../../../assets/img/emoji/small/black/blue.svg"),
+    8: require("../../../assets/img/emoji/small/black/dark-violet.svg"),
+    9: require("../../../assets/img/emoji/small/black/dark-magenta.svg"),
+    10: require("../../../assets/img/emoji/small/black/dark-rose.svg"),
+    11: require("../../../assets/img/emoji/small/black/red.svg"),
+    12: require("../../../assets/img/emoji/small/black/orange.svg"),
+  };
+
+  const emojisWhite = {
+    1: require("../../../assets/img/emoji/small/white/yellow.svg"),
+    2: require("../../../assets/img/emoji/small/white/chartreuse.svg"),
+    3: require("../../../assets/img/emoji/small/white/green.svg"),
+    4: require("../../../assets/img/emoji/small/white/spring-green.svg"),
+    5: require("../../../assets/img/emoji/small/white/cyan.svg"),
+    6: require("../../../assets/img/emoji/small/white/azure.svg"),
+    7: require("../../../assets/img/emoji/small/white/blue.svg"),
+    8: require("../../../assets/img/emoji/small/white/dark-violet.svg"),
+    9: require("../../../assets/img/emoji/small/white/dark-magenta.svg"),
+    10: require("../../../assets/img/emoji/small/white/dark-rose.svg"),
+    11: require("../../../assets/img/emoji/small/white/red.svg"),
+    12: require("../../../assets/img/emoji/small/white/orange.svg"),
   };
 
   const confirmDelete = () => {
@@ -63,7 +78,11 @@ export default function Header(props: HeaderProps) {
     <View style={[styles.container, { paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }]}>
       <View style={[styles.title, { gap: Device.deviceType !== 1 ? 12 : 8 }]}>
         <Image
-          source={emojis[props.mood.color as keyof typeof emojis]}
+          source={
+            colors.primary === "black"
+              ? emojisBlack[props.mood.color as keyof typeof emojisBlack]
+              : emojisWhite[props.mood.color as keyof typeof emojisWhite]
+          }
           style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 44 : 32 }}
         />
 

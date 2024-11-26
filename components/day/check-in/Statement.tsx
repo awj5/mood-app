@@ -14,25 +14,25 @@ export default function Statement(props: StatementProps) {
 
   switch (true) {
     case props.mood.statementResponse >= 0.85:
-      response = "I strongly agreed % that";
+      response = "At work, I strongly agreed % that";
       break;
     case props.mood.statementResponse >= 0.65:
-      response = "I agreed % that";
+      response = "At work, I agreed % that";
       break;
     case props.mood.statementResponse >= 0.55:
-      response = "I somewhat agreed % that";
+      response = "At work, I somewhat agreed % that";
       break;
     case props.mood.statementResponse >= 0.45:
-      response = "I neither agreed nor disagreed % that";
+      response = "At work, I neither agreed nor disagreed % that";
       break;
     case props.mood.statementResponse >= 0.35:
-      response = "I somewhat disagreed % that";
+      response = "At work, I somewhat disagreed % that";
       break;
     case props.mood.statementResponse >= 0.15:
-      response = "I disagreed % that";
+      response = "At work, I disagreed % that";
       break;
     default:
-      response = "I strongly disagreed % that";
+      response = "At work, I strongly disagreed % that";
   }
 
   return (

@@ -86,42 +86,42 @@
       {
         "id": 1.01,
         "statement": "I clearly understand my role and what is expected of me at work.",
-        "response": "I clearly understand my role and what is expected of me at work."
+        "response": "my role is clearly defined."
       },
       {
         "id": 1.02,
         "statement": "I feel that my role expectations are consistent and manageable.",
-        "response": "my role expectations are consistent and manageable."
+        "response": "my different responsibilities work well together."
       },
       {
         "id": 1.03,
         "statement": "I feel that I am well-supported in my duty of care responsibilities.",
-        "response": "I am well-supported in my duty of care responsibilities."
+        "response": "I understand my duty of care to others."
       },
       {
         "id": 1.04,
         "statement": "I feel that my task guidelines and boundaries are clearly defined.",
-        "response": "my task guidelines and boundaries are clearly defined."
+        "response": "I have clear boundaries for my tasks."
       },
       {
         "id": 1.05,
         "statement": "I feel that my role expectations work well together.",
-        "response": "my role expectations work well together."
+        "response": "my role expectations align well."
       },
       {
         "id": 1.06,
         "statement": "I feel that my work tasks and standards are consistent and well-communicated.",
-        "response": "my work tasks and standards are consistent and well-communicated."
+        "response": "my task standards remain stable."
       },
       {
         "id": 1.07,
         "statement": "I feel that my work is valuable and purposeful.",
-        "response": "my work is valuable and purposeful."
+        "response": "my tasks are meaningful and purposeful."
       },
       {
         "id": 2.01,
         "statement": "I feel that I have opportunities to participate in decisions affecting my work.",
-        "response": "I have opportunities to participate in decisions affecting my work."
+        "response": "I can participate in relevant decisions."
       },
       {
         "id": 2.02,
@@ -131,472 +131,472 @@
       {
         "id": 2.03,
         "statement": "I feel that I can influence how I do my work.",
-        "response": "I can influence how I do my work."
+        "response": "I can set my own pace and schedule."
       },
       {
         "id": 3.01,
         "statement": "I feel that my skills are fully utilised in my role.",
-        "response": "my skills are fully utilised in my role."
+        "response": "I use my skills fully."
       },
       {
         "id": 3.02,
         "statement": "I feel that my interactions with people at work are well-balanced.",
-        "response": "my interactions with people at work are well-balanced."
+        "response": "I have balanced interactions with people."
       },
       {
         "id": 3.03,
         "statement": "I feel that my workload is reasonable for my available time and resources.",
-        "response": "my workload is reasonable for my available time and resources."
+        "response": "my workload matches the time available."
       },
       {
         "id": 3.04,
         "statement": "I feel that I can manage my various demands and deadlines.",
-        "response": "I can manage my various demands and deadlines."
+        "response": "my deadlines are well-coordinated."
       },
       {
         "id": 3.05,
         "statement": "I feel that the expectations of my competence are realistic.",
-        "response": "the expectations of my competence are realistic."
+        "response": "expectations of me are realistic."
       },
       {
         "id": 3.06,
         "statement": "I feel that my work tasks are sufficiently varied.",
-        "response": "my work tasks are sufficiently varied."
+        "response": "I experience good variety in my tasks."
       },
       {
         "id": 3.07,
         "statement": "I feel that my work is meaningful and connects well together.",
-        "response": "my work is meaningful and connects well together."
+        "response": "my tasks connect meaningfully to our goals."
       },
       {
         "id": 3.08,
         "statement": "I feel that my required concentration levels are reasonable.",
-        "response": "my required concentration levels are reasonable."
+        "response": "I can maintain reasonable concentration."
       },
       {
         "id": 3.09,
         "statement": "I feel that I am supported when dealing with difficult people at work.",
-        "response": "I am supported when dealing with difficult people at work."
+        "response": "I have support for challenging situations."
       },
       {
         "id": 3.1,
         "statement": "I feel that I am protected from potentially traumatic situations.",
-        "response": "I am protected from potentially traumatic situations."
+        "response": "I am protected from traumatic events."
       },
       {
         "id": 4.01,
         "statement": "I feel that I receive adequate support during workplace changes.",
-        "response": "I receive adequate support during workplace changes."
+        "response": "I receive support during transition periods."
       },
       {
         "id": 4.02,
         "statement": "I feel that my work environment has stable organisation.",
-        "response": "my work environment has stable organisation."
+        "response": "organisational changes are well-managed."
       },
       {
         "id": 4.03,
         "statement": "I feel that I receive clear communication about workplace changes.",
-        "response": "I receive clear communication about workplace changes."
+        "response": "my input during changes is heard."
       },
       {
         "id": 5.01,
         "statement": "I feel that I maintain good connections when working away from home.",
-        "response": "I maintain good connections when working away from home."
+        "response": "I stay connected to my support network."
       },
       {
         "id": 5.02,
         "statement": "I feel that I have opportunities for social interaction even when working alone.",
-        "response": "I have opportunities for social interaction even when working alone."
+        "response": "I have enough social interaction."
       },
       {
         "id": 5.03,
         "statement": "I feel that I am safe and comfortable when working in private homes.",
-        "response": "I am safe and comfortable when working in private homes."
+        "response": "I feel safe in my working environment."
       },
       {
         "id": 5.04,
         "statement": "I feel that my workload is well-balanced.",
-        "response": "my workload is well-balanced."
+        "response": "my workload is neither too heavy nor too light."
       },
       {
         "id": 5.05,
         "statement": "I feel that I can manage my time pressures effectively.",
-        "response": "I can manage my time pressures effectively."
+        "response": "time pressures are manageable."
       },
       {
         "id": 5.06,
         "statement": "I feel that I can manage my deadlines reasonably.",
-        "response": "I can manage my deadlines reasonably."
+        "response": "deadlines are reasonable."
       },
       {
         "id": 5.07,
         "statement": "I feel that I can control my work pace.",
-        "response": "I can control my work pace."
+        "response": "I control my own work pace."
       },
       {
         "id": 5.08,
         "statement": "I feel that my work has enough variety to keep me engaged.",
-        "response": "my work has enough variety to keep me engaged."
+        "response": "each day includes varied activities."
       },
       {
         "id": 6.01,
         "statement": "I feel that my tasks are varied enough to maintain my interest.",
-        "response": "my tasks are varied enough to maintain my interest."
+        "response": "my tasks are engaging and interesting."
       },
       {
         "id": 6.02,
         "statement": "I feel that my work schedule is flexible and balanced.",
-        "response": "my work schedule is flexible and balanced."
+        "response": "my shifts suit my needs."
       },
       {
         "id": 6.03,
         "statement": "I feel that I have flexibility in my work schedule.",
-        "response": "I have flexibility in my work schedule."
+        "response": "my schedule has flexibility when needed."
       },
       {
         "id": 6.04,
         "statement": "I feel that my working hours are predictable and manageable.",
-        "response": "my working hours are predictable and manageable."
+        "response": "my hours are predictable."
       },
       {
         "id": 6.05,
         "statement": "I feel that my working hours allow for a good work-life balance.",
-        "response": "my working hours allow for a good work-life balance."
+        "response": "my hours are reasonable and family-friendly."
       },
       {
         "id": 6.06,
         "statement": "I feel that my work aligns with meaningful objectives.",
-        "response": "my work aligns with meaningful objectives."
+        "response": "my tasks feel complete and worthwhile."
       },
       {
         "id": 6.07,
         "statement": "I feel that I get reasonable time to complete my tasks.",
-        "response": "I get reasonable time to complete my tasks."
+        "response": "I get reasonable notice to complete tasks."
       },
       {
         "id": 7.01,
         "statement": "I feel that my work availability is consistent and predictable.",
-        "response": "my work availability is consistent and predictable."
+        "response": "I know when I need to be available."
       },
       {
         "id": 7.02,
         "statement": "I feel that my job is secure.",
-        "response": "my job is secure."
+        "response": "I feel secure in my role."
       },
       {
         "id": 7.03,
         "statement": "I feel that my employment terms are stable and protected.",
-        "response": "my employment terms are stable and protected."
+        "response": "my pay and conditions are fair."
       },
       {
         "id": 7.04,
         "statement": "I feel that my employment conditions are secure and clear.",
-        "response": "my employment conditions are secure and clear."
+        "response": "my rights are protected."
       },
       {
         "id": 8.01,
         "statement": "I feel that I can communicate clearly with my team.",
-        "response": "I can communicate clearly with my team."
+        "response": "important information flows freely."
       },
       {
         "id": 8.02,
         "statement": "I feel that my workplace relationships are positive and supportive.",
-        "response": "my workplace relationships are positive and supportive."
+        "response": "my professional relationships are positive."
       },
       {
         "id": 8.03,
         "statement": "I feel that any conflicts in my workplace are resolved fairly.",
-        "response": "any conflicts in my workplace are resolved fairly."
+        "response": "people get along well."
       },
       {
         "id": 8.04,
         "statement": "I feel that I am safe from harassment and bullying at work.",
-        "response": "I am safe from harassment and bullying at work."
+        "response": "I am safe from harmful behaviour."
       },
       {
         "id": 8.05,
         "statement": "I feel that I can access support when I need it.",
-        "response": "I can access support when I need it."
+        "response": "I receive good social support."
       },
       {
         "id": 8.06,
         "statement": "I feel that power dynamics in my workplace are fair.",
-        "response": "power dynamics in my workplace are fair."
+        "response": "power is distributed fairly."
       },
       {
         "id": 8.07,
         "statement": "I feel that I am included in my workplace community.",
-        "response": "I am included in my workplace community."
+        "response": "I feel socially and physically included."
       },
       {
         "id": 9.01,
         "statement": "I feel that I understand my organisation's vision and goals.",
-        "response": "I understand my organisation's vision and goals."
+        "response": "our vision and objectives are clear."
       },
       {
         "id": 9.02,
         "statement": "I feel that my managers' style suits our work.",
-        "response": "my managers' style suits our work."
+        "response": "the management style suits our needs."
       },
       {
         "id": 9.03,
         "statement": "I feel that my feedback is listened to attentively.",
-        "response": "my feedback is listened to attentively."
+        "response": "my concerns are taken seriously."
       },
       {
         "id": 9.04,
         "statement": "I feel that I receive open and transparent information.",
-        "response": "I receive open and transparent information."
+        "response": "I receive all necessary information."
       },
       {
         "id": 9.05,
         "statement": "I feel that I receive adequate support from leadership.",
-        "response": "I receive adequate support from leadership."
+        "response": "communication channels work well."
       },
       {
         "id": 9.06,
         "statement": "I feel that I see accountability at all levels of my workplace.",
-        "response": "I see accountability at all levels of my workplace."
+        "response": "leaders take accountability."
       },
       {
         "id": 9.07,
         "statement": "I feel that decisions affecting me are fair and consistent.",
-        "response": "decisions affecting me are fair and consistent."
+        "response": "I receive fair treatment."
       },
       {
         "id": 9.08,
         "statement": "I feel that decisions in my workplace are well-considered.",
-        "response": "decisions in my workplace are well-considered."
+        "response": "decisions are consistent."
       },
       {
         "id": 9.09,
         "statement": "I feel that my leaders use their authority ethically.",
-        "response": "my leaders use their authority ethically."
+        "response": "authority is used appropriately."
       },
       {
         "id": 10.01,
         "statement": "I feel that my team communicates effectively.",
-        "response": "my team communicates effectively."
+        "response": "I receive clear communications."
       },
       {
         "id": 10.02,
         "statement": "I feel that I get support when solving problems.",
-        "response": "I get support when solving problems."
+        "response": "my personal development is supported."
       },
       {
         "id": 10.03,
         "statement": "I feel that I understand my organisation's objectives.",
-        "response": "I understand my organisation's objectives."
+        "response": "our objectives make sense to everyone."
       },
       {
         "id": 10.04,
         "statement": "I feel that policies affecting me are applied fairly.",
-        "response": "policies affecting me are applied fairly."
+        "response": "policies are applied fairly and consistently."
       },
       {
         "id": 11.01,
         "statement": "I feel that my efforts are recognised appropriately.",
-        "response": "my efforts are recognised appropriately."
+        "response": "my efforts are recognised."
       },
       {
         "id": 11.02,
         "statement": "I feel that my work contributions are valued.",
-        "response": "my work contributions are valued."
+        "response": "I receive timely appreciation."
       },
       {
         "id": 12.01,
         "statement": "I feel that I have opportunities to develop my career.",
-        "response": "I have opportunities to develop my career."
+        "response": "I see clear career opportunities."
       },
       {
         "id": 13.01,
         "statement": "I feel that I receive adequate support from my supervisor.",
-        "response": "I receive adequate support from my supervisor."
+        "response": "my colleagues are supportive."
       },
       {
         "id": 13.02,
         "statement": "I feel that I can access the support services I need.",
-        "response": "I can access the support services I need."
+        "response": "support is readily available."
       },
       {
         "id": 13.03,
         "statement": "I feel that I receive the training I need for my role.",
-        "response": "I receive the training I need for my role."
+        "response": "I receive proper training."
       },
       {
         "id": 14.01,
         "statement": "I feel that I receive constructive feedback regularly.",
-        "response": "I receive constructive feedback regularly."
+        "response": "I'm offered constructive feedback."
       },
       {
         "id": 14.02,
         "statement": "I feel that my contributions are encouraged.",
-        "response": "my contributions are encouraged."
+        "response": "I am encouraged and acknowledged."
       },
       {
         "id": 14.03,
         "statement": "I feel that my supervisor communicates clearly with me.",
-        "response": "my supervisor communicates clearly with me."
+        "response": "my manager communicates well."
       },
       {
         "id": 14.04,
         "statement": "I feel that I share in my organisation's vision.",
-        "response": "I share in my organisation's vision."
+        "response": "our team goals are clear."
       },
       {
         "id": 14.05,
         "statement": "I feel that I get support to improve my work.",
-        "response": "I get support to improve my work."
+        "response": "I can access resources to improve my performance."
       },
       {
         "id": 14.06,
         "statement": "I feel that my supervisor treats me fairly.",
-        "response": "my supervisor treats me fairly."
+        "response": "treatment is fair and consistent."
       },
       {
         "id": 14.07,
         "statement": "I feel that any monitoring of my work is appropriate.",
-        "response": "any monitoring of my work is appropriate."
+        "response": "digital surveillance respects my privacy."
       },
       {
         "id": 15.01,
         "statement": "I feel that I work in a trusting and respectful environment.",
-        "response": "I work in a trusting and respectful environment."
+        "response": "there is mutual trust and honesty."
       },
       {
         "id": 15.02,
         "statement": "I feel that my workplace interactions are respectful.",
-        "response": "my workplace interactions are respectful."
+        "response": "interactions with others are respectful and considerate."
       },
       {
         "id": 16.01,
         "statement": "I feel that my schedule allows for good work-life balance.",
-        "response": "my schedule allows for good work-life balance."
+        "response": "my personal time is respected."
       },
       {
         "id": 16.02,
         "statement": "I feel that I can balance my work and home life.",
-        "response": "I can balance my work and home life."
+        "response": "I maintain good life balance."
       },
       {
         "id": 16.03,
         "statement": "I feel that I have enough time to recover after work.",
-        "response": "I have enough time to recover after work."
+        "response": "I have adequate recovery time."
       },
       {
         "id": 17.01,
         "statement": "I feel that I am safe from abuse at work.",
-        "response": "I am safe from abuse at work."
+        "response": "I am safe from abuse."
       },
       {
         "id": 17.02,
         "statement": "I feel that I am safe from threats at work.",
-        "response": "I am safe from threats at work."
+        "response": "I am safe from threats."
       },
       {
         "id": 17.03,
         "statement": "I feel that I am protected from assault at work.",
-        "response": "I am protected from assault at work."
+        "response": "I am safe from assault."
       },
       {
         "id": 17.04,
         "statement": "I feel that I am safe from gender-based violence at work.",
-        "response": "I am safe from gender-based violence at work."
+        "response": "I am safe from gender-based harm."
       },
       {
         "id": 18.01,
         "statement": "I feel that my racial identity is respected at work.",
-        "response": "my racial identity is respected at work."
+        "response": "my race is respected."
       },
       {
         "id": 18.02,
         "statement": "I feel that my gender identity is respected at work.",
-        "response": "my gender identity is respected at work."
+        "response": "my gender identity is respected."
       },
       {
         "id": 18.03,
         "statement": "I feel that my religious beliefs are respected at work.",
-        "response": "my religious beliefs are respected at work."
+        "response": "my religion is respected."
       },
       {
         "id": 18.04,
         "statement": "I feel that my sexual orientation is respected at work.",
-        "response": "my sexual orientation is respected at work."
+        "response": "my sexual orientation is respected."
       },
       {
         "id": 18.05,
         "statement": "I feel that my workplace accommodates my needs.",
-        "response": "my workplace accommodates my needs."
+        "response": "my disability needs are accommodated."
       },
       {
         "id": 18.06,
         "statement": "I feel that my age is respected at work.",
-        "response": "my age is respected at work."
+        "response": "my age is respected."
       },
       {
         "id": 19.01,
         "statement": "I feel that I am connected to my workplace community.",
-        "response": "I am connected to my workplace community."
+        "response": "I feel welcomed and included."
       },
       {
         "id": 19.02,
         "statement": "I feel that my assigned tasks have clear purpose.",
-        "response": "my assigned tasks have clear purpose."
+        "response": "my tasks have clear purpose."
       },
       {
         "id": 19.03,
         "statement": "I feel that I am free from insults at work.",
-        "response": "I am free from insults at work."
+        "response": "I am treated with dignity."
       },
       {
         "id": 19.04,
         "statement": "I feel that my work is not undermined by others.",
-        "response": "my work is not undermined by others."
+        "response": "my colleagues support my success."
       },
       {
         "id": 19.05,
         "statement": "I feel that feedback about me is given constructively.",
-        "response": "feedback about me is given constructively."
+        "response": "public feedback is constructive."
       },
       {
         "id": 19.06,
         "statement": "I feel that I receive the resources I need for my work.",
-        "response": "I receive the resources I need for my work."
+        "response": "I can access essential information and resources."
       },
       {
         "id": 19.07,
         "statement": "I feel that I work in an environment free from harmful gossip.",
-        "response": "I work in an environment free from harmful gossip."
+        "response": "I am safe from malicious rumours or gossiping."
       },
       {
         "id": 19.08,
         "statement": "I feel that my deadlines are achievable.",
-        "response": "my deadlines are achievable."
+        "response": "my deadlines are realistic and achievable."
       },
       {
         "id": 20.01,
         "statement": "I feel that my equipment is reliable and well-maintained.",
-        "response": "my equipment is reliable and well-maintained."
+        "response": "my equipment is adequate and reliable."
       },
       {
         "id": 20.02,
         "statement": "I feel that my working conditions are safe and suitable.",
-        "response": "my working conditions are safe and suitable."
+        "response": "conditions are comfortable and appropriate."
       },
       {
         "id": 20.03,
         "statement": "I feel that I have the tools I need to do my job.",
-        "response": "I have the tools I need to do my job."
+        "response": "I have the right tools for the job."
       },
       {
         "id": 20.04,
         "statement": "I feel that my working conditions are safe.",
-        "response": "my working conditions are safe."
+        "response": "I am protected from extreme conditions or situations."
       },
       {
         "id": 20.05,
         "statement": "I feel that my work environment is stable and secure.",
-        "response": "my work environment is stable and secure."
+        "response": "my environment is safe and stable."
       }
     ]
   }
