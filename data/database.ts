@@ -14,6 +14,13 @@ export type CheckInType = {
   note: string;
 };
 
+export type InsightType = {
+  id: number;
+  date: Date;
+  check_ins: string;
+  summary: string;
+};
+
 export const initDB = async (db: SQLite.SQLiteDatabase) => {
   //await db.closeAsync();
   //SQLite.deleteDatabaseSync("mood.db");

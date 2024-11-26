@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
+import { useSQLiteContext } from "expo-sqlite";
 import axios from "axios";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType, InsightType } from "data/database";
 import Loading from "components/Loading";
 import Summary from "./insights/Summary";
 import { getStatement } from "utils/helpers";
@@ -21,6 +22,8 @@ type InsightsProps = {
 };
 
 export default function Insights(props: InsightsProps) {
+  const db = useSQLiteContext();
+  const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -61,10 +64,27 @@ export default function Insights(props: InsightsProps) {
     }
   };
 
+  const getData = async (ids: number[]) => {
+    try {
+      const query = `
+      SELECT * FROM insights
+      WHERE check_ins = ?
+    `;
+
+      const row: InsightType | null = await db.getFirstAsync(query, ids.toString());
+      return row;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getInsights = async () => {
+    const currentQuery = Symbol("currentQuery");
+    latestQueryRef.current = currentQuery;
     setIsLoading(true);
-    // !!!!!! Check cache first
+    setText("");
     const promptData: PromptDataType[] = [];
+    const ids = []; // Used to collect check-in IDs
 
     // Loop check-ins and create prompt objects
     for (let i = 0; i < props.checkIns.length; i++) {
@@ -88,10 +108,33 @@ export default function Insights(props: InsightsProps) {
           mood.statementResponse
         ),
       });
+
+      ids.push(checkIn.id);
     }
 
-    //const aiResponse = await callAIAPI(promptData);
-    //setText(aiResponse ? aiResponse.choices[0].message.content : "");
+    const savedResponse = await getData(ids);
+
+    // Show saved response if exists or get respponse from API
+    if (savedResponse && latestQueryRef.current === currentQuery) {
+      setText(savedResponse.summary);
+    } else if (latestQueryRef.current === currentQuery) {
+      const aiResponse = await callAIAPI(promptData);
+
+      if (aiResponse && latestQueryRef.current === currentQuery) {
+        setText(aiResponse.choices[0].message.content);
+
+        // Save response
+        try {
+          await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
+            ids.toString(),
+            aiResponse.choices[0].message.content,
+          ]);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
     setIsLoading(false);
   };
 
