@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import axios from "axios";
-import Animated, { FadeIn } from "react-native-reanimated";
-import { Sparkles } from "lucide-react-native";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import Loading from "components/Loading";
-import { theme, getStatement } from "utils/helpers";
+import Summary from "./insights/Summary";
+import { getStatement } from "utils/helpers";
 
 type PromptDataType = {
   date: string;
@@ -22,10 +21,8 @@ type InsightsProps = {
 };
 
 export default function Insights(props: InsightsProps) {
-  const colors = theme();
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const gap = Device.deviceType !== 1 ? 6 : 4;
 
   const callAIAPI = async (promptData: PromptDataType[]) => {
     const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
@@ -65,10 +62,11 @@ export default function Insights(props: InsightsProps) {
   };
 
   const getInsights = async () => {
+    setIsLoading(true);
     // !!!!!! Check cache first
     const promptData: PromptDataType[] = [];
 
-    // Loop check-ins and create prompt object
+    // Loop check-ins and create prompt objects
     for (let i = 0; i < props.checkIns.length; i++) {
       let checkIn = props.checkIns[i];
       let utc = new Date(`${checkIn.date}Z`);
@@ -92,9 +90,8 @@ export default function Insights(props: InsightsProps) {
       });
     }
 
-    const aiResponse = await callAIAPI(promptData);
-    console.log(aiResponse.choices[0].message.content);
-    setText(aiResponse ? aiResponse.choices[0].message.content : "");
+    //const aiResponse = await callAIAPI(promptData);
+    //setText(aiResponse ? aiResponse.choices[0].message.content : "");
     setIsLoading(false);
   };
 
@@ -115,46 +112,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating" />
         </View>
       ) : (
-        <Animated.View
-          entering={FadeIn}
-          style={{
-            gap: gap,
-            alignItems: "center",
-          }}
-        >
-          <View style={[styles.title, { gap: gap, display: text ? "flex" : "none" }]}>
-            <Sparkles
-              color={colors.primary}
-              size={Device.deviceType !== 1 ? 28 : 20}
-              absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-            />
-
-            <Text
-              style={{
-                fontFamily: "Circular-Bold",
-                color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 18 : 14,
-              }}
-              allowFontScaling={false}
-            >
-              INSIGHTS
-            </Text>
-          </View>
-
-          <Text
-            style={[
-              styles.text,
-              {
-                color: text ? colors.primary : colors.primary === "white" ? "#999999" : "#666666",
-                fontSize: Device.deviceType !== 1 ? 20 : 16,
-              },
-            ]}
-            allowFontScaling={false}
-          >
-            {text ? text : "Unable to generate insights at the moment.\nPlease try again later."}
-          </Text>
-        </Animated.View>
+        <Summary text={text} getInsights={getInsights} />
       )}
     </View>
   );
@@ -169,13 +127,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
   },
 });
