@@ -4,7 +4,7 @@ import { CheckInMoodType, CheckInType } from "data/database";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
 import Statement from "./check-in/Statement";
-import Insights from "components/Insights";
+import Note from "./check-in/Note";
 import { theme } from "utils/helpers";
 
 type CheckInProps = {
@@ -40,10 +40,7 @@ export default function CheckIn(props: CheckInProps) {
         <Header id={props.data.id} mood={mood} date={local} getData={props.getData} />
         <Feelings tags={mood.tags} />
         <Statement mood={mood} />
-
-        <View style={{ flex: 1, paddingHorizontal: spacing }}>
-          <Insights checkInData={props.data} />
-        </View>
+        <Note data={props.data} />
       </View>
     </View>
   );

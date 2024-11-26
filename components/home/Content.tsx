@@ -1,12 +1,12 @@
 import { useCallback, useContext, useRef, useState } from "react";
-import { ScrollView, View, StyleSheet, Text } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import Insights from "../Insights";
+import Insights from "./content/Insights";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
@@ -69,9 +69,7 @@ export default function Content() {
         }}
       >
         {checkIns?.length ? (
-          <View style={styles.insights}>
-            <Insights checkIns={checkIns} centered />
-          </View>
+          <Insights checkIns={checkIns} />
         ) : (
           checkIns !== undefined && (
             <Text
@@ -90,11 +88,3 @@ export default function Content() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  insights: {
-    maxWidth: 672 + 32,
-    paddingHorizontal: 16,
-    height: 160,
-  },
-});
