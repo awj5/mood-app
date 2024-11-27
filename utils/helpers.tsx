@@ -64,25 +64,25 @@ export const getStatement = (statement: string, response: number) => {
 
   switch (true) {
     case response >= 0.85:
-      start = `At work, I strongly agreed (${percentage}%) that `;
+      start = `I strongly agreed (${percentage}%) that `;
       break;
     case response >= 0.65:
-      start = `At work, I agreed (${percentage}%) that `;
+      start = `I agreed (${percentage}%) that `;
       break;
     case response >= 0.55:
-      start = `At work, I somewhat agreed (${percentage}%) that `;
+      start = `I somewhat agreed (${percentage}%) that `;
       break;
     case response >= 0.45:
-      start = `At work, I neither agreed nor disagreed (${percentage}%) that `;
+      start = `I neither agreed nor disagreed (${percentage}%) that `;
       break;
     case response >= 0.35:
-      start = `At work, I somewhat disagreed (${percentage}%) that `;
+      start = `I somewhat disagreed (${percentage}%) that `;
       break;
     case response >= 0.15:
-      start = `At work, I disagreed (${percentage}%) that `;
+      start = `I disagreed (${percentage}%) that `;
       break;
     default:
-      start = `At work, I strongly disagreed (${percentage}%) that `;
+      start = `I strongly disagreed (${percentage}%) that `;
   }
 
   return start + statement;

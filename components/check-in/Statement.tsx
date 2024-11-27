@@ -88,7 +88,7 @@ export default function Statement(props: StatementProps) {
         style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
-        {props.competency.statement}
+        At work, {props.competency.statement}
       </Text>
 
       <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>

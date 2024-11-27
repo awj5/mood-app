@@ -104,7 +104,7 @@ export default function Insights(props: InsightsProps) {
         time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
         feelings: tags,
         statement: getStatement(
-          guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].response,
+          guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
           mood.statementResponse
         ),
       });

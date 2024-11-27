@@ -50,7 +50,7 @@ export default function CheckIn(props: CheckInProps) {
           allowFontScaling={false}
         >
           {getStatement(
-            guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].response,
+            guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
             mood.statementResponse
           )}
         </Text>
