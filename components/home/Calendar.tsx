@@ -36,7 +36,7 @@ export default function Calendar() {
       setPage(e.nativeEvent.position);
 
       if (homeDates.weekStart.getTime() !== weeks[e.nativeEvent.position].getTime())
-        setHomeDates({ ...homeDates, weekStart: weeks[e.nativeEvent.position] });
+        setHomeDates({ weekStart: weeks[e.nativeEvent.position], rangeStart: undefined, rangeEnd: undefined });
     }
   };
 

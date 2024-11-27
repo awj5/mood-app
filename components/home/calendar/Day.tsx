@@ -56,6 +56,7 @@ export default function Day(props: DayProps) {
 
   const getData = async () => {
     // If date is current day then query again to get latest check-in
+    // !!!!!!!!! this needs to always fire for current day
     if (
       !queriedRef.current ||
       (queriedRef.current && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd, homeDates.weekStart))
