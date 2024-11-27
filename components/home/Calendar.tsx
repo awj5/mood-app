@@ -69,7 +69,7 @@ export default function Calendar() {
   useFocusEffect(
     useCallback(() => {
       // Set calendar to current week on init and when app returns to focus
-      var today = new Date();
+      const today = new Date();
       today.setHours(0, 0, 0, 0);
 
       // Only set on focus if day has changed

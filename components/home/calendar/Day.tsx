@@ -95,7 +95,7 @@ export default function Day(props: DayProps) {
   useFocusEffect(
     useCallback(() => {
       getData();
-    }, [])
+    }, [homeDates])
   );
 
   return (

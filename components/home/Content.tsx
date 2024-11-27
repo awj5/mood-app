@@ -69,7 +69,19 @@ export default function Content() {
         }}
       >
         {checkIns?.length ? (
-          <Insights checkIns={checkIns} />
+          <>
+            <Insights checkIns={checkIns} />
+            <Text
+              style={{
+                color: colors.primary === "white" ? "#999999" : "#666666",
+                fontFamily: "Circular-Book",
+                fontSize: Device.deviceType !== 1 ? 20 : 16,
+              }}
+              allowFontScaling={false}
+            >
+              Recommendations soon
+            </Text>
+          </>
         ) : (
           checkIns !== undefined && (
             <Text
