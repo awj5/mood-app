@@ -55,8 +55,13 @@ export default function Day(props: DayProps) {
   };
 
   const getData = async () => {
-    // If date is current day then query again to get latest check-in
-    // !!!!!!!!! this needs to always fire for current day
+    // Query again if date is in range
+    if (today.getTime() === props.date.getTime())
+      alert(
+        `Isn't first query: ${queriedRef.current}, Date: ${props.date}, homeDate: ${JSON.stringify(
+          homeDates
+        )}, inRange: ${isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd, homeDates.weekStart)}`
+      );
     if (
       !queriedRef.current ||
       (queriedRef.current && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd, homeDates.weekStart))
