@@ -3,7 +3,6 @@ import { StyleSheet, Pressable, Text } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import Animated, {
-  cancelAnimation,
   Easing,
   useAnimatedStyle,
   useSharedValue,
@@ -51,9 +50,7 @@ export default function BigButton(props: BigButtonProps) {
         -1
       );
     } else {
-      // Stop bounce animation
-      cancelAnimation(scale);
-      scale.value = 1;
+      scale.value = withTiming(1, { duration: 0 }); // Stop bounce animation
     }
   }, [props.bounce]);
 
