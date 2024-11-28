@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
+import { getLocales } from "expo-localization";
 import axios from "axios";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType, InsightType } from "data/database";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "./insights/Summary";
-import { getStatement } from "utils/helpers";
+import { getStatement, getDateRange } from "utils/helpers";
 
 type PromptDataType = {
   date: string;
@@ -23,8 +25,11 @@ type InsightsProps = {
 
 export default function Insights(props: InsightsProps) {
   const db = useSQLiteContext();
+  const localization = getLocales();
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
+  const [dates, setDates] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const callAIAPI = async (promptData: PromptDataType[]) => {
@@ -38,8 +43,7 @@ export default function Insights(props: InsightsProps) {
           messages: [
             {
               role: "system",
-              content:
-                "Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user's thoughts. Provide concise, insightful analyses, highlighting patterns, trends, or potential areas for improvement. Speak directly to the user in an empathetic and professional tone.",
+              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user’s thoughts. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
             },
             {
               role: "user",
@@ -135,6 +139,7 @@ export default function Insights(props: InsightsProps) {
       }
     }
 
+    setDates(getDateRange(homeDates, true));
     setIsLoading(false);
   };
 
@@ -155,7 +160,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} />
+        <Summary text={text} getInsights={getInsights} dates={dates} />
       )}
     </View>
   );
@@ -165,6 +170,7 @@ const styles = StyleSheet.create({
   container: {
     maxWidth: 672 + 32,
     paddingHorizontal: 16,
+    overflow: "hidden",
   },
   loading: {
     flex: 1,

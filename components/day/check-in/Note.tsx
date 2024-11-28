@@ -51,7 +51,8 @@ export default function Note(props: NoteProps) {
         <Text
           style={{
             fontFamily: "Circular-Book",
-            color: text ? colors.primary : colors.primary === "white" ? "#999999" : "#666666",
+            color: colors.primary,
+            opacity: text ? 1 : 0.5,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
           }}
           allowFontScaling={false}

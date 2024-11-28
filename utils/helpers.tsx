@@ -1,4 +1,5 @@
 import { useColorScheme } from "react-native";
+import { CalendarDatesType } from "context/home-dates";
 
 /* Pressable */
 
@@ -41,19 +42,31 @@ export const getMonday = (date: Date) => {
   return monday;
 };
 
-export const isInRange = (date: Date, start?: Date, end?: Date, weekStart?: Date) => {
-  var sunday: Date | undefined;
+export const getDateRange = (dates: CalendarDatesType, showDays?: boolean) => {
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const today = new Date();
+  const year = today.getFullYear();
+  const startDate = dates.rangeStart ? dates.rangeStart : dates.weekStart;
 
-  if (weekStart && !start) {
-    sunday = new Date(weekStart);
-    sunday.setDate(weekStart.getDate() + 6);
+  const start = `${months[startDate.getMonth()]} ${startDate.getDate()}${
+    startDate.getFullYear() !== year ? ` ${startDate.getFullYear()}` : ""
+  }`;
+
+  var endDate = new Date(startDate);
+
+  if (dates.rangeEnd) {
+    endDate = dates.rangeEnd;
+  } else {
+    endDate.setDate(dates.weekStart.getDate() + 6); // Sunday
   }
 
-  return (
-    (weekStart && sunday && date >= weekStart && date <= sunday) ||
-    (!weekStart && !start) ||
-    (start && end && date >= start && date <= end)
-  );
+  const end = `${months[endDate.getMonth()]} ${endDate.getDate()}${
+    endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
+  }`;
+
+  return showDays
+    ? `${startDate.toDateString().replace(` ${year}`, "")} \u2013 ${endDate.toDateString().replace(` ${year}`, "")}`
+    : `${start} \u2013 ${end}`;
 };
 
 /* Data */

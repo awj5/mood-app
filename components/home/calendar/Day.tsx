@@ -7,7 +7,7 @@ import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import { CheckInMoodType, CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import { pressedDefault, theme, convertToISO, isInRange } from "utils/helpers";
+import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 type DayProps = {
   date: Date;
@@ -52,6 +52,21 @@ export default function Day(props: DayProps) {
         params: { day: props.date.getDate(), month: props.date.getMonth() + 1, year: props.date.getFullYear() },
       });
     }
+  };
+
+  const isInRange = (date: Date, start?: Date, end?: Date, weekStart?: Date) => {
+    var sunday: Date | undefined;
+
+    if (weekStart && !start) {
+      sunday = new Date(weekStart);
+      sunday.setDate(weekStart.getDate() + 6);
+    }
+
+    return (
+      (weekStart && sunday && date >= weekStart && date <= sunday) ||
+      (!weekStart && !start) ||
+      (start && end && date >= start && date <= end)
+    );
   };
 
   const getData = async () => {

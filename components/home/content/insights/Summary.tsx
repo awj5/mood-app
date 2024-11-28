@@ -7,11 +7,13 @@ import { theme, pressedDefault } from "utils/helpers";
 type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
+  dates: string;
 };
 
 export default function Summary(props: SummaryProps) {
   const colors = theme();
   const spacing = Device.deviceType !== 1 ? 6 : 4;
+  const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
@@ -37,7 +39,7 @@ export default function Summary(props: SummaryProps) {
           style={{
             fontFamily: "Circular-Bold",
             color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
+            fontSize: fontSizeSmall,
           }}
           allowFontScaling={false}
         >
@@ -45,11 +47,25 @@ export default function Summary(props: SummaryProps) {
         </Text>
       </View>
 
+      {props.text && (
+        <Text
+          style={{
+            fontFamily: "Circular-Medium",
+            color: colors.primary,
+            fontSize: fontSizeSmall,
+          }}
+          allowFontScaling={false}
+        >
+          {props.dates}
+        </Text>
+      )}
+
       <Text
         style={[
           styles.summary,
           {
-            color: props.text ? colors.primary : colors.primary === "white" ? "#999999" : "#666666",
+            color: colors.primary,
+            opacity: props.text ? 1 : 0.5,
             fontSize: fontSize,
           },
         ]}

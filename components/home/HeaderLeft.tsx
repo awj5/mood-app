@@ -4,39 +4,18 @@ import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import { pressedDefault, theme } from "utils/helpers";
+import { pressedDefault, theme, getDateRange } from "utils/helpers";
 
 export default function HeaderLeft() {
   const router = useRouter();
   const colors = theme();
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [rangeText, setRangeText] = useState("");
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const stroke = Device.deviceType !== 1 ? 2.5 : 2;
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   useEffect(() => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const startDate = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
-
-    const start = `${months[startDate.getMonth()]} ${startDate.getDate()}${
-      startDate.getFullYear() !== year ? ` ${startDate.getFullYear()}` : ""
-    }`;
-
-    var endDate = new Date(startDate);
-
-    if (homeDates.rangeEnd) {
-      endDate = homeDates.rangeEnd;
-    } else {
-      endDate.setDate(homeDates.weekStart.getDate() + 6); // Sunday
-    }
-
-    const end = `${months[endDate.getMonth()]} ${endDate.getDate()}${
-      endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
-    }`;
-
-    setRangeText(`${start} - ${end}`);
+    setRangeText(getDateRange(homeDates));
   }, [homeDates]);
 
   return (

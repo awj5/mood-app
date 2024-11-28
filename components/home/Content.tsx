@@ -1,5 +1,5 @@
 import { useCallback, useContext, useRef, useState } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
+import Recs from "./content/Recs";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
@@ -60,21 +61,26 @@ export default function Content() {
   return (
     <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1 }}>
       <View
-        style={{
-          alignItems: "center",
-          flex: 1,
-          justifyContent: "center",
-          paddingTop: edgePadding,
-          paddingBottom: edgePadding * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
-        }}
+        style={[
+          styles.wrapper,
+          {
+            paddingTop: edgePadding,
+            paddingBottom: edgePadding * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
+            gap: edgePadding,
+          },
+        ]}
       >
         {checkIns?.length ? (
-          <Insights checkIns={checkIns} />
+          <>
+            <Insights checkIns={checkIns} />
+            <Recs />
+          </>
         ) : (
           checkIns !== undefined && (
             <Text
               style={{
-                color: colors.primary === "white" ? "#999999" : "#666666",
+                color: colors.primary,
+                opacity: 0.5,
                 fontFamily: "Circular-Book",
                 fontSize: Device.deviceType !== 1 ? 20 : 16,
               }}
@@ -88,3 +94,11 @@ export default function Content() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+  },
+});
