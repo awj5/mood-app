@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
-import Icon from "./Icon";
+import Icon from "./response/Icon";
 import { theme } from "utils/helpers";
 
-export default function Response() {
+type ResponseProps = {
+  text: string;
+  latest: boolean;
+};
+
+export default function Response(props: ResponseProps) {
   const colors = theme();
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
-  const [typing, setTyping] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const words = props.text
+    .replace(/\n\n/g, " \n\n") // Handle double linebreaks
+    .replace(/(?<!\n)\n(?!\n)/g, " \n") // Handle single linebreaks (exclude doubles)
+    .split(" ");
 
   useEffect(() => {
-    const text =
-      "Hello, I'm MOOD. I help you navigate your feelings at work and provide guidance based on research from Dr. Nathan Jones, ISO standards, local workplace safety laws, and your company's HR policies. <break>While I'm still learning and can't chat just yet, I'm excited to assist you in managing your mental well-being at work soon.";
-
-    const words = text.split(" ");
-
-    const timer = setTimeout(
-      () => {
-        if (index < words.length) {
-          // Type out word by word
-          setDisplayedText((prev) => prev + words[index] + " ");
-          setIndex(index + 1);
-          setTyping(true);
-        } else {
-          setTyping(false); // Finished
-        }
-      },
-      !index ? 500 : 50 // Wait for screen transition to finish
-    );
+    // Type out word by word
+    const timer = setTimeout(() => {
+      if (props.latest && index < words.length) {
+        setDisplayedText((prev) => prev + words[index] + " ");
+        setGenerating(true);
+        setIndex(index + 1);
+      } else {
+        setDisplayedText(props.text);
+        setGenerating(false); // Finished
+      }
+    }, 50);
 
     return () => clearTimeout(timer);
   }, [index]);
@@ -41,7 +44,7 @@ export default function Response() {
         gap: Device.deviceType !== 1 ? 16 : 12,
       }}
     >
-      <Icon thinking={typing} />
+      <Icon generating={generating} />
 
       <Text
         style={[
@@ -52,7 +55,7 @@ export default function Response() {
           },
         ]}
       >
-        {displayedText.replace(/<break>/g, "\n\n")}
+        {displayedText}
       </Text>
     </View>
   );

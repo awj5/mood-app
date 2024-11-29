@@ -7,7 +7,7 @@ import Svg, { Path } from "react-native-svg";
 import { theme } from "utils/helpers";
 
 type IconProps = {
-  thinking: boolean;
+  generating: boolean;
 };
 
 export default function Icon(props: IconProps) {
@@ -20,13 +20,20 @@ export default function Icon(props: IconProps) {
   }));
 
   useEffect(() => {
-    rotation.value = props.thinking ? withRepeat(withTiming(1, { duration: 700, easing: Easing.linear }), -1) : 0;
-  }, [props.thinking]);
+    if (props.generating) {
+      rotation.value = withRepeat(withTiming(1, { duration: 700, easing: Easing.linear }), -1, false);
+    } else {
+      // Hack? - Does not reset without requestAnimationFrame
+      requestAnimationFrame(() => {
+        rotation.value = 0;
+      });
+    }
+  }, [props.generating]);
 
   return (
     <View style={{ width: size, height: size }}>
       <Animated.View style={animatedStyles}>
-        <Image source={require("../../assets/img/wheel.png")} style={styles.image} />
+        <Image source={require("../../../assets/img/wheel.png")} style={styles.image} />
       </Animated.View>
 
       {Device.deviceType !== 1 ? (

@@ -1,4 +1,5 @@
-import { ScrollView, SafeAreaView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
@@ -8,17 +9,40 @@ import Response from "components/chat/Response";
 import Input from "components/chat/Input";
 import { pressedDefault, theme } from "utils/helpers";
 
+type MessageType = {
+  author: string;
+  text: string;
+};
+
 export default function Chat() {
   const headerHeight = useHeaderHeight();
   const router = useRouter();
   const colors = theme();
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessages([
+        {
+          author: "ai",
+          text: "You've just completed your first check in!",
+        },
+      ]);
+    }, 500); // Wait for screen transition
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={headerHeight}
+    >
       <Stack.Screen
         options={{
-          gestureEnabled: false,
+          gestureEnabled: false, // Stop swipe back (only works on iOS)
           headerTitle: "",
           headerLeft: () => (
             <HeaderBackButton
@@ -44,7 +68,7 @@ export default function Chat() {
                 color={colors.primary}
                 size={Device.deviceType !== 1 ? 32 : 24}
                 absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 3 : 2.25}
+                strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
               />
 
               <Text
@@ -58,20 +82,15 @@ export default function Chat() {
         }}
       />
 
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={headerHeight}
-      >
-        <ScrollView>
-          <Response />
-        </ScrollView>
+      <ScrollView>
+        {messages.map((item, index) => (
+          <Response key={index} text={item.text} latest={index + 1 === messages.length} />
+        ))}
+      </ScrollView>
 
-        <Input />
-      </KeyboardAvoidingView>
-
+      <Input />
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

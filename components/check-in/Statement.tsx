@@ -18,6 +18,8 @@ type StatementProps = {
 
 export default function Statement(props: StatementProps) {
   const opacity = useSharedValue(0);
+  const margin = Platform.OS === "ios" ? 8 : 0;
+  const labelFontSize = Device.deviceType !== 1 ? 18 : 14;
 
   const thumbs = {
     1: require("../../assets/img/slider-thumb/yellow.png"),
@@ -94,7 +96,7 @@ export default function Statement(props: StatementProps) {
       <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>
         <View style={{ justifyContent: "center" }}>
           <View style={[styles.sliderTrackWrapper, { height: Device.deviceType !== 1 ? 32 : 24 }]}>
-            <View style={[styles.sliderTrack, { marginHorizontal: Platform.OS === "ios" ? 8 : 0 }]}></View>
+            <View style={[styles.sliderTrack, { marginHorizontal: margin }]}></View>
           </View>
 
           <Slider
@@ -119,8 +121,8 @@ export default function Statement(props: StatementProps) {
               styles.label,
               {
                 color: props.color,
-                fontSize: Device.deviceType !== 1 ? 18 : 14,
-                marginLeft: Platform.OS === "ios" ? 8 : 0,
+                fontSize: labelFontSize,
+                marginLeft: margin,
               },
             ]}
             allowFontScaling={false}
@@ -133,9 +135,9 @@ export default function Statement(props: StatementProps) {
               styles.label,
               {
                 color: props.color,
-                fontSize: Device.deviceType !== 1 ? 18 : 14,
+                fontSize: labelFontSize,
                 textAlign: "right",
-                marginRight: Platform.OS === "ios" ? 8 : 0,
+                marginRight: margin,
               },
             ]}
             allowFontScaling={false}

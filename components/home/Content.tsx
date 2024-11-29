@@ -4,6 +4,7 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
@@ -77,17 +78,19 @@ export default function Content() {
           </>
         ) : (
           checkIns !== undefined && (
-            <Text
-              style={{
-                color: colors.primary,
-                opacity: 0.5,
-                fontFamily: "Circular-Book",
-                fontSize: Device.deviceType !== 1 ? 20 : 16,
-              }}
-              allowFontScaling={false}
-            >
-              No check-ins found
-            </Text>
+            <Animated.View entering={FadeIn}>
+              <Text
+                style={{
+                  color: colors.primary,
+                  opacity: 0.5,
+                  fontFamily: "Circular-Book",
+                  fontSize: Device.deviceType !== 1 ? 20 : 16,
+                }}
+                allowFontScaling={false}
+              >
+                No check-ins found
+              </Text>
+            </Animated.View>
           )
         )}
       </View>

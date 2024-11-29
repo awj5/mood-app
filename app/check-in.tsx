@@ -90,6 +90,7 @@ export default function CheckIn() {
   );
 
   useEffect(() => {
+    //router.push("chat"); // !!!!!!!! - Delete
     setSelectedMood(mood.value);
     setForegroundColor((rotation.value >= 0 && rotation.value < 165) || rotation.value >= 345 ? "black" : "white");
     sliderVal.value = 0.5; // Reset
