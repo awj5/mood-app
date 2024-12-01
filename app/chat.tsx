@@ -6,6 +6,7 @@ import * as Device from "expo-device";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { Sparkles } from "lucide-react-native";
 import Response from "components/chat/Response";
+import Message from "components/chat/Message";
 import Input from "components/chat/Input";
 import { pressedDefault, theme } from "utils/helpers";
 
@@ -27,6 +28,10 @@ export default function Chat() {
         {
           author: "ai",
           text: "You've just completed your first check in!",
+        },
+        {
+          author: "user",
+          text: "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet",
         },
       ]);
     }, 500); // Wait for screen transition
@@ -83,9 +88,13 @@ export default function Chat() {
       />
 
       <ScrollView>
-        {messages.map((item, index) => (
-          <Response key={index} text={item.text} latest={index + 1 === messages.length} />
-        ))}
+        {messages.map((item, index) =>
+          item.author === "ai" ? (
+            <Response key={index} text={item.text} latest={index + 1 === messages.length} />
+          ) : (
+            <Message key={index} text={item.text} />
+          )
+        )}
       </ScrollView>
 
       <Input />

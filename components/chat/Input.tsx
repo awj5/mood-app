@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StyleSheet, TextInput, View, SafeAreaView, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { ArrowUp } from "lucide-react-native";
+import Note from "./input/Note";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function Input() {
@@ -9,6 +10,8 @@ export default function Input() {
   const [text, setText] = useState("");
   const [focused, setFocused] = useState(false);
   const stroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const smallSpacing = Device.deviceType !== 1 ? 12 : 8;
 
   const press = () => {
     //
@@ -18,9 +21,12 @@ export default function Input() {
     <SafeAreaView>
       <View
         style={{
-          padding: Device.deviceType !== 1 ? 24 : 16,
+          padding: spacing,
+          gap: spacing,
         }}
       >
+        <Note />
+
         <View
           style={{
             flexDirection: "row",
@@ -39,7 +45,7 @@ export default function Input() {
               {
                 color: colors.primary,
                 fontSize: Device.deviceType !== 1 ? 24 : 18,
-                paddingVertical: Device.deviceType !== 1 ? 12 : 8,
+                paddingVertical: smallSpacing,
                 paddingLeft: Device.deviceType !== 1 ? 28 : 20,
               },
             ]}
@@ -56,7 +62,7 @@ export default function Input() {
               styles.submit,
               {
                 width: Device.deviceType !== 1 ? 56 : 40,
-                margin: Device.deviceType !== 1 ? 12 : 8,
+                margin: smallSpacing,
                 borderWidth: !focused ? stroke : 0,
                 borderColor: colors.secondary,
                 backgroundColor: focused ? colors.primary : "transparent",
