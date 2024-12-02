@@ -1,5 +1,6 @@
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { theme } from "utils/helpers";
 
 type MessageProps = {
@@ -11,7 +12,7 @@ export default function Message(props: MessageProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   return (
-    <View
+    <Animated.View
       style={[
         styles.container,
         {
@@ -22,6 +23,7 @@ export default function Message(props: MessageProps) {
           borderRadius: Device.deviceType !== 1 ? 28 : 24,
         },
       ]}
+      entering={FadeIn}
     >
       <Text
         style={{
@@ -32,7 +34,7 @@ export default function Message(props: MessageProps) {
       >
         {props.text}
       </Text>
-    </View>
+    </Animated.View>
   );
 }
 

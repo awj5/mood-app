@@ -51,17 +51,17 @@ export default function CheckIn() {
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
 
   const submitCheckIn = async () => {
-    try {
-      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?)`, [
-        JSON.stringify({
-          color: mood.value.id,
-          tags: selectedTags,
-          competency: competency.id,
-          statementResponse: sliderVal.value,
-        }),
-      ]);
+    const value = JSON.stringify({
+      color: mood.value.id,
+      tags: selectedTags,
+      competency: competency.id,
+      statementResponse: sliderVal.value,
+    });
 
-      router.push("chat");
+    try {
+      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?)`, [value]);
+
+      router.push({ pathname: "chat", params: { checkIn: value } });
     } catch (error) {
       console.log(error);
       alert("An unexpected error has occurred.");

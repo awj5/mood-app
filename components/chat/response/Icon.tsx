@@ -1,8 +1,16 @@
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import * as Device from "expo-device";
-import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming, Easing } from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+  Easing,
+  FadeIn,
+  cancelAnimation,
+} from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 import { theme } from "utils/helpers";
 
@@ -21,17 +29,14 @@ export default function Icon(props: IconProps) {
 
   useEffect(() => {
     if (props.generating) {
-      rotation.value = withRepeat(withTiming(1, { duration: 700, easing: Easing.linear }), -1, false);
+      rotation.value = withRepeat(withTiming(1, { duration: 700, easing: Easing.linear }), -1, false); // Start
     } else {
-      // Hack? - Does not reset without requestAnimationFrame
-      requestAnimationFrame(() => {
-        rotation.value = 0;
-      });
+      cancelAnimation(rotation); // Stop
     }
   }, [props.generating]);
 
   return (
-    <View style={{ width: size, height: size }}>
+    <Animated.View style={{ width: size, height: size }} entering={FadeIn}>
       <Animated.View style={animatedStyles}>
         <Image source={require("../../../assets/img/wheel.png")} style={styles.image} />
       </Animated.View>
@@ -47,7 +52,7 @@ export default function Icon(props: IconProps) {
           <Path d="M15 17.5C15 18.8807 14.1605 20 13.125 20C12.0895 20 11.25 18.8807 11.25 17.5C11.25 16.1193 12.0895 15 13.125 15C14.1605 15 15 16.1193 15 17.5Z" />
         </Svg>
       )}
-    </View>
+    </Animated.View>
   );
 }
 

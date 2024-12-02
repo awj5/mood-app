@@ -6,14 +6,14 @@ import { theme } from "utils/helpers";
 
 type ResponseProps = {
   text: string;
-  latest: boolean;
+  generating: boolean;
+  setGenerating: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Response(props: ResponseProps) {
   const colors = theme();
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
-  const [generating, setGenerating] = useState(false);
 
   const words = props.text
     .replace(/\n\n/g, " \n\n") // Handle double linebreaks
@@ -21,30 +21,32 @@ export default function Response(props: ResponseProps) {
     .split(" ");
 
   useEffect(() => {
-    // Type out word by word
-    const timer = setTimeout(() => {
-      if (props.latest && index < words.length) {
-        setDisplayedText((prev) => prev + words[index] + " ");
-        setGenerating(true);
-        setIndex(index + 1);
-      } else {
-        setDisplayedText(props.text);
-        setGenerating(false); // Finished
-      }
-    }, 50);
+    if (props.text) {
+      // Type out word by word
+      const timer = setTimeout(() => {
+        if (index < words.length) {
+          setDisplayedText((prev) => prev + words[index] + " ");
+          setIndex(index + 1);
+        } else {
+          props.setGenerating(false); // Finished
+        }
+      }, 50);
 
-    return () => clearTimeout(timer);
-  }, [index]);
+      return () => clearTimeout(timer);
+    }
+  }, [index, props.text]);
 
   return (
     <View
-      style={{
-        flexDirection: "row",
-        padding: Device.deviceType !== 1 ? 24 : 16,
-        gap: Device.deviceType !== 1 ? 16 : 12,
-      }}
+      style={[
+        styles.container,
+        {
+          padding: Device.deviceType !== 1 ? 24 : 16,
+          gap: Device.deviceType !== 1 ? 16 : 12,
+        },
+      ]}
     >
-      <Icon generating={generating} />
+      <Icon generating={props.generating} />
 
       <Text
         style={[
@@ -62,6 +64,10 @@ export default function Response(props: ResponseProps) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    minHeight: 128,
+  },
   text: {
     flexShrink: 1,
     fontFamily: "Circular-Book",

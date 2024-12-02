@@ -2,10 +2,16 @@ import { useState } from "react";
 import { StyleSheet, TextInput, View, SafeAreaView, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { ArrowUp } from "lucide-react-native";
+import { MessageType } from "app/chat";
 import Note from "./input/Note";
 import { theme, pressedDefault } from "utils/helpers";
 
-export default function Input() {
+type InputProps = {
+  generating: boolean;
+  setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
+};
+
+export default function Input(props: InputProps) {
   const colors = theme();
   const [text, setText] = useState("");
   const [focused, setFocused] = useState(false);
@@ -14,7 +20,15 @@ export default function Input() {
   const smallSpacing = Device.deviceType !== 1 ? 12 : 8;
 
   const press = () => {
-    //
+    props.setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        author: "user",
+        text: text,
+      },
+    ]);
+
+    setText(""); // Clear
   };
 
   return (
@@ -63,16 +77,22 @@ export default function Input() {
               {
                 width: Device.deviceType !== 1 ? 56 : 40,
                 margin: smallSpacing,
-                borderWidth: !focused ? stroke : 0,
+                borderWidth: !focused || props.generating || !text.length ? stroke : 0,
                 borderColor: colors.secondary,
-                backgroundColor: focused ? colors.primary : "transparent",
+                backgroundColor: focused && !props.generating && text.length ? colors.primary : "transparent",
               },
             ]}
             hitSlop={8}
-            disabled={!focused}
+            disabled={!focused || props.generating || !text.length}
           >
             <ArrowUp
-              color={!focused ? colors.secondary : colors.primary === "white" ? "black" : "white"}
+              color={
+                !focused || props.generating || !text.length
+                  ? colors.secondary
+                  : colors.primary === "white"
+                  ? "black"
+                  : "white"
+              }
               size={Device.deviceType !== 1 ? 32 : 24}
               absoluteStrokeWidth
               strokeWidth={stroke}
