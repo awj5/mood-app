@@ -34,7 +34,7 @@ export default function Insights(props: InsightsProps) {
           messages: [
             {
               role: "system",
-              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user's thoughts. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
+              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user's thoughts. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text (no markdown) for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
             },
             {
               role: "user",
@@ -116,7 +116,7 @@ export default function Insights(props: InsightsProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <View style={[styles.container, { height: Device.deviceType !== 1 ? 144 : 160 }]}>
+    <View style={[styles.container, { minHeight: Device.deviceType !== 1 ? 144 : 160 }]}>
       {isLoading ? (
         <View style={styles.loading}>
           <Loading text="Generating" />
@@ -130,9 +130,9 @@ export default function Insights(props: InsightsProps) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     maxWidth: 672 + 32,
     paddingHorizontal: 16,
-    overflow: "hidden",
   },
   loading: {
     flex: 1,

@@ -59,9 +59,8 @@ export default function CheckIn() {
     });
 
     try {
-      const result = await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?) RETURNING *`, [value]);
-      const row = await db.getFirstAsync(`SELECT * FROM check_ins WHERE id = ?`, [result.lastInsertRowId]);
-      router.push({ pathname: "chat", params: { checkIn: JSON.stringify(row) } });
+      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?) RETURNING *`, [value]);
+      router.push("chat");
     } catch (error) {
       console.log(error);
       alert("An unexpected error has occurred.");

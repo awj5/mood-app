@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet } from "react-native";
-import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
@@ -9,10 +9,11 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { Sparkles } from "lucide-react-native";
+import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { getPromptData, pressedDefault, theme } from "utils/helpers";
+import { convertToISO, getPromptData, pressedDefault, theme, PromptDataType } from "utils/helpers";
 
 export type MessageType = {
   role: string;
@@ -20,7 +21,6 @@ export type MessageType = {
 };
 
 export default function Chat() {
-  const params = useLocalSearchParams<{ checkIn: string }>();
   const db = useSQLiteContext();
   const localization = getLocales();
   const headerHeight = useHeaderHeight();
@@ -28,6 +28,7 @@ export default function Chat() {
   const colors = theme();
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
+  const checkInHistoryRef = useRef<PromptDataType[]>([]);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
   const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
@@ -43,7 +44,15 @@ export default function Chat() {
           messages: [
             {
               role: "system",
-              content: `You are MOOD, a thoughtful and empathetic AI assistant for the MOOD.ai app. Users share daily workplace mood check-ins with you, including the date, time, a list of emotions, and a reflective statement. Your primary role is to analyze the check-in by identifying patterns, trends, or notable observations in the user's emotional state and serve as a reflective and understanding soundboard to help them explore their feelings. Provide concise and meaningful summaries to help users understand their emotions and experiences without offering direct advice, recommendations, or suggestions for improvement. Maintain a professional yet empathetic tone, ensuring your responses are clear, relatable, and easy to read. When the check-in data is first shared, ask users if they'd like to share more about why they are feeling this way. Adhere to the IETF language tag: ${localization[0].languageTag}, and use the user's first name: ${name}, in a personalized and thoughtful manner. Always structure your responses in plain text for optimal readability.`,
+              content: `You are MOOD, a thoughtful and empathetic AI assistant for the MOOD.ai app. Users share daily workplace mood check-ins with you, including the date, time, a list of emotions, and a reflective statement. Your primary role is to analyze their most recent check-in by identifying patterns, trends, or notable observations in their emotional state and to act as a reflective and understanding soundboard, helping them explore their feelings. Refer to the user's check-in history only if it provides relevant patterns or insights that add meaningful context to their emotions or experiences. Provide concise, meaningful summaries (280 characters max), avoiding direct advice, recommendations, or suggestions for improvement. Maintain a professional and empathetic tone, ensuring your responses are clear, relatable, and easy to read. When the check-in is first shared, ask if the user would like to share more about why they are feeling this way. Adhere to the IETF language tag: ${
+                localization[0].languageTag
+              }. Use the user's first name: ${name}, to personalize your responses. Always structure your replies in plain text (no markdown) for optimal readability.${
+                checkInHistoryRef.current.length
+                  ? `This is the user's check-in history (formatted as JSON), which you can refer to for relevant insights: ${JSON.stringify(
+                      checkInHistoryRef.current
+                    )}.`
+                  : ""
+              }`,
             },
             ...chatHistoryRef.current, // Append
           ],
@@ -65,11 +74,19 @@ export default function Chat() {
 
   const getCheckInHistoryData = async () => {
     try {
-      const rows = await db.getAllAsync(`SELECT id FROM check_ins`);
-      return rows.length;
+      const end = new Date(); // Today
+      const start = new Date(end);
+      start.setDate(start.getDate() - 90); // 90 days ago
+
+      const rows: CheckInType[] = await db.getAllAsync(
+        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
+        [convertToISO(start), convertToISO(end)]
+      );
+
+      const promptData = getPromptData(rows); // Convert
+      return promptData.data;
     } catch (error) {
       console.log(error);
-      return 0;
     }
   };
 
@@ -94,6 +111,23 @@ export default function Chat() {
   };
 
   const setFirstResponse = async () => {
+    // Get check-ins
+    const history = await getCheckInHistoryData();
+
+    if (history) {
+      checkInHistoryRef.current = history.slice(0, -1); // Exclude most recent check-in
+
+      // Share most recent check-in with AI
+      chatHistoryRef.current = [
+        {
+          role: "user",
+          content: `Analyze today's check-in and briefly summarize the key trends, patterns, or observations: ${JSON.stringify(
+            history[history.length - 1]
+          )}`,
+        },
+      ];
+    }
+
     //await AsyncStorage.removeItem("first-name"); // Used for testing
     const name = await getName();
 
@@ -117,17 +151,18 @@ export default function Chat() {
   const addResponse = async () => {
     setGenerating(true);
     var name = await getName();
+    const latestMessage = messages[messages.length - 1];
 
     // Check if last message is user's name
     if (!name) {
       try {
-        name = messages[messages.length - 1].content.substring(0, 30).trim();
+        name = latestMessage.content.substring(0, 30).trim();
         await AsyncStorage.setItem("first-name", name); // Store name
       } catch (error) {
         console.log(error);
       }
     } else if (messages.length) {
-      chatHistoryRef.current = [...chatHistoryRef.current, messages[messages.length - 1]]; // Add user message to chat history
+      chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
     }
 
     // Add empty response to show loader
@@ -169,18 +204,6 @@ export default function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    const promptData = getPromptData([JSON.parse(params.checkIn)]);
-
-    // !!!!!! include check-in history
-    chatHistoryRef.current = [
-      {
-        role: "user",
-        content: `Analyze today's check-in and briefly summarize the key trends, patterns, or observations: ${JSON.stringify(
-          promptData.data
-        )}`,
-      },
-    ];
-
     const timer = setTimeout(() => {
       setFirstResponse();
     }, 500); // Wait for screen transition
