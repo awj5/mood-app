@@ -8,7 +8,7 @@ import { CheckInType, InsightType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "./insights/Summary";
-import { getDateRange, getPromptData, PromptDataType } from "utils/helpers";
+import { getDateRange, getMonday, getPromptData, PromptDataType } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -20,7 +20,7 @@ export default function Insights(props: InsightsProps) {
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
-  const [dates, setDates] = useState("");
+  const [subTitle, setSubTitle] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const callAIAPI = async (promptData: PromptDataType[]) => {
@@ -101,7 +101,21 @@ export default function Insights(props: InsightsProps) {
       }
     }
 
-    setDates(getDateRange(homeDates, true));
+    const dateRange = getDateRange(homeDates, true);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const monday = getMonday(today);
+    const lastMonday = new Date(monday);
+    lastMonday.setDate(monday.getDate() - 7);
+
+    setSubTitle(
+      monday.getTime() === homeDates.weekStart.getTime()
+        ? "This week"
+        : lastMonday.getTime() === homeDates.weekStart.getTime()
+        ? "Last week"
+        : dateRange
+    );
+
     setIsLoading(false);
   };
 
@@ -122,7 +136,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} dates={dates} />
+        <Summary text={text} getInsights={getInsights} subTitle={subTitle} />
       )}
     </View>
   );

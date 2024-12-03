@@ -7,7 +7,7 @@ import { theme, pressedDefault } from "utils/helpers";
 type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
-  dates: string;
+  subTitle: string;
 };
 
 export default function Summary(props: SummaryProps) {
@@ -56,7 +56,7 @@ export default function Summary(props: SummaryProps) {
           }}
           allowFontScaling={false}
         >
-          {props.dates}
+          {props.subTitle}
         </Text>
       )}
 
