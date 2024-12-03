@@ -59,7 +59,7 @@ export default function Insights(props: InsightsProps) {
     }
   };
 
-  const getData = async (ids: number[]) => {
+  const getInsightsData = async (ids: number[]) => {
     try {
       const row: InsightType | null = await db.getFirstAsync(
         `SELECT * FROM insights WHERE check_ins = ?`,
@@ -78,7 +78,7 @@ export default function Insights(props: InsightsProps) {
     setIsLoading(true);
     setText("");
     const promptData = getPromptData(props.checkIns);
-    const savedResponse = await getData(promptData.ids);
+    const savedResponse = await getInsightsData(promptData.ids);
 
     // Show saved response if exists or get respponse from API
     if (savedResponse && latestQueryRef.current === currentQuery) {

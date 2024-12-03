@@ -20,7 +20,7 @@ export default function Home() {
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
 
-  const verifyCheckIn = async () => {
+  const verifyCheckInData = async () => {
     // Redirect if user hasn't checked-in today
     try {
       const today = new Date();
@@ -39,7 +39,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    verifyCheckIn();
+    verifyCheckInData();
   }, []);
 
   return (

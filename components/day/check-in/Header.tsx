@@ -10,7 +10,7 @@ type HeaderProps = {
   id: number;
   mood: CheckInMoodType;
   date: Date;
-  getData: () => Promise<void>;
+  getCheckInData: () => Promise<void>;
 };
 
 export default function Header(props: HeaderProps) {
@@ -67,7 +67,7 @@ export default function Header(props: HeaderProps) {
       `;
 
       await db.runAsync(query, [props.id]);
-      props.getData();
+      props.getCheckInData();
     } catch (error) {
       console.log(error);
       alert("An unexpected error occurred.");

@@ -10,7 +10,7 @@ import { theme, getStatement } from "utils/helpers";
 type CheckInProps = {
   data: CheckInType;
   itemHeight: number;
-  getData: () => Promise<void>;
+  getCheckInData: () => Promise<void>;
 };
 
 export default function CheckIn(props: CheckInProps) {
@@ -37,7 +37,7 @@ export default function CheckIn(props: CheckInProps) {
           flex: 1,
         }}
       >
-        <Header id={props.data.id} mood={mood} date={local} getData={props.getData} />
+        <Header id={props.data.id} mood={mood} date={local} getCheckInData={props.getCheckInData} />
         <Feelings tags={mood.tags} />
 
         <Text

@@ -69,7 +69,7 @@ export default function Day(props: DayProps) {
     );
   };
 
-  const getData = async () => {
+  const getCheckInData = async () => {
     // Query again if date is in range
     if (
       !queriedRef.current ||
@@ -101,7 +101,7 @@ export default function Day(props: DayProps) {
 
   useFocusEffect(
     useCallback(() => {
-      getData();
+      getCheckInData();
     }, [homeDates])
   );
 

@@ -20,7 +20,7 @@ export default function Content() {
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const edgePadding = Device.deviceType !== 1 ? 24 : 16;
 
-  const getData = async () => {
+  const getCheckInData = async () => {
     const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
     var end = new Date(start);
 
@@ -45,7 +45,7 @@ export default function Content() {
   const getCheckIns = async () => {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
-    const checkInData = await getData();
+    const checkInData = await getCheckInData();
 
     if (latestQueryRef.current === currentQuery) {
       setCheckIns(checkInData);

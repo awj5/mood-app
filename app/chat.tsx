@@ -27,8 +27,8 @@ export default function Chat() {
   const router = useRouter();
   const colors = theme();
   const scrollViewRef = useRef<ScrollView>(null);
+  const chatHistoryRef = useRef<MessageType[]>([]);
   const [messages, setMessages] = useState<MessageType[]>([]);
-  const [chatHistory, setChatHistory] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
   const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
 
@@ -43,9 +43,9 @@ export default function Chat() {
           messages: [
             {
               role: "system",
-              content: `You are MOOD, a thoughtful and empathetic AI assistant in the MOOD.ai app. Users share a workplace mood check-in with you, which includes the date, time, a list of emotions, and a reflective statement. Your role is to analyze this check-in and serve as a supportive soundboard for users. Provide a concise and insightful summary that identifies patterns, trends, or notable observations in the user's emotional state. Avoid offering direct advice, recommendations, or areas for improvement—focus solely on helping users understand their emotions and experiences. Maintain an empathetic and professional tone in all your responses. Ensure your explanations are clear, relatable, and easy to read. Always structure your responses in plain text for optimal readability. Adhere to the IETF language tag:${localization[0].languageTag}. The users first name is ${name}`,
+              content: `You are MOOD, a thoughtful and empathetic AI assistant for the MOOD.ai app. Users share daily workplace mood check-ins with you, including the date, time, a list of emotions, and a reflective statement. Your primary role is to analyze the check-in by identifying patterns, trends, or notable observations in the user's emotional state and serve as a reflective and understanding soundboard to help them explore their feelings. Provide concise and meaningful summaries to help users understand their emotions and experiences without offering direct advice, recommendations, or suggestions for improvement. Maintain a professional yet empathetic tone, ensuring your responses are clear, relatable, and easy to read. When the check-in data is first shared, ask users if they'd like to share more about why they are feeling this way. Adhere to the IETF language tag: ${localization[0].languageTag}, and use the user's first name: ${name}, in a personalized and thoughtful manner. Always structure your responses in plain text for optimal readability.`,
             },
-            ...chatHistory, // Append
+            ...chatHistoryRef.current, // Append
           ],
           temperature: 0.7,
         },
@@ -63,7 +63,17 @@ export default function Chat() {
     }
   };
 
-  const getCheckInCount = async () => {
+  const getCheckInHistoryData = async () => {
+    try {
+      const rows = await db.getAllAsync(`SELECT id FROM check_ins`);
+      return rows.length;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
+  };
+
+  const getCheckInCountData = async () => {
     try {
       const rows = await db.getAllAsync(`SELECT id FROM check_ins`);
       return rows.length;
@@ -84,12 +94,12 @@ export default function Chat() {
   };
 
   const setFirstResponse = async () => {
-    await AsyncStorage.removeItem("first-name");
+    //await AsyncStorage.removeItem("first-name"); // Used for testing
     const name = await getName();
 
     if (!name) {
       // User has not shared name yet
-      const count = await getCheckInCount();
+      const count = await getCheckInCountData();
 
       setMessages([
         {
@@ -106,18 +116,18 @@ export default function Chat() {
 
   const addResponse = async () => {
     setGenerating(true);
-
-    // Check if last message is user's name
     var name = await getName();
 
+    // Check if last message is user's name
     if (!name) {
-      // Store name
       try {
-        name = messages[messages.length - 1].content.substring(0, 30);
-        await AsyncStorage.setItem("first-name", name);
+        name = messages[messages.length - 1].content.substring(0, 30).trim();
+        await AsyncStorage.setItem("first-name", name); // Store name
       } catch (error) {
         console.log(error);
       }
+    } else if (messages.length) {
+      chatHistoryRef.current = [...chatHistoryRef.current, messages[messages.length - 1]]; // Add user message to chat history
     }
 
     // Add empty response to show loader
@@ -134,9 +144,20 @@ export default function Chat() {
     // Update the text of the last message
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
-      updatedMessages[updatedMessages.length - 1].content = aiResponse.choices[0].message.content;
+
+      updatedMessages[updatedMessages.length - 1].content = aiResponse
+        ? aiResponse.choices[0].message.content
+        : "Sorry, I'm unable to respond at the moment.";
+
       return updatedMessages;
     });
+
+    // Save AI response to chat history
+    if (aiResponse)
+      chatHistoryRef.current = [
+        ...chatHistoryRef.current,
+        { role: "assistant", content: aiResponse.choices[0].message.content },
+      ];
   };
 
   useEffect(() => {
@@ -150,14 +171,15 @@ export default function Chat() {
   useEffect(() => {
     const promptData = getPromptData([JSON.parse(params.checkIn)]);
 
-    setChatHistory([
+    // !!!!!! include check-in history
+    chatHistoryRef.current = [
       {
         role: "user",
-        content: `Analyze this check-in and summarize the key trends, patterns, or observations in 200 characters or less: ${JSON.stringify(
-          promptData
+        content: `Analyze today's check-in and briefly summarize the key trends, patterns, or observations: ${JSON.stringify(
+          promptData.data
         )}`,
       },
-    ]);
+    ];
 
     const timer = setTimeout(() => {
       setFirstResponse();

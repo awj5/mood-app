@@ -32,7 +32,7 @@ export default function Day() {
   const itemHeight = Device.deviceType !== 1 ? 448 : 320;
   const edges = Device.deviceType !== 1 ? 24 : 16;
 
-  const getData = async () => {
+  const getCheckInData = async () => {
     try {
       // Get check-ins on this date (date column converted to local)
       const rows: CheckInType[] = await db.getAllAsync(
@@ -72,7 +72,7 @@ export default function Day() {
   };
 
   useEffect(() => {
-    getData();
+    getCheckInData();
   }, []);
 
   return (
@@ -147,7 +147,7 @@ export default function Day() {
             }}
           >
             {checkIns.map((item, index) => (
-              <CheckIn key={index} data={item} itemHeight={itemHeight} getData={getData} />
+              <CheckIn key={index} data={item} itemHeight={itemHeight} getCheckInData={getCheckInData} />
             ))}
           </View>
         </Animated.View>

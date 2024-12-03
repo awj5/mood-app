@@ -66,7 +66,7 @@ export default function Response(props: ResponseProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    minHeight: 128,
+    minHeight: 160,
   },
   text: {
     flexShrink: 1,

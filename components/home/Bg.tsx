@@ -35,7 +35,7 @@ export default function Bg() {
     setCanvasDimensions({ width: width, height: height - heightOffset });
   };
 
-  const getData = async () => {
+  const getCheckInData = async () => {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
 
@@ -114,7 +114,7 @@ export default function Bg() {
 
   useFocusEffect(
     useCallback(() => {
-      getData();
+      getCheckInData();
     }, [homeDates, colors.primaryBg])
   );
 
