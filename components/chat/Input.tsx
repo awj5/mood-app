@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, TextInput, View, SafeAreaView, Pressable } from "react-native";
+import { StyleSheet, TextInput, View, SafeAreaView, Pressable, Keyboard } from "react-native";
 import * as Device from "expo-device";
 import { ArrowUp } from "lucide-react-native";
 import { MessageType } from "app/chat";
@@ -29,6 +29,7 @@ export default function Input(props: InputProps) {
     ]);
 
     setText(""); // Clear
+    Keyboard.dismiss();
   };
 
   return (
@@ -77,8 +78,8 @@ export default function Input(props: InputProps) {
               {
                 width: Device.deviceType !== 1 ? 56 : 40,
                 margin: smallSpacing,
-                borderWidth: !focused || props.generating || !text.length ? stroke : 0,
-                borderColor: colors.secondary,
+                borderWidth: focused && !props.generating && text.length ? 0 : stroke,
+                borderColor: !focused ? colors.secondary : colors.primary,
                 backgroundColor: focused && !props.generating && text.length ? colors.primary : "transparent",
               },
             ]}
@@ -87,8 +88,10 @@ export default function Input(props: InputProps) {
           >
             <ArrowUp
               color={
-                !focused || props.generating || !text.length
+                !focused
                   ? colors.secondary
+                  : props.generating || !text.length
+                  ? colors.primary
                   : colors.primary === "white"
                   ? "black"
                   : "white"
