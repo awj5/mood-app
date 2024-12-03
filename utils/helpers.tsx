@@ -1,5 +1,8 @@
 import { useColorScheme } from "react-native";
+import tagsData from "data/tags.json";
+import guidelinesData from "data/guidelines.json";
 import { CalendarDatesType } from "context/home-dates";
+import { CheckInMoodType, CheckInType } from "data/database";
 
 /* Pressable */
 
@@ -100,4 +103,44 @@ export const getStatement = (statement: string, response: number) => {
   }
 
   return start + statement;
+};
+
+export type PromptDataType = {
+  date: string;
+  time: string;
+  feelings: string[];
+  statement: string;
+};
+
+export const getPromptData = (checkIns: CheckInType[]) => {
+  const data: PromptDataType[] = [];
+  const ids = []; // Used to collect check-in IDs
+
+  // Loop check-ins and create prompt objects
+  for (let i = 0; i < checkIns.length; i++) {
+    let checkIn = checkIns[i];
+    let utc = new Date(`${checkIn.date}Z`);
+    let local = new Date(utc);
+    let mood: CheckInMoodType = JSON.parse(checkIn.mood);
+    let tags: string[] = [];
+
+    // Get tag names
+    for (let i = 0; i < mood.tags.length; i++) {
+      tags.push(tagsData.filter((tag) => tag.id === mood.tags[i])[0].name);
+    }
+
+    data.push({
+      date: local.toDateString(),
+      time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
+      feelings: tags,
+      statement: getStatement(
+        guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
+        mood.statementResponse
+      ),
+    });
+
+    ids.push(checkIn.id);
+  }
+
+  return { data, ids };
 };

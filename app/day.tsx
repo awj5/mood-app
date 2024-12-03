@@ -35,12 +35,11 @@ export default function Day() {
   const getData = async () => {
     try {
       // Get check-ins on this date (date column converted to local)
-      const query = `
-      SELECT * FROM check_ins
-      WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC
-    `;
+      const rows: CheckInType[] = await db.getAllAsync(
+        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC`,
+        [iso]
+      );
 
-      const rows: CheckInType[] = await db.getAllAsync(query, [iso]);
       setGradientHeight(rows.length * itemHeight + headerHeight + edges);
       const checkInColors = [];
 

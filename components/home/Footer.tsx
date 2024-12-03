@@ -20,12 +20,10 @@ export default function Footer() {
       const today = new Date();
 
       // Check for check-in today (date column converted to local)
-      const query = `
-      SELECT * FROM check_ins
-      WHERE DATE(datetime(date, 'localtime')) = ?
-    `;
+      const row = await db.getFirstAsync(`SELECT id FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ?`, [
+        convertToISO(today),
+      ]);
 
-      const row = await db.getFirstAsync(query, [convertToISO(today)]);
       setBounce(!row ? true : false);
     } catch (error) {
       console.log(error);

@@ -51,12 +51,11 @@ export default function Bg() {
     var checkInColors = [colors.primaryBg];
 
     try {
-      const query = `
-      SELECT * FROM check_ins
-      WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC
-    `;
+      const rows: CheckInType[] = await db.getAllAsync(
+        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
+        [convertToISO(start), convertToISO(end)]
+      );
 
-      const rows: CheckInType[] = await db.getAllAsync(query, [convertToISO(start), convertToISO(end)]);
       if (rows.length) checkInColors = []; // Clear when checkins found
 
       // Loop checkins and get color

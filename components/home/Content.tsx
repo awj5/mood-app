@@ -31,12 +31,11 @@ export default function Content() {
     }
 
     try {
-      const query = `
-      SELECT * FROM check_ins
-      WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC
-    `;
+      const rows: CheckInType[] = await db.getAllAsync(
+        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
+        [convertToISO(start), convertToISO(end)]
+      );
 
-      const rows: CheckInType[] = await db.getAllAsync(query, [convertToISO(start), convertToISO(end)]);
       return rows;
     } catch (error) {
       console.log(error);

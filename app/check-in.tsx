@@ -59,9 +59,9 @@ export default function CheckIn() {
     });
 
     try {
-      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?)`, [value]);
-
-      router.push({ pathname: "chat", params: { checkIn: value } });
+      const result = await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?) RETURNING *`, [value]);
+      const row = await db.getFirstAsync(`SELECT * FROM check_ins WHERE id = ?`, [result.lastInsertRowId]);
+      router.push({ pathname: "chat", params: { checkIn: JSON.stringify(row) } });
     } catch (error) {
       console.log(error);
       alert("An unexpected error has occurred.");
@@ -90,7 +90,6 @@ export default function CheckIn() {
   );
 
   useEffect(() => {
-    router.push("chat"); // !!!!!!!! - Delete
     setSelectedMood(mood.value);
     setForegroundColor((rotation.value >= 0 && rotation.value < 165) || rotation.value >= 345 ? "black" : "white");
     sliderVal.value = 0.5; // Reset

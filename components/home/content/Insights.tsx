@@ -4,20 +4,11 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
 import axios from "axios";
-import tagsData from "data/tags.json";
-import guidelinesData from "data/guidelines.json";
-import { CheckInMoodType, CheckInType, InsightType } from "data/database";
+import { CheckInType, InsightType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "./insights/Summary";
-import { getStatement, getDateRange } from "utils/helpers";
-
-type PromptDataType = {
-  date: string;
-  time: string;
-  feelings: string[];
-  statement: string;
-};
+import { getDateRange, getPromptData, PromptDataType } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -43,7 +34,7 @@ export default function Insights(props: InsightsProps) {
           messages: [
             {
               role: "system",
-              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user’s thoughts. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
+              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user's thoughts. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
             },
             {
               role: "user",
@@ -70,12 +61,11 @@ export default function Insights(props: InsightsProps) {
 
   const getData = async (ids: number[]) => {
     try {
-      const query = `
-      SELECT * FROM insights
-      WHERE check_ins = ?
-    `;
+      const row: InsightType | null = await db.getFirstAsync(
+        `SELECT * FROM insights WHERE check_ins = ?`,
+        ids.toString()
+      );
 
-      const row: InsightType | null = await db.getFirstAsync(query, ids.toString());
       return row;
     } catch (error) {
       console.log(error);
@@ -87,42 +77,14 @@ export default function Insights(props: InsightsProps) {
     latestQueryRef.current = currentQuery;
     setIsLoading(true);
     setText("");
-    const promptData: PromptDataType[] = [];
-    const ids = []; // Used to collect check-in IDs
-
-    // Loop check-ins and create prompt objects
-    for (let i = 0; i < props.checkIns.length; i++) {
-      let checkIn = props.checkIns[i];
-      let utc = new Date(`${checkIn.date}Z`);
-      let local = new Date(utc);
-      let mood: CheckInMoodType = JSON.parse(checkIn.mood);
-      let tags: string[] = [];
-
-      // Get tag names
-      for (let i = 0; i < mood.tags.length; i++) {
-        tags.push(tagsData.filter((tag) => tag.id === mood.tags[i])[0].name);
-      }
-
-      promptData.push({
-        date: local.toDateString(),
-        time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
-        feelings: tags,
-        statement: getStatement(
-          guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
-          mood.statementResponse
-        ),
-      });
-
-      ids.push(checkIn.id);
-    }
-
-    const savedResponse = await getData(ids);
+    const promptData = getPromptData(props.checkIns);
+    const savedResponse = await getData(promptData.ids);
 
     // Show saved response if exists or get respponse from API
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
     } else if (latestQueryRef.current === currentQuery) {
-      const aiResponse = await callAIAPI(promptData);
+      const aiResponse = await callAIAPI(promptData.data);
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         setText(aiResponse.choices[0].message.content);
@@ -130,7 +92,7 @@ export default function Insights(props: InsightsProps) {
         // Save response
         try {
           await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
-            ids.toString(),
+            promptData.ids.toString(),
             aiResponse.choices[0].message.content,
           ]);
         } catch (error) {

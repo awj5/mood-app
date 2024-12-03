@@ -77,12 +77,10 @@ export default function Day(props: DayProps) {
     ) {
       try {
         // Check for check-ins on this date (date column converted to local)
-        const query = `
-      SELECT * FROM check_ins
-      WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC
-    `;
-
-        const rows: CheckInType[] = await db.getAllAsync(query, [convertToISO(props.date)]);
+        const rows: CheckInType[] = await db.getAllAsync(
+          `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC`,
+          [convertToISO(props.date)]
+        );
 
         if (rows.length) {
           const mood: CheckInMoodType = JSON.parse(rows[0].mood);

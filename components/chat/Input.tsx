@@ -23,8 +23,8 @@ export default function Input(props: InputProps) {
     props.setMessages((prevMessages) => [
       ...prevMessages,
       {
-        author: "user",
-        text: text,
+        role: "user",
+        content: text,
       },
     ]);
 
