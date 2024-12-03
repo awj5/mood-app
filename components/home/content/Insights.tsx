@@ -130,7 +130,7 @@ export default function Insights(props: InsightsProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <View style={[styles.container, { minHeight: Device.deviceType !== 1 ? 144 : 160 }]}>
+    <View style={styles.container}>
       {isLoading ? (
         <View style={styles.loading}>
           <Loading text="Generating" />
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: 672 + 32,
     paddingHorizontal: 16,
+    minHeight: 176,
   },
   loading: {
     flex: 1,
