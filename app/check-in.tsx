@@ -59,7 +59,7 @@ export default function CheckIn() {
     });
 
     try {
-      await db.runAsync(`INSERT INTO check_ins (mood) VALUES (?) RETURNING *`, [value]);
+      await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [value]);
       router.push("chat");
     } catch (error) {
       console.log(error);

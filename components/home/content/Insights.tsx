@@ -22,10 +22,9 @@ export default function Insights(props: InsightsProps) {
   const [text, setText] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
-  const callAIAPI = async (promptData: PromptDataType[]) => {
-    const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
-
+  const requestAISummary = async (promptData: PromptDataType[]) => {
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
@@ -34,12 +33,12 @@ export default function Insights(props: InsightsProps) {
           messages: [
             {
               role: "system",
-              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, and a statement reflecting the user's thoughts. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text (no markdown) for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
+              content: `Your primary purpose is to analyze workplace mood check-ins shared with you. Each check-in includes the date and time, a list of feelings, a statement reflecting the user's thoughts on their workplace, and an optional note providing more context. Speak directly to the user, providing concise and insightful analyses that highlight patterns and trends in their emotional state over time. Avoid offering recommendations, asking follow-up questions, or suggesting areas for improvement. Use an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Structure your responses in plain text (no markdown) for easy readability. Adhere to the IETF language tag:${localization[0].languageTag}`,
             },
             {
               role: "user",
               content:
-                "Analyze these check-ins and summarize the key trends, patterns, or observations in 200 characters or less: " +
+                "Analyze these check-ins (formatted as JSON) and summarize the key trends, patterns, or observations in 200 characters or less: " +
                 JSON.stringify(promptData),
             },
           ],
@@ -84,7 +83,7 @@ export default function Insights(props: InsightsProps) {
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
     } else if (latestQueryRef.current === currentQuery) {
-      const aiResponse = await callAIAPI(promptData.data);
+      const aiResponse = await requestAISummary(promptData.data);
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         setText(aiResponse.choices[0].message.content);
@@ -130,7 +129,7 @@ export default function Insights(props: InsightsProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { height: Device.deviceType !== 1 ? 152 : 160 }]}>
       {isLoading ? (
         <View style={styles.loading}>
           <Loading text="Generating" />
@@ -144,10 +143,8 @@ export default function Insights(props: InsightsProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     maxWidth: 672 + 32,
     paddingHorizontal: 16,
-    minHeight: 176,
   },
   loading: {
     flex: 1,

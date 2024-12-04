@@ -110,6 +110,7 @@ export type PromptDataType = {
   time: string;
   feelings: string[];
   statement: string;
+  note: string;
 };
 
 export const getPromptData = (checkIns: CheckInType[]) => {
@@ -137,6 +138,7 @@ export const getPromptData = (checkIns: CheckInType[]) => {
         guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
         mood.statementResponse
       ),
+      note: checkIn.note,
     });
 
     ids.push(checkIn.id);

@@ -29,13 +29,13 @@ export default function Chat() {
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
   const checkInHistoryRef = useRef<PromptDataType[]>([]);
+  const checkInIDRef = useRef(0);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
   const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
+  const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
-  const callAIAPI = async (name: string) => {
-    const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
-
+  const requestAISummary = async () => {
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
@@ -44,13 +44,47 @@ export default function Chat() {
           messages: [
             {
               role: "system",
-              content: `You are MOOD, a thoughtful and empathetic AI assistant for the MOOD.ai app. Users share daily workplace mood check-ins with you, including the date, time, a list of emotions, and a reflective statement. Your primary role is to analyze their most recent check-in by identifying patterns, trends, or notable observations in their emotional state and to act as a reflective and understanding soundboard, helping them explore their feelings. Refer to the user's check-in history only if it provides relevant patterns or insights that add meaningful context to their emotions or experiences. Provide concise, meaningful summaries (280 characters max), avoiding direct advice, recommendations, or suggestions for improvement. Maintain a professional and empathetic tone, ensuring your responses are clear, relatable, and easy to read. When the check-in is first shared, ask if the user would like to share more about why they are feeling this way. Adhere to the IETF language tag: ${
+              content: `Your primary purpose is to summarize the conversation between the user and an AI assistant. Provide concise and insightful analyses of the user's emotional state during the interaction. Avoid mentioning the AI assistant, asking follow-up questions, or offering recommendations or suggestions for improvement. Maintain an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Always structure your responses in plain text (no markdown) for easy readability. Adhere to the IETF language tag: ${localization[0].languageTag}.`,
+            },
+            ...chatHistoryRef.current, // Append
+            {
+              role: "user",
+              content:
+                "Summarize this conversation in 200 characters or fewer. Speak in the first person as if you are the user.",
+            },
+          ],
+          temperature: 0.7,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const requestAIResponse = async (name: string) => {
+    try {
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "system",
+              content: `You are MOOD, a thoughtful and empathetic AI assistant for the MOOD.ai app. Users share daily workplace mood check-ins with you, which include the date, time, a list of emotions, and a reflective statement about their workplace. Your primary role is to analyze their most recent check-in by identifying patterns, trends, or notable observations in their emotional state and act as a reflective and understanding soundboard, helping them explore their feelings. Refer to the user's check-in history only if it provides relevant patterns or insights that add meaningful context to their emotions or experiences. Provide concise, meaningful summaries (280 characters max), avoiding direct advice, recommendations, or suggestions for improvement. Maintain a professional and empathetic tone, ensuring your responses are clear, relatable, and easy to read. When a check-in is first shared, follow up by asking if the user would like to share more about why they are feeling this way. Adhere to the IETF language tag: ${
                 localization[0].languageTag
               }. Use the user's first name: ${name}, to personalize your responses. Always structure your replies in plain text (no markdown) for optimal readability.${
                 checkInHistoryRef.current.length
-                  ? `This is the user's check-in history (formatted as JSON), which you can refer to for relevant insights: ${JSON.stringify(
+                  ? `This is the user's recent check-in history (formatted as JSON), which you can refer to for relevant insights: ${JSON.stringify(
                       checkInHistoryRef.current
-                    )}.`
+                    )}`
                   : ""
               }`,
             },
@@ -84,6 +118,7 @@ export default function Chat() {
       );
 
       const promptData = getPromptData(rows); // Convert
+      checkInIDRef.current = promptData.ids[promptData.ids.length - 1]; // Latest check-in
       return promptData.data;
     } catch (error) {
       console.log(error);
@@ -174,7 +209,7 @@ export default function Chat() {
       },
     ]);
 
-    const aiResponse = await callAIAPI(name ?? "");
+    const aiResponse = await requestAIResponse(name ?? "");
 
     // Update the text of the last message
     setMessages((prevMessages) => {
@@ -187,12 +222,30 @@ export default function Chat() {
       return updatedMessages;
     });
 
-    // Save AI response to chat history
-    if (aiResponse)
+    // Save AI response to chat history and save conversation summary
+    if (aiResponse) {
       chatHistoryRef.current = [
         ...chatHistoryRef.current,
         { role: "assistant", content: aiResponse.choices[0].message.content },
       ];
+
+      // Only save summary if user has replied
+      if (chatHistoryRef.current.length > 2) {
+        const aiSummary = await requestAISummary();
+
+        if (aiSummary) {
+          // Update check-in note
+          try {
+            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [
+              aiSummary.choices[0].message.content,
+              checkInIDRef.current,
+            ]);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+    }
   };
 
   useEffect(() => {

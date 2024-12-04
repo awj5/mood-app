@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
 import * as Device from "expo-device";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
@@ -47,50 +47,59 @@ export default function Summary(props: SummaryProps) {
         </Text>
       </View>
 
-      {props.text && (
-        <Text
-          style={{
-            fontFamily: "Circular-Medium",
-            color: colors.primary,
-            fontSize: fontSizeSmall,
-          }}
-          allowFontScaling={false}
-        >
-          {props.subTitle}
-        </Text>
-      )}
-
-      <Text
-        style={[
-          styles.summary,
-          {
-            color: colors.primary,
-            opacity: props.text ? 1 : 0.5,
-            fontSize: fontSize,
-          },
-        ]}
-        allowFontScaling={false}
+      <ScrollView
+        contentContainerStyle={{
+          gap: spacing,
+          alignItems: "center",
+          flex: !props.text ? 1 : 0,
+          justifyContent: !props.text ? "center" : "flex-start",
+        }}
       >
-        {props.text ? props.text : "Unable to generate insights at the moment."}
-      </Text>
-
-      {!props.text && (
-        <Pressable onPress={() => props.getInsights()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
+        {props.text && (
           <Text
-            style={[
-              styles.button,
-              {
-                color: colors.primary,
-                fontSize: fontSize,
-                padding: spacing,
-              },
-            ]}
+            style={{
+              fontFamily: "Circular-Medium",
+              color: colors.primary,
+              fontSize: fontSizeSmall,
+            }}
             allowFontScaling={false}
           >
-            Try again
+            {props.subTitle}
           </Text>
-        </Pressable>
-      )}
+        )}
+
+        <Text
+          style={[
+            styles.summary,
+            {
+              color: colors.primary,
+              opacity: props.text ? 1 : 0.5,
+              fontSize: fontSize,
+            },
+          ]}
+          allowFontScaling={false}
+        >
+          {props.text ? props.text : "Unable to generate insights at the moment."}
+        </Text>
+
+        {!props.text && (
+          <Pressable onPress={() => props.getInsights()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
+            <Text
+              style={[
+                styles.button,
+                {
+                  color: colors.primary,
+                  fontSize: fontSize,
+                  padding: spacing,
+                },
+              ]}
+              allowFontScaling={false}
+            >
+              Try again
+            </Text>
+          </Pressable>
+        )}
+      </ScrollView>
     </Animated.View>
   );
 }
