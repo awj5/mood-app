@@ -1,14 +1,13 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
 import axios from "axios";
 import { CheckInType, InsightType } from "data/database";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "./insights/Summary";
-import { getDateRange, getMonday, getPromptData, PromptDataType } from "utils/helpers";
+import { getPromptData, PromptDataType } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -17,10 +16,8 @@ type InsightsProps = {
 export default function Insights(props: InsightsProps) {
   const db = useSQLiteContext();
   const localization = getLocales();
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
-  const [subTitle, setSubTitle] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
@@ -100,21 +97,6 @@ export default function Insights(props: InsightsProps) {
       }
     }
 
-    const dateRange = getDateRange(homeDates, true);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const monday = getMonday(today);
-    const lastMonday = new Date(monday);
-    lastMonday.setDate(monday.getDate() - 7);
-
-    setSubTitle(
-      monday.getTime() === homeDates.weekStart.getTime()
-        ? "This week"
-        : lastMonday.getTime() === homeDates.weekStart.getTime()
-        ? "Last week"
-        : dateRange
-    );
-
     setIsLoading(false);
   };
 
@@ -135,7 +117,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} subTitle={subTitle} />
+        <Summary text={text} getInsights={getInsights} />
       )}
     </View>
   );

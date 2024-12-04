@@ -1,20 +1,39 @@
+import { useContext } from "react";
 import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
 import * as Device from "expo-device";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
-import { theme, pressedDefault } from "utils/helpers";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { theme, pressedDefault, getMonday, getDateRange } from "utils/helpers";
 
 type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
-  subTitle: string;
 };
 
 export default function Summary(props: SummaryProps) {
   const colors = theme();
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const spacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const monday = getMonday(today);
+  const lastMonday = new Date(monday);
+  lastMonday.setDate(monday.getDate() - 7);
+
+  const title = `${
+    homeDates.title
+      ? `${homeDates.title} `
+      : !homeDates.rangeStart && monday.getTime() === homeDates.weekStart.getTime()
+      ? "THIS WEEK'S "
+      : !homeDates.rangeStart && lastMonday.getTime() === homeDates.weekStart.getTime()
+      ? "LAST WEEK'S "
+      : ""
+  }INSIGHTS`;
+
+  const subTitle = getDateRange(homeDates, true);
 
   return (
     <Animated.View
@@ -43,7 +62,7 @@ export default function Summary(props: SummaryProps) {
           }}
           allowFontScaling={false}
         >
-          INSIGHTS
+          {title}
         </Text>
       </View>
 
@@ -55,7 +74,7 @@ export default function Summary(props: SummaryProps) {
           justifyContent: !props.text ? "center" : "flex-start",
         }}
       >
-        {props.text && (
+        {props.text && title === "INSIGHTS" && (
           <Text
             style={{
               fontFamily: "Circular-Medium",
@@ -64,7 +83,7 @@ export default function Summary(props: SummaryProps) {
             }}
             allowFontScaling={false}
           >
-            {props.subTitle}
+            {subTitle}
           </Text>
         )}
 

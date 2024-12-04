@@ -32,7 +32,6 @@ export default function Range() {
       weekLater.setDate(date.getDate() + 7);
 
       setHomeDates({
-        ...homeDates,
         weekStart: monday,
         rangeStart: date,
         rangeEnd: homeDates?.rangeEnd ?? weekLater,
@@ -50,7 +49,6 @@ export default function Range() {
       const monday = getMonday(prevWeek);
 
       setHomeDates({
-        ...homeDates,
         weekStart: homeDates.rangeStart ? homeDates.weekStart : monday,
         rangeStart: homeDates.rangeStart ?? prevWeek,
         rangeEnd: date,

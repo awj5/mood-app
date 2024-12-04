@@ -68,8 +68,12 @@ export const getDateRange = (dates: CalendarDatesType, showDays?: boolean) => {
     endDate.getFullYear() !== year ? ` ${endDate.getFullYear()}` : ""
   }`;
 
-  return showDays
+  return showDays && start === end
+    ? startDate.toDateString().replace(` ${year}`, "")
+    : showDays
     ? `${startDate.toDateString().replace(` ${year}`, "")} \u2013 ${endDate.toDateString().replace(` ${year}`, "")}`
+    : start === end
+    ? start
     : `${start} \u2013 ${end}`;
 };
 

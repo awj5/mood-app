@@ -4,6 +4,7 @@ export type CalendarDatesType = {
   weekStart: Date;
   rangeStart?: Date;
   rangeEnd?: Date;
+  title?: string;
 };
 
 export type HomeDatesContextType = {
