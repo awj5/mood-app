@@ -55,7 +55,7 @@ export default function CheckIn(props: CheckInProps) {
           )}
         </Text>
 
-        <Note data={props.data} />
+        <Note text={props.data.note} />
       </View>
     </View>
   );
