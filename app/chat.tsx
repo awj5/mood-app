@@ -50,7 +50,7 @@ export default function Chat() {
             {
               role: "user",
               content:
-                "Summarize this conversation in 200 characters or fewer. Speak in the first person as if you are the user.",
+                "Summarize this conversation in 280 characters or fewer. Speak in the first person as if you are the user.",
             },
           ],
           temperature: 0.7,
