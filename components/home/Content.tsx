@@ -64,7 +64,6 @@ export default function Content() {
         style={[
           styles.wrapper,
           {
-            paddingTop: edgePadding,
             paddingBottom: edgePadding * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
             gap: edgePadding,
           },

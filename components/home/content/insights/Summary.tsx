@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
@@ -36,16 +36,7 @@ export default function Summary(props: SummaryProps) {
   const subTitle = getDateRange(homeDates, true);
 
   return (
-    <Animated.View
-      entering={FadeIn}
-      style={[
-        styles.container,
-        {
-          gap: spacing,
-          justifyContent: !props.text ? "center" : "flex-start",
-        },
-      ]}
-    >
+    <Animated.View entering={FadeIn} style={[styles.container, { gap: spacing }]}>
       <View style={[styles.title, { gap: spacing, display: props.text ? "flex" : "none" }]}>
         <Sparkles
           color={colors.primary}
@@ -66,59 +57,50 @@ export default function Summary(props: SummaryProps) {
         </Text>
       </View>
 
-      <ScrollView
-        contentContainerStyle={{
-          gap: spacing,
-          alignItems: "center",
-          flex: !props.text ? 1 : 0,
-          justifyContent: !props.text ? "center" : "flex-start",
-        }}
-      >
-        {props.text && title === "INSIGHTS" && (
-          <Text
-            style={{
-              fontFamily: "Circular-Medium",
-              color: colors.primary,
-              fontSize: fontSizeSmall,
-            }}
-            allowFontScaling={false}
-          >
-            {subTitle}
-          </Text>
-        )}
-
+      {props.text && title === "INSIGHTS" && (
         <Text
-          style={[
-            styles.summary,
-            {
-              color: colors.primary,
-              opacity: props.text ? 1 : 0.5,
-              fontSize: fontSize,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Medium",
+            color: colors.primary,
+            fontSize: fontSizeSmall,
+          }}
           allowFontScaling={false}
         >
-          {props.text ? props.text : "Unable to generate insights at the moment."}
+          {subTitle}
         </Text>
+      )}
 
-        {!props.text && (
-          <Pressable onPress={() => props.getInsights()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
-            <Text
-              style={[
-                styles.button,
-                {
-                  color: colors.primary,
-                  fontSize: fontSize,
-                  padding: spacing,
-                },
-              ]}
-              allowFontScaling={false}
-            >
-              Try again
-            </Text>
-          </Pressable>
-        )}
-      </ScrollView>
+      <Text
+        style={[
+          styles.summary,
+          {
+            color: colors.primary,
+            opacity: props.text ? 1 : 0.5,
+            fontSize: fontSize,
+          },
+        ]}
+        allowFontScaling={false}
+      >
+        {props.text ? props.text : "Unable to generate insights at the moment."}
+      </Text>
+
+      {!props.text && (
+        <Pressable onPress={() => props.getInsights()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
+          <Text
+            style={[
+              styles.button,
+              {
+                color: colors.primary,
+                fontSize: fontSize,
+                padding: spacing,
+              },
+            ]}
+            allowFontScaling={false}
+          >
+            Try again
+          </Text>
+        </Pressable>
+      )}
     </Animated.View>
   );
 }
@@ -127,6 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     flexDirection: "row",
