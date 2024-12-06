@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import { View, Pressable } from "react-native";
-import { SplashScreen, Stack, useRouter } from "expo-router";
+import { SplashScreen, Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -10,6 +10,7 @@ import HeaderLeft from "components/home/HeaderLeft";
 import Bg from "components/home/Bg";
 import Footer from "components/home/Footer";
 import Content from "components/home/Content";
+import NotiPrompt from "components/home/NotiPrompt";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 export default function Home() {
@@ -17,20 +18,32 @@ export default function Home() {
   const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
+  const todayRef = useRef<Date>();
+  const notiPromptSeenRef = useRef(false);
+  const [notiPromptVisible, setNotiPromptVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
 
+  const checkNotifications = () => {
+    setNotiPromptVisible(true);
+    notiPromptSeenRef.current = true;
+  };
+
   const verifyCheckInData = async () => {
+    todayRef.current = new Date();
+
     // Redirect if user hasn't checked-in today
     try {
-      const today = new Date();
-
       // Check for check-in today (date column converted to local)
       const row = await db.getFirstAsync(`SELECT id FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ?`, [
-        convertToISO(today),
+        convertToISO(todayRef.current),
       ]);
 
-      if (!row) router.push("check-in"); // Redirect
+      if (!row) {
+        router.push("check-in"); // Redirect
+      } else {
+        checkNotifications();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,9 +51,15 @@ export default function Home() {
     SplashScreen.hideAsync();
   };
 
-  useEffect(() => {
-    verifyCheckInData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      if (!todayRef.current) {
+        verifyCheckInData(); // Redirect if no check-in today
+      } else if (!notiPromptSeenRef.current) {
+        checkNotifications();
+      }
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -74,6 +93,7 @@ export default function Home() {
         }}
       />
 
+      <NotiPrompt visible={notiPromptVisible} setVisible={setNotiPromptVisible} />
       <Bg />
 
       <View style={{ flex: 1, marginTop: headerHeight }}>
