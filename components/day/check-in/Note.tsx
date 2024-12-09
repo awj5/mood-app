@@ -38,7 +38,7 @@ export default function Note(props: NoteProps) {
           }}
           allowFontScaling={false}
         >
-          {props.text && props.text.indexOf("[NOTE FROM USER]:") !== -1 ? "NOTE" : "INSIGHTS"}
+          {props.text && props.text.indexOf("[NOTE FROM USER]:") !== -1 ? "NOTE" : "SUMMARY"}
         </Text>
       </View>
 
@@ -52,7 +52,7 @@ export default function Note(props: NoteProps) {
           }}
           allowFontScaling={false}
         >
-          {props.text ? props.text : "Not included"}
+          {props.text ? props.text : "Not generated"}
         </Text>
       </ScrollView>
     </View>

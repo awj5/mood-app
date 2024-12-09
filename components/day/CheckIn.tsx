@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import * as Device from "expo-device";
 import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType } from "data/database";
@@ -29,15 +29,13 @@ export default function CheckIn(props: CheckInProps) {
       }}
     >
       <View
-        style={[
-          styles.wrapper,
-          {
-            gap: spacing,
-            backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
-            paddingVertical: spacing,
-            borderRadius: spacing,
-          },
-        ]}
+        style={{
+          flex: 1,
+          gap: spacing,
+          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+          paddingVertical: spacing,
+          borderRadius: spacing,
+        }}
       >
         <Header id={props.data.id} mood={mood} date={local} getCheckInData={props.getCheckInData} />
         <Feelings tags={mood.tags} />
@@ -51,10 +49,10 @@ export default function CheckIn(props: CheckInProps) {
           }}
           allowFontScaling={false}
         >
-          {`${getStatement(
+          {getStatement(
             guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
             mood.statementResponse
-          ).slice(0, -1)} at work.`}
+          )}
         </Text>
 
         <Note text={props.data.note} />
@@ -62,13 +60,3 @@ export default function CheckIn(props: CheckInProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    shadowColor: "black",
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-});

@@ -85,415 +85,415 @@
     "competencies": [
       {
         "id": 1.01,
-        "statement": "my role is clearly defined."
+        "statement": "I know exactly what I'm supposed to do in my role"
       },
       {
         "id": 1.02,
-        "statement": "my different responsibilities work well together."
+        "statement": "my different tasks harmonise rather than conflict"
       },
       {
         "id": 1.03,
-        "statement": "I understand my duty of care to others."
+        "statement": "I know how to look after other people's wellbeing"
       },
       {
         "id": 1.04,
-        "statement": "I have clear boundaries for my tasks."
+        "statement": "I have clear instructions about what I should and shouldn't do"
       },
       {
         "id": 1.05,
-        "statement": "my role expectations align well."
+        "statement": "what's expected of me is consistent and achievable"
       },
       {
         "id": 1.06,
-        "statement": "my task standards remain stable."
+        "statement": "I understand how my performance is measured"
       },
       {
         "id": 1.07,
-        "statement": "my tasks are meaningful and purposeful."
+        "statement": "I can see how my efforts make a lasting difference"
       },
       {
         "id": 2.01,
-        "statement": "I can participate in relevant decisions."
+        "statement": "I have a say in decisions that affect my role"
       },
       {
         "id": 2.02,
-        "statement": "I have control over my workload."
+        "statement": "I can manage the volume of my incoming tasks"
       },
       {
         "id": 2.03,
-        "statement": "I can set my own pace and schedule."
+        "statement": "I can organise my tasks in a way that suits me"
       },
       {
         "id": 3.01,
-        "statement": "I use my skills fully."
+        "statement": "I get to use my full range of skills and abilities"
       },
       {
         "id": 3.02,
-        "statement": "I have balanced interactions with people."
+        "statement": "I can handle constant interaction with others without strain"
       },
       {
         "id": 3.03,
-        "statement": "my workload matches the time available."
+        "statement": "I have enough time and support to complete my tasks"
       },
       {
         "id": 3.04,
-        "statement": "my deadlines are well-coordinated."
+        "statement": "I can meet all my deadlines while maintaining quality"
       },
       {
         "id": 3.05,
-        "statement": "expectations of me are realistic."
+        "statement": "the skill requirements match my current capabilities"
       },
       {
         "id": 3.06,
-        "statement": "I experience good variety in my tasks."
+        "statement": "I do varied and interesting tasks throughout my day"
       },
       {
         "id": 3.07,
-        "statement": "my tasks connect meaningfully to our goals."
+        "statement": "each task contributes to meaningful outcomes"
       },
       {
         "id": 3.08,
-        "statement": "I can maintain reasonable concentration."
+        "statement": "I can maintain focus without becoming exhausted"
       },
       {
         "id": 3.09,
-        "statement": "I have support for challenging situations."
+        "statement": "I'm equipped to handle challenging situations with people"
       },
       {
         "id": 3.1,
-        "statement": "I am protected from traumatic events."
+        "statement": "I'm shielded from potentially distressing situations"
       },
       {
         "id": 4.01,
-        "statement": "I receive support during transition periods."
+        "statement": "I receive practical help during periods of change"
       },
       {
         "id": 4.02,
-        "statement": "organisational changes are well-managed."
+        "statement": "I feel stable despite repeated organisational changes"
       },
       {
         "id": 4.03,
-        "statement": "my input during changes is heard."
+        "statement": "my views are sought before changes are made"
       },
       {
         "id": 5.01,
-        "statement": "I stay connected to my support network."
+        "statement": "I maintain connections despite physical distance"
       },
       {
         "id": 5.02,
-        "statement": "I have enough social interaction."
+        "statement": "I have meaningful interactions with colleagues"
       },
       {
         "id": 5.03,
-        "statement": "I feel safe in my working environment."
+        "statement": "I feel secure in every location I visit"
       },
       {
         "id": 5.04,
-        "statement": "my workload is neither too heavy nor too light."
+        "statement": "my task load feels balanced and reasonable"
       },
       {
         "id": 5.05,
-        "statement": "time pressures are manageable."
+        "statement": "I can complete tasks without constant urgency"
       },
       {
         "id": 5.06,
-        "statement": "deadlines are reasonable."
+        "statement": "I can manage multiple deadlines effectively"
       },
       {
         "id": 5.07,
-        "statement": "I control my own work pace."
+        "statement": "I can control the pace of automated processes"
       },
       {
         "id": 5.08,
-        "statement": "each day includes varied activities."
+        "statement": "my regular tasks include engaging activities"
       },
       {
         "id": 6.01,
-        "statement": "my tasks are engaging and interesting."
+        "statement": "I experience variety in my responsibilities"
       },
       {
         "id": 6.02,
-        "statement": "my shifts suit my needs."
+        "statement": "my shift patterns allow proper rest"
       },
       {
         "id": 6.03,
-        "statement": "my schedule has flexibility when needed."
+        "statement": "I can be flexible with my hours when needed"
       },
       {
         "id": 6.04,
-        "statement": "my hours are predictable."
+        "statement": "I can predict my upcoming schedule"
       },
       {
         "id": 6.05,
-        "statement": "my hours are reasonable and family-friendly."
+        "statement": "my hours suit my personal commitments"
       },
       {
         "id": 6.06,
-        "statement": "my tasks feel complete and worthwhile."
+        "statement": "my tasks form a meaningful whole"
       },
       {
         "id": 6.07,
-        "statement": "I get reasonable notice to complete tasks."
+        "statement": "I get proper notice about urgent priorities"
       },
       {
         "id": 7.01,
-        "statement": "I know when I need to be available."
+        "statement": "I feel confident about my ongoing role"
       },
       {
         "id": 7.02,
-        "statement": "I feel secure in my role."
+        "statement": "my position remains stable during changes"
       },
       {
         "id": 7.03,
-        "statement": "my pay and conditions are fair."
+        "statement": "my pay matches my contribution level"
       },
       {
         "id": 7.04,
-        "statement": "my rights are protected."
+        "statement": "proper regulations protect my interests"
       },
       {
         "id": 8.01,
-        "statement": "important information flows freely."
+        "statement": "communication channels keep me well informed"
       },
       {
         "id": 8.02,
-        "statement": "my professional relationships are positive."
+        "statement": "I maintain positive relationships at all levels"
       },
       {
         "id": 8.03,
-        "statement": "people get along well."
+        "statement": "disagreements are handled respectfully"
       },
       {
         "id": 8.04,
-        "statement": "I am safe from harmful behaviour."
+        "statement": "I'm safeguarded from inappropriate behaviour"
       },
       {
         "id": 8.05,
-        "statement": "I receive good social support."
+        "statement": "my colleagues offer support when needed"
       },
       {
         "id": 8.06,
-        "statement": "power is distributed fairly."
+        "statement": "everyone receives equal treatment"
       },
       {
         "id": 8.07,
-        "statement": "I feel socially and physically included."
+        "statement": "I feel genuinely part of the team"
       },
       {
         "id": 9.01,
-        "statement": "our vision and objectives are clear."
+        "statement": "our team's direction aligns with my goals"
       },
       {
         "id": 9.02,
-        "statement": "the management style suits our needs."
+        "statement": "leadership styles match our needs"
       },
       {
         "id": 9.03,
-        "statement": "my concerns are taken seriously."
+        "statement": "my suggestions receive proper consideration"
       },
       {
         "id": 9.04,
-        "statement": "I receive all necessary information."
+        "statement": "important information isn't withheld from me"
       },
       {
         "id": 9.05,
-        "statement": "communication channels work well."
+        "statement": "I receive consistent guidance and support"
       },
       {
         "id": 9.06,
-        "statement": "leaders take accountability."
+        "statement": "people follow through on their commitments"
       },
       {
         "id": 9.07,
-        "statement": "I receive fair treatment."
+        "statement": "policies apply equally across all levels"
       },
       {
         "id": 9.08,
-        "statement": "decisions are consistent."
+        "statement": "decisions about my role follow clear principles"
       },
       {
         "id": 9.09,
-        "statement": "authority is used appropriately."
+        "statement": "authority is exercised appropriately"
       },
       {
         "id": 10.01,
-        "statement": "I receive clear communications."
+        "statement": "essential updates reach everyone promptly"
       },
       {
         "id": 10.02,
-        "statement": "my personal development is supported."
+        "statement": "I receive help with problem-solving"
       },
       {
         "id": 10.03,
-        "statement": "our objectives make sense to everyone."
+        "statement": "our objectives match my values"
       },
       {
         "id": 10.04,
-        "statement": "policies are applied fairly and consistently."
+        "statement": "standards are applied consistently"
       },
       {
         "id": 11.01,
-        "statement": "my efforts are recognised."
+        "statement": "my contributions receive proper recognition"
       },
       {
         "id": 11.02,
-        "statement": "I receive timely appreciation."
+        "statement": "my achievements are promptly acknowledged"
       },
       {
         "id": 12.01,
-        "statement": "I see clear career opportunities."
+        "statement": "I see clear paths for advancement"
       },
       {
         "id": 13.01,
-        "statement": "my colleagues are supportive."
+        "statement": "I can readily access support when needed"
       },
       {
         "id": 13.02,
-        "statement": "support is readily available."
+        "statement": "I know all available support options"
       },
       {
         "id": 13.03,
-        "statement": "I receive proper training."
+        "statement": "I receive thorough training for new duties"
       },
       {
         "id": 14.01,
-        "statement": "I'm offered constructive feedback."
+        "statement": "performance feedback helps me improve"
       },
       {
         "id": 14.02,
-        "statement": "I am encouraged and acknowledged."
+        "statement": "my efforts receive meaningful recognition"
       },
       {
         "id": 14.03,
-        "statement": "my manager communicates well."
+        "statement": "I can communicate openly with everyone"
       },
       {
         "id": 14.04,
-        "statement": "our team goals are clear."
+        "statement": "my team shares consistent priorities"
       },
       {
         "id": 14.05,
-        "statement": "I can access resources to improve my performance."
+        "statement": "I have the resources to meet expectations"
       },
       {
         "id": 14.06,
-        "statement": "treatment is fair and consistent."
+        "statement": "assessment criteria are uniform"
       },
       {
         "id": 14.07,
-        "statement": "digital surveillance respects my privacy."
+        "statement": "my digital privacy is protected"
       },
       {
         "id": 15.01,
-        "statement": "there is mutual trust and honesty."
+        "statement": "trust characterises our relationships"
       },
       {
         "id": 15.02,
-        "statement": "interactions with others are respectful and considerate."
+        "statement": "interactions remain professional and courteous"
       },
       {
         "id": 16.01,
-        "statement": "my personal time is respected."
+        "statement": "I complete tasks within allocated hours"
       },
       {
         "id": 16.02,
-        "statement": "I maintain good life balance."
+        "statement": "I maintain a healthy life balance"
       },
       {
         "id": 16.03,
-        "statement": "I have adequate recovery time."
+        "statement": "I have sufficient recovery periods"
       },
       {
         "id": 17.01,
-        "statement": "I am safe from abuse."
+        "statement": "I'm protected from mistreatment"
       },
       {
         "id": 17.02,
-        "statement": "I am safe from threats."
+        "statement": "I'm protected from intimidation"
       },
       {
         "id": 17.03,
-        "statement": "I am safe from assault."
+        "statement": "I'm protected from harmful conduct"
       },
       {
         "id": 17.04,
-        "statement": "I am safe from gender-based harm."
+        "statement": "I feel safe regardless of my gender"
       },
       {
         "id": 18.01,
-        "statement": "my race is respected."
+        "statement": "I feel respected regardless of my race"
       },
       {
         "id": 18.02,
-        "statement": "my gender identity is respected."
+        "statement": "I feel respected regardless of my gender identity"
       },
       {
         "id": 18.03,
-        "statement": "my religion is respected."
+        "statement": "I feel respected regardless of my beliefs"
       },
       {
         "id": 18.04,
-        "statement": "my sexual orientation is respected."
+        "statement": "I feel respected regardless of my sexual orientation"
       },
       {
         "id": 18.05,
-        "statement": "my disability needs are accommodated."
+        "statement": "I feel respected regardless of any disabilities"
       },
       {
         "id": 18.06,
-        "statement": "my age is respected."
+        "statement": "I feel respected regardless of my age"
       },
       {
         "id": 19.01,
-        "statement": "I feel welcomed and included."
+        "statement": "I'm actively included in team activities"
       },
       {
         "id": 19.02,
-        "statement": "my tasks have clear purpose."
+        "statement": "my tasks require my particular skills"
       },
       {
         "id": 19.03,
-        "statement": "I am treated with dignity."
+        "statement": "I'm treated with consistent dignity"
       },
       {
         "id": 19.04,
-        "statement": "my colleagues support my success."
+        "statement": "my colleagues support my success"
       },
       {
         "id": 19.05,
-        "statement": "public feedback is constructive."
+        "statement": "feedback remains appropriately private"
       },
       {
         "id": 19.06,
-        "statement": "I can access essential information and resources."
+        "statement": "I have access to essential resources"
       },
       {
         "id": 19.07,
-        "statement": "I am safe from malicious rumours or gossiping."
+        "statement": "communication stays honest and direct"
       },
       {
         "id": 19.08,
-        "statement": "my deadlines are realistic and achievable."
+        "statement": "deadlines allow for quality completion"
       },
       {
         "id": 20.01,
-        "statement": "my equipment is adequate and reliable."
+        "statement": "equipment functions reliably"
       },
       {
         "id": 20.02,
-        "statement": "conditions are comfortable and appropriate."
+        "statement": "the physical environment suits my needs"
       },
       {
         "id": 20.03,
-        "statement": "I have the right tools for the job."
+        "statement": "I have all necessary tools and resources"
       },
       {
         "id": 20.04,
-        "statement": "I am protected from extreme conditions or situations."
+        "statement": "conditions meet safety standards"
       },
       {
         "id": 20.05,
-        "statement": "my environment is safe and stable."
+        "statement": "my surroundings remain secure and stable"
       }
     ]
   }
