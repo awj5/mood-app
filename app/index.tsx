@@ -1,9 +1,9 @@
 import { useState, useRef, useCallback } from "react";
-import { View, Pressable, StyleSheet } from "react-native";
+import { View, Pressable } from "react-native";
 import { SplashScreen, Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
-import Animated, { FadeIn } from "react-native-reanimated";
+import * as Notifications from "expo-notifications";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Settings, Download } from "lucide-react-native";
 import Calendar from "components/home/Calendar";
@@ -11,7 +11,7 @@ import HeaderLeft from "components/home/HeaderLeft";
 import Bg from "components/home/Bg";
 import Footer from "components/home/Footer";
 import Content from "components/home/Content";
-import NotiPrompt from "components/home/NotiPrompt";
+import Reminder from "components/Reminder";
 import { pressedDefault, theme, convertToISO } from "utils/helpers";
 
 export default function Home() {
@@ -20,15 +20,17 @@ export default function Home() {
   const router = useRouter();
   const db = useSQLiteContext();
   const todayRef = useRef<Date>();
-  const notiPromptSeenRef = useRef(false);
-  const [notiPromptVisible, setNotiPromptVisible] = useState(false);
+  const reminderSeenRef = useRef(false);
+  const [reminderVisible, setReminderVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
   const headerOpacity = colors.primary === "white" ? 0.2 : 0.8;
 
-  const checkNotifications = () => {
-    setNotiPromptVisible(true); // Only if notifications granted or rejected
-    notiPromptSeenRef.current = true;
+  const checkNotifications = async () => {
+    const { status } = await Notifications.getPermissionsAsync();
+    //if (status === "undetermined") setNotiPromptVisible(true);
+    setReminderVisible(true);
+    reminderSeenRef.current = true;
   };
 
   const verifyCheckInData = async () => {
@@ -57,7 +59,7 @@ export default function Home() {
     useCallback(() => {
       if (!todayRef.current) {
         verifyCheckInData(); // Redirect if no check-in today
-      } else if (!notiPromptSeenRef.current) {
+      } else if (!reminderSeenRef.current) {
         checkNotifications();
       }
     }, [])
@@ -75,7 +77,7 @@ export default function Home() {
           headerLeft: () => (
             <View
               style={{
-                opacity: !notiPromptVisible ? 1 : headerOpacity,
+                opacity: !reminderVisible ? 1 : headerOpacity,
               }}
             >
               <HeaderLeft />
@@ -86,7 +88,7 @@ export default function Home() {
               style={{
                 flexDirection: "row",
                 gap: Device.deviceType !== 1 ? 24 : 20,
-                opacity: !notiPromptVisible ? 1 : headerOpacity,
+                opacity: !reminderVisible ? 1 : headerOpacity,
               }}
             >
               <Pressable
@@ -109,17 +111,7 @@ export default function Home() {
         }}
       />
 
-      {notiPromptVisible && (
-        <Animated.View
-          style={[
-            styles.bg,
-            { backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.7)" },
-          ]}
-          entering={FadeIn}
-        />
-      )}
-
-      <NotiPrompt visible={notiPromptVisible} setVisible={setNotiPromptVisible} />
+      <Reminder visible={reminderVisible} setVisible={setReminderVisible} />
       <Bg />
 
       <View style={{ flex: 1, marginTop: headerHeight }}>
@@ -131,12 +123,3 @@ export default function Home() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  bg: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    zIndex: 1,
-  },
-});
