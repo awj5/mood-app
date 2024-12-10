@@ -122,6 +122,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    fontFamily: "Circular-Book",
+    fontFamily: "Circular-Medium",
   },
 });

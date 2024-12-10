@@ -137,22 +137,36 @@ export default function Reminder(props: ReminderProps) {
               style={[
                 styles.description,
                 {
-                  color: colors.secondary,
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
+                  color: colors.primary,
+                  fontSize: Device.deviceType !== 1 ? 24 : 18,
                   padding: spacing,
                   paddingTop: 0,
                 },
               ]}
               allowFontScaling={false}
             >
-              Recieve a daily check-in reminder notification by choosing the days and time that best suit your work
-              schedule.
+              Schedule a daily check-in reminder notification
             </Text>
 
             <Select reminder={reminder} setReminder={setReminder} />
 
             <View style={{ padding: spacing }}>
-              <Button func={press} fill icon="bell">
+              <Button
+                func={press}
+                fill
+                icon="bell"
+                disabled={
+                  !reminder.days.mon &&
+                  !reminder.days.tue &&
+                  !reminder.days.wed &&
+                  !reminder.days.thu &&
+                  !reminder.days.fri &&
+                  !reminder.days.sat &&
+                  !reminder.days.sun
+                    ? true
+                    : false
+                }
+              >
                 Set reminder
               </Button>
             </View>
@@ -182,7 +196,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   description: {
-    fontFamily: "Circular-Book",
+    fontFamily: "Circular-Bold",
     textAlign: "center",
   },
 });

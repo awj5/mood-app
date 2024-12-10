@@ -40,7 +40,7 @@ export default function Day(props: DayProps) {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "Circular-Book",
+    fontFamily: "Circular-Medium",
     textTransform: "uppercase",
   },
 });

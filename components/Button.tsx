@@ -28,6 +28,7 @@ export default function Button(props: ButtonProps) {
           borderColor: colors.primary,
           backgroundColor: props.fill ? colors.primary : "transparent",
           gap: Device.deviceType !== 1 ? 12 : 8,
+          opacity: props.disabled ? 0.25 : 1,
         },
       ]}
       disabled={props.disabled}
