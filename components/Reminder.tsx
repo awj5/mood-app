@@ -68,18 +68,27 @@ export default function Reminder(props: ReminderProps) {
     try {
       await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
 
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "How's work?",
-          body: "It's time to check-in.",
-          sound: true,
-        },
-        trigger: {
-          weekday: 3, // Day of the week (1 = Monday, 7 = Sunday)
-          hour: 18,
-          minute: 30,
-          repeats: true, // Repeats weekly
-        },
+      // Loop days of the week
+      Object.keys(reminder.days).forEach(async (day, index) => {
+        if (reminder.days[day as keyof ReminderType["days"]]) {
+          try {
+            await Notifications.scheduleNotificationAsync({
+              content: {
+                title: "How's work?",
+                body: "It's time to check-in.",
+                sound: true,
+              },
+              trigger: {
+                weekday: index + 1, // Day of the week (1 = Monday, 7 = Sunday)
+                hour: parseInt(reminder.time.split(":")[0]),
+                minute: parseInt(reminder.time.split(":")[1]),
+                repeats: true, // Repeats weekly
+              },
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        }
       });
 
       props.setVisible(false); // Close
@@ -145,7 +154,7 @@ export default function Reminder(props: ReminderProps) {
               ]}
               allowFontScaling={false}
             >
-              Schedule a daily check-in reminder notification
+              Schedule a daily check-in{"\n"}reminder notification
             </Text>
 
             <Select reminder={reminder} setReminder={setReminder} />
