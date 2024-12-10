@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Modal, StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { CircleX } from "lucide-react-native";
+import { ReminderType } from "components/ReminderSelect";
+import Button from "components/Button";
+import ReminderSelect from "components/ReminderSelect";
 import { theme, pressedDefault } from "utils/helpers";
 
 type NotiPromptProps = {
@@ -11,17 +15,28 @@ type NotiPromptProps = {
 export default function NotiPrompt(props: NotiPromptProps) {
   const colors = theme();
 
+  const [reminder, setReminder] = useState<ReminderType>({
+    days: { mon: true, tue: true, wed: true, thu: true, fri: true, sat: false, sun: false },
+    time: 1700,
+  });
+
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
+
   return (
-    <Modal animationType="slide" transparent={true} visible={props.visible}>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={props.visible}
+      onRequestClose={() => props.setVisible(false)}
+    >
       <View style={styles.container}>
         <View
           style={[
             styles.wrapper,
             {
               width: Device.deviceType !== 1 ? 448 : 320,
-              height: Device.deviceType !== 1 ? 384 : 288,
-              backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.95)",
-              borderRadius: Device.deviceType !== 1 ? 24 : 16,
+              backgroundColor: colors.primaryBg,
+              borderRadius: spacing,
             },
           ]}
         >
@@ -29,10 +44,7 @@ export default function NotiPrompt(props: NotiPromptProps) {
             onPress={() => props.setVisible(false)}
             style={({ pressed }) => [
               pressedDefault(pressed),
-              styles.close,
-              {
-                padding: Device.deviceType !== 1 ? 16 : 12,
-              },
+              { alignSelf: "flex-end", padding: Device.deviceType !== 1 ? 16 : 12 },
             ]}
             hitSlop={12}
           >
@@ -44,7 +56,29 @@ export default function NotiPrompt(props: NotiPromptProps) {
             />
           </Pressable>
 
-          <Text>Hello</Text>
+          <Text
+            style={[
+              styles.description,
+              {
+                color: colors.secondary,
+                fontSize: Device.deviceType !== 1 ? 20 : 16,
+                padding: spacing,
+                paddingTop: 0,
+              },
+            ]}
+            allowFontScaling={false}
+          >
+            Recieve a daily check-in reminder notification by choosing the days and time that best suit your work
+            schedule.
+          </Text>
+
+          <ReminderSelect reminder={reminder} setReminder={setReminder} />
+
+          <View style={{ padding: spacing }}>
+            <Button fill icon="bell">
+              Set reminder
+            </Button>
+          </View>
         </View>
       </View>
     </Modal>
@@ -58,16 +92,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   wrapper: {
-    justifyContent: "center",
-    alignItems: "center",
     shadowColor: "black",
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },
-  close: {
-    position: "absolute",
-    top: 0,
-    right: 0,
+  description: {
+    fontFamily: "Circular-Book",
+    textAlign: "center",
   },
 });

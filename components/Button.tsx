@@ -1,6 +1,6 @@
 import { StyleSheet, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
-import { CalendarDays } from "lucide-react-native";
+import { CalendarDays, BellRing } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
 type ButtonProps = {
@@ -33,13 +33,23 @@ export default function Button(props: ButtonProps) {
       disabled={props.disabled}
       hitSlop={8}
     >
-      {props.icon && props.icon === "calendar" && (
+      {props.icon && props.icon === "calendar" ? (
         <CalendarDays
           color={!props.fill ? colors.primary : colors.primary === "white" ? "black" : "white"}
           size={Device.deviceType !== 1 ? 28 : 20}
           absoluteStrokeWidth
           strokeWidth={stroke}
         />
+      ) : (
+        props.icon &&
+        props.icon === "bell" && (
+          <BellRing
+            color={!props.fill ? colors.primary : colors.primary === "white" ? "black" : "white"}
+            size={Device.deviceType !== 1 ? 28 : 20}
+            absoluteStrokeWidth
+            strokeWidth={stroke}
+          />
+        )
       )}
 
       <Text

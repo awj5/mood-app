@@ -1,8 +1,9 @@
 import { useState, useRef, useCallback } from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable, StyleSheet } from "react-native";
 import { SplashScreen, Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Settings, Download } from "lucide-react-native";
 import Calendar from "components/home/Calendar";
@@ -23,9 +24,10 @@ export default function Home() {
   const [notiPromptVisible, setNotiPromptVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const headerOpacity = colors.primary === "white" ? 0.2 : 0.8;
 
   const checkNotifications = () => {
-    setNotiPromptVisible(true);
+    setNotiPromptVisible(true); // Only if notifications granted or rejected
     notiPromptSeenRef.current = true;
   };
 
@@ -70,9 +72,23 @@ export default function Home() {
             backgroundColor: "transparent",
           },
           headerTransparent: true,
-          headerLeft: () => <HeaderLeft />,
+          headerLeft: () => (
+            <View
+              style={{
+                opacity: !notiPromptVisible ? 1 : headerOpacity,
+              }}
+            >
+              <HeaderLeft />
+            </View>
+          ),
           headerRight: () => (
-            <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 24 : 20 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: Device.deviceType !== 1 ? 24 : 20,
+                opacity: !notiPromptVisible ? 1 : headerOpacity,
+              }}
+            >
               <Pressable
                 onPress={() => alert("Coming soon")}
                 style={({ pressed }) => pressedDefault(pressed)}
@@ -93,6 +109,16 @@ export default function Home() {
         }}
       />
 
+      {notiPromptVisible && (
+        <Animated.View
+          style={[
+            styles.bg,
+            { backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.7)" },
+          ]}
+          entering={FadeIn}
+        />
+      )}
+
       <NotiPrompt visible={notiPromptVisible} setVisible={setNotiPromptVisible} />
       <Bg />
 
@@ -105,3 +131,12 @@ export default function Home() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  bg: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    zIndex: 1,
+  },
+});
