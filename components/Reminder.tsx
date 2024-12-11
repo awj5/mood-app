@@ -79,6 +79,7 @@ export default function Reminder(props: ReminderProps) {
                 title: "How's work?",
                 body: "It's time to check-in.",
                 sound: true,
+                data: { route: "/check-in" },
               },
               trigger: {
                 weekday: index + 1, // Day of the week (1 = Sunday)

@@ -79,16 +79,19 @@ export default function Select(props: SelectProps) {
       // Loop current notifications
       for (let i = 0; i < scheduledNotifications.length; i++) {
         let trigger = scheduledNotifications[i].trigger;
+        var dayKey = "";
 
-        if (trigger && "dateComponents" in trigger) {
-          let weekday = trigger.dateComponents.weekday;
-
-          if (weekday) {
-            let dayKey = Object.keys(updatedReminder.days)[weekday - 1];
-            updatedReminder.days[dayKey as keyof ReminderType["days"]] = true; // Update day value
-            updatedReminder.time = `${trigger.dateComponents.hour}:${trigger.dateComponents.minute}`; // Update time
-          }
+        if ("weekday" in trigger) {
+          // Android
+          dayKey = Object.keys(updatedReminder.days)[trigger.weekday - 1];
+          updatedReminder.time = `${trigger.hour}:${trigger.minute}`; // Update time
+        } else if ("dateComponents" in trigger && trigger.dateComponents.weekday) {
+          // iOS
+          dayKey = Object.keys(updatedReminder.days)[trigger.dateComponents.weekday - 1];
+          updatedReminder.time = `${trigger.dateComponents.hour}:${trigger.dateComponents.minute}`; // Update time
         }
+
+        updatedReminder.days[dayKey as keyof ReminderType["days"]] = true; // Update day value
       }
 
       if (scheduledNotifications.length) props.setReminder(updatedReminder); // Replace default reminder with existing

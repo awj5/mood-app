@@ -29,6 +29,7 @@ export default function Home() {
   const checkNotifications = async () => {
     const { status } = await Notifications.getPermissionsAsync();
     if (status === "undetermined") setReminderVisible(true);
+    //setReminderVisible(true);
     reminderSeenRef.current = true;
   };
 

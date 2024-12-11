@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Dimensions } from "react-native";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { StatusBar } from "expo-status-bar";
+import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { SQLiteProvider } from "expo-sqlite";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -16,6 +17,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const colors = theme();
+  const router = useRouter();
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
@@ -30,6 +32,19 @@ export default function Layout() {
     "Circular-Book": require("../assets/fonts/lineto-circular-book.ttf"),
     "Circular-Medium": require("../assets/fonts/lineto-circular-medium.ttf"),
   });
+
+  useEffect(() => {
+    // Handle notification tap
+    const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      const route = response.notification.request.content.data.route;
+
+      if (route) {
+        router.push(route); // Navigate to the route specified in the notification
+      }
+    });
+
+    return () => subscription.remove();
+  }, [router]);
 
   useEffect(() => {
     // Hack! - RN dimensions not returning acurate values on iPad rotation
