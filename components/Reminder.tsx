@@ -58,17 +58,18 @@ export default function Reminder(props: ReminderProps) {
         }
       }
 
-      scheduleNotification();
+      scheduleNotifications();
     } catch (error) {
       console.log(error);
+      alert("An unexpected error has occurred.");
     }
   };
 
-  const scheduleNotification = async () => {
+  const scheduleNotifications = async () => {
     try {
       await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
 
-      // Loop days of the week
+      // Loop days of the week and schedule notification
       Object.keys(reminder.days).forEach(async (day, index) => {
         if (reminder.days[day as keyof ReminderType["days"]]) {
           try {
@@ -196,7 +197,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
-    zIndex: 1,
   },
   wrapper: {
     shadowColor: "black",

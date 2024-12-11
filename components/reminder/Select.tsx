@@ -71,30 +71,27 @@ export default function Select(props: SelectProps) {
     try {
       const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
 
-      if (scheduledNotifications.length) {
-        // Replace default reminder
-        const updatedReminder = {
-          days: { mon: false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false },
-          time: "0:0",
-        };
+      const updatedReminder = {
+        days: { mon: false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false },
+        time: "",
+      };
 
-        // Loop current notifications
-        for (let i = 0; i < scheduledNotifications.length; i++) {
-          let trigger = scheduledNotifications[i].trigger;
+      // Loop current notifications
+      for (let i = 0; i < scheduledNotifications.length; i++) {
+        let trigger = scheduledNotifications[i].trigger;
 
-          if (trigger && "dateComponents" in trigger) {
-            let weekday = trigger.dateComponents.weekday;
+        if (trigger && "dateComponents" in trigger) {
+          let weekday = trigger.dateComponents.weekday;
 
-            if (weekday) {
-              let dayKey = Object.keys(updatedReminder.days)[weekday - 1];
-              updatedReminder.days[dayKey as keyof ReminderType["days"]] = true; // Update day
-              updatedReminder.time = `${trigger.dateComponents.hour}:${trigger.dateComponents.minute}`; // Update time
-            }
+          if (weekday) {
+            let dayKey = Object.keys(updatedReminder.days)[weekday - 1];
+            updatedReminder.days[dayKey as keyof ReminderType["days"]] = true; // Update day value
+            updatedReminder.time = `${trigger.dateComponents.hour}:${trigger.dateComponents.minute}`; // Update time
           }
         }
-
-        props.setReminder(updatedReminder);
       }
+
+      if (scheduledNotifications.length) props.setReminder(updatedReminder); // Replace default reminder with existing
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +102,12 @@ export default function Select(props: SelectProps) {
   }, []);
 
   return (
-    <View style={{ paddingHorizontal: Device.deviceType !== 1 ? 24 : 16, gap: Platform.OS === "ios" ? 0 : 8 }}>
+    <View
+      style={{
+        paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+        gap: Platform.OS === "ios" ? 0 : Device.deviceType !== 1 ? 12 : 8,
+      }}
+    >
       <View style={styles.days}>
         {days.map((item) => (
           <Day key={item} text={item} reminder={props.reminder} setReminder={props.setReminder} />
@@ -120,17 +122,17 @@ export default function Select(props: SelectProps) {
             time: itemValue,
           }))
         }
-        itemStyle={{ fontFamily: "Circular-Book" }}
-        dropdownIconColor={colors.primary}
-        mode="dropdown"
+        itemStyle={{ fontFamily: "Circular-Book" }} // iOS only
+        dropdownIconColor={colors.primary} // Android only
+        mode="dropdown" // Android only
       >
-        {times.map((time) => (
+        {times.map((item) => (
           <Picker.Item
-            key={time.value}
-            label={time.label}
-            value={time.value}
-            color={Platform.OS === "ios" || time.value === props.reminder.time ? colors.primary : colors.secondary}
-            style={{ backgroundColor: time.value === props.reminder.time ? colors.primaryBg : "white" }} // Android picker is light mode only
+            key={item.value}
+            label={item.label}
+            value={item.value}
+            color={Platform.OS === "ios" || item.value === props.reminder.time ? colors.primary : colors.secondary}
+            style={{ backgroundColor: item.value === props.reminder.time ? colors.primaryBg : "white" }} // Android picker is light mode only
           />
         ))}
       </Picker>
@@ -142,9 +144,5 @@ const styles = StyleSheet.create({
   days: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textTransform: "uppercase",
   },
 });

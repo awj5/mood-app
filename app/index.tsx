@@ -28,7 +28,7 @@ export default function Home() {
 
   const checkNotifications = async () => {
     const { status } = await Notifications.getPermissionsAsync();
-    //if (status === "undetermined") setNotiPromptVisible(true);
+    //if (status === "undetermined") setReminderVisible(true);
     setReminderVisible(true);
     reminderSeenRef.current = true;
   };
@@ -111,7 +111,6 @@ export default function Home() {
         }}
       />
 
-      <Reminder visible={reminderVisible} setVisible={setReminderVisible} />
       <Bg />
 
       <View style={{ flex: 1, marginTop: headerHeight }}>
@@ -120,6 +119,7 @@ export default function Home() {
       </View>
 
       <Footer />
+      <Reminder visible={reminderVisible} setVisible={setReminderVisible} />
     </View>
   );
 }

@@ -19,7 +19,7 @@ export default function Day(props: DayProps) {
       ...prevReminder,
       days: {
         ...prevReminder.days,
-        [props.text]: !isChecked,
+        [props.text]: !isChecked, // Toggle
       },
     }));
   };

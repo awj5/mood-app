@@ -35,13 +35,13 @@ export default function Tags(props: TagsProps) {
     var pos = shuffled.filter((item) => item.type === "pos");
     var neg = shuffled.filter((item) => item.type === "neg");
 
-    if (pos.length < 8) {
-      neg = neg.slice(0, 16 - pos.length); // Adjust neg if not enough pos
-    } else if (neg.length < 8) {
-      pos = pos.slice(0, 16 - neg.length); // Adjust pos if not enough neg
+    if (pos.length < 6) {
+      neg = neg.slice(0, 12 - pos.length); // Adjust neg if not enough pos
+    } else if (neg.length < 6) {
+      pos = pos.slice(0, 12 - neg.length); // Adjust pos if not enough neg
     } else {
-      pos = pos.slice(0, 8);
-      neg = neg.slice(0, 8);
+      pos = pos.slice(0, 6);
+      neg = neg.slice(0, 6);
     }
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
