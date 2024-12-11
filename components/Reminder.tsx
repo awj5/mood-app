@@ -17,7 +17,7 @@ Notifications.setNotificationHandler({
 });
 
 export type ReminderType = {
-  days: { mon: boolean; tue: boolean; wed: boolean; thu: boolean; fri: boolean; sat: boolean; sun: boolean };
+  days: { sun: boolean; mon: boolean; tue: boolean; wed: boolean; thu: boolean; fri: boolean; sat: boolean };
   time: string;
 };
 
@@ -30,7 +30,7 @@ export default function Reminder(props: ReminderProps) {
   const colors = theme();
 
   const [reminder, setReminder] = useState<ReminderType>({
-    days: { mon: true, tue: true, wed: true, thu: true, fri: true, sat: false, sun: false },
+    days: { sun: false, mon: true, tue: true, wed: true, thu: true, fri: true, sat: false },
     time: "17:0",
   });
 
@@ -42,6 +42,7 @@ export default function Reminder(props: ReminderProps) {
 
       if (status !== "granted") {
         console.log("Permission not granted");
+        props.setVisible(false); // Close
         return;
       }
 
@@ -80,7 +81,7 @@ export default function Reminder(props: ReminderProps) {
                 sound: true,
               },
               trigger: {
-                weekday: index + 1, // Day of the week (1 = Monday, 7 = Sunday)
+                weekday: index + 1, // Day of the week (1 = Sunday)
                 hour: parseInt(reminder.time.split(":")[0]),
                 minute: parseInt(reminder.time.split(":")[1]),
                 repeats: true, // Repeats weekly

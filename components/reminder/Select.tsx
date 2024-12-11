@@ -72,7 +72,7 @@ export default function Select(props: SelectProps) {
       const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
 
       const updatedReminder = {
-        days: { mon: false, tue: false, wed: false, thu: false, fri: false, sat: false, sun: false },
+        days: { sun: false, mon: false, tue: false, wed: false, thu: false, fri: false, sat: false },
         time: "",
       };
 
