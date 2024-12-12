@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Modal, StyleSheet, View, Text, Pressable, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
