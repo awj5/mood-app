@@ -22,8 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "ai.mood",
-      "versionCode": 1
+      "package": "ai.mood"
     },
     "web": {
       "favicon": "./assets/favicon.ico",

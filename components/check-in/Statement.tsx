@@ -90,12 +90,12 @@ export default function Statement(props: StatementProps) {
         style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
-        At work, {props.competency.statement}
+        At work, {props.competency.statement}.
       </Text>
 
       <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>
         <View style={{ justifyContent: "center" }}>
-          <View style={[styles.sliderTrackWrapper, { height: Device.deviceType !== 1 ? 32 : 24 }]}>
+          <View style={[styles.sliderTrackWrapper, { height: Device.deviceType !== 1 ? 36 : 28 }]}>
             <View style={[styles.sliderTrack, { marginHorizontal: margin }]}></View>
           </View>
 

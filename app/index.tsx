@@ -27,9 +27,13 @@ export default function Home() {
   const headerOpacity = colors.primary === "white" ? 0.2 : 0.8;
 
   const checkNotifications = async () => {
-    const { status } = await Notifications.getPermissionsAsync();
-    if (status === "undetermined") setReminderVisible(true);
-    //setReminderVisible(true);
+    try {
+      const { status, canAskAgain } = await Notifications.getPermissionsAsync();
+      if (status !== "granted" && canAskAgain) setReminderVisible(true);
+    } catch (error) {
+      console.log(error);
+    }
+
     reminderSeenRef.current = true;
   };
 
