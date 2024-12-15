@@ -57,7 +57,13 @@ export default function Button(props: ButtonProps) {
       <Text
         style={{
           fontFamily: "Circular-Medium",
-          color: !props.fill ? colors.primary : colors.primary === "white" ? "black" : "white",
+          color: props.destructive
+            ? "white"
+            : !props.fill
+            ? colors.primary
+            : colors.primary === "white"
+            ? "black"
+            : "white",
           fontSize: Device.deviceType !== 1 ? 20 : 16,
         }}
         allowFontScaling={false}

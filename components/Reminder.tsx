@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, StyleSheet, View, Text, Pressable, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { useSharedValue, withTiming, Easing, runOnJS } from "react-native-reanimated";
 import { CircleX } from "lucide-react-native";
 import Button from "components/Button";
 import Select from "components/reminder/Select";
-import { theme, pressedDefault } from "utils/helpers";
+import { theme, pressedDefault, getReminder } from "utils/helpers";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -28,13 +28,35 @@ type ReminderProps = {
 
 export default function Reminder(props: ReminderProps) {
   const colors = theme();
+  const opacity = useSharedValue(0);
+  const [showRemove, setShowRemove] = useState(false);
 
   const [reminder, setReminder] = useState<ReminderType>({
     days: { sun: false, mon: true, tue: true, wed: true, thu: true, fri: true, sat: false },
     time: "17:0",
-  });
+  }); // Default
 
   const spacing = Device.deviceType !== 1 ? 24 : 16;
+
+  const showBg = () => {
+    opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+  };
+
+  const close = () => {
+    opacity.value = withTiming(0, { duration: 0 }, () => {
+      runOnJS(props.setVisible)(false);
+    });
+  };
+
+  const remove = async () => {
+    try {
+      await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
+      close();
+    } catch (error) {
+      console.log(error);
+      alert("An unexpected error has occurred.");
+    }
+  };
 
   const press = async () => {
     try {
@@ -42,7 +64,7 @@ export default function Reminder(props: ReminderProps) {
 
       if (status !== "granted") {
         console.log("Permission not granted");
-        props.setVisible(false); // Close
+        close();
         return;
       }
 
@@ -94,98 +116,120 @@ export default function Reminder(props: ReminderProps) {
         }
       });
 
-      props.setVisible(false); // Close
+      close();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const checkReminder = async () => {
+    const current = await getReminder();
+
+    setReminder(
+      current
+        ? current
+        : {
+            days: { sun: false, mon: true, tue: true, wed: true, thu: true, fri: true, sat: false },
+            time: "17:0",
+          }
+    );
+
+    setShowRemove(current ? true : false);
+  };
+
+  useEffect(() => {
+    if (props.visible) checkReminder(); // Only fire on open
+  }, [props.visible]);
+
   return (
-    <>
-      {props.visible && (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={props.visible}
+      onRequestClose={close}
+      onShow={showBg}
+      statusBarTranslucent
+    >
+      <View style={styles.container}>
         <Animated.View
           style={[
             styles.bg,
-            { backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.9)" : "rgba(0, 0, 0, 0.8)" },
+            { opacity, backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0.6)" },
           ]}
-          entering={FadeIn}
         />
-      )}
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={props.visible}
-        onRequestClose={() => props.setVisible(false)}
-      >
-        <View style={styles.container}>
-          <View
+        <View
+          style={[
+            styles.wrapper,
+            {
+              width: Device.deviceType !== 1 ? 448 : 320,
+              backgroundColor: colors.primaryBg,
+              borderRadius: spacing,
+            },
+          ]}
+        >
+          <Pressable
+            onPress={close}
+            style={({ pressed }) => [
+              pressedDefault(pressed),
+              { alignSelf: "flex-end", padding: Device.deviceType !== 1 ? 16 : 12 },
+            ]}
+            hitSlop={12}
+          >
+            <CircleX
+              color={colors.primary}
+              size={Device.deviceType !== 1 ? 32 : 24}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+            />
+          </Pressable>
+
+          <Text
             style={[
-              styles.wrapper,
+              styles.description,
               {
-                width: Device.deviceType !== 1 ? 448 : 320,
-                backgroundColor: colors.primaryBg,
-                borderRadius: spacing,
+                color: colors.primary,
+                fontSize: Device.deviceType !== 1 ? 24 : 18,
+                padding: spacing,
+                paddingTop: 0,
               },
             ]}
+            allowFontScaling={false}
           >
-            <Pressable
-              onPress={() => props.setVisible(false)}
-              style={({ pressed }) => [
-                pressedDefault(pressed),
-                { alignSelf: "flex-end", padding: Device.deviceType !== 1 ? 16 : 12 },
-              ]}
-              hitSlop={12}
+            Schedule a daily check-in{"\n"}reminder notification
+          </Text>
+
+          <Select reminder={reminder} setReminder={setReminder} />
+
+          <View style={{ padding: spacing, gap: spacing }}>
+            <Button
+              func={press}
+              fill
+              icon="bell"
+              disabled={
+                !reminder.days.mon &&
+                !reminder.days.tue &&
+                !reminder.days.wed &&
+                !reminder.days.thu &&
+                !reminder.days.fri &&
+                !reminder.days.sat &&
+                !reminder.days.sun
+                  ? true
+                  : false
+              }
             >
-              <CircleX
-                color={colors.primary}
-                size={Device.deviceType !== 1 ? 32 : 24}
-                absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2.25 : 1.75}
-              />
-            </Pressable>
+              Set reminder
+            </Button>
 
-            <Text
-              style={[
-                styles.description,
-                {
-                  color: colors.primary,
-                  fontSize: Device.deviceType !== 1 ? 24 : 18,
-                  padding: spacing,
-                  paddingTop: 0,
-                },
-              ]}
-              allowFontScaling={false}
-            >
-              Schedule a daily check-in{"\n"}reminder notification
-            </Text>
-
-            <Select reminder={reminder} setReminder={setReminder} />
-
-            <View style={{ padding: spacing }}>
-              <Button
-                func={press}
-                fill
-                icon="bell"
-                disabled={
-                  !reminder.days.mon &&
-                  !reminder.days.tue &&
-                  !reminder.days.wed &&
-                  !reminder.days.thu &&
-                  !reminder.days.fri &&
-                  !reminder.days.sat &&
-                  !reminder.days.sun
-                    ? true
-                    : false
-                }
-              >
-                Set reminder
+            {showRemove && (
+              <Button func={remove} fill destructive>
+                Remove
               </Button>
-            </View>
+            )}
           </View>
         </View>
-      </Modal>
-    </>
+      </View>
+    </Modal>
   );
 }
 

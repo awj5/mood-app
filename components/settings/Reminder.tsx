@@ -1,0 +1,78 @@
+import { useEffect, useState } from "react";
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import * as Device from "expo-device";
+import { Bell, BellRing } from "lucide-react-native";
+import { ReminderType } from "components/Reminder";
+import { theme, pressedDefault, getReminder, times } from "utils/helpers";
+
+type ReminderProps = {
+  reminderVisible: boolean;
+  setReminderVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function Reminder(props: ReminderProps) {
+  const colors = theme();
+  const [reminder, setReminder] = useState<ReminderType>();
+  const fontSize = Device.deviceType !== 1 ? 24 : 18;
+
+  const checkReminder = async () => {
+    const current = await getReminder();
+    setReminder(current ? current : undefined);
+  };
+
+  useEffect(() => {
+    checkReminder();
+  }, [props.reminderVisible]);
+
+  return (
+    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
+      <Text
+        style={{
+          color: colors.primary,
+          fontFamily: "Circular-Medium",
+          fontSize: fontSize,
+        }}
+        allowFontScaling={false}
+      >
+        Check-In Reminder
+      </Text>
+
+      <Pressable
+        onPress={() => props.setReminderVisible(true)}
+        style={({ pressed }) => [pressedDefault(pressed), styles.button, { gap: Device.deviceType !== 1 ? 12 : 8 }]}
+        hitSlop={16}
+      >
+        {reminder ? (
+          <BellRing
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 32 : 24}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          />
+        ) : (
+          <Bell
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 32 : 24}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          />
+        )}
+
+        <Text style={{ fontFamily: "Circular-Book", fontSize: fontSize, color: colors.primary }}>
+          {reminder ? times.filter((item) => item.value === reminder.time)[0].label : "Set"}
+        </Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
