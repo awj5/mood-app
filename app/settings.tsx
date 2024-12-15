@@ -8,6 +8,7 @@ import { Mail } from "lucide-react-native";
 import Name from "components/settings/Name";
 import Reminder from "components/settings/Reminder";
 import ReminderOverlay from "components/Reminder";
+import Version from "components/settings/Version";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function Settings() {
@@ -90,6 +91,8 @@ export default function Settings() {
         <Name />
         <View style={[styles.divider, dividerStyle]} />
         <Reminder reminderVisible={reminderVisible} setReminderVisible={setReminderVisible} />
+        <View style={[styles.divider, dividerStyle]} />
+        <Version />
       </ScrollView>
 
       <ReminderOverlay visible={reminderVisible} setVisible={setReminderVisible} />
