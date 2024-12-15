@@ -37,7 +37,7 @@ export default function Summary(props: SummaryProps) {
 
   return (
     <Animated.View entering={FadeIn} style={[styles.container, { gap: spacing }]}>
-      <View style={[styles.title, { gap: spacing, display: props.text ? "flex" : "none" }]}>
+      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6, display: props.text ? "flex" : "none" }]}>
         <Sparkles
           color={colors.primary}
           size={Device.deviceType !== 1 ? 28 : 20}

@@ -90,7 +90,7 @@ export default function Header(props: HeaderProps) {
           style={{ fontFamily: "Circular-Book", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
           allowFontScaling={false}
         >
-          {time}
+          {time.toLocaleLowerCase()}
         </Text>
       </View>
 

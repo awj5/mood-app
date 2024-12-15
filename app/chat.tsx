@@ -32,7 +32,6 @@ export default function Chat() {
   const checkInIDRef = useRef(0);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
-  const headerTextSize = Device.deviceType !== 1 ? 20 : 16;
   const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
   const requestAISummary = async () => {
@@ -278,7 +277,7 @@ export default function Chat() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Home"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: headerTextSize }}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 24 : 18 }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
@@ -290,19 +289,23 @@ export default function Chat() {
               style={({ pressed }) => [
                 styles.headerRight,
                 pressedDefault(pressed),
-                { gap: Device.deviceType !== 1 ? 12 : 8 },
+                { gap: Device.deviceType !== 1 ? 10 : 6 },
               ]}
               hitSlop={16}
             >
               <Sparkles
                 color={colors.primary}
-                size={Device.deviceType !== 1 ? 32 : 24}
+                size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+                strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
               />
 
               <Text
-                style={{ fontFamily: "Circular-Bold", fontSize: headerTextSize, color: colors.primary }}
+                style={{
+                  fontFamily: "Circular-Bold",
+                  fontSize: Device.deviceType !== 1 ? 20 : 16,
+                  color: colors.primary,
+                }}
                 allowFontScaling={false}
               >
                 Acme, Inc. Insights

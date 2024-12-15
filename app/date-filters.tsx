@@ -11,7 +11,15 @@ export default function DateFilters() {
   const textSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
-    <View style={[{ padding: Device.deviceType !== 1 ? 24 : 16, gap: Device.deviceType !== 1 ? 48 : 32 }]}>
+    <View
+      style={[
+        {
+          padding: Device.deviceType !== 1 ? 24 : 16,
+          paddingTop: Device.deviceType !== 1 ? 12 : 8,
+          gap: Device.deviceType !== 1 ? 48 : 32,
+        },
+      ]}
+    >
       <Stack.Screen
         options={{
           headerBackVisible: false,

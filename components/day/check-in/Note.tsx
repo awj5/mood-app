@@ -9,17 +9,16 @@ type NoteProps = {
 
 export default function Note(props: NoteProps) {
   const colors = theme();
-  const gap = Device.deviceType !== 1 ? 6 : 4;
 
   return (
     <View
       style={{
         flex: 1,
         paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
-        gap: gap,
+        gap: Device.deviceType !== 1 ? 6 : 4,
       }}
     >
-      <View style={[styles.title, { gap: gap }]}>
+      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
         <Sparkles
           color={colors.primary}
           size={Device.deviceType !== 1 ? 28 : 20}
@@ -52,7 +51,7 @@ export default function Note(props: NoteProps) {
           }}
           allowFontScaling={false}
         >
-          {props.text ? props.text : "Not generated"}
+          {props.text ? props.text : "Not generated."}
         </Text>
       </ScrollView>
     </View>

@@ -24,7 +24,6 @@ export default function Home() {
   const [reminderVisible, setReminderVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
-  const headerOpacity = colors.primary === "white" ? 0.2 : 0.8;
 
   const checkNotifications = async () => {
     try {
@@ -78,21 +77,12 @@ export default function Home() {
             backgroundColor: "transparent",
           },
           headerTransparent: true,
-          headerLeft: () => (
-            <View
-              style={{
-                opacity: !reminderVisible ? 1 : headerOpacity,
-              }}
-            >
-              <HeaderLeft />
-            </View>
-          ),
+          headerLeft: () => <HeaderLeft />,
           headerRight: () => (
             <View
               style={{
                 flexDirection: "row",
                 gap: Device.deviceType !== 1 ? 24 : 20,
-                opacity: !reminderVisible ? 1 : headerOpacity,
               }}
             >
               <Pressable
@@ -104,7 +94,7 @@ export default function Home() {
               </Pressable>
 
               <Pressable
-                onPress={() => alert("Coming soon")}
+                onPress={() => router.push("settings")}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >

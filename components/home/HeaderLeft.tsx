@@ -43,7 +43,7 @@ export default function HeaderLeft() {
         <Text
           style={{
             fontFamily: homeDates.rangeStart ? "Circular-Bold" : "Circular-Book",
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
+            fontSize: Device.deviceType !== 1 ? 24 : 18,
             color: !homeDates.rangeStart ? colors.primary : colors.primary === "white" ? "black" : "white",
           }}
           allowFontScaling={false}

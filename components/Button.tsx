@@ -9,11 +9,12 @@ type ButtonProps = {
   fill?: boolean;
   icon?: string;
   disabled?: boolean;
+  destructive?: boolean;
 };
 
 export default function Button(props: ButtonProps) {
   const colors = theme();
-  const stroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const stroke = Device.deviceType !== 1 ? 2 : 1.5;
 
   return (
     <Pressable
@@ -24,12 +25,12 @@ export default function Button(props: ButtonProps) {
         {
           height: Device.deviceType !== 1 ? (props.fill ? 64 : 48) : props.fill ? 48 : 36,
           paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-          borderWidth: stroke,
+          borderWidth: props.destructive || props.fill ? 0 : stroke,
           borderColor: colors.primary,
-          backgroundColor: props.fill ? colors.primary : "transparent",
-          gap: Device.deviceType !== 1 ? 12 : 8,
-          opacity: props.disabled ? 0.25 : 1,
+          backgroundColor: props.destructive ? colors.destructive : props.fill ? colors.primary : "transparent",
+          gap: Device.deviceType !== 1 ? 10 : 6,
         },
+        props.disabled && { opacity: 0.25 },
       ]}
       disabled={props.disabled}
       hitSlop={8}
