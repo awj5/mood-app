@@ -1,21 +1,23 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
 import { getMonday, theme } from "utils/helpers";
 
-export default function Shortcuts() {
+type ShortcutsProps = {
+  setDates: (dates: CalendarDatesType) => void;
+};
+
+export default function Shortcuts(props: ShortcutsProps) {
   const router = useRouter();
   const colors = theme();
-  const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
 
   const setThisWeek = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const monday = getMonday(today);
-    setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+    props.setDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
     router.back();
   };
 
@@ -25,7 +27,7 @@ export default function Shortcuts() {
     const monday = getMonday(today);
     const prevMonday = new Date(monday);
     prevMonday.setDate(monday.getDate() - 7);
-    setHomeDates({ weekStart: prevMonday, rangeStart: undefined, rangeEnd: undefined });
+    props.setDates({ weekStart: prevMonday, rangeStart: undefined, rangeEnd: undefined });
     router.back();
   };
 
@@ -38,7 +40,7 @@ export default function Shortcuts() {
     const firstDayOfNextMonth = new Date(year, month + 1, 1);
     const lastDayOfMonth = new Date(firstDayOfNextMonth);
     lastDayOfMonth.setDate(firstDayOfNextMonth.getDate() - 1);
-    setHomeDates({ weekStart: monday, rangeStart: firstDayOfMonth, rangeEnd: lastDayOfMonth, title: "THIS MONTH'S" });
+    props.setDates({ weekStart: monday, rangeStart: firstDayOfMonth, rangeEnd: lastDayOfMonth, title: "THIS MONTH'S" });
     router.back();
   };
 
@@ -48,7 +50,14 @@ export default function Shortcuts() {
     const daysAgo = new Date();
     daysAgo.setHours(0, 0, 0, 0);
     daysAgo.setDate(today.getDate() - days);
-    setHomeDates({ weekStart: getMonday(daysAgo), rangeStart: daysAgo, rangeEnd: today, title: `PAST ${days} DAY'S` });
+
+    props.setDates({
+      weekStart: getMonday(daysAgo),
+      rangeStart: daysAgo,
+      rangeEnd: today,
+      title: `PAST ${days} DAY'S`,
+    });
+
     router.back();
   };
 
@@ -63,12 +72,14 @@ export default function Shortcuts() {
     const firstDayOfNextMonth = new Date(prevMonthYear, prevMonth + 1, 1);
     const lastDayOfPrevMonth = new Date(firstDayOfNextMonth);
     lastDayOfPrevMonth.setDate(firstDayOfNextMonth.getDate() - 1);
-    setHomeDates({
+
+    props.setDates({
       weekStart: firstMondayOfPrevMonth,
       rangeStart: firstDayOfPrevMonth,
       rangeEnd: lastDayOfPrevMonth,
       title: "LAST MONTH'S",
     });
+
     router.back();
   };
 
@@ -78,7 +89,7 @@ export default function Shortcuts() {
     const firstDayOfYear = new Date(year, 0, 1);
     const monday = getMonday(firstDayOfYear);
     const lastDayOfYear = new Date(year, 11, 31);
-    setHomeDates({ weekStart: monday, rangeStart: firstDayOfYear, rangeEnd: lastDayOfYear, title: "THIS YEAR'S" });
+    props.setDates({ weekStart: monday, rangeStart: firstDayOfYear, rangeEnd: lastDayOfYear, title: "THIS YEAR'S" });
     router.back();
   };
 
@@ -88,12 +99,14 @@ export default function Shortcuts() {
     const firstDayOfLastYear = new Date(year, 0, 1);
     const firstMondayOfLastYear = getMonday(firstDayOfLastYear);
     const lastDayOfLastYear = new Date(year, 11, 31);
-    setHomeDates({
+
+    props.setDates({
       weekStart: firstMondayOfLastYear,
       rangeStart: firstDayOfLastYear,
       rangeEnd: lastDayOfLastYear,
       title: "LAST YEAR'S",
     });
+
     router.back();
   };
 

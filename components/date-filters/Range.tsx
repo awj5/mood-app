@@ -1,14 +1,18 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
 import { getMonday, theme } from "utils/helpers";
 
-export default function Range() {
+type RangeProps = {
+  dates: CalendarDatesType;
+  setDates: (dates: CalendarDatesType) => void;
+};
+
+export default function Range(props: RangeProps) {
   const colors = theme();
-  const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [showStartPicker, setShowStartPicker] = useState(Platform.OS === "ios");
   const [showEndPicker, setShowEndPicker] = useState(Platform.OS === "ios");
   const labelFontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -18,8 +22,8 @@ export default function Range() {
   const colAlign = Platform.OS === "ios" ? "center" : "stretch";
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const weekEnd = new Date(homeDates.weekStart);
-  weekEnd.setDate(homeDates.weekStart.getDate() + 6); // Sunday
+  const weekEnd = new Date(props.dates.weekStart);
+  weekEnd.setDate(props.dates.weekStart.getDate() + 6); // Sunday
   const endOfYear = new Date(new Date().getFullYear(), 11, 31);
 
   const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
@@ -31,10 +35,10 @@ export default function Range() {
       const weekLater = new Date(date);
       weekLater.setDate(date.getDate() + 7);
 
-      setHomeDates({
+      props.setDates({
         weekStart: monday,
         rangeStart: date,
-        rangeEnd: homeDates?.rangeEnd ?? weekLater,
+        rangeEnd: props.dates?.rangeEnd ?? weekLater,
       });
     }
   };
@@ -48,9 +52,9 @@ export default function Range() {
       prevWeek.setDate(date.getDate() - 7);
       const monday = getMonday(prevWeek);
 
-      setHomeDates({
-        weekStart: homeDates.rangeStart ? homeDates.weekStart : monday,
-        rangeStart: homeDates.rangeStart ?? prevWeek,
+      props.setDates({
+        weekStart: props.dates.rangeStart ? props.dates.weekStart : monday,
+        rangeStart: props.dates.rangeStart ?? prevWeek,
         rangeEnd: date,
       });
     }
@@ -68,15 +72,15 @@ export default function Range() {
 
         {Platform.OS !== "ios" && (
           <Button func={() => setShowStartPicker(true)} fill icon="calendar">
-            {homeDates.rangeStart
-              ? homeDates.rangeStart.toLocaleDateString()
-              : homeDates.weekStart.toLocaleDateString()}
+            {props.dates.rangeStart
+              ? props.dates.rangeStart.toLocaleDateString()
+              : props.dates.weekStart.toLocaleDateString()}
           </Button>
         )}
 
         {showStartPicker && (
           <DateTimePicker
-            value={homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart}
+            value={props.dates.rangeStart ? props.dates.rangeStart : props.dates.weekStart}
             mode="date"
             onChange={onStartChange}
             accentColor={colors.primary}
@@ -97,13 +101,13 @@ export default function Range() {
 
         {Platform.OS !== "ios" && (
           <Button func={() => setShowEndPicker(true)} fill icon="calendar">
-            {homeDates.rangeEnd ? homeDates.rangeEnd.toLocaleDateString() : weekEnd.toLocaleDateString()}
+            {props.dates.rangeEnd ? props.dates.rangeEnd.toLocaleDateString() : weekEnd.toLocaleDateString()}
           </Button>
         )}
 
         {showEndPicker && (
           <DateTimePicker
-            value={homeDates.rangeEnd ? homeDates.rangeEnd : weekEnd}
+            value={props.dates.rangeEnd ? props.dates.rangeEnd : weekEnd}
             mode="date"
             onChange={onEndChange}
             accentColor={colors.primary}

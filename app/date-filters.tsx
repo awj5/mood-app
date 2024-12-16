@@ -1,14 +1,20 @@
+import { useContext } from "react";
 import { Pressable, Text, View } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Range from "components/date-filters/Range";
 import Shortcuts from "components/date-filters/Shortcuts";
 import HeaderTitle from "components/HeaderTitle";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function DateFilters() {
+  const params = useLocalSearchParams<{ type: string }>();
   const colors = theme();
   const router = useRouter();
+  const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
 
   return (
     <View style={{ flex: 1 }}>
@@ -35,7 +41,11 @@ export default function DateFilters() {
 
       <HeaderTitle
         text="History"
-        description="Explore your mood check-in history by selecting a specific date range or tapping a shortcut."
+        description={
+          params.type === "company"
+            ? "Explore the anonymous mood check-in history of your colleagues by selecting a specific date range or tapping a shortcut."
+            : "Explore your mood check-in history by selecting a specific date range or tapping a shortcut."
+        }
       />
 
       <View
@@ -47,8 +57,12 @@ export default function DateFilters() {
           },
         ]}
       >
-        <Range />
-        <Shortcuts />
+        <Range
+          dates={params.type === "company" ? companyDates : homeDates}
+          setDates={params.type === "company" ? setCompanyDates : setHomeDates}
+        />
+
+        <Shortcuts setDates={params.type === "company" ? setCompanyDates : setHomeDates} />
       </View>
     </View>
   );

@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "data/database";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
+import { CompanyDatesContext } from "context/company-dates";
 import { theme } from "../utils/helpers";
 
 SplashScreen.preventAutoHideAsync();
@@ -22,6 +23,7 @@ export default function Layout() {
   const width = Dimensions.get("screen").width;
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
   const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
+  const [companyDates, setCompanyDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
@@ -74,29 +76,31 @@ export default function Layout() {
     <SQLiteProvider databaseName="mood.db" onInit={initDB}>
       <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
         <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <Stack
-              screenOptions={{
-                contentStyle: {
-                  backgroundColor: colors.primaryBg,
-                },
-                headerShadowVisible: false,
-                headerStyle: {
-                  backgroundColor: colors.primaryBg,
-                },
-                headerTintColor: colors.primary,
-              }}
-            >
-              <Stack.Screen
-                name="date-filters"
-                options={{
-                  presentation: "modal",
+          <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <Stack
+                screenOptions={{
+                  contentStyle: {
+                    backgroundColor: colors.primaryBg,
+                  },
+                  headerShadowVisible: false,
+                  headerStyle: {
+                    backgroundColor: colors.primaryBg,
+                  },
+                  headerTintColor: colors.primary,
                 }}
-              />
-            </Stack>
+              >
+                <Stack.Screen
+                  name="date-filters"
+                  options={{
+                    presentation: "modal",
+                  }}
+                />
+              </Stack>
 
-            <StatusBar style="auto" />
-          </GestureHandlerRootView>
+              <StatusBar style="auto" />
+            </GestureHandlerRootView>
+          </CompanyDatesContext.Provider>
         </HomeDatesContext.Provider>
       </DimensionsContext.Provider>
     </SQLiteProvider>

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useContext } from "react";
 import { View, Pressable } from "react-native";
 import { SplashScreen, Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -6,8 +6,9 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Settings, Download } from "lucide-react-native";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Calendar from "components/home/Calendar";
-import HeaderLeft from "components/home/HeaderLeft";
+import HeaderDates from "components/HeaderDates";
 import Bg from "components/home/Bg";
 import Footer from "components/home/Footer";
 import Content from "components/home/Content";
@@ -21,6 +22,7 @@ export default function Home() {
   const db = useSQLiteContext();
   const todayRef = useRef<Date>();
   const reminderSeenRef = useRef(false);
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
@@ -80,7 +82,7 @@ export default function Home() {
             backgroundColor: "transparent",
           },
           headerTransparent: true,
-          headerLeft: () => <HeaderLeft />,
+          headerLeft: () => <HeaderDates dates={homeDates} type="home" />,
           headerRight: () => (
             <View
               style={{

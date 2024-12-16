@@ -1,30 +1,34 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { CalendarDatesType } from "context/home-dates";
 import { pressedDefault, theme, getDateRange } from "utils/helpers";
 
-export default function HeaderLeft() {
+type HeaderDatesProps = {
+  dates: CalendarDatesType;
+  type: string;
+};
+
+export default function HeaderDates(props: HeaderDatesProps) {
   const router = useRouter();
   const colors = theme();
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [rangeText, setRangeText] = useState("");
   const stroke = Device.deviceType !== 1 ? 2.5 : 2;
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   useEffect(() => {
-    setRangeText(getDateRange(homeDates));
-  }, [homeDates]);
+    setRangeText(getDateRange(props.dates));
+  }, [props.dates]);
 
   return (
     <Pressable
-      onPress={() => router.push("date-filters")}
+      onPress={() => router.push({ pathname: "date-filters", params: { type: props.type } })}
       style={({ pressed }) => [styles.container, pressedDefault(pressed), { gap: Device.deviceType !== 1 ? 12 : 8 }]}
       hitSlop={16}
     >
-      {homeDates.rangeStart ? (
+      {props.dates.rangeStart || props.type === "company" ? (
         <CalendarRange color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
       ) : (
         <CalendarDays color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
@@ -34,17 +38,22 @@ export default function HeaderLeft() {
         style={[
           styles.wrapper,
           {
-            backgroundColor: homeDates.rangeStart ? colors.primary : "transparent",
+            backgroundColor: props.dates.rangeStart && props.type === "home" ? colors.primary : "transparent",
             height: Device.deviceType !== 1 ? 36 : 28,
-            paddingHorizontal: !homeDates.rangeStart ? 0 : Device.deviceType !== 1 ? 16 : 12,
+            paddingHorizontal: !props.dates.rangeStart || props.type !== "home" ? 0 : Device.deviceType !== 1 ? 16 : 12,
           },
         ]}
       >
         <Text
           style={{
-            fontFamily: homeDates.rangeStart ? "Circular-Bold" : "Circular-Book",
+            fontFamily: props.dates.rangeStart && props.type === "home" ? "Circular-Bold" : "Circular-Book",
             fontSize: Device.deviceType !== 1 ? 24 : 18,
-            color: !homeDates.rangeStart ? colors.primary : colors.primary === "white" ? "black" : "white",
+            color:
+              !props.dates.rangeStart || props.type !== "home"
+                ? colors.primary
+                : colors.primary === "white"
+                ? "black"
+                : "white",
           }}
           allowFontScaling={false}
         >
