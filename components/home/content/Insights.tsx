@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
 import axios from "axios";
 import { CheckInType, InsightType } from "data/database";
+import { CalendarDatesType } from "context/home-dates";
 import Loading from "components/Loading";
-import Summary from "./insights/Summary";
+import Summary from "components/Summary";
 import { getPromptData, PromptDataType } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
+  dates: CalendarDatesType;
 };
 
 export default function Insights(props: InsightsProps) {
@@ -117,7 +119,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating insights" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} />
+        <Summary text={text} getInsights={getInsights} dates={props.dates} />
       )}
     </View>
   );

@@ -1,19 +1,18 @@
-import { useContext } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { CalendarDatesType } from "context/home-dates";
 import { theme, pressedDefault, getMonday, getDateRange } from "utils/helpers";
 
 type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
+  dates: CalendarDatesType;
 };
 
 export default function Summary(props: SummaryProps) {
   const colors = theme();
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const spacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -24,16 +23,16 @@ export default function Summary(props: SummaryProps) {
   lastMonday.setDate(monday.getDate() - 7);
 
   const title = `${
-    homeDates.title
-      ? `${homeDates.title} `
-      : !homeDates.rangeStart && monday.getTime() === homeDates.weekStart.getTime()
+    props.dates.title
+      ? `${props.dates.title} `
+      : !props.dates.rangeStart && monday.getTime() === props.dates.weekStart.getTime()
       ? "THIS WEEK'S "
-      : !homeDates.rangeStart && lastMonday.getTime() === homeDates.weekStart.getTime()
+      : !props.dates.rangeStart && lastMonday.getTime() === props.dates.weekStart.getTime()
       ? "LAST WEEK'S "
       : ""
   }INSIGHTS`;
 
-  const subTitle = getDateRange(homeDates, true);
+  const subTitle = getDateRange(props.dates, true);
 
   return (
     <Animated.View entering={FadeIn} style={[styles.container, { gap: spacing }]}>

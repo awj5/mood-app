@@ -17,7 +17,6 @@ export default function Settings() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [reminderVisible, setReminderVisible] = useState(false);
-  const textSize = Device.deviceType !== 1 ? 24 : 18;
   const padding = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: padding };
 
@@ -30,7 +29,7 @@ export default function Settings() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: textSize }}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
@@ -63,7 +62,11 @@ export default function Settings() {
               />
 
               <Text
-                style={{ fontFamily: "Circular-Book", fontSize: textSize, color: colors.primary }}
+                style={{
+                  fontFamily: "Circular-Book",
+                  fontSize: Device.deviceType !== 1 ? 24 : 18,
+                  color: colors.primary,
+                }}
                 allowFontScaling={false}
               >
                 Support

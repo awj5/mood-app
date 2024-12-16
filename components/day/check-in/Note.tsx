@@ -51,7 +51,7 @@ export default function Note(props: NoteProps) {
           }}
           allowFontScaling={false}
         >
-          {props.text ? props.text : "Not generated."}
+          {props.text ? props.text : "Not generated"}
         </Text>
       </ScrollView>
     </View>

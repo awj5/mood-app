@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useContext, useRef, useState } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
@@ -71,7 +72,7 @@ export default function Content() {
       >
         {checkIns?.length ? (
           <>
-            <Insights checkIns={checkIns} />
+            <Insights checkIns={checkIns} dates={homeDates} />
             <Recs />
           </>
         ) : (

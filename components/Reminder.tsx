@@ -116,18 +116,6 @@ export default function Reminder(props: ReminderProps) {
         }
       });
 
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "How's work?",
-          body: "It's time to check-in.",
-          sound: true,
-          data: { route: "/check-in" },
-        },
-        trigger: {
-          seconds: 1,
-        },
-      });
-
       close();
     } catch (error) {
       console.log(error);
