@@ -63,7 +63,7 @@ export default function Name() {
         ]}
         allowFontScaling={false}
         returnKeyType="done"
-        onSubmitEditing={setName}
+        onBlur={setName}
       />
     </View>
   );

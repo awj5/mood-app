@@ -75,26 +75,29 @@ export default function Reminder(props: ReminderProps) {
 
       <Pressable
         onPress={press}
-        style={({ pressed }) => [pressedDefault(pressed), styles.button, { gap: Device.deviceType !== 1 ? 12 : 8 }]}
+        style={({ pressed }) => [pressedDefault(pressed), styles.button, { gap: Device.deviceType !== 1 ? 10 : 6 }]}
         hitSlop={16}
       >
         {reminder ? (
           <BellRing
             color={colors.primary}
-            size={Device.deviceType !== 1 ? 32 : 24}
+            size={Device.deviceType !== 1 ? 28 : 20}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
         ) : (
           <Bell
             color={colors.primary}
-            size={Device.deviceType !== 1 ? 32 : 24}
+            size={Device.deviceType !== 1 ? 28 : 20}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
         )}
 
-        <Text style={{ fontFamily: "Circular-Book", fontSize: fontSize, color: colors.primary }}>
+        <Text
+          style={{ fontFamily: "Circular-Book", fontSize: fontSize, color: colors.primary }}
+          allowFontScaling={false}
+        >
           {reminder ? times.filter((item) => item.value === reminder.time)[0].label : "Set"}
         </Text>
       </Pressable>

@@ -67,6 +67,8 @@ export default function Home() {
       } else if (!reminderSeenRef.current) {
         checkNotifications();
       }
+
+      //router.push("chat");
     }, [])
   );
 

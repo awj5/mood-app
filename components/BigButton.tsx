@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
+import * as Haptics from "expo-haptics";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -25,6 +26,11 @@ export default function BigButton(props: BigButtonProps) {
   const router = useRouter();
   const scale = useSharedValue(1);
   const colors = theme();
+
+  const press = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    router.push(props.route);
+  };
 
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -57,7 +63,7 @@ export default function BigButton(props: BigButtonProps) {
   return (
     <Animated.View style={[styles.container, animatedStyles]}>
       <Pressable
-        onPress={() => router.push(props.route)}
+        onPress={press}
         style={({ pressed }) => [
           pressedDefault(pressed),
           styles.button,

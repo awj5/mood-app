@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal, StyleSheet, View, Text, Pressable, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import Animated, { useSharedValue, withTiming, Easing, runOnJS } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 import { CircleX } from "lucide-react-native";
 import Button from "components/Button";
 import Select from "components/reminder/Select";
@@ -28,7 +28,6 @@ type ReminderProps = {
 
 export default function Reminder(props: ReminderProps) {
   const colors = theme();
-  const opacity = useSharedValue(0);
   const [showRemove, setShowRemove] = useState(false);
 
   const [reminder, setReminder] = useState<ReminderType>({
@@ -38,20 +37,10 @@ export default function Reminder(props: ReminderProps) {
 
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
-  const showBg = () => {
-    opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-  };
-
-  const close = () => {
-    opacity.value = withTiming(0, { duration: 0 }, () => {
-      runOnJS(props.setVisible)(false);
-    });
-  };
-
   const remove = async () => {
     try {
       await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
-      close();
+      props.setVisible(false); // Close
     } catch (error) {
       console.log(error);
       alert("An unexpected error has occurred.");
@@ -59,12 +48,14 @@ export default function Reminder(props: ReminderProps) {
   };
 
   const press = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
     try {
       const { status } = await Notifications.requestPermissionsAsync();
 
       if (status !== "granted") {
         console.log("Permission not granted");
-        close();
+        props.setVisible(false); // Close
         return;
       }
 
@@ -116,7 +107,7 @@ export default function Reminder(props: ReminderProps) {
         }
       });
 
-      close();
+      props.setVisible(false); // Close
     } catch (error) {
       console.log(error);
     }
@@ -143,21 +134,18 @@ export default function Reminder(props: ReminderProps) {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={props.visible}
-      onRequestClose={close}
-      onShow={showBg}
+      onRequestClose={() => props.setVisible(false)}
       statusBarTranslucent
     >
-      <View style={styles.container}>
-        <Animated.View
-          style={[
-            styles.bg,
-            { opacity, backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0.6)" },
-          ]}
-        />
-
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.7)" },
+        ]}
+      >
         <View
           style={[
             styles.wrapper,
@@ -169,7 +157,7 @@ export default function Reminder(props: ReminderProps) {
           ]}
         >
           <Pressable
-            onPress={close}
+            onPress={() => props.setVisible(false)}
             style={({ pressed }) => [
               pressedDefault(pressed),
               { alignSelf: "flex-end", padding: Device.deviceType !== 1 ? 16 : 12 },
@@ -238,11 +226,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  bg: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
   },
   wrapper: {
     shadowColor: "black",
