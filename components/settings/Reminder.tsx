@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, View, Text, Pressable, Alert, Platform, Linking } from "react-native";
 import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 import { Bell, BellRing } from "lucide-react-native";
 import { ReminderType } from "components/Reminder";
 import { theme, pressedDefault, getReminder, times } from "utils/helpers";
@@ -14,6 +15,41 @@ export default function Reminder(props: ReminderProps) {
   const colors = theme();
   const [reminder, setReminder] = useState<ReminderType>();
   const fontSize = Device.deviceType !== 1 ? 24 : 18;
+
+  const openSettings = () => {
+    if (Platform.OS === "ios") {
+      Linking.openURL("app-settings:").catch(() => {
+        alert("Unable to open app settings.");
+      });
+    } else {
+      Linking.openSettings().catch(() => {
+        alert("Unable to open app settings.");
+      });
+    }
+  };
+
+  const press = async () => {
+    try {
+      const { status, canAskAgain } = await Notifications.getPermissionsAsync();
+
+      if (status === "granted" || canAskAgain) {
+        props.setReminderVisible(true); // Notifications allowed or can ask
+      } else {
+        // Notifications denied
+        Alert.alert(
+          "Notifications Not Allowed",
+          "Please allow MOOD.ai to send notifications in your device Settings.",
+          [
+            { text: "Cancel", style: "cancel" },
+            { text: "Settings", onPress: openSettings },
+          ]
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      alert("An unexpected error has occurred.");
+    }
+  };
 
   const checkReminder = async () => {
     const current = await getReminder();
@@ -38,7 +74,7 @@ export default function Reminder(props: ReminderProps) {
       </Text>
 
       <Pressable
-        onPress={() => props.setReminderVisible(true)}
+        onPress={press}
         style={({ pressed }) => [pressedDefault(pressed), styles.button, { gap: Device.deviceType !== 1 ? 12 : 8 }]}
         hitSlop={16}
       >
