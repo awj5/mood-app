@@ -9,6 +9,7 @@ import Name from "components/settings/Name";
 import Reminder from "components/settings/Reminder";
 import ReminderOverlay from "components/Reminder";
 import Version from "components/settings/Version";
+import HeaderTitle from "components/HeaderTitle";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function Settings() {
@@ -72,14 +73,7 @@ export default function Settings() {
         }}
       />
 
-      <View style={{ paddingHorizontal: padding, paddingVertical: padding / 2 }}>
-        <Text
-          style={{ fontFamily: "Circular-Bold", fontSize: Device.deviceType !== 1 ? 48 : 36, color: colors.primary }}
-          allowFontScaling={false}
-        >
-          Settings
-        </Text>
-      </View>
+      <HeaderTitle text="Settings" />
 
       <ScrollView
         contentContainerStyle={{

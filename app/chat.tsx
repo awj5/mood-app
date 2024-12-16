@@ -285,7 +285,7 @@ export default function Chat() {
           ),
           headerRight: () => (
             <Pressable
-              onPress={() => alert("Coming soon")}
+              onPress={() => router.push("company-dash")}
               style={({ pressed }) => [
                 styles.headerRight,
                 pressedDefault(pressed),

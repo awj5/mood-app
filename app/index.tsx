@@ -65,6 +65,9 @@ export default function Home() {
       } else if (!reminderSeenRef.current) {
         checkNotifications();
       }
+
+      //setReminderVisible(true);
+      //router.push("chat");
     }, [])
   );
 
