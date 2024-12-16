@@ -68,7 +68,7 @@ export default function Home() {
         checkNotifications();
       }
 
-      //router.push("chat");
+      router.push("chat");
     }, [])
   );
 

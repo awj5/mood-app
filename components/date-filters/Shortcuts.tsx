@@ -55,7 +55,7 @@ export default function Shortcuts(props: ShortcutsProps) {
       weekStart: getMonday(daysAgo),
       rangeStart: daysAgo,
       rangeEnd: today,
-      title: `PAST ${days} DAY'S`,
+      title: `PAST ${days} DAYS'`,
     });
 
     router.back();

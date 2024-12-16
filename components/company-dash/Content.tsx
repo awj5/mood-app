@@ -7,26 +7,25 @@ import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
+import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Insights from "./content/Insights";
-import Recs from "./content/Recs";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
   const db = useSQLiteContext();
   const colors = theme();
   const insets = useSafeAreaInsets();
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const latestQueryRef = useRef<symbol>();
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const getCheckInData = async () => {
-    const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
+    const start = companyDates.rangeStart ? companyDates.rangeStart : companyDates.weekStart;
     var end = new Date(start);
 
-    if (homeDates.rangeEnd) {
-      end = homeDates.rangeEnd;
+    if (companyDates.rangeEnd) {
+      end = companyDates.rangeEnd;
     } else {
       end.setDate(start.getDate() + 6); // Sunday
     }
@@ -56,7 +55,7 @@ export default function Content() {
   useFocusEffect(
     useCallback(() => {
       getCheckIns();
-    }, [homeDates])
+    }, [companyDates])
   );
 
   return (
@@ -65,15 +64,14 @@ export default function Content() {
         style={[
           styles.wrapper,
           {
-            paddingBottom: spacing * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
+            paddingBottom: insets.bottom + spacing,
             gap: spacing,
           },
         ]}
       >
         {checkIns?.length ? (
           <>
-            <Insights checkIns={checkIns} dates={homeDates} />
-            <Recs />
+            <Insights checkIns={checkIns} dates={companyDates} />
           </>
         ) : (
           checkIns !== undefined && (

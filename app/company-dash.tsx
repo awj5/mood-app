@@ -16,7 +16,7 @@ export default function CompanyDash() {
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
 
   useEffect(() => {
-    // Always set to past 30 days on mount
+    // Always set date to past 30 days on mount
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const daysAgo = new Date();
