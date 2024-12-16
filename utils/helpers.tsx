@@ -24,7 +24,6 @@ export const theme = () => {
     secondary: colorScheme === "light" ? "#999999" : "#666666",
     primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
     secondaryBg: colorScheme === "light" ? "#DDDDDD" : "#333333",
-    destructive: "#FF0000",
   };
 };
 

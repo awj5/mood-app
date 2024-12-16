@@ -27,7 +27,7 @@ export default function Button(props: ButtonProps) {
           paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
           borderWidth: props.destructive || props.fill ? 0 : stroke,
           borderColor: colors.primary,
-          backgroundColor: props.destructive ? colors.destructive : props.fill ? colors.primary : "transparent",
+          backgroundColor: props.destructive ? colors.secondary : props.fill ? colors.primary : "transparent",
           gap: Device.deviceType !== 1 ? 10 : 6,
         },
         props.disabled && { opacity: 0.25 },
