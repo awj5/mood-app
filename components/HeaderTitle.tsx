@@ -20,6 +20,7 @@ export default function HeaderTitle(props: HeaderTitleProps) {
         paddingVertical: Device.deviceType !== 1 ? 12 : 8,
         gap: Device.deviceType !== 1 ? 8 : 4,
         marginTop: props.transparentHeader ? headerHeight : 0,
+        flexShrink: 1,
       }}
     >
       <Text

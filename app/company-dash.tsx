@@ -1,15 +1,16 @@
 import { useContext, useEffect } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
-import { Filter } from "lucide-react-native";
+import { SlidersHorizontal } from "lucide-react-native";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Bg from "components/home/Bg";
 import HeaderTitle from "components/HeaderTitle";
 import HeaderDates from "components/HeaderDates";
 import Content from "components/company-dash/Content";
-import { theme, getMonday, pressedDefault } from "utils/helpers";
+import Button from "components/Button";
+import { theme, getMonday } from "utils/helpers";
 
 export default function CompanyDash() {
   const colors = theme();
@@ -60,26 +61,7 @@ export default function CompanyDash() {
 
       <View style={[styles.header, { marginTop: headerHeight, paddingRight: Device.deviceType !== 1 ? 24 : 16 }]}>
         <HeaderTitle text="Acme, Inc." />
-
-        <Pressable
-          onPress={() => null}
-          style={({ pressed }) => [styles.filters, pressedDefault(pressed), { gap: Device.deviceType !== 1 ? 12 : 8 }]}
-          hitSlop={16}
-        >
-          <Filter
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 32 : 24}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-          />
-
-          <Text
-            style={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 24 : 18, color: colors.primary }}
-            allowFontScaling={false}
-          >
-            Filters
-          </Text>
-        </Pressable>
+        <Button icon={SlidersHorizontal}>Filters</Button>
       </View>
 
       <Content />
@@ -92,9 +74,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  filters: {
-    flexDirection: "row",
-    alignItems: "center",
   },
 });

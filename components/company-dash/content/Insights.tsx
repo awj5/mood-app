@@ -89,10 +89,10 @@ export default function Insights(props: InsightsProps) {
 
         // Save response
         try {
-          await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
+          /* await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
             promptData.ids.toString(),
             aiResponse.choices[0].message.content,
-          ]);
+          ]); */
         } catch (error) {
           console.log(error);
         }
