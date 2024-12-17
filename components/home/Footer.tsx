@@ -4,6 +4,7 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { CircleCheck } from "lucide-react-native";
 import BigButton from "components/BigButton";
 import { convertToISO } from "utils/helpers";
 
@@ -57,7 +58,7 @@ export default function Footer() {
         },
       ]}
     >
-      <BigButton route="check-in" shadow bounce={bounce}>
+      <BigButton route="check-in" shadow bounce={bounce} icon={CircleCheck}>
         Check-in
       </BigButton>
     </View>

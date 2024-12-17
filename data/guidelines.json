@@ -3,83 +3,103 @@
     "categories": [
       {
         "id": 1,
-        "title": "Roles and Expectations"
+        "title": "Roles & Expectations",
+        "icon": "ClipboardList"
       },
       {
         "id": 2,
-        "title": "Job Control and Autonomy"
+        "title": "Job Control & Autonomy",
+        "icon": "BicepsFlexed"
       },
       {
         "id": 3,
-        "title": "Job Demands"
+        "title": "Job Demands",
+        "icon": "Weight"
       },
       {
         "id": 4,
-        "title": "Organizational Change Management"
+        "title": "Change Management",
+        "icon": "Compass"
       },
       {
         "id": 5,
-        "title": "Remote and Isolated Work"
+        "title": "Remote & Isolated Work",
+        "icon": "TreePalm"
       },
       {
         "id": 6,
-        "title": "Working Hours and Schedule"
+        "title": "Working Hours",
+        "icon": "CalendarClock"
       },
       {
         "id": 7,
-        "title": "Job Security and Precarious Work"
+        "title": "Job Security",
+        "icon": "KeyRound"
       },
       {
         "id": 8,
-        "title": "Interpersonal Relationships"
+        "title": "Interpersonal Dynamics",
+        "icon": "Users"
       },
       {
         "id": 9,
-        "title": "Leadership"
+        "title": "Leadership",
+        "icon": "Footprints"
       },
       {
         "id": 10,
-        "title": "Organizational/Workgroup Culture"
+        "title": "Organisational Culture",
+        "icon": "Puzzle"
       },
       {
         "id": 11,
-        "title": "Recognition and Reward"
+        "title": "Recognition & Reward",
+        "icon": "Trophy"
       },
       {
         "id": 12,
-        "title": "Career Development"
+        "title": "Career Development",
+        "icon": "Rocket"
       },
       {
         "id": 13,
-        "title": "Support"
+        "title": "Support",
+        "icon": "LifeBuoy"
       },
       {
         "id": 14,
-        "title": "Supervision"
+        "title": "Supervision",
+        "icon": "Eye"
       },
       {
         "id": 15,
-        "title": "Civility and Respect"
+        "title": "Civility & Respect",
+        "icon": "Handshake"
       },
       {
         "id": 16,
-        "title": "Work/Life Balance"
+        "title": "Work/Life Balance",
+        "icon": "Scale"
       },
       {
         "id": 17,
-        "title": "Violence at Work"
+        "title": "Violence at Work",
+        "icon": "BellElectric"
       },
       {
         "id": 18,
-        "title": "Harassment"
+        "title": "Harassment",
+        "icon": "MessageSquareWarning"
       },
       {
         "id": 19,
-        "title": "Bullying and Victimization"
+        "title": "Bullying & Victimisation",
+        "icon": "Skull"
       },
       {
         "id": 20,
-        "title": "Work Environment, Equipment and Hazardous Tasks"
+        "title": "Work Environment",
+        "icon": "TrafficCone"
       }
     ],
     "competencies": [

@@ -9,6 +9,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Insights from "./content/Insights";
+import Categories from "./content/Categories";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
@@ -72,6 +73,7 @@ export default function Content() {
         {checkIns?.length ? (
           <>
             <Insights checkIns={checkIns} dates={companyDates} />
+            <Categories />
           </>
         ) : (
           checkIns !== undefined && (

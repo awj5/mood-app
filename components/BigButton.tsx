@@ -12,7 +12,6 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
-import { CircleCheck } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
 type BigButtonProps = {
@@ -20,12 +19,14 @@ type BigButtonProps = {
   route: string;
   shadow?: boolean;
   bounce?: boolean;
+  icon?: React.ElementType;
 };
 
 export default function BigButton(props: BigButtonProps) {
   const router = useRouter();
   const scale = useSharedValue(1);
   const colors = theme();
+  const Icon = props.icon;
 
   const press = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -76,12 +77,14 @@ export default function BigButton(props: BigButtonProps) {
         ]}
         hitSlop={8}
       >
-        <CircleCheck
-          color={colors.primary === "white" ? "black" : "white"}
-          size={Device.deviceType !== 1 ? 32 : 24}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-        />
+        {Icon && (
+          <Icon
+            color={colors.primary === "white" ? "black" : "white"}
+            size={Device.deviceType !== 1 ? 32 : 24}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          />
+        )}
 
         <Text
           style={{

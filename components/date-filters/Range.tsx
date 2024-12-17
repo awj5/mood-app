@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import { CalendarDays } from "lucide-react-native";
 import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
 import { getMonday, theme } from "utils/helpers";
@@ -71,7 +72,7 @@ export default function Range(props: RangeProps) {
         </Text>
 
         {Platform.OS !== "ios" && (
-          <Button func={() => setShowStartPicker(true)} fill icon="calendar">
+          <Button func={() => setShowStartPicker(true)} fill icon={CalendarDays}>
             {props.dates.rangeStart
               ? props.dates.rangeStart.toLocaleDateString()
               : props.dates.weekStart.toLocaleDateString()}
@@ -100,7 +101,7 @@ export default function Range(props: RangeProps) {
         </Text>
 
         {Platform.OS !== "ios" && (
-          <Button func={() => setShowEndPicker(true)} fill icon="calendar">
+          <Button func={() => setShowEndPicker(true)} fill icon={CalendarDays}>
             {props.dates.rangeEnd ? props.dates.rangeEnd.toLocaleDateString() : weekEnd.toLocaleDateString()}
           </Button>
         )}

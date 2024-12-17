@@ -3,7 +3,7 @@ import { Modal, StyleSheet, View, Text, Pressable, Platform } from "react-native
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import * as Haptics from "expo-haptics";
-import { CircleX } from "lucide-react-native";
+import { CircleX, BellRing } from "lucide-react-native";
 import Button from "components/Button";
 import Select from "components/reminder/Select";
 import { theme, pressedDefault, getReminder } from "utils/helpers";
@@ -193,7 +193,7 @@ export default function Reminder(props: ReminderProps) {
             <Button
               func={press}
               fill
-              icon="bell"
+              icon={BellRing}
               disabled={
                 !reminder.days.mon &&
                 !reminder.days.tue &&
