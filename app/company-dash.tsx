@@ -74,7 +74,7 @@ export default function CompanyDash() {
           />
 
           <Text
-            style={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 24 : 18 }}
+            style={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 24 : 18, color: colors.primary }}
             allowFontScaling={false}
           >
             Filters
