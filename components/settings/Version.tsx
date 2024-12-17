@@ -6,7 +6,7 @@ import { theme } from "utils/helpers";
 export default function Version() {
   const colors = theme();
   const appVersion = Constants.expoConfig?.version;
-  const fontSize = Device.deviceType !== 1 ? 24 : 18;
+  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>

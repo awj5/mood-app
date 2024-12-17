@@ -7,7 +7,7 @@ import { theme } from "utils/helpers";
 export default function Name() {
   const colors = theme();
   const [text, setText] = useState("");
-  const fontSize = Device.deviceType !== 1 ? 24 : 18;
+  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const setName = async () => {
     try {

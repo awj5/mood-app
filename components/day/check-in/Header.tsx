@@ -87,7 +87,7 @@ export default function Header(props: HeaderProps) {
         />
 
         <Text
-          style={{ fontFamily: "Circular-Book", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
+          style={{ fontFamily: "Circular-Medium", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
           allowFontScaling={false}
         >
           {time.toLocaleLowerCase()}

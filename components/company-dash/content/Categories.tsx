@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import {
   ClipboardList,
@@ -52,10 +52,17 @@ export default function Categories() {
   };
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap", paddingHorizontal: spacing, gap: spacing }}>
+    <View style={[styles.container, { paddingHorizontal: spacing, gap: spacing }]}>
       {guidelinesData[0].categories.map((item, index) => (
         <Category key={index} title={item.title} icon={icons[item.icon as keyof typeof icons]} />
       ))}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+});

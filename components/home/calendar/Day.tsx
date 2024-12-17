@@ -150,7 +150,7 @@ export default function Day(props: DayProps) {
 
         <Text
           style={{
-            fontFamily: "Circular-Medium",
+            fontFamily: "Circular-Book",
             fontSize:
               Device.deviceType !== 1
                 ? props.date.getFullYear() !== today.getFullYear()

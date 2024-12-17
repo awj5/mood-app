@@ -14,7 +14,7 @@ type ReminderProps = {
 export default function Reminder(props: ReminderProps) {
   const colors = theme();
   const [reminder, setReminder] = useState<ReminderType>();
-  const fontSize = Device.deviceType !== 1 ? 24 : 18;
+  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const openSettings = () => {
     if (Platform.OS === "ios") {

@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps) {
   const Icon = props.icon;
-  const mood = moodsData[Math.floor(Math.random() * moodsData.length)];
+  const mood = moodsData[Math.floor(Math.random() * moodsData.length)]; // Random mood - will delete
   const textColor = mood.id >= 6 && mood.id <= 11 ? "white" : "black";
 
   return (
@@ -33,7 +33,7 @@ export default function Header(props: HeaderProps) {
 
       <Text
         style={{
-          fontFamily: "Circular-Book",
+          fontFamily: "Circular-Medium",
           fontSize: Device.deviceType !== 1 ? 20 : 16,
           color: textColor,
         }}

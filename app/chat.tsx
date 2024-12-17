@@ -302,7 +302,7 @@ export default function Chat() {
 
               <Text
                 style={{
-                  fontFamily: "Circular-Bold",
+                  fontFamily: "Circular-Medium",
                   fontSize: Device.deviceType !== 1 ? 20 : 16,
                   color: colors.primary,
                 }}
