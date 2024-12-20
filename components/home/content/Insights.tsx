@@ -29,7 +29,7 @@ export default function Insights(props: InsightsProps) {
           ? "https://mood-web-zeta.vercel.app/api/user/summarize"
           : "http://localhost:3000/api/user/summarize",
         {
-          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c",
+          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored
           prompt: JSON.stringify(promptData),
           loc: localization[0].languageTag,
         }
