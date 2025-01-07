@@ -6,6 +6,7 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Settings, Download } from "lucide-react-native";
+import { LayoutReadyContext, LayoutReadyContextType } from "context/layout-ready";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Calendar from "components/home/Calendar";
 import HeaderDates from "components/HeaderDates";
@@ -22,6 +23,7 @@ export default function Home() {
   const db = useSQLiteContext();
   const todayRef = useRef<Date>();
   const reminderSeenRef = useRef(false);
+  const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
@@ -58,6 +60,7 @@ export default function Home() {
     }
 
     SplashScreen.hideAsync();
+    setLayoutReady(true);
   };
 
   useFocusEffect(

@@ -9,6 +9,7 @@ import * as Device from "expo-device";
 import { SQLiteProvider } from "expo-sqlite";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "data/database";
+import { LayoutReadyContext } from "context/layout-ready";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
 import { CompanyDatesContext } from "context/company-dates";
@@ -21,6 +22,7 @@ export default function Layout() {
   const router = useRouter();
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
+  const [layoutReady, setLayoutReady] = useState(false);
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
   const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const [companyDates, setCompanyDates] = useState<CalendarDatesType>({ weekStart: new Date() });
@@ -36,17 +38,19 @@ export default function Layout() {
   });
 
   useEffect(() => {
-    // Handle notification tap
-    const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
-      const route = response.notification.request.content.data.route;
+    if (layoutReady) {
+      // Handle notification tap
+      const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+        const route = response.notification.request.content.data.route;
 
-      if (route) {
-        router.push(route); // Navigate to the route specified in the notification
-      }
-    });
+        if (route) {
+          router.push(route); // Navigate to the route specified in the notification
+        }
+      });
 
-    return () => subscription.remove();
-  }, [router]);
+      return () => subscription.remove();
+    }
+  }, [router, layoutReady]);
 
   useEffect(() => {
     // Hack! - RN dimensions not returning acurate values on iPad rotation
@@ -74,35 +78,37 @@ export default function Layout() {
 
   return (
     <SQLiteProvider databaseName="mood.db" onInit={initDB}>
-      <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
-        <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
-          <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <Stack
-                screenOptions={{
-                  contentStyle: {
-                    backgroundColor: colors.primaryBg,
-                  },
-                  headerShadowVisible: false,
-                  headerStyle: {
-                    backgroundColor: colors.primaryBg,
-                  },
-                  headerTintColor: colors.primary,
-                }}
-              >
-                <Stack.Screen
-                  name="date-filters"
-                  options={{
-                    presentation: "modal",
+      <LayoutReadyContext.Provider value={{ layoutReady, setLayoutReady }}>
+        <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
+          <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
+            <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <Stack
+                  screenOptions={{
+                    contentStyle: {
+                      backgroundColor: colors.primaryBg,
+                    },
+                    headerShadowVisible: false,
+                    headerStyle: {
+                      backgroundColor: colors.primaryBg,
+                    },
+                    headerTintColor: colors.primary,
                   }}
-                />
-              </Stack>
+                >
+                  <Stack.Screen
+                    name="date-filters"
+                    options={{
+                      presentation: "modal",
+                    }}
+                  />
+                </Stack>
 
-              <StatusBar style="auto" />
-            </GestureHandlerRootView>
-          </CompanyDatesContext.Provider>
-        </HomeDatesContext.Provider>
-      </DimensionsContext.Provider>
+                <StatusBar style="auto" />
+              </GestureHandlerRootView>
+            </CompanyDatesContext.Provider>
+          </HomeDatesContext.Provider>
+        </DimensionsContext.Provider>
+      </LayoutReadyContext.Provider>
     </SQLiteProvider>
   );
 }

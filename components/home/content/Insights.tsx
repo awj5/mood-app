@@ -30,8 +30,8 @@ export default function Insights(props: InsightsProps) {
           : "http://localhost:3000/api/ai",
         {
           type: "summarize_check_ins",
-          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored
-          prompt: {
+          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored locally
+          message: {
             role: "user",
             content:
               "Analyze these check-ins (formatted as JSON) and summarize the key trends, patterns, or observations in 200 characters or less: " +

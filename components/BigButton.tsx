@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import Animated, {
+  cancelAnimation,
   Easing,
   useAnimatedStyle,
   useSharedValue,
@@ -57,6 +58,7 @@ export default function BigButton(props: BigButtonProps) {
         -1
       );
     } else {
+      cancelAnimation(scale);
       scale.value = withTiming(1, { duration: 0 }); // Stop bounce animation
     }
   }, [props.bounce]);
