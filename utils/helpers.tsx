@@ -58,7 +58,7 @@ export const getDateRange = (dates: CalendarDatesType, showDays?: boolean) => {
     startDate.getFullYear() !== year ? ` ${startDate.getFullYear()}` : ""
   }`;
 
-  var endDate = new Date(startDate);
+  let endDate = new Date(startDate);
 
   if (dates.rangeEnd) {
     endDate = dates.rangeEnd;
@@ -83,7 +83,7 @@ export const getDateRange = (dates: CalendarDatesType, showDays?: boolean) => {
 
 export const getStatement = (statement: string, response: number) => {
   const percentage = Math.round(response * 100);
-  var start = "";
+  let start = "";
 
   switch (true) {
     case response >= 0.85:
@@ -218,7 +218,7 @@ export const getReminder = async () => {
     // Loop current notifications
     for (let i = 0; i < notifications.length; i++) {
       let trigger = notifications[i].trigger;
-      var dayKey = "";
+      let dayKey = "";
 
       if ("weekday" in trigger) {
         // Android

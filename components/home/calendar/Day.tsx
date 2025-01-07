@@ -55,7 +55,7 @@ export default function Day(props: DayProps) {
   };
 
   const isInRange = (date: Date, start?: Date, end?: Date, weekStart?: Date) => {
-    var sunday: Date | undefined;
+    let sunday: Date | undefined;
 
     if (weekStart && !start) {
       sunday = new Date(weekStart);

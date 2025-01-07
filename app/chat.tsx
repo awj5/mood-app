@@ -184,7 +184,7 @@ export default function Chat() {
 
   const addResponse = async () => {
     setGenerating(true);
-    var name = await getName();
+    let name = await getName();
     const latestMessage = messages[messages.length - 1];
 
     // Check if last message is user's name

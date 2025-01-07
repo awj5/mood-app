@@ -23,7 +23,7 @@ export default function Content() {
 
   const getCheckInData = async () => {
     const start = companyDates.rangeStart ? companyDates.rangeStart : companyDates.weekStart;
-    var end = new Date(start);
+    let end = new Date(start);
 
     if (companyDates.rangeEnd) {
       end = companyDates.rangeEnd;

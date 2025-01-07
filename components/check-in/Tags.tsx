@@ -32,8 +32,8 @@ export default function Tags(props: TagsProps) {
     const shuffled = shuffleArray(moodTags);
 
     // Display a balance of 12 pos and neg tags
-    var pos = shuffled.filter((item) => item.type === "pos");
-    var neg = shuffled.filter((item) => item.type === "neg");
+    let pos = shuffled.filter((item) => item.type === "pos");
+    let neg = shuffled.filter((item) => item.type === "neg");
 
     if (pos.length < 6) {
       neg = neg.slice(0, 12 - pos.length); // Adjust neg if not enough pos

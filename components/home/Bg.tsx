@@ -40,7 +40,7 @@ export default function Bg() {
     latestQueryRef.current = currentQuery;
 
     const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
-    var end = new Date(start);
+    let end = new Date(start);
 
     if (homeDates.rangeEnd) {
       end = homeDates.rangeEnd;
@@ -48,7 +48,7 @@ export default function Bg() {
       end.setDate(start.getDate() + 6); // Sunday
     }
 
-    var checkInColors = [colors.primaryBg];
+    let checkInColors = [colors.primaryBg];
 
     try {
       const rows: CheckInType[] = await db.getAllAsync(
@@ -73,8 +73,8 @@ export default function Bg() {
 
   useFocusEffect(
     useCallback(() => {
-      var index = 0;
-      var step = 0;
+      let index = 0;
+      let step = 0;
 
       const animateColors = () => {
         // Top

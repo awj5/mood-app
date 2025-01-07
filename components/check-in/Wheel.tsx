@@ -28,7 +28,7 @@ export default function Wheel(props: WheelProps) {
     // If angle hasn't changed (not panned)
     if (pressRotation.current === props.rotation.value) {
       const section = size / 5;
-      var newAngle: number | undefined;
+      let newAngle: number | undefined;
 
       switch (true) {
         case locationX < section && locationY < section * 2:
@@ -73,7 +73,7 @@ export default function Wheel(props: WheelProps) {
 
       if (newAngle !== undefined) {
         // Calculate the shortest path for rotation
-        var delta = newAngle - props.rotation.value;
+        let delta = newAngle - props.rotation.value;
 
         if (delta < 0) {
           delta += 360;
@@ -118,7 +118,7 @@ export default function Wheel(props: WheelProps) {
       const deltaX = e.absoluteX - dimensions.width / 2;
       const deltaY = e.absoluteY - dimensions.height / 2;
       const currentAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convert to degrees
-      var newRotation = previousRotation.value + (currentAngle - startAngle.value); // Update the rotation based on the difference between the starting angle and current angle
+      let newRotation = previousRotation.value + (currentAngle - startAngle.value); // Update the rotation based on the difference between the starting angle and current angle
 
       // Normalize rotation to be within 0-360 degrees
       if (newRotation < 0) {
