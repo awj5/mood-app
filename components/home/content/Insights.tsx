@@ -25,18 +25,18 @@ export default function Insights(props: InsightsProps) {
   const requestAISummary = async (promptData: PromptDataType[]) => {
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production"
-          ? "https://mood-web-zeta.vercel.app/api/user/summarize"
-          : "http://localhost:3000/api/ai",
+        process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
           type: "summarize_check_ins",
           uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored locally
-          message: {
-            role: "user",
-            content:
-              "Analyze these check-ins (formatted as JSON) and summarize the key trends, patterns, or observations in 200 characters or less: " +
-              JSON.stringify(promptData),
-          },
+          message: [
+            {
+              role: "user",
+              content: `Analyze these check-ins (formatted in JSON) and summarize the key trends, patterns, or observations in 200 characters or fewer: ${JSON.stringify(
+                promptData
+              )}.`,
+            },
+          ],
           loc: localization[0].languageTag,
         }
       );
