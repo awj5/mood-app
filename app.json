@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.moodai"
+      "bundleIdentifier": "ai.mood"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,13 +28,16 @@
       "favicon": "./assets/favicon.ico",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-localization"],
+    "plugins": [
+      "expo-router",
+      "expo-localization"
+    ],
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "2b8ca858-934d-4a78-af52-d8291006bb9a"
+        "projectId": "1170be0c-9524-45c1-ab2d-81d70e3fe0ab"
       }
     }
   }
