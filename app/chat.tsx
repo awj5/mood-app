@@ -32,12 +32,12 @@ export default function Chat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
 
-  const requestAIResponse = async () => {
+  const requestAIResponse = async (type: string) => {
     try {
       const response = await axios.post(
         process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
-          type: "chat",
+          type: type,
           uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored locally
           message: chatHistoryRef.current,
           loc: localization[0].languageTag,
@@ -147,39 +147,37 @@ export default function Chat() {
       },
     ]);
 
-    const aiResponse = await requestAIResponse();
-    let response = "";
-
-    // Save AI response to chat history and storee conversation summary
-    if (aiResponse) {
-      const delimiter = "===";
-      const index = aiResponse.indexOf(delimiter);
-      response = index !== -1 ? aiResponse.substring(0, index).trim() : aiResponse; // Extract response
-      chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: response }];
-
-      // Update check-in note
-      if (index !== -1) {
-        try {
-          await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [
-            aiResponse.substring(index + delimiter.length).trim(), // Extract summary
-            checkInIDRef.current,
-          ]);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
+    const aiResponse = await requestAIResponse("chat");
 
     // Update the text of the last message
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
 
       updatedMessages[updatedMessages.length - 1].content = aiResponse
-        ? response
+        ? aiResponse
         : "Sorry, I'm unable to respond at the moment.";
 
       return updatedMessages;
     });
+
+    // Save AI response to chat history and store conversation summary
+    if (aiResponse) {
+      chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: aiResponse }];
+
+      // Only save summary if user has replied
+      if (chatHistoryRef.current.length > 2) {
+        const aiSummary = await requestAIResponse("summarize_chat");
+
+        if (aiSummary) {
+          // Update check-in note
+          try {
+            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [aiSummary, checkInIDRef.current]);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+    }
   };
 
   useEffect(() => {
