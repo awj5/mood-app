@@ -13,7 +13,7 @@ import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { convertToISO, getPromptData, pressedDefault, theme, PromptDataType } from "utils/helpers";
+import { convertToISO, getPromptData, pressedDefault, theme } from "utils/helpers";
 
 export type MessageType = {
   role: string;
@@ -28,78 +28,23 @@ export default function Chat() {
   const colors = theme();
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
-  const checkInHistoryRef = useRef<PromptDataType[]>([]);
   const checkInIDRef = useRef(0);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
-  const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
-  const requestAISummary = async () => {
+  const requestAIResponse = async () => {
     try {
       const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
+        process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "system",
-              content: `Your primary purpose is to summarize the conversation between the user and an AI assistant. Provide concise and insightful analyses of the user's emotional state during the interaction. Avoid mentioning the AI assistant, asking follow-up questions, or offering recommendations or suggestions for improvement. Maintain an empathetic and professional tone, ensuring your responses are clear, accessible, and relatable. Always structure your responses in plain text (no markdown) for easy readability. Adhere to the IETF language tag: ${localization[0].languageTag}.`,
-            },
-            ...chatHistoryRef.current, // Append
-            {
-              role: "user",
-              content:
-                "Summarize this conversation in 280 characters or fewer. Speak in the first person as if you are the user.",
-            },
-          ],
-          temperature: 0.7,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
+          type: "chat",
+          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored locally
+          message: chatHistoryRef.current,
+          loc: localization[0].languageTag,
         }
       );
 
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const requestAIResponse = async (name: string) => {
-    try {
-      const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "system",
-              content: `You are MOOD, a thoughtful and empathetic AI assistant for the MOOD.ai app. Users share daily workplace mood check-ins with you, which include the date, time, a list of emotions, and a reflective statement about their workplace. Your primary role is to analyze their most recent check-in by identifying patterns, trends, or notable observations in their emotional state and act as a reflective and understanding soundboard, helping them explore their feelings. Refer to the user's check-in history only if it provides relevant patterns or insights that add meaningful context to their emotions or experiences. Provide concise, meaningful summaries (280 characters max), avoiding direct advice, recommendations, or suggestions for improvement. Maintain a professional and empathetic tone, ensuring your responses are clear, relatable, and easy to read. When a check-in is first shared, follow up by asking if the user would like to share more about why they are feeling this way. Adhere to the IETF language tag: ${
-                localization[0].languageTag
-              }. Use the user's first name: ${name}, to personalize your responses. Always structure your replies in plain text (no markdown) for optimal readability.${
-                checkInHistoryRef.current.length
-                  ? `This is the user's recent check-in history (formatted as JSON), which you can refer to for relevant insights: ${JSON.stringify(
-                      checkInHistoryRef.current
-                    )}`
-                  : ""
-              }`,
-            },
-            ...chatHistoryRef.current, // Append
-          ],
-          temperature: 0.7,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-
-      return response.data;
+      return response.data.response;
     } catch (error) {
       console.log(error);
     }
@@ -124,16 +69,6 @@ export default function Chat() {
     }
   };
 
-  const getCheckInCountData = async () => {
-    try {
-      const rows = await db.getAllAsync(`SELECT id FROM check_ins`);
-      return rows.length;
-    } catch (error) {
-      console.log(error);
-      return 0;
-    }
-  };
-
   const getName = async () => {
     try {
       const name = await AsyncStorage.getItem("first-name");
@@ -145,35 +80,30 @@ export default function Chat() {
   };
 
   const setFirstResponse = async () => {
-    // Get check-ins
-    const history = await getCheckInHistoryData();
+    const name = await getName();
+    const history = await getCheckInHistoryData(); // Get recent check-ins
 
     if (history) {
-      checkInHistoryRef.current = history.slice(0, -1); // Exclude most recent check-in
-
       // Share most recent check-in with AI
       chatHistoryRef.current = [
         {
           role: "user",
-          content: `Analyze today's check-in and briefly summarize the key trends, patterns, or observations: ${JSON.stringify(
+          content: `${name ? `My name is ${name}. ` : ""}Please analyze today's check-in: ${JSON.stringify(
             history[history.length - 1]
-          )}`,
+          )}.${
+            history.length > 1 ? ` Here is my recent check-in history: ${JSON.stringify(history.slice(0, -1))}.` : ""
+          }`,
         },
       ];
     }
 
-    //await AsyncStorage.removeItem("first-name"); // Used for testing
-    const name = await getName();
-
     if (!name) {
       // User has not shared name yet
-      const count = await getCheckInCountData();
-
       setMessages([
         {
           role: "assistant",
           content: `${
-            count === 1 ? "You've just completed your first check in!\n\n" : ""
+            history?.length === 1 ? "You've just completed your first check in!\n\n" : ""
           }I'm MOOD, I help you navigate your feelings at work.\n\nWhat's your first name?`,
         },
       ]);
@@ -195,6 +125,15 @@ export default function Chat() {
       } catch (error) {
         console.log(error);
       }
+
+      // Let AI know user's name
+      chatHistoryRef.current = [
+        ...chatHistoryRef.current,
+        {
+          role: "user",
+          content: `My name is ${name}.`,
+        },
+      ];
     } else if (messages.length) {
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
     }
@@ -208,43 +147,39 @@ export default function Chat() {
       },
     ]);
 
-    const aiResponse = await requestAIResponse(name ?? "");
+    const aiResponse = await requestAIResponse();
+    let response = "";
+
+    // Save AI response to chat history and storee conversation summary
+    if (aiResponse) {
+      const delimiter = "===";
+      const index = aiResponse.indexOf(delimiter);
+      response = index !== -1 ? aiResponse.substring(0, index).trim() : aiResponse; // Extract response
+      chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: response }];
+
+      // Update check-in note
+      if (index !== -1) {
+        try {
+          await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [
+            aiResponse.substring(index + delimiter.length).trim(), // Extract summary
+            checkInIDRef.current,
+          ]);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
 
     // Update the text of the last message
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
 
       updatedMessages[updatedMessages.length - 1].content = aiResponse
-        ? aiResponse.choices[0].message.content
+        ? response
         : "Sorry, I'm unable to respond at the moment.";
 
       return updatedMessages;
     });
-
-    // Save AI response to chat history and save conversation summary
-    if (aiResponse) {
-      chatHistoryRef.current = [
-        ...chatHistoryRef.current,
-        { role: "assistant", content: aiResponse.choices[0].message.content },
-      ];
-
-      // Only save summary if user has replied
-      if (chatHistoryRef.current.length > 2) {
-        const aiSummary = await requestAISummary();
-
-        if (aiSummary) {
-          // Update check-in note
-          try {
-            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [
-              aiSummary.choices[0].message.content,
-              checkInIDRef.current,
-            ]);
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      }
-    }
   };
 
   useEffect(() => {
@@ -285,7 +220,8 @@ export default function Chat() {
           ),
           headerRight: () => (
             <Pressable
-              onPress={() => router.push("company-dash")}
+              //onPress={() => router.push("company-dash")}
+              onPress={() => alert("Coming soon")}
               style={({ pressed }) => [
                 styles.headerRight,
                 pressedDefault(pressed),

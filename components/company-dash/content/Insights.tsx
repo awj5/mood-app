@@ -17,13 +17,13 @@ type InsightsProps = {
 
 export default function Insights(props: InsightsProps) {
   const db = useSQLiteContext();
-  const localization = getLocales();
+  //const localization = getLocales();
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
+  //const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
-  const requestAISummary = async (promptData: PromptDataType[]) => {
+  /* const requestAISummary = async (promptData: PromptDataType[]) => {
     try {
       const response = await axios.post(
         "https://api.openai.com/v1/chat/completions",
@@ -55,7 +55,7 @@ export default function Insights(props: InsightsProps) {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
   const getInsightsData = async (ids: number[]) => {
     try {
@@ -82,21 +82,20 @@ export default function Insights(props: InsightsProps) {
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
     } else if (latestQueryRef.current === currentQuery) {
-      const aiResponse = await requestAISummary(promptData.data);
-
-      if (aiResponse && latestQueryRef.current === currentQuery) {
+      //const aiResponse = await requestAISummary(promptData.data);
+      /* if (aiResponse && latestQueryRef.current === currentQuery) {
         setText(aiResponse.choices[0].message.content);
 
         // Save response
         try {
-          /* await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
+          await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
             promptData.ids.toString(),
             aiResponse.choices[0].message.content,
-          ]); */
+          ]);
         } catch (error) {
           console.log(error);
         }
-      }
+      } */
     }
 
     setIsLoading(false);

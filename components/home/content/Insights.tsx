@@ -32,9 +32,7 @@ export default function Insights(props: InsightsProps) {
           message: [
             {
               role: "user",
-              content: `Analyze these check-ins (formatted in JSON) and summarize key trends, patterns, or observations in 200 characters or less: ${JSON.stringify(
-                promptData
-              )}.`,
+              content: `Please analyze these check-ins: ${JSON.stringify(promptData)}.`,
             },
           ],
           loc: localization[0].languageTag,
