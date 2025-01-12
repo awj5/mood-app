@@ -81,7 +81,7 @@ export default function Statement(props: StatementProps) {
     );
 
     props.setCompetency(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0]);
-    opacity.value = withDelay(700, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (

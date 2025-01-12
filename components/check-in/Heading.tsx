@@ -8,6 +8,7 @@ import { theme } from "utils/helpers";
 
 type HeadingProps = {
   text: string;
+  delay?: number;
   color?: string;
 };
 
@@ -19,7 +20,7 @@ export default function Heading(props: HeadingProps) {
 
   useEffect(() => {
     opacity.value = withDelay(
-      props.color === undefined ? 1000 : 500,
+      props.delay ? props.delay : 0,
       withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
     );
   }, []);

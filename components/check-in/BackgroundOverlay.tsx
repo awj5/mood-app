@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, { SharedValue, useAnimatedReaction, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 
 type BackgroundOverlayProps = {
+  color: string;
   sliderVal: SharedValue<number>;
 };
 
@@ -31,7 +32,11 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
     backgroundColor: backgroundColor.value,
   }));
 
-  return <Animated.View style={[styles.container, animatedStyles]} />;
+  return (
+    <View style={[styles.container, { backgroundColor: props.color }]}>
+      <Animated.View style={[styles.overlay, animatedStyles]} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -40,6 +45,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
     width: "100%",
     height: "100%",
+  },
+  overlay: {
+    flex: 1,
     opacity: 0,
   },
 });

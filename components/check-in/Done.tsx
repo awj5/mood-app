@@ -54,7 +54,7 @@ export default function Done(props: DoneProps) {
   );
 
   useEffect(() => {
-    opacity.value = withDelay(1000, withTiming(0.25, { duration: 300, easing: Easing.in(Easing.cubic) }));
+    opacity.value = withDelay(500, withTiming(0.25, { duration: 300, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (

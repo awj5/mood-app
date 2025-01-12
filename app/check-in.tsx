@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
@@ -15,7 +16,6 @@ import Tags from "components/check-in/Tags";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
-import Background2 from "components/check-in/Background2";
 import { theme } from "utils/helpers";
 
 export type MoodType = {
@@ -106,7 +106,7 @@ export default function CheckIn() {
         }}
       />
 
-      <Heading text="How's work?" />
+      <Heading text="How's work?" delay={1000} />
       <Instructions />
       <Background showTags={showTags} mood={mood} />
       <Wheel rotation={rotation} />
@@ -115,7 +115,7 @@ export default function CheckIn() {
 
       {showTags && (
         <>
-          <Heading text="How do you feel right now?" color={foregroundColor} />
+          <Heading text="How do you feel right now?" delay={500} color={foregroundColor} />
           <Next setState={setShowStatement} color={foregroundColor} disabled={selectedTags.length ? false : true} />
 
           <Tags
@@ -127,8 +127,7 @@ export default function CheckIn() {
 
           {showStatement && (
             <>
-              <Background2 color={selectedMood.color} />
-              <BackgroundOverlay sliderVal={sliderVal} />
+              <BackgroundOverlay color={selectedMood.color} sliderVal={sliderVal} />
               <Heading text="Do you agree with this statement?" color={foregroundColor} />
               <Done color={foregroundColor} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
