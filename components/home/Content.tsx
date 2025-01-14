@@ -69,7 +69,7 @@ export default function Content() {
         ]}
       >
         {checkIns?.length ? (
-          <View style={{ gap: spacing, width: "100%" }}>
+          <View style={[styles.content, { gap: spacing }]}>
             <Insights checkIns={checkIns} dates={homeDates} />
             <Quote />
           </View>
@@ -100,5 +100,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
+  },
+  content: {
+    alignItems: "center",
+    width: "100%",
   },
 });
