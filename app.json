@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "ai.mood",
+    "scheme": "com.moodplatforms.moodai",
     "backgroundColor": "#000000",
     "splash": {
       "image": "./assets/splash.png",
@@ -15,23 +15,20 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ai.mood"
+      "bundleIdentifier": "com.moodplatforms.moodai"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "ai.mood"
+      "package": "com.moodplatforms.moodai"
     },
     "web": {
       "favicon": "./assets/favicon.ico",
       "bundler": "metro"
     },
-    "plugins": [
-      "expo-router",
-      "expo-localization"
-    ],
+    "plugins": ["expo-router", "expo-localization"],
     "extra": {
       "router": {
         "origin": false

@@ -36,21 +36,6 @@ export default function Statement(props: StatementProps) {
     12: require("../../assets/img/slider-thumb/orange.png"),
   };
 
-  const thumbsTablet = {
-    1: require("../../assets/img/slider-thumb/tablet/yellow.png"),
-    2: require("../../assets/img/slider-thumb/tablet/chartreuse.png"),
-    3: require("../../assets/img/slider-thumb/tablet/green.png"),
-    4: require("../../assets/img/slider-thumb/tablet/spring-green.png"),
-    5: require("../../assets/img/slider-thumb/tablet/cyan.png"),
-    6: require("../../assets/img/slider-thumb/tablet/azure.png"),
-    7: require("../../assets/img/slider-thumb/tablet/blue.png"),
-    8: require("../../assets/img/slider-thumb/tablet/dark-violet.png"),
-    9: require("../../assets/img/slider-thumb/tablet/dark-magenta.png"),
-    10: require("../../assets/img/slider-thumb/tablet/dark-rose.png"),
-    11: require("../../assets/img/slider-thumb/tablet/red.png"),
-    12: require("../../assets/img/slider-thumb/tablet/orange.png"),
-  };
-
   const shuffleArray = (array: number[]) => {
     for (let i = array.length - 1; i > 0; i--) {
       let rand = Math.floor(Math.random() * (i + 1));
@@ -93,9 +78,9 @@ export default function Statement(props: StatementProps) {
         At work, {props.competency.statement}.
       </Text>
 
-      <View style={{ gap: Device.deviceType !== 1 ? 16 : 8 }}>
+      <View style={{ gap: 12 }}>
         <View style={{ justifyContent: "center" }}>
-          <View style={[styles.sliderTrackWrapper, { height: Device.deviceType !== 1 ? 36 : 28 }]}>
+          <View style={[styles.sliderTrackWrapper, { height: Platform.OS === "ios" ? 34 : 38 }]}>
             <View style={[styles.sliderTrack, { marginHorizontal: margin }]}></View>
           </View>
 
@@ -106,12 +91,8 @@ export default function Statement(props: StatementProps) {
             onValueChange={(value) => (props.sliderVal.value = Math.round(Number(value) * 100) / 100)}
             minimumTrackTintColor="transparent"
             maximumTrackTintColor="transparent"
-            thumbImage={
-              Device.deviceType !== 1
-                ? thumbsTablet[props.moodID as keyof typeof thumbsTablet]
-                : thumbs[props.moodID as keyof typeof thumbs]
-            }
-            style={{ height: 44 }}
+            thumbImage={thumbs[props.moodID as keyof typeof thumbs]}
+            style={{ height: 40 }}
           />
         </View>
 
