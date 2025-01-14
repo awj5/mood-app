@@ -45,7 +45,7 @@ export default function CheckIn(props: CheckInProps) {
             fontFamily: "Circular-Book",
             color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
-            paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+            paddingHorizontal: spacing,
           }}
           allowFontScaling={false}
         >

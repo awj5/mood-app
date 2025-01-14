@@ -1,4 +1,3 @@
-import React from "react";
 import { useCallback, useContext, useRef, useState } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
@@ -9,7 +8,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
-import Recs from "./content/Recs";
+import Quote from "./content/Quote";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
@@ -66,15 +65,14 @@ export default function Content() {
           styles.wrapper,
           {
             paddingBottom: spacing * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
-            gap: spacing,
           },
         ]}
       >
         {checkIns?.length ? (
-          <>
+          <View style={{ gap: spacing, width: "100%" }}>
             <Insights checkIns={checkIns} dates={homeDates} />
-            <Recs />
-          </>
+            <Quote />
+          </View>
         ) : (
           checkIns !== undefined && (
             <Animated.View entering={FadeIn}>
