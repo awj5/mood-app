@@ -19,6 +19,7 @@ export default function Settings() {
   const [reminderVisible, setReminderVisible] = useState(false);
   const padding = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: padding };
+  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
     <View style={{ flex: 1 }}>
@@ -29,7 +30,7 @@ export default function Settings() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: fontSize }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
@@ -56,15 +57,15 @@ export default function Settings() {
             >
               <Mail
                 color={colors.primary}
-                size={Device.deviceType !== 1 ? 32 : 24}
+                size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+                strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
               />
 
               <Text
                 style={{
                   fontFamily: "Circular-Book",
-                  fontSize: Device.deviceType !== 1 ? 24 : 18,
+                  fontSize: fontSize,
                   color: colors.primary,
                 }}
                 allowFontScaling={false}

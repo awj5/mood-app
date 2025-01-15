@@ -3,517 +3,377 @@
     "categories": [
       {
         "id": 1,
-        "title": "Roles & Expectations",
-        "icon": "ClipboardList"
-      },
-      {
-        "id": 2,
-        "title": "Job Control & Autonomy",
-        "icon": "BicepsFlexed"
-      },
-      {
-        "id": 3,
-        "title": "Job Demands",
-        "icon": "Weight"
-      },
-      {
-        "id": 4,
-        "title": "Change Management",
+        "title": "Change Consultation",
+        "description": "Change Consultation is the extent to which organisations involve and inform workers about workplace changes. Strong change consultation means workers are properly consulted about proposed changes, clearly understand how changes will work in practice, receive clear information about organisational changes, and can voice concerns about changes affecting their roles. Organisations should ensure transparent communication and meaningful engagement throughout change processes.",
         "icon": "Compass"
       },
       {
-        "id": 5,
-        "title": "Remote & Isolated Work",
-        "icon": "TreePalm"
-      },
-      {
-        "id": 6,
-        "title": "Working Hours",
-        "icon": "CalendarClock"
-      },
-      {
-        "id": 7,
-        "title": "Job Security",
-        "icon": "KeyRound"
-      },
-      {
-        "id": 8,
-        "title": "Interpersonal Dynamics",
+        "id": 2,
+        "title": "Co-worker Support",
+        "description": "Co-worker Support is the practical and emotional support shared between team members. Strong co-worker support means workers can rely on colleagues for help with problems, assistance during difficult periods, and a willingness to listen to concerns. This creates an environment where team members actively support each other's success through practical assistance and emotional support. Organisations should foster a culture where collaborative support between co-workers is valued and encouraged.",
         "icon": "Users"
       },
       {
+        "id": 3,
+        "title": "Emotional Ease",
+        "description": "Emotional Ease is the ability for workers to handle emotional aspects of work naturally and professionally. Strong emotional ease means workers can flow between different emotional situations genuinely, without the emotional demands that require false displays of emotion or expose workers to unnecessarily distressing situations. Organisations should create environments where authentic responses are valued, while providing appropriate support for managing emotionally challenging situations.",
+        "icon": "Waves"
+      },
+      {
+        "id": 4,
+        "title": "Group Cohesion",
+        "description": "Group Cohesion is the strength of interpersonal connections within workgroups. Strong group cohesion exists when teams work together effectively, integrate different personalities successfully, and maintain professional relationships. This prevents group relationship conflict, where personality differences and tensions disrupt team performance. Organisations should foster environments where diverse team members can blend their strengths while addressing any interpersonal tensions before they affect team performance.",
+        "icon": "Blend"
+      },
+      {
+        "id": 5,
+        "title": "Group Task Agreement",
+        "description": "Group Task Agreement is the constructive handling of different perspectives about work-related matters. Strong group task agreement means workgroups can merge different viewpoints effectively, manage disagreements about work approaches professionally, and resolve conflicts about ideas productively. This helps prevent group task conflict, where disagreements about work decisions become sources of tension. Organisations should foster an environment where diverse viewpoints about work can be expressed and resolved constructively, while preventing destructive conflict.",
+        "icon": "ListChecks"
+      },
+      {
+        "id": 6,
+        "title": "Job Control",
+        "description": "Job Control is the degree to which workers can influence their work environment and make decisions about their tasks. Strong job control means having meaningful input into how work is performed, including choice over tasks, methods, and work pace. This enables workers to perform effectively while maintaining appropriate independence in their role. Organisations should avoid overly restrictive oversight that removes workers' ability to make reasonable decisions about their work.",
+        "icon": "Cog"
+      },
+      {
+        "id": 7,
+        "title": "Praise and Recognition",
+        "description": "Praise and Recognition is the acknowledgment and appreciation of workers' efforts and achievements. Strong praise and recognition means supervisors actively value contributions, give appropriate credit for hard work, and provide encouraging feedback. Organisations should foster a culture where meaningful recognition is regularly expressed through both formal and informal appreciation, helping workers feel genuinely valued for their work.",
+        "icon": "Award"
+      },
+      {
+        "id": 8,
+        "title": "Procedural Justice",
+        "description": "Procedural Justice is the fairness and consistency of organisational processes. Strong procedural justice exists when workplace processes are applied consistently, remain free from bias, allow workers to express their views, and are based on accurate information. Organisations should ensure their decision-making processes, from resource allocation to conflict resolution, are transparent, consistent and allow for appropriate worker input.",
+        "icon": "Gavel"
+      },
+      {
         "id": 9,
-        "title": "Leadership",
-        "icon": "Footprints"
+        "title": "Psychological Wellbeing",
+        "description": "Psychological Wellbeing is the mental and emotional energy workers maintain in their professional lives. Strong psychological wellbeing is characterised by sustained energy levels, emotional stability, and resilience in the face of workplace challenges. This helps prevent psychological distress, which can manifest as fatigue, nervousness, hopelessness, or burnout. Organisations should actively monitor and support workers' psychological wellbeing through preventive measures, while being alert to signs of declining psychological health.",
+        "icon": "HeartPulse"
       },
       {
         "id": 10,
-        "title": "Culture",
+        "title": "Role Alignment",
+        "description": "Role Alignment is the consistency of expectations and demands placed on workers. Strong role alignment means different aspects of the role fit together coherently, with compatible requests from stakeholders and manageable demands across groups. This prevents role conflict, where workers receive contradictory tasks or directions that conflict with their values. Organisations should prevent situations where workers receive conflicting instructions or face incompatible expectations from different people or teams.",
         "icon": "Puzzle"
       },
       {
         "id": 11,
-        "title": "Recognition & Reward",
-        "icon": "Trophy"
+        "title": "Role Clarity",
+        "description": "Role Clarity is the degree to which workers understand their responsibilities, methods, and organisational context. Strong role clarity exists when workers know exactly what is expected of them, understand their duties, and see how their work contributes to organisational goals. This prevents role ambiguity, which occurs when there is uncertainty or lack of information about role requirements. Organisations should ensure expectations, responsibilities and procedures are well-defined and communicated, avoiding situations where workers are uncertain about their role or how to accomplish their work.",
+        "icon": "Lightbulb"
       },
       {
         "id": 12,
-        "title": "Career Development",
-        "icon": "Rocket"
-      },
-      {
-        "id": 13,
-        "title": "Support",
+        "title": "Supervisor Support",
+        "description": "Supervisor Support is the extent to which supervisors provide practical and emotional support to their workers. Strong supervisor support means supervisors offer reliable assistance with work problems, active help during difficult situations, and willingness to listen to work-related concerns. This ensures workers receive the guidance and support they need from their leaders. Organisations should ensure supervisors are equipped and encouraged to provide both practical guidance and supportive leadership to their team members.",
         "icon": "LifeBuoy"
       },
       {
-        "id": 14,
-        "title": "Supervision",
-        "icon": "Eye"
-      },
-      {
-        "id": 15,
-        "title": "Civility & Respect",
-        "icon": "Handshake"
-      },
-      {
-        "id": 16,
-        "title": "Work/Life Balance",
+        "id": 13,
+        "title": "Workload Management",
+        "description": "Workload Management is the organisation's ability to maintain reasonable work demands and achievable expectations. Strong workload management ensures deadlines are realistic, time pressures are sustainable, and work volumes allow tasks to be completed properly. This prevents role overload, where workers feel stressed due to excessive demands and unreasonable deadlines. Organisations should avoid creating excessive pressure through unreasonable timeframes or unmanageable workloads that could lead to task neglect or burnout.",
         "icon": "Scale"
       },
       {
-        "id": 17,
-        "title": "Violence at Work",
-        "icon": "BellElectric"
-      },
-      {
-        "id": 18,
-        "title": "Harassment",
-        "icon": "MessageSquareWarning"
-      },
-      {
-        "id": 19,
-        "title": "Bullying & Victimisation",
-        "icon": "Skull"
-      },
-      {
-        "id": 20,
-        "title": "Work Environment",
-        "icon": "TrafficCone"
+        "id": 14,
+        "title": "Workplace Respect",
+        "description": "Workplace Respect is the maintenance of professional and respectful behaviour throughout the workplace. Strong workplace respect means communication remains professional across all channels, feedback is constructive rather than critical, and all workers are included appropriately in workplace activities. This prevents workplace bullying, which includes verbal abuse, threats, ridicule, sabotage, exclusion, and malicious gossip. Organisations should actively prevent and address unacceptable behaviours while ensuring respect is maintained in all interactions.",
+        "icon": "HeartHandshake"
       }
     ],
     "competencies": [
       {
         "id": 1.01,
-        "statement": "I know exactly what I'm supposed to do in my role"
+        "statement": "I have a choice in deciding what I do at work"
       },
       {
         "id": 1.02,
-        "statement": "my different tasks harmonise rather than conflict"
+        "statement": "I have some say over the way I get the job done"
       },
       {
         "id": 1.03,
-        "statement": "I know how to look after other people's wellbeing"
-      },
-      {
-        "id": 1.04,
-        "statement": "I have clear instructions about what I should and shouldn't do"
-      },
-      {
-        "id": 1.05,
-        "statement": "what's expected of me is consistent and achievable"
-      },
-      {
-        "id": 1.06,
-        "statement": "I understand how my performance is measured"
-      },
-      {
-        "id": 1.07,
-        "statement": "I can see how my efforts make a lasting difference"
+        "statement": "I have a say in my own work speed"
       },
       {
         "id": 2.01,
-        "statement": "I have a say in decisions that affect my role"
+        "statement": "I am able to work reasonable hours"
       },
       {
         "id": 2.02,
-        "statement": "I can manage the volume of my incoming tasks"
+        "statement": "I have achievable deadlines"
       },
       {
         "id": 2.03,
-        "statement": "I can organise my tasks in a way that suits me"
+        "statement": "I have realistic time pressures"
+      },
+      {
+        "id": 2.04,
+        "statement": "I am able to manage all my tasks without neglecting any"
       },
       {
         "id": 3.01,
-        "statement": "I get to use my full range of skills and abilities"
+        "statement": "I can rely on my supervisor to help me out with a work problem"
       },
       {
         "id": 3.02,
-        "statement": "I can handle constant interaction with others without strain"
+        "statement": "my supervisor will help me if the work gets difficult"
       },
       {
         "id": 3.03,
-        "statement": "I have enough time and support to complete my tasks"
+        "statement": "I get the help and support I need from my supervisor"
       },
       {
         "id": 3.04,
-        "statement": "I can meet all my deadlines while maintaining quality"
-      },
-      {
-        "id": 3.05,
-        "statement": "the skill requirements match my current capabilities"
-      },
-      {
-        "id": 3.06,
-        "statement": "I do varied and interesting tasks throughout my day"
-      },
-      {
-        "id": 3.07,
-        "statement": "each task contributes to meaningful outcomes"
-      },
-      {
-        "id": 3.08,
-        "statement": "I can maintain focus without becoming exhausted"
-      },
-      {
-        "id": 3.09,
-        "statement": "I'm equipped to handle challenging situations with people"
-      },
-      {
-        "id": 3.1,
-        "statement": "I'm shielded from potentially distressing situations"
+        "statement": "my supervisor is willing to listen to my work-related problems"
       },
       {
         "id": 4.01,
-        "statement": "I receive practical help during periods of change"
+        "statement": "I am clear what is expected of me at work"
       },
       {
         "id": 4.02,
-        "statement": "I feel stable despite repeated organisational changes"
+        "statement": "I know how to go about getting my job done"
       },
       {
         "id": 4.03,
-        "statement": "my views are sought before changes are made"
+        "statement": "I am clear what my duties and responsibilities are"
+      },
+      {
+        "id": 4.04,
+        "statement": "I understand how my work fits into the overall aim of the organisation"
       },
       {
         "id": 5.01,
-        "statement": "I maintain connections despite physical distance"
+        "statement": "I can rely on my co-workers to help me out with a work problem"
       },
       {
         "id": 5.02,
-        "statement": "I have meaningful interactions with colleagues"
+        "statement": "my co-workers will help me if the work gets difficult"
       },
       {
         "id": 5.03,
-        "statement": "I feel secure in every location I visit"
+        "statement": "I get the help and support I need from my co-workers"
       },
       {
         "id": 5.04,
-        "statement": "my task load feels balanced and reasonable"
-      },
-      {
-        "id": 5.05,
-        "statement": "I can complete tasks without constant urgency"
-      },
-      {
-        "id": 5.06,
-        "statement": "I can manage multiple deadlines effectively"
-      },
-      {
-        "id": 5.07,
-        "statement": "I can control the pace of automated processes"
-      },
-      {
-        "id": 5.08,
-        "statement": "my regular tasks include engaging activities"
+        "statement": "my co-workers are willing to listen to my work-related problems"
       },
       {
         "id": 6.01,
-        "statement": "I experience variety in my responsibilities"
+        "statement": "I do things which are accepted by everyone"
       },
       {
         "id": 6.02,
-        "statement": "my shift patterns allow proper rest"
+        "statement": "different groups support me in accomplishing tasks at the same time"
       },
       {
         "id": 6.03,
-        "statement": "I can be flexible with my hours when needed"
+        "statement": "different people have clear and consistent expectations of me"
       },
       {
         "id": 6.04,
-        "statement": "I can predict my upcoming schedule"
-      },
-      {
-        "id": 6.05,
-        "statement": "my hours suit my personal commitments"
-      },
-      {
-        "id": 6.06,
-        "statement": "my tasks form a meaningful whole"
-      },
-      {
-        "id": 6.07,
-        "statement": "I get proper notice about urgent priorities"
+        "statement": "I receive compatible requests from all the people I work with"
       },
       {
         "id": 7.01,
-        "statement": "I feel confident about my ongoing role"
+        "statement": "I feel that my supervisor values my contributions to this organisation"
       },
       {
         "id": 7.02,
-        "statement": "my position remains stable during changes"
+        "statement": "my supervisor gives me sufficient credit for my hard work"
       },
       {
         "id": 7.03,
-        "statement": "my pay matches my contribution level"
-      },
-      {
-        "id": 7.04,
-        "statement": "proper regulations protect my interests"
+        "statement": "my supervisor encourages me in my work with praise and thanks"
       },
       {
         "id": 8.01,
-        "statement": "communication channels keep me well informed"
+        "statement": "processes for handling conflicts are applied consistently in my workgroup"
       },
       {
         "id": 8.02,
-        "statement": "I maintain positive relationships at all levels"
+        "statement": "processes for handling conflicts are free from bias in my workgroup"
       },
       {
         "id": 8.03,
-        "statement": "disagreements are handled respectfully"
+        "statement": "employees in my workgroup are able to express their views and feelings during processes for handling conflicts"
       },
       {
         "id": 8.04,
-        "statement": "I'm safeguarded from inappropriate behaviour"
-      },
-      {
-        "id": 8.05,
-        "statement": "my colleagues offer support when needed"
-      },
-      {
-        "id": 8.06,
-        "statement": "everyone receives equal treatment"
-      },
-      {
-        "id": 8.07,
-        "statement": "I feel genuinely part of the team"
+        "statement": "processes for handling conflicts are based on accurate information about my workgroup"
       },
       {
         "id": 9.01,
-        "statement": "our team's direction aligns with my goals"
+        "statement": "my work puts me in emotionally stable situations"
       },
       {
         "id": 9.02,
-        "statement": "leadership styles match our needs"
+        "statement": "my work is emotionally rewarding"
       },
       {
         "id": 9.03,
-        "statement": "my suggestions receive proper consideration"
-      },
-      {
-        "id": 9.04,
-        "statement": "important information isn't withheld from me"
-      },
-      {
-        "id": 9.05,
-        "statement": "I receive consistent guidance and support"
-      },
-      {
-        "id": 9.06,
-        "statement": "people follow through on their commitments"
-      },
-      {
-        "id": 9.07,
-        "statement": "policies apply equally across all levels"
-      },
-      {
-        "id": 9.08,
-        "statement": "decisions about my role follow clear principles"
-      },
-      {
-        "id": 9.09,
-        "statement": "authority is exercised appropriately"
+        "statement": "I maintain a healthy emotional distance from my work"
       },
       {
         "id": 10.01,
-        "statement": "essential updates reach everyone promptly"
+        "statement": "I am consulted about proposed changes at work"
       },
       {
         "id": 10.02,
-        "statement": "I receive help with problem-solving"
+        "statement": "when changes are made at work, I am clear about how they will work out in practice"
       },
       {
         "id": 10.03,
-        "statement": "our objectives match my values"
+        "statement": "I am clearly informed about the nature of the changes that take place in this organisation"
       },
       {
         "id": 10.04,
-        "statement": "standards are applied consistently"
+        "statement": "I can voice concerns about changes that affect my job"
       },
       {
         "id": 11.01,
-        "statement": "my contributions receive proper recognition"
+        "statement": "me and members of my workgroup agree about the work being done"
       },
       {
         "id": 11.02,
-        "statement": "my achievements are promptly acknowledged"
+        "statement": "there is constructive discussion about ideas between me and members of my workgroup"
+      },
+      {
+        "id": 11.03,
+        "statement": "there is alignment between me and members of my workgroup about the work I do"
+      },
+      {
+        "id": 11.04,
+        "statement": "there is consensus of opinion between me and members of my workgroup"
       },
       {
         "id": 12.01,
-        "statement": "I see clear paths for advancement"
+        "statement": "there are positive feelings among members in my workgroup"
+      },
+      {
+        "id": 12.02,
+        "statement": "personality differences are respected in my workgroup"
+      },
+      {
+        "id": 12.03,
+        "statement": "there is harmony among members in my workgroup"
+      },
+      {
+        "id": 12.04,
+        "statement": "there is emotional support among members in my workgroup"
       },
       {
         "id": 13.01,
-        "statement": "I can readily access support when needed"
+        "statement": "I have recently received respectful verbal communication in my workgroup"
       },
       {
         "id": 13.02,
-        "statement": "I know all available support options"
+        "statement": "I have recently been treated fairly and without threats in my workgroup"
       },
       {
         "id": 13.03,
-        "statement": "I receive thorough training for new duties"
+        "statement": "I have recently received encouragement and positive feedback in my workgroup"
+      },
+      {
+        "id": 13.04,
+        "statement": "I have recently received respectful messages via telephone, written, or electronic means in my workgroup"
+      },
+      {
+        "id": 13.05,
+        "statement": "I have recently experienced collaboration and support of my work in my workgroup"
+      },
+      {
+        "id": 13.06,
+        "statement": "I have recently been included in workplace activities in my workgroup"
+      },
+      {
+        "id": 13.07,
+        "statement": "I have recently received constructive and fair feedback in my workgroup"
+      },
+      {
+        "id": 13.08,
+        "statement": "I have recently been treated with respect through gestures, communication, and support in my workgroup"
+      },
+      {
+        "id": 13.09,
+        "statement": "I have recently been the subject of positive discussions in my workgroup"
+      },
+      {
+        "id": 13.1,
+        "statement": "I have recently witnessed supportive behaviour in my workgroup"
+      },
+      {
+        "id": 13.11,
+        "statement": "I have recently experienced a supportive workgroup"
       },
       {
         "id": 14.01,
-        "statement": "performance feedback helps me improve"
+        "statement": "I have recently felt energetic and alert"
       },
       {
         "id": 14.02,
-        "statement": "my efforts receive meaningful recognition"
+        "statement": "I have recently felt calm and relaxed"
       },
       {
         "id": 14.03,
-        "statement": "I can communicate openly with everyone"
+        "statement": "I have recently felt calm and in control"
       },
       {
         "id": 14.04,
-        "statement": "my team shares consistent priorities"
+        "statement": "I have recently felt hopeful and positive"
       },
       {
         "id": 14.05,
-        "statement": "I have the resources to meet expectations"
+        "statement": "I have recently felt calm and settled"
       },
       {
         "id": 14.06,
-        "statement": "assessment criteria are uniform"
+        "statement": "I have recently felt composed and at ease"
       },
       {
         "id": 14.07,
-        "statement": "my digital privacy is protected"
+        "statement": "I have recently felt that everything was manageable"
       },
       {
-        "id": 15.01,
-        "statement": "trust characterises our relationships"
+        "id": 14.08,
+        "statement": "I have recently felt happy and uplifted"
       },
       {
-        "id": 15.02,
-        "statement": "interactions remain professional and courteous"
+        "id": 14.09,
+        "statement": "I have recently felt valued and capable"
       },
       {
-        "id": 16.01,
-        "statement": "I complete tasks within allocated hours"
+        "id": 14.1,
+        "statement": "I have recently felt positive and upbeat"
       },
       {
-        "id": 16.02,
-        "statement": "I maintain a healthy life balance"
+        "id": 14.11,
+        "statement": "I have recently felt rested and rejuvenated"
       },
       {
-        "id": 16.03,
-        "statement": "I have sufficient recovery periods"
+        "id": 14.12,
+        "statement": "I have recently had plenty of energy for going to work in the morning"
       },
       {
-        "id": 17.01,
-        "statement": "I'm protected from mistreatment"
+        "id": 14.13,
+        "statement": "I have recently felt physically well and strong"
       },
       {
-        "id": 17.02,
-        "statement": "I'm protected from intimidation"
+        "id": 14.14,
+        "statement": "I have recently felt content and satisfied"
       },
       {
-        "id": 17.03,
-        "statement": "I'm protected from harmful conduct"
+        "id": 14.15,
+        "statement": "I have recently felt energised and recharged"
       },
       {
-        "id": 17.04,
-        "statement": "I feel safe regardless of my gender"
-      },
-      {
-        "id": 18.01,
-        "statement": "I feel respected regardless of my race"
-      },
-      {
-        "id": 18.02,
-        "statement": "I feel respected regardless of my gender identity"
-      },
-      {
-        "id": 18.03,
-        "statement": "I feel respected regardless of my beliefs"
-      },
-      {
-        "id": 18.04,
-        "statement": "I feel respected regardless of my sexual orientation"
-      },
-      {
-        "id": 18.05,
-        "statement": "I feel respected regardless of any disabilities"
-      },
-      {
-        "id": 18.06,
-        "statement": "I feel respected regardless of my age"
-      },
-      {
-        "id": 19.01,
-        "statement": "I'm actively included in team activities"
-      },
-      {
-        "id": 19.02,
-        "statement": "my tasks require my particular skills"
-      },
-      {
-        "id": 19.03,
-        "statement": "I'm treated with consistent dignity"
-      },
-      {
-        "id": 19.04,
-        "statement": "my colleagues support my success"
-      },
-      {
-        "id": 19.05,
-        "statement": "feedback remains appropriately private"
-      },
-      {
-        "id": 19.06,
-        "statement": "I have access to essential resources"
-      },
-      {
-        "id": 19.07,
-        "statement": "communication stays honest and direct"
-      },
-      {
-        "id": 19.08,
-        "statement": "deadlines allow for quality completion"
-      },
-      {
-        "id": 20.01,
-        "statement": "equipment functions reliably"
-      },
-      {
-        "id": 20.02,
-        "statement": "the physical environment suits my needs"
-      },
-      {
-        "id": 20.03,
-        "statement": "I have all necessary tools and resources"
-      },
-      {
-        "id": 20.04,
-        "statement": "conditions meet safety standards"
-      },
-      {
-        "id": 20.05,
-        "statement": "my surroundings remain secure and stable"
+        "id": 14.16,
+        "statement": "I have recently felt enthusiastic and motivated"
       }
     ]
   }

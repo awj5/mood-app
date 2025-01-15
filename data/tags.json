@@ -1,1161 +1,1498 @@
 [
   {
     "id": 1,
-    "name": "Abandoned",
-    "def": "When you feel abandoned, you experience sadness and fear, often as a result of being left alone by someone important to you.",
-    "competencies": [5.01],
-    "type": "neg"
+    "name": "abandoned",
+    "type": "neg",
+    "competencies": [3.01, 5.02],
+    "def": ""
   },
   {
     "id": 2,
-    "name": "Accomplished",
-    "def": "When you feel accomplished, you experience satisfaction and joy, often as a result of achieving meaningful goals.",
-    "competencies": [3.01],
-    "type": "pos"
+    "name": "abused",
+    "type": "neg",
+    "competencies": [13.01, 13.02],
+    "def": ""
   },
   {
     "id": 3,
-    "name": "Alienated",
-    "def": "When you feel alienated, you experience sadness and anxiety, often as a result of feeling disconnected from others or society.",
-    "competencies": [8.02, 10.01, 19.07],
-    "type": "neg"
+    "name": "accepted",
+    "type": "pos",
+    "competencies": [6.01, 13.08, 13.11],
+    "def": ""
   },
   {
     "id": 4,
-    "name": "Aligned",
-    "def": "When you feel aligned, you experience satisfaction and calmness, often as a result of being in harmony with your values or environment.",
-    "competencies": [9.02, 14.04],
-    "type": "pos"
+    "name": "accepting",
+    "type": "pos",
+    "competencies": [11.04, 12.02],
+    "def": ""
   },
   {
     "id": 5,
-    "name": "Angry",
-    "def": "When you feel angry, you experience a sense of disgust, often as a result of perceived wrongdoing or injustice.",
-    "competencies": [9.09],
-    "type": "neg"
+    "name": "acknowledged",
+    "type": "pos",
+    "competencies": [7.02, 13.04],
+    "def": ""
   },
   {
     "id": 6,
-    "name": "Anxious",
-    "def": "When you feel anxious, you experience a sense of fear, often as a result of anticipating potential threats or negative outcomes.",
-    "competencies": [1.03, 3.04, 3.09, 5.06, 6.07, 7.01, 7.02, 7.03, 7.04, 8.03, 20.04, 20.05],
-    "type": "neg"
+    "name": "affirmed",
+    "type": "pos",
+    "competencies": [4.03, 7.03],
+    "def": ""
   },
   {
     "id": 7,
-    "name": "Appalled",
-    "def": "When you feel appalled, you experience disgust and horror, often as a result of witnessing something morally repugnant.",
-    "competencies": [9.09],
-    "type": "neg"
+    "name": "agitated",
+    "type": "neg",
+    "competencies": [2.03, 12.04, 14.02, 14.06, 14.14],
+    "def": ""
   },
   {
     "id": 8,
-    "name": "Appreciated",
-    "def": "When you feel appreciated, you experience joy and satisfaction, often as a result of others recognising your value.",
-    "competencies": [3.01, 11.01, 11.02, 14.02, 19.02],
-    "type": "pos"
+    "name": "alarmed",
+    "type": "neg",
+    "competencies": [2.02, 14.03],
+    "def": ""
   },
   {
     "id": 9,
-    "name": "Assured",
-    "def": "When you feel assured, you experience calmness and satisfaction, often as a result of feeling confident about outcomes.",
-    "competencies": [1.01, 7.02],
-    "type": "pos"
+    "name": "alert",
+    "type": "pos",
+    "competencies": [14.01, 14.12],
+    "def": ""
   },
   {
     "id": 10,
-    "name": "Attentive",
-    "def": "When you feel attentive, you experience interest and excitement, often as a result of focusing on something engaging.",
-    "competencies": [3.08],
-    "type": "pos"
+    "name": "alienated",
+    "type": "neg",
+    "competencies": [4.04, 8.01, 11.01, 11.02, 11.04, 12.04, 13.11],
+    "def": ""
   },
   {
     "id": 11,
-    "name": "Autonomous",
-    "def": "When you feel autonomous, you experience satisfaction and joy, often as a result of being self-directed and independent.",
-    "competencies": [2.02],
-    "type": "pos"
+    "name": "aligned",
+    "type": "pos",
+    "competencies": [4.04, 6.03, 11.03],
+    "def": ""
   },
   {
     "id": 12,
-    "name": "Balanced",
-    "def": "When you feel balanced, you experience calmness and satisfaction, often as a result of having life elements in harmony.",
-    "competencies": [1.02, 2.02, 3.05, 5.04, 5.06, 6.02, 6.03, 6.05, 16.01, 16.02],
-    "type": "pos"
+    "name": "alone",
+    "type": "neg",
+    "competencies": [3.01, 3.02],
+    "def": ""
   },
   {
     "id": 13,
-    "name": "Betrayed",
-    "def": "When you feel betrayed, you experience anger and sadness, often as a result of trust being broken.",
-    "competencies": [19.07],
-    "type": "neg"
+    "name": "angry",
+    "type": "neg",
+    "competencies": [12.01, 13.02, 13.04, 13.07],
+    "def": ""
   },
   {
     "id": 14,
-    "name": "Bored",
-    "def": "When you feel bored, you experience a sense of craving, often as a result of lacking stimulation or purpose.",
-    "competencies": [3.06, 5.08, 6.01],
-    "type": "neg"
+    "name": "annoyed",
+    "type": "neg",
+    "competencies": [6.02, 12.02, 14.14],
+    "def": ""
   },
   {
     "id": 15,
-    "name": "Burdened",
-    "def": "When you feel burdened, you experience anxiety and sadness, often as a result of carrying too many responsibilities.",
-    "competencies": [1.03],
-    "type": "neg"
+    "name": "anxious",
+    "type": "neg",
+    "competencies": [
+      1.01, 1.02, 1.03, 2.01, 2.02, 2.04, 3.01, 3.02, 3.03, 4.01, 4.02, 4.04, 5.01, 5.02, 5.03, 6.01, 6.02, 6.03, 6.04,
+      8.01, 8.02, 8.03, 8.04, 9.01, 9.02, 9.03, 10.01, 10.02, 10.03, 10.04, 11.01, 11.02, 11.03, 11.04, 12.02, 12.03,
+      13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.09, 13.1, 13.11, 14.02, 14.03, 14.05, 14.06
+    ],
+    "def": ""
   },
   {
     "id": 16,
-    "name": "Burned Out",
-    "def": "When you feel burned out, you experience boredom and sadness, often as a result of prolonged stress or exhaustion.",
-    "competencies": [16.03],
-    "type": "neg"
+    "name": "appreciated",
+    "type": "pos",
+    "competencies": [5.01, 5.03, 5.04, 7.01, 12.03, 12.04, 13.01, 13.03, 13.05, 13.06, 14.09],
+    "def": ""
   },
   {
     "id": 17,
-    "name": "Calm",
-    "def": "When you feel calm, you experience a sense of satisfaction, often as a result of being at peace with current circumstances.",
-    "competencies": [3.1, 4.02],
-    "type": "pos"
+    "name": "appreciative",
+    "type": "pos",
+    "competencies": [2.01, 5.01, 12.02, 13.1],
+    "def": ""
   },
   {
     "id": 18,
-    "name": "Capable",
-    "def": "When you feel capable, you experience satisfaction and interest, often as a result of being confident in your abilities.",
-    "competencies": [1.03, 2.03],
-    "type": "pos"
+    "name": "apprehensive",
+    "type": "neg",
+    "competencies": [4.03, 10.02],
+    "def": ""
   },
   {
     "id": 19,
-    "name": "Clear",
-    "def": "When you feel clear, you experience calmness and satisfaction, often as a result of having mental clarity or certainty.",
-    "competencies": [1.05, 1.06],
-    "type": "pos"
+    "name": "assured",
+    "type": "pos",
+    "competencies": [2.03, 3.03, 4.02, 6.03, 6.04],
+    "def": ""
   },
   {
     "id": 20,
-    "name": "Comfortable",
-    "def": "When you feel comfortable, you experience calmness and satisfaction, often as a result of being at ease in your situation.",
-    "competencies": [3.02, 5.03, 20.02, 20.05],
-    "type": "pos"
+    "name": "at ease",
+    "type": "pos",
+    "competencies": [2.03, 3.03, 4.03, 10.04, 14.02, 14.07, 14.14],
+    "def": ""
   },
   {
     "id": 21,
-    "name": "Competent",
-    "def": "When you feel competent, you experience satisfaction and interest, often as a result of handling tasks effectively.",
-    "competencies": [3.04, 6.07, 19.08],
-    "type": "pos"
+    "name": "backed up",
+    "type": "pos",
+    "competencies": [3.02, 5.02],
+    "def": ""
   },
   {
     "id": 22,
-    "name": "Composed",
-    "def": "When you feel composed, you experience calmness and satisfaction, often as a result of maintaining emotional balance.",
-    "competencies": [5.05],
-    "type": "pos"
+    "name": "balanced",
+    "type": "pos",
+    "competencies": [1.03, 2.01, 2.04, 9.03, 14.02, 14.03],
+    "def": ""
   },
   {
     "id": 23,
-    "name": "Confident",
-    "def": "When you feel confident, you experience satisfaction and joy, often as a result of trusting in your capabilities.",
-    "competencies": [1.01, 3.05, 7.02, 7.04, 13.03, 19.08, 20.03],
-    "type": "pos"
+    "name": "belittled",
+    "type": "neg",
+    "competencies": [13.02, 13.03, 13.06, 13.08],
+    "def": ""
   },
   {
     "id": 24,
-    "name": "Confused",
-    "def": "When you feel confused, you experience a sense of anxiety, often as a result of lacking understanding or clarity.",
-    "competencies": [1.01, 8.01, 10.03, 14.04],
-    "type": "neg"
+    "name": "betrayed",
+    "type": "neg",
+    "competencies": [3.02, 8.01, 12.01, 13.05, 13.09, 13.1],
+    "def": ""
   },
   {
     "id": 25,
-    "name": "Connected",
-    "def": "When you feel connected, you experience joy and admiration, often as a result of meaningful relationships or shared experiences.",
-    "competencies": [3.02, 3.07, 5.01, 8.01, 8.02, 8.05, 8.07, 10.01, 13.01, 14.03, 15.02, 19.01],
-    "type": "pos"
+    "name": "bright",
+    "type": "pos",
+    "competencies": [14.01, 14.04, 14.08, 14.1, 14.12],
+    "def": ""
   },
   {
     "id": 26,
-    "name": "Consistent",
-    "def": "When you feel consistent, you experience satisfaction and calmness, often as a result of maintaining reliable patterns.",
-    "competencies": [9.08],
-    "type": "pos"
+    "name": "burdened",
+    "type": "neg",
+    "competencies": [2.01, 9.02, 14.07],
+    "def": ""
   },
   {
     "id": 27,
-    "name": "Constrained",
-    "def": "When you feel constrained, you experience anxiety and anger, often as a result of having your freedom limited.",
-    "competencies": [2.03, 5.07],
-    "type": "neg"
+    "name": "calm",
+    "type": "pos",
+    "competencies": [
+      1.03, 2.01, 2.02, 2.03, 4.01, 4.02, 4.03, 5.03, 6.03, 8.04, 9.01, 9.03, 10.02, 12.03, 13.08, 14.02, 14.03, 14.06,
+      14.07, 14.11
+    ],
+    "def": ""
   },
   {
     "id": 28,
-    "name": "Content",
-    "def": "When you feel content, you experience calmness and satisfaction, often as a result of being at peace with what is.",
-    "competencies": [1.02],
-    "type": "pos"
+    "name": "capable",
+    "type": "pos",
+    "competencies": [2.02, 4.01, 14.07, 14.09, 14.13],
+    "def": ""
   },
   {
     "id": 29,
-    "name": "Controlled",
-    "def": "When you feel controlled, you experience anger and anxiety, often as a result of others imposing their will on you.",
-    "competencies": [5.07],
-    "type": "neg"
+    "name": "cared for",
+    "type": "pos",
+    "competencies": [3.01, 12.04, 13.05],
+    "def": ""
   },
   {
     "id": 30,
-    "name": "Defeated",
-    "def": "When you feel defeated, you experience sadness and fear, often as a result of failing despite your efforts.",
-    "competencies": [19.08],
-    "type": "neg"
+    "name": "certain",
+    "type": "pos",
+    "competencies": [4.03, 4.04, 14.07],
+    "def": ""
   },
   {
     "id": 31,
-    "name": "Demoralised",
-    "def": "When you feel demoralised, you experience sadness and fear, often as a result of losing confidence or hope.",
-    "competencies": [19.05],
-    "type": "neg"
+    "name": "cheerful",
+    "type": "pos",
+    "competencies": [14.08, 14.1],
+    "def": ""
   },
   {
     "id": 32,
-    "name": "Demotivated",
-    "def": "When you feel demotivated, you experience boredom and sadness, often as a result of lacking drive or purpose.",
-    "competencies": [1.07, 11.01, 12.01, 19.02],
-    "type": "neg"
+    "name": "clear",
+    "type": "pos",
+    "competencies": [10.02, 10.03],
+    "def": ""
   },
   {
     "id": 33,
-    "name": "Directed",
-    "def": "When you feel directed, you experience satisfaction and interest, often as a result of having clear purpose or guidance.",
-    "competencies": [1.04],
-    "type": "pos"
+    "name": "collected",
+    "type": "pos",
+    "competencies": [2.03, 14.03, 14.06, 14.07],
+    "def": ""
   },
   {
     "id": 34,
-    "name": "Directionless",
-    "def": "When you feel directionless, you experience confusion and anxiety, often as a result of lacking clear purpose.",
-    "competencies": [9.01, 14.04],
-    "type": "neg"
+    "name": "comfortable",
+    "type": "pos",
+    "competencies": [
+      1.03, 2.01, 2.03, 3.04, 4.02, 4.03, 4.04, 5.01, 5.04, 6.01, 6.03, 6.04, 8.02, 8.04, 9.01, 10.03, 11.04, 12.03,
+      13.04, 13.06, 14.11
+    ],
+    "def": ""
   },
   {
     "id": 35,
-    "name": "Disappointed",
-    "def": "When you feel disappointed, you experience sadness and surprise, often as a result of unfulfilled expectations.",
-    "competencies": [9.08],
-    "type": "neg"
+    "name": "comforted",
+    "type": "pos",
+    "competencies": [3.01, 3.02, 3.03, 5.03, 13.02, 13.07, 13.09],
+    "def": ""
   },
   {
     "id": 36,
-    "name": "Disconnected",
-    "def": "When you feel disconnected, you experience sadness and boredom, often as a result of lacking meaningful engagement.",
-    "competencies": [3.07, 5.02, 6.06, 8.01, 9.04, 9.05, 10.01, 10.03, 13.01, 14.03, 14.04, 19.01],
-    "type": "neg"
+    "name": "competent",
+    "type": "pos",
+    "competencies": [2.04, 4.02],
+    "def": ""
   },
   {
     "id": 37,
-    "name": "Discriminated",
-    "def": "When you feel discriminated, you experience anger and sadness, often as a result of unfair treatment based on who you are.",
-    "competencies": [18.03, 18.05],
-    "type": "neg"
+    "name": "composed",
+    "type": "pos",
+    "competencies": [9.01, 14.02, 14.03, 14.06],
+    "def": ""
   },
   {
     "id": 38,
-    "name": "Disempowered",
-    "def": "When you feel disempowered, you experience anger and fear, often as a result of having your agency removed.",
-    "competencies": [2.03, 8.06, 13.02, 19.06],
-    "type": "neg"
+    "name": "confident",
+    "type": "pos",
+    "competencies": [
+      1.01, 2.02, 2.03, 2.04, 3.02, 3.03, 4.01, 4.03, 5.01, 5.03, 6.01, 6.02, 6.03, 6.04, 8.04, 10.02, 10.04, 13.02,
+      13.06, 14.03, 14.07, 14.09
+    ],
+    "def": ""
   },
   {
     "id": 39,
-    "name": "Disengaged",
-    "def": "When you feel disengaged, you experience boredom and sadness, often as a result of lacking investment in activities.",
-    "competencies": [5.08],
-    "type": "neg"
+    "name": "conflicted",
+    "type": "neg",
+    "competencies": [6.01, 6.02, 6.03, 6.04, 11.01, 11.03],
+    "def": ""
   },
   {
     "id": 40,
-    "name": "Disillusioned",
-    "def": "When you feel disillusioned, you experience sadness and surprise, often as a result of losing faith in beliefs or ideals.",
-    "competencies": [9.07, 9.08, 15.01],
-    "type": "neg"
+    "name": "confused",
+    "type": "neg",
+    "competencies": [4.01, 4.04, 6.03, 10.02, 13.02],
+    "def": ""
   },
   {
     "id": 41,
-    "name": "Disoriented",
-    "def": "When you feel disoriented, you experience confusion and anxiety, often as a result of losing your sense of direction or context.",
-    "competencies": [1.06],
-    "type": "neg"
+    "name": "connected",
+    "type": "pos",
+    "competencies": [5.01, 11.03, 12.04, 13.05],
+    "def": ""
   },
   {
     "id": 42,
-    "name": "Disregarded",
-    "def": "When you feel disregarded, you experience sadness and anger, often as a result of being ignored or dismissed.",
-    "competencies": [4.03],
-    "type": "neg"
+    "name": "consoled",
+    "type": "pos",
+    "competencies": [3.04, 5.04],
+    "def": ""
   },
   {
     "id": 43,
-    "name": "Disrespected",
-    "def": "When you feel disrespected, you experience anger and sadness, often as a result of being treated without proper regard.",
-    "competencies": [15.01, 15.02, 18.02, 18.06, 19.04],
-    "type": "neg"
+    "name": "constructive",
+    "type": "pos",
+    "competencies": [11.02, 13.07],
+    "def": ""
   },
   {
     "id": 44,
-    "name": "Disrupted",
-    "def": "When you feel disrupted, you experience anxiety and surprise, often as a result of unexpected interference.",
-    "competencies": [4.02, 6.04],
-    "type": "neg"
+    "name": "content",
+    "type": "pos",
+    "competencies": [1.03, 2.01, 6.01, 7.01, 8.04, 9.02, 11.03, 11.04, 12.03, 13.02, 13.06, 13.11, 14.02, 14.04, 14.14],
+    "def": ""
   },
   {
     "id": 45,
-    "name": "Distracted",
-    "def": "When you feel distracted, you experience confusion and anxiety, often as a result of divided attention.",
-    "competencies": [1.05, 20.02],
-    "type": "neg"
+    "name": "cooperative",
+    "type": "pos",
+    "competencies": [5.01, 6.01, 6.02, 11.03, 11.04],
+    "def": ""
   },
   {
     "id": 46,
-    "name": "Distressed",
-    "def": "When you feel distressed, you experience anxiety and fear, often as a result of acute emotional or physical pain.",
-    "competencies": [3.1],
-    "type": "neg"
+    "name": "defeated",
+    "type": "neg",
+    "competencies": [2.02, 3.01, 8.02, 8.03, 13.07, 14.04, 14.09],
+    "def": ""
   },
   {
     "id": 47,
-    "name": "Distrusted",
-    "def": "When you feel distrusted, you experience sadness and anger, often as a result of others doubting your integrity.",
-    "competencies": [9.04, 14.07],
-    "type": "neg"
+    "name": "defensive",
+    "type": "neg",
+    "competencies": [11.02, 12.02],
+    "def": ""
   },
   {
     "id": 48,
-    "name": "Distrustful",
-    "def": "When you feel distrustful, you experience fear and anxiety, often as a result of suspecting others' motives.",
-    "competencies": [9.09, 15.01, 17.04],
-    "type": "neg"
+    "name": "dejected",
+    "type": "neg",
+    "competencies": [7.01, 14.08],
+    "def": ""
   },
   {
     "id": 49,
-    "name": "Drained",
-    "def": "When you feel drained, you experience boredom and sadness, often as a result of depleted energy or resources.",
-    "competencies": [3.02, 3.08, 6.02, 16.03],
-    "type": "neg"
+    "name": "demeaned",
+    "type": "neg",
+    "competencies": [13.06, 14.09],
+    "def": ""
   },
   {
     "id": 50,
-    "name": "Efficient",
-    "def": "When you feel efficient, you experience satisfaction and interest, often as a result of performing tasks effectively.",
-    "competencies": [3.04, 5.05, 6.07],
-    "type": "pos"
+    "name": "demoralised",
+    "type": "neg",
+    "competencies": [3.02, 5.03, 7.03, 13.03, 13.07, 14.04, 14.16],
+    "def": ""
   },
   {
     "id": 51,
-    "name": "Embarrassed",
-    "def": "When you feel embarrassed, you experience awkwardness and anxiety, often as a result of social mistakes or exposure.",
-    "competencies": [19.05],
-    "type": "neg"
+    "name": "demotivated",
+    "type": "neg",
+    "competencies": [3.03, 4.01, 7.01, 14.1],
+    "def": ""
   },
   {
     "id": 52,
-    "name": "Empowered",
-    "def": "When you feel empowered, you experience satisfaction and excitement, often as a result of having ability to affect change.",
-    "competencies": [1.03, 2.02, 8.06, 10.02, 13.02, 14.05],
-    "type": "pos"
+    "name": "depleted",
+    "type": "neg",
+    "competencies": [14.11, 14.13, 14.15, 14.16],
+    "def": ""
   },
   {
     "id": 53,
-    "name": "Empty",
-    "def": "When you feel empty, you experience sadness and boredom, often as a result of lacking purpose or meaning.",
-    "competencies": [1.07],
-    "type": "neg"
+    "name": "depressed",
+    "type": "neg",
+    "competencies": [13.04, 13.11, 14.08, 14.1, 14.12],
+    "def": ""
   },
   {
     "id": 54,
-    "name": "Encouraged",
-    "def": "When you feel encouraged, you experience joy and excitement, often as a result of receiving support or seeing possibility.",
-    "competencies": [10.02, 11.01, 14.01, 14.02, 19.04, 19.05],
-    "type": "pos"
+    "name": "deserted",
+    "type": "neg",
+    "competencies": [3.03, 5.01],
+    "def": ""
   },
   {
     "id": 55,
-    "name": "Energised",
-    "def": "When you feel energised, you experience excitement and interest, often as a result of high vitality or inspiration.",
-    "competencies": [3.08, 16.03],
-    "type": "pos"
+    "name": "despairing",
+    "type": "neg",
+    "competencies": [2.04, 14.04, 14.1],
+    "def": ""
   },
   {
     "id": 56,
-    "name": "Engaged",
-    "def": "When you feel engaged, you experience interest and excitement, often as a result of meaningful involvement.",
-    "competencies": [2.01, 3.02, 3.06, 5.02, 5.08, 6.01, 12.01],
-    "type": "pos"
+    "name": "disappointed",
+    "type": "neg",
+    "competencies": [5.01, 5.02, 7.01, 7.03, 11.01, 11.03, 11.04, 13.05],
+    "def": ""
   },
   {
     "id": 57,
-    "name": "Equipped",
-    "def": "When you feel equipped, you experience satisfaction and calmness, often as a result of having necessary resources.",
-    "competencies": [19.06, 20.01, 20.03],
-    "type": "pos"
+    "name": "discouraged",
+    "type": "neg",
+    "competencies": [2.04, 3.01, 4.02, 6.02, 7.02, 7.03, 10.04, 14.14],
+    "def": ""
   },
   {
     "id": 58,
-    "name": "Excluded",
-    "def": "When you feel excluded, you experience sadness and anxiety, often as a result of being left out.",
-    "competencies": [2.01, 4.03, 18.05],
-    "type": "neg"
+    "name": "disheartened",
+    "type": "neg",
+    "competencies": [1.01, 6.01, 12.03, 14.14],
+    "def": ""
   },
   {
     "id": 59,
-    "name": "Exhausted",
-    "def": "When you feel exhausted, you experience boredom and sadness, often as a result of complete depletion.",
-    "competencies": [1.03, 3.03, 3.08, 6.02, 6.05, 16.03],
-    "type": "neg"
+    "name": "dismissed",
+    "type": "neg",
+    "competencies": [10.01, 10.04],
+    "def": ""
   },
   {
     "id": 60,
-    "name": "Fair",
-    "def": "When you feel fair, you experience satisfaction and calmness, often as a result of treating others justly.",
-    "competencies": [8.03, 9.06, 9.07, 10.04, 14.06],
-    "type": "pos"
+    "name": "disregarded",
+    "type": "neg",
+    "competencies": [3.03, 3.04, 5.04, 10.01, 11.03, 12.04, 14.09],
+    "def": ""
   },
   {
     "id": 61,
-    "name": "Fearful",
-    "def": "When you feel fearful, you experience a sense of anxiety, often as a result of perceived threat or danger.",
-    "competencies": [17.02],
-    "type": "neg"
+    "name": "disrespected",
+    "type": "neg",
+    "competencies": [3.04, 5.04, 13.05],
+    "def": ""
   },
   {
     "id": 62,
-    "name": "Flexible",
-    "def": "When you feel flexible, you experience satisfaction and calmness, often as a result of being adaptable to change.",
-    "competencies": [6.02, 6.03],
-    "type": "pos"
+    "name": "distraught",
+    "type": "neg",
+    "competencies": [12.04, 14.03, 14.06, 14.08],
+    "def": ""
   },
   {
     "id": 63,
-    "name": "Focused",
-    "def": "When you feel focused, you experience interest and satisfaction, often as a result of concentrated attention.",
-    "competencies": [1.04, 3.08],
-    "type": "pos"
+    "name": "distressed",
+    "type": "neg",
+    "competencies": [9.01, 9.03, 13.01, 13.1, 14.04],
+    "def": ""
   },
   {
     "id": 64,
-    "name": "Frazzled",
-    "def": "When you feel frazzled, you experience anxiety and confusion, often as a result of being overwhelmed by demands.",
-    "competencies": [3.04],
-    "type": "neg"
+    "name": "distrustful",
+    "type": "neg",
+    "competencies": [5.03, 13.09],
+    "def": ""
   },
   {
     "id": 65,
-    "name": "Frustrated",
-    "def": "When you feel frustrated, you experience anger and anxiety, often as a result of being blocked from goals.",
-    "competencies": [
-      1.02, 1.05, 3.01, 5.08, 6.03, 8.01, 8.03, 9.02, 9.06, 9.07, 9.08, 10.01, 10.02, 10.04, 14.02, 14.03, 14.05, 14.06,
-      16.01, 19.04, 19.06, 20.01, 20.03
-    ],
-    "type": "neg"
+    "name": "doubtful",
+    "type": "neg",
+    "competencies": [4.03, 8.04, 10.03],
+    "def": ""
   },
   {
     "id": 66,
-    "name": "Fulfilled",
-    "def": "When you feel fulfilled, you experience joy and satisfaction, often as a result of meaningful achievement.",
-    "competencies": [1.07, 3.07, 6.06, 19.02],
-    "type": "pos"
+    "name": "down",
+    "type": "neg",
+    "competencies": [7.02, 14.01, 14.1, 7.03, 14.08],
+    "def": ""
   },
   {
     "id": 67,
-    "name": "Guided",
-    "def": "When you feel guided, you experience relief and satisfaction, often as a result of receiving direction.",
-    "competencies": [4.01, 9.01, 9.05, 10.03, 14.01, 14.04, 19.05],
-    "type": "pos"
+    "name": "drained",
+    "type": "neg",
+    "competencies": [2.01, 6.02, 9.02, 14.01, 14.07, 14.1, 14.11, 14.12, 14.13, 14.15, 14.16],
+    "def": ""
   },
   {
     "id": 68,
-    "name": "Harmonious",
-    "def": "When you feel harmonious, you experience calmness and satisfaction, often as a result of everything working together.",
-    "competencies": [16.02, 1.05],
-    "type": "pos"
+    "name": "dull",
+    "type": "neg",
+    "competencies": [14.11, 14.12],
+    "def": ""
   },
   {
     "id": 69,
-    "name": "Healthy",
-    "def": "When you feel healthy, you experience satisfaction and joy, often as a result of physical and mental wellbeing.",
-    "competencies": [6.05],
-    "type": "pos"
+    "name": "dynamic",
+    "type": "pos",
+    "competencies": [14.12, 14.15],
+    "def": ""
   },
   {
     "id": 70,
-    "name": "Heard",
-    "def": "When you feel heard, you experience satisfaction and relief, often as a result of being understood by others.",
-    "competencies": [9.03],
-    "type": "pos"
+    "name": "eager",
+    "type": "pos",
+    "competencies": [14.04, 14.16],
+    "def": ""
   },
   {
     "id": 71,
-    "name": "Helpless",
-    "def": "When you feel helpless, you experience fear and sadness, often as a result of inability to change situations.",
-    "competencies": [2.02, 13.02],
-    "type": "neg"
+    "name": "easygoing",
+    "type": "pos",
+    "competencies": [8.04, 14.05],
+    "def": ""
   },
   {
     "id": 72,
-    "name": "Hindered",
-    "def": "When you feel hindered, you experience anger and anxiety, often as a result of being blocked or slowed down.",
-    "competencies": [20.01],
-    "type": "neg"
+    "name": "empowered",
+    "type": "pos",
+    "competencies": [1.01, 4.02, 5.02, 10.01, 14.09, 14.16],
+    "def": ""
   },
   {
     "id": 73,
-    "name": "Humiliated",
-    "def": "When you feel humiliated, you experience sadness and awkwardness, often as a result of public shame or degradation.",
-    "competencies": [19.03],
-    "type": "neg"
+    "name": "encouraged",
+    "type": "pos",
+    "competencies": [2.02, 3.01, 3.02, 5.02, 6.02, 7.02, 8.02, 11.02, 12.04, 13.01, 13.04, 13.07, 13.1, 14.04],
+    "def": ""
   },
   {
     "id": 74,
-    "name": "Hurt",
-    "def": "When you feel hurt, you experience sadness and empathic pain, often as a result of emotional or physical harm.",
-    "competencies": [15.02, 18.01, 18.03, 18.04, 18.05, 18.06, 19.03, 19.05, 19.07],
-    "type": "neg"
+    "name": "energetic",
+    "type": "pos",
+    "competencies": [14.01, 14.1, 14.12, 11.02, 14.11, 14.15],
+    "def": ""
   },
   {
     "id": 75,
-    "name": "Ignored",
-    "def": "When you feel ignored, you experience sadness and anger, often as a result of being deliberately overlooked.",
-    "competencies": [2.01, 4.03, 9.03, 11.02, 14.01],
-    "type": "neg"
+    "name": "engaged",
+    "type": "pos",
+    "competencies": [1.01, 4.04, 10.01, 10.03, 10.04],
+    "def": ""
   },
   {
     "id": 76,
-    "name": "Ill-equipped",
-    "def": "When you feel ill-equipped, you experience anxiety and confusion, often as a result of lacking necessary resources.",
-    "competencies": [20.03],
-    "type": "neg"
+    "name": "enthusiastic",
+    "type": "pos",
+    "competencies": [1.02, 4.04, 14.01, 14.1, 14.12, 14.16],
+    "def": ""
   },
   {
     "id": 77,
-    "name": "Imbalanced",
-    "def": "When you feel imbalanced, you experience anxiety and confusion, often as a result of lacking stability or proportion.",
-    "competencies": [5.04],
-    "type": "neg"
+    "name": "esteemed",
+    "type": "pos",
+    "competencies": [7.02, 13.08],
+    "def": ""
   },
   {
     "id": 78,
-    "name": "Impeded",
-    "def": "When you feel impeded, you experience anger and anxiety, often as a result of progress being blocked.",
-    "competencies": [20.01],
-    "type": "neg"
+    "name": "exasperated",
+    "type": "neg",
+    "competencies": [2.03, 11.01, 12.02, 14.07],
+    "def": ""
   },
   {
     "id": 79,
-    "name": "In Control",
-    "def": "When you feel in control, you experience satisfaction and calmness, often as a result of managing situations effectively.",
-    "competencies": [2.03, 3.04, 5.05, 5.07, 6.07],
-    "type": "pos"
+    "name": "excited",
+    "type": "pos",
+    "competencies": [13.03, 14.16],
+    "def": ""
   },
   {
     "id": 80,
-    "name": "Inadequate",
-    "def": "When you feel inadequate, you experience sadness and anxiety, often as a result of perceived insufficiency.",
-    "competencies": [3.05],
-    "type": "neg"
+    "name": "excluded",
+    "type": "neg",
+    "competencies": [5.02, 10.01, 12.01, 13.06],
+    "def": ""
   },
   {
     "id": 81,
-    "name": "Included",
-    "def": "When you feel included, you experience joy and satisfaction, often as a result of being part of a group or activity.",
-    "competencies": [5.01, 5.02, 8.07, 18.04, 18.05, 19.01],
-    "type": "pos"
+    "name": "exhausted",
+    "type": "neg",
+    "competencies": [2.01, 9.02, 14.01, 14.11, 14.12, 14.13, 14.15, 14.16],
+    "def": ""
   },
   {
     "id": 82,
-    "name": "Independent",
-    "def": "When you feel independent, you experience satisfaction and joy, often as a result of self-reliance and autonomy.",
-    "competencies": [5.07],
-    "type": "pos"
+    "name": "fatigued",
+    "type": "neg",
+    "competencies": [14.01, 14.07, 14.11, 14.13],
+    "def": ""
   },
   {
     "id": 83,
-    "name": "Ineffective",
-    "def": "When you feel ineffective, you experience sadness and anxiety, often as a result of inability to create desired impact.",
-    "competencies": [20.03],
-    "type": "neg"
+    "name": "fearful",
+    "type": "neg",
+    "competencies": [2.03, 3.02, 13.1],
+    "def": ""
   },
   {
     "id": 84,
-    "name": "Influential",
-    "def": "When you feel influential, you experience satisfaction and excitement, often as a result of having positive impact on others.",
-    "competencies": [2.03],
-    "type": "pos"
+    "name": "fidgety",
+    "type": "neg",
+    "competencies": [14.05, 14.06],
+    "def": ""
   },
   {
     "id": 85,
-    "name": "Informed",
-    "def": "When you feel informed, you experience satisfaction and interest, often as a result of having relevant knowledge.",
-    "competencies": [1.01, 4.03, 7.01, 7.04, 8.01, 9.01, 9.04, 10.01, 10.03, 13.03, 14.03, 19.06],
-    "type": "pos"
+    "name": "flustered",
+    "type": "neg",
+    "competencies": [2.03, 4.02],
+    "def": ""
   },
   {
     "id": 86,
-    "name": "Insecure",
-    "def": "When you feel insecure, you experience anxiety and fear, often as a result of doubting your safety or worth.",
-    "competencies": [1.06, 4.02, 7.01, 7.02, 7.04],
-    "type": "neg"
+    "name": "focused",
+    "type": "pos",
+    "competencies": [4.01, 14.01],
+    "def": ""
   },
   {
     "id": 87,
-    "name": "Interested",
-    "def": "When you feel interested, you experience a sense of excitement, often as a result of engaging with compelling things.",
-    "competencies": [3.06, 5.08, 6.01],
-    "type": "pos"
+    "name": "frantic",
+    "type": "neg",
+    "competencies": [2.02, 14.03],
+    "def": ""
   },
   {
     "id": 88,
-    "name": "Intimidated",
-    "def": "When you feel intimidated, you experience fear and anxiety, often as a result of feeling threatened or overpowered.",
-    "competencies": [17.02],
-    "type": "neg"
+    "name": "free",
+    "type": "pos",
+    "competencies": [1.01, 1.03],
+    "def": ""
   },
   {
     "id": 89,
-    "name": "Invaded",
-    "def": "When you feel invaded, you experience anger and fear, often as a result of boundaries being violated.",
-    "competencies": [14.07],
-    "type": "neg"
+    "name": "frustrated",
+    "type": "neg",
+    "competencies": [
+      1.01, 2.01, 3.02, 3.04, 4.01, 4.04, 5.04, 6.01, 6.03, 7.01, 7.02, 8.01, 8.02, 8.03, 8.04, 9.02, 11.01, 11.02,
+      11.04, 12.01, 12.04, 13.03, 13.07
+    ],
+    "def": ""
   },
   {
     "id": 90,
-    "name": "Invisible",
-    "def": "When you feel invisible, you experience sadness and anxiety, often as a result of being unnoticed or disregarded.",
-    "competencies": [11.02, 14.02],
-    "type": "neg"
+    "name": "fulfilled",
+    "type": "pos",
+    "competencies": [4.04, 9.02, 14.14],
+    "def": ""
   },
   {
     "id": 91,
-    "name": "Involved",
-    "def": "When you feel involved, you experience interest and satisfaction, often as a result of active participation.",
-    "competencies": [2.01],
-    "type": "pos"
+    "name": "grateful",
+    "type": "pos",
+    "competencies": [3.02, 3.04, 5.01, 5.02, 5.04, 7.01, 7.03, 9.02, 13.04, 13.05, 13.07, 14.14],
+    "def": ""
   },
   {
     "id": 92,
-    "name": "Isolated",
-    "def": "When you feel isolated, you experience sadness and anxiety, often as a result of being separated from others.",
-    "competencies": [4.01, 5.01, 5.02, 6.05, 8.05, 13.01, 18.03, 19.01],
-    "type": "neg"
+    "name": "guided",
+    "type": "pos",
+    "competencies": [3.01, 13.07],
+    "def": ""
   },
   {
     "id": 93,
-    "name": "Lonely",
-    "def": "When you feel lonely, you experience sadness and craving, often as a result of lacking meaningful connection.",
-    "competencies": [5.01, 5.02, 8.05, 8.07, 19.01],
-    "type": "neg"
+    "name": "happy",
+    "type": "pos",
+    "competencies": [7.02, 13.03, 14.08],
+    "def": ""
   },
   {
     "id": 94,
-    "name": "Lost",
-    "def": "When you feel lost, you experience confusion and anxiety, often as a result of lacking direction.",
-    "competencies": [1.01, 3.07, 6.06, 13.03],
-    "type": "neg"
+    "name": "harmonious",
+    "type": "pos",
+    "competencies": [6.01, 6.03, 11.04, 12.01],
+    "def": ""
   },
   {
     "id": 95,
-    "name": "Manageable",
-    "def": "When you feel manageable, you experience relief and calmness, often as a result of having things under control.",
-    "competencies": [3.03, 5.04, 5.06, 6.04],
-    "type": "pos"
+    "name": "healthy",
+    "type": "pos",
+    "competencies": [9.03, 14.13],
+    "def": ""
   },
   {
     "id": 96,
-    "name": "Marginalised",
-    "def": "When you feel marginalised, you experience sadness and anger, often as a result of being treated as insignificant.",
-    "competencies": [8.06, 18.01, 18.04, 18.06],
-    "type": "neg"
+    "name": "heard",
+    "type": "pos",
+    "competencies": [1.02, 3.04, 5.04, 8.03, 10.01],
+    "def": ""
   },
   {
     "id": 97,
-    "name": "Misled",
-    "def": "When you feel misled, you experience anger and surprise, often as a result of being deceived.",
-    "competencies": [9.04],
-    "type": "neg"
+    "name": "heavy",
+    "type": "neg",
+    "competencies": [14.1, 14.11],
+    "def": ""
   },
   {
     "id": 98,
-    "name": "Misunderstood",
-    "def": "When you feel misunderstood, you experience sadness and anxiety, often as a result of not being comprehended by others.",
-    "competencies": [9.02, 14.03],
-    "type": "neg"
+    "name": "helped",
+    "type": "pos",
+    "competencies": [3.03, 5.02],
+    "def": ""
   },
   {
     "id": 99,
-    "name": "Motivated",
-    "def": "When you feel motivated, you experience excitement and interest, often as a result of having meaningful goals.",
-    "competencies": [1.07, 6.01, 12.01, 14.01, 14.05],
-    "type": "pos"
+    "name": "helpless",
+    "type": "neg",
+    "competencies": [1.01, 2.04, 14.03, 14.04, 14.09],
+    "def": ""
   },
   {
     "id": 100,
-    "name": "Neglected",
-    "def": "When you feel neglected, you experience sadness and anger, often as a result of being uncared for.",
-    "competencies": [3.01],
-    "type": "neg"
+    "name": "hesitant",
+    "type": "neg",
+    "competencies": [4.02, 10.03],
+    "def": ""
   },
   {
     "id": 101,
-    "name": "Organised",
-    "def": "When you feel organised, you experience satisfaction and calmness, often as a result of having things in order.",
-    "competencies": [5.06],
-    "type": "pos"
+    "name": "honoured",
+    "type": "pos",
+    "competencies": [7.02, 13.02],
+    "def": ""
   },
   {
     "id": 102,
-    "name": "Overburdened",
-    "def": "When you feel overburdened, you experience anxiety and sadness, often as a result of excessive responsibilities.",
-    "competencies": [3.05, 5.05, 16.01],
-    "type": "neg"
+    "name": "hopeful",
+    "type": "pos",
+    "competencies": [2.02, 3.01, 8.03, 10.02, 13.1, 14.04, 14.1],
+    "def": ""
   },
   {
     "id": 103,
-    "name": "Overloaded",
-    "def": "When you feel overloaded, you experience anxiety and confusion, often as a result of too many demands.",
-    "competencies": [2.02],
-    "type": "neg"
+    "name": "hopeless",
+    "type": "neg",
+    "competencies": [2.02, 14.04, 14.08, 14.1],
+    "def": ""
   },
   {
     "id": 104,
-    "name": "Overwhelmed",
-    "def": "When you feel overwhelmed, you experience anxiety and fear, often as a result of facing more than you can handle.",
-    "competencies": [1.02, 3.02, 3.03, 5.04, 5.06, 6.03, 16.02, 19.08],
-    "type": "neg"
+    "name": "humiliated",
+    "type": "neg",
+    "competencies": [13.01, 13.02, 13.03, 13.07, 13.08, 13.09],
+    "def": ""
   },
   {
     "id": 105,
-    "name": "Overworked",
-    "def": "When you feel overworked, you experience sadness and boredom, often as a result of excessive labor demands.",
-    "competencies": [3.08, 6.05],
-    "type": "neg"
+    "name": "hurt",
+    "type": "neg",
+    "competencies": [12.01, 12.04, 13.01, 13.05, 13.06, 13.11],
+    "def": ""
   },
   {
     "id": 106,
-    "name": "Powerless",
-    "def": "When you feel powerless, you experience fear and sadness, often as a result of lacking ability to influence outcomes.",
-    "competencies": [2.01, 9.06, 14.06],
-    "type": "neg"
+    "name": "ignored",
+    "type": "neg",
+    "competencies": [1.02, 5.03, 7.02, 8.03, 10.04],
+    "def": ""
   },
   {
     "id": 107,
-    "name": "Predictable",
-    "def": "When you feel predictable, you experience calmness and boredom, often as a result of consistent patterns.",
-    "competencies": [6.04],
-    "type": "pos"
+    "name": "in control",
+    "type": "pos",
+    "competencies": [1.03, 2.03, 2.04, 4.01, 4.03, 14.03, 14.07],
+    "def": ""
   },
   {
     "id": 108,
-    "name": "Prepared",
-    "def": "When you feel prepared, you experience satisfaction and calmness, often as a result of being ready for what's ahead.",
-    "competencies": [4.03, 13.03],
-    "type": "pos"
+    "name": "in sync",
+    "type": "pos",
+    "competencies": [6.04, 12.03],
+    "def": ""
   },
   {
     "id": 109,
-    "name": "Pressured",
-    "def": "When you feel pressured, you experience anxiety and fear, often as a result of external demands or expectations.",
-    "competencies": [3.02, 3.04, 3.05, 5.05, 5.06, 6.07],
-    "type": "neg"
+    "name": "included",
+    "type": "pos",
+    "competencies": [5.02, 5.03, 5.04, 8.03, 10.04, 12.04, 13.04, 13.06, 13.09, 13.11],
+    "def": ""
   },
   {
     "id": 110,
-    "name": "Protected",
-    "def": "When you feel protected, you experience relief and calmness, often as a result of being safe from harm.",
-    "competencies": [3.09, 7.03, 8.04, 9.09, 17.01, 17.03, 17.04, 20.04],
-    "type": "pos"
+    "name": "informed",
+    "type": "pos",
+    "competencies": [4.02, 4.04, 10.02],
+    "def": ""
   },
   {
     "id": 111,
-    "name": "Purposeful",
-    "def": "When you feel purposeful, you experience satisfaction and interest, often as a result of having clear meaning or direction.",
-    "competencies": [3.07, 6.06],
-    "type": "pos"
+    "name": "insecure",
+    "type": "neg",
+    "competencies": [2.02, 3.01, 3.02, 4.01, 4.03, 5.04, 6.03, 7.01, 8.02, 10.01, 10.02, 10.04, 13.05, 13.09, 14.09],
+    "def": ""
   },
   {
     "id": 112,
-    "name": "Reassured",
-    "def": "When you feel reassured, you experience relief and calmness, often as a result of having concerns addressed.",
-    "competencies": [
-      1.06, 3.05, 4.01, 4.03, 7.01, 7.03, 8.01, 8.05, 9.01, 9.02, 9.04, 9.05, 9.07, 9.08, 10.03, 13.01, 13.02, 14.04,
-      14.06, 17.02, 20.01, 20.04
-    ],
-    "type": "pos"
+    "name": "inspired",
+    "type": "pos",
+    "competencies": [7.03, 14.04, 14.16],
+    "def": ""
   },
   {
     "id": 113,
-    "name": "Refreshed",
-    "def": "When you feel refreshed, you experience joy and satisfaction, often as a result of being renewed or restored.",
-    "competencies": [16.03],
-    "type": "pos"
+    "name": "insulted",
+    "type": "neg",
+    "competencies": [13.04, 13.05, 13.08],
+    "def": ""
   },
   {
     "id": 114,
-    "name": "Relaxed",
-    "def": "When you feel relaxed, you experience calmness and satisfaction, often as a result of being free from tension.",
-    "competencies": [3.03, 5.07, 6.05, 16.01, 16.03],
-    "type": "pos"
+    "name": "irritated",
+    "type": "neg",
+    "competencies": [11.04, 12.02, 14.14],
+    "def": ""
   },
   {
     "id": 115,
-    "name": "Resentful",
-    "def": "When you feel resentful, you experience anger and sadness, often as a result of perceived unfair treatment.",
-    "competencies": [8.06, 9.06, 10.04, 14.06, 19.02],
-    "type": "neg"
+    "name": "isolated",
+    "type": "neg",
+    "competencies": [3.04, 5.01, 6.01, 13.06],
+    "def": ""
   },
   {
     "id": 116,
-    "name": "Respected",
-    "def": "When you feel respected, you experience satisfaction and joy, often as a result of being valued by others.",
-    "competencies": [
-      8.03, 8.06, 9.03, 9.06, 9.07, 9.08, 9.09, 10.04, 14.06, 14.07, 15.01, 15.02, 17.04, 18.01, 18.02, 18.03, 18.04,
-      18.06, 19.03, 19.04, 19.05, 19.07
-    ],
-    "type": "pos"
+    "name": "jittery",
+    "type": "neg",
+    "competencies": [14.02, 14.05],
+    "def": ""
   },
   {
     "id": 117,
-    "name": "Responsible",
-    "def": "When you feel responsible, you experience satisfaction and anxiety, often as a result of carrying important duties.",
-    "competencies": [1.03],
-    "type": "pos"
+    "name": "joyful",
+    "type": "pos",
+    "competencies": [9.02, 14.08, 14.1],
+    "def": ""
   },
   {
     "id": 118,
-    "name": "Restricted",
-    "def": "When you feel restricted, you experience anger and anxiety, often as a result of having limitations imposed.",
-    "competencies": [2.03, 6.03],
-    "type": "neg"
+    "name": "knowledgeable",
+    "type": "pos",
+    "competencies": [4.02, 4.03],
+    "def": ""
   },
   {
     "id": 119,
-    "name": "Safe",
-    "def": "When you feel safe, you experience relief and calmness, often as a result of being protected from harm.",
-    "competencies": [3.1, 5.03, 8.04, 9.09, 14.07, 17.01, 17.02, 17.03, 17.04, 18.01, 18.02, 19.07, 20.02],
-    "type": "pos"
+    "name": "lethargic",
+    "type": "neg",
+    "competencies": [14.01, 14.11],
+    "def": ""
   },
   {
     "id": 120,
-    "name": "Satisfied",
-    "def": "When you feel satisfied, you experience a sense of joy, often as a result of needs or desires being met.",
-    "competencies": [3.01, 6.06, 11.02],
-    "type": "pos"
+    "name": "liberated",
+    "type": "pos",
+    "competencies": [1.01, 10.04, 12.03],
+    "def": ""
   },
   {
     "id": 121,
-    "name": "Scared",
-    "def": "When you feel scared, you experience fear and anxiety, often as a result of immediate threat or danger.",
-    "competencies": [17.01, 17.04],
-    "type": "neg"
+    "name": "lively",
+    "type": "pos",
+    "competencies": [14.01, 14.1, 14.15],
+    "def": ""
   },
   {
     "id": 122,
-    "name": "Secure",
-    "def": "When you feel secure, you experience calmness and satisfaction, often as a result of being protected and stable.",
-    "competencies": [
-      1.02, 3.09, 4.02, 5.03, 7.02, 7.03, 7.04, 8.03, 8.04, 8.06, 9.06, 10.04, 17.01, 17.02, 17.03, 18.03, 19.03, 20.01,
-      20.02, 20.04, 20.05
-    ],
-    "type": "pos"
+    "name": "lonely",
+    "type": "neg",
+    "competencies": [5.01, 5.04, 12.04, 13.06],
+    "def": ""
   },
   {
     "id": 123,
-    "name": "Stable",
-    "def": "When you feel stable, you experience calmness and satisfaction, often as a result of having reliable circumstances.",
-    "competencies": [1.06, 4.02, 6.04, 7.01, 20.05],
-    "type": "pos"
+    "name": "lost",
+    "type": "neg",
+    "competencies": [4.01, 10.02, 10.03],
+    "def": ""
   },
   {
     "id": 124,
-    "name": "Stagnant",
-    "def": "When you feel stagnant, you experience boredom and sadness, often as a result of lack of growth or progress.",
-    "competencies": [3.06, 6.01, 10.02, 12.01],
-    "type": "neg"
+    "name": "miserable",
+    "type": "neg",
+    "competencies": [14.08, 14.1, 14.14],
+    "def": ""
   },
   {
     "id": 125,
-    "name": "Steady",
-    "def": "When you feel steady, you experience calmness and satisfaction, often as a result of maintaining balance.",
-    "competencies": [5.04],
-    "type": "pos"
+    "name": "mistrustful",
+    "type": "neg",
+    "competencies": [5.02, 8.01, 13.01],
+    "def": ""
   },
   {
     "id": 126,
-    "name": "Stimulated",
-    "def": "When you feel stimulated, you experience interest and excitement, often as a result of engaging activity or input.",
-    "competencies": [3.06, 5.08],
-    "type": "pos"
+    "name": "misunderstood",
+    "type": "neg",
+    "competencies": [3.04, 5.04, 6.01, 6.02, 6.03, 6.04],
+    "def": ""
   },
   {
     "id": 127,
-    "name": "Stressed",
-    "def": "When you feel stressed, you experience anxiety and fear, often as a result of pressure or demanding circumstances.",
-    "competencies": [1.02, 3.03, 5.05, 5.07, 6.04, 6.07, 8.03, 16.01, 16.02, 19.08],
-    "type": "neg"
+    "name": "motivated",
+    "type": "pos",
+    "competencies": [1.01, 4.04, 7.01, 7.03, 13.03, 14.12, 14.16],
+    "def": ""
   },
   {
     "id": 128,
-    "name": "Supported",
-    "def": "When you feel supported, you experience relief and joy, often as a result of receiving help or encouragement.",
-    "competencies": [
-      1.05, 2.01, 3.09, 4.01, 5.01, 5.02, 6.02, 6.03, 8.02, 8.05, 9.02, 9.05, 10.01, 10.02, 13.01, 13.02, 14.03, 14.05,
-      16.01, 18.05, 18.06, 19.06, 20.03
-    ],
-    "type": "pos"
+    "name": "neglected",
+    "type": "neg",
+    "competencies": [3.01, 3.03, 3.04, 4.04, 7.03, 8.03, 14.09],
+    "def": ""
   },
   {
     "id": 129,
-    "name": "Targeted",
-    "def": "When you feel targeted, you experience fear and anger, often as a result of being singled out for negative attention.",
-    "competencies": [18.01, 18.02],
-    "type": "neg"
+    "name": "offended",
+    "type": "neg",
+    "competencies": [12.01, 12.02, 13.03, 13.04, 13.08],
+    "def": ""
   },
   {
     "id": 130,
-    "name": "Threatened",
-    "def": "When you feel threatened, you experience fear and anxiety, often as a result of anticipated harm.",
-    "competencies": [17.02],
-    "type": "neg"
+    "name": "open",
+    "type": "pos",
+    "competencies": [8.03, 8.04, 11.02],
+    "def": ""
   },
   {
     "id": 131,
-    "name": "Torn",
-    "def": "When you feel torn, you experience anxiety and confusion, often as a result of difficult competing choices.",
-    "competencies": [16.02],
-    "type": "neg"
+    "name": "optimistic",
+    "type": "pos",
+    "competencies": [1.01, 2.02, 3.03, 5.03, 8.02, 10.02, 11.04, 12.01, 13.01, 13.04, 13.1, 14.04, 14.08, 14.1, 14.12],
+    "def": ""
   },
   {
     "id": 132,
-    "name": "Trapped",
-    "def": "When you feel trapped, you experience fear and anxiety, often as a result of seeing no way out of a situation.",
-    "competencies": [2.02],
-    "type": "neg"
+    "name": "organised",
+    "type": "pos",
+    "competencies": [2.02, 4.01],
+    "def": ""
   },
   {
     "id": 133,
-    "name": "Traumatised",
-    "def": "When you feel traumatised, you experience horror and fear, often as a result of experiencing severe emotional shock.",
-    "competencies": [3.1, 8.04, 17.01, 17.03, 20.05],
-    "type": "neg"
+    "name": "overlooked",
+    "type": "neg",
+    "competencies": [4.04, 5.03, 7.01],
+    "def": ""
   },
   {
     "id": 134,
-    "name": "Trusted",
-    "def": "When you feel trusted, you experience satisfaction and joy, often as a result of others having faith in you.",
-    "competencies": [9.04, 14.07, 15.01, 19.07],
-    "type": "pos"
+    "name": "overwhelmed",
+    "type": "neg",
+    "competencies": [1.03, 2.01, 2.04, 4.02, 6.02, 6.04, 9.01, 9.02, 14.03, 14.12],
+    "def": ""
   },
   {
     "id": 135,
-    "name": "Unappreciated",
-    "def": "When you feel unappreciated, you experience sadness and anger, often as a result of lack of recognition.",
-    "competencies": [1.07, 11.01, 11.02, 14.01],
-    "type": "neg"
+    "name": "panicked",
+    "type": "neg",
+    "competencies": [2.02, 14.03],
+    "def": ""
   },
   {
     "id": 136,
-    "name": "Unbalanced",
-    "def": "When you feel unbalanced, you experience confusion and anxiety, often as a result of lacking stability.",
-    "competencies": [6.02],
-    "type": "neg"
+    "name": "peaceful",
+    "type": "pos",
+    "competencies": [8.02, 9.01, 9.02, 11.01, 12.03, 13.02, 13.08, 14.02, 14.06, 14.14],
+    "def": ""
   },
   {
     "id": 137,
-    "name": "Uncertain",
-    "def": "When you feel uncertain, you experience anxiety and confusion, often as a result of lacking clear understanding.",
-    "competencies": [1.01, 7.04, 14.01],
-    "type": "neg"
+    "name": "poised",
+    "type": "pos",
+    "competencies": [14.03, 14.06],
+    "def": ""
   },
   {
     "id": 138,
-    "name": "Uncomfortable",
-    "def": "When you feel uncomfortable, you experience awkwardness and anxiety, often as a result of being ill at ease.",
-    "competencies": [14.07, 20.02],
-    "type": "neg"
+    "name": "pos",
+    "type": "pos",
+    "competencies": [6.03, 10.01, 11.02, 14.04, 14.08, 14.1, 14.12, 14.16],
+    "def": ""
   },
   {
     "id": 139,
-    "name": "Underutilised",
-    "def": "When you feel underutilised, you experience boredom and sadness, often as a result of talents going unused.",
-    "competencies": [3.01],
-    "type": "neg"
+    "name": "powerless",
+    "type": "neg",
+    "competencies": [1.01, 3.03, 5.03, 8.03, 10.01, 10.04, 13.08, 13.1, 13.11, 14.16],
+    "def": ""
   },
   {
     "id": 140,
-    "name": "Undervalued",
-    "def": "When you feel undervalued, you experience sadness and anger, often as a result of not being properly appreciated.",
-    "competencies": [15.02, 19.04],
-    "type": "neg"
+    "name": "prepared",
+    "type": "pos",
+    "competencies": [4.01, 4.02, 10.02, 10.03, 14.07, 14.12],
+    "def": ""
   },
   {
     "id": 141,
-    "name": "Underwhelmed",
-    "def": "When you feel underwhelmed, you experience boredom and sadness, often as a result of experiences falling short of expectations.",
-    "competencies": [5.04],
-    "type": "neg"
+    "name": "pressured",
+    "type": "neg",
+    "competencies": [1.03, 2.01, 2.04, 6.02, 6.04, 9.02],
+    "def": ""
   },
   {
     "id": 142,
-    "name": "Unfocused",
-    "def": "When you feel unfocused, you experience confusion and anxiety, often as a result of scattered attention.",
-    "competencies": [10.03],
-    "type": "neg"
+    "name": "proud",
+    "type": "pos",
+    "competencies": [1.02, 2.04, 6.01, 7.01, 7.02, 8.01, 13.05, 13.09, 14.09],
+    "def": ""
   },
   {
     "id": 143,
-    "name": "Unfulfilled",
-    "def": "When you feel unfulfilled, you experience sadness and craving, often as a result of lacking meaning or satisfaction.",
-    "competencies": [3.06, 6.06, 12.01],
-    "type": "neg"
+    "name": "purposeful",
+    "type": "pos",
+    "competencies": [1.02, 4.04],
+    "def": ""
   },
   {
     "id": 144,
-    "name": "Unheard",
-    "def": "When you feel unheard, you experience sadness and anger, often as a result of not being listened to.",
-    "competencies": [9.03],
-    "type": "neg"
+    "name": "puzzled",
+    "type": "neg",
+    "competencies": [4.03, 10.02],
+    "def": ""
   },
   {
     "id": 145,
-    "name": "Uninformed",
-    "def": "When you feel uninformed, you experience confusion and anxiety, often as a result of lacking important information.",
-    "competencies": [4.03, 9.05, 13.03],
-    "type": "neg"
+    "name": "reassured",
+    "type": "pos",
+    "competencies": [2.02, 3.04, 5.01, 5.03, 8.02, 10.04, 12.04, 13.08],
+    "def": ""
   },
   {
     "id": 146,
-    "name": "Uninspired",
-    "def": "When you feel uninspired, you experience boredom and sadness, often as a result of lacking creative energy.",
-    "competencies": [3.07, 6.01, 9.01],
-    "type": "neg"
+    "name": "recognised",
+    "type": "pos",
+    "competencies": [1.02, 7.01, 7.03, 11.03, 13.03, 13.09],
+    "def": ""
   },
   {
     "id": 147,
-    "name": "Unmotivated",
-    "def": "When you feel unmotivated, you experience boredom and sadness, often as a result of lacking drive or purpose.",
-    "competencies": [14.05],
-    "type": "neg"
+    "name": "refreshed",
+    "type": "pos",
+    "competencies": [14.11, 14.15],
+    "def": ""
   },
   {
     "id": 148,
-    "name": "Unprepared",
-    "def": "When you feel unprepared, you experience anxiety and fear, often as a result of not being ready.",
-    "competencies": [4.01, 13.03],
-    "type": "neg"
+    "name": "relaxed",
+    "type": "pos",
+    "competencies": [1.03, 9.01, 12.03, 14.02, 14.03, 14.05, 14.06, 14.11],
+    "def": ""
   },
   {
     "id": 149,
-    "name": "Unprotected",
-    "def": "When you feel unprotected, you experience fear and anxiety, often as a result of being vulnerable to harm.",
-    "competencies": [7.03],
-    "type": "neg"
+    "name": "relieved",
+    "type": "pos",
+    "competencies": [
+      2.01, 2.04, 3.01, 3.02, 3.03, 5.01, 5.02, 6.04, 8.02, 8.03, 10.01, 11.01, 13.01, 13.02, 13.03, 13.04, 13.05,
+      13.06, 13.07, 13.09, 13.1, 13.11
+    ],
+    "def": ""
   },
   {
     "id": 150,
-    "name": "Unsafe",
-    "def": "When you feel unsafe, you experience fear and anxiety, often as a result of being exposed to potential danger.",
-    "competencies": [3.1, 8.04, 17.01, 17.03, 20.04, 20.05],
-    "type": "neg"
+    "name": "resentful",
+    "type": "neg",
+    "competencies": [
+      1.01, 1.03, 3.02, 5.03, 6.03, 7.01, 7.02, 7.03, 8.01, 8.02, 8.03, 10.01, 10.03, 10.04, 11.02, 11.03, 12.01, 12.02,
+      13.06, 13.08, 13.09, 14.14
+    ],
+    "def": ""
   },
   {
     "id": 151,
-    "name": "Unsettled",
-    "def": "When you feel unsettled, you experience anxiety and confusion, often as a result of disrupted stability.",
-    "competencies": [1.04, 4.02, 6.04, 20.02],
-    "type": "neg"
+    "name": "respected",
+    "type": "pos",
+    "competencies": [1.02, 3.02, 3.04, 5.04, 7.02, 8.01, 8.03, 8.04, 10.01, 12.02, 13.01, 13.04, 13.08],
+    "def": ""
   },
   {
     "id": 152,
-    "name": "Unstable",
-    "def": "When you feel unstable, you experience anxiety and fear, often as a result of lacking solid foundation.",
-    "competencies": [1.06, 7.01],
-    "type": "neg"
+    "name": "restful",
+    "type": "pos",
+    "competencies": [9.03, 14.05],
+    "def": ""
   },
   {
     "id": 153,
-    "name": "Unstressed",
-    "def": "When you feel unstressed, you experience calmness and relief, often as a result of freedom from pressure.",
-    "competencies": [3.03, 16.02, 19.08],
-    "type": "pos"
+    "name": "restless",
+    "type": "neg",
+    "competencies": [14.02, 14.03, 14.05, 14.06, 14.14],
+    "def": ""
   },
   {
     "id": 154,
-    "name": "Unsupported",
-    "def": "When you feel unsupported, you experience sadness and anxiety, often as a result of lacking help when needed.",
-    "competencies": [3.09, 4.01, 5.03, 8.02, 8.05, 9.02, 9.05, 10.02, 13.01, 13.02, 14.05],
-    "type": "neg"
+    "name": "restricted",
+    "type": "neg",
+    "competencies": [1.01, 1.02, 10.04],
+    "def": ""
   },
   {
     "id": 155,
-    "name": "Unsure",
-    "def": "When you feel unsure, you experience anxiety and confusion, often as a result of doubting knowledge or decisions.",
-    "competencies": [1.04],
-    "type": "neg"
+    "name": "revived",
+    "type": "pos",
+    "competencies": [14.11, 14.15],
+    "def": ""
   },
   {
     "id": 156,
-    "name": "Untroubled",
-    "def": "When you feel untroubled, you experience calmness and satisfaction, often as a result of freedom from worry.",
-    "competencies": [3.1],
-    "type": "pos"
+    "name": "rushed",
+    "type": "neg",
+    "competencies": [1.03, 2.03],
+    "def": ""
   },
   {
     "id": 157,
-    "name": "Unvalued",
-    "def": "When you feel unvalued, you experience sadness and anger, often as a result of not being appreciated.",
-    "competencies": [8.02, 9.03, 14.02, 19.02],
-    "type": "neg"
+    "name": "sad",
+    "type": "neg",
+    "competencies": [3.04, 14.1],
+    "def": ""
   },
   {
     "id": 158,
-    "name": "Valued",
-    "def": "When you feel valued, you experience joy and satisfaction, often as a result of being appreciated by others.",
-    "competencies": [
-      1.07, 8.02, 8.07, 9.03, 11.01, 11.02, 14.02, 15.01, 15.02, 18.01, 18.02, 18.03, 18.04, 18.05, 18.06, 19.01, 19.02,
-      19.03, 19.04
-    ],
-    "type": "pos"
+    "name": "safe",
+    "type": "pos",
+    "competencies": [5.04, 12.01, 12.02, 12.04, 13.01, 13.02, 13.04, 13.09, 13.1, 13.11],
+    "def": ""
   },
   {
     "id": 159,
-    "name": "Victimised",
-    "def": "When you feel victimised, you experience fear and anger, often as a result of being targeted or mistreated.",
-    "competencies": [8.04, 18.04, 19.03],
-    "type": "neg"
+    "name": "satisfied",
+    "type": "pos",
+    "competencies": [2.01, 2.04, 4.01, 6.04, 7.02, 8.04, 9.02, 11.01, 11.03, 12.01, 14.02, 14.08, 14.14],
+    "def": ""
   },
   {
     "id": 160,
-    "name": "Violated",
-    "def": "When you feel violated, you experience horror and anger, often as a result of boundaries being severely breached.",
-    "competencies": [17.03],
-    "type": "neg"
+    "name": "sceptical",
+    "type": "neg",
+    "competencies": [8.01, 8.04, 10.02],
+    "def": ""
   },
   {
     "id": 161,
-    "name": "Vulnerable",
-    "def": "When you feel vulnerable, you experience fear and anxiety, often as a result of being exposed to potential harm.",
-    "competencies": [3.09, 5.03, 7.03, 17.04, 18.02, 20.04],
-    "type": "neg"
+    "name": "secure",
+    "type": "pos",
+    "competencies": [
+      1.02, 2.01, 2.03, 2.04, 3.01, 3.02, 3.03, 4.01, 5.02, 5.03, 6.01, 6.02, 6.04, 7.01, 8.01, 8.04, 9.03, 10.01,
+      10.02, 10.03, 11.03, 13.02, 13.03, 13.06, 13.08, 13.11, 14.06, 14.09
+    ],
+    "def": ""
   },
   {
     "id": 162,
-    "name": "Worried",
-    "def": "When you feel worried, you experience anxiety and fear, often as a result of anticipating negative outcomes.",
-    "competencies": [7.02],
-    "type": "neg"
+    "name": "seen",
+    "type": "pos",
+    "competencies": [7.02, 13.06],
+    "def": ""
   },
   {
     "id": 163,
-    "name": "Wronged",
-    "def": "When you feel wronged, you experience anger and sadness, often as a result of being treated unfairly.",
-    "competencies": [10.04],
-    "type": "neg"
+    "name": "self-assured",
+    "type": "pos",
+    "competencies": [1.01, 2.03, 4.02, 14.03, 14.07, 14.09],
+    "def": ""
+  },
+  {
+    "id": 164,
+    "name": "serene",
+    "type": "pos",
+    "competencies": [9.01, 9.02, 14.05],
+    "def": ""
+  },
+  {
+    "id": 165,
+    "name": "settled",
+    "type": "pos",
+    "competencies": [9.01, 14.05, 14.14],
+    "def": ""
+  },
+  {
+    "id": 166,
+    "name": "shaken",
+    "type": "neg",
+    "competencies": [9.01, 13.11],
+    "def": ""
+  },
+  {
+    "id": 167,
+    "name": "silenced",
+    "type": "neg",
+    "competencies": [3.04, 5.04, 8.03, 10.04],
+    "def": ""
+  },
+  {
+    "id": 168,
+    "name": "sluggish",
+    "type": "neg",
+    "competencies": [14.01, 14.11, 14.12],
+    "def": ""
+  },
+  {
+    "id": 169,
+    "name": "sorrowful",
+    "type": "neg",
+    "competencies": [14.04, 14.08],
+    "def": ""
+  },
+  {
+    "id": 170,
+    "name": "spent",
+    "type": "neg",
+    "competencies": [9.03, 14.16],
+    "def": ""
+  },
+  {
+    "id": 171,
+    "name": "stable",
+    "type": "pos",
+    "competencies": [9.01, 9.03, 10.03, 13.07, 13.1, 14.03, 14.13, 14.14],
+    "def": ""
+  },
+  {
+    "id": 172,
+    "name": "steady",
+    "type": "pos",
+    "competencies": [1.03, 2.01, 4.03],
+    "def": ""
+  },
+  {
+    "id": 173,
+    "name": "stifled",
+    "type": "neg",
+    "competencies": [1.01, 11.02],
+    "def": ""
+  },
+  {
+    "id": 174,
+    "name": "stimulated",
+    "type": "pos",
+    "competencies": [11.02, 14.15],
+    "def": ""
+  },
+  {
+    "id": 175,
+    "name": "strained",
+    "type": "neg",
+    "competencies": [6.02, 12.03, 14.07],
+    "def": ""
+  },
+  {
+    "id": 176,
+    "name": "stressed",
+    "type": "neg",
+    "competencies": [1.03, 2.02, 2.04, 3.03, 4.01, 4.03, 5.01, 6.01, 6.04, 9.01, 9.02, 11.03, 14.07],
+    "def": ""
+  },
+  {
+    "id": 177,
+    "name": "strong",
+    "type": "pos",
+    "competencies": [14.07, 14.13],
+    "def": ""
+  },
+  {
+    "id": 178,
+    "name": "supported",
+    "type": "pos",
+    "competencies": [2.02, 3.01, 3.04, 5.01, 6.01, 7.03, 8.02, 13.01, 13.05, 13.07, 13.09],
+    "def": ""
+  },
+  {
+    "id": 179,
+    "name": "supportive",
+    "type": "pos",
+    "competencies": [12.02, 12.03, 13.1],
+    "def": ""
+  },
+  {
+    "id": 180,
+    "name": "suspicious",
+    "type": "neg",
+    "competencies": [8.02, 8.04, 10.03, 12.03],
+    "def": ""
+  },
+  {
+    "id": 181,
+    "name": "tense",
+    "type": "neg",
+    "competencies": [
+      1.03, 2.01, 2.03, 3.04, 5.02, 5.03, 5.04, 6.03, 9.02, 9.03, 11.01, 11.04, 12.01, 12.03, 14.02, 14.03, 14.05,
+      14.06, 14.07
+    ],
+    "def": ""
+  },
+  {
+    "id": 182,
+    "name": "threatened",
+    "type": "neg",
+    "competencies": [13.01, 13.02, 13.04, 13.05, 13.11],
+    "def": ""
+  },
+  {
+    "id": 183,
+    "name": "torn",
+    "type": "neg",
+    "competencies": [6.01, 6.04],
+    "def": ""
+  },
+  {
+    "id": 184,
+    "name": "tranquil",
+    "type": "pos",
+    "competencies": [14.02, 14.05],
+    "def": ""
+  },
+  {
+    "id": 185,
+    "name": "trusting",
+    "type": "pos",
+    "competencies": [
+      3.02, 5.02, 8.01, 8.02, 8.03, 8.04, 10.01, 10.02, 10.03, 10.04, 11.01, 11.03, 12.01, 12.03, 13.01, 13.02, 13.04,
+      13.1, 13.11
+    ],
+    "def": ""
+  },
+  {
+    "id": 186,
+    "name": "unacknowledged",
+    "type": "neg",
+    "competencies": [7.02, 7.03],
+    "def": ""
+  },
+  {
+    "id": 187,
+    "name": "uncertain",
+    "type": "neg",
+    "competencies": [1.03, 2.03, 3.03, 4.01, 4.04, 6.01, 6.03, 6.04, 8.04, 10.01, 10.02, 11.01, 11.03],
+    "def": ""
+  },
+  {
+    "id": 188,
+    "name": "uncomfortable",
+    "type": "neg",
+    "competencies": [11.04, 12.03],
+    "def": ""
+  },
+  {
+    "id": 189,
+    "name": "undermined",
+    "type": "neg",
+    "competencies": [5.01, 8.02, 11.03, 13.01, 13.07],
+    "def": ""
+  },
+  {
+    "id": 190,
+    "name": "understood",
+    "type": "pos",
+    "competencies": [3.04, 5.04, 13.11],
+    "def": ""
+  },
+  {
+    "id": 191,
+    "name": "undervalued",
+    "type": "neg",
+    "competencies": [1.01, 10.01],
+    "def": ""
+  },
+  {
+    "id": 192,
+    "name": "uneasy",
+    "type": "neg",
+    "competencies": [
+      1.02, 1.03, 2.01, 3.01, 3.02, 3.03, 3.04, 4.03, 5.01, 5.02, 5.04, 6.01, 6.02, 6.03, 6.04, 8.01, 8.04, 9.01, 10.03,
+      10.04, 11.01, 11.02, 11.03, 12.01, 12.02, 12.03, 12.04, 13.05, 13.06, 13.07, 13.1, 13.11, 14.02, 14.05, 14.06
+    ],
+    "def": ""
+  },
+  {
+    "id": 193,
+    "name": "unhurried",
+    "type": "pos",
+    "competencies": [1.03, 2.03],
+    "def": ""
+  },
+  {
+    "id": 194,
+    "name": "unified",
+    "type": "pos",
+    "competencies": [6.02, 8.01, 11.01, 11.04, 12.01],
+    "def": ""
+  },
+  {
+    "id": 195,
+    "name": "unmotivated",
+    "type": "neg",
+    "competencies": [4.04, 14.12, 14.16],
+    "def": ""
+  },
+  {
+    "id": 196,
+    "name": "unprepared",
+    "type": "neg",
+    "competencies": [2.02, 4.02],
+    "def": ""
+  },
+  {
+    "id": 197,
+    "name": "unsettled",
+    "type": "neg",
+    "competencies": [4.03, 5.01, 5.03, 9.01, 9.03, 11.04, 13.02, 14.02, 14.06],
+    "def": ""
+  },
+  {
+    "id": 198,
+    "name": "unsupported",
+    "type": "neg",
+    "competencies": [3.01, 3.02, 5.02, 8.04, 12.04],
+    "def": ""
+  },
+  {
+    "id": 199,
+    "name": "upbeat",
+    "type": "pos",
+    "competencies": [2.04, 9.02, 13.01, 14.1, 14.12],
+    "def": ""
+  },
+  {
+    "id": 200,
+    "name": "uplifted",
+    "type": "pos",
+    "competencies": [3.03, 6.02, 7.01, 7.03, 12.04, 13.03, 13.09, 13.11, 14.08],
+    "def": ""
+  },
+  {
+    "id": 201,
+    "name": "upset",
+    "type": "neg",
+    "competencies": [
+      5.04, 7.02, 7.03, 8.01, 8.03, 9.01, 9.02, 10.03, 12.02, 12.03, 12.04, 13.01, 13.03, 13.04, 13.06, 13.08, 13.09,
+      13.1
+    ],
+    "def": ""
+  },
+  {
+    "id": 202,
+    "name": "validated",
+    "type": "pos",
+    "competencies": [
+      1.02, 3.04, 5.03, 6.01, 6.02, 6.03, 6.04, 7.02, 7.03, 8.01, 8.02, 8.03, 8.04, 10.04, 11.03, 13.01, 13.03, 13.05,
+      13.07, 13.08, 13.09, 13.1, 14.09
+    ],
+    "def": ""
+  },
+  {
+    "id": 203,
+    "name": "valued",
+    "type": "pos",
+    "competencies": [1.01, 3.01, 3.03, 4.04, 5.04, 7.01, 8.03, 10.01, 12.04, 13.06, 14.09],
+    "def": ""
+  },
+  {
+    "id": 204,
+    "name": "vibrant",
+    "type": "pos",
+    "competencies": [14.01, 14.13],
+    "def": ""
+  },
+  {
+    "id": 205,
+    "name": "vulnerable",
+    "type": "neg",
+    "competencies": [4.02, 5.02, 9.03, 13.02, 13.07],
+    "def": ""
+  },
+  {
+    "id": 206,
+    "name": "wary",
+    "type": "neg",
+    "competencies": [5.02, 8.02],
+    "def": ""
+  },
+  {
+    "id": 207,
+    "name": "weary",
+    "type": "neg",
+    "competencies": [14.01, 14.07, 14.11, 14.13, 14.14, 14.16],
+    "def": ""
+  },
+  {
+    "id": 208,
+    "name": "worried",
+    "type": "neg",
+    "competencies": [2.03, 3.01, 3.03, 4.03, 5.01, 8.04, 9.03, 10.01, 10.02, 13.04, 13.09, 14.02],
+    "def": ""
   }
 ]

@@ -1,7 +1,6 @@
 import { useColorScheme } from "react-native";
 import * as Notifications from "expo-notifications";
 import tagsData from "data/tags.json";
-import guidelinesData from "data/guidelines.json";
 import { CalendarDatesType } from "context/home-dates";
 import { ReminderType } from "components/Reminder";
 import { CheckInMoodType, CheckInType } from "data/database";
@@ -115,7 +114,6 @@ export type PromptDataType = {
   date: string;
   time: string;
   feelings: string[];
-  statement: string;
   note: string;
 };
 
@@ -140,10 +138,6 @@ export const getPromptData = (checkIns: CheckInType[]) => {
       date: local.toDateString(),
       time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
       feelings: tags,
-      statement: getStatement(
-        guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
-        mood.statementResponse
-      ),
       note: checkIn.note,
     });
 

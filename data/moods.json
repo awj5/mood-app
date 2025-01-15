@@ -1,92 +1,127 @@
 [
   {
     "id": 12,
+    "name": "Orange",
+    "description": "Orange is the most dynamic zone, where energy is at its peak but valence is balanced. It reflects restlessness, drive, or urgency - a state that can feel intense but also motivating, depending on the situation.",
     "color": "#FF8000",
     "tags": [
-      2, 5, 6, 7, 10, 13, 18, 19, 23, 25, 33, 37, 44, 46, 50, 52, 54, 55, 56, 57, 61, 63, 64, 65, 73, 84, 87, 88, 89,
-      91, 99, 102, 103, 104, 105, 109, 111, 117, 121, 126, 127, 129, 130, 132, 133, 149, 150, 151, 152, 154, 159, 160,
-      161, 162
+      2, 7, 8, 9, 13, 14, 15, 25, 31, 47, 62, 63, 69, 70, 72, 73, 74, 76, 78, 79, 83, 84, 85, 87, 89, 93, 112, 114, 116,
+      117, 121, 127, 134, 135, 141, 142, 153, 155, 156, 166, 174, 175, 176, 181, 182, 199, 200, 204, 208
     ]
   },
   {
     "id": 1,
+    "name": "Yellow",
+    "description": "The Yellow zone is where energy and positivity shine brightest. It represents enthusiasm, excitement, and motivation. People in this zone feel vibrant, empowered, and ready to tackle challenges with gusto. It's a dynamic and highly active state.",
     "color": "#FFD500",
-    "tags": [2, 10, 18, 19, 23, 25, 33, 50, 52, 54, 55, 56, 57, 63, 84, 87, 91, 99, 111, 117, 126]
+    "tags": [9, 25, 31, 69, 70, 72, 73, 74, 76, 79, 93, 112, 117, 121, 127, 142, 155, 174, 199, 200, 204]
   },
   {
     "id": 2,
+    "name": "Lime",
+    "description": "Lime reflects a blend of positivity and focused energy. It's the feeling of being motivated and aligned, with a sense of purpose and clarity. This zone is balanced yet driven, ideal for productivity and teamwork.",
     "color": "#AAFF00",
     "tags": [
-      2, 4, 8, 9, 10, 11, 18, 19, 21, 23, 25, 26, 33, 50, 52, 54, 55, 56, 57, 60, 62, 63, 66, 67, 68, 70, 79, 81, 82,
-      84, 85, 87, 91, 99, 101, 110, 111, 116, 117, 126, 128, 134, 158
+      3, 4, 5, 6, 9, 11, 16, 19, 22, 25, 28, 30, 31, 32, 36, 38, 41, 43, 45, 69, 70, 72, 73, 74, 75, 76, 77, 79, 86, 90,
+      93, 95, 96, 101, 102, 107, 108, 109, 110, 112, 117, 118, 120, 121, 127, 130, 131, 132, 138, 140, 142, 143, 146,
+      147, 151, 155, 159, 161, 162, 163, 174, 177, 178, 179, 194, 199, 200, 202, 203, 204
     ]
   },
   {
     "id": 3,
+    "name": "Green",
+    "description": "The Green zone is the epitome of balance and positivity. It's where confidence, connection, and calm coexist. This is a state of feeling in control, fulfilled, and deeply content - the emotional sweet spot.",
     "color": "#00FF00",
-    "tags": [4, 8, 9, 11, 21, 26, 60, 62, 66, 67, 68, 70, 79, 81, 82, 85, 101, 110, 116, 128, 134, 158]
+    "tags": [
+      3, 4, 5, 6, 11, 16, 19, 22, 28, 30, 32, 36, 38, 41, 43, 45, 75, 77, 86, 90, 95, 96, 101, 102, 107, 108, 109, 110,
+      118, 120, 130, 131, 132, 138, 140, 143, 146, 147, 151, 159, 161, 162, 163, 177, 178, 179, 194, 202, 203
+    ]
   },
   {
     "id": 4,
+    "name": "Mint",
+    "description": "Mint represents calm positivity. It's the feeling of being composed, steady, and at ease. This zone captures a quiet, confident serenity - the kind of state that encourages thoughtful reflection and relaxation.",
     "color": "#00FFAA",
     "tags": [
-      4, 8, 9, 11, 12, 17, 20, 21, 22, 26, 28, 60, 62, 66, 67, 68, 69, 70, 79, 81, 82, 85, 95, 101, 107, 108, 110, 112,
-      113, 114, 116, 119, 120, 122, 123, 125, 128, 134, 153, 156, 158
+      3, 4, 5, 6, 11, 16, 17, 19, 20, 21, 22, 27, 28, 29, 30, 32, 33, 34, 35, 36, 37, 38, 41, 42, 43, 44, 45, 71, 75,
+      77, 86, 88, 90, 91, 92, 94, 95, 96, 98, 101, 102, 107, 108, 109, 110, 118, 120, 130, 131, 132, 136, 137, 138, 140,
+      143, 145, 146, 147, 148, 149, 151, 152, 158, 159, 161, 162, 163, 164, 165, 171, 172, 177, 178, 179, 184, 185, 190,
+      193, 194, 202, 203
     ]
   },
   {
     "id": 5,
+    "name": "Aqua",
+    "description": "Aqua reflects deep relaxation and tranquillity. It's a state of peace, safety, and comfort. People in this zone feel calm and unhurried, free from tension or pressure.",
     "color": "#00D5FF",
-    "tags": [12, 17, 20, 22, 28, 69, 95, 107, 108, 112, 113, 114, 119, 120, 122, 123, 125, 153, 156]
+    "tags": [
+      17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 71, 88, 91, 92, 94, 98, 136, 137, 145, 148, 149, 152, 158, 164, 165,
+      171, 172, 184, 185, 190, 193
+    ]
   },
   {
     "id": 6,
+    "name": "Sky",
+    "description": "The Sky zone represents stillness and rest. It's a neutral, low-energy state, often associated with recovery or reflection. This is where people recharge and find calm after periods of activity or stress.",
     "color": "#0080FF",
     "tags": [
-      12, 14, 16, 17, 20, 22, 24, 28, 30, 31, 32, 34, 35, 36, 39, 40, 41, 42, 45, 49, 53, 59, 69, 90, 92, 93, 94, 95,
-      107, 108, 112, 113, 114, 119, 120, 122, 123, 124, 125, 139, 141, 142, 143, 144, 145, 146, 147, 148, 153, 156, 157
+      12, 17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 48, 50, 51, 52, 53, 55, 57, 58, 65, 66, 67, 68, 71, 81, 82, 88,
+      91, 92, 94, 97, 98, 99, 103, 115, 119, 122, 123, 124, 136, 137, 139, 145, 148, 149, 152, 157, 158, 164, 165, 168,
+      169, 170, 171, 172, 184, 185, 190, 193, 195, 207
     ]
   },
   {
     "id": 7,
+    "name": "Blue",
+    "description": "Blue is a state of low-energy negativity, characterised by sadness, fatigue, or loneliness. It's when energy is drained, and emotions lean toward disconnection or despondency.",
     "color": "#0000FF",
     "tags": [
-      14, 16, 24, 30, 31, 32, 34, 35, 36, 39, 40, 41, 42, 45, 49, 53, 59, 90, 92, 93, 94, 124, 139, 141, 142, 143, 144,
-      145, 146, 147, 148, 157
+      12, 48, 50, 51, 52, 53, 55, 57, 58, 65, 66, 67, 68, 81, 82, 97, 99, 103, 115, 119, 122, 123, 124, 139, 157, 168,
+      169, 170, 195, 207
     ]
   },
   {
     "id": 8,
+    "name": "Purple",
+    "description": "Purple represents conflicted emotions and unease. It's the feeling of being lost, misunderstood, or hesitant. This zone is where vulnerability begins to surface, paired with a sense of uncertainty.",
     "color": "#6600CC",
     "tags": [
-      1, 3, 14, 15, 16, 24, 27, 29, 30, 31, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 45, 47, 48, 49, 51, 53, 58, 59, 71,
-      72, 74, 75, 76, 77, 78, 80, 83, 86, 90, 92, 93, 94, 96, 97, 98, 100, 106, 115, 118, 124, 131, 135, 136, 137, 138,
-      139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 155, 157, 163
+      1, 10, 12, 18, 23, 24, 26, 39, 40, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 64, 65, 66, 67, 68,
+      80, 81, 82, 97, 99, 100, 103, 104, 105, 106, 111, 113, 115, 119, 122, 123, 124, 125, 126, 128, 129, 133, 139, 144,
+      150, 154, 157, 160, 167, 168, 169, 170, 173, 180, 183, 186, 187, 188, 189, 191, 192, 195, 196, 197, 198, 201, 205,
+      206, 207
     ]
   },
   {
     "id": 9,
+    "name": "Aubergine",
+    "description": "Aubergine reflects deep emotional discomfort. It's the state of feeling hurt, excluded, or vulnerable. The energy level is higher than sadness but still weighed down by negative emotions.",
     "color": "#990099",
     "tags": [
-      1, 3, 15, 27, 29, 38, 43, 47, 48, 51, 58, 71, 72, 74, 75, 76, 77, 78, 80, 83, 86, 96, 97, 98, 100, 106, 115, 118,
-      131, 135, 136, 137, 138, 140, 155, 163
+      1, 10, 18, 23, 24, 26, 39, 40, 46, 49, 54, 56, 59, 60, 61, 64, 80, 100, 104, 105, 106, 111, 113, 125, 126, 128,
+      129, 133, 144, 150, 154, 160, 167, 173, 180, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206
     ]
   },
   {
     "id": 10,
+    "name": "Burgundy",
+    "description": "Burgundy is a state of agitation or frustration. It's where tension and negativity dominate, creating feelings of anger, irritation, or resentment. This zone can feel overwhelming but also charged with energy.",
     "color": "#CC0066",
     "tags": [
-      1, 3, 5, 6, 7, 13, 15, 27, 29, 37, 38, 43, 44, 46, 47, 48, 51, 58, 61, 64, 65, 71, 72, 73, 74, 75, 76, 77, 78, 80,
-      83, 86, 88, 89, 96, 97, 98, 100, 102, 103, 104, 105, 106, 109, 115, 118, 121, 127, 129, 130, 131, 132, 133, 135,
-      136, 137, 138, 140, 149, 150, 151, 152, 154, 155, 159, 160, 161, 162, 163
+      1, 2, 7, 8, 10, 13, 14, 15, 18, 23, 24, 26, 39, 40, 46, 47, 49, 54, 56, 59, 60, 61, 62, 63, 64, 78, 80, 83, 84,
+      85, 87, 89, 100, 104, 105, 106, 111, 113, 114, 116, 125, 126, 128, 129, 133, 134, 135, 141, 144, 150, 153, 154,
+      156, 160, 166, 167, 173, 175, 176, 180, 181, 182, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206,
+      208
     ]
   },
   {
     "id": 11,
+    "name": "Red",
+    "description": "Red is the zone of high-energy negativity. It's the feeling of being overwhelmed, anxious, or angry. This state is intense, with emotions running high and stress levels peaking.",
     "color": "#FF0000",
     "tags": [
-      5, 6, 7, 13, 37, 44, 46, 61, 64, 65, 73, 88, 89, 102, 103, 104, 105, 109, 121, 127, 129, 130, 132, 133, 149, 150,
-      151, 152, 154, 159, 160, 161, 162
+      2, 7, 8, 13, 14, 15, 47, 62, 63, 78, 83, 84, 85, 87, 89, 114, 116, 134, 135, 141, 153, 156, 166, 175, 176, 181,
+      182, 208
     ]
   }
 ]

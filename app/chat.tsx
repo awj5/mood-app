@@ -91,7 +91,9 @@ export default function Chat() {
           content: `${name ? `My name is ${name}. ` : ""}Please analyze today's check-in: ${JSON.stringify(
             history[history.length - 1]
           )}.${
-            history.length > 1 ? ` Here is my recent check-in history: ${JSON.stringify(history.slice(0, -1))}.` : ""
+            history.length > 1
+              ? ` For reference, here is my recent check-in history: ${JSON.stringify(history.slice(0, -1))}.`
+              : ""
           }`,
         },
       ];
@@ -165,7 +167,7 @@ export default function Chat() {
       chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: aiResponse }];
 
       // Only save summary if user has replied
-      if (chatHistoryRef.current.length > 2) {
+      if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
         const aiSummary = await requestAIResponse("summarize_chat");
 
         if (aiSummary) {
