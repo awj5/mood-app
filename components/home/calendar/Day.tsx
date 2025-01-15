@@ -138,6 +138,7 @@ export default function Day(props: DayProps) {
         </View>
 
         <Image
+          key={checkInMood ? checkInMood.color : 0}
           source={
             checkInMood
               ? emojis[checkInMood.color as keyof typeof emojis]

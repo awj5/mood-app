@@ -21,8 +21,8 @@ export default function Bg() {
   const color3 = useSharedValue(colors.primaryBg);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
+  const colorsArrayRef = useRef([colors.primaryBg]);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
-  const [colorsArray, setColorsArray] = useState([colors.primaryBg]);
   const heightOffset = headerHeight + (Device.deviceType !== 1 ? 128 : 96);
   const animationDuration = 3000;
 
@@ -65,7 +65,7 @@ export default function Bg() {
         checkInColors.push(data[0].color);
       }
 
-      if (latestQueryRef.current === currentQuery) setColorsArray(checkInColors);
+      if (latestQueryRef.current === currentQuery) colorsArrayRef.current = checkInColors;
     } catch (error) {
       console.log(error);
     }
@@ -75,41 +75,54 @@ export default function Bg() {
     useCallback(() => {
       let index = 0;
       let step = 0;
+      let colorsArray = colorsArrayRef.current;
 
       const animateColors = () => {
-        // Top
-        if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
-          color1.value = withTiming(colorsArray[index % colorsArray.length], {
-            duration: animationDuration,
-          });
-        }
-
-        // Middle
-        if ((index === 0 && step === 1) || (index > 0 && step === 0)) {
-          color2.value = withTiming(colorsArray[index % colorsArray.length], {
-            duration: animationDuration,
-          });
-        }
-
-        // Bottom
-        if ((index === 0 && step === 0) || (index === 0 && step === 2) || (index > 0 && step === 1)) {
-          color3.value = withTiming(colorsArray[(index + (step > 0 ? 1 : 0)) % colorsArray.length], {
-            duration: animationDuration,
-          });
-        }
-
-        if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
-          index += 1; // Next color in array
-          step = 0; // Reset
+        if (colorsArray !== colorsArrayRef.current) {
+          // Colors have changed so reset
+          clearInterval(interval);
+          index = 0;
+          step = 0;
+          colorsArray = colorsArrayRef.current;
+          interval = setInterval(animateColors, animationDuration);
+          animateColors();
         } else {
-          step += 1;
+          // Top
+          if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
+            color1.value = withTiming(colorsArray[index % colorsArray.length], {
+              duration: animationDuration,
+            });
+          }
+
+          // Middle
+          if ((index === 0 && step === 1) || (index > 0 && step === 0)) {
+            color2.value = withTiming(colorsArray[index % colorsArray.length], {
+              duration: animationDuration,
+            });
+          }
+
+          // Bottom
+          if ((index === 0 && step === 0) || (index === 0 && step === 2) || (index > 0 && step === 1)) {
+            color3.value = withTiming(colorsArray[(index + (step > 0 ? 1 : 0)) % colorsArray.length], {
+              duration: animationDuration,
+            });
+          }
+
+          if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
+            index += 1; // Next color in array
+            step = 0; // Reset
+          } else {
+            step += 1;
+          }
         }
       };
 
-      const interval = setInterval(animateColors, animationDuration);
+      // Init
+      let interval = setInterval(animateColors, animationDuration);
       animateColors();
+
       return () => clearInterval(interval);
-    }, [colorsArray])
+    }, [])
   );
 
   useFocusEffect(

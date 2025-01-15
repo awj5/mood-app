@@ -59,7 +59,7 @@ export default function BigButton(props: BigButtonProps) {
       );
     } else {
       cancelAnimation(scale);
-      scale.value = withTiming(1, { duration: 0 }); // Stop bounce animation
+      scale.value = withTiming(1, { duration: 200, easing: Easing.inOut(Easing.ease) }); // Stop bounce animation
     }
   }, [props.bounce]);
 
