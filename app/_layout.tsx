@@ -103,7 +103,7 @@ export default function Layout() {
                   />
                 </Stack>
 
-                {layoutReady && <StatusBar style="auto" />}
+                <StatusBar style="auto" />
               </GestureHandlerRootView>
             </CompanyDatesContext.Provider>
           </HomeDatesContext.Provider>

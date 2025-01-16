@@ -80,7 +80,7 @@ export default function Statement(props: StatementProps) {
 
       <View style={{ gap: 12 }}>
         <View style={{ justifyContent: "center" }}>
-          <View style={[styles.sliderTrackWrapper, { height: Platform.OS === "ios" ? 34 : 38 }]}>
+          <View style={styles.sliderTrackWrapper}>
             <View style={[styles.sliderTrack, { marginHorizontal: margin }]}></View>
           </View>
 
@@ -92,7 +92,7 @@ export default function Statement(props: StatementProps) {
             minimumTrackTintColor="transparent"
             maximumTrackTintColor="transparent"
             thumbImage={thumbs[props.moodID as keyof typeof thumbs]}
-            style={{ height: 52 }}
+            style={{ height: 40 }}
           />
         </View>
 
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
   sliderTrackWrapper: {
     width: "100%",
     position: "absolute",
+    height: 34,
   },
   sliderTrack: {
     backgroundColor: "black",
