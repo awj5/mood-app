@@ -53,7 +53,8 @@ export default function Tag(props: TagProps) {
             borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
             borderColor: props.color,
             paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-            paddingVertical: Device.deviceType !== 1 ? 8 : 6,
+            paddingTop: Device.deviceType !== 1 ? 7 : 5,
+            paddingBottom: Device.deviceType !== 1 ? 9 : 7,
             backgroundColor: !selected ? "transparent" : props.color,
           },
         ]}
