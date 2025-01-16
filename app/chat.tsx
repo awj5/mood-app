@@ -211,7 +211,7 @@ export default function Chat() {
           headerLeft: () => (
             <HeaderBackButton
               onPress={() => router.dismissAll()}
-              label="Home"
+              label="Dashboard"
               labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
               tintColor={colors.primary}
               allowFontScaling={false}
