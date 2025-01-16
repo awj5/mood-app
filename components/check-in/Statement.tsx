@@ -92,7 +92,7 @@ export default function Statement(props: StatementProps) {
             minimumTrackTintColor="transparent"
             maximumTrackTintColor="transparent"
             thumbImage={thumbs[props.moodID as keyof typeof thumbs]}
-            style={{ height: 40 }}
+            style={{ height: 52 }}
           />
         </View>
 
