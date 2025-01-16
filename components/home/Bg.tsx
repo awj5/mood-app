@@ -22,9 +22,12 @@ export default function Bg() {
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
   const colorsArrayRef = useRef([colors.primaryBg]);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
   const heightOffset = headerHeight + (Device.deviceType !== 1 ? 128 : 96);
   const animationDuration = 3000;
+  let index = 0;
+  let step = 0;
 
   const gradientColors = useDerivedValue(() => {
     return [colors.primaryBg, color1.value, color2.value, color3.value];
@@ -65,69 +68,59 @@ export default function Bg() {
         checkInColors.push(data[0].color);
       }
 
-      if (latestQueryRef.current === currentQuery) colorsArrayRef.current = checkInColors;
+      if (latestQueryRef.current === currentQuery) {
+        index = 0;
+        step = 0;
+        colorsArrayRef.current = checkInColors;
+        intervalRef.current = setInterval(animateColors, animationDuration);
+        animateColors(); // Init
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      let index = 0;
-      let step = 0;
-      let colorsArray = colorsArrayRef.current;
+  const animateColors = () => {
+    if (intervalRef.current !== null) {
+      // Top
+      if ((index === 0 && step === 2) || (index > 0 && step === 1))
+        color1.value = withTiming(colorsArrayRef.current[index % colorsArrayRef.current.length], {
+          duration: animationDuration,
+        });
 
-      const animateColors = () => {
-        if (colorsArray !== colorsArrayRef.current) {
-          // Colors have changed so reset
-          clearInterval(interval);
-          index = 0;
-          step = 0;
-          colorsArray = colorsArrayRef.current;
-          interval = setInterval(animateColors, animationDuration);
-          animateColors();
-        } else {
-          // Top
-          if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
-            color1.value = withTiming(colorsArray[index % colorsArray.length], {
-              duration: animationDuration,
-            });
+      // Middle
+      if ((index === 0 && step === 1) || (index > 0 && step === 0))
+        color2.value = withTiming(colorsArrayRef.current[index % colorsArrayRef.current.length], {
+          duration: animationDuration,
+        });
+
+      // Bottom
+      if ((index === 0 && step === 0) || (index === 0 && step === 2) || (index > 0 && step === 1))
+        color3.value = withTiming(
+          colorsArrayRef.current[(index + (step > 0 ? 1 : 0)) % colorsArrayRef.current.length],
+          {
+            duration: animationDuration,
           }
+        );
 
-          // Middle
-          if ((index === 0 && step === 1) || (index > 0 && step === 0)) {
-            color2.value = withTiming(colorsArray[index % colorsArray.length], {
-              duration: animationDuration,
-            });
-          }
-
-          // Bottom
-          if ((index === 0 && step === 0) || (index === 0 && step === 2) || (index > 0 && step === 1)) {
-            color3.value = withTiming(colorsArray[(index + (step > 0 ? 1 : 0)) % colorsArray.length], {
-              duration: animationDuration,
-            });
-          }
-
-          if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
-            index += 1; // Next color in array
-            step = 0; // Reset
-          } else {
-            step += 1;
-          }
-        }
-      };
-
-      // Init
-      let interval = setInterval(animateColors, animationDuration);
-      animateColors();
-
-      return () => clearInterval(interval);
-    }, [])
-  );
+      if ((index === 0 && step === 2) || (index > 0 && step === 1)) {
+        index += 1; // Next color in array
+        step = 0; // Reset
+      } else {
+        step += 1;
+      }
+    }
+  };
 
   useFocusEffect(
     useCallback(() => {
       getCheckInData();
+
+      return () => {
+        // Stop animation
+        clearInterval(intervalRef.current as NodeJS.Timeout);
+        intervalRef.current = null;
+      };
     }, [homeDates, colors.primaryBg])
   );
 
