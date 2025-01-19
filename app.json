@@ -24,6 +24,11 @@
       },
       "package": "com.moodplatforms.moodai"
     },
+    "androidStatusBar": {
+      "backgroundColor": "#000000",
+      "barStyle": "light-content",
+      "translucent": true
+    },
     "web": {
       "favicon": "./assets/favicon.ico",
       "bundler": "metro"

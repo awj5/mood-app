@@ -34,6 +34,7 @@ export default function Layout() {
     "Circular-Black": require("../assets/fonts/lineto-circular-black.ttf"),
     "Circular-Bold": require("../assets/fonts/lineto-circular-bold.ttf"),
     "Circular-Book": require("../assets/fonts/lineto-circular-book.ttf"),
+    "Circular-BookItalic": require("../assets/fonts/lineto-circular-bookItalic.ttf"),
     "Circular-Medium": require("../assets/fonts/lineto-circular-medium.ttf"),
   });
 

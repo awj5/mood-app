@@ -5,7 +5,7 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Insights from "./content/Insights";
@@ -77,7 +77,7 @@ export default function Content() {
           </>
         ) : (
           checkIns !== undefined && (
-            <Animated.View entering={FadeIn}>
+            <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
               <Text
                 style={{
                   color: colors.primary,

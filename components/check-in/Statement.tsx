@@ -6,6 +6,7 @@ import Slider from "@react-native-community/slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CompetencyType } from "app/check-in";
+import { shuffleArray } from "utils/helpers";
 
 type StatementProps = {
   moodID: number;
@@ -34,15 +35,6 @@ export default function Statement(props: StatementProps) {
     10: require("../../assets/img/slider-thumb/dark-rose.png"),
     11: require("../../assets/img/slider-thumb/red.png"),
     12: require("../../assets/img/slider-thumb/orange.png"),
-  };
-
-  const shuffleArray = (array: number[]) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let rand = Math.floor(Math.random() * (i + 1));
-      [array[i], array[rand]] = [array[rand], array[i]];
-    }
-
-    return array;
   };
 
   useEffect(() => {

@@ -4,11 +4,13 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
 import Quote from "./content/Quote";
+import Article from "./content/Article";
+import Fact from "./content/Fact";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
@@ -71,11 +73,16 @@ export default function Content() {
         {checkIns?.length ? (
           <View style={[styles.content, { gap: spacing }]}>
             <Insights checkIns={checkIns} dates={homeDates} />
-            <Quote />
+            <Quote checkIns={checkIns} />
+
+            <View style={[styles.double, { gap: spacing }]}>
+              <Article checkIns={checkIns} />
+              <Fact checkIns={checkIns} />
+            </View>
           </View>
         ) : (
           checkIns !== undefined && (
-            <Animated.View entering={FadeIn}>
+            <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
               <Text
                 style={{
                   color: colors.primary,
@@ -104,5 +111,10 @@ const styles = StyleSheet.create({
   content: {
     alignItems: "center",
     width: "100%",
+  },
+  double: {
+    flexDirection: "row",
+    maxWidth: 672 + 32,
+    paddingHorizontal: 16,
   },
 });

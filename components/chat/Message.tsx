@@ -1,6 +1,6 @@
 import { StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { theme } from "utils/helpers";
 
 type MessageProps = {
@@ -23,7 +23,7 @@ export default function Message(props: MessageProps) {
           borderRadius: Device.deviceType !== 1 ? 28 : 24,
         },
       ]}
-      entering={FadeIn}
+      entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
     >
       <Text
         style={{

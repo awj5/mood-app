@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { StyleSheet, View, AppState, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import { useFocusEffect } from "expo-router";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
@@ -151,7 +151,7 @@ export default function Calendar() {
       }}
     >
       {visible ? (
-        <Animated.View entering={FadeIn}>
+        <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
           <PagerView
             ref={pagerViewRef}
             initialPage={initPage}

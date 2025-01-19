@@ -36,7 +36,10 @@ export default function Icon(props: IconProps) {
   }, [props.generating]);
 
   return (
-    <Animated.View style={{ width: size, height: size }} entering={FadeIn}>
+    <Animated.View
+      style={{ width: size, height: size }}
+      entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
+    >
       <Animated.View style={animatedStyles}>
         <Image source={require("../../../assets/img/wheel.png")} style={styles.image} />
       </Animated.View>

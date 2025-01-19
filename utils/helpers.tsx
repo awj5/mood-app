@@ -149,6 +149,15 @@ export const getPromptData = (checkIns: CheckInType[]) => {
   return { data, ids };
 };
 
+export const shuffleArray = (array: any[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    let rand = Math.floor(Math.random() * (i + 1));
+    [array[i], array[rand]] = [array[rand], array[i]];
+  }
+
+  return array;
+};
+
 /* Notifications */
 
 export const times = [
