@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { Image } from "expo-image";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { BookText } from "lucide-react-native";
 import { CheckInType } from "data/database";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault } from "utils/helpers";
 
 type ArticleProps = {
   checkIns: CheckInType[];
 };
 
 export default function Article(props: ArticleProps) {
-  const colors = theme();
   const opacity = useSharedValue(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
@@ -20,57 +19,74 @@ export default function Article(props: ArticleProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <Animated.View style={{ flex: 1, opacity, gap: Device.deviceType !== 1 ? 12 : 8 }}>
-      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-        <BookText
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 28 : 20}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-        />
-
-        <Text
-          style={{
-            fontFamily: "Circular-Bold",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
-          }}
-          allowFontScaling={false}
-        >
-          ARTICLE
-        </Text>
-      </View>
-
+    <Animated.View style={{ flex: 1, opacity }}>
       <Pressable
         onPress={() => alert("Coming soon")}
         style={({ pressed }) => [
           pressedDefault(pressed),
           {
-            aspectRatio: Device.deviceType !== 1 ? "2/1" : "4/4",
-            backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+            aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
             borderRadius: spacing,
-            padding: spacing,
-            gap: spacing,
+            overflow: "hidden",
           },
         ]}
         hitSlop={8}
       >
-        <Text
-          style={{
-            fontFamily: "Circular-Book",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
+        <Image
+          source={{
+            uri: "https://articles.mood.ai/content/images/size/w2000/2025/01/DTS_Grand_Design_Daniel_Far-_Photos_ID4156.jpg",
           }}
-          allowFontScaling={false}
-        ></Text>
+          style={styles.image}
+        />
+
+        <View style={[styles.wrapper, { padding: spacing }]}>
+          <Text
+            style={[
+              styles.text,
+              {
+                fontSize: Device.deviceType !== 1 ? 16 : 12,
+              },
+            ]}
+            allowFontScaling={false}
+          >
+            FEATURED ARTICLE
+          </Text>
+
+          <Text
+            style={[
+              styles.text,
+              {
+                fontSize: Device.deviceType !== 1 ? 20 : 16,
+                lineHeight: Device.deviceType !== 1 ? 24 : 20,
+              },
+            ]}
+            allowFontScaling={false}
+          >
+            How to Get More Say in What You Do at Work
+          </Text>
+        </View>
       </Pressable>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  wrapper: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.2)",
+    justifyContent: "space-between",
+  },
+  text: {
+    fontFamily: "Circular-Bold",
+    color: "white",
+    textShadowColor: "rgba(0, 0, 0, 0.2)",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });

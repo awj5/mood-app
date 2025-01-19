@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { MessageSquareQuote, Share } from "lucide-react-native";
+import { Share } from "lucide-react-native";
 import QuotesData from "data/quotes.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import { theme, pressedDefault } from "utils/helpers";
@@ -22,9 +22,6 @@ export default function Quote(props: QuoteProps) {
   const opacity = useSharedValue(0);
   const [quoteData, setQuoteData] = useState<QuoteType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-  const stroke = Device.deviceType !== 1 ? 2 : 1.5;
-  const iconSize = Device.deviceType !== 1 ? 28 : 20;
 
   useEffect(() => {
     const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
@@ -38,41 +35,42 @@ export default function Quote(props: QuoteProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <Animated.View style={[styles.container, { opacity, gap: Device.deviceType !== 1 ? 12 : 8 }]}>
-      <View style={styles.header}>
-        <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-          <MessageSquareQuote color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
-
-          <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 18 : 14,
-            }}
-            allowFontScaling={false}
-          >
-            WORDS OF WISDOM
-          </Text>
-        </View>
-
-        <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => [pressedDefault(pressed)]} hitSlop={8}>
-          <Share color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
-        </Pressable>
-      </View>
-
+    <Animated.View style={[styles.container, { opacity }]}>
       <View
         style={{
           backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
           borderRadius: spacing,
           padding: spacing,
-          gap: spacing,
+          gap: spacing / 2,
         }}
       >
+        <View style={styles.header}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 16 : 12,
+            }}
+            allowFontScaling={false}
+          >
+            WORDS OF WISDOM
+          </Text>
+
+          <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+            <Share
+              color={colors.primary}
+              size={Device.deviceType !== 1 ? 28 : 20}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            />
+          </Pressable>
+        </View>
+
         <Text
           style={{
             fontFamily: "Circular-BookItalic",
             color: colors.primary,
-            fontSize: fontSize,
+            fontSize: Device.deviceType !== 1 ? 20 : 16,
           }}
           allowFontScaling={false}
         >
@@ -83,7 +81,7 @@ export default function Quote(props: QuoteProps) {
           style={{
             fontFamily: "Circular-Medium",
             color: colors.primary,
-            fontSize: fontSize,
+            fontSize: Device.deviceType !== 1 ? 18 : 14,
             alignSelf: "flex-end",
           }}
           allowFontScaling={false}
@@ -104,9 +102,5 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
   },
 });

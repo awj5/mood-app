@@ -1,9 +1,10 @@
-import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useContext, useEffect } from "react";
+import { Text, View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { Lightbulb } from "lucide-react-native";
+import { Footprints } from "lucide-react-native";
 import { CheckInType } from "data/database";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { theme } from "utils/helpers";
 
 type FactProps = {
@@ -13,6 +14,7 @@ type FactProps = {
 export default function Fact(props: FactProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   useEffect(() => {
@@ -20,42 +22,42 @@ export default function Fact(props: FactProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <Animated.View style={{ flex: 1, opacity, gap: Device.deviceType !== 1 ? 12 : 8 }}>
-      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-        <Lightbulb
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 28 : 20}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-        />
-
-        <Text
-          style={{
-            fontFamily: "Circular-Bold",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
-          }}
-          allowFontScaling={false}
-        >
-          DID YOU KNOW?
-        </Text>
-      </View>
-
+    <Animated.View style={{ flex: 1, opacity }}>
       <View
         style={{
-          aspectRatio: Device.deviceType !== 1 ? "2/1" : "4/4",
+          aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
           backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
           borderRadius: spacing,
           padding: spacing,
-          gap: spacing,
+          gap: spacing / 2,
         }}
       >
+        <View style={styles.header}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: colors.primary !== "white" ? "white" : "black",
+              fontSize: Device.deviceType !== 1 ? 16 : 12,
+            }}
+            allowFontScaling={false}
+          >
+            DID YOU KNOW?
+          </Text>
+
+          <Footprints
+            color={colors.primary !== "white" ? "white" : "black"}
+            size={Device.deviceType !== 1 ? 32 : 24}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          />
+        </View>
+
         <Text
           style={{
             fontFamily: "Circular-Black",
             color: colors.primary !== "white" ? "white" : "black",
-            fontSize: Device.deviceType !== 1 ? 24 : 18,
-            lineHeight: Device.deviceType !== 1 ? 26 : 20,
+            fontSize: Device.deviceType !== 1 ? 24 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
+            lineHeight: Device.deviceType !== 1 ? 26 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
           }}
           allowFontScaling={false}
         >
@@ -67,8 +69,8 @@ export default function Fact(props: FactProps) {
 }
 
 const styles = StyleSheet.create({
-  title: {
+  header: {
     flexDirection: "row",
-    alignItems: "center",
+    justifyContent: "space-between",
   },
 });
