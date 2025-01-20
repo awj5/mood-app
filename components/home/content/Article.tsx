@@ -1,10 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
+import * as WebBrowser from "expo-web-browser";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { CheckInType } from "data/database";
+import ArticlesData from "data/articles.json";
+import { CheckInMoodType, CheckInType } from "data/database";
 import { pressedDefault } from "utils/helpers";
+
+type ArticleType = {
+  title: string;
+  url: string;
+  image: string;
+  competency: number;
+};
 
 type ArticleProps = {
   checkIns: CheckInType[];
@@ -12,16 +21,24 @@ type ArticleProps = {
 
 export default function Article(props: ArticleProps) {
   const opacity = useSharedValue(0);
+  const [articleData, setArticleData] = useState<ArticleType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   useEffect(() => {
-    opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
+    const competency = mood.competency;
+    const article = ArticlesData.filter((item) => item.competency === competency)[0];
+
+    if (article) {
+      setArticleData(article);
+      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    }
   }, [JSON.stringify(props.checkIns)]);
 
   return (
     <Animated.View style={{ flex: 1, opacity }}>
       <Pressable
-        onPress={() => alert("Coming soon")}
+        onPress={() => WebBrowser.openBrowserAsync(articleData?.url ?? "https://articles.mood.ai")}
         style={({ pressed }) => [
           pressedDefault(pressed),
           {
@@ -34,7 +51,7 @@ export default function Article(props: ArticleProps) {
       >
         <Image
           source={{
-            uri: "https://articles.mood.ai/content/images/size/w2000/2025/01/DTS_Grand_Design_Daniel_Far-_Photos_ID4156.jpg",
+            uri: articleData?.image,
           }}
           style={styles.image}
         />
@@ -62,7 +79,7 @@ export default function Article(props: ArticleProps) {
             ]}
             allowFontScaling={false}
           >
-            How to Get More Say in What You Do at Work
+            {articleData?.title}
           </Text>
         </View>
       </Pressable>

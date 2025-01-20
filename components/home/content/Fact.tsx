@@ -30,6 +30,7 @@ export default function Fact(props: FactProps) {
           borderRadius: spacing,
           padding: spacing,
           gap: spacing / 2,
+          justifyContent: "space-between",
         }}
       >
         <View style={styles.header}>
