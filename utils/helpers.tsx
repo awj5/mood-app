@@ -107,7 +107,7 @@ export const getStatement = (statement: string, response: number) => {
       start = `I strongly disagreed (${percentage}%) that `;
   }
 
-  return start + statement + " at work.";
+  return start + statement + " at my company.";
 };
 
 export type PromptDataType = {

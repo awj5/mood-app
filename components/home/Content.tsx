@@ -11,6 +11,7 @@ import Insights from "./content/Insights";
 import Quote from "./content/Quote";
 import Article from "./content/Article";
 import Fact from "./content/Fact";
+import Song from "./content/Song";
 import { convertToISO, theme } from "utils/helpers";
 
 export default function Content() {
@@ -78,6 +79,16 @@ export default function Content() {
             <View style={[styles.double, { gap: spacing }]}>
               <Article checkIns={checkIns} />
               <Fact checkIns={checkIns} />
+            </View>
+
+            <View style={[styles.double, { gap: spacing }]}>
+              <Song checkIns={checkIns} />
+              <Song checkIns={checkIns} />
+            </View>
+
+            <View style={[styles.double, { gap: spacing }]}>
+              <Song checkIns={checkIns} />
+              <Song checkIns={checkIns} />
             </View>
           </View>
         ) : (
