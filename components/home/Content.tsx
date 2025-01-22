@@ -109,6 +109,7 @@ export default function Content() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    alignItems: "center",
     justifyContent: "center",
     width: "100%",
     maxWidth: 768 + 48,

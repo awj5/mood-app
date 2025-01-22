@@ -37,6 +37,7 @@ export default function Quote(props: QuoteProps) {
   return (
     <Animated.View
       style={{
+        width: "100%",
         backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
         borderRadius: spacing,
         padding: spacing,
