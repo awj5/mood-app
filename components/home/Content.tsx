@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useContext, useRef, useState } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
@@ -62,17 +63,19 @@ export default function Content() {
   );
 
   return (
-    <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1 }}>
+    <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}>
       <View
         style={[
           styles.wrapper,
           {
             paddingBottom: spacing * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
+            gap: spacing,
+            paddingHorizontal: spacing,
           },
         ]}
       >
         {checkIns?.length ? (
-          <View style={[styles.content, { gap: spacing }]}>
+          <>
             <Insights checkIns={checkIns} dates={homeDates} />
             <Quote checkIns={checkIns} />
 
@@ -80,17 +83,7 @@ export default function Content() {
               <Article checkIns={checkIns} />
               <Fact checkIns={checkIns} />
             </View>
-
-            <View style={[styles.double, { gap: spacing }]}>
-              <Song checkIns={checkIns} />
-              <Song checkIns={checkIns} />
-            </View>
-
-            <View style={[styles.double, { gap: spacing }]}>
-              <Song checkIns={checkIns} />
-              <Song checkIns={checkIns} />
-            </View>
-          </View>
+          </>
         ) : (
           checkIns !== undefined && (
             <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
@@ -115,17 +108,12 @@ export default function Content() {
 
 const styles = StyleSheet.create({
   wrapper: {
-    alignItems: "center",
     flex: 1,
     justifyContent: "center",
-  },
-  content: {
-    alignItems: "center",
     width: "100%",
+    maxWidth: 768 + 48,
   },
   double: {
     flexDirection: "row",
-    maxWidth: 672 + 32,
-    paddingHorizontal: 16,
   },
 });

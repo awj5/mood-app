@@ -101,7 +101,7 @@ export default function Insights(props: InsightsProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <View style={[styles.container, { minHeight: Device.deviceType !== 1 ? 176 : 192 }]}>
+    <View style={{ minHeight: Device.deviceType !== 1 ? 160 : 176 }}>
       {isLoading ? (
         <View style={styles.loading}>
           <Loading text="Generating insights" />
@@ -114,11 +114,6 @@ export default function Insights(props: InsightsProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    maxWidth: 672 + 32,
-    paddingHorizontal: 16,
-    flex: 1,
-  },
   loading: {
     flex: 1,
     justifyContent: "center",

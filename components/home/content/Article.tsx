@@ -110,17 +110,18 @@ export default function Article(props: ArticleProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <Animated.View style={{ flex: 1, opacity }}>
+    <Animated.View
+      style={{
+        flex: 1,
+        opacity,
+        aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
+        borderRadius: spacing,
+        overflow: "hidden",
+      }}
+    >
       <Pressable
         onPress={() => WebBrowser.openBrowserAsync(articleData?.url ?? "https://articles.mood.ai")}
-        style={({ pressed }) => [
-          pressedDefault(pressed),
-          {
-            aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
-            borderRadius: spacing,
-            overflow: "hidden",
-          },
-        ]}
+        style={({ pressed }) => pressedDefault(pressed)}
         hitSlop={8}
       >
         <Image source={images[articleData?.competency as keyof typeof images]} style={styles.image} />

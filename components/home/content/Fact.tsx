@@ -22,17 +22,16 @@ export default function Fact(props: FactProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <Animated.View style={{ flex: 1, opacity }}>
-      <View
-        style={{
-          aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
-          backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
-          borderRadius: spacing,
-          padding: spacing,
-          gap: spacing / 2,
-          justifyContent: "space-between",
-        }}
-      >
+    <Animated.View
+      style={{
+        flex: 1,
+        aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
+        backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        borderRadius: spacing,
+        opacity,
+      }}
+    >
+      <View style={{ flex: 1, padding: spacing, gap: spacing / 2, justifyContent: "space-between" }}>
         <View style={styles.header}>
           <Text
             style={{

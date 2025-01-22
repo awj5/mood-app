@@ -35,70 +35,64 @@ export default function Quote(props: QuoteProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <Animated.View style={[styles.container, { opacity }]}>
-      <View
-        style={{
-          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
-          borderRadius: spacing,
-          padding: spacing,
-          gap: spacing / 2,
-        }}
-      >
-        <View style={styles.header}>
-          <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 16 : 12,
-            }}
-            allowFontScaling={false}
-          >
-            WORDS OF WISDOM
-          </Text>
-
-          <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
-            <Share
-              color={colors.primary}
-              size={Device.deviceType !== 1 ? 28 : 20}
-              absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-            />
-          </Pressable>
-        </View>
-
+    <Animated.View
+      style={{
+        backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        borderRadius: spacing,
+        padding: spacing,
+        gap: spacing / 2,
+        opacity,
+      }}
+    >
+      <View style={styles.header}>
         <Text
           style={{
-            fontFamily: "Circular-BookItalic",
+            fontFamily: "Circular-Bold",
             color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
+            fontSize: Device.deviceType !== 1 ? 16 : 12,
           }}
           allowFontScaling={false}
         >
-          “{quoteData?.quote}”
+          WORDS OF WISDOM
         </Text>
 
-        <Text
-          style={{
-            fontFamily: "Circular-Medium",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
-            alignSelf: "flex-end",
-          }}
-          allowFontScaling={false}
-        >
-          — {quoteData?.author}
-        </Text>
+        <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+          <Share
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 28 : 20}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+          />
+        </Pressable>
       </View>
+
+      <Text
+        style={{
+          fontFamily: "Circular-BookItalic",
+          color: colors.primary,
+          fontSize: Device.deviceType !== 1 ? 20 : 16,
+        }}
+        allowFontScaling={false}
+      >
+        “{quoteData?.quote}”
+      </Text>
+
+      <Text
+        style={{
+          fontFamily: "Circular-Medium",
+          color: colors.primary,
+          fontSize: Device.deviceType !== 1 ? 18 : 14,
+          alignSelf: "flex-end",
+        }}
+        allowFontScaling={false}
+      >
+        — {quoteData?.author}
+      </Text>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    maxWidth: 672 + 32,
-    width: "100%",
-    paddingHorizontal: 16,
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
