@@ -32,7 +32,7 @@ export default function Quote(props: QuoteProps) {
       setQuoteData(quotes[Math.floor(Math.random() * quotes.length)]); // Random quote
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     }
-  }, [JSON.stringify(props.checkIns)]);
+  }, []);
 
   return (
     <Animated.View

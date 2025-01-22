@@ -19,7 +19,7 @@ export default function Fact(props: FactProps) {
 
   useEffect(() => {
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-  }, [JSON.stringify(props.checkIns)]);
+  }, []);
 
   return (
     <Animated.View

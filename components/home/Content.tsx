@@ -13,7 +13,7 @@ import Quote from "./content/Quote";
 import Article from "./content/Article";
 import Fact from "./content/Fact";
 import Song from "./content/Song";
-import { convertToISO, theme } from "utils/helpers";
+import { convertToISO, shuffleArray, theme } from "utils/helpers";
 
 export default function Content() {
   const db = useSQLiteContext();
@@ -22,6 +22,7 @@ export default function Content() {
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
+  const [widgets, setWidgets] = useState<React.ReactNode>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const getCheckInData = async () => {
@@ -49,10 +50,51 @@ export default function Content() {
   const getCheckIns = async () => {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
+    setWidgets([]); // Clear
     const checkInData = await getCheckInData();
 
     if (latestQueryRef.current === currentQuery) {
       setCheckIns(checkInData);
+
+      // Add widgets
+      if (checkInData) {
+        const largeWidgets = [<Quote checkIns={checkInData} />];
+
+        const smallWidgets = [
+          <Article checkIns={checkInData} />,
+          <Fact checkIns={checkInData} />,
+          <Song checkIns={checkInData} />,
+        ];
+
+        const shuffledLarge = shuffleArray(largeWidgets);
+        const shuffledSmall = shuffleArray(smallWidgets);
+        const ordered = [];
+        let index = 0;
+
+        while (shuffledLarge.length || shuffledSmall.length) {
+          let pickLarge = shuffledLarge.length ? Math.random() > 0.5 : false; // 50% chance of large
+
+          if (pickLarge) {
+            ordered.push(React.cloneElement(shuffledLarge.pop()!, { key: index }));
+            index++;
+          } else if (shuffledSmall.length > 1) {
+            // Two small widgets available
+            let double = (
+              <View style={[styles.double, { gap: spacing }]} key={index}>
+                {shuffledSmall.pop()}
+                {shuffledSmall.pop()}
+              </View>
+            );
+
+            ordered.push(double);
+            index++;
+          } else if (!shuffledLarge.length) {
+            break; // Single small widget cannot be added
+          }
+        }
+
+        setWidgets(<>{ordered}</>);
+      }
     }
   };
 
@@ -77,12 +119,7 @@ export default function Content() {
         {checkIns?.length ? (
           <>
             <Insights checkIns={checkIns} dates={homeDates} />
-            <Quote checkIns={checkIns} />
-
-            <View style={[styles.double, { gap: spacing }]}>
-              <Article checkIns={checkIns} />
-              <Fact checkIns={checkIns} />
-            </View>
+            {widgets}
           </>
         ) : (
           checkIns !== undefined && (

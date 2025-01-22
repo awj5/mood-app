@@ -107,7 +107,7 @@ export default function Article(props: ArticleProps) {
       setArticleData(article);
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     }
-  }, [JSON.stringify(props.checkIns)]);
+  }, []);
 
   return (
     <Animated.View
