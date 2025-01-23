@@ -25,13 +25,13 @@ export default function Fact(props: FactProps) {
     <Animated.View
       style={{
         flex: 1,
-        aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
+        aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
         backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
         borderRadius: spacing,
         opacity,
       }}
     >
-      <View style={{ flex: 1, padding: spacing, gap: spacing / 2, justifyContent: "space-between" }}>
+      <View style={{ flex: 1, padding: spacing, justifyContent: "space-between" }}>
         <View style={styles.header}>
           <Text
             style={{
@@ -46,9 +46,9 @@ export default function Fact(props: FactProps) {
 
           <Footprints
             color={colors.primary !== "white" ? "white" : "black"}
-            size={Device.deviceType !== 1 ? 32 : 24}
+            size={Device.deviceType !== 1 ? 40 : 24}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+            strokeWidth={Device.deviceType !== 1 ? 3 : 2}
           />
         </View>
 
@@ -56,8 +56,8 @@ export default function Fact(props: FactProps) {
           style={{
             fontFamily: "Circular-Black",
             color: colors.primary !== "white" ? "white" : "black",
-            fontSize: Device.deviceType !== 1 ? 24 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
-            lineHeight: Device.deviceType !== 1 ? 26 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
+            fontSize: Device.deviceType !== 1 ? 28 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
+            lineHeight: Device.deviceType !== 1 ? 32 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
           }}
           allowFontScaling={false}
         >

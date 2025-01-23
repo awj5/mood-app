@@ -114,7 +114,7 @@ export default function Article(props: ArticleProps) {
       style={{
         flex: 1,
         opacity,
-        aspectRatio: Device.deviceType !== 1 ? "5/3" : "4/4",
+        aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
         borderRadius: spacing,
         overflow: "hidden",
       }}
@@ -143,8 +143,8 @@ export default function Article(props: ArticleProps) {
             style={[
               styles.text,
               {
-                fontSize: Device.deviceType !== 1 ? 20 : 16,
-                lineHeight: Device.deviceType !== 1 ? 24 : 20,
+                fontSize: Device.deviceType !== 1 ? 24 : 16,
+                lineHeight: Device.deviceType !== 1 ? 28 : 18,
               },
             ]}
             allowFontScaling={false}

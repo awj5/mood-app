@@ -5,11 +5,11 @@ import Animated, { Easing, useSharedValue, withTiming } from "react-native-reani
 import { CheckInType } from "data/database";
 import { theme } from "utils/helpers";
 
-type SongProps = {
+type GifsProps = {
   checkIns: CheckInType[];
 };
 
-export default function Song(props: SongProps) {
+export default function Gifs(props: GifsProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
@@ -36,7 +36,7 @@ export default function Song(props: SongProps) {
         }}
         allowFontScaling={false}
       >
-        MOOD MUSIC
+        RELATABLE MEMES
       </Text>
     </Animated.View>
   );

@@ -13,6 +13,9 @@ import Quote from "./content/Quote";
 import Article from "./content/Article";
 import Fact from "./content/Fact";
 import Song from "./content/Song";
+import Gifs from "./content/Gifs";
+import Burnout from "./content/Burnout";
+import Events from "./content/Events";
 import { convertToISO, shuffleArray, theme } from "utils/helpers";
 
 export default function Content() {
@@ -58,13 +61,13 @@ export default function Content() {
 
       // Add widgets
       if (checkInData) {
-        const largeWidgets = [<Quote checkIns={checkInData} />];
-
-        const smallWidgets = [
-          <Article checkIns={checkInData} />,
-          <Fact checkIns={checkInData} />,
+        const largeWidgets = [
+          <Quote checkIns={checkInData} />,
+          <Gifs checkIns={checkInData} />,
           <Song checkIns={checkInData} />,
         ];
+
+        const smallWidgets = [<Article checkIns={checkInData} />, <Fact checkIns={checkInData} />];
 
         const shuffledLarge = shuffleArray(largeWidgets);
         const shuffledSmall = shuffleArray(smallWidgets);
@@ -119,6 +122,12 @@ export default function Content() {
         {checkIns?.length ? (
           <>
             <Insights checkIns={checkIns} dates={homeDates} />
+
+            <View style={[styles.double, { gap: spacing }]}>
+              <Burnout checkIns={checkIns} />
+              <Events checkIns={checkIns} />
+            </View>
+
             {widgets}
           </>
         ) : (
