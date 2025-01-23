@@ -53,8 +53,8 @@ export default function Footer() {
       style={[
         styles.container,
         {
-          padding: Device.deviceType !== 1 ? 24 : 16,
-          paddingBottom: Device.deviceType !== 1 ? 24 + insets.bottom : 16 + insets.bottom,
+          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+          marginBottom: Device.deviceType !== 1 ? 24 + insets.bottom : 16 + insets.bottom,
         },
       ]}
     >
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    alignItems: "center",
+    maxWidth: 448 + 48,
+    alignSelf: "center",
   },
 });
