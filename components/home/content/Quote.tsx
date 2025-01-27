@@ -41,7 +41,7 @@ export default function Quote(props: QuoteProps) {
         backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
         borderRadius: spacing,
         padding: spacing,
-        gap: spacing / 2,
+        gap: Device.deviceType !== 1 ? 16 : 12,
         opacity,
       }}
     >

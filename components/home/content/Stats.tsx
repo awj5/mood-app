@@ -18,6 +18,7 @@ export default function Stats(props: StatsProps) {
   const [satisfaction, setSatisfaction] = useState(0);
   const [energy, setEnergy] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const gap = Device.deviceType !== 1 ? 16 : 12;
 
   useEffect(() => {
     // Get mood scores
@@ -49,12 +50,12 @@ export default function Stats(props: StatsProps) {
       }}
     >
       <View style={{ flexDirection: "row", gap: spacing / 2 }}>
-        <View style={{ gap: spacing / 2 }}>
+        <View style={{ gap: gap }}>
           <Title>SATISFACTION</Title>
           <Title>ENERGY</Title>
         </View>
 
-        <View style={{ flex: 1, gap: spacing / 2 }}>
+        <View style={{ flex: 1, gap: gap }}>
           <Bar stat={satisfaction} />
           <Bar stat={energy} />
         </View>

@@ -12,7 +12,7 @@ export default function Bar(props: BarProps) {
   const colors = theme();
   const width = useSharedValue(0);
   const [label, setLabel] = useState("");
-  const textPadding = Device.deviceType !== 1 ? 12 : 8;
+  const textPadding = Device.deviceType !== 1 ? 14 : 10;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -59,7 +59,7 @@ export default function Bar(props: BarProps) {
         styles.container,
         {
           backgroundColor: colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)",
-          height: Device.deviceType !== 1 ? 32 : 24,
+          height: Device.deviceType !== 1 ? 36 : 28,
         },
       ]}
     >

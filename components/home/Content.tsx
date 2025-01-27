@@ -25,6 +25,7 @@ export default function Content() {
   const insets = useSafeAreaInsets();
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const latestQueryRef = useRef<symbol>();
+  const scrollViewRef = useRef<ScrollView>(null);
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const [widgets, setWidgets] = useState<React.ReactNode>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
@@ -59,6 +60,9 @@ export default function Content() {
   };
 
   useEffect(() => {
+    const now = Date.now(); // Use to make keys unique
+    scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Reset
+
     // Add widgets
     if (checkIns?.length) {
       const largeWidgets = [<Quote checkIns={checkIns} />, <Gifs checkIns={checkIns} />, <Song checkIns={checkIns} />];
@@ -72,12 +76,12 @@ export default function Content() {
         let pickLarge = shuffledLarge.length ? Math.random() > 0.5 : false; // 50% chance of large
 
         if (pickLarge) {
-          ordered.push(React.cloneElement(shuffledLarge.pop()!, { key: index }));
+          ordered.push(React.cloneElement(shuffledLarge.pop()!, { key: now + index }));
           index++;
         } else if (shuffledSmall.length > 1) {
           // Two small widgets available
           let double = (
-            <View style={[styles.double, { gap: spacing }]} key={index}>
+            <View style={[styles.double, { gap: spacing }]} key={now + index}>
               {shuffledSmall.pop()}
               {shuffledSmall.pop()}
             </View>
@@ -103,7 +107,7 @@ export default function Content() {
   );
 
   return (
-    <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}>
+    <ScrollView ref={scrollViewRef} contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}>
       <View
         style={[
           styles.wrapper,
