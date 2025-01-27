@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useCallback, useContext, useRef, useState } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
@@ -16,6 +16,7 @@ import Song from "./content/Song";
 import Gifs from "./content/Gifs";
 import Burnout from "./content/Burnout";
 import Events from "./content/Events";
+import Stats from "./content/Stats";
 import { convertToISO, shuffleArray, theme } from "utils/helpers";
 
 export default function Content() {
@@ -53,53 +54,47 @@ export default function Content() {
   const getCheckIns = async () => {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
-    setWidgets([]); // Clear
     const checkInData = await getCheckInData();
-
-    if (latestQueryRef.current === currentQuery) {
-      setCheckIns(checkInData);
-
-      // Add widgets
-      if (checkInData) {
-        const largeWidgets = [
-          <Quote checkIns={checkInData} />,
-          <Gifs checkIns={checkInData} />,
-          <Song checkIns={checkInData} />,
-        ];
-
-        const smallWidgets = [<Article checkIns={checkInData} />, <Fact checkIns={checkInData} />];
-
-        const shuffledLarge = shuffleArray(largeWidgets);
-        const shuffledSmall = shuffleArray(smallWidgets);
-        const ordered = [];
-        let index = 0;
-
-        while (shuffledLarge.length || shuffledSmall.length) {
-          let pickLarge = shuffledLarge.length ? Math.random() > 0.5 : false; // 50% chance of large
-
-          if (pickLarge) {
-            ordered.push(React.cloneElement(shuffledLarge.pop()!, { key: index }));
-            index++;
-          } else if (shuffledSmall.length > 1) {
-            // Two small widgets available
-            let double = (
-              <View style={[styles.double, { gap: spacing }]} key={index}>
-                {shuffledSmall.pop()}
-                {shuffledSmall.pop()}
-              </View>
-            );
-
-            ordered.push(double);
-            index++;
-          } else if (!shuffledLarge.length) {
-            break; // Single small widget cannot be added
-          }
-        }
-
-        setWidgets(<>{ordered}</>);
-      }
-    }
+    if (latestQueryRef.current === currentQuery) setCheckIns(checkInData);
   };
+
+  useEffect(() => {
+    // Add widgets
+    if (checkIns?.length) {
+      const largeWidgets = [<Quote checkIns={checkIns} />, <Gifs checkIns={checkIns} />, <Song checkIns={checkIns} />];
+      const smallWidgets = [<Article checkIns={checkIns} />, <Fact checkIns={checkIns} />];
+      const shuffledLarge = shuffleArray(largeWidgets);
+      const shuffledSmall = shuffleArray(smallWidgets);
+      const ordered = [];
+      let index = 0;
+
+      while (shuffledLarge.length || shuffledSmall.length) {
+        let pickLarge = shuffledLarge.length ? Math.random() > 0.5 : false; // 50% chance of large
+
+        if (pickLarge) {
+          ordered.push(React.cloneElement(shuffledLarge.pop()!, { key: index }));
+          index++;
+        } else if (shuffledSmall.length > 1) {
+          // Two small widgets available
+          let double = (
+            <View style={[styles.double, { gap: spacing }]} key={index}>
+              {shuffledSmall.pop()}
+              {shuffledSmall.pop()}
+            </View>
+          );
+
+          ordered.push(double);
+          index++;
+        } else if (!shuffledLarge.length) {
+          break; // Single small widget cannot be added
+        }
+      }
+
+      setWidgets(<>{ordered}</>); // Add widgets to DOM
+    } else {
+      setWidgets([]); // Clear
+    }
+  }, [JSON.stringify(checkIns)]);
 
   useFocusEffect(
     useCallback(() => {
@@ -122,6 +117,7 @@ export default function Content() {
         {checkIns?.length ? (
           <>
             <Insights checkIns={checkIns} dates={homeDates} />
+            <Stats checkIns={checkIns} />
 
             <View style={[styles.double, { gap: spacing }]}>
               <Burnout checkIns={checkIns} />
