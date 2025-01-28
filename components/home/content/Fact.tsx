@@ -1,11 +1,37 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { Footprints } from "lucide-react-native";
-import { CheckInType } from "data/database";
+import {
+  Footprints,
+  Utensils,
+  Droplet,
+  Bed,
+  HeartHandshake,
+  MessageSquare,
+  NotebookPen,
+  Cloudy,
+  Brain,
+  Milestone,
+  LucideIcon,
+} from "lucide-react-native";
+import FactsData from "data/facts.json";
+import { CheckInMoodType, CheckInType } from "data/database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { theme } from "utils/helpers";
+
+const iconMap: Record<string, LucideIcon> = {
+  Footprints,
+  Utensils,
+  Droplet,
+  Bed,
+  HeartHandshake,
+  MessageSquare,
+  NotebookPen,
+  Cloudy,
+  Brain,
+  Milestone,
+};
 
 type FactProps = {
   checkIns: CheckInType[];
@@ -15,9 +41,21 @@ export default function Fact(props: FactProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const [fact, setFact] = useState("");
+  const [Icon, setIcon] = useState<React.ElementType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   useEffect(() => {
+    const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
+    const tags = mood.tags;
+    const facts = FactsData.filter((item) => item.tag === tags[Math.floor(Math.random() * tags.length)]); // Facts with random tag
+
+    if (facts.length) {
+      const random = facts[Math.floor(Math.random() * facts.length)]; // Random fact
+      setFact(random.fact);
+      setIcon(iconMap[random.icon]);
+    }
+
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, []);
 
@@ -44,12 +82,14 @@ export default function Fact(props: FactProps) {
             DID YOU KNOW?
           </Text>
 
-          <Footprints
-            color={colors.primary !== "white" ? "white" : "black"}
-            size={Device.deviceType !== 1 ? 40 : 24}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 3 : 2}
-          />
+          {Icon && (
+            <Icon
+              color={colors.primary !== "white" ? "white" : "black"}
+              size={Device.deviceType !== 1 ? 40 : 24}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 3 : 2}
+            />
+          )}
         </View>
 
         <Text
@@ -61,7 +101,7 @@ export default function Fact(props: FactProps) {
           }}
           allowFontScaling={false}
         >
-          Exercise releases feel-good chemicals like endorphins & serotonin.
+          {fact}
         </Text>
       </View>
     </Animated.View>

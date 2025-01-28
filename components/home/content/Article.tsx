@@ -102,11 +102,8 @@ export default function Article(props: ArticleProps) {
     const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
     const competency = mood.competency;
     const article = ArticlesData.filter((item) => item.competency === competency)[0];
-
-    if (article) {
-      setArticleData(article);
-      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-    }
+    if (article) setArticleData(article);
+    opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, []);
 
   return (

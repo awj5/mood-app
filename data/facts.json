@@ -1,0 +1,3122 @@
+[
+  {
+    "tag": 1,
+    "icon": "HeartHandshake",
+    "fact": "Loneliness triggers the same brain regions as physical pain."
+  },
+  {
+    "tag": 1,
+    "icon": "NotebookPen",
+    "fact": "Writing about loss can ease emotional intensity."
+  },
+  {
+    "tag": 1,
+    "icon": "Footprints",
+    "fact": "Exercise releases dopamine, boosting mood and resilience."
+  },
+  {
+    "tag": 2,
+    "icon": "Cloudy",
+    "fact": "Deep breathing reduces cortisol and stress from trauma."
+  },
+  {
+    "tag": 2,
+    "icon": "HeartHandshake",
+    "fact": "Sharing your story builds trust and emotional relief."
+  },
+  {
+    "tag": 2,
+    "icon": "Brain",
+    "fact": "Abuse impacts self-perception but doesn't define you."
+  },
+  {
+    "tag": 3,
+    "icon": "HeartHandshake",
+    "fact": "Feeling accepted activates the brain's reward systems."
+  },
+  {
+    "tag": 3,
+    "icon": "MessageSquare",
+    "fact": "Gratitude for acceptance deepens emotional bonds."
+  },
+  {
+    "tag": 3,
+    "icon": "Brain",
+    "fact": "Belonging increases serotonin, improving happiness levels."
+  },
+  {
+    "tag": 4,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on acceptance helps sustain positive emotions."
+  },
+  {
+    "tag": 4,
+    "icon": "HeartHandshake",
+    "fact": "Mutual acceptance strengthens trust in relationships."
+  },
+  {
+    "tag": 4,
+    "icon": "Brain",
+    "fact": "Acceptance of others reduces emotional conflict."
+  },
+  {
+    "tag": 5,
+    "icon": "MessageSquare",
+    "fact": "Recognition activates dopamine pathways in the brain."
+  },
+  {
+    "tag": 5,
+    "icon": "NotebookPen",
+    "fact": "Journaling positive feedback strengthens self-esteem."
+  },
+  {
+    "tag": 5,
+    "icon": "HeartHandshake",
+    "fact": "Acknowledging others fosters mutual respect and trust."
+  },
+  {
+    "tag": 6,
+    "icon": "Brain",
+    "fact": "Affirmations reshape brain patterns to build confidence."
+  },
+  {
+    "tag": 6,
+    "icon": "NotebookPen",
+    "fact": "Writing affirmations reinforces self-assurance over time."
+  },
+  {
+    "tag": 6,
+    "icon": "HeartHandshake",
+    "fact": "Affirming others deepens mutual understanding and respect."
+  },
+  {
+    "tag": 7,
+    "icon": "Cloudy",
+    "fact": "Shallow breathing increases agitation; slow exhales calm it."
+  },
+  {
+    "tag": 7,
+    "icon": "Footprints",
+    "fact": "Physical activity lowers adrenaline, reducing agitation."
+  },
+  {
+    "tag": 7,
+    "icon": "Bed",
+    "fact": "Sleep deprivation heightens feelings of agitation."
+  },
+  {
+    "tag": 8,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing reduces the body's alarm response."
+  },
+  {
+    "tag": 8,
+    "icon": "Brain",
+    "fact": "Your brain often exaggerates danger to ensure safety."
+  },
+  {
+    "tag": 8,
+    "icon": "HeartHandshake",
+    "fact": "Talking about fears lowers the brain's stress response."
+  },
+  {
+    "tag": 9,
+    "icon": "Footprints",
+    "fact": "Light exercise boosts alertness by improving circulation."
+  },
+  {
+    "tag": 9,
+    "icon": "Utensils",
+    "fact": "Foods rich in omega-3s improve mental clarity and alertness."
+  },
+  {
+    "tag": 9,
+    "icon": "Droplet",
+    "fact": "Staying hydrated enhances focus and cognitive sharpness."
+  },
+  {
+    "tag": 10,
+    "icon": "HeartHandshake",
+    "fact": "Feeling connected reduces the pain of social rejection."
+  },
+  {
+    "tag": 10,
+    "icon": "MessageSquare",
+    "fact": "Sharing feelings eases the sting of alienation."
+  },
+  {
+    "tag": 10,
+    "icon": "Brain",
+    "fact": "Alienation often stems from perceived rather than real threats."
+  },
+  {
+    "tag": 11,
+    "icon": "HeartHandshake",
+    "fact": "Shared values strengthen bonds and foster belonging."
+  },
+  {
+    "tag": 11,
+    "icon": "Brain",
+    "fact": "Alignment with personal goals boosts long-term happiness."
+  },
+  {
+    "tag": 11,
+    "icon": "Footprints",
+    "fact": "Movement helps maintain mental and physical alignment."
+  },
+  {
+    "tag": 12,
+    "icon": "HeartHandshake",
+    "fact": "Humans are hardwired for connection; isolation causes stress."
+  },
+  {
+    "tag": 12,
+    "icon": "NotebookPen",
+    "fact": "Journaling reframes solitude into moments of reflection."
+  },
+  {
+    "tag": 12,
+    "icon": "Footprints",
+    "fact": "A brisk walk can reduce feelings of loneliness and isolation."
+  },
+  {
+    "tag": 13,
+    "icon": "Cloudy",
+    "fact": "Deep breaths lower heart rate and soothe anger."
+  },
+  {
+    "tag": 13,
+    "icon": "Brain",
+    "fact": "Anger peaks within 90 seconds unless mentally reinforced."
+  },
+  {
+    "tag": 13,
+    "icon": "MessageSquare",
+    "fact": "Naming anger reduces its intensity by half."
+  },
+  {
+    "tag": 14,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing reduces tension and irritability."
+  },
+  {
+    "tag": 14,
+    "icon": "Brain",
+    "fact": "Irritation often arises from unmet expectations."
+  },
+  {
+    "tag": 14,
+    "icon": "Footprints",
+    "fact": "Gentle stretching releases tension caused by annoyance."
+  },
+  {
+    "tag": 15,
+    "icon": "Cloudy",
+    "fact": "Slow exhaling activates the brain's calming systems."
+  },
+  {
+    "tag": 15,
+    "icon": "Brain",
+    "fact": "Anxiety thrives on uncertainty; reframing helps reduce it."
+  },
+  {
+    "tag": 15,
+    "icon": "Bed",
+    "fact": "Poor sleep increases anxiety by amplifying stress hormones."
+  },
+  {
+    "tag": 16,
+    "icon": "HeartHandshake",
+    "fact": "Feeling appreciated releases oxytocin, deepening relationships."
+  },
+  {
+    "tag": 16,
+    "icon": "MessageSquare",
+    "fact": "Showing appreciation boosts mutual trust and happiness."
+  },
+  {
+    "tag": 16,
+    "icon": "NotebookPen",
+    "fact": "Writing gratitude improves long-term emotional resilience."
+  },
+  {
+    "tag": 17,
+    "icon": "HeartHandshake",
+    "fact": "Gratitude deepens bonds and strengthens social trust."
+  },
+  {
+    "tag": 17,
+    "icon": "MessageSquare",
+    "fact": "Expressing appreciation releases dopamine and serotonin."
+  },
+  {
+    "tag": 17,
+    "icon": "NotebookPen",
+    "fact": "Writing about gratitude rewires the brain for positivity."
+  },
+  {
+    "tag": 18,
+    "icon": "Brain",
+    "fact": "Anticipation of stress is often worse than the actual event."
+  },
+  {
+    "tag": 18,
+    "icon": "Cloudy",
+    "fact": "Rhythmic breathing lowers heart rate and calms nerves."
+  },
+  {
+    "tag": 18,
+    "icon": "Bed",
+    "fact": "A well-rested brain manages uncertainty more effectively."
+  },
+  {
+    "tag": 19,
+    "icon": "Brain",
+    "fact": "Focusing on past successes builds confidence and assurance."
+  },
+  {
+    "tag": 19,
+    "icon": "HeartHandshake",
+    "fact": "Support from others strengthens feelings of security."
+  },
+  {
+    "tag": 19,
+    "icon": "MessageSquare",
+    "fact": "Affirming others' confidence reinforces your own."
+  },
+  {
+    "tag": 20,
+    "icon": "Bed",
+    "fact": "Relaxation promotes deeper, more restorative sleep."
+  },
+  {
+    "tag": 20,
+    "icon": "Cloudy",
+    "fact": "Long exhales lower cortisol, increasing feelings of ease."
+  },
+  {
+    "tag": 20,
+    "icon": "Footprints",
+    "fact": "Gentle yoga enhances a sense of calm and balance."
+  },
+  {
+    "tag": 21,
+    "icon": "HeartHandshake",
+    "fact": "Feeling supported reduces mental and emotional strain."
+  },
+  {
+    "tag": 21,
+    "icon": "MessageSquare",
+    "fact": "Acknowledging others builds mutual trust and reassurance."
+  },
+  {
+    "tag": 21,
+    "icon": "Brain",
+    "fact": "Shared goals strengthen feelings of teamwork and support."
+  },
+  {
+    "tag": 22,
+    "icon": "Footprints",
+    "fact": "Regular exercise improves mental and emotional balance."
+  },
+  {
+    "tag": 22,
+    "icon": "Utensils",
+    "fact": "A nutrient-rich diet stabilises energy and emotions."
+  },
+  {
+    "tag": 22,
+    "icon": "Brain",
+    "fact": "Mental balance improves decision-making and focus."
+  },
+  {
+    "tag": 23,
+    "icon": "HeartHandshake",
+    "fact": "Validation from others rebuilds self-esteem after criticism."
+  },
+  {
+    "tag": 23,
+    "icon": "NotebookPen",
+    "fact": "Writing clarifies how external negativity affects emotions."
+  },
+  {
+    "tag": 23,
+    "icon": "Brain",
+    "fact": "Belittling often reflects the insecurities of others."
+  },
+  {
+    "tag": 24,
+    "icon": "HeartHandshake",
+    "fact": "Talking about betrayal eases emotional pain and isolation."
+  },
+  {
+    "tag": 24,
+    "icon": "NotebookPen",
+    "fact": "Writing about betrayal helps process complex emotions."
+  },
+  {
+    "tag": 24,
+    "icon": "Brain",
+    "fact": "Betrayal activates the brain's pain centres but can be healed."
+  },
+  {
+    "tag": 25,
+    "icon": "Footprints",
+    "fact": "Morning sunlight boosts serotonin, enhancing mental brightness."
+  },
+  {
+    "tag": 25,
+    "icon": "Utensils",
+    "fact": "Foods rich in antioxidants improve cognitive clarity."
+  },
+  {
+    "tag": 25,
+    "icon": "Brain",
+    "fact": "Mental stimulation strengthens neural connections and focus."
+  },
+  {
+    "tag": 26,
+    "icon": "Cloudy",
+    "fact": "Deep breathing lowers stress and lightens emotional burdens."
+  },
+  {
+    "tag": 26,
+    "icon": "NotebookPen",
+    "fact": "Listing priorities eases mental overload and provides clarity."
+  },
+  {
+    "tag": 26,
+    "icon": "HeartHandshake",
+    "fact": "Asking for help reduces feelings of being overwhelmed."
+  },
+  {
+    "tag": 27,
+    "icon": "Footprints",
+    "fact": "Light stretching relieves tension and promotes calmness."
+  },
+  {
+    "tag": 27,
+    "icon": "Cloudy",
+    "fact": "Long, slow exhales activate the body's relaxation response."
+  },
+  {
+    "tag": 27,
+    "icon": "Bed",
+    "fact": "Relaxation before bed improves sleep quality and calmness."
+  },
+  {
+    "tag": 28,
+    "icon": "Brain",
+    "fact": "Self-belief strengthens confidence and problem-solving skills."
+  },
+  {
+    "tag": 28,
+    "icon": "Milestone",
+    "fact": "Completing small tasks builds confidence and capability."
+  },
+  {
+    "tag": 28,
+    "icon": "HeartHandshake",
+    "fact": "Mentorship reinforces skills and boosts self-assurance."
+  },
+  {
+    "tag": 29,
+    "icon": "HeartHandshake",
+    "fact": "Feeling cared for boosts oxytocin, reducing stress."
+  },
+  {
+    "tag": 29,
+    "icon": "MessageSquare",
+    "fact": "Expressing gratitude strengthens feelings of mutual care."
+  },
+  {
+    "tag": 29,
+    "icon": "Bed",
+    "fact": "Emotional security improves the quality of restorative sleep."
+  },
+  {
+    "tag": 30,
+    "icon": "Brain",
+    "fact": "Certainty lowers stress by giving the brain a sense of order."
+  },
+  {
+    "tag": 30,
+    "icon": "HeartHandshake",
+    "fact": "Validation from others reinforces confidence and certainty."
+  },
+  {
+    "tag": 30,
+    "icon": "Milestone",
+    "fact": "Completing plans strengthens focus and clarity."
+  },
+  {
+    "tag": 31,
+    "icon": "Footprints",
+    "fact": "Physical activity releases endorphins, enhancing cheerfulness."
+  },
+  {
+    "tag": 31,
+    "icon": "HeartHandshake",
+    "fact": "Sharing joy with others amplifies cheerful emotions."
+  },
+  {
+    "tag": 31,
+    "icon": "Utensils",
+    "fact": "Fruits and vegetables boost mood and promote cheerfulness."
+  },
+  {
+    "tag": 32,
+    "icon": "Brain",
+    "fact": "Mental clarity improves when distractions are reduced."
+  },
+  {
+    "tag": 32,
+    "icon": "Bed",
+    "fact": "Quality sleep enhances cognitive clarity and decision-making."
+  },
+  {
+    "tag": 32,
+    "icon": "Footprints",
+    "fact": "Light cardio sharpens focus and supports mental clarity."
+  },
+  {
+    "tag": 33,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing fosters a composed and steady state."
+  },
+  {
+    "tag": 33,
+    "icon": "Brain",
+    "fact": "Staying composed improves problem-solving under pressure."
+  },
+  {
+    "tag": 33,
+    "icon": "Bed",
+    "fact": "A rested mind helps maintain composure during challenges."
+  },
+  {
+    "tag": 34,
+    "icon": "Bed",
+    "fact": "A comfortable environment improves sleep quality and duration."
+  },
+  {
+    "tag": 34,
+    "icon": "NotebookPen",
+    "fact": "Journaling about comfort helps sustain positive emotions."
+  },
+  {
+    "tag": 34,
+    "icon": "HeartHandshake",
+    "fact": "Feeling comfortable with others strengthens relationships."
+  },
+  {
+    "tag": 35,
+    "icon": "HeartHandshake",
+    "fact": "Feeling supported activates the brain's reward systems."
+  },
+  {
+    "tag": 35,
+    "icon": "MessageSquare",
+    "fact": "Sharing emotions deepens mutual understanding and comfort."
+  },
+  {
+    "tag": 35,
+    "icon": "Cloudy",
+    "fact": "Deep breaths foster a sense of comfort and calmness."
+  },
+  {
+    "tag": 36,
+    "icon": "Brain",
+    "fact": "Mastering new skills strengthens self-confidence and efficacy."
+  },
+  {
+    "tag": 36,
+    "icon": "Milestone",
+    "fact": "Successfully completing tasks reinforces feelings of competence."
+  },
+  {
+    "tag": 36,
+    "icon": "HeartHandshake",
+    "fact": "Positive feedback from others boosts perceived competence."
+  },
+  {
+    "tag": 37,
+    "icon": "Cloudy",
+    "fact": "Diaphragmatic breathing helps maintain composure and focus."
+  },
+  {
+    "tag": 37,
+    "icon": "Brain",
+    "fact": "Composure improves under pressure with mindful awareness."
+  },
+  {
+    "tag": 37,
+    "icon": "Bed",
+    "fact": "Restful sleep supports emotional balance and composure."
+  },
+  {
+    "tag": 38,
+    "icon": "Brain",
+    "fact": "Positive thinking builds confidence by reshaping self-perception."
+  },
+  {
+    "tag": 38,
+    "icon": "Milestone",
+    "fact": "Taking calculated risks grows confidence and self-belief."
+  },
+  {
+    "tag": 38,
+    "icon": "HeartHandshake",
+    "fact": "Supportive relationships reinforce confidence in abilities."
+  },
+  {
+    "tag": 39,
+    "icon": "Brain",
+    "fact": "Resolving inner conflict improves clarity and focus."
+  },
+  {
+    "tag": 39,
+    "icon": "NotebookPen",
+    "fact": "Writing pros and cons helps reduce emotional conflict."
+  },
+  {
+    "tag": 39,
+    "icon": "Cloudy",
+    "fact": "Deep breathing calms the brain during moments of conflict."
+  },
+  {
+    "tag": 40,
+    "icon": "Brain",
+    "fact": "Confusion signals the brain to seek better understanding."
+  },
+  {
+    "tag": 40,
+    "icon": "Bed",
+    "fact": "Sleep restores cognitive function and reduces mental fog."
+  },
+  {
+    "tag": 40,
+    "icon": "HeartHandshake",
+    "fact": "Asking questions promotes clarity and reduces confusion."
+  },
+  {
+    "tag": 41,
+    "icon": "HeartHandshake",
+    "fact": "Strong relationships improve emotional and mental resilience."
+  },
+  {
+    "tag": 41,
+    "icon": "MessageSquare",
+    "fact": "Sharing positive emotions deepens feelings of connection."
+  },
+  {
+    "tag": 41,
+    "icon": "Brain",
+    "fact": "Feeling connected activates the brain's reward centres."
+  },
+  {
+    "tag": 42,
+    "icon": "HeartHandshake",
+    "fact": "Consolation lowers stress by releasing oxytocin."
+  },
+  {
+    "tag": 42,
+    "icon": "MessageSquare",
+    "fact": "Sharing emotions fosters mutual understanding and support."
+  },
+  {
+    "tag": 42,
+    "icon": "Cloudy",
+    "fact": "Mindful breathing calms emotions and supports consolation."
+  },
+  {
+    "tag": 43,
+    "icon": "Brain",
+    "fact": "Constructive thinking strengthens problem-solving abilities."
+  },
+  {
+    "tag": 43,
+    "icon": "Milestone",
+    "fact": "Breaking down tasks promotes productivity and focus."
+  },
+  {
+    "tag": 43,
+    "icon": "HeartHandshake",
+    "fact": "Collaboration encourages constructive ideas and dialogue."
+  },
+  {
+    "tag": 44,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on moments of joy reinforces contentment."
+  },
+  {
+    "tag": 44,
+    "icon": "Brain",
+    "fact": "Focusing on the present strengthens feelings of satisfaction."
+  },
+  {
+    "tag": 44,
+    "icon": "Footprints",
+    "fact": "A walk in nature enhances feelings of contentment."
+  },
+  {
+    "tag": 45,
+    "icon": "HeartHandshake",
+    "fact": "Cooperation strengthens trust and shared goals."
+  },
+  {
+    "tag": 45,
+    "icon": "Brain",
+    "fact": "Collaborative thinking improves problem-solving outcomes."
+  },
+  {
+    "tag": 45,
+    "icon": "Milestone",
+    "fact": "Working together builds mutual respect and motivation."
+  },
+  {
+    "tag": 46,
+    "icon": "HeartHandshake",
+    "fact": "Sharing setbacks reduces the emotional weight of defeat."
+  },
+  {
+    "tag": 46,
+    "icon": "Brain",
+    "fact": "Reframing failures turns them into opportunities for growth."
+  },
+  {
+    "tag": 46,
+    "icon": "Cloudy",
+    "fact": "Deep breathing eases the physical stress of feeling defeated."
+  },
+  {
+    "tag": 47,
+    "icon": "Brain",
+    "fact": "Defensive reactions stem from fear of vulnerability."
+  },
+  {
+    "tag": 47,
+    "icon": "Cloudy",
+    "fact": "Slow breathing reduces tension and eases defensive responses."
+  },
+  {
+    "tag": 47,
+    "icon": "HeartHandshake",
+    "fact": "Understanding others' perspectives decreases defensiveness."
+  },
+  {
+    "tag": 48,
+    "icon": "Footprints",
+    "fact": "Movement increases endorphins, lifting feelings of dejection."
+  },
+  {
+    "tag": 48,
+    "icon": "NotebookPen",
+    "fact": "Journaling fosters self-reflection and emotional clarity."
+  },
+  {
+    "tag": 48,
+    "icon": "HeartHandshake",
+    "fact": "Support from others reduces the burden of feeling dejected."
+  },
+  {
+    "tag": 49,
+    "icon": "HeartHandshake",
+    "fact": "Validation from trusted people rebuilds self-worth."
+  },
+  {
+    "tag": 49,
+    "icon": "NotebookPen",
+    "fact": "Writing helps process and counteract feelings of disrespect."
+  },
+  {
+    "tag": 49,
+    "icon": "Brain",
+    "fact": "Demeaning comments often reflect the other person's insecurities."
+  },
+  {
+    "tag": 50,
+    "icon": "Footprints",
+    "fact": "Physical activity releases serotonin, boosting morale."
+  },
+  {
+    "tag": 50,
+    "icon": "Brain",
+    "fact": "Focusing on small wins restores a sense of purpose."
+  },
+  {
+    "tag": 50,
+    "icon": "HeartHandshake",
+    "fact": "Talking through challenges renews emotional energy."
+  },
+  {
+    "tag": 51,
+    "icon": "Footprints",
+    "fact": "Exercise reactivates the brain's reward system, boosting drive."
+  },
+  {
+    "tag": 51,
+    "icon": "Brain",
+    "fact": "Visualising success strengthens motivation and focus."
+  },
+  {
+    "tag": 51,
+    "icon": "HeartHandshake",
+    "fact": "Encouragement from others reignites intrinsic motivation."
+  },
+  {
+    "tag": 52,
+    "icon": "Bed",
+    "fact": "Rest replenishes energy and counters emotional exhaustion."
+  },
+  {
+    "tag": 52,
+    "icon": "Droplet",
+    "fact": "Hydration restores energy levels and cognitive function."
+  },
+  {
+    "tag": 52,
+    "icon": "Utensils",
+    "fact": "Nutrient-dense foods combat feelings of physical depletion."
+  },
+  {
+    "tag": 53,
+    "icon": "Footprints",
+    "fact": "Regular exercise can be as effective as medication for mild depression."
+  },
+  {
+    "tag": 53,
+    "icon": "HeartHandshake",
+    "fact": "Feeling supported improves recovery from depressive symptoms."
+  },
+  {
+    "tag": 53,
+    "icon": "Cloudy",
+    "fact": "Deep breathing calms the nervous system and eases tension."
+  },
+  {
+    "tag": 54,
+    "icon": "HeartHandshake",
+    "fact": "Support reduces the emotional pain of social exclusion."
+  },
+  {
+    "tag": 54,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process and reframe feelings of desertion."
+  },
+  {
+    "tag": 54,
+    "icon": "Brain",
+    "fact": "Self-reflection rebuilds resilience after feelings of abandonment."
+  },
+  {
+    "tag": 55,
+    "icon": "Cloudy",
+    "fact": "Slow, mindful breathing reduces emotional overwhelm."
+  },
+  {
+    "tag": 55,
+    "icon": "HeartHandshake",
+    "fact": "Sharing struggles with others lessens the weight of despair."
+  },
+  {
+    "tag": 55,
+    "icon": "Brain",
+    "fact": "Reframing challenges helps rebuild hope and optimism."
+  },
+  {
+    "tag": 56,
+    "icon": "Brain",
+    "fact": "Disappointment fades when expectations are reframed."
+  },
+  {
+    "tag": 56,
+    "icon": "HeartHandshake",
+    "fact": "Talking about it helps process and release disappointment."
+  },
+  {
+    "tag": 56,
+    "icon": "NotebookPen",
+    "fact": "Writing clarifies lessons learned from unmet expectations."
+  },
+  {
+    "tag": 57,
+    "icon": "Footprints",
+    "fact": "Physical activity lifts mood and counters discouragement."
+  },
+  {
+    "tag": 57,
+    "icon": "HeartHandshake",
+    "fact": "Support from others boosts motivation and self-belief."
+  },
+  {
+    "tag": 57,
+    "icon": "Brain",
+    "fact": "Focusing on progress re-ignites confidence and drive."
+  },
+  {
+    "tag": 58,
+    "icon": "HeartHandshake",
+    "fact": "Encouraging words restore emotional strength and morale."
+  },
+  {
+    "tag": 58,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing reduces tension and emotional strain."
+  },
+  {
+    "tag": 58,
+    "icon": "Brain",
+    "fact": "Positive self-talk helps shift disheartened perspectives."
+  },
+  {
+    "tag": 59,
+    "icon": "HeartHandshake",
+    "fact": "Feeling heard alleviates the sting of being dismissed."
+  },
+  {
+    "tag": 59,
+    "icon": "MessageSquare",
+    "fact": "Speaking up restores self-worth and emotional balance."
+  },
+  {
+    "tag": 59,
+    "icon": "Brain",
+    "fact": "Being dismissed often reflects someone else's perspective, not yours."
+  },
+  {
+    "tag": 60,
+    "icon": "HeartHandshake",
+    "fact": "Feeling seen helps repair emotional wounds of disregard."
+  },
+  {
+    "tag": 60,
+    "icon": "NotebookPen",
+    "fact": "Journaling clarifies why you feel overlooked or undervalued."
+  },
+  {
+    "tag": 60,
+    "icon": "Brain",
+    "fact": "Self-reflection reclaims your value when feeling disregarded."
+  },
+  {
+    "tag": 61,
+    "icon": "MessageSquare",
+    "fact": "Naming disrespect fosters clarity and self-respect."
+  },
+  {
+    "tag": 61,
+    "icon": "Brain",
+    "fact": "Respect starts with setting boundaries for yourself."
+  },
+  {
+    "tag": 61,
+    "icon": "HeartHandshake",
+    "fact": "Open communication reduces misunderstanding and promotes respect."
+  },
+  {
+    "tag": 62,
+    "icon": "Cloudy",
+    "fact": "Rhythmic breathing reduces emotional intensity and calms nerves."
+  },
+  {
+    "tag": 62,
+    "icon": "HeartHandshake",
+    "fact": "Support from others alleviates emotional overwhelm."
+  },
+  {
+    "tag": 62,
+    "icon": "Bed",
+    "fact": "Rest helps regulate emotions and soothes distraught feelings."
+  },
+  {
+    "tag": 63,
+    "icon": "Cloudy",
+    "fact": "Deep breaths slow the heart rate and ease physical distress."
+  },
+  {
+    "tag": 63,
+    "icon": "HeartHandshake",
+    "fact": "Talking to someone helps relieve emotional tension."
+  },
+  {
+    "tag": 63,
+    "icon": "Footprints",
+    "fact": "Gentle movement reduces stress hormones tied to distress."
+  },
+  {
+    "tag": 64,
+    "icon": "HeartHandshake",
+    "fact": "Positive experiences rebuild trust over time."
+  },
+  {
+    "tag": 64,
+    "icon": "Brain",
+    "fact": "Trust strengthens when assumptions are tested against facts."
+  },
+  {
+    "tag": 64,
+    "icon": "Cloudy",
+    "fact": "Calm breathing helps reduce suspicion and fear."
+  },
+  {
+    "tag": 65,
+    "icon": "Brain",
+    "fact": "Doubt often arises from fear of failure, not lack of ability."
+  },
+  {
+    "tag": 65,
+    "icon": "HeartHandshake",
+    "fact": "Talking through doubts clarifies decisions and reduces anxiety."
+  },
+  {
+    "tag": 65,
+    "icon": "NotebookPen",
+    "fact": "Writing pros and cons helps resolve indecision."
+  },
+  {
+    "tag": 66,
+    "icon": "Footprints",
+    "fact": "Walking outdoors improves mood by increasing serotonin."
+  },
+  {
+    "tag": 66,
+    "icon": "HeartHandshake",
+    "fact": "Talking to someone eases feelings of sadness and isolation."
+  },
+  {
+    "tag": 66,
+    "icon": "Bed",
+    "fact": "Quality sleep helps regulate emotions and counter sadness."
+  },
+  {
+    "tag": 67,
+    "icon": "Bed",
+    "fact": "Rest restores both physical and mental energy levels."
+  },
+  {
+    "tag": 67,
+    "icon": "Droplet",
+    "fact": "Staying hydrated reduces fatigue and improves focus."
+  },
+  {
+    "tag": 67,
+    "icon": "Utensils",
+    "fact": "Nutrient-dense snacks like nuts replenish energy."
+  },
+  {
+    "tag": 68,
+    "icon": "Footprints",
+    "fact": "Light cardio boosts energy and combats mental sluggishness."
+  },
+  {
+    "tag": 68,
+    "icon": "Brain",
+    "fact": "New experiences stimulate curiosity and re-engage the mind."
+  },
+  {
+    "tag": 68,
+    "icon": "Droplet",
+    "fact": "Dehydration can contribute to mental and physical sluggishness."
+  },
+  {
+    "tag": 69,
+    "icon": "Footprints",
+    "fact": "Physical activity boosts creativity and mental sharpness."
+  },
+  {
+    "tag": 69,
+    "icon": "Brain",
+    "fact": "Flexible thinking enhances dynamic problem-solving."
+  },
+  {
+    "tag": 69,
+    "icon": "HeartHandshake",
+    "fact": "Collaboration fosters dynamic ideas and mutual inspiration."
+  },
+  {
+    "tag": 70,
+    "icon": "Brain",
+    "fact": "Anticipating rewards releases dopamine, sharpening focus."
+  },
+  {
+    "tag": 70,
+    "icon": "Footprints",
+    "fact": "Quick, energising movement fuels excitement and readiness."
+  },
+  {
+    "tag": 70,
+    "icon": "HeartHandshake",
+    "fact": "Sharing enthusiasm amplifies mutual motivation."
+  },
+  {
+    "tag": 71,
+    "icon": "Bed",
+    "fact": "Consistent sleep patterns help sustain an easygoing attitude."
+  },
+  {
+    "tag": 71,
+    "icon": "Brain",
+    "fact": "Mental flexibility supports adaptability and calmness."
+  },
+  {
+    "tag": 71,
+    "icon": "HeartHandshake",
+    "fact": "A relaxed mindset promotes harmonious relationships."
+  },
+  {
+    "tag": 72,
+    "icon": "Brain",
+    "fact": "Empowerment builds self-efficacy and fosters confidence."
+  },
+  {
+    "tag": 72,
+    "icon": "Milestone",
+    "fact": "Taking control of small tasks reinforces feelings of power."
+  },
+  {
+    "tag": 72,
+    "icon": "HeartHandshake",
+    "fact": "Support from others amplifies self-empowerment."
+  },
+  {
+    "tag": 73,
+    "icon": "HeartHandshake",
+    "fact": "Encouragement strengthens resilience and intrinsic motivation."
+  },
+  {
+    "tag": 73,
+    "icon": "Brain",
+    "fact": "Positive feedback reinforces effort and determination."
+  },
+  {
+    "tag": 73,
+    "icon": "MessageSquare",
+    "fact": "Sharing encouragement fosters mutual trust and motivation."
+  },
+  {
+    "tag": 74,
+    "icon": "Footprints",
+    "fact": "Physical activity increases blood flow, boosting energy."
+  },
+  {
+    "tag": 74,
+    "icon": "Utensils",
+    "fact": "Protein-rich foods provide sustained energy throughout the day."
+  },
+  {
+    "tag": 74,
+    "icon": "Bed",
+    "fact": "Restful sleep replenishes physical and mental energy stores."
+  },
+  {
+    "tag": 75,
+    "icon": "HeartHandshake",
+    "fact": "Shared interests strengthen engagement and collaboration."
+  },
+  {
+    "tag": 75,
+    "icon": "Brain",
+    "fact": "Mental focus sustains engagement and productivity."
+  },
+  {
+    "tag": 75,
+    "icon": "Milestone",
+    "fact": "Tackling meaningful tasks deepens feelings of engagement."
+  },
+  {
+    "tag": 76,
+    "icon": "HeartHandshake",
+    "fact": "Sharing excitement amplifies enthusiasm and joy."
+  },
+  {
+    "tag": 76,
+    "icon": "Footprints",
+    "fact": "Dynamic movement increases endorphins, fuelling enthusiasm."
+  },
+  {
+    "tag": 76,
+    "icon": "MessageSquare",
+    "fact": "Expressing passion strengthens feelings of enthusiasm."
+  },
+  {
+    "tag": 77,
+    "icon": "HeartHandshake",
+    "fact": "Feeling respected activates the brain's reward systems."
+  },
+  {
+    "tag": 77,
+    "icon": "Brain",
+    "fact": "High self-esteem strengthens emotional resilience and stability."
+  },
+  {
+    "tag": 77,
+    "icon": "MessageSquare",
+    "fact": "Recognising others fosters mutual respect and esteem."
+  },
+  {
+    "tag": 78,
+    "icon": "Cloudy",
+    "fact": "Slow, steady breathing helps reduce frustration."
+  },
+  {
+    "tag": 78,
+    "icon": "Brain",
+    "fact": "Reframing a situation lowers feelings of exasperation."
+  },
+  {
+    "tag": 78,
+    "icon": "Footprints",
+    "fact": "Movement releases built-up tension tied to frustration."
+  },
+  {
+    "tag": 79,
+    "icon": "HeartHandshake",
+    "fact": "Sharing excitement boosts oxytocin and deepens relationships."
+  },
+  {
+    "tag": 79,
+    "icon": "Brain",
+    "fact": "Anticipating positive outcomes increases dopamine levels."
+  },
+  {
+    "tag": 79,
+    "icon": "Footprints",
+    "fact": "Physical activity amplifies the body's natural excitement."
+  },
+  {
+    "tag": 80,
+    "icon": "HeartHandshake",
+    "fact": "Inclusion fosters belonging and reduces emotional distance."
+  },
+  {
+    "tag": 80,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on self-worth helps counter feelings of exclusion."
+  },
+  {
+    "tag": 80,
+    "icon": "Brain",
+    "fact": "Exclusion activates the brain's pain centres but can be overcome."
+  },
+  {
+    "tag": 81,
+    "icon": "Bed",
+    "fact": "Deep sleep restores mental clarity and physical energy."
+  },
+  {
+    "tag": 81,
+    "icon": "Droplet",
+    "fact": "Hydration counters fatigue and enhances focus."
+  },
+  {
+    "tag": 81,
+    "icon": "Footprints",
+    "fact": "Stretching relieves physical tension from exhaustion."
+  },
+  {
+    "tag": 82,
+    "icon": "Utensils",
+    "fact": "Iron-rich foods combat fatigue and improve energy production."
+  },
+  {
+    "tag": 82,
+    "icon": "Bed",
+    "fact": "Adequate sleep is critical for overcoming persistent fatigue."
+  },
+  {
+    "tag": 82,
+    "icon": "Footprints",
+    "fact": "Gentle movement reduces muscle stiffness and mental fatigue."
+  },
+  {
+    "tag": 83,
+    "icon": "Cloudy",
+    "fact": "Deep breaths calm the amygdala, reducing fear responses."
+  },
+  {
+    "tag": 83,
+    "icon": "Brain",
+    "fact": "Fear sharpens focus but can distort risk assessment."
+  },
+  {
+    "tag": 83,
+    "icon": "HeartHandshake",
+    "fact": "Support from others reduces the intensity of fear."
+  },
+  {
+    "tag": 84,
+    "icon": "Footprints",
+    "fact": "Physical activity releases nervous energy, calming restlessness."
+  },
+  {
+    "tag": 84,
+    "icon": "Cloudy",
+    "fact": "Slow, rhythmic breathing soothes feelings of restlessness."
+  },
+  {
+    "tag": 84,
+    "icon": "Brain",
+    "fact": "Focused tasks reduce mental and physical fidgetiness."
+  },
+  {
+    "tag": 85,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing helps regain focus under stress."
+  },
+  {
+    "tag": 85,
+    "icon": "Footprints",
+    "fact": "Stretching reduces physical tension linked to being flustered."
+  },
+  {
+    "tag": 85,
+    "icon": "Brain",
+    "fact": "Breaking tasks into steps lowers feelings of overwhelm."
+  },
+  {
+    "tag": 86,
+    "icon": "Footprints",
+    "fact": "Light exercise improves concentration and mental sharpness."
+  },
+  {
+    "tag": 86,
+    "icon": "Brain",
+    "fact": "Removing distractions strengthens your ability to focus."
+  },
+  {
+    "tag": 86,
+    "icon": "Bed",
+    "fact": "Rested brains maintain focus better throughout the day."
+  },
+  {
+    "tag": 87,
+    "icon": "Cloudy",
+    "fact": "Slow exhales reduce adrenaline and frantic energy."
+  },
+  {
+    "tag": 87,
+    "icon": "Brain",
+    "fact": "Prioritising tasks calms chaotic feelings and mental clutter."
+  },
+  {
+    "tag": 87,
+    "icon": "HeartHandshake",
+    "fact": "Sharing tasks with others eases feelings of overwhelm."
+  },
+  {
+    "tag": 88,
+    "icon": "Footprints",
+    "fact": "Movement enhances the sense of both mental and physical freedom."
+  },
+  {
+    "tag": 88,
+    "icon": "HeartHandshake",
+    "fact": "Sharing freedom with others strengthens mutual joy."
+  },
+  {
+    "tag": 88,
+    "icon": "Brain",
+    "fact": "Freedom increases dopamine, boosting creativity and motivation."
+  },
+  {
+    "tag": 89,
+    "icon": "Footprints",
+    "fact": "Physical activity reduces cortisol tied to frustration."
+  },
+  {
+    "tag": 89,
+    "icon": "Cloudy",
+    "fact": "Deep breathing eases tension and mental overwhelm."
+  },
+  {
+    "tag": 89,
+    "icon": "Brain",
+    "fact": "Reframing obstacles lowers frustration and promotes solutions."
+  },
+  {
+    "tag": 90,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on accomplishments deepens feelings of fulfilment."
+  },
+  {
+    "tag": 90,
+    "icon": "Brain",
+    "fact": "Celebrating small wins strengthens long-term fulfilment."
+  },
+  {
+    "tag": 90,
+    "icon": "HeartHandshake",
+    "fact": "Sharing successes amplifies feelings of fulfilment and joy."
+  },
+  {
+    "tag": 91,
+    "icon": "NotebookPen",
+    "fact": "Journaling gratitude rewires the brain for long-term positivity."
+  },
+  {
+    "tag": 91,
+    "icon": "HeartHandshake",
+    "fact": "Expressing gratitude builds trust and deepens relationships."
+  },
+  {
+    "tag": 91,
+    "icon": "Brain",
+    "fact": "Gratitude increases serotonin, improving overall happiness."
+  },
+  {
+    "tag": 92,
+    "icon": "HeartHandshake",
+    "fact": "Feeling guided strengthens emotional security and confidence."
+  },
+  {
+    "tag": 92,
+    "icon": "Brain",
+    "fact": "Guidance improves clarity and decision-making."
+  },
+  {
+    "tag": 92,
+    "icon": "MessageSquare",
+    "fact": "Expressing gratitude for guidance fosters mutual trust."
+  },
+  {
+    "tag": 93,
+    "icon": "Footprints",
+    "fact": "Exercise boosts endorphins, amplifying feelings of happiness."
+  },
+  {
+    "tag": 93,
+    "icon": "HeartHandshake",
+    "fact": "Sharing joy with others enhances happiness and connection."
+  },
+  {
+    "tag": 93,
+    "icon": "Brain",
+    "fact": "Positive thinking reinforces long-term feelings of happiness."
+  },
+  {
+    "tag": 94,
+    "icon": "Footprints",
+    "fact": "Gentle yoga fosters harmony between body and mind."
+  },
+  {
+    "tag": 94,
+    "icon": "HeartHandshake",
+    "fact": "Shared goals promote harmony and mutual understanding."
+  },
+  {
+    "tag": 94,
+    "icon": "Brain",
+    "fact": "Inner harmony reduces stress and enhances emotional balance."
+  },
+  {
+    "tag": 95,
+    "icon": "Footprints",
+    "fact": "Regular movement reduces stress and promotes longevity."
+  },
+  {
+    "tag": 95,
+    "icon": "Utensils",
+    "fact": "A nutrient-rich diet supports both mental and physical health."
+  },
+  {
+    "tag": 95,
+    "icon": "Bed",
+    "fact": "Consistent sleep improves immune function and mental clarity."
+  },
+  {
+    "tag": 96,
+    "icon": "HeartHandshake",
+    "fact": "Feeling heard activates the brain's reward systems."
+  },
+  {
+    "tag": 96,
+    "icon": "MessageSquare",
+    "fact": "Listening attentively strengthens emotional connection."
+  },
+  {
+    "tag": 96,
+    "icon": "Brain",
+    "fact": "Being heard validates personal ideas and fosters self-esteem."
+  },
+  {
+    "tag": 97,
+    "icon": "Cloudy",
+    "fact": "Deep breaths help lighten the sensation of mental heaviness."
+  },
+  {
+    "tag": 97,
+    "icon": "Bed",
+    "fact": "Rest restores cognitive clarity and emotional resilience."
+  },
+  {
+    "tag": 97,
+    "icon": "NotebookPen",
+    "fact": "Journaling reduces mental clutter and eases emotional weight."
+  },
+  {
+    "tag": 98,
+    "icon": "HeartHandshake",
+    "fact": "Feeling supported strengthens emotional resilience."
+  },
+  {
+    "tag": 98,
+    "icon": "MessageSquare",
+    "fact": "Gratitude enhances joy and deepens mutual trust."
+  },
+  {
+    "tag": 98,
+    "icon": "Brain",
+    "fact": "Helping others can boost self-esteem and well-being."
+  },
+  {
+    "tag": 99,
+    "icon": "HeartHandshake",
+    "fact": "Reaching out reduces feelings of isolation and helplessness."
+  },
+  {
+    "tag": 99,
+    "icon": "Brain",
+    "fact": "Small steps toward progress rebuild a sense of control."
+  },
+  {
+    "tag": 99,
+    "icon": "Cloudy",
+    "fact": "Slow, mindful breathing calms feelings of helplessness."
+  },
+  {
+    "tag": 100,
+    "icon": "Brain",
+    "fact": "Hesitation often stems from fear, not lack of ability."
+  },
+  {
+    "tag": 100,
+    "icon": "HeartHandshake",
+    "fact": "Encouragement from others can reduce hesitation."
+  },
+  {
+    "tag": 100,
+    "icon": "Cloudy",
+    "fact": "Slow, controlled breathing eases anxiety tied to hesitation."
+  },
+  {
+    "tag": 101,
+    "icon": "HeartHandshake",
+    "fact": "Feeling honoured strengthens mutual respect and trust."
+  },
+  {
+    "tag": 101,
+    "icon": "MessageSquare",
+    "fact": "Expressing appreciation for honour reinforces shared values."
+  },
+  {
+    "tag": 101,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on achievements deepens feelings of being honoured."
+  },
+  {
+    "tag": 102,
+    "icon": "Brain",
+    "fact": "Hope increases dopamine, improving motivation and resilience."
+  },
+  {
+    "tag": 102,
+    "icon": "HeartHandshake",
+    "fact": "Sharing optimism builds collective energy and support."
+  },
+  {
+    "tag": 102,
+    "icon": "NotebookPen",
+    "fact": "Writing about goals reinforces hope and forward-thinking."
+  },
+  {
+    "tag": 103,
+    "icon": "Cloudy",
+    "fact": "Deep breaths calm the body's stress response to hopelessness."
+  },
+  {
+    "tag": 103,
+    "icon": "Brain",
+    "fact": "Reframing obstacles can rebuild hope and optimism."
+  },
+  {
+    "tag": 103,
+    "icon": "HeartHandshake",
+    "fact": "Support from others reduces the emotional weight of hopelessness."
+  },
+  {
+    "tag": 104,
+    "icon": "HeartHandshake",
+    "fact": "Validation helps repair self-esteem after humiliation."
+  },
+  {
+    "tag": 104,
+    "icon": "Brain",
+    "fact": "Humiliation often reflects the insecurities of others."
+  },
+  {
+    "tag": 104,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process and reframe feelings of shame."
+  },
+  {
+    "tag": 105,
+    "icon": "HeartHandshake",
+    "fact": "Talking about emotional pain eases its intensity."
+  },
+  {
+    "tag": 105,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing helps soothe the body's stress response."
+  },
+  {
+    "tag": 105,
+    "icon": "NotebookPen",
+    "fact": "Writing about hurt clarifies emotions and aids healing."
+  },
+  {
+    "tag": 106,
+    "icon": "HeartHandshake",
+    "fact": "Feeling heard restores emotional balance after being ignored."
+  },
+  {
+    "tag": 106,
+    "icon": "MessageSquare",
+    "fact": "Sharing feelings reduces the impact of emotional neglect."
+  },
+  {
+    "tag": 106,
+    "icon": "Brain",
+    "fact": "Being ignored activates brain areas linked to social pain."
+  },
+  {
+    "tag": 107,
+    "icon": "Brain",
+    "fact": "A sense of control lowers stress and improves decision-making."
+  },
+  {
+    "tag": 107,
+    "icon": "Footprints",
+    "fact": "Physical activity enhances feelings of agency and control."
+  },
+  {
+    "tag": 107,
+    "icon": "Milestone",
+    "fact": "Completing tasks reinforces self-efficacy and focus."
+  },
+  {
+    "tag": 108,
+    "icon": "HeartHandshake",
+    "fact": "Shared experiences foster trust and feelings of alignment."
+  },
+  {
+    "tag": 108,
+    "icon": "Footprints",
+    "fact": "Group activities enhance feelings of flow and connection."
+  },
+  {
+    "tag": 108,
+    "icon": "Brain",
+    "fact": "Emotional alignment improves collaboration and understanding."
+  },
+  {
+    "tag": 109,
+    "icon": "HeartHandshake",
+    "fact": "Inclusion boosts oxytocin, enhancing feelings of belonging."
+  },
+  {
+    "tag": 109,
+    "icon": "Brain",
+    "fact": "Feeling included strengthens mental and emotional well-being."
+  },
+  {
+    "tag": 109,
+    "icon": "MessageSquare",
+    "fact": "Expressing gratitude for inclusion deepens connection."
+  },
+  {
+    "tag": 110,
+    "icon": "Brain",
+    "fact": "Information reduces uncertainty and strengthens confidence."
+  },
+  {
+    "tag": 110,
+    "icon": "HeartHandshake",
+    "fact": "Sharing knowledge builds trust and collaboration."
+  },
+  {
+    "tag": 110,
+    "icon": "Milestone",
+    "fact": "Staying informed helps improve decision-making and focus."
+  },
+  {
+    "tag": 111,
+    "icon": "HeartHandshake",
+    "fact": "Support from others reduces feelings of insecurity."
+  },
+  {
+    "tag": 111,
+    "icon": "Brain",
+    "fact": "Self-affirmation can counter feelings of self-doubt."
+  },
+  {
+    "tag": 111,
+    "icon": "NotebookPen",
+    "fact": "Journaling boosts self-awareness and reduces insecurity."
+  },
+  {
+    "tag": 112,
+    "icon": "HeartHandshake",
+    "fact": "Sharing ideas amplifies inspiration and mutual creativity."
+  },
+  {
+    "tag": 112,
+    "icon": "Brain",
+    "fact": "Inspiration stimulates creativity and problem-solving."
+  },
+  {
+    "tag": 112,
+    "icon": "Milestone",
+    "fact": "Acting on inspiration increases motivation and satisfaction."
+  },
+  {
+    "tag": 113,
+    "icon": "HeartHandshake",
+    "fact": "Talking about it reduces the emotional sting of insults."
+  },
+  {
+    "tag": 113,
+    "icon": "Brain",
+    "fact": "Insults often reflect the insecurities of the person giving them."
+  },
+  {
+    "tag": 113,
+    "icon": "NotebookPen",
+    "fact": "Writing about hurt feelings helps process and release them."
+  },
+  {
+    "tag": 114,
+    "icon": "Cloudy",
+    "fact": "Slow, controlled breathing reduces tension and irritation."
+  },
+  {
+    "tag": 114,
+    "icon": "Footprints",
+    "fact": "Gentle stretching helps ease physical tension from irritability."
+  },
+  {
+    "tag": 114,
+    "icon": "Brain",
+    "fact": "Irritation decreases when you reframe unmet expectations."
+  },
+  {
+    "tag": 115,
+    "icon": "HeartHandshake",
+    "fact": "Reaching out reduces the emotional toll of isolation."
+  },
+  {
+    "tag": 115,
+    "icon": "NotebookPen",
+    "fact": "Writing about solitude can reframe it as time for reflection."
+  },
+  {
+    "tag": 115,
+    "icon": "Footprints",
+    "fact": "Physical activity counters feelings of loneliness and isolation."
+  },
+  {
+    "tag": 116,
+    "icon": "Cloudy",
+    "fact": "Deep breathing reduces adrenaline, calming jittery feelings."
+  },
+  {
+    "tag": 116,
+    "icon": "Footprints",
+    "fact": "Movement helps burn off excess nervous energy."
+  },
+  {
+    "tag": 116,
+    "icon": "Droplet",
+    "fact": "Staying hydrated helps reduce the physical effects of jitters."
+  },
+  {
+    "tag": 117,
+    "icon": "HeartHandshake",
+    "fact": "Sharing joy strengthens bonds and increases mutual happiness."
+  },
+  {
+    "tag": 117,
+    "icon": "Footprints",
+    "fact": "Dancing or movement amplifies feelings of joy and vitality."
+  },
+  {
+    "tag": 117,
+    "icon": "Brain",
+    "fact": "Gratitude increases the brain's capacity for joy."
+  },
+  {
+    "tag": 118,
+    "icon": "Brain",
+    "fact": "Learning strengthens neural pathways and boosts confidence."
+  },
+  {
+    "tag": 118,
+    "icon": "HeartHandshake",
+    "fact": "Sharing knowledge fosters collaboration and mutual respect."
+  },
+  {
+    "tag": 118,
+    "icon": "Milestone",
+    "fact": "Teaching others solidifies understanding and builds self-esteem."
+  },
+  {
+    "tag": 119,
+    "icon": "Footprints",
+    "fact": "Light exercise boosts energy and reduces mental fatigue."
+  },
+  {
+    "tag": 119,
+    "icon": "Utensils",
+    "fact": "Foods rich in iron and B vitamins combat lethargy."
+  },
+  {
+    "tag": 119,
+    "icon": "Droplet",
+    "fact": "Dehydration is a common cause of low energy and lethargy."
+  },
+  {
+    "tag": 120,
+    "icon": "HeartHandshake",
+    "fact": "Sharing feelings of freedom deepens bonds and mutual joy."
+  },
+  {
+    "tag": 120,
+    "icon": "Footprints",
+    "fact": "Movement enhances the sense of physical and mental freedom."
+  },
+  {
+    "tag": 120,
+    "icon": "Brain",
+    "fact": "Feeling liberated boosts creativity and self-expression."
+  },
+  {
+    "tag": 121,
+    "icon": "Footprints",
+    "fact": "Aerobic activity increases vitality and energises the body."
+  },
+  {
+    "tag": 121,
+    "icon": "HeartHandshake",
+    "fact": "Social engagement amplifies feelings of liveliness."
+  },
+  {
+    "tag": 121,
+    "icon": "Brain",
+    "fact": "Anticipation of positive events enhances feelings of vitality."
+  },
+  {
+    "tag": 122,
+    "icon": "HeartHandshake",
+    "fact": "Social connection reduces the emotional strain of loneliness."
+  },
+  {
+    "tag": 122,
+    "icon": "Brain",
+    "fact": "Perceived loneliness can be reduced by reframing social interactions."
+  },
+  {
+    "tag": 122,
+    "icon": "NotebookPen",
+    "fact": "Journaling can transform loneliness into meaningful reflection."
+  },
+  {
+    "tag": 123,
+    "icon": "HeartHandshake",
+    "fact": "Asking for support helps you regain focus and direction."
+  },
+  {
+    "tag": 123,
+    "icon": "NotebookPen",
+    "fact": "Writing clarifies confusion and helps re-establish goals."
+  },
+  {
+    "tag": 123,
+    "icon": "Brain",
+    "fact": "Feeling lost often stems from uncertainty rather than failure."
+  },
+  {
+    "tag": 124,
+    "icon": "HeartHandshake",
+    "fact": "Sharing your feelings reduces emotional heaviness."
+  },
+  {
+    "tag": 124,
+    "icon": "Footprints",
+    "fact": "Movement releases endorphins, easing feelings of misery."
+  },
+  {
+    "tag": 124,
+    "icon": "Cloudy",
+    "fact": "Deep breathing helps soothe the physical symptoms of sadness."
+  },
+  {
+    "tag": 125,
+    "icon": "HeartHandshake",
+    "fact": "Trust rebuilds through consistent, positive interactions."
+  },
+  {
+    "tag": 125,
+    "icon": "Brain",
+    "fact": "Mistrust is often rooted in past experiences, not current ones."
+  },
+  {
+    "tag": 125,
+    "icon": "Cloudy",
+    "fact": "Mindful breathing reduces fear and calms suspicion."
+  },
+  {
+    "tag": 126,
+    "icon": "HeartHandshake",
+    "fact": "Feeling understood strengthens bonds and fosters clarity."
+  },
+  {
+    "tag": 126,
+    "icon": "MessageSquare",
+    "fact": "Sharing thoughts and emotions reduces misunderstandings."
+  },
+  {
+    "tag": 126,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on feelings fosters self-awareness and acceptance."
+  },
+  {
+    "tag": 127,
+    "icon": "Brain",
+    "fact": "Visualising success activates motivation pathways in the brain."
+  },
+  {
+    "tag": 127,
+    "icon": "Footprints",
+    "fact": "Physical activity boosts energy, increasing drive and focus."
+  },
+  {
+    "tag": 127,
+    "icon": "HeartHandshake",
+    "fact": "Encouragement from others amplifies feelings of motivation."
+  },
+  {
+    "tag": 128,
+    "icon": "HeartHandshake",
+    "fact": "Feeling seen restores self-worth after neglect."
+  },
+  {
+    "tag": 128,
+    "icon": "MessageSquare",
+    "fact": "Expressing emotions reduces the impact of neglect."
+  },
+  {
+    "tag": 128,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process and reframe feelings of neglect."
+  },
+  {
+    "tag": 129,
+    "icon": "HeartHandshake",
+    "fact": "Talking about it reduces the emotional sting of offense."
+  },
+  {
+    "tag": 129,
+    "icon": "Brain",
+    "fact": "Offense often reflects a mismatch of values or expectations."
+  },
+  {
+    "tag": 129,
+    "icon": "NotebookPen",
+    "fact": "Writing clarifies why you felt hurt, aiding resolution."
+  },
+  {
+    "tag": 130,
+    "icon": "HeartHandshake",
+    "fact": "Openness strengthens trust and fosters meaningful relationships."
+  },
+  {
+    "tag": 130,
+    "icon": "Brain",
+    "fact": "Being open to ideas enhances mental flexibility and growth."
+  },
+  {
+    "tag": 130,
+    "icon": "MessageSquare",
+    "fact": "Sharing openly builds mutual understanding and connection."
+  },
+  {
+    "tag": 131,
+    "icon": "Brain",
+    "fact": "Optimism increases resilience and improves problem-solving."
+  },
+  {
+    "tag": 131,
+    "icon": "HeartHandshake",
+    "fact": "Surrounding yourself with positivity reinforces optimism."
+  },
+  {
+    "tag": 131,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on future goals strengthens an optimistic mindset."
+  },
+  {
+    "tag": 132,
+    "icon": "Brain",
+    "fact": "Mental organisation improves focus and reduces stress."
+  },
+  {
+    "tag": 132,
+    "icon": "Milestone",
+    "fact": "Structuring tasks boosts efficiency and feelings of control."
+  },
+  {
+    "tag": 132,
+    "icon": "NotebookPen",
+    "fact": "Writing a to-do list enhances productivity and clarity."
+  },
+  {
+    "tag": 133,
+    "icon": "HeartHandshake",
+    "fact": "Feeling acknowledged reduces the pain of being overlooked."
+  },
+  {
+    "tag": 133,
+    "icon": "MessageSquare",
+    "fact": "Sharing emotions fosters understanding and mutual respect."
+  },
+  {
+    "tag": 133,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process and reframe feelings of being ignored."
+  },
+  {
+    "tag": 134,
+    "icon": "Cloudy",
+    "fact": "Deep breathing slows your heart rate and eases overwhelm."
+  },
+  {
+    "tag": 134,
+    "icon": "Brain",
+    "fact": "Breaking tasks into steps reduces feelings of being overwhelmed."
+  },
+  {
+    "tag": 134,
+    "icon": "HeartHandshake",
+    "fact": "Sharing responsibilities lessens emotional and mental strain."
+  },
+  {
+    "tag": 135,
+    "icon": "Cloudy",
+    "fact": "Slow, controlled breathing calms the brain's fight-or-flight response."
+  },
+  {
+    "tag": 135,
+    "icon": "Brain",
+    "fact": "Reassessing the situation reduces the intensity of panic."
+  },
+  {
+    "tag": 135,
+    "icon": "HeartHandshake",
+    "fact": "Talking to someone lowers panic by activating the brain's calm systems."
+  },
+  {
+    "tag": 136,
+    "icon": "Footprints",
+    "fact": "Gentle stretching enhances feelings of peace and relaxation."
+  },
+  {
+    "tag": 136,
+    "icon": "Brain",
+    "fact": "Mindfulness strengthens inner peace and emotional balance."
+  },
+  {
+    "tag": 136,
+    "icon": "Bed",
+    "fact": "Deep, restorative sleep reinforces feelings of peace."
+  },
+  {
+    "tag": 137,
+    "icon": "Cloudy",
+    "fact": "Diaphragmatic breathing enhances composure and poise."
+  },
+  {
+    "tag": 137,
+    "icon": "Brain",
+    "fact": "Mental clarity supports a sense of calm and control."
+  },
+  {
+    "tag": 137,
+    "icon": "Footprints",
+    "fact": "Gentle movement, like yoga, helps maintain physical poise."
+  },
+  {
+    "tag": 138,
+    "icon": "Brain",
+    "fact": "Positive thinking enhances resilience and reduces stress."
+  },
+  {
+    "tag": 138,
+    "icon": "HeartHandshake",
+    "fact": "Surrounding yourself with positivity amplifies your own mood."
+  },
+  {
+    "tag": 138,
+    "icon": "MessageSquare",
+    "fact": "Sharing positive emotions strengthens relationships."
+  },
+  {
+    "tag": 139,
+    "icon": "HeartHandshake",
+    "fact": "Support from others restores confidence and reduces powerlessness."
+  },
+  {
+    "tag": 139,
+    "icon": "Brain",
+    "fact": "Focusing on what you can control rebuilds a sense of power."
+  },
+  {
+    "tag": 139,
+    "icon": "Cloudy",
+    "fact": "Deep breaths reduce stress and restore a sense of calm."
+  },
+  {
+    "tag": 140,
+    "icon": "Brain",
+    "fact": "Mental preparation increases confidence and lowers anxiety."
+  },
+  {
+    "tag": 140,
+    "icon": "Milestone",
+    "fact": "Planning ahead improves focus and reduces stress."
+  },
+  {
+    "tag": 140,
+    "icon": "HeartHandshake",
+    "fact": "Sharing plans with others builds confidence and support."
+  },
+  {
+    "tag": 141,
+    "icon": "Cloudy",
+    "fact": "Slow exhales reduce cortisol and ease feelings of pressure."
+  },
+  {
+    "tag": 141,
+    "icon": "Brain",
+    "fact": "Prioritising tasks helps reduce stress from external demands."
+  },
+  {
+    "tag": 141,
+    "icon": "HeartHandshake",
+    "fact": "Asking for help alleviates emotional and mental strain."
+  },
+  {
+    "tag": 142,
+    "icon": "HeartHandshake",
+    "fact": "Sharing achievements reinforces mutual respect and pride."
+  },
+  {
+    "tag": 142,
+    "icon": "Brain",
+    "fact": "Reflecting on accomplishments strengthens self-esteem."
+  },
+  {
+    "tag": 142,
+    "icon": "MessageSquare",
+    "fact": "Expressing pride inspires confidence in others."
+  },
+  {
+    "tag": 143,
+    "icon": "Brain",
+    "fact": "Focusing on meaningful goals increases motivation and fulfilment."
+  },
+  {
+    "tag": 143,
+    "icon": "HeartHandshake",
+    "fact": "Collaborating with others deepens a shared sense of purpose."
+  },
+  {
+    "tag": 143,
+    "icon": "Milestone",
+    "fact": "Engaging in meaningful activities reinforces a sense of purpose."
+  },
+  {
+    "tag": 144,
+    "icon": "Brain",
+    "fact": "Confusion signals the brain to seek clarity and understanding."
+  },
+  {
+    "tag": 144,
+    "icon": "HeartHandshake",
+    "fact": "Asking questions helps reduce confusion and foster learning."
+  },
+  {
+    "tag": 144,
+    "icon": "NotebookPen",
+    "fact": "Writing thoughts clarifies complex ideas and eases puzzlement."
+  },
+  {
+    "tag": 145,
+    "icon": "HeartHandshake",
+    "fact": "Validation from others strengthens feelings of reassurance."
+  },
+  {
+    "tag": 145,
+    "icon": "Cloudy",
+    "fact": "Deep breathing fosters a calm and reassured state of mind."
+  },
+  {
+    "tag": 145,
+    "icon": "MessageSquare",
+    "fact": "Reassuring others reinforces mutual trust and understanding."
+  },
+  {
+    "tag": 146,
+    "icon": "HeartHandshake",
+    "fact": "Recognition releases oxytocin, strengthening social bonds."
+  },
+  {
+    "tag": 146,
+    "icon": "MessageSquare",
+    "fact": "Recognising others fosters mutual respect and trust."
+  },
+  {
+    "tag": 146,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on recognition reinforces positive self-esteem."
+  },
+  {
+    "tag": 147,
+    "icon": "Footprints",
+    "fact": "Physical activity rejuvenates the mind and body."
+  },
+  {
+    "tag": 147,
+    "icon": "Droplet",
+    "fact": "Hydration is key to feeling energised and refreshed."
+  },
+  {
+    "tag": 147,
+    "icon": "Bed",
+    "fact": "Quality sleep restores energy and mental clarity."
+  },
+  {
+    "tag": 148,
+    "icon": "Cloudy",
+    "fact": "Deep breathing activates the body's relaxation response."
+  },
+  {
+    "tag": 148,
+    "icon": "Footprints",
+    "fact": "Gentle stretching promotes physical and mental relaxation."
+  },
+  {
+    "tag": 148,
+    "icon": "Bed",
+    "fact": "Restful sleep enhances a long-lasting relaxed state."
+  },
+  {
+    "tag": 149,
+    "icon": "Cloudy",
+    "fact": "Exhaling slowly lowers tension and amplifies relief."
+  },
+  {
+    "tag": 149,
+    "icon": "HeartHandshake",
+    "fact": "Sharing emotions heightens feelings of relief and support."
+  },
+  {
+    "tag": 149,
+    "icon": "NotebookPen",
+    "fact": "Journaling about relief helps sustain positive emotions."
+  },
+  {
+    "tag": 150,
+    "icon": "Brain",
+    "fact": "Resentment fades when you reframe unmet expectations."
+  },
+  {
+    "tag": 150,
+    "icon": "HeartHandshake",
+    "fact": "Expressing feelings reduces the burden of resentment."
+  },
+  {
+    "tag": 150,
+    "icon": "NotebookPen",
+    "fact": "Writing clarifies and releases lingering feelings of resentment."
+  },
+  {
+    "tag": 151,
+    "icon": "HeartHandshake",
+    "fact": "Feeling respected strengthens trust and social cohesion."
+  },
+  {
+    "tag": 151,
+    "icon": "MessageSquare",
+    "fact": "Showing respect builds mutual understanding and rapport."
+  },
+  {
+    "tag": 151,
+    "icon": "Brain",
+    "fact": "Earning respect boosts self-confidence and well-being."
+  },
+  {
+    "tag": 152,
+    "icon": "Bed",
+    "fact": "Deep sleep promotes recovery and enhances restfulness."
+  },
+  {
+    "tag": 152,
+    "icon": "Footprints",
+    "fact": "Light movement aids relaxation and improves restfulness."
+  },
+  {
+    "tag": 152,
+    "icon": "Cloudy",
+    "fact": "Mindful breathing fosters calm and a restful state."
+  },
+  {
+    "tag": 153,
+    "icon": "Footprints",
+    "fact": "Movement reduces pent-up energy, easing restlessness."
+  },
+  {
+    "tag": 153,
+    "icon": "Cloudy",
+    "fact": "Slow breathing calms the nervous system during restlessness."
+  },
+  {
+    "tag": 153,
+    "icon": "Brain",
+    "fact": "Focusing on one task redirects mental energy from restlessness."
+  },
+  {
+    "tag": 154,
+    "icon": "HeartHandshake",
+    "fact": "Open communication helps ease feelings of restriction."
+  },
+  {
+    "tag": 154,
+    "icon": "Brain",
+    "fact": "Mental flexibility reduces the emotional impact of restriction."
+  },
+  {
+    "tag": 154,
+    "icon": "Cloudy",
+    "fact": "Deep breathing counters the stress of feeling restricted."
+  },
+  {
+    "tag": 155,
+    "icon": "Footprints",
+    "fact": "Movement boosts circulation, increasing feelings of vitality."
+  },
+  {
+    "tag": 155,
+    "icon": "Droplet",
+    "fact": "Staying hydrated refreshes the body and enhances energy."
+  },
+  {
+    "tag": 155,
+    "icon": "Bed",
+    "fact": "Quality rest rejuvenates both the mind and body."
+  },
+  {
+    "tag": 156,
+    "icon": "Cloudy",
+    "fact": "Slow, deep breaths counteract the stress of feeling rushed."
+  },
+  {
+    "tag": 156,
+    "icon": "Brain",
+    "fact": "Prioritising tasks reduces mental clutter and urgency."
+  },
+  {
+    "tag": 156,
+    "icon": "HeartHandshake",
+    "fact": "Sharing responsibilities eases the strain of a rushed state."
+  },
+  {
+    "tag": 157,
+    "icon": "HeartHandshake",
+    "fact": "Talking about sadness reduces emotional weight and isolation."
+  },
+  {
+    "tag": 157,
+    "icon": "Footprints",
+    "fact": "Exercise boosts endorphins, alleviating feelings of sadness."
+  },
+  {
+    "tag": 157,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process and reframe feelings of sadness."
+  },
+  {
+    "tag": 158,
+    "icon": "HeartHandshake",
+    "fact": "Feeling safe with others fosters trust and emotional security."
+  },
+  {
+    "tag": 158,
+    "icon": "Bed",
+    "fact": "A sense of safety improves the depth and quality of sleep."
+  },
+  {
+    "tag": 158,
+    "icon": "Brain",
+    "fact": "Safety reduces cortisol, supporting long-term mental health."
+  },
+  {
+    "tag": 159,
+    "icon": "Brain",
+    "fact": "Satisfaction activates the brain's reward system, boosting happiness."
+  },
+  {
+    "tag": 159,
+    "icon": "HeartHandshake",
+    "fact": "Sharing achievements strengthens feelings of satisfaction."
+  },
+  {
+    "tag": 159,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on achievements reinforces feelings of fulfilment."
+  },
+  {
+    "tag": 160,
+    "icon": "Brain",
+    "fact": "Scepticism helps evaluate risks but can cloud opportunities."
+  },
+  {
+    "tag": 160,
+    "icon": "HeartHandshake",
+    "fact": "Dialogue with others can clarify and challenge sceptical views."
+  },
+  {
+    "tag": 160,
+    "icon": "NotebookPen",
+    "fact": "Writing pros and cons balances sceptical perspectives."
+  },
+  {
+    "tag": 161,
+    "icon": "HeartHandshake",
+    "fact": "Feeling secure strengthens emotional resilience and trust."
+  },
+  {
+    "tag": 161,
+    "icon": "Bed",
+    "fact": "Security enhances restorative sleep and overall well-being."
+  },
+  {
+    "tag": 161,
+    "icon": "Brain",
+    "fact": "A sense of security reduces anxiety and boosts confidence."
+  },
+  {
+    "tag": 162,
+    "icon": "HeartHandshake",
+    "fact": "Feeling seen activates reward systems linked to belonging."
+  },
+  {
+    "tag": 162,
+    "icon": "MessageSquare",
+    "fact": "Acknowledging others strengthens mutual understanding."
+  },
+  {
+    "tag": 162,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on being seen fosters positive self-awareness."
+  },
+  {
+    "tag": 163,
+    "icon": "Brain",
+    "fact": "Confidence grows when you focus on past successes."
+  },
+  {
+    "tag": 163,
+    "icon": "HeartHandshake",
+    "fact": "Support from others reinforces feelings of self-assurance."
+  },
+  {
+    "tag": 163,
+    "icon": "Milestone",
+    "fact": "Taking small, confident steps builds lasting self-assurance."
+  },
+  {
+    "tag": 164,
+    "icon": "Cloudy",
+    "fact": "Slow breathing promotes calm and deepens serenity."
+  },
+  {
+    "tag": 164,
+    "icon": "Footprints",
+    "fact": "Gentle yoga enhances feelings of serenity and balance."
+  },
+  {
+    "tag": 164,
+    "icon": "Bed",
+    "fact": "Deep sleep strengthens emotional calm and inner peace."
+  },
+  {
+    "tag": 165,
+    "icon": "Brain",
+    "fact": "Mental clarity improves when decisions feel settled."
+  },
+  {
+    "tag": 165,
+    "icon": "HeartHandshake",
+    "fact": "Sharing plans reinforces a sense of stability and agreement."
+  },
+  {
+    "tag": 165,
+    "icon": "Bed",
+    "fact": "A settled mind improves sleep quality and emotional resilience."
+  },
+  {
+    "tag": 166,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing helps steady the body after a shock."
+  },
+  {
+    "tag": 166,
+    "icon": "HeartHandshake",
+    "fact": "Talking about the experience reduces lingering distress."
+  },
+  {
+    "tag": 166,
+    "icon": "Brain",
+    "fact": "Reassessing the situation restores emotional balance."
+  },
+  {
+    "tag": 167,
+    "icon": "HeartHandshake",
+    "fact": "Feeling heard reduces the emotional weight of being silenced."
+  },
+  {
+    "tag": 167,
+    "icon": "MessageSquare",
+    "fact": "Speaking up helps reclaim your voice and sense of control."
+  },
+  {
+    "tag": 167,
+    "icon": "NotebookPen",
+    "fact": "Journaling clarifies emotions and restores a sense of agency."
+  },
+  {
+    "tag": 168,
+    "icon": "Footprints",
+    "fact": "Light physical activity boosts energy and reduces lethargy."
+  },
+  {
+    "tag": 168,
+    "icon": "Droplet",
+    "fact": "Hydration is key to reducing physical and mental sluggishness."
+  },
+  {
+    "tag": 168,
+    "icon": "Utensils",
+    "fact": "A nutrient-dense snack can combat feelings of sluggishness."
+  },
+  {
+    "tag": 169,
+    "icon": "HeartHandshake",
+    "fact": "Sharing sorrow eases emotional pain and promotes healing."
+  },
+  {
+    "tag": 169,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on sorrow through writing provides emotional clarity."
+  },
+  {
+    "tag": 169,
+    "icon": "Cloudy",
+    "fact": "Deep breathing soothes physical tension tied to sorrow."
+  },
+  {
+    "tag": 170,
+    "icon": "Bed",
+    "fact": "Quality rest replenishes energy and counters emotional fatigue."
+  },
+  {
+    "tag": 170,
+    "icon": "Droplet",
+    "fact": "Hydration restores focus and reduces feelings of exhaustion."
+  },
+  {
+    "tag": 170,
+    "icon": "Brain",
+    "fact": "Focusing on self-care prevents burnout and rebuilds energy."
+  },
+  {
+    "tag": 171,
+    "icon": "Bed",
+    "fact": "Consistent sleep promotes emotional and mental stability."
+  },
+  {
+    "tag": 171,
+    "icon": "Brain",
+    "fact": "Stability fosters resilience and long-term well-being."
+  },
+  {
+    "tag": 171,
+    "icon": "HeartHandshake",
+    "fact": "Stability in relationships strengthens trust and connection."
+  },
+  {
+    "tag": 172,
+    "icon": "Cloudy",
+    "fact": "Rhythmic breathing supports physical and emotional steadiness."
+  },
+  {
+    "tag": 172,
+    "icon": "Footprints",
+    "fact": "Light, consistent movement improves balance and steadiness."
+  },
+  {
+    "tag": 172,
+    "icon": "Brain",
+    "fact": "Focusing on goals reinforces feelings of emotional steadiness."
+  },
+  {
+    "tag": 173,
+    "icon": "Cloudy",
+    "fact": "Deep breaths ease the tension of feeling stifled."
+  },
+  {
+    "tag": 173,
+    "icon": "HeartHandshake",
+    "fact": "Sharing feelings reduces the emotional weight of stifling."
+  },
+  {
+    "tag": 173,
+    "icon": "NotebookPen",
+    "fact": "Reflecting through writing clarifies why you feel stuck."
+  },
+  {
+    "tag": 174,
+    "icon": "Footprints",
+    "fact": "Physical activity enhances mental alertness and stimulation."
+  },
+  {
+    "tag": 174,
+    "icon": "Brain",
+    "fact": "New challenges strengthen neural pathways and creativity."
+  },
+  {
+    "tag": 174,
+    "icon": "HeartHandshake",
+    "fact": "Collaborative discussions amplify intellectual stimulation."
+  },
+  {
+    "tag": 175,
+    "icon": "Cloudy",
+    "fact": "Slow breathing reduces physical and emotional strain."
+  },
+  {
+    "tag": 175,
+    "icon": "HeartHandshake",
+    "fact": "Talking about stress lowers tension and eases strain."
+  },
+  {
+    "tag": 175,
+    "icon": "Footprints",
+    "fact": "Gentle stretching relieves physical tension caused by stress."
+  },
+  {
+    "tag": 176,
+    "icon": "Cloudy",
+    "fact": "Diaphragmatic breathing lowers cortisol and calms the body."
+  },
+  {
+    "tag": 176,
+    "icon": "Bed",
+    "fact": "Restful sleep regulates the brain's stress response."
+  },
+  {
+    "tag": 176,
+    "icon": "Footprints",
+    "fact": "Light exercise reduces cortisol and improves mental clarity."
+  },
+  {
+    "tag": 177,
+    "icon": "Brain",
+    "fact": "Mental strength grows when focusing on past successes."
+  },
+  {
+    "tag": 177,
+    "icon": "Footprints",
+    "fact": "Physical activity builds resilience and reinforces confidence."
+  },
+  {
+    "tag": 177,
+    "icon": "HeartHandshake",
+    "fact": "Support from others strengthens emotional resilience."
+  },
+  {
+    "tag": 178,
+    "icon": "HeartHandshake",
+    "fact": "Feeling supported lowers stress and strengthens relationships."
+  },
+  {
+    "tag": 178,
+    "icon": "MessageSquare",
+    "fact": "Expressing gratitude deepens mutual feelings of support."
+  },
+  {
+    "tag": 178,
+    "icon": "Brain",
+    "fact": "Knowing you're supported improves mental and emotional health."
+  },
+  {
+    "tag": 179,
+    "icon": "HeartHandshake",
+    "fact": "Supporting others builds mutual trust and emotional security."
+  },
+  {
+    "tag": 179,
+    "icon": "MessageSquare",
+    "fact": "Expressing support fosters stronger connections and bonds."
+  },
+  {
+    "tag": 179,
+    "icon": "Brain",
+    "fact": "Being supportive boosts self-esteem and relational growth."
+  },
+  {
+    "tag": 180,
+    "icon": "Cloudy",
+    "fact": "Focused breathing calms the mind and reduces suspicion."
+  },
+  {
+    "tag": 180,
+    "icon": "Brain",
+    "fact": "Mistrust often stems from past experiences, not present facts."
+  },
+  {
+    "tag": 180,
+    "icon": "HeartHandshake",
+    "fact": "Building trust through dialogue reduces feelings of suspicion."
+  },
+  {
+    "tag": 181,
+    "icon": "Cloudy",
+    "fact": "Slow, deep breaths release muscle tension and calm nerves."
+  },
+  {
+    "tag": 181,
+    "icon": "Footprints",
+    "fact": "Gentle movement eases physical and emotional tension."
+  },
+  {
+    "tag": 181,
+    "icon": "Bed",
+    "fact": "Relaxing before bed improves sleep quality and reduces tension."
+  },
+  {
+    "tag": 182,
+    "icon": "Cloudy",
+    "fact": "Deep breathing calms the brain's fight-or-flight response."
+  },
+  {
+    "tag": 182,
+    "icon": "Brain",
+    "fact": "Threats often feel larger than they truly are."
+  },
+  {
+    "tag": 182,
+    "icon": "HeartHandshake",
+    "fact": "Feeling supported reduces the intensity of perceived threats."
+  },
+  {
+    "tag": 183,
+    "icon": "NotebookPen",
+    "fact": "Writing pros and cons clarifies conflicting thoughts."
+  },
+  {
+    "tag": 183,
+    "icon": "Brain",
+    "fact": "Resolving internal conflict improves decision-making."
+  },
+  {
+    "tag": 183,
+    "icon": "HeartHandshake",
+    "fact": "Discussing dilemmas fosters clarity and eases mental strain."
+  },
+  {
+    "tag": 184,
+    "icon": "Cloudy",
+    "fact": "Rhythmic breathing deepens feelings of calm and tranquillity."
+  },
+  {
+    "tag": 184,
+    "icon": "Bed",
+    "fact": "Quality sleep reinforces emotional calm and inner peace."
+  },
+  {
+    "tag": 184,
+    "icon": "Footprints",
+    "fact": "Gentle yoga promotes tranquillity and mental clarity."
+  },
+  {
+    "tag": 185,
+    "icon": "HeartHandshake",
+    "fact": "Trust strengthens relationships and reduces emotional stress."
+  },
+  {
+    "tag": 185,
+    "icon": "Brain",
+    "fact": "Trust fosters a sense of safety and emotional balance."
+  },
+  {
+    "tag": 185,
+    "icon": "Milestone",
+    "fact": "Following through on promises builds mutual trust."
+  },
+  {
+    "tag": 186,
+    "icon": "HeartHandshake",
+    "fact": "Feeling acknowledged reduces emotional distance and strain."
+  },
+  {
+    "tag": 186,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process the impact of feeling overlooked."
+  },
+  {
+    "tag": 186,
+    "icon": "MessageSquare",
+    "fact": "Sharing your feelings fosters understanding and validation."
+  },
+  {
+    "tag": 187,
+    "icon": "Brain",
+    "fact": "Certainty grows when you focus on controllable factors."
+  },
+  {
+    "tag": 187,
+    "icon": "HeartHandshake",
+    "fact": "Talking to others reduces doubt and strengthens clarity."
+  },
+  {
+    "tag": 187,
+    "icon": "Cloudy",
+    "fact": "Deep breaths ease anxiety caused by uncertainty."
+  },
+  {
+    "tag": 188,
+    "icon": "Footprints",
+    "fact": "Light stretching releases tension from physical discomfort."
+  },
+  {
+    "tag": 188,
+    "icon": "Brain",
+    "fact": "Discomfort often signals a chance for growth or adaptation."
+  },
+  {
+    "tag": 188,
+    "icon": "Cloudy",
+    "fact": "Slow breathing helps you feel more at ease in difficult moments."
+  },
+  {
+    "tag": 189,
+    "icon": "HeartHandshake",
+    "fact": "Open dialogue restores trust and reduces feelings of conflict."
+  },
+  {
+    "tag": 189,
+    "icon": "Brain",
+    "fact": "Reflecting on strengths counteracts feelings of being undervalued."
+  },
+  {
+    "tag": 189,
+    "icon": "MessageSquare",
+    "fact": "Naming the issue helps re-establish boundaries and respect."
+  },
+  {
+    "tag": 190,
+    "icon": "HeartHandshake",
+    "fact": "Feeling understood fosters trust and emotional security."
+  },
+  {
+    "tag": 190,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on shared understanding strengthens relationships."
+  },
+  {
+    "tag": 190,
+    "icon": "MessageSquare",
+    "fact": "Expressing yourself clearly increases mutual understanding."
+  },
+  {
+    "tag": 191,
+    "icon": "HeartHandshake",
+    "fact": "Recognition from others reinforces feelings of worth."
+  },
+  {
+    "tag": 191,
+    "icon": "NotebookPen",
+    "fact": "Writing about strengths restores self-confidence."
+  },
+  {
+    "tag": 191,
+    "icon": "Brain",
+    "fact": "Self-affirmation counters feelings of being undervalued."
+  },
+  {
+    "tag": 192,
+    "icon": "Cloudy",
+    "fact": "Deep breathing soothes the physical symptoms of unease."
+  },
+  {
+    "tag": 192,
+    "icon": "Brain",
+    "fact": "Naming the cause of unease brings emotional clarity."
+  },
+  {
+    "tag": 192,
+    "icon": "HeartHandshake",
+    "fact": "Discussing discomfort reduces emotional strain and anxiety."
+  },
+  {
+    "tag": 193,
+    "icon": "Cloudy",
+    "fact": "Slow breathing enhances a calm and unhurried state."
+  },
+  {
+    "tag": 193,
+    "icon": "Brain",
+    "fact": "Prioritising tasks fosters a sense of ease and control."
+  },
+  {
+    "tag": 193,
+    "icon": "Footprints",
+    "fact": "Gentle walks promote a relaxed, unhurried pace."
+  },
+  {
+    "tag": 194,
+    "icon": "HeartHandshake",
+    "fact": "Shared goals deepen feelings of unity and trust."
+  },
+  {
+    "tag": 194,
+    "icon": "Brain",
+    "fact": "Collaboration strengthens bonds and mutual understanding."
+  },
+  {
+    "tag": 194,
+    "icon": "MessageSquare",
+    "fact": "Open communication fosters a sense of unity and alignment."
+  },
+  {
+    "tag": 195,
+    "icon": "Footprints",
+    "fact": "Exercise reactivates the brain's reward system, boosting drive."
+  },
+  {
+    "tag": 195,
+    "icon": "HeartHandshake",
+    "fact": "Encouragement from others restores intrinsic motivation."
+  },
+  {
+    "tag": 195,
+    "icon": "Brain",
+    "fact": "Small wins reignite focus and strengthen self-belief."
+  },
+  {
+    "tag": 196,
+    "icon": "Brain",
+    "fact": "Preparation builds confidence and reduces anxiety."
+  },
+  {
+    "tag": 196,
+    "icon": "NotebookPen",
+    "fact": "Writing a plan provides clarity and a sense of readiness."
+  },
+  {
+    "tag": 196,
+    "icon": "HeartHandshake",
+    "fact": "Asking for guidance fosters preparedness and confidence."
+  },
+  {
+    "tag": 197,
+    "icon": "Cloudy",
+    "fact": "Deep breaths calm the mind and ease unsettled emotions."
+  },
+  {
+    "tag": 197,
+    "icon": "HeartHandshake",
+    "fact": "Sharing feelings helps restore emotional stability."
+  },
+  {
+    "tag": 197,
+    "icon": "NotebookPen",
+    "fact": "Journaling clarifies why you feel unsettled and aids resolution."
+  },
+  {
+    "tag": 198,
+    "icon": "HeartHandshake",
+    "fact": "Seeking support strengthens emotional resilience."
+  },
+  {
+    "tag": 198,
+    "icon": "Brain",
+    "fact": "Self-reliance fosters confidence when support is lacking."
+  },
+  {
+    "tag": 198,
+    "icon": "NotebookPen",
+    "fact": "Writing about challenges reduces the weight of isolation."
+  },
+  {
+    "tag": 199,
+    "icon": "Footprints",
+    "fact": "Energetic movement amplifies feelings of positivity."
+  },
+  {
+    "tag": 199,
+    "icon": "HeartHandshake",
+    "fact": "Sharing optimism inspires others and boosts morale."
+  },
+  {
+    "tag": 199,
+    "icon": "Brain",
+    "fact": "Focusing on gratitude reinforces an upbeat outlook."
+  },
+  {
+    "tag": 200,
+    "icon": "HeartHandshake",
+    "fact": "Positive interactions heighten feelings of joy and upliftment."
+  },
+  {
+    "tag": 200,
+    "icon": "Footprints",
+    "fact": "Movement energises the body and strengthens uplifting emotions."
+  },
+  {
+    "tag": 200,
+    "icon": "NotebookPen",
+    "fact": "Reflecting on moments of joy deepens uplifting feelings."
+  },
+  {
+    "tag": 201,
+    "icon": "Cloudy",
+    "fact": "Slow breathing reduces the intensity of upset emotions."
+  },
+  {
+    "tag": 201,
+    "icon": "HeartHandshake",
+    "fact": "Talking about feelings alleviates emotional distress."
+  },
+  {
+    "tag": 201,
+    "icon": "NotebookPen",
+    "fact": "Journaling helps process and reframe upsetting experiences."
+  },
+  {
+    "tag": 202,
+    "icon": "HeartHandshake",
+    "fact": "Feeling validated strengthens emotional trust and confidence."
+  },
+  {
+    "tag": 202,
+    "icon": "MessageSquare",
+    "fact": "Acknowledging others reinforces mutual validation."
+  },
+  {
+    "tag": 202,
+    "icon": "Brain",
+    "fact": "Validation improves self-esteem and emotional well-being."
+  },
+  {
+    "tag": 203,
+    "icon": "HeartHandshake",
+    "fact": "Feeling valued fosters emotional security and belonging."
+  },
+  {
+    "tag": 203,
+    "icon": "MessageSquare",
+    "fact": "Expressing gratitude reinforces mutual respect and value."
+  },
+  {
+    "tag": 203,
+    "icon": "Brain",
+    "fact": "Self-affirmation enhances feelings of self-worth."
+  },
+  {
+    "tag": 204,
+    "icon": "Footprints",
+    "fact": "Aerobic activity boosts energy and enhances vibrancy."
+  },
+  {
+    "tag": 204,
+    "icon": "Utensils",
+    "fact": "Nutrient-rich foods fuel energy and a vibrant state of mind."
+  },
+  {
+    "tag": 204,
+    "icon": "Brain",
+    "fact": "Positivity strengthens neural pathways for vibrancy."
+  },
+  {
+    "tag": 205,
+    "icon": "HeartHandshake",
+    "fact": "Vulnerability fosters trust and deepens emotional connection."
+  },
+  {
+    "tag": 205,
+    "icon": "MessageSquare",
+    "fact": "Sharing vulnerability strengthens relationships and trust."
+  },
+  {
+    "tag": 205,
+    "icon": "Brain",
+    "fact": "Vulnerability is a strength that builds resilience."
+  },
+  {
+    "tag": 206,
+    "icon": "Cloudy",
+    "fact": "Slow breathing reduces vigilance and eases tension."
+  },
+  {
+    "tag": 206,
+    "icon": "Brain",
+    "fact": "Wary feelings often reflect the need for clarity or trust."
+  },
+  {
+    "tag": 206,
+    "icon": "HeartHandshake",
+    "fact": "Building trust lowers feelings of suspicion and wariness."
+  },
+  {
+    "tag": 207,
+    "icon": "Bed",
+    "fact": "Quality rest restores energy and reduces weariness."
+  },
+  {
+    "tag": 207,
+    "icon": "Droplet",
+    "fact": "Staying hydrated combats mental and physical fatigue."
+  },
+  {
+    "tag": 207,
+    "icon": "Footprints",
+    "fact": "Gentle movement rejuvenates and counters feelings of weariness."
+  },
+  {
+    "tag": 208,
+    "icon": "Cloudy",
+    "fact": "Controlled breathing soothes anxiety and worry."
+  },
+  {
+    "tag": 208,
+    "icon": "Brain",
+    "fact": "Focusing on facts helps reframe and reduce worry."
+  },
+  {
+    "tag": 208,
+    "icon": "HeartHandshake",
+    "fact": "Talking about worries eases mental and emotional strain."
+  }
+]
