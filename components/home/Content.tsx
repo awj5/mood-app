@@ -65,8 +65,7 @@ export default function Content() {
 
     // Add widgets
     if (checkIns?.length) {
-      //const largeWidgets = [<Quote checkIns={checkIns} />, <Gifs checkIns={checkIns} />, <Song checkIns={checkIns} />];
-      const largeWidgets = [<Quote checkIns={checkIns} />];
+      const largeWidgets = [<Quote checkIns={checkIns} />, <Gifs checkIns={checkIns} />, <Song checkIns={checkIns} />];
       const smallWidgets = [<Article checkIns={checkIns} />, <Fact checkIns={checkIns} />];
       const shuffledLarge = shuffleArray(largeWidgets);
       const shuffledSmall = shuffleArray(smallWidgets);
@@ -124,10 +123,10 @@ export default function Content() {
             <Insights checkIns={checkIns} dates={homeDates} />
             <Stats checkIns={checkIns} />
 
-            {/*<View style={[styles.double, { gap: spacing }]}>
+            <View style={[styles.double, { gap: spacing }]}>
               <Burnout checkIns={checkIns} />
               <Events checkIns={checkIns} />
-            </View>*/}
+            </View>
 
             {widgets}
           </>

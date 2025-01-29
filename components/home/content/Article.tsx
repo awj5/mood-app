@@ -124,15 +124,7 @@ export default function Article(props: ArticleProps) {
         <Image source={images[articleData?.competency as keyof typeof images]} style={styles.image} />
 
         <View style={[styles.wrapper, { padding: spacing }]}>
-          <Text
-            style={[
-              styles.text,
-              {
-                fontSize: Device.deviceType !== 1 ? 16 : 12,
-              },
-            ]}
-            allowFontScaling={false}
-          >
+          <Text style={[styles.text, { fontSize: Device.deviceType !== 1 ? 16 : 12 }]} allowFontScaling={false}>
             FEATURED ARTICLE
           </Text>
 

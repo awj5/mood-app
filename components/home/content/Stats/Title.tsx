@@ -10,12 +10,12 @@ export default function Title(props: TitleProps) {
   const colors = theme();
 
   return (
-    <View style={[styles.container, { height: Device.deviceType !== 1 ? 36 : 28 }]}>
+    <View style={[styles.container, { height: Device.deviceType !== 1 ? 32 : 24 }]}>
       <Text
         style={{
-          fontFamily: "Circular-Bold",
+          fontFamily: "Circular-Medium",
           color: colors.primary,
-          fontSize: Device.deviceType !== 1 ? 16 : 12,
+          fontSize: Device.deviceType !== 1 ? 18 : 14,
         }}
         allowFontScaling={false}
       >

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import { Info } from "lucide-react-native";
 import MoodsData from "data/moods.json";
 import { CheckInType, CheckInMoodType } from "data/database";
 import Title from "./Stats/Title";
 import Bar from "./Stats/Bar";
-import { theme } from "utils/helpers";
+import { theme, pressedDefault } from "utils/helpers";
 
 type StatsProps = {
   checkIns: CheckInType[];
@@ -18,7 +19,7 @@ export default function Stats(props: StatsProps) {
   const [satisfaction, setSatisfaction] = useState(0);
   const [energy, setEnergy] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const gap = Device.deviceType !== 1 ? 16 : 12;
+  const fontSize = Device.deviceType !== 1 ? 16 : 12;
 
   useEffect(() => {
     // Get mood scores
@@ -47,15 +48,66 @@ export default function Stats(props: StatsProps) {
         borderRadius: spacing,
         padding: spacing,
         opacity,
+        gap: spacing,
       }}
     >
-      <View style={{ flexDirection: "row", gap: spacing / 2 }}>
-        <View style={{ gap: gap }}>
-          <Title>SATISFACTION</Title>
-          <Title>ENERGY</Title>
+      <View>
+        <View style={{ flexDirection: "row", gap: spacing / 4 }}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: colors.primary,
+              fontSize: fontSize,
+            }}
+            allowFontScaling={false}
+          >
+            MOOD STATS
+          </Text>
+
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 12 : 8,
+            }}
+            allowFontScaling={false}
+          >
+            BETA
+          </Text>
         </View>
 
-        <View style={{ flex: 1, gap: gap }}>
+        <Pressable
+          onPress={() => alert("Coming soon")}
+          style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
+          hitSlop={16}
+        >
+          <Info
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 24 : 16}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
+          />
+
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              color: colors.primary,
+              fontSize: fontSize,
+            }}
+            allowFontScaling={false}
+          >
+            Learn more
+          </Text>
+        </Pressable>
+      </View>
+
+      <View style={{ flexDirection: "row", gap: spacing / 2 }}>
+        <View style={{ gap: spacing / 2 }}>
+          <Title>Satisfaction</Title>
+          <Title>Energy</Title>
+        </View>
+
+        <View style={{ flex: 1, gap: spacing / 2 }}>
           <Bar stat={satisfaction} />
           <Bar stat={energy} />
         </View>
@@ -63,3 +115,12 @@ export default function Stats(props: StatsProps) {
     </Animated.View>
   );
 }
+
+const styles = StyleSheet.create({
+  info: {
+    position: "absolute",
+    right: 0,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});

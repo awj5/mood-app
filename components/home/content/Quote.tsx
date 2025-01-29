@@ -62,11 +62,11 @@ export default function Quote(props: QuoteProps) {
         backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
         borderRadius: spacing,
         padding: spacing,
-        gap: Device.deviceType !== 1 ? 16 : 12,
+        gap: spacing,
         opacity,
       }}
     >
-      <View style={styles.header}>
+      <View>
         <Text
           style={{
             fontFamily: "Circular-Bold",
@@ -78,7 +78,11 @@ export default function Quote(props: QuoteProps) {
           WORDS OF WISDOM
         </Text>
 
-        <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+        <Pressable
+          onPress={() => alert("Coming soon")}
+          style={({ pressed }) => [pressedDefault(pressed), styles.share]}
+          hitSlop={16}
+        >
           <Share
             color={colors.primary}
             size={Device.deviceType !== 1 ? 28 : 20}
@@ -88,42 +92,44 @@ export default function Quote(props: QuoteProps) {
         </Pressable>
       </View>
 
-      <Text
-        style={{
-          fontFamily: "Circular-BookItalic",
-          color: colors.primary,
-          fontSize: Device.deviceType !== 1 ? 20 : 16,
-        }}
-        allowFontScaling={false}
-      >
-        “{quoteData?.quote}”
-      </Text>
-
-      <View style={[styles.author, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-        <Image
-          source={authorImage}
-          style={[styles.image, { width: Device.deviceType !== 1 ? 44 : 32, display: authorImage ? "flex" : "none" }]}
-        />
-
+      <View style={{ gap: spacing / 2 }}>
         <Text
           style={{
-            fontFamily: "Circular-Medium",
+            fontFamily: "Circular-BookItalic",
             color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
+            fontSize: Device.deviceType !== 1 ? 20 : 16,
           }}
           allowFontScaling={false}
         >
-          {`${!authorImage ? "— " : ""}${quoteData?.author}`}
+          “{quoteData?.quote}”
         </Text>
+
+        <View style={[styles.author, { gap: spacing / 2 }]}>
+          <Image
+            source={authorImage}
+            style={[styles.image, { width: Device.deviceType !== 1 ? 44 : 32, display: authorImage ? "flex" : "none" }]}
+          />
+
+          <Text
+            style={{
+              fontFamily: "Circular-Medium",
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 18 : 14,
+            }}
+            allowFontScaling={false}
+          >
+            {`${!authorImage ? "— " : ""}${quoteData?.author}`}
+          </Text>
+        </View>
       </View>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  share: {
+    position: "absolute",
+    right: 0,
   },
   author: {
     flexDirection: "row",

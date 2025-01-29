@@ -23,7 +23,7 @@ export default function Events(props: EventsProps) {
       style={{
         flex: 1,
         aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
         borderRadius: spacing,
         opacity,
       }}
@@ -32,7 +32,7 @@ export default function Events(props: EventsProps) {
         <Text
           style={{
             fontFamily: "Circular-Bold",
-            color: colors.primary,
+            color: colors.primary === "white" ? "black" : "white",
             fontSize: Device.deviceType !== 1 ? 16 : 12,
           }}
           allowFontScaling={false}

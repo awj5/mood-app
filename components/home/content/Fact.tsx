@@ -69,8 +69,8 @@ export default function Fact(props: FactProps) {
         opacity,
       }}
     >
-      <View style={{ flex: 1, padding: spacing, justifyContent: "space-between" }}>
-        <View style={styles.header}>
+      <View style={[styles.wrapper, { padding: spacing }]}>
+        <View>
           <Text
             style={{
               fontFamily: "Circular-Bold",
@@ -88,6 +88,7 @@ export default function Fact(props: FactProps) {
               size={Device.deviceType !== 1 ? 40 : 24}
               absoluteStrokeWidth
               strokeWidth={Device.deviceType !== 1 ? 3 : 2}
+              style={styles.icon}
             />
           )}
         </View>
@@ -109,8 +110,12 @@ export default function Fact(props: FactProps) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
+  wrapper: {
+    flex: 1,
     justifyContent: "space-between",
+  },
+  icon: {
+    position: "absolute",
+    right: 0,
   },
 });
