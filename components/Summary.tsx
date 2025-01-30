@@ -65,6 +65,7 @@ export default function Summary(props: SummaryProps) {
             fontFamily: "Circular-Medium",
             color: colors.primary,
             fontSize: fontSizeSmall,
+            opacity: 0.5,
           }}
           allowFontScaling={false}
         >

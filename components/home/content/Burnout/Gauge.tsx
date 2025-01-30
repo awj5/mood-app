@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { theme } from "utils/helpers";
 
 type GaugeProps = {
@@ -9,6 +11,7 @@ type GaugeProps = {
 
 export default function Gauge(props: GaugeProps) {
   const colors = theme();
+  const rotation = useSharedValue(0);
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
 
   const images = {
@@ -17,6 +20,14 @@ export default function Gauge(props: GaugeProps) {
     hand: require("../../../../assets/img/hand.svg"),
     handDark: require("../../../../assets/img/hand-dark.svg"),
   };
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }));
+
+  useEffect(() => {
+    rotation.value = withTiming(props.value, { duration: 300, easing: Easing.out(Easing.cubic) });
+  }, [props.value]);
 
   return (
     <View
@@ -28,12 +39,12 @@ export default function Gauge(props: GaugeProps) {
     >
       <Image source={images[colors.primary === "white" ? "metreDark" : "metre"]} style={styles.image} />
 
-      <View style={[styles.wrapper, { transform: [{ rotate: `${props.value}deg` }] }]}>
+      <Animated.View style={[styles.wrapper, animatedStyles]}>
         <Image
           source={images[colors.primary === "white" ? "handDark" : "hand"]}
           style={[styles.hand, { height: Device.deviceType !== 1 ? 84 : 48, width: Device.deviceType !== 1 ? 14 : 8 }]}
         />
-      </View>
+      </Animated.View>
 
       <View style={styles.range}>
         <Text

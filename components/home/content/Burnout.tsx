@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
-import { CheckInType } from "data/database";
+import MoodsData from "data/moods.json";
+import { CheckInMoodType, CheckInType } from "data/database";
 import Gauge from "./Burnout/Gauge";
 import { pressedDefault, theme } from "utils/helpers";
 
@@ -14,11 +15,30 @@ type BurnoutProps = {
 export default function Burnout(props: BurnoutProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
+  const [value, setValue] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
-  const gap = Device.deviceType !== 1 ? 6 : 4;
 
   useEffect(() => {
+    // Get mood scores
+    const satisfaction = [];
+    const energy = [];
+
+    // Loop check-ins and get mood satisfaction and energy scores
+    for (let i = 0; i < props.checkIns.length; i++) {
+      let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+      satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
+      energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
+    }
+
+    // Calculate averages
+    const combined = [
+      Math.floor(satisfaction.reduce((sum, num) => sum + num, 0) / satisfaction.length),
+      Math.floor(energy.reduce((sum, num) => sum + num, 0) / energy.length),
+    ];
+
+    const avg = Math.floor(100 - combined.reduce((sum, num) => sum + num, 0) / combined.length);
+    setValue(-90 + (180 * avg) / 100); // Convert to rotation range
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
@@ -57,7 +77,7 @@ export default function Burnout(props: BurnoutProps) {
           </Text>
         </View>
 
-        <Gauge value={45} />
+        <Gauge value={value} />
 
         <Pressable
           onPress={() => alert("Coming soon")}
@@ -100,5 +120,6 @@ const styles = StyleSheet.create({
   info: {
     flexDirection: "row",
     alignItems: "center",
+    opacity: 0.5,
   },
 });

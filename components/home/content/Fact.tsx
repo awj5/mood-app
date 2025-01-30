@@ -44,6 +44,7 @@ export default function Fact(props: FactProps) {
   const [fact, setFact] = useState("");
   const [Icon, setIcon] = useState<React.ElementType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const invertedColor = colors.primary === "white" ? "black" : "white";
 
   useEffect(() => {
     const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
@@ -74,7 +75,7 @@ export default function Fact(props: FactProps) {
           <Text
             style={{
               fontFamily: "Circular-Bold",
-              color: colors.primary !== "white" ? "white" : "black",
+              color: invertedColor,
               fontSize: Device.deviceType !== 1 ? 16 : 12,
             }}
             allowFontScaling={false}
@@ -84,7 +85,7 @@ export default function Fact(props: FactProps) {
 
           {Icon && (
             <Icon
-              color={colors.primary !== "white" ? "white" : "black"}
+              color={invertedColor}
               size={Device.deviceType !== 1 ? 40 : 24}
               absoluteStrokeWidth
               strokeWidth={Device.deviceType !== 1 ? 3 : 2}
@@ -96,7 +97,7 @@ export default function Fact(props: FactProps) {
         <Text
           style={{
             fontFamily: "Circular-Black",
-            color: colors.primary !== "white" ? "white" : "black",
+            color: invertedColor,
             fontSize: Device.deviceType !== 1 ? 28 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
             lineHeight: Device.deviceType !== 1 ? 32 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
           }}

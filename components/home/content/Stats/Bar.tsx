@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
+import { LinearGradient } from "expo-linear-gradient";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { theme } from "utils/helpers";
 
@@ -63,21 +64,28 @@ export default function Bar(props: BarProps) {
         },
       ]}
     >
-      <Animated.View style={[styles.wrapper, animatedStyles, { backgroundColor: colors.primary }]}>
-        <Text
-          style={[
-            styles.text,
-            {
-              color: colors.primary === "white" ? "black" : "white",
-              fontSize: fontSize,
-              paddingRight: padding,
-              display: props.stat < 45 ? "none" : "flex", // Show if bar is greater than 45%
-            },
-          ]}
-          allowFontScaling={false}
+      <Animated.View style={animatedStyles}>
+        <LinearGradient
+          colors={[colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)", colors.primary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.wrapper}
         >
-          {label}
-        </Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colors.primary === "white" ? "black" : "white",
+                fontSize: fontSize,
+                paddingRight: padding,
+                display: props.stat < 45 ? "none" : "flex", // Show if bar is greater than 45%
+              },
+            ]}
+            allowFontScaling={false}
+          >
+            {label}
+          </Text>
+        </LinearGradient>
       </Animated.View>
 
       <Text

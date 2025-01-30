@@ -122,5 +122,6 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: "row",
     alignItems: "center",
+    opacity: 0.5,
   },
 });
