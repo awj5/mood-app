@@ -66,7 +66,7 @@ export default function Insights(props: InsightsProps) {
     const promptData = getPromptData(props.checkIns);
     const savedResponse = await getInsightsData(promptData.ids);
 
-    // Show saved response if exists or get respponse from API
+    // Show saved response if exists or get response from API
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
     } else if (latestQueryRef.current === currentQuery) {

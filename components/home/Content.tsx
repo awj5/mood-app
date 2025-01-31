@@ -15,7 +15,7 @@ import Fact from "./content/Fact";
 import Song from "./content/Song";
 import Gifs from "./content/Gifs";
 import Burnout from "./content/Burnout";
-import Journal from "./content/Journal";
+import Events from "./content/Events";
 import Stats from "./content/Stats";
 import { convertToISO, shuffleArray, theme } from "utils/helpers";
 
@@ -125,7 +125,7 @@ export default function Content() {
 
             <View style={[styles.double, { gap: spacing }]}>
               <Burnout checkIns={checkIns} />
-              <Journal checkIns={checkIns} />
+              <Events checkIns={checkIns} />
             </View>
 
             {widgets}

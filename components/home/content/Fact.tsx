@@ -89,7 +89,7 @@ export default function Fact(props: FactProps) {
               size={Device.deviceType !== 1 ? 40 : 24}
               absoluteStrokeWidth
               strokeWidth={Device.deviceType !== 1 ? 3 : 2}
-              style={styles.icon}
+              style={[styles.icon, { margin: Device.deviceType !== 1 ? -3 : -2 }]}
             />
           )}
         </View>

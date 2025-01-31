@@ -84,7 +84,11 @@ export default function Quote(props: QuoteProps) {
 
         <Pressable
           onPress={() => alert("Coming soon")}
-          style={({ pressed }) => [pressedDefault(pressed), styles.share]}
+          style={({ pressed }) => [
+            pressedDefault(pressed),
+            styles.share,
+            { margin: Device.deviceType !== 1 ? -2 : -1.5 },
+          ]}
           hitSlop={16}
         >
           <Share

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
+import Svg, { Path } from "react-native-svg";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { theme } from "utils/helpers";
 
@@ -15,10 +16,8 @@ export default function Gauge(props: GaugeProps) {
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
 
   const images = {
-    metre: require("../../../../assets/img/metre.png"),
-    metreDark: require("../../../../assets/img/metre-dark.png"),
-    hand: require("../../../../assets/img/hand.svg"),
-    handDark: require("../../../../assets/img/hand-dark.svg"),
+    light: require("../../../../assets/img/metre.png"),
+    dark: require("../../../../assets/img/metre-dark.png"),
   };
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -37,13 +36,30 @@ export default function Gauge(props: GaugeProps) {
         gap: Device.deviceType !== 1 ? 6 : 4,
       }}
     >
-      <Image source={images[colors.primary === "white" ? "metreDark" : "metre"]} style={styles.image} />
+      <Image source={images[colors.primary === "white" ? "dark" : "light"]} style={styles.image} />
 
       <Animated.View style={[styles.wrapper, animatedStyles]}>
-        <Image
-          source={images[colors.primary === "white" ? "handDark" : "hand"]}
-          style={[styles.hand, { height: Device.deviceType !== 1 ? 84 : 48, width: Device.deviceType !== 1 ? 14 : 8 }]}
-        />
+        {Device.deviceType !== 1 ? (
+          <Svg
+            width="14"
+            height="84"
+            viewBox="0 0 14 84"
+            fill={colors.primary === "white" ? "black" : "white"}
+            style={styles.hand}
+          >
+            <Path d="M14 77C14 80.866 10.866 84 7 84C3.13401 84 0 80.866 0 77L3.5 3.5C3.5 1.567 5.067 0 7 0C8.933 0 10.5 1.567 10.5 3.5L14 77Z" />
+          </Svg>
+        ) : (
+          <Svg
+            width="8"
+            height="48"
+            viewBox="0 0 8 48"
+            fill={colors.primary === "white" ? "black" : "white"}
+            style={styles.hand}
+          >
+            <Path d="M8 44C8 46.2091 6.20914 48 4 48C1.79086 48 0 46.2091 0 44L2 2C2 0.89543 2.89543 0 4 0C5.10457 0 6 0.89543 6 2L8 44Z" />
+          </Svg>
+        )}
       </Animated.View>
 
       <View style={styles.range}>
@@ -87,7 +103,6 @@ const styles = StyleSheet.create({
   hand: {
     position: "absolute",
     bottom: "50%",
-    borderRadius: 999,
   },
   range: {
     flexDirection: "row",
