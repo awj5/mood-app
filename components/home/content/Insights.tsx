@@ -4,7 +4,8 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
 import axios from "axios";
-import { CheckInType, InsightType } from "data/database";
+import MoodsData from "data/moods.json";
+import { CheckInMoodType, CheckInType, InsightType } from "data/database";
 import { CalendarDatesType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
@@ -21,6 +22,35 @@ export default function Insights(props: InsightsProps) {
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  const describeMoodScore = (score: number) => {
+    let result = "";
+
+    switch (true) {
+      case score >= 85:
+        result = "very high";
+        break;
+      case score >= 65:
+        result = "high";
+        break;
+      case score >= 55:
+        result = "moderately high";
+        break;
+      case score >= 45:
+        result = "average";
+        break;
+      case score >= 35:
+        result = "moderately low";
+        break;
+      case score >= 15:
+        result = "low";
+        break;
+      default:
+        result = "very low";
+    }
+
+    return result;
+  };
 
   const requestAISummary = async (promptData: PromptDataType[]) => {
     try {
@@ -70,9 +100,30 @@ export default function Insights(props: InsightsProps) {
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
     } else if (latestQueryRef.current === currentQuery) {
-      const aiResponse = await requestAISummary(promptData.data);
+      let aiResponse = await requestAISummary(promptData.data);
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
+        // Get mood scores
+        const satisfaction = [];
+        const energy = [];
+
+        // Loop check-ins and get mood satisfaction and energy scores
+        for (let i = 0; i < props.checkIns.length; i++) {
+          let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+          satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
+          energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
+        }
+
+        // Calculate averages
+        const avgSatisfaction = Math.floor(satisfaction.reduce((sum, num) => sum + num, 0) / satisfaction.length);
+        const avgEnergy = Math.floor(energy.reduce((sum, num) => sum + num, 0) / energy.length);
+
+        aiResponse =
+          aiResponse +
+          ` Overall, you've felt ${describeMoodScore(
+            avgSatisfaction
+          )} in satisfaction (${avgSatisfaction}%) and ${describeMoodScore(avgEnergy)} in energy (${avgEnergy}%).`;
+
         setText(aiResponse);
 
         // Save response
