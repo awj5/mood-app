@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    maxWidth: 768 + 48,
+    maxWidth: 720 + 48,
   },
   double: {
     flexDirection: "row",

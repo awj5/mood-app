@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
+import { LineChart, lineDataItem } from "react-native-gifted-charts";
 import MoodsData from "data/moods.json";
 import { CheckInType, CheckInMoodType } from "data/database";
-import Title from "./Stats/Title";
-import Bar from "./Stats/Bar";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { theme, pressedDefault } from "utils/helpers";
 
 type StatsProps = {
@@ -16,26 +16,34 @@ type StatsProps = {
 export default function Stats(props: StatsProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
-  const [satisfaction, setSatisfaction] = useState(0);
-  const [energy, setEnergy] = useState(0);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const [satisfaction, setSatisfaction] = useState<lineDataItem[]>([]);
+  const [energy, setEnergy] = useState<lineDataItem[]>([]);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
+  const yAxisWidth = 35; // YAxis labels are 35 in width by default
+  const maxWidth = 720 + 48; // Max width of content
 
   useEffect(() => {
-    // Get mood scores
-    const satisfaction = [];
-    const energy = [];
+    setSatisfaction([
+      { value: 50, label: "Mon" },
+      { value: 80, label: "Tue" },
+      { value: 90, label: "Wed" },
+      { value: 70, label: "Thu" },
+      { value: 70, label: "Fri" },
+      { value: 10, label: "Sat" },
+      { value: 50, label: "Sun" },
+    ]);
 
-    // Loop check-ins and get mood satisfaction and energy scores
-    for (let i = 0; i < props.checkIns.length; i++) {
-      let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
-      satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
-      energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
-    }
-
-    // Calculate averages
-    setSatisfaction(Math.floor(satisfaction.reduce((sum, num) => sum + num, 0) / satisfaction.length));
-    setEnergy(Math.floor(energy.reduce((sum, num) => sum + num, 0) / energy.length));
+    setEnergy([
+      { value: 20, label: "Mon" },
+      { value: 60, label: "Tue" },
+      { value: 40, label: "Wed" },
+      { value: 30, label: "Thu" },
+      { value: 90, label: "Fri" },
+      { value: 10, label: "Sat" },
+      { value: 50, label: "Sun" },
+    ]);
 
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
@@ -101,15 +109,81 @@ export default function Stats(props: StatsProps) {
         </Pressable>
       </View>
 
-      <View style={{ flexDirection: "row", gap: spacing / 2 }}>
-        <View style={{ gap: spacing / 2 }}>
-          <Title>Satisfaction</Title>
-          <Title>Energy</Title>
-        </View>
+      <View style={{ gap: spacing / 2 }}>
+        <LineChart
+          data={satisfaction}
+          data2={energy}
+          noOfSections={2}
+          height={spacing * 4}
+          width={
+            dimensions.width > maxWidth
+              ? maxWidth - spacing * 4 - yAxisWidth
+              : dimensions.width - spacing * 4 - yAxisWidth
+          }
+          endSpacing={0}
+          initialSpacing={spacing}
+          spacing={
+            dimensions.width > maxWidth
+              ? (maxWidth - spacing * 4 - yAxisWidth - spacing * 2) / 6
+              : (dimensions.width - spacing * 4 - yAxisWidth - spacing * 2) / 6
+          }
+          hideDataPoints={true}
+          hideDataPoints2={true}
+          color={colors.primary}
+          color2={colors.primary === "white" ? "black" : "white"}
+          thickness={2}
+          thickness2={2}
+          yAxisLabelSuffix="%"
+          yAxisTextStyle={{
+            fontFamily: "Circular-Medium",
+            fontSize: Device.deviceType !== 1 ? 14 : 11,
+            color: colors.primary,
+            opacity: 0.5,
+          }}
+          yAxisThickness={0}
+          xAxisLabelTextStyle={{
+            fontFamily: "Circular-Medium",
+            fontSize: Device.deviceType !== 1 ? 14 : 11,
+            color: colors.primary,
+            opacity: 0.5,
+          }}
+          xAxisThickness={0}
+          hideRules
+          disableScroll
+        />
 
-        <View style={{ flex: 1, gap: spacing / 2 }}>
-          <Bar stat={satisfaction} />
-          <Bar stat={energy} />
+        <View style={[styles.legend, { gap: spacing }]}>
+          <View style={[styles.key, { gap: spacing / 2 }]}>
+            <View style={{ backgroundColor: colors.primary, height: 2, width: spacing / 2 }} />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: colors.primary,
+                fontSize: fontSize,
+              }}
+              allowFontScaling={false}
+            >
+              Satisfaction
+            </Text>
+          </View>
+
+          <View style={[styles.key, { gap: spacing / 2 }]}>
+            <View
+              style={{ backgroundColor: colors.primary === "white" ? "black" : "white", height: 2, width: spacing / 2 }}
+            />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: colors.primary,
+                fontSize: fontSize,
+              }}
+              allowFontScaling={false}
+            >
+              Energy
+            </Text>
+          </View>
         </View>
       </View>
     </Animated.View>
@@ -123,5 +197,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     opacity: 0.5,
+  },
+  legend: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  key: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
