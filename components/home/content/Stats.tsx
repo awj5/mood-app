@@ -148,7 +148,14 @@ export default function Stats(props: StatsProps) {
             opacity: 0.5,
           }}
           xAxisThickness={0}
-          hideRules
+          rulesColor={colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"}
+          rulesThickness={1}
+          showReferenceLine1
+          referenceLine1Position={0}
+          referenceLine1Config={{
+            color: colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)",
+            thickness: 1,
+          }}
           disableScroll
         />
 
