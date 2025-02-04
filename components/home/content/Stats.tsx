@@ -7,10 +7,12 @@ import { LineChart, lineDataItem } from "react-native-gifted-charts";
 import MoodsData from "data/moods.json";
 import { CheckInType, CheckInMoodType } from "data/database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { CalendarDatesType } from "context/home-dates";
 import { theme, pressedDefault } from "utils/helpers";
 
 type StatsProps = {
   checkIns: CheckInType[];
+  dates: CalendarDatesType;
 };
 
 export default function Stats(props: StatsProps) {
@@ -21,30 +23,55 @@ export default function Stats(props: StatsProps) {
   const [energy, setEnergy] = useState<lineDataItem[]>([]);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
-  const yAxisWidth = 35; // YAxis labels are 35 in width by default
+  const yAxisWidth = Device.deviceType !== 1 ? 48 : 40; // YAxis labels are 35 in width by default
   const maxWidth = 720 + 48; // Max width of content
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const rulesColor = colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+  const dataPointSize = Device.deviceType !== 1 ? 6 : 4;
 
   useEffect(() => {
-    setSatisfaction([
-      { value: 50, label: "Mon" },
-      { value: 80, label: "Tue" },
-      { value: 90, label: "Wed" },
-      { value: 70, label: "Thu" },
-      { value: 70, label: "Fri" },
-      { value: 10, label: "Sat" },
-      { value: 50, label: "Sun" },
-    ]);
+    const satisfaction: lineDataItem[] = [];
+    const energy: lineDataItem[] = [];
 
-    setEnergy([
-      { value: 20, label: "Mon" },
-      { value: 60, label: "Tue" },
-      { value: 40, label: "Wed" },
-      { value: 30, label: "Thu" },
-      { value: 90, label: "Fri" },
-      { value: 10, label: "Sat" },
-      { value: 50, label: "Sun" },
-    ]);
+    for (let i = 0; i < 7; i++) {
+      // Get label date
+      let date = new Date(props.dates.weekStart);
+      date.setDate(props.dates.weekStart.getDate() + i);
 
+      // Add objects
+      satisfaction.push({ label: days[date.getDay()], value: undefined });
+      energy.push({ value: undefined });
+
+      // Get check-ins on label date
+      let checkIns = props.checkIns.filter((item) => {
+        let itemDate = new Date(`${item.date}Z`); // Convert to UTC
+        itemDate.setHours(0, 0, 0, 0);
+
+        return itemDate.getTime() === date.getTime();
+      });
+
+      let satisfactionScores = [];
+      let energyScores = [];
+
+      // Loop label date check-ins and get mood satisfaction and energy scores
+      for (let i = 0; i < checkIns.length; i++) {
+        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+        satisfactionScores.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
+        energyScores.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
+      }
+
+      if (satisfactionScores.length) {
+        // Calculate averages and update values
+        satisfaction[i].value = Math.floor(
+          satisfactionScores.reduce((sum, num) => sum + num, 0) / satisfactionScores.length
+        );
+
+        energy[i].value = Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length);
+      }
+    }
+
+    setSatisfaction(satisfaction);
+    setEnergy(energy);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
@@ -69,7 +96,7 @@ export default function Stats(props: StatsProps) {
             }}
             allowFontScaling={false}
           >
-            MOOD STATS
+            MOOD LEVELS
           </Text>
 
           <Text
@@ -113,7 +140,6 @@ export default function Stats(props: StatsProps) {
         <LineChart
           data={satisfaction}
           data2={energy}
-          noOfSections={2}
           height={spacing * 4}
           width={
             dimensions.width > maxWidth
@@ -124,44 +150,55 @@ export default function Stats(props: StatsProps) {
           initialSpacing={spacing}
           spacing={
             dimensions.width > maxWidth
-              ? (maxWidth - spacing * 4 - yAxisWidth - spacing * 2) / 6
-              : (dimensions.width - spacing * 4 - yAxisWidth - spacing * 2) / 6
+              ? (maxWidth - spacing * 4 - yAxisWidth - spacing * 2) / (satisfaction.length - 1)
+              : (dimensions.width - spacing * 4 - yAxisWidth - spacing * 2) / (satisfaction.length - 1)
           }
-          hideDataPoints={true}
-          hideDataPoints2={true}
-          color={colors.primary}
-          color2={colors.primary === "white" ? "black" : "white"}
-          thickness={2}
-          thickness2={2}
+          noOfSections={2}
           yAxisLabelSuffix="%"
+          maxValue={100}
+          yAxisLabelWidth={yAxisWidth}
           yAxisTextStyle={{
             fontFamily: "Circular-Medium",
             fontSize: Device.deviceType !== 1 ? 14 : 11,
             color: colors.primary,
             opacity: 0.5,
           }}
-          yAxisThickness={0}
           xAxisLabelTextStyle={{
             fontFamily: "Circular-Medium",
             fontSize: Device.deviceType !== 1 ? 14 : 11,
             color: colors.primary,
             opacity: 0.5,
           }}
+          yAxisThickness={0}
           xAxisThickness={0}
-          rulesColor={colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"}
+          xAxisLabelsHeight={yAxisWidth / 2}
+          xAxisLabelsVerticalShift={Device.deviceType !== 1 ? 10 : 4}
+          rulesColor={rulesColor}
           rulesThickness={1}
           showReferenceLine1
+          referenceLinesOverChartContent={false}
           referenceLine1Position={0}
           referenceLine1Config={{
-            color: colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)",
+            color: rulesColor,
             thickness: 1,
           }}
+          dataPointsColor1={colors.primary}
+          dataPointsColor2={colors.primary === "white" ? "black" : "white"}
+          dataPointsRadius1={dataPointSize}
+          dataPointsShape2="rectangular"
+          dataPointsWidth2={dataPointSize * 2}
+          dataPointsHeight2={dataPointSize * 2}
+          color={colors.primary === "white" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)"}
+          color2={colors.primary === "white" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.6)"}
+          thickness={Device.deviceType !== 1 ? 5 : 3}
           disableScroll
+          interpolateMissingValues={false}
+          curved
         />
 
         <View style={[styles.legend, { gap: spacing }]}>
           <View style={[styles.key, { gap: spacing / 2 }]}>
-            <View style={{ backgroundColor: colors.primary, height: 2, width: spacing / 2 }} />
+            <View style={[styles.dot, { backgroundColor: colors.primary, width: spacing / 2, borderRadius: 999 }]} />
 
             <Text
               style={{
@@ -177,7 +214,13 @@ export default function Stats(props: StatsProps) {
 
           <View style={[styles.key, { gap: spacing / 2 }]}>
             <View
-              style={{ backgroundColor: colors.primary === "white" ? "black" : "white", height: 2, width: spacing / 2 }}
+              style={[
+                styles.dot,
+                {
+                  backgroundColor: colors.primary === "white" ? "black" : "white",
+                  width: spacing / 2,
+                },
+              ]}
             />
 
             <Text
@@ -212,5 +255,8 @@ const styles = StyleSheet.create({
   key: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  dot: {
+    aspectRatio: "1/1",
   },
 });

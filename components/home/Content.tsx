@@ -121,7 +121,7 @@ export default function Content() {
         {checkIns?.length ? (
           <>
             <Insights checkIns={checkIns} dates={homeDates} />
-            <Stats checkIns={checkIns} />
+            <Stats checkIns={checkIns} dates={homeDates} />
 
             <View style={[styles.double, { gap: spacing }]}>
               <Burnout checkIns={checkIns} />
