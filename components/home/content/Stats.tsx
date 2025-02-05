@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, PixelRatio } from "react-native";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
@@ -18,6 +18,7 @@ type StatsProps = {
 
 export default function Stats(props: StatsProps) {
   const colors = theme();
+  const fontScale = PixelRatio.getFontScale();
   const localization = getLocales();
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
@@ -25,6 +26,7 @@ export default function Stats(props: StatsProps) {
   const [energy, setEnergy] = useState<lineDataItem[]>([]);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
+  const smallFont = Device.deviceType !== 1 ? 14 : 11;
   const yAxisWidth = Device.deviceType !== 1 ? 52 : 40; // YAxis labels are 35 in width by default
   const maxWidth = 720 + 48; // Max width of content wrapper
   const rulesColor = colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
@@ -237,13 +239,13 @@ export default function Stats(props: StatsProps) {
           yAxisLabelWidth={yAxisWidth}
           yAxisTextStyle={{
             fontFamily: "Circular-Book",
-            fontSize: fontSize,
+            fontSize: fontScale > 1 ? smallFont : fontSize,
             color: colors.primary,
             opacity: 0.5,
           }}
           xAxisLabelTextStyle={{
             fontFamily: "Circular-Book",
-            fontSize: fontSize,
+            fontSize: fontScale > 1 ? smallFont : fontSize,
             color: colors.primary,
             opacity: 0.5,
           }}
