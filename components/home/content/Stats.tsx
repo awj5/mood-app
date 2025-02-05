@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { getLocales } from "expo-localization";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
 import { LineChart, lineDataItem } from "react-native-gifted-charts";
@@ -17,6 +18,7 @@ type StatsProps = {
 
 export default function Stats(props: StatsProps) {
   const colors = theme();
+  const localization = getLocales();
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [satisfaction, setSatisfaction] = useState<lineDataItem[]>([]);
@@ -24,22 +26,73 @@ export default function Stats(props: StatsProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
   const yAxisWidth = Device.deviceType !== 1 ? 48 : 40; // YAxis labels are 35 in width by default
-  const maxWidth = 720 + 48; // Max width of content
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const maxWidth = 720 + 48; // Max width of content wrapper
   const rulesColor = colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
-  const dataPointSize = Device.deviceType !== 1 ? 6 : 4;
+  const invertedColor = colors.primary === "white" ? "black" : "white";
+  const labelFontSize = Device.deviceType !== 1 ? 14 : 11;
+  const dataPointSize = Device.deviceType !== 1 ? 7 : 5;
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthsShort = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
   useEffect(() => {
     const satisfaction: lineDataItem[] = [];
     const energy: lineDataItem[] = [];
+    const dates: Date[] = [];
+    let chartType = "week"; // week, days or months
+    let start = new Date(); // Init
+    let end = new Date(); // Init
 
-    for (let i = 0; i < 7; i++) {
-      // Get label date
-      let date = new Date(props.dates.weekStart);
-      date.setDate(props.dates.weekStart.getDate() + i);
+    if (props.dates.rangeStart && props.dates.rangeEnd) {
+      // Range
+      start = new Date(props.dates.rangeStart);
+      end = new Date(props.dates.rangeEnd);
+      const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+      if (days <= 62) {
+        // Day view
+        for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+          dates.push(new Date(date));
+        }
+
+        chartType = "days";
+      } else {
+        // Month view
+        for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+          // Check month (and year) not already included
+          if (!dates.some((d) => d.getMonth() === date.getMonth() && d.getFullYear() === date.getFullYear()))
+            dates.push(new Date(date));
+        }
+
+        chartType = "months";
+      }
+    } else {
+      // Week
+      for (let i = 0; i < 7; i++) {
+        let date = new Date(props.dates.weekStart);
+        date.setDate(date.getDate() + i);
+        dates.push(date);
+      }
+    }
+
+    for (let i = 0; i < dates.length; i++) {
+      let date = dates[i];
 
       // Add objects
-      satisfaction.push({ label: days[date.getDay()], value: undefined });
+      satisfaction.push({
+        label:
+          chartType === "months" && dates.length > 9 && dimensions.width <= 375
+            ? monthsShort[date.getMonth()]
+            : chartType === "months"
+            ? months[date.getMonth()]
+            : chartType === "days"
+            ? localization[0].languageTag === "en-US"
+              ? `${date.getMonth() + 1}/${date.getDate()}`
+              : `${date.getDate()}/${date.getMonth() + 1}`
+            : days[date.getDay()],
+        value: undefined,
+      });
+
       energy.push({ value: undefined });
 
       // Get check-ins on label date
@@ -47,7 +100,12 @@ export default function Stats(props: StatsProps) {
         let itemDate = new Date(`${item.date}Z`); // Convert to UTC
         itemDate.setHours(0, 0, 0, 0);
 
-        return itemDate.getTime() === date.getTime();
+        return chartType === "months"
+          ? itemDate.getTime() >= start.getTime() &&
+              itemDate.getTime() <= end.getTime() &&
+              itemDate.getMonth() === date.getMonth() &&
+              itemDate.getFullYear() === date.getFullYear()
+          : itemDate.getTime() === date.getTime();
       });
 
       let satisfactionScores = [];
@@ -73,7 +131,7 @@ export default function Stats(props: StatsProps) {
     setSatisfaction(satisfaction);
     setEnergy(energy);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-  }, [JSON.stringify(props.checkIns)]);
+  }, [props.checkIns]);
 
   return (
     <Animated.View
@@ -83,7 +141,7 @@ export default function Stats(props: StatsProps) {
         borderRadius: spacing,
         padding: spacing,
         opacity,
-        gap: spacing,
+        gap: spacing / 4,
       }}
     >
       <View>
@@ -136,7 +194,7 @@ export default function Stats(props: StatsProps) {
         </Pressable>
       </View>
 
-      <View style={{ gap: spacing / 2 }}>
+      <View style={{ gap: spacing / 2, overflow: "hidden" }}>
         <LineChart
           data={satisfaction}
           data2={energy}
@@ -146,33 +204,36 @@ export default function Stats(props: StatsProps) {
               ? maxWidth - spacing * 4 - yAxisWidth
               : dimensions.width - spacing * 4 - yAxisWidth
           }
-          endSpacing={0}
+          endSpacing={spacing / 2} // Hack! - It seems the end spacing gets doubled
           initialSpacing={spacing}
           spacing={
-            dimensions.width > maxWidth
+            satisfaction.length > 12
+              ? spacing * 2
+              : dimensions.width > maxWidth
               ? (maxWidth - spacing * 4 - yAxisWidth - spacing * 2) / (satisfaction.length - 1)
               : (dimensions.width - spacing * 4 - yAxisWidth - spacing * 2) / (satisfaction.length - 1)
           }
           noOfSections={2}
           yAxisLabelSuffix="%"
+          roundToDigits={0}
           maxValue={100}
+          yAxisExtraHeight={spacing}
+          overflowTop={spacing}
           yAxisLabelWidth={yAxisWidth}
           yAxisTextStyle={{
             fontFamily: "Circular-Medium",
-            fontSize: Device.deviceType !== 1 ? 14 : 11,
+            fontSize: labelFontSize,
             color: colors.primary,
             opacity: 0.5,
           }}
           xAxisLabelTextStyle={{
             fontFamily: "Circular-Medium",
-            fontSize: Device.deviceType !== 1 ? 14 : 11,
+            fontSize: labelFontSize,
             color: colors.primary,
             opacity: 0.5,
           }}
           yAxisThickness={0}
           xAxisThickness={0}
-          xAxisLabelsHeight={yAxisWidth / 2}
-          xAxisLabelsVerticalShift={Device.deviceType !== 1 ? 10 : 4}
           rulesColor={rulesColor}
           rulesThickness={1}
           showReferenceLine1
@@ -183,22 +244,19 @@ export default function Stats(props: StatsProps) {
             thickness: 1,
           }}
           dataPointsColor1={colors.primary}
-          dataPointsColor2={colors.primary === "white" ? "black" : "white"}
-          dataPointsRadius1={dataPointSize}
-          dataPointsShape2="rectangular"
-          dataPointsWidth2={dataPointSize * 2}
-          dataPointsHeight2={dataPointSize * 2}
-          color={colors.primary === "white" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)"}
-          color2={colors.primary === "white" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.6)"}
-          thickness={Device.deviceType !== 1 ? 5 : 3}
-          disableScroll
+          dataPointsColor2={invertedColor}
+          dataPointsRadius={dataPointSize}
+          color={colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"}
+          color2={colors.primary === "white" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.4)"}
+          thickness={dataPointSize}
           interpolateMissingValues={false}
           curved
+          disableScroll={satisfaction.length <= 12}
         />
 
         <View style={[styles.legend, { gap: spacing }]}>
-          <View style={[styles.key, { gap: spacing / 2 }]}>
-            <View style={[styles.dot, { backgroundColor: colors.primary, width: spacing / 2, borderRadius: 999 }]} />
+          <View style={[styles.key, { gap: spacing / 4 }]}>
+            <View style={[styles.dot, { backgroundColor: colors.primary, width: dataPointSize * 2 }]} />
 
             <Text
               style={{
@@ -212,13 +270,13 @@ export default function Stats(props: StatsProps) {
             </Text>
           </View>
 
-          <View style={[styles.key, { gap: spacing / 2 }]}>
+          <View style={[styles.key, { gap: spacing / 4 }]}>
             <View
               style={[
                 styles.dot,
                 {
-                  backgroundColor: colors.primary === "white" ? "black" : "white",
-                  width: spacing / 2,
+                  backgroundColor: invertedColor,
+                  width: dataPointSize * 2,
                 },
               ]}
             />
@@ -258,5 +316,6 @@ const styles = StyleSheet.create({
   },
   dot: {
     aspectRatio: "1/1",
+    borderRadius: 999,
   },
 });
