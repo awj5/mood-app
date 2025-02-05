@@ -25,19 +25,17 @@ export default function Stats(props: StatsProps) {
   const [energy, setEnergy] = useState<lineDataItem[]>([]);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
-  const yAxisWidth = Device.deviceType !== 1 ? 48 : 40; // YAxis labels are 35 in width by default
+  const yAxisWidth = Device.deviceType !== 1 ? 52 : 40; // YAxis labels are 35 in width by default
   const maxWidth = 720 + 48; // Max width of content wrapper
   const rulesColor = colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
   const invertedColor = colors.primary === "white" ? "black" : "white";
-  const labelFontSize = Device.deviceType !== 1 ? 14 : 11;
-  const dataPointSize = Device.deviceType !== 1 ? 7 : 5;
+  const dataPointSize = Device.deviceType !== 1 ? 6 : 4;
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const monthsShort = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
   useEffect(() => {
-    const satisfaction: lineDataItem[] = [];
-    const energy: lineDataItem[] = [];
+    const satisfactionData: lineDataItem[] = [];
+    const energyData: lineDataItem[] = [];
     const dates: Date[] = [];
     let chartType = "week"; // week, days or months
     let start = new Date(); // Init
@@ -59,7 +57,7 @@ export default function Stats(props: StatsProps) {
       } else {
         // Month view
         for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
-          // Check month (and year) not already included
+          // Add date if month (and year) not already included
           if (!dates.some((d) => d.getMonth() === date.getMonth() && d.getFullYear() === date.getFullYear()))
             dates.push(new Date(date));
         }
@@ -79,21 +77,21 @@ export default function Stats(props: StatsProps) {
       let date = dates[i];
 
       // Add objects
-      satisfaction.push({
+      satisfactionData.push({
         label:
-          chartType === "months" && dates.length > 9 && dimensions.width <= 375
-            ? monthsShort[date.getMonth()]
+          chartType === "months" && dates.length > 9 && dates.length <= 12
+            ? months[date.getMonth()].charAt(0)
             : chartType === "months"
             ? months[date.getMonth()]
+            : chartType === "days" && localization[0].languageTag === "en-US"
+            ? `${date.getMonth() + 1}/${date.getDate()}`
             : chartType === "days"
-            ? localization[0].languageTag === "en-US"
-              ? `${date.getMonth() + 1}/${date.getDate()}`
-              : `${date.getDate()}/${date.getMonth() + 1}`
+            ? `${date.getDate()}/${date.getMonth() + 1}`
             : days[date.getDay()],
         value: undefined,
       });
 
-      energy.push({ value: undefined });
+      energyData.push({ value: undefined });
 
       // Get check-ins on label date
       let checkIns = props.checkIns.filter((item) => {
@@ -111,26 +109,43 @@ export default function Stats(props: StatsProps) {
       let satisfactionScores = [];
       let energyScores = [];
 
-      // Loop label date check-ins and get mood satisfaction and energy scores
+      // Loop check-ins and get mood satisfaction and energy scores
       for (let i = 0; i < checkIns.length; i++) {
-        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+        let mood: CheckInMoodType = JSON.parse(checkIns[i].mood);
         satisfactionScores.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
         energyScores.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
       }
 
       if (satisfactionScores.length) {
         // Calculate averages and update values
-        satisfaction[i].value = Math.floor(
+        satisfactionData[i].value = Math.floor(
           satisfactionScores.reduce((sum, num) => sum + num, 0) / satisfactionScores.length
         );
 
-        energy[i].value = Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length);
+        energyData[i].value = Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length);
       }
     }
 
-    setSatisfaction(satisfaction);
-    setEnergy(energy);
+    let delay = 0;
+
+    // Hack! - Add delay if data point spacing will change to avoid points stretching
+    if (
+      (satisfaction.length > 12 && satisfactionData.length <= 12) ||
+      (satisfaction.length <= 12 && satisfactionData.length > 12)
+    ) {
+      // Reset
+      setSatisfaction([]);
+      setEnergy([]);
+      delay = 100;
+    }
+
+    const timer = setTimeout(() => {
+      setSatisfaction(satisfactionData);
+      setEnergy(energyData);
+    }, delay);
+
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    return () => clearTimeout(timer);
   }, [props.checkIns]);
 
   return (
@@ -221,14 +236,14 @@ export default function Stats(props: StatsProps) {
           overflowTop={spacing}
           yAxisLabelWidth={yAxisWidth}
           yAxisTextStyle={{
-            fontFamily: "Circular-Medium",
-            fontSize: labelFontSize,
+            fontFamily: "Circular-Book",
+            fontSize: fontSize,
             color: colors.primary,
             opacity: 0.5,
           }}
           xAxisLabelTextStyle={{
-            fontFamily: "Circular-Medium",
-            fontSize: labelFontSize,
+            fontFamily: "Circular-Book",
+            fontSize: fontSize,
             color: colors.primary,
             opacity: 0.5,
           }}
@@ -260,7 +275,7 @@ export default function Stats(props: StatsProps) {
 
             <Text
               style={{
-                fontFamily: "Circular-Book",
+                fontFamily: "Circular-Medium",
                 color: colors.primary,
                 fontSize: fontSize,
               }}
@@ -283,7 +298,7 @@ export default function Stats(props: StatsProps) {
 
             <Text
               style={{
-                fontFamily: "Circular-Book",
+                fontFamily: "Circular-Medium",
                 color: colors.primary,
                 fontSize: fontSize,
               }}

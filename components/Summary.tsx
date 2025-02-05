@@ -82,7 +82,6 @@ export default function Summary(props: SummaryProps) {
             fontSize: fontSize,
           },
         ]}
-        allowFontScaling={false}
       >
         {props.text ? props.text : "Unable to generate insights at the moment."}
       </Text>
