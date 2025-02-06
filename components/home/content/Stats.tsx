@@ -32,6 +32,7 @@ export default function Stats(props: StatsProps) {
   const rulesColor = colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
   const invertedColor = colors.primary === "white" ? "black" : "white";
   const dataPointSize = Device.deviceType !== 1 ? 6 : 4;
+  const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -192,7 +193,7 @@ export default function Stats(props: StatsProps) {
           hitSlop={16}
         >
           <Info
-            color={colors.primary}
+            color={grey}
             size={Device.deviceType !== 1 ? 24 : 16}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
@@ -201,7 +202,7 @@ export default function Stats(props: StatsProps) {
           <Text
             style={{
               fontFamily: "Circular-Book",
-              color: colors.primary,
+              color: grey,
               fontSize: fontSize,
             }}
             allowFontScaling={false}
@@ -321,7 +322,6 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: "row",
     alignItems: "center",
-    opacity: 0.5,
   },
   legend: {
     flexDirection: "row",

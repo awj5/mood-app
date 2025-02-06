@@ -18,6 +18,7 @@ export default function Burnout(props: BurnoutProps) {
   const [value, setValue] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
+  const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 
   useEffect(() => {
     // Get mood scores
@@ -85,7 +86,7 @@ export default function Burnout(props: BurnoutProps) {
           hitSlop={16}
         >
           <Info
-            color={colors.primary}
+            color={grey}
             size={Device.deviceType !== 1 ? 24 : 16}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
@@ -94,7 +95,7 @@ export default function Burnout(props: BurnoutProps) {
           <Text
             style={{
               fontFamily: "Circular-Book",
-              color: colors.primary,
+              color: grey,
               fontSize: fontSize,
             }}
             allowFontScaling={false}
@@ -120,6 +121,5 @@ const styles = StyleSheet.create({
   info: {
     flexDirection: "row",
     alignItems: "center",
-    opacity: 0.5,
   },
 });

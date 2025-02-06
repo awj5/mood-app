@@ -1,9 +1,19 @@
-import { useEffect } from "react";
-import { Text } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, ScrollView, StyleSheet, View, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { Image } from "expo-image";
+import * as Linking from "expo-linking";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import GifsData from "data/gifs.json";
 import { CheckInType } from "data/database";
-import { theme } from "utils/helpers";
+import Gif from "./gifs/Gif";
+import { theme, pressedDefault } from "utils/helpers";
+
+export type GifType = {
+  url: string;
+  link: string;
+  tags: number[];
+};
 
 type GifsProps = {
   checkIns: CheckInType[];
@@ -12,9 +22,16 @@ type GifsProps = {
 export default function Gifs(props: GifsProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
+  const [gifsList, setGifsList] = useState<GifType[]>([]);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
+  const images = {
+    light: require("../../../assets/img/tenor.png"),
+    dark: require("../../../assets/img/tenor-dark.png"),
+  };
+
   useEffect(() => {
+    setGifsList(GifsData);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
@@ -26,18 +43,58 @@ export default function Gifs(props: GifsProps) {
         borderRadius: spacing,
         padding: spacing,
         opacity,
+        gap: spacing,
       }}
     >
-      <Text
-        style={{
-          fontFamily: "Circular-Bold",
-          color: colors.primary,
-          fontSize: Device.deviceType !== 1 ? 16 : 12,
-        }}
-        allowFontScaling={false}
-      >
-        RELATABLE MEMES
-      </Text>
+      <View>
+        <Text
+          style={{
+            fontFamily: "Circular-Bold",
+            color: colors.primary,
+            fontSize: Device.deviceType !== 1 ? 16 : 12,
+          }}
+          allowFontScaling={false}
+        >
+          RELATABLE MEMES
+        </Text>
+
+        <Pressable
+          onPress={() => Linking.openURL("https://tenor.com/")}
+          style={({ pressed }) => [pressedDefault(pressed), styles.logo, { gap: spacing / 4 }]}
+          hitSlop={16}
+        >
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              color: colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
+              fontSize: Device.deviceType !== 1 ? 12 : 8,
+            }}
+            allowFontScaling={false}
+          >
+            POWERED BY
+          </Text>
+
+          <Image
+            source={images[colors.primary === "white" ? "dark" : "light"]}
+            style={{ width: Device.deviceType !== 1 ? 57 : 43, height: Device.deviceType !== 1 ? 16 : 12 }}
+          />
+        </Pressable>
+      </View>
+
+      <ScrollView horizontal>
+        {gifsList.map((item, index) => (
+          <Gif key={index} item={item} />
+        ))}
+      </ScrollView>
     </Animated.View>
   );
 }
+
+const styles = StyleSheet.create({
+  logo: {
+    position: "absolute",
+    right: 0,
+    flexDirection: "row",
+    alignItems: "flex-end",
+  },
+});
