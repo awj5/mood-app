@@ -6,5 +6,37 @@
     "spotifyLink": "https://open.spotify.com/track/0Qh38w01QRXK6KHIv0e3hb?si=bc49f1b10cd24ac9",
     "lyrics": "What about us? What about all the broken happy ever afters?",
     "tags": [1]
+  },
+  {
+    "title": "Praying",
+    "artist": "Kesha",
+    "appleMusicLink": "https://music.apple.com/album/praying/1253688426?i=1253689031",
+    "spotifyLink": "https://open.spotify.com/track/0jdny0dhgjUwoIp5GkqEaA?si=f7c4a75b55844706",
+    "lyrics": "I hope you're somewhere praying, I hope your soul is changing, I hope you find your peace.",
+    "tags": [2]
+  },
+  {
+    "title": "Just the Way You Are",
+    "artist": "Bruno Mars",
+    "appleMusicLink": "https://music.apple.com/album/just-the-way-you-are/576670451?i=576670459",
+    "spotifyLink": "https://open.spotify.com/track/7BqBn9nzAq8spo5e7cZ0dJ?si=017e6453e9e941f1",
+    "lyrics": "When I see your face, there's not a thing that I would change,'cause you're amazing just the way you are.",
+    "tags": [3]
+  },
+  {
+    "title": "Stand by You",
+    "artist": "Rachel Platten",
+    "appleMusicLink": "https://music.apple.com/album/stand-by-you/1061182666?i=1061182677",
+    "spotifyLink": "https://open.spotify.com/track/3kSXn1osC89W8JcPLozTzs?si=edac51c1e3454392",
+    "lyrics": "Even if we can't find heaven, I'll walk through hell with you. I'll stand by you.",
+    "tags": [4]
+  },
+  {
+    "title": "Somewhere I Belong",
+    "artist": "Linkin Park",
+    "appleMusicLink": "https://music.apple.com/album/somewhere-i-belong/590423275?i=590423282",
+    "spotifyLink": "https://open.spotify.com/track/3fjmSxt0PskST13CSdBUFx?si=52bfcb351a4f4a79",
+    "lyrics": "I wanna heal, I wanna feel like I'm close to something real. I wanna find something I've wanted all along—somewhere I belong.",
+    "tags": [10]
   }
 ]

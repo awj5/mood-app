@@ -31,10 +31,15 @@ export default function Song(props: SongProps) {
 
   const images = {
     WhatAboutUs: require("../../../assets/img/music/what-about-us.jpg"),
+    Praying: require("../../../assets/img/music/praying.jpg"),
+    JusttheWayYouAre: require("../../../assets/img/music/just-the-way-you-are.jpg"),
+    StandbyYou: require("../../../assets/img/music/stand-by-you.jpg"),
+    SomewhereIBelong: require("../../../assets/img/music/somewhere-i-belong.jpg"),
   };
 
   useEffect(() => {
-    setSong(SongsData[0]);
+    const random = SongsData[Math.floor(Math.random() * SongsData.length)]; // Random song
+    setSong(random);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 

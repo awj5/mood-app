@@ -7,7 +7,7 @@ import Animated, { Easing, useSharedValue, withTiming } from "react-native-reani
 import GifsData from "data/gifs.json";
 import { CheckInType } from "data/database";
 import Gif from "./gifs/Gif";
-import { theme, pressedDefault } from "utils/helpers";
+import { theme, pressedDefault, shuffleArray } from "utils/helpers";
 
 export type GifType = {
   url: string;
@@ -31,7 +31,8 @@ export default function Gifs(props: GifsProps) {
   };
 
   useEffect(() => {
-    setGifsList(GifsData);
+    const shuffled = shuffleArray(GifsData);
+    setGifsList(shuffled.slice(0, 10));
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
