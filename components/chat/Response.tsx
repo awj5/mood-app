@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
 import Icon from "./response/Icon";
+import Report from "components/Report";
 import { theme } from "utils/helpers";
 
 type ResponseProps = {
@@ -48,17 +49,21 @@ export default function Response(props: ResponseProps) {
     >
       <Icon generating={props.generating} />
 
-      <Text
-        style={[
-          styles.text,
-          {
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
-          },
-        ]}
-      >
-        {displayedText}
-      </Text>
+      <View style={[styles.wrapper, { gap: Device.deviceType !== 1 ? 6 : 4 }]}>
+        <Text
+          style={[
+            styles.text,
+            {
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 20 : 16,
+            },
+          ]}
+        >
+          {displayedText}
+        </Text>
+
+        <Report text={displayedText} visible={!props.generating} />
+      </View>
     </View>
   );
 }
@@ -68,9 +73,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     minHeight: 160,
   },
+  wrapper: {
+    flex: 1,
+    maxWidth: 512,
+  },
   text: {
     flexShrink: 1,
     fontFamily: "Circular-Book",
-    maxWidth: 512,
   },
 });
