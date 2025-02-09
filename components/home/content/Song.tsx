@@ -16,8 +16,7 @@ export default function Song(props: SongProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 18 : 14;
-  const iconSize = Device.deviceType !== 1 ? 28 : 20;
+  const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   const images = {
     Creep: require("../../../assets/img/music/creep.jpg"),
@@ -50,27 +49,19 @@ export default function Song(props: SongProps) {
           MOOD MUSIC
         </Text>
 
-        <View style={[styles.links, { gap: spacing }]}>
+        <View style={[styles.links, { gap: spacing * 1.5 }]}>
           <Pressable
-            onPress={() => Linking.openURL("https://music.youtube.com/watch?v=XFkzRNyygfk&feature=shared")}
+            onPress={() => Linking.openURL("https://music.apple.com/album/creep/1097862062?i=1097862231")}
             style={({ pressed }) => pressedDefault(pressed)}
-            hitSlop={8}
-          >
-            <FontAwesome6 name="youtube" size={iconSize} color={colors.primary} />
-          </Pressable>
-
-          <Pressable
-            onPress={() => Linking.openURL("https://music.apple.com/album/creep/1679849414?i=1679849415")}
-            style={({ pressed }) => pressedDefault(pressed)}
-            hitSlop={8}
+            hitSlop={12}
           >
             <FontAwesome6 name="itunes-note" size={iconSize} color={colors.primary} />
           </Pressable>
 
           <Pressable
-            onPress={() => Linking.openURL("https://open.spotify.com/track/62J6RO53R6vNhOB6QXajFV?si=ecec2d7bcc8949bc")}
+            onPress={() => Linking.openURL("https://open.spotify.com/track/70LcF31zb1H0PyJoS1Sx1r?si=52f1ba49f3bd4f95")}
             style={({ pressed }) => pressedDefault(pressed)}
-            hitSlop={8}
+            hitSlop={12}
           >
             <FontAwesome6 name="spotify" size={iconSize} color={colors.primary} />
           </Pressable>
@@ -78,13 +69,13 @@ export default function Song(props: SongProps) {
       </View>
 
       <View style={{ flexDirection: "row", gap: spacing }}>
-        <Image source={images["Creep"]} style={{ width: Device.deviceType !== 1 ? 160 : 120, aspectRatio: "1/1" }} />
+        <Image source={images["Creep"]} style={{ width: Device.deviceType !== 1 ? 192 : 128, aspectRatio: "1/1" }} />
 
-        <View style={[styles.text, { gap: spacing / 2 }]}>
+        <View style={{ flex: 1, gap: spacing }}>
           <View>
             <Text
               style={{
-                fontFamily: "Circular-Bold",
+                fontFamily: "Circular-Black",
                 color: colors.primary,
                 fontSize: Device.deviceType !== 1 ? 24 : 18,
               }}
@@ -95,9 +86,9 @@ export default function Song(props: SongProps) {
 
             <Text
               style={{
-                fontFamily: "Circular-Medium",
+                fontFamily: "Circular-Book",
                 color: colors.primary,
-                fontSize: fontSize,
+                fontSize: Device.deviceType !== 1 ? 20 : 16,
               }}
               allowFontScaling={false}
             >
@@ -105,18 +96,30 @@ export default function Song(props: SongProps) {
             </Text>
           </View>
 
-          <Text
-            style={{
-              fontFamily: "Circular-BookItalic",
-              color: colors.primary,
-              fontSize: fontSize,
-              lineHeight: Device.deviceType !== 1 ? 25 : 17,
-              opacity: 0.5,
-            }}
-            allowFontScaling={false}
-          >
-            {"“But I'm a creep, I'm a weirdo\nWhat the hell am I doin' here?\nI don't belong here”"}
-          </Text>
+          <View>
+            <Text
+              style={{
+                fontFamily: "Circular-Medium",
+                color: colors.primary,
+                fontSize: Device.deviceType !== 1 ? 14 : 11,
+                opacity: 0.5,
+              }}
+              allowFontScaling={false}
+            >
+              DEFINING LYRICS
+            </Text>
+
+            <Text
+              style={{
+                fontFamily: "Circular-BookItalic",
+                color: colors.primary,
+                fontSize: Device.deviceType !== 1 ? 18 : 14,
+              }}
+              allowFontScaling={false}
+            >
+              {"“But I'm a creep, I'm a weirdo\nWhat the hell am I doin' here?\nI don't belong here”"}
+            </Text>
+          </View>
         </View>
       </View>
     </Animated.View>
@@ -129,8 +132,8 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: "row",
   },
-  text: {
-    flex: 1,
-    justifyContent: "space-between",
+  logoText: {
+    fontFamily: "Circular-Book",
+    marginTop: 2,
   },
 });

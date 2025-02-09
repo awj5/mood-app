@@ -64,11 +64,13 @@ export default function Gifs(props: GifsProps) {
           hitSlop={16}
         >
           <Text
-            style={{
-              fontFamily: "Circular-Book",
-              color: colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
-              fontSize: Device.deviceType !== 1 ? 12 : 8,
-            }}
+            style={[
+              styles.logoText,
+              {
+                color: colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
+                fontSize: Device.deviceType !== 1 ? 12 : 8,
+              },
+            ]}
             allowFontScaling={false}
           >
             POWERED BY
@@ -77,6 +79,7 @@ export default function Gifs(props: GifsProps) {
           <Image
             source={images[colors.primary === "white" ? "dark" : "light"]}
             style={{ width: Device.deviceType !== 1 ? 57 : 43, height: Device.deviceType !== 1 ? 16 : 12 }}
+            contentFit="fill"
           />
         </Pressable>
       </View>
@@ -95,6 +98,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     flexDirection: "row",
-    alignItems: "flex-end",
+  },
+  logoText: {
+    fontFamily: "Circular-Book",
+    marginTop: 2,
   },
 });

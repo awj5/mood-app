@@ -86,10 +86,10 @@ export default function Fact(props: FactProps) {
           {Icon && (
             <Icon
               color={invertedColor}
-              size={Device.deviceType !== 1 ? 40 : 24}
+              size={Device.deviceType !== 1 ? 32 : 24}
               absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 3 : 2}
-              style={[styles.icon, { margin: Device.deviceType !== 1 ? -3 : -2 }]}
+              strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+              style={[styles.icon, { margin: Device.deviceType !== 1 ? -2.5 : -2 }]}
             />
           )}
         </View>
@@ -98,8 +98,8 @@ export default function Fact(props: FactProps) {
           style={{
             fontFamily: "Circular-Black",
             color: invertedColor,
-            fontSize: Device.deviceType !== 1 ? 28 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
-            lineHeight: Device.deviceType !== 1 ? 32 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
+            fontSize: Device.deviceType !== 1 ? 24 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
+            lineHeight: Device.deviceType !== 1 ? 28 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
           }}
           allowFontScaling={false}
         >

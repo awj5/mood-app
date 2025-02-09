@@ -67,11 +67,13 @@ export default function Burnout(props: BurnoutProps) {
           </Text>
 
           <Text
-            style={{
-              fontFamily: "Circular-Book",
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 12 : 8,
-            }}
+            style={[
+              styles.beta,
+              {
+                color: colors.primary,
+                fontSize: Device.deviceType !== 1 ? 12 : 8,
+              },
+            ]}
             allowFontScaling={false}
           >
             BETA
@@ -109,6 +111,10 @@ export default function Burnout(props: BurnoutProps) {
 }
 
 const styles = StyleSheet.create({
+  beta: {
+    fontFamily: "Circular-Book",
+    marginTop: 1,
+  },
   wrapper: {
     justifyContent: "space-between",
     flex: 1,

@@ -47,6 +47,7 @@ export default function Quote(props: QuoteProps) {
     PauloCoelho: require("../../../assets/img/quotes/authors/paulo-coelho.jpg"),
     LuciusAnnaeusSeneca: require("../../../assets/img/quotes/authors/lucius-annaeus-seneca.jpg"),
     Socrates: require("../../../assets/img/quotes/authors/socrates.jpg"),
+    GeorgeEliot: require("../../../assets/img/quotes/authors/george-eliot.jpg"),
   };
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Quote(props: QuoteProps) {
       setQuoteData(random);
 
       // Check if author image exists
-      const image = images[random.author.replace(/ /g, "").replace(/./g, "") as keyof typeof images];
+      const image = images[random.author.replace(/ /g, "").replace(/\./g, "") as keyof typeof images];
       setAuthorImage(image ? image : "");
     }
 

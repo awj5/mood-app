@@ -176,11 +176,13 @@ export default function Stats(props: StatsProps) {
           </Text>
 
           <Text
-            style={{
-              fontFamily: "Circular-Book",
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 12 : 8,
-            }}
+            style={[
+              styles.beta,
+              {
+                color: colors.primary,
+                fontSize: Device.deviceType !== 1 ? 12 : 8,
+              },
+            ]}
             allowFontScaling={false}
           >
             BETA
@@ -266,7 +268,7 @@ export default function Stats(props: StatsProps) {
           dataPointsRadius={dataPointSize}
           color={colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"}
           color2={colors.primary === "white" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.4)"}
-          thickness={dataPointSize}
+          thickness={dataPointSize + 1}
           interpolateMissingValues={false}
           curved
           disableScroll={satisfaction.length <= 12}
@@ -317,6 +319,10 @@ export default function Stats(props: StatsProps) {
 }
 
 const styles = StyleSheet.create({
+  beta: {
+    fontFamily: "Circular-Book",
+    marginTop: 1,
+  },
   info: {
     position: "absolute",
     right: 0,

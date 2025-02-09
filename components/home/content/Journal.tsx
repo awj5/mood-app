@@ -19,7 +19,7 @@ export default function Journal(props: JournalProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const invertedColor = colors.primary === "white" ? "black" : "white";
   const grey = colors.primary !== "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
-  const fontSize = Device.deviceType !== 1 ? 20 : 14;
+  const fontSize = Device.deviceType !== 1 ? 18 : 14;
   const iconSize = Device.deviceType !== 1 ? 40 : 24;
   const iconStroke = Device.deviceType !== 1 ? 3 : 2;
 
@@ -149,7 +149,6 @@ export default function Journal(props: JournalProps) {
                     fontFamily: "Circular-BookItalic",
                     color: invertedColor,
                     fontSize: fontSize,
-                    lineHeight: Device.deviceType !== 1 ? 25 : 17,
                   }}
                   allowFontScaling={false}
                 >
