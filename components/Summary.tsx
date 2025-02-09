@@ -40,10 +40,6 @@ export default function Summary(props: SummaryProps) {
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
       style={[styles.container, { gap: spacing }]}
     >
-      <View style={styles.report}>
-        <Report text={props.text} visible={props.text ? true : false} />
-      </View>
-
       <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6, display: props.text ? "flex" : "none" }]}>
         <Sparkles
           color={colors.primary}
@@ -62,6 +58,10 @@ export default function Summary(props: SummaryProps) {
         >
           {title}
         </Text>
+
+        <View style={styles.report}>
+          <Report text={props.text} visible={props.text ? true : false} />
+        </View>
       </View>
 
       {props.text && title === "INSIGHTS" && (
@@ -126,6 +126,8 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
   summary: {
     fontFamily: "Circular-Book",

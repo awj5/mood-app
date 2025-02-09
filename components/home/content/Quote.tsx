@@ -48,6 +48,10 @@ export default function Quote(props: QuoteProps) {
     LuciusAnnaeusSeneca: require("../../../assets/img/quotes/authors/lucius-annaeus-seneca.jpg"),
     Socrates: require("../../../assets/img/quotes/authors/socrates.jpg"),
     GeorgeEliot: require("../../../assets/img/quotes/authors/george-eliot.jpg"),
+    BrendonBurchard: require("../../../assets/img/quotes/authors/brendon-burchard.jpg"),
+    CharlesDickens: require("../../../assets/img/quotes/authors/charles-dickens.jpg"),
+    Confucius: require("../../../assets/img/quotes/authors/confucius.jpg"),
+    DalaiLama: require("../../../assets/img/quotes/authors/dalai-lama.jpg"),
   };
 
   useEffect(() => {

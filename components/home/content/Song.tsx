@@ -1,12 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
 import * as Linking from "expo-linking";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import SongsData from "data/songs.json";
 import { CheckInType } from "data/database";
 import { theme, pressedDefault } from "utils/helpers";
+
+export type SongType = {
+  title: string;
+  artist: string;
+  appleMusicLink: string;
+  spotifyLink: string;
+  lyrics: string;
+  tags: number[];
+};
 
 type SongProps = {
   checkIns: CheckInType[];
@@ -15,14 +25,16 @@ type SongProps = {
 export default function Song(props: SongProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
+  const [song, setSong] = useState<SongType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   const images = {
-    Creep: require("../../../assets/img/music/creep.jpg"),
+    WhatAboutUs: require("../../../assets/img/music/what-about-us.jpg"),
   };
 
   useEffect(() => {
+    setSong(SongsData[0]);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
@@ -51,7 +63,7 @@ export default function Song(props: SongProps) {
 
         <View style={[styles.links, { gap: spacing * 1.5 }]}>
           <Pressable
-            onPress={() => Linking.openURL("https://music.apple.com/album/creep/1097862062?i=1097862231")}
+            onPress={() => Linking.openURL(song?.appleMusicLink ?? "https://music.apple.com")}
             style={({ pressed }) => pressedDefault(pressed)}
             hitSlop={12}
           >
@@ -59,7 +71,7 @@ export default function Song(props: SongProps) {
           </Pressable>
 
           <Pressable
-            onPress={() => Linking.openURL("https://open.spotify.com/track/70LcF31zb1H0PyJoS1Sx1r?si=52f1ba49f3bd4f95")}
+            onPress={() => Linking.openURL(song?.spotifyLink ?? "https://open.spotify.com")}
             style={({ pressed }) => pressedDefault(pressed)}
             hitSlop={12}
           >
@@ -69,7 +81,10 @@ export default function Song(props: SongProps) {
       </View>
 
       <View style={{ flexDirection: "row", gap: spacing }}>
-        <Image source={images["Creep"]} style={{ width: Device.deviceType !== 1 ? 192 : 128, aspectRatio: "1/1" }} />
+        <Image
+          source={images[song?.title.replace(/ /g, "").replace(/\./g, "") as keyof typeof images]}
+          style={{ width: Device.deviceType !== 1 ? 192 : 128, aspectRatio: "1/1" }}
+        />
 
         <View style={{ flex: 1, gap: spacing }}>
           <View>
@@ -81,7 +96,7 @@ export default function Song(props: SongProps) {
               }}
               allowFontScaling={false}
             >
-              Creep
+              {song?.title}
             </Text>
 
             <Text
@@ -92,7 +107,7 @@ export default function Song(props: SongProps) {
               }}
               allowFontScaling={false}
             >
-              Radiohead
+              {song?.artist}
             </Text>
           </View>
 
@@ -117,7 +132,7 @@ export default function Song(props: SongProps) {
               }}
               allowFontScaling={false}
             >
-              {"“But I'm a creep, I'm a weirdo\nWhat the hell am I doin' here?\nI don't belong here”"}
+              {`“${song?.lyrics}”`}
             </Text>
           </View>
         </View>
