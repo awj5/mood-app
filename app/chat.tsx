@@ -106,7 +106,7 @@ export default function Chat() {
           role: "assistant",
           content: `${
             history?.length === 1 ? "You've just completed your first check in!\n\n" : ""
-          }I'm MOOD, I help you navigate your feelings at work.\n\nWhat's your first name?`,
+          }I'm MOOD, I help you navigate your feelings at work using colour as a research-backed emotional framework.\n\nWhat's your first name?`,
         },
       ]);
     } else {

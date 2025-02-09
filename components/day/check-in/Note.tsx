@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import * as Device from "expo-device";
 import { Sparkles } from "lucide-react-native";
+import Report from "components/Report";
 import { theme } from "utils/helpers";
 
 type NoteProps = {
@@ -39,6 +40,13 @@ export default function Note(props: NoteProps) {
         >
           {props.text && props.text.indexOf("[NOTE FROM USER]:") !== -1 ? "NOTE" : "SUMMARY"}
         </Text>
+
+        <View style={styles.report}>
+          <Report
+            text={props.text}
+            visible={props.text && props.text.indexOf("[NOTE FROM USER]:") === -1 ? true : false}
+          />
+        </View>
       </View>
 
       <ScrollView>
@@ -62,5 +70,10 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  report: {
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
 });

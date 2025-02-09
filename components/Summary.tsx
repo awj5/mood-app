@@ -3,6 +3,7 @@ import * as Device from "expo-device";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
 import { CalendarDatesType } from "context/home-dates";
+import Report from "./Report";
 import { theme, pressedDefault, getMonday, getDateRange } from "utils/helpers";
 
 type SummaryProps = {
@@ -39,6 +40,10 @@ export default function Summary(props: SummaryProps) {
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
       style={[styles.container, { gap: spacing }]}
     >
+      <View style={styles.report}>
+        <Report text={props.text} visible={props.text ? true : false} />
+      </View>
+
       <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6, display: props.text ? "flex" : "none" }]}>
         <Sparkles
           color={colors.primary}
@@ -112,6 +117,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  report: {
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
   title: {
     flexDirection: "row",

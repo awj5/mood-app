@@ -56,7 +56,7 @@ export default function Report(props: ReportProps) {
         }}
         allowFontScaling={false}
       >
-        {reported ? "Thank you for the feedback." : "Report"}
+        {reported ? "Received!" : "Report"}
       </Text>
     </Pressable>
   );

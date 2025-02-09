@@ -21,6 +21,7 @@ export default function Insights(props: InsightsProps) {
   const localization = getLocales();
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
+  const [dates, setDates] = useState<CalendarDatesType>(props.dates);
   const [isLoading, setIsLoading] = useState(true);
 
   const describeMoodScore = (score: number) => {
@@ -138,6 +139,7 @@ export default function Insights(props: InsightsProps) {
       }
     }
 
+    setDates(props.dates); // Update here to avoid new date showing first
     setIsLoading(false);
   };
 
@@ -158,7 +160,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating insights" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} dates={props.dates} />
+        <Summary text={text} getInsights={getInsights} dates={dates} />
       )}
     </View>
   );
