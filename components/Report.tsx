@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Pressable } from "react-native";
+import { StyleSheet, Text, Pressable, Alert } from "react-native";
 import * as Device from "expo-device";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
@@ -15,7 +15,22 @@ export default function Report(props: ReportProps) {
   const [reported, setReported] = useState(false);
   const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 
-  const click = async () => {
+  const confirm = () => {
+    Alert.alert(
+      "Report bad response",
+      "By tapping 'Send' this response will be anonymously submitted to our team for review. Thanks for your feedback!",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "Send", onPress: send },
+      ]
+    );
+  };
+
+  const send = async () => {
     try {
       setReported(true);
 
@@ -32,7 +47,7 @@ export default function Report(props: ReportProps) {
 
   return (
     <Pressable
-      onPress={click}
+      onPress={confirm}
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
