@@ -115,9 +115,10 @@ export default function Quote(props: QuoteProps) {
       <View style={{ gap: spacing / 2 }}>
         <Text
           style={{
-            fontFamily: "Circular-BookItalic",
+            fontFamily: "Tiempos-RegularItalic",
             color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
+            lineHeight: Device.deviceType !== 1 ? 28 : 20,
           }}
           allowFontScaling={false}
         >

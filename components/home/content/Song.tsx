@@ -88,7 +88,7 @@ export default function Song(props: SongProps) {
       <View style={{ flexDirection: "row", gap: spacing }}>
         <Image
           source={images[song?.title.replace(/ /g, "").replace(/\./g, "") as keyof typeof images]}
-          style={{ width: Device.deviceType !== 1 ? 192 : 128, aspectRatio: "1/1" }}
+          style={{ width: Device.deviceType !== 1 ? 192 : 128, aspectRatio: "1/1", borderRadius: spacing / 2 }}
         />
 
         <View style={{ flex: 1, gap: spacing }}>
@@ -116,30 +116,17 @@ export default function Song(props: SongProps) {
             </Text>
           </View>
 
-          <View>
-            <Text
-              style={{
-                fontFamily: "Circular-Medium",
-                color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 14 : 11,
-                opacity: 0.5,
-              }}
-              allowFontScaling={false}
-            >
-              DEFINING LYRICS
-            </Text>
-
-            <Text
-              style={{
-                fontFamily: "Circular-BookItalic",
-                color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 18 : 14,
-              }}
-              allowFontScaling={false}
-            >
-              {`“${song?.lyrics}”`}
-            </Text>
-          </View>
+          <Text
+            style={{
+              fontFamily: "Tiempos-RegularItalic",
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 18 : 14,
+              lineHeight: Device.deviceType !== 1 ? 24 : 18,
+            }}
+            allowFontScaling={false}
+          >
+            {`“${song?.lyrics}”`}
+          </Text>
         </View>
       </View>
     </Animated.View>

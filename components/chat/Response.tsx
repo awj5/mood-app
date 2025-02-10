@@ -20,7 +20,7 @@ export default function Response(props: ResponseProps) {
   const router = useRouter();
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
-  const gap = Device.deviceType !== 1 ? 16 : 12;
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const words = props.text
     .replace(/\n\n/g, " \n\n") // Handle double linebreaks
@@ -56,14 +56,14 @@ export default function Response(props: ResponseProps) {
       style={[
         styles.container,
         {
-          padding: Device.deviceType !== 1 ? 24 : 16,
-          gap: gap,
+          padding: spacing,
+          gap: Device.deviceType !== 1 ? 16 : 12,
         },
       ]}
     >
       <Icon generating={props.generating} />
 
-      <View style={[styles.wrapper, { gap: gap }]}>
+      <View style={[styles.wrapper, { gap: spacing }]}>
         <View style={{ gap: Device.deviceType !== 1 ? 6 : 4 }}>
           <Text
             style={[

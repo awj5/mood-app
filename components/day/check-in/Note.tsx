@@ -52,7 +52,7 @@ export default function Note(props: NoteProps) {
       <ScrollView>
         <Text
           style={{
-            fontFamily: props.text ? "Circular-BookItalic" : "Circular-Book",
+            fontFamily: "Circular-Book",
             color: colors.primary,
             opacity: props.text ? 1 : 0.5,
             fontSize: Device.deviceType !== 1 ? 20 : 16,

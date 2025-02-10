@@ -120,7 +120,6 @@ export default function Journal(props: JournalProps) {
                   fontFamily: "Circular-Medium",
                   color: invertedColor,
                   fontSize: fontSize,
-                  opacity: 0.5,
                 }}
                 allowFontScaling={false}
               >
@@ -146,9 +145,10 @@ export default function Journal(props: JournalProps) {
               <Animated.View key={entries[count].id} entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
                 <Text
                   style={{
-                    fontFamily: "Circular-BookItalic",
+                    fontFamily: "Circular-Book",
                     color: invertedColor,
                     fontSize: fontSize,
+                    lineHeight: Device.deviceType !== 1 ? 20 : 16,
                   }}
                   allowFontScaling={false}
                 >

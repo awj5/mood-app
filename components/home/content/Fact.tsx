@@ -70,7 +70,7 @@ export default function Fact(props: FactProps) {
         opacity,
       }}
     >
-      <View style={[styles.wrapper, { padding: spacing }]}>
+      <View style={[styles.wrapper, { padding: spacing, gap: spacing }]}>
         <View>
           <Text
             style={{

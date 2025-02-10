@@ -36,6 +36,7 @@ export default function Layout() {
     "Circular-Book": require("../assets/fonts/lineto-circular-book.ttf"),
     "Circular-BookItalic": require("../assets/fonts/lineto-circular-bookItalic.ttf"),
     "Circular-Medium": require("../assets/fonts/lineto-circular-medium.ttf"),
+    "Tiempos-RegularItalic": require("../assets/fonts/tiempos-text-regularItalic.ttf"),
   });
 
   useEffect(() => {
