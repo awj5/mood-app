@@ -259,6 +259,7 @@ export default function Chat() {
               text={item.content}
               generating={index + 1 === messages.length ? generating : false}
               setGenerating={setGenerating}
+              button="dash"
             />
           ) : (
             <Message key={index} text={item.content} />
