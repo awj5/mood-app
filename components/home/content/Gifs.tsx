@@ -85,7 +85,7 @@ export default function Gifs(props: GifsProps) {
         </Pressable>
       </View>
 
-      <ScrollView horizontal contentContainerStyle={{ borderRadius: spacing / 2, overflow: "hidden" }}>
+      <ScrollView horizontal>
         {gifsList.map((item, index) => (
           <Gif key={index} item={item} />
         ))}
