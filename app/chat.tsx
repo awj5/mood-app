@@ -18,6 +18,7 @@ import { convertToISO, getPromptData, pressedDefault, theme } from "utils/helper
 export type MessageType = {
   role: string;
   content: string;
+  button?: string;
 };
 
 export default function Chat() {
@@ -118,6 +119,7 @@ export default function Chat() {
     setGenerating(true);
     let name = await getName();
     const latestMessage = messages[messages.length - 1];
+    let button: string;
 
     // Check if last message is user's name
     if (!name) {
@@ -136,6 +138,8 @@ export default function Chat() {
           content: `My name is ${name}.`,
         },
       ];
+
+      button = "dash"; // Show a link to dashboard on first convo with AI
     } else if (messages.length) {
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
     }
@@ -159,6 +163,7 @@ export default function Chat() {
         ? aiResponse
         : "Sorry, I'm unable to respond at the moment.";
 
+      if (button) updatedMessages[updatedMessages.length - 1].button = button; // Include a button
       return updatedMessages;
     });
 
@@ -259,7 +264,7 @@ export default function Chat() {
               text={item.content}
               generating={index + 1 === messages.length ? generating : false}
               setGenerating={setGenerating}
-              button="dash"
+              button={item.button}
             />
           ) : (
             <Message key={index} text={item.content} />

@@ -77,9 +77,7 @@ export default function Response(props: ResponseProps) {
             {displayedText}
           </Text>
 
-          <View style={{ alignSelf: "flex-end" }}>
-            <Report text={displayedText} visible={!props.generating} />
-          </View>
+          <Report text={displayedText} visible={!props.generating} />
         </View>
 
         {(!props.generating && props.button) || (!props.generating && displayedText.indexOf("?") === -1) ? (
