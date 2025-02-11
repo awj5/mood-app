@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
+import { CheckInType } from "data/database";
 import { CalendarDatesType } from "context/home-dates";
 import Report from "./Report";
 import { theme, pressedDefault, getMonday, getDateRange } from "utils/helpers";
@@ -10,6 +11,7 @@ type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
   dates: CalendarDatesType;
+  checkIns: CheckInType[];
 };
 
 export default function Summary(props: SummaryProps) {
@@ -60,7 +62,12 @@ export default function Summary(props: SummaryProps) {
         </Text>
 
         <View style={styles.report}>
-          <Report text={props.text} visible={props.text ? true : false} />
+          <Report
+            text={props.text}
+            visible={props.text ? true : false}
+            checkIns={props.checkIns}
+            func={props.getInsights}
+          />
         </View>
       </View>
 

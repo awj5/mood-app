@@ -118,7 +118,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating insights" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} dates={props.dates} />
+        <Summary text={text} getInsights={getInsights} dates={props.dates} checkIns={props.checkIns} />
       )}
     </View>
   );
