@@ -95,7 +95,7 @@ export default function Song(props: SongProps) {
           <View>
             <Text
               style={{
-                fontFamily: "Circular-Black",
+                fontFamily: "Circular-Bold",
                 color: colors.primary,
                 fontSize: Device.deviceType !== 1 ? 24 : 18,
               }}
