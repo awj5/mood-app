@@ -196,7 +196,7 @@ export default function Stats(props: StatsProps) {
         >
           <Info
             color={grey}
-            size={Device.deviceType !== 1 ? 24 : 16}
+            size={Device.deviceType !== 1 ? 20 : 16}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
           />

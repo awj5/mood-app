@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn, useSharedValue, withTiming } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
@@ -13,6 +14,7 @@ type JournalProps = {
 
 export default function Journal(props: JournalProps) {
   const colors = theme();
+  const router = useRouter();
   const opacity = useSharedValue(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const [entries, setEntries] = useState<CheckInType[]>([]);
@@ -41,9 +43,18 @@ export default function Journal(props: JournalProps) {
       .replace(",", "");
   };
 
-  const click = (count: number) => {
+  const arrowPress = (count: number) => {
     setCount(count);
     scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Reset
+  };
+
+  const datePress = () => {
+    const utc = new Date(`${entries[count].date}Z`);
+
+    router.push({
+      pathname: "day",
+      params: { day: utc.getDate(), month: utc.getMonth() + 1, year: utc.getFullYear() },
+    });
   };
 
   useEffect(() => {
@@ -108,7 +119,7 @@ export default function Journal(props: JournalProps) {
           <View style={{ flex: 1, marginTop: spacing / 2, gap: spacing / 4 }}>
             <View style={styles.date}>
               <Pressable
-                onPress={() => click(count - 1)}
+                onPress={() => arrowPress(count - 1)}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
                 disabled={!count}
@@ -121,19 +132,21 @@ export default function Journal(props: JournalProps) {
                 />
               </Pressable>
 
-              <Text
-                style={{
-                  fontFamily: "Circular-Medium",
-                  color: invertedColor,
-                  fontSize: fontSize,
-                }}
-                allowFontScaling={false}
-              >
-                {convertDate(entries[count].date)}
-              </Text>
+              <Pressable onPress={() => datePress()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
+                <Text
+                  style={{
+                    fontFamily: "Circular-Medium",
+                    color: invertedColor,
+                    fontSize: fontSize,
+                  }}
+                  allowFontScaling={false}
+                >
+                  {convertDate(entries[count].date)}
+                </Text>
+              </Pressable>
 
               <Pressable
-                onPress={() => click(count + 1)}
+                onPress={() => arrowPress(count + 1)}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
                 disabled={count === entries.length - 1}
