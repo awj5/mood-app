@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, FadeIn, useSharedValue, withTiming } from "react-native-reanimated";
@@ -14,6 +14,7 @@ type JournalProps = {
 export default function Journal(props: JournalProps) {
   const colors = theme();
   const opacity = useSharedValue(0);
+  const scrollViewRef = useRef<ScrollView>(null);
   const [entries, setEntries] = useState<CheckInType[]>([]);
   const [count, setCount] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
@@ -38,6 +39,11 @@ export default function Journal(props: JournalProps) {
         ...(entryYear !== year && { year: "numeric" }), // Only show year if not current year
       })
       .replace(",", "");
+  };
+
+  const click = (count: number) => {
+    setCount(count);
+    scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Reset
   };
 
   useEffect(() => {
@@ -102,7 +108,7 @@ export default function Journal(props: JournalProps) {
           <View style={{ flex: 1, marginTop: spacing / 2, gap: spacing / 4 }}>
             <View style={styles.date}>
               <Pressable
-                onPress={() => setCount(count - 1)}
+                onPress={() => click(count - 1)}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
                 disabled={!count}
@@ -127,7 +133,7 @@ export default function Journal(props: JournalProps) {
               </Text>
 
               <Pressable
-                onPress={() => setCount(count + 1)}
+                onPress={() => click(count + 1)}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
                 disabled={count === entries.length - 1}
@@ -141,7 +147,7 @@ export default function Journal(props: JournalProps) {
               </Pressable>
             </View>
 
-            <ScrollView nestedScrollEnabled={true}>
+            <ScrollView ref={scrollViewRef} nestedScrollEnabled={true}>
               <Animated.View key={entries[count].id} entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
                 <Text
                   style={{

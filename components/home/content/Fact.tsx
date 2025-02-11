@@ -98,8 +98,8 @@ export default function Fact(props: FactProps) {
           style={{
             fontFamily: "Circular-Black",
             color: invertedColor,
-            fontSize: Device.deviceType !== 1 ? 24 : dimensions.width > 375 ? 18 : 16, // Smaller for iPhone SE
-            lineHeight: Device.deviceType !== 1 ? 28 : dimensions.width > 375 ? 20 : 18, // Smaller for iPhone SE
+            fontSize: Device.deviceType !== 1 ? 24 : dimensions.width > 375 && fact.length <= 60 ? 18 : 16, // Smaller for iPhone SE
+            lineHeight: Device.deviceType !== 1 ? 28 : dimensions.width > 375 && fact.length <= 60 ? 20 : 18, // Smaller for iPhone SE
           }}
           allowFontScaling={false}
         >

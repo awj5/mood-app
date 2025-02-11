@@ -66,7 +66,7 @@ export default function Song(props: SongProps) {
           MOOD MUSIC
         </Text>
 
-        <View style={[styles.links, { gap: spacing * 1.5 }]}>
+        <View style={[styles.links, { gap: spacing * 1.5, margin: Device.deviceType !== 1 ? -2.5 : -2 }]}>
           <Pressable
             onPress={() => Linking.openURL(song?.appleMusicLink ?? "https://music.apple.com")}
             style={({ pressed }) => pressedDefault(pressed)}

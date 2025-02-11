@@ -64,7 +64,7 @@ export default function Response(props: ResponseProps) {
       <Icon generating={props.generating} />
 
       <View style={[styles.wrapper, { gap: spacing }]}>
-        <View style={{ gap: Device.deviceType !== 1 ? 6 : 4 }}>
+        <View style={{ gap: Device.deviceType !== 1 ? 8 : 6 }}>
           <Text
             style={[
               styles.text,
