@@ -9,6 +9,11 @@ export default function Name() {
   const [text, setText] = useState("");
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
+  const getName = async () => {
+    const name = await getStoredVal("first-name");
+    if (name) setText(name);
+  };
+
   const setName = async () => {
     try {
       const name = text.substring(0, 30).trim();
@@ -24,7 +29,7 @@ export default function Name() {
   };
 
   useEffect(() => {
-    getStoredVal("first-name");
+    getName();
   }, []);
 
   return (

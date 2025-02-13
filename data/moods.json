@@ -7,14 +7,16 @@
     "tags": [
       2, 7, 8, 9, 13, 14, 15, 25, 31, 47, 62, 63, 69, 70, 72, 73, 74, 76, 78, 79, 83, 84, 85, 87, 89, 93, 112, 114, 116,
       117, 121, 127, 134, 135, 141, 142, 153, 155, 156, 166, 174, 175, 176, 181, 182, 199, 200, 204, 208
-    ]
+    ],
+    "description": "Orange is the most dynamic zone, where energy is at its peak but valence is balanced. It reflects restlessness, drive, or urgency - a state that can feel intense but also motivating, depending on the situation."
   },
   {
     "id": 1,
     "color": "#FFD500",
     "satisfaction": 67,
     "energy": 83,
-    "tags": [9, 25, 31, 69, 70, 72, 73, 74, 76, 79, 93, 112, 117, 121, 127, 142, 155, 174, 199, 200, 204]
+    "tags": [9, 25, 31, 69, 70, 72, 73, 74, 76, 79, 93, 112, 117, 121, 127, 142, 155, 174, 199, 200, 204],
+    "description": "The Yellow zone is where energy and positivity shine brightest. It represents enthusiasm, excitement, and motivation. People in this zone feel vibrant, empowered, and ready to tackle challenges with gusto. It's a dynamic and highly active state."
   },
   {
     "id": 2,
@@ -25,7 +27,8 @@
       3, 4, 5, 6, 9, 11, 16, 19, 22, 25, 28, 30, 31, 32, 36, 38, 41, 43, 45, 69, 70, 72, 73, 74, 75, 76, 77, 79, 86, 90,
       93, 95, 96, 101, 102, 107, 108, 109, 110, 112, 117, 118, 120, 121, 127, 130, 131, 132, 138, 140, 142, 143, 146,
       147, 151, 155, 159, 161, 162, 163, 174, 177, 178, 179, 194, 199, 200, 202, 203, 204
-    ]
+    ],
+    "description": "Lime reflects a blend of positivity and focused energy. It's the feeling of being motivated and aligned, with a sense of purpose and clarity. This zone is balanced yet driven, ideal for productivity and teamwork."
   },
   {
     "id": 3,
@@ -35,7 +38,8 @@
     "tags": [
       3, 4, 5, 6, 11, 16, 19, 22, 28, 30, 32, 36, 38, 41, 43, 45, 75, 77, 86, 90, 95, 96, 101, 102, 107, 108, 109, 110,
       118, 120, 130, 131, 132, 138, 140, 143, 146, 147, 151, 159, 161, 162, 163, 177, 178, 179, 194, 202, 203
-    ]
+    ],
+    "description": "The Green zone is the epitome of balance and positivity. It's where confidence, connection, and calm coexist. This is a state of feeling in control, fulfilled, and deeply content - the emotional sweet spot."
   },
   {
     "id": 4,
@@ -47,7 +51,8 @@
       77, 86, 88, 90, 91, 92, 94, 95, 96, 98, 101, 102, 107, 108, 109, 110, 118, 120, 130, 131, 132, 136, 137, 138, 140,
       143, 145, 146, 147, 148, 149, 151, 152, 158, 159, 161, 162, 163, 164, 165, 171, 172, 177, 178, 179, 184, 185, 190,
       193, 194, 202, 203
-    ]
+    ],
+    "description": "Mint represents calm positivity. It's the feeling of being composed, steady, and at ease. This zone captures a quiet, confident serenity - the kind of state that encourages thoughtful reflection and relaxation."
   },
   {
     "id": 5,
@@ -57,7 +62,8 @@
     "tags": [
       17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 71, 88, 91, 92, 94, 98, 136, 137, 145, 148, 149, 152, 158, 164, 165,
       171, 172, 184, 185, 190, 193
-    ]
+    ],
+    "description": "Aqua reflects deep relaxation and tranquillity. It's a state of peace, safety, and comfort. People in this zone feel calm and unhurried, free from tension or pressure."
   },
   {
     "id": 6,
@@ -68,7 +74,8 @@
       12, 17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 48, 50, 51, 52, 53, 55, 57, 58, 65, 66, 67, 68, 71, 81, 82, 88,
       91, 92, 94, 97, 98, 99, 103, 115, 119, 122, 123, 124, 136, 137, 139, 145, 148, 149, 152, 157, 158, 164, 165, 168,
       169, 170, 171, 172, 184, 185, 190, 193, 195, 207
-    ]
+    ],
+    "description": "The Sky zone represents stillness and rest. It's a neutral, low-energy state, often associated with recovery or reflection. This is where people recharge and find calm after periods of activity or stress."
   },
   {
     "id": 7,
@@ -78,7 +85,8 @@
     "tags": [
       12, 48, 50, 51, 52, 53, 55, 57, 58, 65, 66, 67, 68, 81, 82, 97, 99, 103, 115, 119, 122, 123, 124, 139, 157, 168,
       169, 170, 195, 207
-    ]
+    ],
+    "description": "Blue is a state of low-energy negativity, characterised by sadness, fatigue, or loneliness. It's when energy is drained, and emotions lean toward disconnection or despondency."
   },
   {
     "id": 8,
@@ -90,7 +98,8 @@
       80, 81, 82, 97, 99, 100, 103, 104, 105, 106, 111, 113, 115, 119, 122, 123, 124, 125, 126, 128, 129, 133, 139, 144,
       150, 154, 157, 160, 167, 168, 169, 170, 173, 180, 183, 186, 187, 188, 189, 191, 192, 195, 196, 197, 198, 201, 205,
       206, 207
-    ]
+    ],
+    "description": "Violet represents conflicted emotions and unease. It's the feeling of being lost, misunderstood, or hesitant. This zone is where vulnerability begins to surface, paired with a sense of uncertainty."
   },
   {
     "id": 9,
@@ -100,7 +109,8 @@
     "tags": [
       1, 10, 18, 23, 24, 26, 39, 40, 46, 49, 54, 56, 59, 60, 61, 64, 80, 100, 104, 105, 106, 111, 113, 125, 126, 128,
       129, 133, 144, 150, 154, 160, 167, 173, 180, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206
-    ]
+    ],
+    "description": "Aubergine reflects deep emotional discomfort. It's the state of feeling hurt, excluded, or vulnerable. The energy level is higher than sadness but still weighed down by negative emotions."
   },
   {
     "id": 10,
@@ -112,7 +122,8 @@
       85, 87, 89, 100, 104, 105, 106, 111, 113, 114, 116, 125, 126, 128, 129, 133, 134, 135, 141, 144, 150, 153, 154,
       156, 160, 166, 167, 173, 175, 176, 180, 181, 182, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206,
       208
-    ]
+    ],
+    "description": "Burgundy is a state of agitation or frustration. It's where tension and negativity dominate, creating feelings of anger, irritation, or resentment. This zone can feel overwhelming but also charged with energy."
   },
   {
     "id": 11,
@@ -122,6 +133,7 @@
     "tags": [
       2, 7, 8, 13, 14, 15, 47, 62, 63, 78, 83, 84, 85, 87, 89, 114, 116, 134, 135, 141, 153, 156, 166, 175, 176, 181,
       182, 208
-    ]
+    ],
+    "description": "Red is the zone of high-energy negativity. It's the feeling of being overwhelmed, anxious, or angry. This state is intense, with emotions running high and stress levels peaking."
   }
 ]

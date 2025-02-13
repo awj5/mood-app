@@ -59,7 +59,7 @@ export default function Note(props: NoteProps) {
           }}
           allowFontScaling={false}
         >
-          {props.text ? props.text : "Not generated"}
+          {props.text ? props.text.replace("[NOTE FROM USER]:", "") : "Not generated"}
         </Text>
       </ScrollView>
     </View>

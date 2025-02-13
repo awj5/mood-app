@@ -33,6 +33,7 @@ export const getStatement = (statement: string, response: number) => {
 
 export type PromptDataType = {
   date: string;
+  id: number;
   time: string;
   mood: number;
   feelings: string[];
@@ -58,6 +59,7 @@ export const getPromptData = (checkIns: CheckInType[]) => {
 
     data.push({
       date: local.toDateString(),
+      id: checkIn.id,
       time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
       mood: mood.color,
       feelings: tags,

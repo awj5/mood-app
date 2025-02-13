@@ -18,7 +18,7 @@ import Burnout from "./content/Burnout";
 import Journal from "./content/Journal";
 import Stats from "./content/Stats";
 import Upsell from "./content/Upsell";
-import { shuffleArray, theme } from "utils/helpers";
+import { shuffleArray, theme, getStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 export default function Content() {
@@ -59,8 +59,10 @@ export default function Content() {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
     const checkInData = await getCheckInData();
+    const uuid = await getStoredVal("uuid"); // Check if user is subscribed
 
     if (latestQueryRef.current === currentQuery) {
+      setHasUUID(uuid ? true : false);
       setCheckIns(checkInData);
     }
   };

@@ -9,12 +9,13 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { Sparkles } from "lucide-react-native";
+import MoodsData from "data/moods.json";
 import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
 import { pressedDefault, theme, getStoredVal } from "utils/helpers";
-import { getPromptData } from "utils/data";
+import { getPromptData, PromptDataType } from "utils/data";
 import { convertToISO } from "utils/dates";
 
 export type MessageType = {
@@ -31,17 +32,18 @@ export default function Chat() {
   const colors = theme();
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
-  const checkInIDRef = useRef(0);
+  const notesRef = useRef("");
+  const checkInRef = useRef<PromptDataType>();
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
 
-  const requestAIResponse = async (type: string) => {
+  const requestAIResponse = async (type: string, uuid: string) => {
     try {
       const response = await axios.post(
         process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
           type: type,
-          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored locally
+          uuid: uuid,
           message: chatHistoryRef.current,
           loc: localization[0].languageTag,
         }
@@ -65,7 +67,7 @@ export default function Chat() {
       );
 
       const promptData = getPromptData(rows); // Convert
-      checkInIDRef.current = promptData.ids[promptData.ids.length - 1]; // Latest check-in
+      checkInRef.current = promptData.data[promptData.data.length - 1]; // Latest check-in
       return promptData.data;
     } catch (error) {
       console.log(error);
@@ -112,6 +114,7 @@ export default function Chat() {
     let name = await getStoredVal("first-name");
     const latestMessage = messages[messages.length - 1];
     let button: string;
+    const uuid = await getStoredVal("uuid"); // Check if user is subscribed
 
     // Check if last message is user's name
     if (!name) {
@@ -134,6 +137,7 @@ export default function Chat() {
       button = "dash"; // Show a link to dashboard on first convo with AI
     } else if (messages.length) {
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
+      if (!uuid) notesRef.current = `${notesRef.current}${notesRef.current && "\n\n"}${latestMessage.content}`; // Add message to notes if user not subscribed
     }
 
     // Add empty response to show loader
@@ -145,7 +149,13 @@ export default function Chat() {
       },
     ]);
 
-    const aiResponse = await requestAIResponse("chat");
+    const aiResponse = uuid
+      ? await requestAIResponse("chat", uuid)
+      : chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 1
+      ? "Message saved."
+      : `Hi ${name}, thanks for checking in. ${
+          MoodsData.filter((mood) => mood.id === checkInRef.current?.mood)[0].description
+        }\n\nYou need to join MOOD.ai Pro to have a conversation with me but I can still save your messages if you want to leave a note.`;
 
     // Update the text of the last message
     setMessages((prevMessages) => {
@@ -165,12 +175,14 @@ export default function Chat() {
 
       // Only save summary if user has replied
       if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
-        const aiSummary = await requestAIResponse("summarize_chat");
+        const aiSummary = uuid
+          ? await requestAIResponse("summarize_chat", uuid)
+          : "[NOTE FROM USER]:" + notesRef.current;
 
         if (aiSummary) {
           // Update check-in note
           try {
-            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [aiSummary, checkInIDRef.current]);
+            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [aiSummary, checkInRef.current?.id]);
           } catch (error) {
             console.log(error);
           }

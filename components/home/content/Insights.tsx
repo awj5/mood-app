@@ -10,6 +10,7 @@ import { CalendarDatesType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
 import { getPromptData, PromptDataType } from "utils/data";
+import { getStoredVal } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -53,13 +54,13 @@ export default function Insights(props: InsightsProps) {
     return result;
   };
 
-  const requestAISummary = async (promptData: PromptDataType[]) => {
+  const requestAISummary = async (promptData: PromptDataType[], uuid: string) => {
     try {
       const response = await axios.post(
         process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
           type: "summarize_check_ins",
-          uuid: "79abe3a0-0706-437b-a3e4-8f8613341b9c", // WIP!!!!! - Will be stored locally
+          uuid: uuid,
           message: [
             {
               role: "user",
@@ -96,12 +97,13 @@ export default function Insights(props: InsightsProps) {
     setText("");
     const promptData = getPromptData(props.checkIns);
     const savedResponse = await getInsightsData(promptData.ids);
+    const uuid = await getStoredVal("uuid"); // Check if user is subscribed
 
     // Show saved response if exists or get response from API
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
-    } else if (latestQueryRef.current === currentQuery) {
-      let aiResponse = await requestAISummary(promptData.data);
+    } else if (latestQueryRef.current === currentQuery && uuid) {
+      let aiResponse = await requestAISummary(promptData.data, uuid);
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         // Get mood scores
