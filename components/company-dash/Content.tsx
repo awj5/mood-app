@@ -10,7 +10,8 @@ import { CheckInType } from "data/database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Insights from "./content/Insights";
 import Categories from "./content/Categories";
-import { convertToISO, theme } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 export default function Content() {
   const db = useSQLiteContext();

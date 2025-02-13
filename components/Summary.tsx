@@ -5,7 +5,8 @@ import { Sparkles } from "lucide-react-native";
 import { CheckInType } from "data/database";
 import { CalendarDatesType } from "context/home-dates";
 import Report from "./Report";
-import { theme, pressedDefault, getMonday, getDateRange } from "utils/helpers";
+import { theme, pressedDefault } from "utils/helpers";
+import { getDateRange, getMonday } from "utils/dates";
 
 type SummaryProps = {
   text: string;

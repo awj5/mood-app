@@ -6,7 +6,8 @@ import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
-import { getMonday, theme } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { getMonday } from "utils/dates";
 
 export default function Calendar() {
   const colors = theme();

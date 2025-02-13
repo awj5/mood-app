@@ -9,7 +9,7 @@ import { CheckInMoodType, CheckInType, InsightType } from "data/database";
 import { CalendarDatesType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { getPromptData, PromptDataType } from "utils/helpers";
+import { getPromptData, PromptDataType } from "utils/data";
 
 type InsightsProps = {
   checkIns: CheckInType[];

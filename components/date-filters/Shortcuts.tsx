@@ -3,7 +3,8 @@ import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
-import { getMonday, theme } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { getMonday } from "utils/dates";
 
 type ShortcutsProps = {
   setDates: (dates: CalendarDatesType) => void;

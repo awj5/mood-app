@@ -10,7 +10,8 @@ import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
 import { CheckInMoodType, CheckInType } from "data/database";
 import MoodsData from "data/moods.json";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import { convertToISO, theme } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 export default function Bg() {
   const db = useSQLiteContext();

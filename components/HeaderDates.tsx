@@ -4,7 +4,8 @@ import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
 import { CalendarDatesType } from "context/home-dates";
-import { pressedDefault, theme, getDateRange } from "utils/helpers";
+import { pressedDefault, theme } from "utils/helpers";
+import { getDateRange } from "utils/dates";
 
 type HeaderDatesProps = {
   dates: CalendarDatesType;

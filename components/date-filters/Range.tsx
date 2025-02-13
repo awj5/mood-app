@@ -5,7 +5,8 @@ import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/dat
 import { CalendarDays } from "lucide-react-native";
 import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
-import { getMonday, theme } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { getMonday } from "utils/dates";
 
 type RangeProps = {
   dates: CalendarDatesType;

@@ -5,7 +5,8 @@ import { CheckInMoodType, CheckInType } from "data/database";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
 import Note from "./check-in/Note";
-import { theme, getStatement } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { getStatement } from "utils/data";
 
 type CheckInProps = {
   data: CheckInType;

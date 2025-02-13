@@ -13,7 +13,9 @@ import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { convertToISO, getPromptData, pressedDefault, theme } from "utils/helpers";
+import { pressedDefault, theme, getStoredVal } from "utils/helpers";
+import { getPromptData } from "utils/data";
+import { convertToISO } from "utils/dates";
 
 export type MessageType = {
   role: string;
@@ -70,18 +72,8 @@ export default function Chat() {
     }
   };
 
-  const getName = async () => {
-    try {
-      const name = await AsyncStorage.getItem("first-name");
-      return name;
-    } catch (error) {
-      console.log(error);
-      return "";
-    }
-  };
-
   const setFirstResponse = async () => {
-    const name = await getName();
+    const name = await getStoredVal("first-name");
     const history = await getCheckInHistoryData(); // Get recent check-ins
 
     if (history) {
@@ -117,7 +109,7 @@ export default function Chat() {
 
   const addResponse = async () => {
     setGenerating(true);
-    let name = await getName();
+    let name = await getStoredVal("first-name");
     const latestMessage = messages[messages.length - 1];
     let button: string;
 

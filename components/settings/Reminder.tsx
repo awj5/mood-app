@@ -4,7 +4,8 @@ import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Bell, BellRing } from "lucide-react-native";
 import { ReminderType } from "components/Reminder";
-import { theme, pressedDefault, getReminder, times } from "utils/helpers";
+import { theme, pressedDefault } from "utils/helpers";
+import { times, getReminder } from "utils/reminders";
 
 type ReminderProps = {
   reminderVisible: boolean;

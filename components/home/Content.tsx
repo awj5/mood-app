@@ -17,7 +17,9 @@ import Gifs from "./content/Gifs";
 import Burnout from "./content/Burnout";
 import Journal from "./content/Journal";
 import Stats from "./content/Stats";
-import { convertToISO, shuffleArray, theme } from "utils/helpers";
+import Upsell from "./content/Upsell";
+import { shuffleArray, theme } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 export default function Content() {
   const db = useSQLiteContext();
@@ -28,6 +30,7 @@ export default function Content() {
   const scrollViewRef = useRef<ScrollView>(null);
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const [widgets, setWidgets] = useState<React.ReactNode>();
+  const [hasUUID, setHasUUID] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const getCheckInData = async () => {
@@ -56,7 +59,10 @@ export default function Content() {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
     const checkInData = await getCheckInData();
-    if (latestQueryRef.current === currentQuery) setCheckIns(checkInData);
+
+    if (latestQueryRef.current === currentQuery) {
+      setCheckIns(checkInData);
+    }
   };
 
   useEffect(() => {
@@ -120,13 +126,19 @@ export default function Content() {
       >
         {checkIns?.length ? (
           <>
-            <Insights checkIns={checkIns} dates={homeDates} />
-            <Stats checkIns={checkIns} dates={homeDates} />
+            {hasUUID ? (
+              <>
+                <Insights checkIns={checkIns} dates={homeDates} />
+                <Stats checkIns={checkIns} dates={homeDates} />
 
-            <View style={[styles.double, { gap: spacing }]}>
-              <Burnout checkIns={checkIns} />
-              <Journal checkIns={checkIns} />
-            </View>
+                <View style={[styles.double, { gap: spacing }]}>
+                  <Burnout checkIns={checkIns} />
+                  <Journal checkIns={checkIns} />
+                </View>
+              </>
+            ) : (
+              <Upsell />
+            )}
 
             {widgets}
           </>

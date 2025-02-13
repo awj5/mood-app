@@ -10,7 +10,8 @@ import HeaderTitle from "components/HeaderTitle";
 import HeaderDates from "components/HeaderDates";
 import Content from "components/company-dash/Content";
 import Button from "components/Button";
-import { theme, getMonday } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { getMonday } from "utils/dates";
 
 export default function CompanyDash() {
   const colors = theme();

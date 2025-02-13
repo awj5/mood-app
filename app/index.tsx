@@ -14,7 +14,8 @@ import Bg from "components/home/Bg";
 import Footer from "components/home/Footer";
 import Content from "components/home/Content";
 import Reminder from "components/Reminder";
-import { pressedDefault, theme, convertToISO } from "utils/helpers";
+import { pressedDefault, theme } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 export default function Home() {
   const headerHeight = useHeaderHeight();

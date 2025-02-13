@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
 import * as Device from "expo-device";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { theme } from "utils/helpers";
+import { theme, getStoredVal } from "utils/helpers";
 
 export default function Name() {
   const colors = theme();
@@ -23,17 +23,8 @@ export default function Name() {
     }
   };
 
-  const getName = async () => {
-    try {
-      const name = await AsyncStorage.getItem("first-name");
-      if (name) setText(name);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getName();
+    getStoredVal("first-name");
   }, []);
 
   return (

@@ -6,7 +6,7 @@ import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CircleCheck } from "lucide-react-native";
 import BigButton from "components/BigButton";
-import { convertToISO } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 export default function Footer() {
   const db = useSQLiteContext();

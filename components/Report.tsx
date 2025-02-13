@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { StyleSheet, Text, Pressable, Alert } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
 import { CheckInType } from "data/database";
-import { theme, pressedDefault, getPromptData } from "utils/helpers";
-import { useState } from "react";
+import { theme, pressedDefault, getStoredVal } from "utils/helpers";
+import { getPromptData } from "utils/data";
 
 type ReportProps = {
   text: string;
@@ -20,16 +20,6 @@ export default function Report(props: ReportProps) {
   const db = useSQLiteContext();
   const [reported, setReported] = useState(false);
   const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
-
-  const getName = async () => {
-    try {
-      const name = await AsyncStorage.getItem("first-name");
-      return name;
-    } catch (error) {
-      console.log(error);
-      return "";
-    }
-  };
 
   const deleteInsightsData = async (ids: number[]) => {
     try {
@@ -69,7 +59,7 @@ export default function Report(props: ReportProps) {
       setReported(true);
     }
 
-    const name = await getName(); // Redact user's name
+    const name = await getStoredVal("first-name"); // Redact user's name
 
     // Send email to team
     try {

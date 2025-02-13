@@ -6,7 +6,8 @@ import * as Haptics from "expo-haptics";
 import { CircleX, BellRing } from "lucide-react-native";
 import Button from "components/Button";
 import Select from "components/reminder/Select";
-import { theme, pressedDefault, getReminder } from "utils/helpers";
+import { theme, pressedDefault } from "utils/helpers";
+import { getReminder } from "utils/reminders";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

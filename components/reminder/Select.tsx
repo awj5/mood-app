@@ -3,7 +3,8 @@ import * as Device from "expo-device";
 import { Picker } from "@react-native-picker/picker";
 import { ReminderType } from "components/Reminder";
 import Day from "./select/Day";
-import { theme, times } from "utils/helpers";
+import { theme } from "utils/helpers";
+import { times } from "utils/reminders";
 
 type SelectProps = {
   reminder: ReminderType;
