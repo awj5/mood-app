@@ -14,7 +14,7 @@ import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { pressedDefault, theme, getStoredVal } from "utils/helpers";
+import { pressedDefault, theme, getStoredVal, removeStoredVal } from "utils/helpers";
 import { getPromptData, PromptDataType } from "utils/data";
 import { convertToISO } from "utils/dates";
 
@@ -51,6 +51,7 @@ export default function Chat() {
 
       return response.data.response;
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) removeStoredVal("uuid"); // User doesn't exist so remove stored UUID
       console.log(error);
     }
   };
@@ -114,7 +115,7 @@ export default function Chat() {
     let name = await getStoredVal("first-name");
     const latestMessage = messages[messages.length - 1];
     let button: string;
-    const uuid = await getStoredVal("uuid"); // Check if user is subscribed
+    const uuid = await getStoredVal("uuid"); // Check if customer employee
 
     // Check if last message is user's name
     if (!name) {

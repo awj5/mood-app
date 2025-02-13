@@ -36,3 +36,11 @@ export const getStoredVal = async (name: string) => {
     return "";
   }
 };
+
+export const removeStoredVal = async (name: string) => {
+  try {
+    await AsyncStorage.removeItem(name);
+  } catch (error) {
+    console.log(error);
+  }
+};

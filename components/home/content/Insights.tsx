@@ -10,7 +10,7 @@ import { CalendarDatesType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
 import { getPromptData, PromptDataType } from "utils/data";
-import { getStoredVal } from "utils/helpers";
+import { getStoredVal, removeStoredVal } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -73,6 +73,7 @@ export default function Insights(props: InsightsProps) {
 
       return response.data.response;
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) removeStoredVal("uuid"); // User doesn't exist so remove stored UUID
       console.log(error);
     }
   };
@@ -97,7 +98,7 @@ export default function Insights(props: InsightsProps) {
     setText("");
     const promptData = getPromptData(props.checkIns);
     const savedResponse = await getInsightsData(promptData.ids);
-    const uuid = await getStoredVal("uuid"); // Check if user is subscribed
+    const uuid = await getStoredVal("uuid"); // Check if customer employee
 
     // Show saved response if exists or get response from API
     if (savedResponse && latestQueryRef.current === currentQuery) {

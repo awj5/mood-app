@@ -30,7 +30,7 @@ export default function Content() {
   const scrollViewRef = useRef<ScrollView>(null);
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const [widgets, setWidgets] = useState<React.ReactNode>();
-  const [hasUUID, setHasUUID] = useState(false);
+  const [hasAccess, setHasAccess] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const getCheckInData = async () => {
@@ -59,10 +59,10 @@ export default function Content() {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
     const checkInData = await getCheckInData();
-    const uuid = await getStoredVal("uuid"); // Check if user is subscribed
+    const uuid = await getStoredVal("uuid"); // Check if customer employee
 
     if (latestQueryRef.current === currentQuery) {
-      setHasUUID(uuid ? true : false);
+      setHasAccess(uuid ? true : false);
       setCheckIns(checkInData);
     }
   };
@@ -128,7 +128,7 @@ export default function Content() {
       >
         {checkIns?.length ? (
           <>
-            {hasUUID ? (
+            {hasAccess ? (
               <>
                 <Insights checkIns={checkIns} dates={homeDates} />
                 <Stats checkIns={checkIns} dates={homeDates} />
@@ -139,7 +139,7 @@ export default function Content() {
                 </View>
               </>
             ) : (
-              <Upsell />
+              <>{/*<Upsell />*/}</>
             )}
 
             {widgets}
