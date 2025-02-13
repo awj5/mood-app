@@ -52,6 +52,17 @@ export default function Quote(props: QuoteProps) {
     CharlesDickens: require("../../../assets/img/quotes/authors/charles-dickens.jpg"),
     Confucius: require("../../../assets/img/quotes/authors/confucius.jpg"),
     DalaiLama: require("../../../assets/img/quotes/authors/dalai-lama.jpg"),
+    RolloMay: require("../../../assets/img/quotes/authors/rollo-may.jpg"),
+    BrianTracy: require("../../../assets/img/quotes/authors/brian-tracy.jpg"),
+    KhalilGibran: require("../../../assets/img/quotes/authors/khalil-gibran.jpg"),
+    RalphWaldoEmerson: require("../../../assets/img/quotes/authors/ralph-waldo-emerson.jpg"),
+    MarcusAurelius: require("../../../assets/img/quotes/authors/marcus-aurelius.jpg"),
+    HenryFord: require("../../../assets/img/quotes/authors/henry-ford.jpg"),
+    WarrenBuffett: require("../../../assets/img/quotes/authors/warren-buffett.jpg"),
+    CarlJung: require("../../../assets/img/quotes/authors/carl-jung.jpg"),
+    PemaChödrön: require("../../../assets/img/quotes/authors/pema-chodron.jpg"),
+    JosephCampbell: require("../../../assets/img/quotes/authors/joseph-campbell.jpg"),
+    NelsonMandela: require("../../../assets/img/quotes/authors/nelson-mandela.jpg"),
   };
 
   useEffect(() => {
