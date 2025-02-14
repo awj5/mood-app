@@ -49,7 +49,7 @@ export default function Header(props: HeaderProps) {
   };
 
   const confirmDelete = () => {
-    Alert.alert("Delete check-in", "Are you sure you want to delete this check-in? It cannot be recovered.", [
+    Alert.alert("Delete Check-In", "Are you sure you want to delete this check-in? It cannot be recovered.", [
       {
         text: "Cancel",
         onPress: () => null,

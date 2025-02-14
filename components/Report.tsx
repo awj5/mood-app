@@ -37,7 +37,7 @@ export default function Report(props: ReportProps) {
 
   const confirm = () => {
     Alert.alert(
-      "Report bad response",
+      "Report Bad Response",
       "By tapping 'Send' this response will be anonymously submitted to our team for review. Thanks for your feedback!",
       [
         {
@@ -80,14 +80,14 @@ export default function Report(props: ReportProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
-        { gap: Device.deviceType !== 1 ? 6 : 4, display: props.visible ? "flex" : "none" },
+        { gap: Device.deviceType !== 1 ? 4 : 2, display: props.visible ? "flex" : "none" },
       ]}
       hitSlop={8}
       disabled={reported}
     >
       <Flag
         color={grey}
-        size={Device.deviceType !== 1 ? 20 : 16}
+        size={Device.deviceType !== 1 ? 16 : 12}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
       />
