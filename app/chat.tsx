@@ -32,7 +32,7 @@ export default function Chat() {
   const colors = theme();
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
-  const notesRef = useRef("");
+  const noteRef = useRef("");
   const checkInRef = useRef<PromptDataType>();
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
@@ -113,9 +113,9 @@ export default function Chat() {
   const addResponse = async () => {
     setGenerating(true);
     let name = await getStoredVal("first-name");
-    const latestMessage = messages[messages.length - 1];
-    let button: string;
     const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const latestMessage = messages[messages.length - 1];
+    const aiResponseCount = chatHistoryRef.current.filter((message) => message.role === "assistant").length;
 
     // Check if last message is user's name
     if (!name) {
@@ -134,11 +134,9 @@ export default function Chat() {
           content: `My name is ${name}.`,
         },
       ];
-
-      button = "dash"; // Show a link to dashboard on first convo with AI
     } else if (messages.length) {
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
-      if (!uuid) notesRef.current = `${notesRef.current}${notesRef.current && "\n\n"}${latestMessage.content}`; // Add message to notes if user not subscribed
+      if (!uuid) noteRef.current = `${noteRef.current}${noteRef.current && "\n\n"}${latestMessage.content}`; // Add message to note if user not subscribed
     }
 
     // Add empty response to show loader
@@ -152,21 +150,32 @@ export default function Chat() {
 
     const aiResponse = uuid
       ? await requestAIResponse("chat", uuid)
-      : chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 1
-      ? "Message saved."
+      : aiResponseCount >= 2
+      ? "I've updated this check-in with your message."
+      : aiResponseCount
+      ? `Thanks for sharing, ${name}. To have a deeper chat with me, you'll need a MOOD.ai Pro subscription. However, I've archived what you've shared here for your future reference.\n\nAnything else you'd like to add?`
       : `Hi ${name}, thanks for checking in. ${
           MoodsData.filter((mood) => mood.id === checkInRef.current?.mood)[0].description
-        }\n\nYou need to join MOOD.ai Pro to have a conversation with me but I can still save your messages if you want to leave a note.`;
+        }\n\nWhy do you think you're feeling this way?`;
+
+    if (!uuid) await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay response if user doesn't have AI access
 
     // Update the text of the last message
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
 
+      // Message
       updatedMessages[updatedMessages.length - 1].content = aiResponse
         ? aiResponse
         : "Sorry, I'm unable to respond at the moment.";
 
-      if (button) updatedMessages[updatedMessages.length - 1].button = button; // Include a button
+      // Button
+      updatedMessages[updatedMessages.length - 1].button = !aiResponseCount
+        ? "dash"
+        : !uuid && aiResponseCount === 1
+        ? "upsell"
+        : undefined;
+
       return updatedMessages;
     });
 
@@ -178,7 +187,7 @@ export default function Chat() {
       if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
         const aiSummary = uuid
           ? await requestAIResponse("summarize_chat", uuid)
-          : "[NOTE FROM USER]:" + notesRef.current;
+          : "[NOTE FROM USER]:" + noteRef.current;
 
         if (aiSummary) {
           // Update check-in note

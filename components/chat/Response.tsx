@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
+import { Sparkles } from "lucide-react-native";
 import Icon from "./response/Icon";
 import Report from "components/Report";
 import Button from "components/Button";
@@ -12,7 +13,7 @@ type ResponseProps = {
   text: string;
   generating: boolean;
   setGenerating: React.Dispatch<React.SetStateAction<boolean>>;
-  button?: string; // dash, company
+  button?: string; // dash, company, upsell
 };
 
 export default function Response(props: ResponseProps) {
@@ -29,7 +30,9 @@ export default function Response(props: ResponseProps) {
 
   const buttonClick = () => {
     if (props.button === "company") {
-      // Link to company dash
+      alert("Coming soon");
+    } else if (props.button === "upsell") {
+      alert("Coming soon");
     } else {
       router.dismissAll();
     }
@@ -85,8 +88,16 @@ export default function Response(props: ResponseProps) {
             entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
             style={{ alignSelf: "flex-start" }}
           >
-            <Button func={buttonClick}>
-              {props.button === "company" ? "View company insights" : "View my dashboard"}
+            <Button
+              func={buttonClick}
+              fill={props.button === "upsell"}
+              icon={props.button === "upsell" ? Sparkles : undefined}
+            >
+              {props.button === "company"
+                ? "View company insights"
+                : props.button === "upsell"
+                ? "Get MOOD.ai Pro"
+                : "View my dashboard"}
             </Button>
           </Animated.View>
         ) : (

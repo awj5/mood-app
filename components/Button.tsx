@@ -24,7 +24,7 @@ export default function Button(props: ButtonProps) {
         styles.container,
         {
           height: Device.deviceType !== 1 ? (props.fill ? 64 : 48) : props.fill ? 48 : 36,
-          paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
+          paddingHorizontal: Device.deviceType !== 1 ? (props.fill ? 20 : 16) : props.fill ? 16 : 12,
           borderWidth: props.destructive || props.fill ? 0 : stroke,
           borderColor: colors.primary,
           backgroundColor: props.destructive ? colors.secondary : props.fill ? colors.primary : "transparent",
