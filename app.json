@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "scheme": "com.moodplatforms.moodai",
+    "scheme": "moodai",
     "backgroundColor": "#000000",
     "splash": {
       "image": "./assets/splash.png",

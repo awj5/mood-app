@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Dimensions } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
+import * as Network from "expo-network";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { StatusBar } from "expo-status-bar";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import * as Linking from "expo-linking";
 import { SQLiteProvider } from "expo-sqlite";
+import axios from "axios";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "data/database";
 import { LayoutReadyContext } from "context/layout-ready";
@@ -39,10 +42,42 @@ export default function Layout() {
     "Tiempos-RegularItalic": require("../assets/fonts/tiempos-text-regularItalic.ttf"),
   });
 
+  const checkforUUID = async (url: string) => {
+    const { queryParams } = Linking.parse(url);
+
+    if (queryParams?.uuid) {
+      // Link includes UUID
+      const network = await Network.getNetworkStateAsync();
+
+      if (network.isInternetReachable) {
+        alert(queryParams.uuid);
+      } else {
+        alert("You must be online to complete this action.");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (layoutReady) {
+      // Deep link
+      const handleDeepLink = (event: { url: string }) => {
+        const { url } = event;
+        checkforUUID(url);
+      };
+
+      Linking.getInitialURL().then((url) => {
+        if (url) checkforUUID(url);
+      });
+
+      const listener = Linking.addEventListener("url", handleDeepLink);
+      return () => listener.remove();
+    }
+  }, [layoutReady]);
+
   useEffect(() => {
     if (layoutReady) {
       // Handle notification tap
-      const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      const listener = Notifications.addNotificationResponseReceivedListener((response) => {
         const route = response.notification.request.content.data.route;
 
         if (route) {
@@ -50,7 +85,7 @@ export default function Layout() {
         }
       });
 
-      return () => subscription.remove();
+      return () => listener.remove();
     }
   }, [router, layoutReady]);
 
