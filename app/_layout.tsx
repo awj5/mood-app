@@ -59,7 +59,9 @@ export default function Layout() {
 
   useEffect(() => {
     if (layoutReady) {
-      // Deep link
+      SplashScreen.hideAsync(); // Hide splash
+
+      // Deep linking
       const handleDeepLink = (event: { url: string }) => {
         const { url } = event;
         checkforUUID(url);

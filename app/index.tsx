@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useContext } from "react";
 import { View, Pressable } from "react-native";
-import { SplashScreen, Stack, useFocusEffect, useRouter } from "expo-router";
+import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -60,7 +60,6 @@ export default function Home() {
       console.log(error);
     }
 
-    SplashScreen.hideAsync();
     setLayoutReady(true);
   };
 
