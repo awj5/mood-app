@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, Alert } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import * as Network from "expo-network";
 import { useFonts } from "expo-font";
@@ -16,7 +16,8 @@ import { LayoutReadyContext } from "context/layout-ready";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
 import { CompanyDatesContext } from "context/company-dates";
-import { theme } from "../utils/helpers";
+import { setStoredVal, theme } from "../utils/helpers";
+import { getMonday } from "utils/dates";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -50,7 +51,39 @@ export default function Layout() {
       const network = await Network.getNetworkStateAsync();
 
       if (network.isInternetReachable) {
-        alert(queryParams.uuid);
+        // Validate UUID
+        try {
+          const response = await axios.post(
+            process.env.NODE_ENV === "production" ? "https://mood.ai/api/uuid" : "http://localhost:3000/api/uuid",
+            {
+              uuid: queryParams.uuid,
+            }
+          );
+
+          if (response.data) {
+            setStoredVal("uuid", queryParams.uuid as string); // Store UUID
+            setStoredVal("company-name", response.data); // Store company name
+
+            // Trigger dashboard refresh
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const monday = getMonday(today);
+            setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+
+            Alert.alert(
+              "MOOD.ai Pro Enabled!",
+              `${response.data} has granted you access to their company insights and a MOOD.ai Pro subscription.`
+            );
+          }
+        } catch (error) {
+          if (axios.isAxiosError(error) && error.response?.status === 401) {
+            alert("Access code has already been used or is not valid.");
+          } else {
+            alert("An unexpected error has occurred.");
+          }
+
+          console.log(error);
+        }
       } else {
         alert("You must be online to complete this action.");
       }

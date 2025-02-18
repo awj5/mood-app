@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View, Linking, ScrollView } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
@@ -10,16 +10,27 @@ import Reminder from "components/settings/Reminder";
 import ReminderOverlay from "components/Reminder";
 import Version from "components/settings/Version";
 import HeaderTitle from "components/HeaderTitle";
-import { theme, pressedDefault } from "utils/helpers";
+import Company from "components/settings/Company";
+import { theme, pressedDefault, getStoredVal } from "utils/helpers";
 
 export default function Settings() {
   const colors = theme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const [reminderVisible, setReminderVisible] = useState(false);
+  const [company, setCompany] = useState("");
   const padding = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: padding };
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
+
+  const getCompany = async () => {
+    const name = await getStoredVal("company-name");
+    if (name) setCompany(name);
+  };
+
+  useEffect(() => {
+    getCompany();
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -90,6 +101,14 @@ export default function Settings() {
         <View style={[styles.divider, dividerStyle]} />
         <Reminder reminderVisible={reminderVisible} setReminderVisible={setReminderVisible} />
         <View style={[styles.divider, dividerStyle]} />
+
+        {company && (
+          <>
+            <Company company={company} setCompany={setCompany} />
+            <View style={[styles.divider, dividerStyle]} />
+          </>
+        )}
+
         <Version />
       </ScrollView>
 

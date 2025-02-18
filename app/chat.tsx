@@ -6,7 +6,6 @@ import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { Sparkles } from "lucide-react-native";
 import MoodsData from "data/moods.json";
@@ -14,7 +13,7 @@ import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { pressedDefault, theme, getStoredVal, removeStoredVal } from "utils/helpers";
+import { pressedDefault, theme, getStoredVal, removeStoredVal, setStoredVal } from "utils/helpers";
 import { getPromptData, PromptDataType } from "utils/data";
 import { convertToISO } from "utils/dates";
 
@@ -36,6 +35,7 @@ export default function Chat() {
   const checkInRef = useRef<PromptDataType>();
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
+  const [company, setCompany] = useState("");
 
   const requestAIResponse = async (type: string, uuid: string) => {
     try {
@@ -51,7 +51,12 @@ export default function Chat() {
 
       return response.data.response;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) removeStoredVal("uuid"); // User doesn't exist so remove stored UUID
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        // User doesn't exist so remove stored UUID and company-name
+        removeStoredVal("uuid");
+        removeStoredVal("company-name");
+      }
+
       console.log(error);
     }
   };
@@ -119,12 +124,8 @@ export default function Chat() {
 
     // Check if last message is user's name
     if (!name) {
-      try {
-        name = latestMessage.content.substring(0, 30).trim();
-        await AsyncStorage.setItem("first-name", name); // Store name
-      } catch (error) {
-        console.log(error);
-      }
+      name = latestMessage.content.substring(0, 30).trim();
+      setStoredVal("first-name", name);
 
       // Let AI know user's name
       chatHistoryRef.current = [
@@ -201,6 +202,11 @@ export default function Chat() {
     }
   };
 
+  const getCompany = async () => {
+    const name = await getStoredVal("company-name");
+    if (name) setCompany(name);
+  };
+
   useEffect(() => {
     if (messages.length && messages[messages.length - 1].role === "user") addResponse(); // Reply if last message is from user
 
@@ -214,6 +220,7 @@ export default function Chat() {
       setFirstResponse();
     }, 500); // Wait for screen transition
 
+    getCompany();
     return () => clearTimeout(timer);
   }, []);
 
@@ -263,7 +270,7 @@ export default function Chat() {
                 }}
                 allowFontScaling={false}
               >
-                Acme, Inc. Insights
+                {company ? company + " Insights" : "Company Insights"}
               </Text>
             </Pressable>
           ),

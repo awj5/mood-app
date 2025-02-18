@@ -73,7 +73,12 @@ export default function Insights(props: InsightsProps) {
 
       return response.data.response;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) removeStoredVal("uuid"); // User doesn't exist so remove stored UUID
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        // User doesn't exist so remove stored UUID and company-name
+        removeStoredVal("uuid");
+        removeStoredVal("company-name");
+      }
+
       console.log(error);
     }
   };

@@ -38,7 +38,7 @@ export default function Report(props: ReportProps) {
   const confirm = () => {
     Alert.alert(
       "Report Bad Response",
-      "By tapping 'Send' this response will be anonymously submitted to our team for review. Thanks for your feedback!",
+      "By tapping 'Send,' this response will be anonymously submitted to our team for review. Thank you for your feedback!",
       [
         {
           text: "Cancel",

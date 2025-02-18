@@ -37,6 +37,14 @@ export const getStoredVal = async (name: string) => {
   }
 };
 
+export const setStoredVal = async (name: string, val: string) => {
+  try {
+    await AsyncStorage.setItem(name, val);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const removeStoredVal = async (name: string) => {
   try {
     await AsyncStorage.removeItem(name);
