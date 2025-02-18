@@ -5,6 +5,7 @@ export type CheckInMoodType = {
   tags: number[];
   competency: number;
   statementResponse: number;
+  company?: string;
 };
 
 export type CheckInType = {

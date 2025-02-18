@@ -83,15 +83,16 @@ export default function Chat() {
   const setFirstResponse = async () => {
     const name = await getStoredVal("first-name");
     const history = await getCheckInHistoryData(); // Get recent check-ins
+    const companyName = await getStoredVal("company-name");
 
     if (history) {
       // Share most recent check-in with AI
       chatHistoryRef.current = [
         {
           role: "user",
-          content: `${name ? `My name is ${name}. ` : ""}Please analyze today's check-in: ${JSON.stringify(
-            history[history.length - 1]
-          )}.${
+          content: `${name ? `My name is ${name}. ` : ""}${
+            companyName ? `I work at ${companyName}. ` : ""
+          }Please analyze today's check-in: ${JSON.stringify(history[history.length - 1])}.${
             history.length > 1
               ? ` For reference, here is my recent check-in history: ${JSON.stringify(history.slice(0, -1))}.`
               : ""

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
@@ -6,7 +6,7 @@ import Slider from "@react-native-community/slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CompetencyType } from "app/check-in";
-import { shuffleArray } from "utils/helpers";
+import { getStoredVal, shuffleArray } from "utils/helpers";
 
 type StatementProps = {
   moodID: number;
@@ -19,6 +19,7 @@ type StatementProps = {
 
 export default function Statement(props: StatementProps) {
   const opacity = useSharedValue(0);
+  const [company, setCompany] = useState("");
   const margin = Platform.OS === "ios" ? 8 : 0;
   const labelFontSize = Device.deviceType !== 1 ? 18 : 14;
 
@@ -37,7 +38,13 @@ export default function Statement(props: StatementProps) {
     12: require("../../assets/img/slider-thumb/orange.png"),
   };
 
+  const getCompany = async () => {
+    const name = await getStoredVal("company-name");
+    if (name) setCompany(name);
+  };
+
   useEffect(() => {
+    getCompany();
     const competencies: number[] = [];
 
     // Loop selected tags and get competencies
@@ -67,7 +74,7 @@ export default function Statement(props: StatementProps) {
         style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
         allowFontScaling={false}
       >
-        At my company, {props.competency.statement}.
+        At {company ? company : "my company"}, {props.competency.statement}.
       </Text>
 
       <View style={{ gap: 12 }}>

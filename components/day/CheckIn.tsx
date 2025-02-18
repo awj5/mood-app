@@ -52,7 +52,8 @@ export default function CheckIn(props: CheckInProps) {
         >
           {getStatement(
             guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
-            mood.statementResponse
+            mood.statementResponse,
+            mood.company
           )}
         </Text>
 

@@ -1,34 +1,34 @@
 import tagsData from "data/tags.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 
-export const getStatement = (statement: string, response: number) => {
+export const getStatement = (statement: string, response: number, company?: string) => {
   const percentage = Math.round(response * 100);
   let start = "";
 
   switch (true) {
     case response >= 0.85:
-      start = `I strongly agreed (${percentage}%) that `;
+      start = `I strongly agreed (${percentage}%) that`;
       break;
     case response >= 0.65:
-      start = `I agreed (${percentage}%) that `;
+      start = `I agreed (${percentage}%) that`;
       break;
     case response >= 0.55:
-      start = `I somewhat agreed (${percentage}%) that `;
+      start = `I somewhat agreed (${percentage}%) that`;
       break;
     case response >= 0.45:
-      start = `I neither agreed nor disagreed (${percentage}%) that `;
+      start = `I neither agreed nor disagreed (${percentage}%) that`;
       break;
     case response >= 0.35:
-      start = `I somewhat disagreed (${percentage}%) that `;
+      start = `I somewhat disagreed (${percentage}%) that`;
       break;
     case response >= 0.15:
-      start = `I disagreed (${percentage}%) that `;
+      start = `I disagreed (${percentage}%) that`;
       break;
     default:
-      start = `I strongly disagreed (${percentage}%) that `;
+      start = `I strongly disagreed (${percentage}%) that`;
   }
 
-  return start + statement + " at my company.";
+  return `${start} ${statement} at ${company ? company : "my company"}.`;
 };
 
 export type PromptDataType = {

@@ -16,7 +16,7 @@ import Tags from "components/check-in/Tags";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
-import { theme } from "utils/helpers";
+import { getStoredVal, theme } from "utils/helpers";
 
 export type MoodType = {
   id: number;
@@ -51,11 +51,14 @@ export default function CheckIn() {
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
 
   const submitCheckIn = async () => {
+    const name = await getStoredVal("company-name");
+
     const value = JSON.stringify({
       color: mood.value.id,
       tags: selectedTags,
       competency: competency.id,
       statementResponse: sliderVal.value,
+      company: name,
     });
 
     try {
