@@ -77,6 +77,7 @@ export default function Insights(props: InsightsProps) {
         // User doesn't exist so remove stored UUID and company-name
         removeStoredVal("uuid");
         removeStoredVal("company-name");
+        removeStoredVal("send-check-ins");
       }
 
       console.log(error);

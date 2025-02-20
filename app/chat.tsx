@@ -7,7 +7,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
 import axios from "axios";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
-import { Sparkles } from "lucide-react-native";
+import { ChartSpline } from "lucide-react-native";
 import MoodsData from "data/moods.json";
 import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
@@ -55,6 +55,7 @@ export default function Chat() {
         // User doesn't exist so remove stored UUID and company-name
         removeStoredVal("uuid");
         removeStoredVal("company-name");
+        removeStoredVal("send-check-ins");
       }
 
       console.log(error);
@@ -247,8 +248,7 @@ export default function Chat() {
           ),
           headerRight: () => (
             <Pressable
-              //onPress={() => router.push("company-dash")}
-              onPress={() => alert("Coming soon")}
+              onPress={() => router.push("company")}
               style={({ pressed }) => [
                 styles.headerRight,
                 pressedDefault(pressed),
@@ -256,7 +256,7 @@ export default function Chat() {
               ]}
               hitSlop={16}
             >
-              <Sparkles
+              <ChartSpline
                 color={colors.primary}
                 size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth

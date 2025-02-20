@@ -1,25 +1,33 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
-import { SlidersHorizontal } from "lucide-react-native";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
-import Bg from "components/home/Bg";
-import HeaderTitle from "components/HeaderTitle";
 import HeaderDates from "components/HeaderDates";
-import Content from "components/company-dash/Content";
-import Button from "components/Button";
-import { theme } from "utils/helpers";
+import Upsell from "components/company/Upsell";
+import Disclaimer from "components/company/Disclaimer";
+import { getStoredVal, theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
-export default function CompanyDash() {
+export default function Company() {
   const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
+  const [hasAccess, setHasAccess] = useState(false);
+  const [company, setCompany] = useState("");
+
+  const checkAccess = async () => {
+    const name = await getStoredVal("company-name");
+    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
+    if (name) setCompany(name);
+    if (name && send) setHasAccess(true);
+  };
 
   useEffect(() => {
+    checkAccess();
+
     // Always set date to past 30 days on mount
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -54,26 +62,15 @@ export default function CompanyDash() {
               style={{ marginLeft: -8 }}
             />
           ),
-          headerRight: () => <HeaderDates dates={companyDates} type="company" />,
+          headerRight: () => (hasAccess ? <HeaderDates dates={companyDates} type="company" /> : null),
         }}
       />
 
-      <Bg />
-
-      <View style={[styles.header, { marginTop: headerHeight, paddingRight: Device.deviceType !== 1 ? 24 : 16 }]}>
-        <HeaderTitle text="Acme, Inc." />
-        <Button icon={SlidersHorizontal}>Filters</Button>
-      </View>
-
-      <Content />
+      {hasAccess ? <></> : company ? <Disclaimer company={company} /> : <Upsell />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
+  //
 });

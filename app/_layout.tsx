@@ -71,7 +71,7 @@ export default function Layout() {
             setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
 
             Alert.alert(
-              "MOOD.ai Pro Enabled!",
+              "You've Gone Pro!",
               `${response.data} has granted you access to their company insights and a MOOD.ai Pro subscription.`
             );
           }

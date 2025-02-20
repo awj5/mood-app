@@ -63,6 +63,23 @@ export default function Quote(props: QuoteProps) {
     PemaChödrön: require("../../../assets/img/quotes/authors/pema-chodron.jpg"),
     JosephCampbell: require("../../../assets/img/quotes/authors/joseph-campbell.jpg"),
     NelsonMandela: require("../../../assets/img/quotes/authors/nelson-mandela.jpg"),
+    MahatmaGandhi: require("../../../assets/img/quotes/authors/mahatma-gandhi.jpg"),
+    AbrahamLincoln: require("../../../assets/img/quotes/authors/abraham-lincoln.jpg"),
+    PlinytheElder: require("../../../assets/img/quotes/authors/pliny-the-elder.jpg"),
+    ThomasCarlyle: require("../../../assets/img/quotes/authors/thomas-carlyle.jpg"),
+    Buddha: require("../../../assets/img/quotes/authors/buddha.jpg"),
+    AudreLorde: require("../../../assets/img/quotes/authors/audre-lorde.jpg"),
+    BeyoncéKnowles: require("../../../assets/img/quotes/authors/beyonce-knowles.jpg"),
+    AlbertEinstein: require("../../../assets/img/quotes/authors/albert-einstein.jpg"),
+    OprahWinfrey: require("../../../assets/img/quotes/authors/oprah-winfrey.jpg"),
+    BruceLee: require("../../../assets/img/quotes/authors/bruce-lee.jpg"),
+    Epictetus: require("../../../assets/img/quotes/authors/epictetus.jpg"),
+    ThomasEdison: require("../../../assets/img/quotes/authors/thomas-edison.jpg"),
+    JaggiVasudev: require("../../../assets/img/quotes/authors/jaggi-vasudev.jpg"),
+    ThomasJefferson: require("../../../assets/img/quotes/authors/thomas-jefferson.jpg"),
+    AlbertCamus: require("../../../assets/img/quotes/authors/albert-camus.jpg"),
+    FriedrichNietzsche: require("../../../assets/img/quotes/authors/friedrich-nietzsche.jpg"),
+    MicheldeMontaigne: require("../../../assets/img/quotes/authors/michel-de-montaigne.jpg"),
   };
 
   useEffect(() => {
