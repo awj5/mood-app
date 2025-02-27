@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
-import { ChartSpline, ShieldCheck } from "lucide-react-native";
+import { EyeOff, ShieldCheck } from "lucide-react-native";
 import Button from "components/Button";
 import { theme, pressedDefault } from "utils/helpers";
 
@@ -29,7 +29,7 @@ export default function Disclaimer(props: DisclaimerProps) {
       ]}
     >
       <View style={[styles.wrapper, { gap: spacing }]}>
-        <ChartSpline
+        <ShieldCheck
           color={colors.primary}
           size={Device.deviceType !== 1 ? 88 : 64}
           absoluteStrokeWidth
@@ -68,7 +68,7 @@ export default function Disclaimer(props: DisclaimerProps) {
 
       <View style={{ backgroundColor: colors.secondaryBg, padding: spacing, borderRadius: spacing, gap: spacing }}>
         <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-          <ShieldCheck
+          <EyeOff
             color={colors.primary}
             size={Device.deviceType !== 1 ? 28 : 20}
             absoluteStrokeWidth

@@ -85,7 +85,8 @@ export default function Quote(props: QuoteProps) {
   useEffect(() => {
     const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
     const tags = mood.tags;
-    const quotes = QuotesData.filter((item) => item.tags.includes(tags[Math.floor(Math.random() * tags.length)])); // Quotes with random tag
+    const randTag = tags[Math.floor(Math.random() * tags.length)];
+    const quotes = QuotesData.filter((item) => item.tags.includes(randTag)); // Quotes with random tag
 
     if (quotes.length) {
       const random = quotes[Math.floor(Math.random() * quotes.length)]; // Random quote

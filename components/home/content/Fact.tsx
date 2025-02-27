@@ -49,7 +49,8 @@ export default function Fact(props: FactProps) {
   useEffect(() => {
     const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
     const tags = mood.tags;
-    const facts = FactsData.filter((item) => item.tag === tags[Math.floor(Math.random() * tags.length)]); // Facts with random tag
+    const randTag = tags[Math.floor(Math.random() * tags.length)];
+    const facts = FactsData.filter((item) => item.tag === randTag); // Facts with random tag
 
     if (facts.length) {
       const random = facts[Math.floor(Math.random() * facts.length)]; // Random fact
