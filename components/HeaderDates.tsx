@@ -10,6 +10,7 @@ import { getDateRange } from "utils/dates";
 type HeaderDatesProps = {
   dates: CalendarDatesType;
   type: string;
+  hidden?: boolean;
 };
 
 export default function HeaderDates(props: HeaderDatesProps) {
@@ -26,8 +27,13 @@ export default function HeaderDates(props: HeaderDatesProps) {
   return (
     <Pressable
       onPress={() => router.push({ pathname: "date-filters", params: { type: props.type } })}
-      style={({ pressed }) => [styles.container, pressedDefault(pressed), { gap: Device.deviceType !== 1 ? 12 : 8 }]}
+      style={({ pressed }) => [
+        styles.container,
+        pressedDefault(pressed),
+        { gap: Device.deviceType !== 1 ? 12 : 8, display: props.hidden ? "none" : "flex" },
+      ]}
       hitSlop={16}
+      disabled={props.hidden}
     >
       {props.dates.rangeStart || props.type === "company" ? (
         <CalendarRange color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />

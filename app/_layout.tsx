@@ -62,7 +62,8 @@ export default function Layout() {
 
           if (response.data) {
             setStoredVal("uuid", queryParams.uuid as string); // Store UUID
-            setStoredVal("company-name", response.data); // Store company name
+            setStoredVal("company-id", String(response.data.id)); // Store company ID
+            setStoredVal("company-name", response.data.name); // Store company name
 
             // Trigger dashboard refresh
             const today = new Date();
@@ -72,7 +73,7 @@ export default function Layout() {
 
             Alert.alert(
               "You've Gone Pro!",
-              `${response.data} has granted you access to their company insights and a MOOD.ai Pro subscription.`
+              `${response.data.name} has granted you access to their company insights and a MOOD.ai Pro subscription.`
             );
           }
         } catch (error) {

@@ -14,6 +14,7 @@ export default function Company(props: CompanyProps) {
 
   const remove = async () => {
     removeStoredVal("uuid");
+    removeStoredVal("company-id");
     removeStoredVal("company-name");
     removeStoredVal("send-check-ins");
     props.setCompany(""); // Hide section

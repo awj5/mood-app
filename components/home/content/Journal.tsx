@@ -171,7 +171,7 @@ export default function Journal(props: JournalProps) {
                   }}
                   allowFontScaling={false}
                 >
-                  {entries[count].note}
+                  {entries[count].note.replace("[NOTE FROM USER]:", "")}
                 </Text>
               </Animated.View>
             </ScrollView>

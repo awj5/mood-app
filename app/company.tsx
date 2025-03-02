@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
@@ -7,6 +7,7 @@ import { CompanyDatesContext, CompanyDatesContextType } from "context/company-da
 import HeaderDates from "components/HeaderDates";
 import Upsell from "components/company/Upsell";
 import Disclaimer from "components/company/Disclaimer";
+import Content from "components/company/Content";
 import { getStoredVal, theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
@@ -62,15 +63,19 @@ export default function Company() {
               style={{ marginLeft: -8 }}
             />
           ),
-          headerRight: () => (hasAccess ? <HeaderDates dates={companyDates} type="company" /> : null),
+          headerRight: () => <HeaderDates dates={companyDates} type="company" hidden={!hasAccess} />,
         }}
       />
 
-      {hasAccess ? <></> : company ? <Disclaimer company={company} /> : <Upsell />}
+      {hasAccess ? (
+        <View style={{ flex: 1, marginTop: headerHeight }}>
+          <Content />
+        </View>
+      ) : company ? (
+        <Disclaimer company={company} setHasAccess={setHasAccess} />
+      ) : (
+        <Upsell />
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  //
-});

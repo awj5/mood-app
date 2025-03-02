@@ -1,9 +1,7 @@
-import React from "react";
-import { useCallback, useContext, useRef, useState } from "react";
+import React, { useEffect } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
-import { useSQLiteContext } from "expo-sqlite";
-import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CheckInType } from "data/database";
@@ -11,70 +9,38 @@ import { CompanyDatesContext, CompanyDatesContextType } from "context/company-da
 import Insights from "./content/Insights";
 import Categories from "./content/Categories";
 import { theme } from "utils/helpers";
-import { convertToISO } from "utils/dates";
 
 export default function Content() {
-  const db = useSQLiteContext();
   const colors = theme();
   const insets = useSafeAreaInsets();
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
-  const latestQueryRef = useRef<symbol>();
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
-  const getCheckInData = async () => {
-    const start = companyDates.rangeStart ? companyDates.rangeStart : companyDates.weekStart;
-    let end = new Date(start);
-
-    if (companyDates.rangeEnd) {
-      end = companyDates.rangeEnd;
-    } else {
-      end.setDate(start.getDate() + 6); // Sunday
-    }
-
-    try {
-      const rows: CheckInType[] = await db.getAllAsync(
-        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
-        [convertToISO(start), convertToISO(end)]
-      );
-
-      return rows;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const getCheckIns = async () => {
-    const currentQuery = Symbol("currentQuery");
-    latestQueryRef.current = currentQuery;
-    const checkInData = await getCheckInData();
-
-    if (latestQueryRef.current === currentQuery) {
-      setCheckIns(checkInData);
-    }
+    //
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      getCheckIns();
-    }, [companyDates])
-  );
+  useEffect(() => {
+    getCheckIns();
+  }, [companyDates]);
 
   return (
-    <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1 }}>
+    <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}>
       <View
         style={[
           styles.wrapper,
           {
             paddingBottom: insets.bottom + spacing,
             gap: spacing,
+            paddingHorizontal: spacing,
           },
         ]}
       >
         {checkIns?.length ? (
           <>
-            <Insights checkIns={checkIns} dates={companyDates} />
-            <Categories />
+            {/*<Insights checkIns={checkIns} dates={companyDates} />
+            <Categories />*/}
           </>
         ) : (
           checkIns !== undefined && (
@@ -100,8 +66,10 @@ export default function Content() {
 
 const styles = StyleSheet.create({
   wrapper: {
-    alignItems: "center",
     flex: 1,
+    alignItems: "center",
     justifyContent: "center",
+    width: "100%",
+    maxWidth: 720 + 48,
   },
 });

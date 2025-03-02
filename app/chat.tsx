@@ -54,6 +54,7 @@ export default function Chat() {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         // User doesn't exist so remove stored UUID and company-name
         removeStoredVal("uuid");
+        removeStoredVal("company-id");
         removeStoredVal("company-name");
         removeStoredVal("send-check-ins");
       }

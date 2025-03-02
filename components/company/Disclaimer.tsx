@@ -2,10 +2,11 @@ import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { EyeOff, ShieldCheck } from "lucide-react-native";
 import Button from "components/Button";
-import { theme, pressedDefault } from "utils/helpers";
+import { theme, pressedDefault, setStoredVal } from "utils/helpers";
 
 type DisclaimerProps = {
   company: string;
+  setHasAccess: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Disclaimer(props: DisclaimerProps) {
@@ -15,7 +16,8 @@ export default function Disclaimer(props: DisclaimerProps) {
   const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
 
   const agree = () => {
-    alert("Coming soon");
+    setStoredVal("send-check-ins", "true");
+    props.setHasAccess(true);
   };
 
   return (
