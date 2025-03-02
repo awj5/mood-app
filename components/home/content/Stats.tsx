@@ -268,7 +268,7 @@ export default function Stats(props: StatsProps) {
           dataPointsRadius={dataPointSize}
           color={colors.primary === "white" ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)"}
           color2={colors.primary === "white" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.4)"}
-          thickness={dataPointSize + 1}
+          thickness={dataPointSize}
           interpolateMissingValues={false}
           curved
           disableScroll={satisfaction.length <= 12}

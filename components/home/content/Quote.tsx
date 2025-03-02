@@ -80,6 +80,20 @@ export default function Quote(props: QuoteProps) {
     AlbertCamus: require("../../../assets/img/quotes/authors/albert-camus.jpg"),
     FriedrichNietzsche: require("../../../assets/img/quotes/authors/friedrich-nietzsche.jpg"),
     MicheldeMontaigne: require("../../../assets/img/quotes/authors/michel-de-montaigne.jpg"),
+    WinstonChurchill: require("../../../assets/img/quotes/authors/winston-churchill.jpg"),
+    WaltWhitman: require("../../../assets/img/quotes/authors/walt-whitman.jpg"),
+    WayneDyer: require("../../../assets/img/quotes/authors/wayne-dyer.jpg"),
+    BrenéBrown: require("../../../assets/img/quotes/authors/brene-brown.jpg"),
+    MotherTeresa: require("../../../assets/img/quotes/authors/mother-teresa.jpg"),
+    MaxwellMaltz: require("../../../assets/img/quotes/authors/maxwell-maltz.jpg"),
+    ClareBootheLuce: require("../../../assets/img/quotes/authors/clare-boothe-luce.jpg"),
+    JimRohn: require("../../../assets/img/quotes/authors/jim-rohn.jpg"),
+    EleanorRoosevelt: require("../../../assets/img/quotes/authors/eleanor-roosevelt.jpg"),
+    HenryDavidThoreau: require("../../../assets/img/quotes/authors/henry-david-thoreau.jpg"),
+    AdamGrant: require("../../../assets/img/quotes/authors/adam-grant.jpg"),
+    StephenKing: require("../../../assets/img/quotes/authors/stephen-king.jpg"),
+    Sophocles: require("../../../assets/img/quotes/authors/sophocles.jpg"),
+    DouglasAdams: require("../../../assets/img/quotes/authors/douglas-adams.jpg"),
   };
 
   useEffect(() => {
