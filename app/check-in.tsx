@@ -19,6 +19,7 @@ import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
 import { getStoredVal, theme } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 export type MoodType = {
   id: number;
@@ -52,9 +53,10 @@ export default function CheckIn() {
   const [showStatement, setShowStatement] = useState(false);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
 
-  const recordCheckIn = async (checkIn: CheckInMoodType) => {
+  const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
+    const today = new Date();
 
     if (uuid && send) {
       // Save to Supabase
@@ -64,6 +66,7 @@ export default function CheckIn() {
           {
             uuid: uuid,
             value: checkIn,
+            date: convertToISO(today),
           }
         );
       } catch (error) {
@@ -87,7 +90,7 @@ export default function CheckIn() {
       await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
       router.push("chat");
       delete value.company; // Company no longer needed
-      recordCheckIn(value);
+      postCheckIn(value);
     } catch (error) {
       console.log(error);
       alert("An unexpected error has occurred.");
