@@ -94,6 +94,19 @@ export default function Quote(props: QuoteProps) {
     StephenKing: require("../../../assets/img/quotes/authors/stephen-king.jpg"),
     Sophocles: require("../../../assets/img/quotes/authors/sophocles.jpg"),
     DouglasAdams: require("../../../assets/img/quotes/authors/douglas-adams.jpg"),
+    LeonardodaVinci: require("../../../assets/img/quotes/authors/leonardo-da-vinci.jpg"),
+    StephenCovey: require("../../../assets/img/quotes/authors/stephen-covey.jpg"),
+    NeilGaiman: require("../../../assets/img/quotes/authors/neil-gaiman.jpg"),
+    TonyRobbins: require("../../../assets/img/quotes/authors/tony-robbins.jpg"),
+    CSLewis: require("../../../assets/img/quotes/authors/cs-lewis.jpg"),
+    Ovid: require("../../../assets/img/quotes/authors/ovid.jpg"),
+    ErnestHemingway: require("../../../assets/img/quotes/authors/ernest-hemingway.jpg"),
+    FScottFitzgerald: require("../../../assets/img/quotes/authors/f-scott-fitzgerald.jpg"),
+    FranklinDRoosevelt: require("../../../assets/img/quotes/authors/franklin-d-roosevelt.jpg"),
+    FrançoisdeLaRochefoucauld: require("../../../assets/img/quotes/authors/francois-de-la-rochefoucauld.jpg"),
+    ThichNhatHanh: require("../../../assets/img/quotes/authors/thich-nhat-hanh.jpg"),
+    MayaAngelou: require("../../../assets/img/quotes/authors/maya-angelou.jpg"),
+    RonaldReagan: require("../../../assets/img/quotes/authors/ronald-reagan.jpg"),
   };
 
   useEffect(() => {
