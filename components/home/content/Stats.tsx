@@ -31,7 +31,7 @@ export default function Stats(props: StatsProps) {
   const maxWidth = 720 + 48; // Max width of content wrapper
   const rulesColor = colors.primary === "white" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
   const invertedColor = colors.primary === "white" ? "black" : "white";
-  const dataPointSize = Device.deviceType !== 1 ? 6 : 4;
+  const dataPointSize = Device.deviceType !== 1 ? 7 : 5;
   const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

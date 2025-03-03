@@ -3,8 +3,10 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
+import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
+import { CheckInMoodType } from "data/database";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
@@ -50,20 +52,42 @@ export default function CheckIn() {
   const [showStatement, setShowStatement] = useState(false);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
 
+  const recordCheckIn = async (checkIn: CheckInMoodType) => {
+    const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
+
+    if (uuid && send) {
+      // Save to Supabase
+      try {
+        await axios.post(
+          process.env.NODE_ENV === "production" ? "https://mood.ai/api/check-in" : "http://localhost:3000/api/check-in",
+          {
+            uuid: uuid,
+            value: checkIn,
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const submitCheckIn = async () => {
     const name = await getStoredVal("company-name");
 
-    const value = JSON.stringify({
+    const value: CheckInMoodType = {
       color: mood.value.id,
       tags: selectedTags,
       competency: competency.id,
       statementResponse: sliderVal.value,
-      company: name,
-    });
+      company: name ? name : undefined,
+    };
 
     try {
-      await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [value]);
+      await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
       router.push("chat");
+      delete value.company; // Company no longer needed
+      recordCheckIn(value);
     } catch (error) {
       console.log(error);
       alert("An unexpected error has occurred.");
