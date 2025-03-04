@@ -89,7 +89,6 @@ export default function CheckIn() {
     try {
       await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
       router.push("chat");
-      delete value.company; // Company no longer needed
       postCheckIn(value);
     } catch (error) {
       console.log(error);
