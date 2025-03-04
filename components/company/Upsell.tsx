@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     alignItems: "center",
-    maxWidth: 512,
+    maxWidth: 672,
+    width: "100%",
   },
   title: {
     fontFamily: "Circular-Black",

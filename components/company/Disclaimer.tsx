@@ -66,59 +66,69 @@ export default function Disclaimer(props: DisclaimerProps) {
           share your check-ins. This does not include any information shared in your private chats with{" "}
           <Text style={{ fontFamily: "Circular-Bold" }}>MOOD</Text>.
         </Text>
-      </View>
 
-      <View style={{ backgroundColor: colors.secondaryBg, padding: spacing, borderRadius: spacing, gap: spacing }}>
-        <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-          <EyeOff
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 28 : 20}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-          />
-
-          <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              color: colors.primary,
-              fontSize: fontSizeSmall,
-            }}
-            allowFontScaling={false}
-          >
-            PRIVACY PROTECTED
-          </Text>
-        </View>
-
-        <Text
+        <View
           style={[
-            styles.text,
+            styles.privacy,
             {
-              color: colors.primary,
-              fontSize: fontSize,
+              backgroundColor: colors.secondaryBg,
+              padding: spacing,
+              borderRadius: spacing,
+              gap: spacing,
             },
           ]}
-          allowFontScaling={false}
         >
-          Neither <Text style={{ fontFamily: "Circular-Bold" }}>{props.company}</Text> nor{" "}
-          <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> are able to identify an individual user's
-          check-in.
-        </Text>
+          <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+            <EyeOff
+              color={colors.primary}
+              size={Device.deviceType !== 1 ? 28 : 20}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            />
 
-        <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+            <Text
+              style={{
+                fontFamily: "Circular-Bold",
+                color: colors.primary,
+                fontSize: fontSizeSmall,
+              }}
+              allowFontScaling={false}
+            >
+              PRIVACY PROTECTED
+            </Text>
+          </View>
+
           <Text
             style={[
               styles.text,
               {
-                color: colors.secondary,
-                fontSize: fontSizeSmall,
-                textDecorationLine: "underline",
+                color: colors.primary,
+                fontSize: fontSize,
               },
             ]}
             allowFontScaling={false}
           >
-            Learn more about our{"\n"}commitment to your privacy
+            Neither <Text style={{ fontFamily: "Circular-Bold" }}>{props.company}</Text> nor{" "}
+            <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> are able to identify an individual user's
+            check-in.
           </Text>
-        </Pressable>
+
+          <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+            <Text
+              style={[
+                styles.text,
+                {
+                  color: colors.secondary,
+                  fontSize: fontSizeSmall,
+                  textDecorationLine: "underline",
+                },
+              ]}
+              allowFontScaling={false}
+            >
+              Learn more about our{"\n"}commitment to your privacy
+            </Text>
+          </Pressable>
+        </View>
       </View>
 
       <View style={{ alignItems: "center" }}>
@@ -138,7 +148,8 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     alignItems: "center",
-    maxWidth: 512,
+    maxWidth: 672,
+    width: "100%",
   },
   title: {
     fontFamily: "Circular-Black",
@@ -152,5 +163,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "center",
+  },
+  privacy: {
+    width: "100%",
+    maxWidth: 512,
   },
 });
