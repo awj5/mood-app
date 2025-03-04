@@ -52,3 +52,10 @@ export const removeStoredVal = async (name: string) => {
     console.log(error);
   }
 };
+
+export const removeAccess = () => {
+  // User doesn't exist so remove stored identifiers
+  removeStoredVal("uuid");
+  removeStoredVal("company-name");
+  removeStoredVal("send-check-ins");
+};

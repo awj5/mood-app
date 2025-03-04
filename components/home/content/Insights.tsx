@@ -10,7 +10,7 @@ import { CalendarDatesType } from "context/home-dates";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
 import { getPromptData, PromptDataType } from "utils/data";
-import { getStoredVal, removeStoredVal } from "utils/helpers";
+import { getStoredVal, removeAccess } from "utils/helpers";
 
 type InsightsProps = {
   checkIns: CheckInType[];
@@ -73,13 +73,7 @@ export default function Insights(props: InsightsProps) {
 
       return response.data.response;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        // User doesn't exist so remove stored UUID and company-name
-        removeStoredVal("uuid");
-        removeStoredVal("company-name");
-        removeStoredVal("send-check-ins");
-      }
-
+      if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
       console.log(error);
     }
   };

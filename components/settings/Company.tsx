@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Pressable, Alert } from "react-native";
 import * as Device from "expo-device";
 import { LogOut } from "lucide-react-native";
-import { theme, removeStoredVal, pressedDefault } from "utils/helpers";
+import { theme, pressedDefault, removeAccess } from "utils/helpers";
 
 type CompanyProps = {
   company: string;
@@ -13,9 +13,7 @@ export default function Company(props: CompanyProps) {
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const remove = async () => {
-    removeStoredVal("uuid");
-    removeStoredVal("company-name");
-    removeStoredVal("send-check-ins");
+    removeAccess();
     props.setCompany(""); // Hide section
   };
 

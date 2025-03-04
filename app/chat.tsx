@@ -13,7 +13,7 @@ import { CheckInType } from "data/database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { pressedDefault, theme, getStoredVal, removeStoredVal, setStoredVal } from "utils/helpers";
+import { pressedDefault, theme, getStoredVal, setStoredVal, removeAccess } from "utils/helpers";
 import { getPromptData, PromptDataType } from "utils/data";
 import { convertToISO } from "utils/dates";
 
@@ -51,13 +51,7 @@ export default function Chat() {
 
       return response.data.response;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        // User doesn't exist so remove stored UUID and company-name
-        removeStoredVal("uuid");
-        removeStoredVal("company-name");
-        removeStoredVal("send-check-ins");
-      }
-
+      if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
       console.log(error);
     }
   };
