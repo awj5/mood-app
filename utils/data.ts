@@ -1,7 +1,9 @@
 import tagsData from "data/tags.json";
+import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType } from "data/database";
+import { CompanyCheckInType } from "app/company";
 
-export const getStatement = (statement: string, response: number, company?: string) => {
+export const getStatement = (statement: number, response: number, company?: string) => {
   const percentage = Math.round(response * 100);
   let start = "";
 
@@ -28,19 +30,21 @@ export const getStatement = (statement: string, response: number, company?: stri
       start = `I strongly disagreed (${percentage}%) that`;
   }
 
-  return `${start} ${statement} at ${company ? company : "my company"}.`;
+  return `${start} ${guidelinesData[0].competencies.filter((item) => item.id === statement)[0].statement} at ${
+    company ? company : "my company"
+  }.`;
 };
 
 export type PromptDataType = {
   date: string;
   id: number;
-  time: string;
+  time?: string;
   mood: number;
   feelings: string[];
   note: string;
 };
 
-export const getPromptData = (checkIns: CheckInType[]) => {
+export const getPromptData = (checkIns: CheckInType[] | CompanyCheckInType[]) => {
   const data: PromptDataType[] = [];
   const ids = []; // Used to collect check-in IDs
 
@@ -48,8 +52,8 @@ export const getPromptData = (checkIns: CheckInType[]) => {
   for (let i = 0; i < checkIns.length; i++) {
     let checkIn = checkIns[i];
     let utc = new Date(`${checkIn.date}Z`);
-    let local = new Date(utc);
-    let mood: CheckInMoodType = JSON.parse(checkIn.mood);
+    let local = new Date(utc.getTime() ? utc : checkIn.date); // Don't use UTC if date doesn't include time
+    let mood: CheckInMoodType = "mood" in checkIn ? JSON.parse(checkIn.mood) : checkIn.value; // Determine if company check-in
     let tags: string[] = [];
 
     // Get tag names
@@ -60,10 +64,10 @@ export const getPromptData = (checkIns: CheckInType[]) => {
     data.push({
       date: local.toDateString(),
       id: checkIn.id,
-      time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
+      ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }),
       mood: mood.color,
       feelings: tags,
-      note: checkIn.note,
+      note: "note" in checkIn ? checkIn.note : getStatement(mood.competency, mood.statementResponse, mood.company),
     });
 
     ids.push(checkIn.id);
