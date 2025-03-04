@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import * as Device from "expo-device";
-import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
@@ -50,11 +49,7 @@ export default function CheckIn(props: CheckInProps) {
           }}
           allowFontScaling={false}
         >
-          {getStatement(
-            guidelinesData[0].competencies.filter((item) => item.id === mood.competency)[0].statement,
-            mood.statementResponse,
-            mood.company
-          )}
+          {getStatement(mood.competency, mood.statementResponse, mood.company)}
         </Text>
 
         <Note text={props.data.note} />
