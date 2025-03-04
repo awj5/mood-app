@@ -15,7 +15,7 @@ export type SongType = {
   appleMusicLink: string;
   spotifyLink: string;
   lyrics: string;
-  tags: number[];
+  mood: number;
 };
 
 type SongProps = {
@@ -30,11 +30,19 @@ export default function Song(props: SongProps) {
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   const images = {
-    WhatAboutUs: require("../../../assets/img/music/what-about-us.jpg"),
-    Praying: require("../../../assets/img/music/praying.jpg"),
-    JusttheWayYouAre: require("../../../assets/img/music/just-the-way-you-are.jpg"),
-    StandbyYou: require("../../../assets/img/music/stand-by-you.jpg"),
-    SomewhereIBelong: require("../../../assets/img/music/somewhere-i-belong.jpg"),
+    KeepYourHeadUp: require("../../../assets/img/music/keep-your-head-up.jpg"),
+    WakeMeUp: require("../../../assets/img/music/wake-me-up.png"),
+    Happy: require("../../../assets/img/music/happy.png"),
+    DontBeSoHardOnYourself: require("../../../assets/img/music/dont-be-so-hard-on-yourself.png"),
+    DontStopBelievin: require("../../../assets/img/music/dont-stop-believin.jpg"),
+    HeroeswecouldbeftToveLo: require("../../../assets/img/music/heroes-we-could-be-ft-tove-lo.jpg"),
+    Roar: require("../../../assets/img/music/roar.png"),
+    ShakeItOff: require("../../../assets/img/music/shake-it-off.png"),
+    BeOK: require("../../../assets/img/music/be-ok.png"),
+    RainOnMe: require("../../../assets/img/music/rain-on-me.png"),
+    BestDayOfMyLife: require("../../../assets/img/music/best-day-of-my-life.jpg"),
+    CANTSTOPTHEFEELING: require("../../../assets/img/music/cant-stop-the-feeling.png"),
+    GoodasHell: require("../../../assets/img/music/good-as-hell.jpg"),
   };
 
   useEffect(() => {
@@ -87,7 +95,17 @@ export default function Song(props: SongProps) {
 
       <View style={{ flexDirection: "row", gap: spacing }}>
         <Image
-          source={images[song?.title.replace(/ /g, "").replace(/\./g, "") as keyof typeof images]}
+          source={
+            images[
+              song?.title
+                .replace(/ /g, "")
+                .replace(/\./g, "")
+                .replace(/\'/g, "")
+                .replace(/\(/g, "")
+                .replace(/\)/g, "")
+                .replace(/\!/g, "") as keyof typeof images
+            ]
+          }
           style={{ width: Device.deviceType !== 1 ? 192 : 128, aspectRatio: "1/1", borderRadius: spacing / 2 }}
         />
 

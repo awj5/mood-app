@@ -1,42 +1,106 @@
 [
   {
-    "title": "What About Us",
-    "artist": "P!nk",
-    "appleMusicLink": "https://music.apple.com/album/what-about-us/1269268686?i=1269268841",
-    "spotifyLink": "https://open.spotify.com/track/0Qh38w01QRXK6KHIv0e3hb?si=bc49f1b10cd24ac9",
-    "lyrics": "What about us? What about all the broken happy ever afters?",
-    "tags": [1]
+    "title": "Keep Your Head Up",
+    "artist": "Andy Grammer",
+    "appleMusicLink": "https://music.apple.com/album/keep-your-head-up/1437810682?i=1437810683",
+    "spotifyLink": "https://open.spotify.com/track/2kebNtlS7DqWE54Z66FZIt?si=cb24dceb9af74525",
+    "lyrics": "You gotta keep your head up, and you can let your hair down.",
+    "mood": 1
   },
   {
-    "title": "Praying",
-    "artist": "Kesha",
-    "appleMusicLink": "https://music.apple.com/album/praying/1253688426?i=1253689031",
-    "spotifyLink": "https://open.spotify.com/track/0jdny0dhgjUwoIp5GkqEaA?si=f7c4a75b55844706",
-    "lyrics": "I hope you're somewhere praying, I hope your soul is changing, I hope you find your peace.",
-    "tags": [2]
+    "title": "Wake Me Up",
+    "artist": "Avicii",
+    "appleMusicLink": "https://music.apple.com/album/wake-me-up/1440872730?i=1440872929",
+    "spotifyLink": "https://open.spotify.com/track/0nrRP2bk19rLc0orkWPQk2?si=c2ef6865ff044d16",
+    "lyrics": "I can't tell where the journey will end, but I know where to start.",
+    "mood": 1
   },
   {
-    "title": "Just the Way You Are",
-    "artist": "Bruno Mars",
-    "appleMusicLink": "https://music.apple.com/album/just-the-way-you-are/576670451?i=576670459",
-    "spotifyLink": "https://open.spotify.com/track/7BqBn9nzAq8spo5e7cZ0dJ?si=017e6453e9e941f1",
-    "lyrics": "When I see your face, there's not a thing that I would change,'cause you're amazing just the way you are.",
-    "tags": [3]
+    "title": "Happy",
+    "artist": "Pharrell Williams",
+    "appleMusicLink": "https://music.apple.com/album/happy-from-despicable-me-2/863835302?i=863835363",
+    "spotifyLink": "https://open.spotify.com/track/60nZcImufyMA1MKQY3dcCH?si=9b38d188877f44fc",
+    "lyrics": "Clap along if you know what happiness is to you!",
+    "mood": 1
   },
   {
-    "title": "Stand by You",
-    "artist": "Rachel Platten",
-    "appleMusicLink": "https://music.apple.com/album/stand-by-you/1061182666?i=1061182677",
-    "spotifyLink": "https://open.spotify.com/track/3kSXn1osC89W8JcPLozTzs?si=edac51c1e3454392",
-    "lyrics": "Even if we can't find heaven, I'll walk through hell with you. I'll stand by you.",
-    "tags": [4]
+    "title": "Don't Be So Hard On Yourself",
+    "artist": "Jess Glynne",
+    "appleMusicLink": "https://music.apple.com/album/dont-be-so-hard-on-yourself/1027561834?i=1027563258",
+    "spotifyLink": "https://open.spotify.com/track/0sUyqewVzwv0e5tK3hS6vJ?si=5e4d151c394549c9",
+    "lyrics": "Don't be so hard on yourself, no. Learn to forgive, learn to let go.",
+    "mood": 1
   },
   {
-    "title": "Somewhere I Belong",
-    "artist": "Linkin Park",
-    "appleMusicLink": "https://music.apple.com/album/somewhere-i-belong/590423275?i=590423282",
-    "spotifyLink": "https://open.spotify.com/track/3fjmSxt0PskST13CSdBUFx?si=52bfcb351a4f4a79",
-    "lyrics": "I wanna heal, I wanna feel like I'm close to something real. I wanna find something I've wanted all along—somewhere I belong.",
-    "tags": [10]
+    "title": "Don't Stop Believin'",
+    "artist": "Journey",
+    "appleMusicLink": "https://music.apple.com/album/dont-stop-believin-2022-remaster/1640102583?i=1640102584",
+    "spotifyLink": "https://open.spotify.com/track/5RKQ5NdjSh2QzD4MaunT91?si=a2d10218441e4d16",
+    "lyrics": "Don't stop believing, hold on to that feeling.",
+    "mood": 1
+  },
+  {
+    "title": "Heroes (we could be) ft. Tove Lo",
+    "artist": "Alesso",
+    "appleMusicLink": "https://music.apple.com/album/heroes-we-could-be-feat-tove-lo/1440859007?i=1440859014",
+    "spotifyLink": "https://open.spotify.com/track/3zU9rdflI65tK4dkkNSp77?si=b5a52a8f7ee0461d",
+    "lyrics": "All we're looking for is love and a little light. We could be heroes, me and you.",
+    "mood": 1
+  },
+  {
+    "title": "Roar",
+    "artist": "Katy Perry",
+    "appleMusicLink": "https://music.apple.com/album/roar/1440818542?i=1440818897",
+    "spotifyLink": "https://open.spotify.com/track/6F5c58TMEs1byxUstkzVeM?si=df5d5fa71db04fef",
+    "lyrics": "I got the eye of the tiger, a fighter, dancing through the fire.",
+    "mood": 1
+  },
+  {
+    "title": "Shake It Off",
+    "artist": "Taylor Swift",
+    "appleMusicLink": "https://music.apple.com/album/shake-it-off/1440935467?i=1440936016",
+    "spotifyLink": "https://open.spotify.com/track/1kKlhuQE0HXp1IwBRpaH2P?si=58cf528dcde64c78",
+    "lyrics": "'Cause the players gonna play, and the haters gonna hate.",
+    "mood": 1
+  },
+  {
+    "title": "Be OK",
+    "artist": "Ingrid Michaelson",
+    "appleMusicLink": "https://music.apple.com/album/be-ok/1511264247?i=1511264706",
+    "spotifyLink": "https://open.spotify.com/track/4I8Nhe8qN9xgR8tosYQ5ut?si=e25e9a5a243246c5",
+    "lyrics": "I just want to be okay, I just want to be okay today.",
+    "mood": 1
+  },
+  {
+    "title": "Rain On Me",
+    "artist": "Lady Gaga & Ariana Grande",
+    "appleMusicLink": "https://music.apple.com/album/rain-on-me/1500951604?i=1500952424",
+    "spotifyLink": "https://open.spotify.com/track/7ju97lgwC2rKQ6wwsf9no9?si=c7a8c36ed8a24b75",
+    "lyrics": "I'd rather be dry, but at least I'm alive - rain on me.",
+    "mood": 1
+  },
+  {
+    "title": "Best Day Of My Life",
+    "artist": "American Authors",
+    "appleMusicLink": "https://music.apple.com/album/best-day-of-my-life/1440851059?i=1440851075",
+    "spotifyLink": "https://open.spotify.com/track/6RxO08wzUmlE1sBc1bNZNW?si=2c1ae700034b4d04",
+    "lyrics": "I'm never gonna look back, whoa, I'm never gonna give it up, no, just don't wake me now!",
+    "mood": 1
+  },
+  {
+    "title": "CAN'T STOP THE FEELING!",
+    "artist": "Justin Timberlake",
+    "appleMusicLink": "https://music.apple.com/album/dont-stop-believin-2022-remaster/1640102583?i=1640102584",
+    "spotifyLink": "https://open.spotify.com/track/5RKQ5NdjSh2QzD4MaunT91?si=a2d10218441e4d16",
+    "lyrics": "I got that sunshine in my pocket, got that good soul in my feet!",
+    "mood": 1
+  },
+  {
+    "title": "Good as Hell",
+    "artist": "Lizzo",
+    "appleMusicLink": "https://music.apple.com/album/good-as-hell/1494981947?i=1494981963",
+    "spotifyLink": "https://open.spotify.com/track/6KgBpzTuTRPebChN0VTyzV?si=9035dd6015034700",
+    "lyrics": "I do my hair toss, check my nails. Baby, how you feeling? Feeling good as hell!",
+    "mood": 1
   }
 ]
