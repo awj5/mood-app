@@ -12,7 +12,7 @@ type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
   dates: CalendarDatesType;
-  checkIns: CheckInType[];
+  checkIns?: CheckInType[];
 };
 
 export default function Summary(props: SummaryProps) {
