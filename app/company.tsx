@@ -3,13 +3,22 @@ import { View } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
+import { CheckInMoodType } from "data/database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import HeaderDates from "components/HeaderDates";
 import Upsell from "components/company/Upsell";
 import Disclaimer from "components/company/Disclaimer";
 import Content from "components/company/Content";
+import HeaderTitle from "components/HeaderTitle";
+import Bg from "components/company/Bg";
 import { getStoredVal, theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
+
+export type CompanyCheckInType = {
+  id: number;
+  value: CheckInMoodType;
+  date: Date;
+};
 
 export default function Company() {
   const colors = theme();
@@ -68,9 +77,14 @@ export default function Company() {
       />
 
       {hasAccess ? (
-        <View style={{ flex: 1, marginTop: headerHeight }}>
-          <Content />
-        </View>
+        <>
+          <Bg />
+
+          <View style={{ flex: 1, marginTop: headerHeight, gap: Device.deviceType !== 1 ? 12 : 8 }}>
+            <HeaderTitle text={company} />
+            <Content />
+          </View>
+        </>
       ) : company ? (
         <Disclaimer company={company} setHasAccess={setHasAccess} />
       ) : (
