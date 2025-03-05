@@ -13,12 +13,16 @@ import Categories from "./content/Categories";
 import { getStoredVal, theme, pressedDefault, removeAccess } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
-export default function Content() {
+type ContentProps = {
+  checkIns: CompanyCheckInType[] | undefined;
+  setCheckIns: React.Dispatch<React.SetStateAction<CompanyCheckInType[] | undefined>>;
+};
+
+export default function Content(props: ContentProps) {
   const colors = theme();
   const insets = useSafeAreaInsets();
   const latestQueryRef = useRef<symbol>();
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
-  const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
   const [isOffline, setIsOffline] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const smallSpacing = Device.deviceType !== 1 ? 6 : 4;
@@ -57,7 +61,7 @@ export default function Content() {
   };
 
   const getCheckIns = async () => {
-    setCheckIns(undefined); // Show loader
+    props.setCheckIns(undefined); // Show loader
     setIsOffline(false);
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
@@ -68,7 +72,7 @@ export default function Content() {
       const checkInData = await getCheckInData(uuid); // Get check-ins from Supabase
 
       if (latestQueryRef.current === currentQuery) {
-        setCheckIns(checkInData);
+        props.setCheckIns(checkInData);
       }
     } else if (!network.isInternetReachable) {
       setIsOffline(true);
@@ -76,7 +80,7 @@ export default function Content() {
   };
 
   useEffect(() => {
-    setCheckIns(undefined); // Show loader
+    props.setCheckIns(undefined); // Show loader
 
     const timeout = setTimeout(() => {
       getCheckIns();
@@ -86,7 +90,7 @@ export default function Content() {
   }, [companyDates]);
 
   return (
-    <ScrollView contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}>
+    <ScrollView contentContainerStyle={{ flex: props.checkIns?.length ? 0 : 1, alignItems: "center" }}>
       <View
         style={[
           styles.wrapper,
@@ -97,9 +101,9 @@ export default function Content() {
           },
         ]}
       >
-        {checkIns?.length ? (
+        {props.checkIns?.length ? (
           <>
-            <Insights checkIns={checkIns} dates={companyDates} />
+            <Insights checkIns={props.checkIns} dates={companyDates} />
             {/*<Categories />*/}
           </>
         ) : isOffline ? (
@@ -132,7 +136,7 @@ export default function Content() {
               </Text>
             </Pressable>
           </View>
-        ) : checkIns !== undefined ? (
+        ) : props.checkIns !== undefined ? (
           <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
             <Text
               style={[

@@ -1,27 +1,25 @@
-import { useCallback, useContext, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, LayoutChangeEvent } from "react-native";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
-import { useSQLiteContext } from "expo-sqlite";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { useFocusEffect } from "@react-navigation/native";
 import { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType } from "data/database";
+import { CompanyCheckInType } from "app/company";
 import MoodsData from "data/moods.json";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { theme } from "utils/helpers";
-import { convertToISO } from "utils/dates";
 
-export default function Bg() {
-  const db = useSQLiteContext();
+type BgProps = {
+  checkIns: CompanyCheckInType[] | undefined;
+};
+
+export default function Bg(props: BgProps) {
   const colors = theme();
   const headerHeight = useHeaderHeight();
   const color1 = useSharedValue(colors.primaryBg);
   const color2 = useSharedValue(colors.primaryBg);
   const color3 = useSharedValue(colors.primaryBg);
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const latestQueryRef = useRef<symbol>();
   const colorsArrayRef = useRef([colors.primaryBg]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
@@ -39,46 +37,22 @@ export default function Bg() {
     setCanvasDimensions({ width: width, height: height - heightOffset });
   };
 
-  const getCheckInData = async () => {
-    const currentQuery = Symbol("currentQuery");
-    latestQueryRef.current = currentQuery;
-
-    const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
-    let end = new Date(start);
-
-    if (homeDates.rangeEnd) {
-      end = homeDates.rangeEnd;
-    } else {
-      end.setDate(start.getDate() + 6); // Sunday
-    }
-
+  const getCheckInData = (checkIns: CompanyCheckInType[]) => {
     let checkInColors = [colors.primaryBg];
+    if (checkIns.length) checkInColors = []; // Clear when checkins found
 
-    try {
-      const rows: CheckInType[] = await db.getAllAsync(
-        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
-        [convertToISO(start), convertToISO(end)]
-      );
-
-      if (rows.length) checkInColors = []; // Clear when checkins found
-
-      // Loop checkins and get color
-      for (let i = 0; i < rows.length; i++) {
-        let mood: CheckInMoodType = JSON.parse(rows[i].mood);
-        let data = MoodsData.filter((item) => item.id === mood.color);
-        checkInColors.push(data[0].color);
-      }
-
-      if (latestQueryRef.current === currentQuery) {
-        index = 0;
-        step = 0;
-        colorsArrayRef.current = checkInColors;
-        intervalRef.current = setInterval(animateColors, animationDuration);
-        animateColors(); // Init
-      }
-    } catch (error) {
-      console.log(error);
+    // Loop checkins and get color
+    for (let i = 0; i < checkIns.length; i++) {
+      let mood: CheckInMoodType = checkIns[i].value;
+      let data = MoodsData.filter((item) => item.id === mood.color);
+      checkInColors.push(data[0].color);
     }
+
+    index = 0;
+    step = 0;
+    colorsArrayRef.current = checkInColors;
+    intervalRef.current = setInterval(animateColors, animationDuration);
+    animateColors(); // Init
   };
 
   const animateColors = () => {
@@ -113,17 +87,15 @@ export default function Bg() {
     }
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      getCheckInData();
+  useEffect(() => {
+    if (props.checkIns) getCheckInData(props.checkIns);
 
-      return () => {
-        // Stop animation
-        clearInterval(intervalRef.current as NodeJS.Timeout);
-        intervalRef.current = null;
-      };
-    }, [homeDates, colors.primaryBg])
-  );
+    return () => {
+      // Stop animation
+      clearInterval(intervalRef.current as NodeJS.Timeout);
+      intervalRef.current = null;
+    };
+  }, [JSON.stringify(props.checkIns), colors.primaryBg]);
 
   return (
     <View style={styles.container} onLayout={(e) => getCanvasDimensions(e)}>

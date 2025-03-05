@@ -26,6 +26,7 @@ export default function Company() {
   const headerHeight = useHeaderHeight();
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const [hasAccess, setHasAccess] = useState(false);
+  const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
   const [company, setCompany] = useState("");
 
   const checkAccess = async () => {
@@ -78,11 +79,11 @@ export default function Company() {
 
       {hasAccess ? (
         <>
-          <Bg />
+          <Bg checkIns={checkIns} />
 
           <View style={{ flex: 1, marginTop: headerHeight, gap: Device.deviceType !== 1 ? 12 : 8 }}>
             <HeaderTitle text={company} />
-            <Content />
+            <Content checkIns={checkIns} setCheckIns={setCheckIns} />
           </View>
         </>
       ) : company ? (
