@@ -4,6 +4,7 @@ import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
 import { CheckInType } from "data/database";
 import { CalendarDatesType } from "context/home-dates";
+import { CompanyCheckInType } from "app/company";
 import Report from "./Report";
 import { theme, pressedDefault } from "utils/helpers";
 import { getDateRange, getMonday } from "utils/dates";
@@ -12,7 +13,7 @@ type SummaryProps = {
   text: string;
   getInsights: () => Promise<void>;
   dates: CalendarDatesType;
-  checkIns?: CheckInType[];
+  checkIns: CheckInType[] | CompanyCheckInType[];
 };
 
 export default function Summary(props: SummaryProps) {

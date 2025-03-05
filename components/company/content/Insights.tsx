@@ -41,13 +41,25 @@ export default function Insights(props: InsightsProps) {
 
       return response.data.response;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
       console.log(error);
     }
   };
 
-  const getInsightsData = async (ids: number[]) => {
-    return undefined;
+  const getInsightsData = async (ids: number[], uuid: string) => {
+    try {
+      const response = await axios.post(
+        process.env.NODE_ENV === "production" ? "https://mood.ai/api/insights" : "http://localhost:3000/api/insights",
+        {
+          uuid: uuid,
+          ids: ids,
+        }
+      );
+
+      return response.data[0];
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
+      console.log(error);
+    }
   };
 
   const getInsights = async () => {
@@ -56,28 +68,37 @@ export default function Insights(props: InsightsProps) {
     setIsLoading(true);
     setText("");
     const promptData = getPromptData(props.checkIns);
-    const savedResponse = await getInsightsData(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const name = await getStoredVal("company-name");
 
-    // Show saved response if exists or get response from API
-    if (savedResponse && latestQueryRef.current === currentQuery) {
-      //setText(savedResponse.summary);
-    } else if (latestQueryRef.current === currentQuery && uuid && name) {
-      let aiResponse = await requestAISummary(promptData.data, uuid, name);
+    if (uuid) {
+      const savedResponse = await getInsightsData(promptData.ids, uuid);
 
-      if (aiResponse && latestQueryRef.current === currentQuery) {
-        setText(aiResponse);
+      // Show saved response if exists or get response from API
+      if (savedResponse && latestQueryRef.current === currentQuery) {
+        setText(savedResponse.summary);
+      } else if (latestQueryRef.current === currentQuery && name) {
+        let aiResponse = await requestAISummary(promptData.data, uuid, name);
 
-        // Save response
-        /* try {
-          await db.runAsync(`INSERT INTO insights (check_ins, summary) VALUES (?, ?)`, [
-            promptData.ids.toString(),
-            aiResponse,
-          ]);
-        } catch (error) {
-          console.log(error);
-        } */
+        if (aiResponse && latestQueryRef.current === currentQuery) {
+          setText(aiResponse);
+
+          // Save response to Supabase
+          try {
+            await axios.post(
+              process.env.NODE_ENV === "production"
+                ? "https://mood.ai/api/insights/save"
+                : "http://localhost:3000/api/insights/save",
+              {
+                uuid: uuid,
+                ids: promptData.ids,
+                summary: aiResponse,
+              }
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
     }
 
@@ -96,7 +117,7 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating insights" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} dates={dates} />
+        <Summary text={text} getInsights={getInsights} dates={dates} checkIns={props.checkIns} />
       )}
     </View>
   );

@@ -5,13 +5,14 @@ import { useSQLiteContext } from "expo-sqlite";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
 import { CheckInType } from "data/database";
+import { CompanyCheckInType } from "app/company";
 import { theme, pressedDefault, getStoredVal } from "utils/helpers";
 import { getPromptData } from "utils/data";
 
 type ReportProps = {
   text: string;
   visible: boolean;
-  checkIns?: CheckInType[];
+  checkIns?: CheckInType[] | CompanyCheckInType[];
   func?: () => void;
 };
 
@@ -21,17 +22,37 @@ export default function Report(props: ReportProps) {
   const [reported, setReported] = useState(false);
   const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 
-  const deleteInsightsData = async (ids: number[]) => {
-    try {
-      // Delete insight
-      const query = `
+  const deleteInsightsData = async (ids: number[], local: boolean) => {
+    const uuid = await getStoredVal("uuid");
+
+    if (local) {
+      try {
+        // Delete insight
+        const query = `
         DELETE FROM insights WHERE check_ins = ?
       `;
 
-      await db.runAsync(query, [ids.toString()]);
-      if (props.func) props.func(); // Regenerate insights
-    } catch (error) {
-      console.log(error);
+        await db.runAsync(query, [ids.toString()]);
+        if (props.func) props.func(); // Regenerate insights
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (uuid) {
+      try {
+        await axios.post(
+          process.env.NODE_ENV === "production"
+            ? "https://mood.ai/api/insights/delete"
+            : "http://localhost:3000/api/insights/delete",
+          {
+            uuid: uuid,
+            ids: ids,
+          }
+        );
+
+        if (props.func) props.func(); // Regenerate insights
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -54,7 +75,7 @@ export default function Report(props: ReportProps) {
     // Remove saved summary
     if (props.checkIns) {
       const promptData = getPromptData(props.checkIns);
-      deleteInsightsData(promptData.ids);
+      deleteInsightsData(promptData.ids, "value" in props.checkIns[0] ? false : true); // Determine if company check-ins
     } else {
       setReported(true);
     }
