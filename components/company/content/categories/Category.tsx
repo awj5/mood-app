@@ -2,40 +2,36 @@ import { useContext } from "react";
 import { View } from "react-native";
 import * as Device from "expo-device";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import moodsData from "data/moods.json";
+import { CategoriesType } from "../Categories";
 import Header from "./category/Header";
-import Insights from "./category/Insights";
-import { theme } from "utils/helpers";
 
 type CategoryProps = {
-  title: string;
-  icon: React.ElementType;
+  data: CategoriesType;
 };
 
 export default function Category(props: CategoryProps) {
-  const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const mood = moodsData.filter((item) => item.id === props.data.mood)[0];
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-
-  // 3 cols for landscape tablet, 2 cols for porttrait tablet, 1 col for phone
-  const width =
-    Device.deviceType !== 1 && dimensions.width > dimensions.height
-      ? (dimensions.width - spacing * 4) / 3
-      : Device.deviceType !== 1
-      ? (dimensions.width - spacing * 3) / 2
-      : dimensions.width - spacing * 2;
+  const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
 
   return (
     <View
       style={{
-        width: width,
+        width: (parentWidth - spacing * 3) / 2, // 2 columns
+        height: "100%",
+        aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
         padding: spacing,
-        backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        backgroundColor: mood.color,
         borderRadius: spacing,
-        gap: spacing,
       }}
     >
-      <Header title={props.title} icon={props.icon} />
-      <Insights text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+      <Header
+        title={props.data.title}
+        icon={props.data.icon}
+        color={props.data.mood >= 6 && props.data.mood <= 11 ? "white" : "black"}
+      />
     </View>
   );
 }

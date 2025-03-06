@@ -16,7 +16,7 @@
     "satisfaction": 67,
     "energy": 83,
     "tags": [9, 25, 31, 69, 70, 72, 73, 74, 76, 79, 93, 112, 117, 121, 127, 142, 155, 174, 199, 200, 204],
-    "description": "The Yellow zone is where energy and positivity shine brightest. It represents enthusiasm, excitement, and motivation. People in this zone feel vibrant, empowered, and ready to tackle challenges with gusto. It's a dynamic and highly active state."
+    "description": "Yellow is where energy and positivity shine brightest. It represents enthusiasm, excitement, and motivation. People in this zone feel vibrant, empowered, and ready to tackle challenges with gusto. It's a dynamic and highly active state."
   },
   {
     "id": 2,
@@ -39,7 +39,7 @@
       3, 4, 5, 6, 11, 16, 19, 22, 28, 30, 32, 36, 38, 41, 43, 45, 75, 77, 86, 90, 95, 96, 101, 102, 107, 108, 109, 110,
       118, 120, 130, 131, 132, 138, 140, 143, 146, 147, 151, 159, 161, 162, 163, 177, 178, 179, 194, 202, 203
     ],
-    "description": "The Green zone is the epitome of balance and positivity. It's where confidence, connection, and calm coexist. This is a state of feeling in control, fulfilled, and deeply content - the emotional sweet spot."
+    "description": "Green is the epitome of balance and positivity. It's where confidence, connection, and calm coexist. This is a state of feeling in control, fulfilled, and deeply content - the emotional sweet spot."
   },
   {
     "id": 4,
@@ -63,7 +63,7 @@
       17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 71, 88, 91, 92, 94, 98, 136, 137, 145, 148, 149, 152, 158, 164, 165,
       171, 172, 184, 185, 190, 193
     ],
-    "description": "Aqua reflects deep relaxation and tranquillity. It's a state of peace, safety, and comfort. People in this zone feel calm and unhurried, free from tension or pressure."
+    "description": "Cyan reflects deep relaxation and tranquillity. It's a state of peace, safety, and comfort. People in this zone feel calm and unhurried, free from tension or pressure."
   },
   {
     "id": 6,
@@ -75,7 +75,7 @@
       91, 92, 94, 97, 98, 99, 103, 115, 119, 122, 123, 124, 136, 137, 139, 145, 148, 149, 152, 157, 158, 164, 165, 168,
       169, 170, 171, 172, 184, 185, 190, 193, 195, 207
     ],
-    "description": "The Sky zone represents stillness and rest. It's a neutral, low-energy state, often associated with recovery or reflection. This is where people recharge and find calm after periods of activity or stress."
+    "description": "Azure represents stillness and rest. It's a neutral, low-energy state, often associated with recovery or reflection. This is where people recharge and find calm after periods of activity or stress."
   },
   {
     "id": 7,

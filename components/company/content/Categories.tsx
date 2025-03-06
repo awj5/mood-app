@@ -1,62 +1,105 @@
-import { View, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import * as Device from "expo-device";
+import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import {
-  ClipboardList,
-  BicepsFlexed,
-  Weight,
   Compass,
-  TreePalm,
-  CalendarClock,
-  KeyRound,
+  Waves,
   Users,
-  Footprints,
   Puzzle,
-  Trophy,
-  Rocket,
   LifeBuoy,
-  Eye,
-  Handshake,
+  HeartHandshake,
   Scale,
-  BellElectric,
-  MessageSquareWarning,
-  Skull,
-  TrafficCone,
+  Blend,
+  ListChecks,
+  Cog,
+  Award,
+  Gavel,
+  HeartPulse,
+  Lightbulb,
+  LucideIcon,
 } from "lucide-react-native";
 import guidelinesData from "data/guidelines.json";
+import { CompanyCheckInType } from "app/company";
 import Category from "./categories/Category";
 
-export default function Categories() {
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
+export type CategoriesType = {
+  id: number;
+  title: string;
+  icon: LucideIcon;
+  mood: number;
+  checkIns: CompanyCheckInType[];
+};
+
+type CategoriesProps = {
+  checkIns: CompanyCheckInType[];
+};
+
+export default function Categories(props: CategoriesProps) {
+  const [categories, setCategories] = useState<CategoriesType[]>();
 
   const icons = {
-    ClipboardList,
-    BicepsFlexed,
-    Weight,
     Compass,
-    TreePalm,
-    CalendarClock,
-    KeyRound,
+    Waves,
     Users,
-    Footprints,
     Puzzle,
-    Trophy,
-    Rocket,
     LifeBuoy,
-    Eye,
-    Handshake,
+    HeartHandshake,
     Scale,
-    BellElectric,
-    MessageSquareWarning,
-    Skull,
-    TrafficCone,
+    Blend,
+    ListChecks,
+    Cog,
+    Award,
+    Gavel,
+    HeartPulse,
+    Lightbulb,
   };
 
+  useEffect(() => {
+    const groups: Record<string, CompanyCheckInType[]> = {};
+
+    // Loop all check-ins and group into categories
+    for (let i = 0; i < props.checkIns.length; i++) {
+      let checkIn = props.checkIns[i];
+      let category = Math.trunc(checkIn.value.competency);
+      if (!groups[category]) groups[category] = []; // Create category if doesn't exist
+      groups[category].push(checkIn);
+    }
+
+    const list: CategoriesType[] = [];
+
+    // Loop groups and get category details
+    Object.entries(groups).forEach(([key, value]) => {
+      let category = guidelinesData[0].categories.filter((item) => item.id === Number(key))[0];
+      const moods: number[] = [];
+      value.forEach((checkIn) => moods.push(checkIn.value.color)); // Loop category check-ins and get mood
+
+      // Get most common mood in check-ins
+      const mood = Array.from(new Set(moods)).reduce((prev, curr) =>
+        moods.filter((item) => item === curr).length > moods.filter((item) => item === prev).length ? curr : prev
+      );
+
+      list.push({
+        id: Number(key),
+        title: category.title,
+        icon: icons[category.icon as keyof typeof icons],
+        mood: mood,
+        checkIns: value,
+      });
+    });
+
+    setCategories(list);
+  }, [JSON.stringify(props.checkIns)]);
+
   return (
-    <View style={[styles.container, { paddingHorizontal: spacing, gap: spacing }]}>
-      {guidelinesData[0].categories.map((item, index) => (
-        <Category key={index} title={item.title} icon={icons[item.icon as keyof typeof icons]} />
+    <Animated.View
+      entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
+      style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}
+    >
+      {categories?.map((item, index) => (
+        <Category key={index} data={item} />
       ))}
-    </View>
+    </Animated.View>
   );
 }
 
@@ -64,5 +107,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
+    width: "100%",
   },
 });

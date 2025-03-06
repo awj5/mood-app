@@ -1,55 +1,50 @@
 import { View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
-import moodsData from "data/moods.json";
 
 type HeaderProps = {
   title: string;
   icon: React.ElementType;
+  color: string;
 };
 
 export default function Header(props: HeaderProps) {
   const Icon = props.icon;
-  const mood = moodsData[Math.floor(Math.random() * moodsData.length)]; // Random mood - will delete
-  const textColor = mood.id >= 6 && mood.id <= 11 ? "white" : "black";
+  const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          gap: Device.deviceType !== 1 ? 10 : 6,
-          backgroundColor: mood.color,
-          paddingVertical: Device.deviceType !== 1 ? 8 : 6,
-          paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-        },
-      ]}
-    >
-      <Icon
-        color={textColor}
-        size={Device.deviceType !== 1 ? 28 : 20}
-        absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-      />
-
+    <View>
       <Text
-        style={{
-          fontFamily: "Circular-Medium",
-          fontSize: Device.deviceType !== 1 ? 20 : 16,
-          color: textColor,
-        }}
+        style={[
+          styles.text,
+          {
+            fontSize: Device.deviceType !== 1 ? 16 : 12,
+            color: props.color,
+            paddingRight: iconSize,
+          },
+        ]}
         allowFontScaling={false}
       >
         {props.title}
       </Text>
+
+      <Icon
+        color={props.color}
+        size={iconSize}
+        absoluteStrokeWidth
+        strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+        style={[styles.icon, { margin: Device.deviceType !== 1 ? -2.5 : -2 }]}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignSelf: "flex-start",
-    alignItems: "center",
-    borderRadius: 999,
+  text: {
+    fontFamily: "Circular-Medium",
+    textTransform: "uppercase",
+  },
+  icon: {
+    position: "absolute",
+    right: 0,
   },
 });

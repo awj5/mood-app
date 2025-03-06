@@ -104,7 +104,7 @@ export default function Content(props: ContentProps) {
         {props.checkIns?.length ? (
           <>
             <Insights checkIns={props.checkIns} dates={companyDates} />
-            {/*<Categories />*/}
+            <Categories checkIns={props.checkIns} />
           </>
         ) : isOffline ? (
           <View style={{ gap: smallSpacing, alignItems: "center" }}>

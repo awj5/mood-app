@@ -15,7 +15,7 @@ export type SongType = {
   appleMusicLink: string;
   spotifyLink: string;
   lyrics: string;
-  mood: number;
+  moods: number[];
 };
 
 type SongProps = {
@@ -43,6 +43,17 @@ export default function Song(props: SongProps) {
     BestDayOfMyLife: require("../../../assets/img/music/best-day-of-my-life.jpg"),
     CANTSTOPTHEFEELING: require("../../../assets/img/music/cant-stop-the-feeling.png"),
     GoodasHell: require("../../../assets/img/music/good-as-hell.jpg"),
+    Brave: require("../../../assets/img/music/brave.png"),
+    FightSong: require("../../../assets/img/music/fight-song.png"),
+    FkinPerfect: require("../../../assets/img/music/fkin-perfect.png"),
+    Say: require("../../../assets/img/music/say.png"),
+    ShakeItOut: require("../../../assets/img/music/shake-it-out.png"),
+    ILived: require("../../../assets/img/music/i-lived.png"),
+    TheClimb: require("../../../assets/img/music/the-climb.png"),
+    SomewhereOnlyWeKnow: require("../../../assets/img/music/somewhere-only-we-know.jpg"),
+    burninggold: require("../../../assets/img/music/burning-gold.png"),
+    OneStepAtaTime: require("../../../assets/img/music/one-step-at-a-time.jpg"),
+    FlyfeatRihanna: require("../../../assets/img/music/fly-feat-rihanna.jpg"),
   };
 
   useEffect(() => {
@@ -103,6 +114,7 @@ export default function Song(props: SongProps) {
                 .replace(/\'/g, "")
                 .replace(/\(/g, "")
                 .replace(/\)/g, "")
+                .replace(/\*/g, "")
                 .replace(/\!/g, "") as keyof typeof images
             ]
           }
