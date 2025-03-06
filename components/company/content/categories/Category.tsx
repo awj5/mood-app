@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
+import { LinearGradient } from "expo-linear-gradient";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import moodsData from "data/moods.json";
 import { CategoriesType } from "../Categories";
@@ -22,16 +23,27 @@ export default function Category(props: CategoryProps) {
         width: (parentWidth - spacing * 3) / 2, // 2 columns
         height: "100%",
         aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        padding: spacing,
         backgroundColor: mood.color,
         borderRadius: spacing,
+        overflow: "hidden",
       }}
     >
-      <Header
-        title={props.data.title}
-        icon={props.data.icon}
-        color={props.data.mood >= 6 && props.data.mood <= 11 ? "white" : "black"}
-      />
+      <LinearGradient colors={["rgba(255,255,255,0.4)", "transparent"]} style={{ flex: 1 }} />
+
+      <View style={[styles.wrapper, { padding: spacing }]}>
+        <Header
+          title={props.data.title}
+          icon={props.data.icon}
+          color={props.data.mood >= 6 && props.data.mood <= 11 ? "white" : "black"}
+        />
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    position: "absolute",
+    width: "100%",
+  },
+});
