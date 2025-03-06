@@ -164,7 +164,7 @@ export default function Journal(props: JournalProps) {
               <Animated.View key={entries[count].id} entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
                 <Text
                   style={{
-                    fontFamily: "Circular-Book",
+                    fontFamily: "Circular-BookItalic",
                     color: invertedColor,
                     fontSize: fontSize,
                     lineHeight: Device.deviceType !== 1 ? 20 : 16,
