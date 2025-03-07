@@ -270,7 +270,7 @@ export default function Stats(props: StatsProps) {
           color2={colors.primary === "white" ? "rgba(0, 0, 0, 0.4)" : "rgba(255, 255, 255, 0.4)"}
           thickness={dataPointSize}
           interpolateMissingValues={false}
-          curved
+          //curved
           disableScroll={satisfaction.length <= 12}
         />
 
