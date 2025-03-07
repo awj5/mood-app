@@ -27,6 +27,14 @@ export const shuffleArray = (array: any[]) => {
   return array;
 };
 
+export const getMostCommon = (array: any[]) => {
+  return Array.from(new Set(array)).reduce((prev, curr) =>
+    array.filter((item) => item === curr).length > array.filter((item) => item === prev).length ? curr : prev
+  );
+};
+
+/* Storage */
+
 export const getStoredVal = async (name: string) => {
   try {
     const val = await AsyncStorage.getItem(name);

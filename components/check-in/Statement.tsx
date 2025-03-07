@@ -6,7 +6,7 @@ import Slider from "@react-native-community/slider";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CompetencyType } from "app/check-in";
-import { getStoredVal, shuffleArray } from "utils/helpers";
+import { getStoredVal, shuffleArray, getMostCommon } from "utils/helpers";
 
 type StatementProps = {
   moodID: number;
@@ -58,12 +58,7 @@ export default function Statement(props: StatementProps) {
     }
 
     const shuffled = shuffleArray(competencies);
-
-    // Get most common competency in selected tags
-    const mostFrequent = Array.from(new Set(shuffled)).reduce((prev, curr) =>
-      shuffled.filter((item) => item === curr).length > shuffled.filter((item) => item === prev).length ? curr : prev
-    );
-
+    const mostFrequent = getMostCommon(shuffled); // Get most common competency in selected tags
     props.setCompetency(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0]);
     opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);

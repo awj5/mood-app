@@ -1,49 +1,84 @@
 import { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
-import { LinearGradient } from "expo-linear-gradient";
+import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import moodsData from "data/moods.json";
 import { CategoriesType } from "../Categories";
 import Header from "./category/Header";
+import { pressedDefault, theme } from "utils/helpers";
 
 type CategoryProps = {
   data: CategoriesType;
 };
 
 export default function Category(props: CategoryProps) {
+  const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
-  const mood = moodsData.filter((item) => item.id === props.data.mood)[0];
+  const Icon =
+    props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
+  const lowScore = props.data.score < 40 ? true : false;
 
   return (
-    <View
-      style={{
-        width: (parentWidth - spacing * 3) / 2, // 2 columns
-        height: "100%",
-        aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        backgroundColor: mood.color,
-        borderRadius: spacing,
-        overflow: "hidden",
-      }}
+    <Pressable
+      style={({ pressed }) => [
+        pressedDefault(pressed),
+        {
+          width: (parentWidth - spacing * 3) / 2, // 2 columns
+          aspectRatio: Device.deviceType !== 1 ? "3/2" : "4/4",
+          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+          borderRadius: spacing,
+          padding: spacing,
+          justifyContent: "space-between",
+        },
+      ]}
+      hitSlop={8}
     >
-      <LinearGradient colors={["rgba(255,255,255,0.4)", "transparent"]} style={{ flex: 1 }} />
+      <Header title={props.data.title} icon={props.data.icon} />
 
-      <View style={[styles.wrapper, { padding: spacing }]}>
-        <Header
-          title={props.data.title}
-          icon={props.data.icon}
-          color={props.data.mood >= 6 && props.data.mood <= 11 ? "white" : "black"}
-        />
+      <View style={{ gap: lowScore ? (Device.deviceType !== 1 ? 6 : 4) : 0 }}>
+        {!lowScore && (
+          <Icon
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 32 : 24}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          />
+        )}
+
+        <Text
+          style={{
+            fontFamily: "Circular-Bold",
+            color: colors.primary,
+            fontSize: Device.deviceType !== 1 ? (lowScore ? 28 : 48) : lowScore ? 20 : 36,
+            lineHeight: Device.deviceType !== 1 ? (lowScore ? 30 : 50) : lowScore ? 22 : 38,
+          }}
+          allowFontScaling={false}
+        >
+          {lowScore ? "Needs attention" : `${props.data.score}%`}
+        </Text>
+
+        <Text
+          style={[
+            styles.text,
+            {
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 14 : 10,
+            },
+          ]}
+          allowFontScaling={false}
+        >
+          SENTIMENT INDEX
+        </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    position: "absolute",
-    width: "100%",
+  text: {
+    fontFamily: "Circular-Book",
+    opacity: 0.5,
   },
 });

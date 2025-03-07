@@ -1,13 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 import * as Device from "expo-device";
+import { theme } from "utils/helpers";
 
 type HeaderProps = {
   title: string;
   icon: React.ElementType;
-  color: string;
 };
 
 export default function Header(props: HeaderProps) {
+  const colors = theme();
   const Icon = props.icon;
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
@@ -18,7 +19,7 @@ export default function Header(props: HeaderProps) {
           styles.text,
           {
             fontSize: Device.deviceType !== 1 ? 16 : 12,
-            color: props.color,
+            color: colors.primary,
             paddingRight: iconSize,
           },
         ]}
@@ -28,7 +29,7 @@ export default function Header(props: HeaderProps) {
       </Text>
 
       <Icon
-        color={props.color}
+        color={colors.primary}
         size={iconSize}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
