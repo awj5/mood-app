@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
@@ -14,11 +14,31 @@ type CategoryProps = {
 export default function Category(props: CategoryProps) {
   const colors = theme();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const [score, setScore] = useState(0);
   const Icon =
     props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
   const lowScore = props.data.score < 40 ? true : false;
+
+  useEffect(() => {
+    let currentScore = 0;
+    const step = Math.max(1, Math.ceil(props.data.score / 50));
+
+    // Animate score
+    const interval = setInterval(() => {
+      currentScore += step;
+
+      if (currentScore >= props.data.score) {
+        setScore(props.data.score);
+        clearInterval(interval);
+      } else {
+        setScore(currentScore);
+      }
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Pressable
@@ -56,7 +76,7 @@ export default function Category(props: CategoryProps) {
           }}
           allowFontScaling={false}
         >
-          {lowScore ? "Needs attention" : `${props.data.score}%`}
+          {lowScore ? "Under review" : `${score}%`}
         </Text>
 
         <Text
