@@ -35,6 +35,10 @@ export const initDB = async (db: SQLite.SQLiteDatabase) => {
     await db.execAsync(`
           CREATE TABLE IF NOT EXISTS insights (id INTEGER PRIMARY KEY AUTOINCREMENT, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, check_ins TEXT NOT NULL, summary TEXT NOT NULL);
           `);
+
+    await db.execAsync(`
+            CREATE TABLE IF NOT EXISTS check_in_record (id INTEGER PRIMARY KEY AUTOINCREMENT, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+            `);
   } catch (error) {
     console.log(error);
   }

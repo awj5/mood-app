@@ -56,19 +56,41 @@ export default function CheckIn() {
   const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
-    const today = new Date();
 
     if (uuid && send) {
-      // Save to Supabase
+      const today = new Date();
+
       try {
-        await axios.post(
-          process.env.NODE_ENV === "production" ? "https://mood.ai/api/check-in" : "http://localhost:3000/api/check-in",
-          {
-            uuid: uuid,
-            value: checkIn,
-            date: convertToISO(today),
-          }
+        // Count today's check-ins
+        const rows = await db.getAllAsync(
+          `SELECT id FROM check_in_record WHERE DATE(datetime(date, 'localtime')) = ?`,
+          [convertToISO(today)]
         );
+
+        if (rows.length < 3) {
+          // Save to Supabase
+          try {
+            await axios.post(
+              process.env.NODE_ENV === "production"
+                ? "https://mood.ai/api/check-in"
+                : "http://localhost:3000/api/check-in",
+              {
+                uuid: uuid,
+                value: checkIn,
+                date: convertToISO(today),
+              }
+            );
+
+            // Record check-in locally (users can only send check-in 3 times per day)
+            try {
+              await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;");
+            } catch (error) {
+              console.log(error);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
       } catch (error) {
         console.log(error);
       }
