@@ -1,6 +1,7 @@
 [
   {
     "id": 12,
+    "name": "Orange",
     "color": "#FF8000",
     "satisfaction": 50,
     "energy": 100,
@@ -12,6 +13,7 @@
   },
   {
     "id": 1,
+    "name": "Yellow",
     "color": "#FFD500",
     "satisfaction": 67,
     "energy": 83,
@@ -20,6 +22,7 @@
   },
   {
     "id": 2,
+    "name": "Lime",
     "color": "#AAFF00",
     "satisfaction": 83,
     "energy": 67,
@@ -32,6 +35,7 @@
   },
   {
     "id": 3,
+    "name": "Green",
     "color": "#00FF00",
     "satisfaction": 100,
     "energy": 50,
@@ -43,6 +47,7 @@
   },
   {
     "id": 4,
+    "name": "Mint",
     "color": "#00FFAA",
     "satisfaction": 83,
     "energy": 33,
@@ -56,6 +61,7 @@
   },
   {
     "id": 5,
+    "name": "Cyan",
     "color": "#00D5FF",
     "satisfaction": 67,
     "energy": 17,
@@ -67,6 +73,7 @@
   },
   {
     "id": 6,
+    "name": "Azure",
     "color": "#0080FF",
     "satisfaction": 50,
     "energy": 0,
@@ -79,6 +86,7 @@
   },
   {
     "id": 7,
+    "name": "Blue",
     "color": "#0000FF",
     "satisfaction": 33,
     "energy": 17,
@@ -90,6 +98,7 @@
   },
   {
     "id": 8,
+    "name": "Violet",
     "color": "#6600CC",
     "satisfaction": 17,
     "energy": 33,
@@ -103,6 +112,7 @@
   },
   {
     "id": 9,
+    "name": "Aubergine",
     "color": "#990099",
     "satisfaction": 0,
     "energy": 50,
@@ -114,6 +124,7 @@
   },
   {
     "id": 10,
+    "name": "Burgundy",
     "color": "#CC0066",
     "satisfaction": 17,
     "energy": 67,
@@ -127,6 +138,7 @@
   },
   {
     "id": 11,
+    "name": "Red",
     "color": "#FF0000",
     "satisfaction": 33,
     "energy": 83,

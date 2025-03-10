@@ -10,6 +10,7 @@ import { CompanyDatesContext, CompanyDatesContextType } from "context/company-da
 import { CompanyCheckInType } from "app/company";
 import Insights from "./content/Insights";
 import Categories from "./content/Categories";
+import Stats from "./content/Stats";
 import { getStoredVal, theme, pressedDefault, removeAccess } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
@@ -104,6 +105,7 @@ export default function Content(props: ContentProps) {
         {props.checkIns?.length ? (
           <>
             <Insights checkIns={props.checkIns} dates={companyDates} />
+            <Stats checkIns={props.checkIns} />
             <Categories checkIns={props.checkIns} />
           </>
         ) : isOffline ? (
