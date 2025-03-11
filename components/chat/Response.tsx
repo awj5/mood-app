@@ -92,6 +92,7 @@ export default function Response(props: ResponseProps) {
               func={buttonClick}
               fill={props.button === "upsell"}
               icon={props.button === "upsell" ? Sparkles : undefined}
+              gradient={props.button === "upsell"}
             >
               {props.button === "company"
                 ? "View company insights"
