@@ -190,5 +190,501 @@
     "spotifyLink": "https://open.spotify.com/track/2E1RGgFtr1X4H6glXOtABo?si=fde7abff2a5f4111",
     "lyrics": "I came to win, to survive, to prosper, to rise - to fly.",
     "moods": [2, 3, 4]
+  },
+  {
+    "title": "3 Things",
+    "artist": "Jason Mraz",
+    "appleMusicLink": "https://music.apple.com/album/3-things/877925874?i=877926940",
+    "spotifyLink": "https://open.spotify.com/track/1As4s2KM4m0zT5dr9YT2lb?si=df6d30565953439a",
+    "lyrics": "Things are looking up, I know above the clouds the sun is shining.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "I Am Light",
+    "artist": "India Arie",
+    "appleMusicLink": "https://music.apple.com/album/i-am-light/1529441404?i=1529441405",
+    "spotifyLink": "https://open.spotify.com/track/2osX2ZE2SVdYZKlKU5p6Ly?si=abd42164358a40b1",
+    "lyrics": "I am not the pieces of the brokenness inside - I am light.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Just the Way You Are",
+    "artist": "Billy Joel",
+    "appleMusicLink": "https://music.apple.com/album/just-the-way-you-are/158617952?i=158618063",
+    "spotifyLink": "https://open.spotify.com/track/06RdYCp0UxsBtWsonHfSZz?si=dc4d518c8749482a",
+    "lyrics": "I just want someone that I can talk to. I want you just the way you are.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Living in the Moment",
+    "artist": "Jason Mraz",
+    "appleMusicLink": "https://music.apple.com/album/living-in-the-moment/509536557?i=509536629",
+    "spotifyLink": "https://open.spotify.com/track/395XDt5vt8DKguJDjGtYLU?si=fb0243a177a64c67",
+    "lyrics": "Living in the moment, living our life, easy and breezy with peace in my mind.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "What A Wonderful World",
+    "artist": "Louis Armstrong",
+    "appleMusicLink": "https://music.apple.com/album/what-a-wonderful-world/1440787250?i=1440787254",
+    "spotifyLink": "https://open.spotify.com/track/29U7stRjqHU6rMiS8BfaI9?si=0882fdb2ab804db8",
+    "lyrics": "And I think to myself, what a wonderful world.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Count on Me",
+    "artist": "Bruno Mars",
+    "appleMusicLink": "https://music.apple.com/album/count-on-me/576670451?i=576670467",
+    "spotifyLink": "https://open.spotify.com/track/7l1qvxWjxcKpB9PCtBuTbU?si=40a78f1d3265433f",
+    "lyrics": "You can count on me like one, two, three - I'll be there.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "My Way",
+    "artist": "Frank Sinatra",
+    "appleMusicLink": "https://music.apple.com/album/my-way/1443456452?i=1443456629",
+    "spotifyLink": "https://open.spotify.com/track/3spdoTYpuCpmq19tuD0bOe?si=77fa4c90ed9f4aae",
+    "lyrics": "Regrets, I've had a few. But then again, too few to mention.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "One Call Away",
+    "artist": "Charlie Puth",
+    "appleMusicLink": "https://music.apple.com/album/one-call-away/1031416178?i=1031416179",
+    "spotifyLink": "https://open.spotify.com/track/37R0bQOQj5a7DOqh1TGzvB?si=d2c8886beb704c20",
+    "lyrics": "Superman got nothing on me - I'm only one call away.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "At The River",
+    "artist": "Groove Armada",
+    "appleMusicLink": "https://music.apple.com/album/at-the-river/304756740?i=304756750",
+    "spotifyLink": "https://open.spotify.com/track/0KIPa0YuQ5QFmlAqRyXNd9?si=b74ef4eb382d4938",
+    "lyrics": "If you're fond of sand dunes and salty air, quaint little villages here and there...",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Golden",
+    "artist": "Surfaces",
+    "appleMusicLink": "https://music.apple.com/album/golden/1749204371?i=1749204888",
+    "spotifyLink": "https://open.spotify.com/track/2B4OLytbmabTAPxBVxlJFJ?si=3498b98ffedc4189",
+    "lyrics": "We could have the sun, we could have the moon, we could have the whole wide world in view.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Easy",
+    "artist": "Commodores",
+    "appleMusicLink": "https://music.apple.com/album/easy/1442972066?i=1442972225",
+    "spotifyLink": "https://open.spotify.com/track/1JQ6Xm1JrvHfvAqhl5pwaA?si=17a94e6ef8cc45b1",
+    "lyrics": "That's why I'm easy - I'm easy like Sunday morning.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Feeling",
+    "artist": "DECAP",
+    "appleMusicLink": "https://music.apple.com/album/feeling/999134261?i=999134425",
+    "spotifyLink": "https://open.spotify.com/track/5LSox8vq4OCDTVTcMfwUeG?si=e505fe9d01a54869",
+    "lyrics": "The feeling is the healing I need.",
+    "moods": [4, 5, 6]
+  },
+  {
+    "title": "Beautiful",
+    "artist": "Christina Aguilera",
+    "appleMusicLink": "https://music.apple.com/album/beautiful/279647264?i=279647290",
+    "spotifyLink": "https://open.spotify.com/track/3TCauNPqFiniaYHBvEVoHG?si=8d09fb37227e49b9",
+    "lyrics": "I am beautiful no matter what they say - words can't bring me down.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "True Colors",
+    "artist": "Cyndi Lauper",
+    "appleMusicLink": "https://music.apple.com/album/true-colors/193520976?i=193521054",
+    "spotifyLink": "https://open.spotify.com/track/60wwxj6Dd9NJlirf84wr2c?si=f854defe984c4893",
+    "lyrics": "Don't be afraid to let them show - your true colors are beautiful like a rainbow.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Try",
+    "artist": "Colbie Caillat",
+    "appleMusicLink": "https://music.apple.com/album/try/1440815510?i=1440815622",
+    "spotifyLink": "https://open.spotify.com/track/4QvTOAIVxL3NGgrIYU97pj?si=6fb23578df0948ea",
+    "lyrics": "You don't have to change a single thing - you don't have to try.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "human",
+    "artist": "Christina Perri",
+    "appleMusicLink": "https://music.apple.com/album/human/777741650?i=777741661",
+    "spotifyLink": "https://open.spotify.com/track/4IqcDJPzDL8Hq8KwAX4jUE?si=b809e9d1d68946b3",
+    "lyrics": "I can do it, but I'm only human, and I bleed when I fall down.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Breathe (2 AM)",
+    "artist": "Anna Nalick",
+    "appleMusicLink": "https://music.apple.com/album/breathe-2-am/308215992?i=308216036",
+    "spotifyLink": "https://open.spotify.com/track/5auMzVHFr5Zfw6IbKarZ56?si=e85e5cea5b9445b5",
+    "lyrics": "Life's like an hourglass glued to the table, no one can find the rewind button now.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Rise Up",
+    "artist": "Andra Day",
+    "appleMusicLink": "https://music.apple.com/album/rise-up/996787628?i=996788062",
+    "spotifyLink": "https://open.spotify.com/track/0tV8pOpiNsKqUys0ilUcXz?si=a14723a6d34b46e5",
+    "lyrics": "I'll rise up high like the waves, I'll rise up in spite of the ache.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Angel",
+    "artist": "Sarah McLachlan",
+    "appleMusicLink": "https://music.apple.com/album/angel/388153718?i=388154428",
+    "spotifyLink": "https://open.spotify.com/track/3xZMPZQYETEn4hjor3TR1A?si=c0f09af3c72a4790",
+    "lyrics": "You're in the arms of the angel, may you find some comfort here.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Fix You",
+    "artist": "Coldplay",
+    "appleMusicLink": "https://music.apple.com/album/fix-you/1123076757?i=1123076826",
+    "spotifyLink": "https://open.spotify.com/track/7LVHVU3tWfcxj5aiPFEW4Q?si=7818d8545aaa441e",
+    "lyrics": "Lights will guide you home and ignite your bones, and I will try to fix you.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Hands",
+    "artist": "Jewel",
+    "appleMusicLink": "https://music.apple.com/album/hands/1576800270?i=1576800571",
+    "spotifyLink": "https://open.spotify.com/track/615auKcis6sGDrHk6UTeog?si=28230418e7d948a3",
+    "lyrics": "In the end, only kindness matters.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Who You Are",
+    "artist": "Jessie J",
+    "appleMusicLink": "https://music.apple.com/album/who-you-are/1444055916?i=1444056113",
+    "spotifyLink": "https://open.spotify.com/track/219eUQBWnfmADjKZEWEfSM?si=8221cd70caff42f8",
+    "lyrics": "Tears don't mean you're losing - everybody's bruising - just be true to who you are.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Mad World",
+    "artist": "Tears for Fears",
+    "appleMusicLink": "https://music.apple.com/album/mad-world/1695687752?i=1695687756",
+    "spotifyLink": "https://open.spotify.com/track/0Qv7xi6uPSqH2k82tOkGSt?si=52c7f10cea5645eb",
+    "lyrics": "All around me are familiar faces, worn out places, worn out faces.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "And So It Goes",
+    "artist": "Billy Joel",
+    "appleMusicLink": "https://music.apple.com/album/and-so-it-goes/158618758?i=158619138",
+    "spotifyLink": "https://open.spotify.com/track/1u7kQUb3lQcpHaYRfia13A?si=951ffbbc960f412c",
+    "lyrics": "But you can make decisions too, and you can have this heart to break.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "What Was I Made For?",
+    "artist": "Billie Eilish",
+    "appleMusicLink": "https://music.apple.com/album/what-was-i-made-for-from-the-motion-picture-barbie/1696819852?i=1696819855",
+    "spotifyLink": "https://open.spotify.com/track/6wf7Yu7cxBSPrRlWeSeK0Q?si=3b53b10201804137",
+    "lyrics": "I used to know, but I'm not sure now what I was made for. What was I made for?",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "colorblind",
+    "artist": "Mokita",
+    "appleMusicLink": "https://music.apple.com/album/colorblind/1598689587?i=1598689588",
+    "spotifyLink": "https://open.spotify.com/track/4o3XxiQ9BljY4OU38zanC0?si=02445c6a0a254d49",
+    "lyrics": "It's like I'm colorblind, 'cause everybody's world's in color except for mine.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Everglow",
+    "artist": "Coldplay",
+    "appleMusicLink": "https://music.apple.com/album/everglow/1053933969?i=1053934845",
+    "spotifyLink": "https://open.spotify.com/track/5qfZRNjt2TkHEL12r3sDEU?si=7f3b93a997ab4779",
+    "lyrics": "When I'm in shadow, there's a feeling you give me, an everglow.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "Landslide",
+    "artist": "The Chicks",
+    "appleMusicLink": "https://music.apple.com/album/landslide/192677147?i=192677179",
+    "spotifyLink": "https://open.spotify.com/track/5hviCr3lgg6LY6noG6DPKs?si=7972ec6bb6454322",
+    "lyrics": "Can I sail through the changing ocean tides? Can I handle the seasons of my life?",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "So I",
+    "artist": "Charli xcx",
+    "appleMusicLink": "https://music.apple.com/album/so-i/1739079974?i=1739080637",
+    "spotifyLink": "https://open.spotify.com/track/0AkiAfilrTUXV49dleC5SB?si=c50139eca19d42d5",
+    "lyrics": "I know you always said \"It's okay to cry,\" so I know I can cry. So I cry.",
+    "moods": [6, 7, 8]
+  },
+  {
+    "title": "breathin",
+    "artist": "Ariana Grande",
+    "appleMusicLink": "https://music.apple.com/us/album/breathin/1399202539?i=1399202958",
+    "spotifyLink": "https://open.spotify.com/track/4OafepJy2teCjYJbvFE60J?si=a92e5302121b4263",
+    "lyrics": "Feel my blood running, swear the sky's falling, I keep on breathing.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Unwell",
+    "artist": "Matchbox Twenty",
+    "appleMusicLink": "https://music.apple.com/us/album/unwell/580000525?i=580000550",
+    "spotifyLink": "https://open.spotify.com/track/66s45uMhk7Y4z0xUgESdm3?si=c70ce8f93b78411f",
+    "lyrics": "Stay awhile and maybe then you'll see a different side of me.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "7 Years",
+    "artist": "Lukas Graham",
+    "appleMusicLink": "https://music.apple.com/us/album/7-years/1081573096?i=1081573445",
+    "spotifyLink": "https://open.spotify.com/track/5kqIPrATaCc2LqxVWzQGbk?si=92480da493154964",
+    "lyrics": "Remember life and then your life becomes a better one.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Demons",
+    "artist": "Imagine Dragons",
+    "appleMusicLink": "https://music.apple.com/us/album/demons/1440873107?i=1440873339",
+    "spotifyLink": "https://open.spotify.com/track/5qaEfEh1AtSdrdrByCP7qR?si=8136886bd78a4547",
+    "lyrics": "Don't get too close, it's dark inside. It's where my demons hide.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Rise",
+    "artist": "Katy Perry",
+    "appleMusicLink": "https://music.apple.com/us/album/rise/1445048853?i=1445048857",
+    "spotifyLink": "https://open.spotify.com/track/1CwNogTShsnsn1C8UhRmYX?si=8fdbd8bbe5544823",
+    "lyrics": "When you think the final nail is in, think again. Don't be surprised, I will still rise.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Skyscraper",
+    "artist": "Demi Lovato",
+    "appleMusicLink": "https://music.apple.com/us/album/skyscraper/1440651158?i=1440651722",
+    "spotifyLink": "https://open.spotify.com/track/4B3RmT3cGvh8By3WY9pbIx?si=247b49ee504d48bb",
+    "lyrics": "Go on and try to tear me down, I will be rising from the ground like a skyscraper.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Bad Day",
+    "artist": "Daniel Powter",
+    "appleMusicLink": "https://music.apple.com/us/album/bad-day/63816246?i=63816165",
+    "spotifyLink": "https://open.spotify.com/track/0mUyMawtxj1CJ76kn9gIZK?si=7efb8f29f670447d",
+    "lyrics": "You had a bad day, you're taking one down, you sing a sad song just to turn it around.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Boulevard of Broken Dreams",
+    "artist": "Green Day",
+    "appleMusicLink": "https://music.apple.com/us/album/american-idiot/1161539183?i=1161539471",
+    "spotifyLink": "https://open.spotify.com/track/0U87auHx1iZTEFcq9KVdmO?si=0f245e38d7ca4c4f",
+    "lyrics": "Sometimes, I wish someone out there will find me - 'til then, I walk alone.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Dark Side",
+    "artist": "Kelly Clarkson",
+    "appleMusicLink": "https://music.apple.com/us/album/dark-side/464446088?i=464446145",
+    "spotifyLink": "https://open.spotify.com/track/2VFMVOLcDNoknXL2ILhdpp?si=dfc5781861d54aef",
+    "lyrics": "Everybody's got a dark side. Do you love me? Can you love mine?",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Everybody Hurts",
+    "artist": "R.E.M.",
+    "appleMusicLink": "https://music.apple.com/us/album/everybody-hurts/1440949853?i=1440949865",
+    "spotifyLink": "https://open.spotify.com/track/6PypGyiu0Y2lCDBN1XZEnP?si=3fc50ccb957a41ba",
+    "lyrics": "Don't let yourself go, 'cause everybody cries - everybody hurts sometimes.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "King of Anything",
+    "artist": "Sara Bareilles",
+    "appleMusicLink": "https://music.apple.com/us/album/king-of-anything/390601818?i=390601837",
+    "spotifyLink": "https://open.spotify.com/track/3VA8T3rNy5V24AXxNK5u9E?si=8639372d3745460a",
+    "lyrics": "Who cares if you disagree? You are not me. Who made you king of anything?",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "No More Drama",
+    "artist": "Mary J. Blige",
+    "appleMusicLink": "https://music.apple.com/us/album/no-more-drama/1440817211?i=1440817934",
+    "spotifyLink": "https://open.spotify.com/track/7nWsh14AHpnTzq1Xejz90U?si=7c080cb39b054377",
+    "lyrics": "It's up to us to choose whether we win or lose - and I choose to win.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Scars To Your Beautiful",
+    "artist": "Alessia Cara",
+    "appleMusicLink": "https://music.apple.com/us/album/scars-to-your-beautiful/1440826395?i=1440827194",
+    "spotifyLink": "https://open.spotify.com/track/42ydLwx4i5V49RXHOozJZq?si=a3da6a47642846a9",
+    "lyrics": "No scars to your beautiful, we're stars and we're beautiful.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Stressed Out",
+    "artist": "Twenty One Pilots",
+    "appleMusicLink": "https://music.apple.com/us/album/stressed-out/974485462?i=974485474",
+    "spotifyLink": "https://open.spotify.com/track/3CRDbSIZ4r5MsZ0YwxuEkn?si=97ab860451634ab0",
+    "lyrics": "Wish we could turn back time to the good old days when our mama sang us to sleep.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Unsteady",
+    "artist": "X Ambassadors",
+    "appleMusicLink": "https://music.apple.com/us/album/unsteady/1440816349?i=1440816724",
+    "spotifyLink": "https://open.spotify.com/track/7lGKEWMXVWWTt3X71Bv44I?si=217eb1bb9c644b7c",
+    "lyrics": "Hold, hold on, hold onto me, 'cause I'm a little unsteady.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Behind Blue Eyes",
+    "artist": "Limp Bizkit",
+    "appleMusicLink": "https://music.apple.com/us/album/behind-blue-eyes/1440873100?i=1440874577",
+    "spotifyLink": "https://open.spotify.com/track/1MTQHCpraD4S8g5PAFKzoj?si=5ccf165879854bfd",
+    "lyrics": "No one knows what it's like to be mistreated, to be defeated, behind blue eyes.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Breathe Me",
+    "artist": "Sia",
+    "appleMusicLink": "https://music.apple.com/us/album/breathe-me/714520927?i=714521368",
+    "spotifyLink": "https://open.spotify.com/track/7jqzZyJJLrpkRFYGpkqSK6?si=1d892c3ffa304ee5",
+    "lyrics": "I am small and needy, warm me up and breathe me.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "In the End",
+    "artist": "Linkin Park",
+    "appleMusicLink": "https://music.apple.com/us/album/in-the-end/528436018?i=528437613",
+    "spotifyLink": "https://open.spotify.com/track/3tSmXSxaAnU1EPGKa6NytH?si=364f16b0335d4c98",
+    "lyrics": "I tried so hard and got so far, but in the end, it doesn't even matter.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "OK (Anxiety Anthem)",
+    "artist": "Mabel",
+    "appleMusicLink": "https://music.apple.com/us/album/ok-anxiety-anthem/1480432095?i=1480432360",
+    "spotifyLink": "https://open.spotify.com/track/6bW7xROpvstfDvXdOnH96p?si=5007e99b8ae34438",
+    "lyrics": "It's okay not to be okay. It's fine, you're allowed to break.",
+    "moods": [8, 9, 10]
+  },
+  {
+    "title": "Numb",
+    "artist": "Linkin Park",
+    "appleMusicLink": "https://music.apple.com/us/album/numb/528435845?i=528437514",
+    "spotifyLink": "https://open.spotify.com/track/2nLtzopw4rPReszdYBJU6h?si=4ad12eb247c9496a",
+    "lyrics": "I'm becoming this, all I want to do, is be more like me and be less like you.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Hall of Fame (feat. will.i.am)",
+    "artist": "The Script, will.i.am",
+    "appleMusicLink": "https://music.apple.com/us/album/hall-of-fame-feat-will-i-am/550297998?i=550298008",
+    "spotifyLink": "https://open.spotify.com/track/7wMq5n8mYSKlQIGECKUgTX?si=0d79c210b8a44ef0",
+    "lyrics": "Dedicate yourself and you gon' find yourself standing in the hall of fame.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Not Afraid",
+    "artist": "Eminem",
+    "appleMusicLink": "https://music.apple.com/us/album/not-afraid/1440781199?i=1440781847",
+    "spotifyLink": "https://open.spotify.com/track/7Ie9W94M7OjPoZVV216Xus?si=b928838cce87484a",
+    "lyrics": "I'm not afraid to take a stand - everybody, come take my hand.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Superheroes",
+    "artist": "The Script",
+    "appleMusicLink": "https://music.apple.com/us/album/superheroes/903055934?i=903055962",
+    "spotifyLink": "https://open.spotify.com/track/37sINbJZcFdHFAsVNsPq1i?si=a77bddae6df04df8",
+    "lyrics": "That's how a superhero learns to fly - every day, every hour, turn the pain into power.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Titanium (feat. Sia)",
+    "artist": "David Guetta, Sia",
+    "appleMusicLink": "https://music.apple.com/us/album/titanium-feat-sia/693225996?i=693226464",
+    "spotifyLink": "https://open.spotify.com/track/0TDLuuLlV54CkRRUOahJb4?si=73166df10cb143ec",
+    "lyrics": "You shoot me down, but I won't fall - I am titanium.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Confident",
+    "artist": "Demi Lovato",
+    "appleMusicLink": "https://music.apple.com/us/album/confident/1440807736?i=1440807738",
+    "spotifyLink": "https://open.spotify.com/track/18xfL5bAbwy1IhIOaaHf57?si=f841967e55dd45e4",
+    "lyrics": "You say I'm complicated, but you've had me underrated.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Eye of the Tiger",
+    "artist": "Survivor",
+    "appleMusicLink": "https://music.apple.com/us/album/eye-of-the-tiger/254685010?i=254685026",
+    "spotifyLink": "https://open.spotify.com/track/2KH16WveTQWT6KOG9Rg6e2?si=85f7752d103e4755",
+    "lyrics": "It's the eye of the tiger, it's the thrill of the fight, rising up to the challenge of our rival.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Radioactive",
+    "artist": "Imagine Dragons",
+    "appleMusicLink": "https://music.apple.com/us/album/radioactive/1440873107?i=1440873126",
+    "spotifyLink": "https://open.spotify.com/track/62yJjFtgkhUrXktIoSjgP2?si=ab905521f75e402b",
+    "lyrics": "I'm waking up, I feel it in my bones, enough to make my system blow.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Ride",
+    "artist": "Twenty One Pilots",
+    "appleMusicLink": "https://music.apple.com/us/album/ride/974485462?i=974485805",
+    "spotifyLink": "https://open.spotify.com/track/2Z8WuEywRWYTKe1NybPQEW?si=563b2e15298c478e",
+    "lyrics": "I'm falling, so I'm taking my time on my ride.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "My Shot",
+    "artist": "Lin-Manuel Miranda, Daveed Diggs, Okieriete Onaodowan, Leslie Odom Jr., Original Broadway Cast of Hamilton, Anthony Ramos",
+    "appleMusicLink": "https://music.apple.com/us/album/my-shot/1025210938?i=1025212411",
+    "spotifyLink": "https://open.spotify.com/track/4cxvludVmQxryrnx1m9FqL?si=0b2d8f83df004890",
+    "lyrics": "I'm just like my country, I'm young, scrappy and hungry, and I'm not throwing away my shot.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Breaking the Habit",
+    "artist": "Linkin Park",
+    "appleMusicLink": "https://music.apple.com/us/album/breaking-the-habit/528435845?i=528437026",
+    "spotifyLink": "https://open.spotify.com/track/6n8TMVyFKoUmDc4apxceRD?si=3b824d402f924adc",
+    "lyrics": "I don't know how I got this way, I know it's not alright, so I'm breaking the habit tonight.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "Survivor",
+    "artist": "Destiny's Child",
+    "appleMusicLink": "https://music.apple.com/us/album/survivor/1301493743?i=1301495399",
+    "spotifyLink": "https://open.spotify.com/track/2Mpj1Ul5OFPyyP4wB62Rvi?si=f24c9286f1084290",
+    "lyrics": "I'm a survivor, I'm gonna make it, I will survive, keep on surviving.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "One Step Closer",
+    "artist": "Linkin Park",
+    "appleMusicLink": "https://music.apple.com/us/album/one-step-closer/528436018?i=528437411",
+    "spotifyLink": "https://open.spotify.com/track/61fUybL3XS40gcffnnNPoX?si=857f307a733e4c31",
+    "lyrics": "I need a little room to breathe, 'cause I'm one step closer to the edge, and I'm about to break.",
+    "moods": [10, 11, 12]
+  },
+  {
+    "title": "BREAK MY SOUL",
+    "artist": "Beyoncé",
+    "appleMusicLink": "https://music.apple.com/us/album/break-my-soul/1630005298?i=1630005854",
+    "spotifyLink": "https://open.spotify.com/track/5pyoxDZ1PX0KxBxiRVxA4U?si=3f5662612cf34825",
+    "lyrics": "Release your anger, release your mind, release your job, release the time.",
+    "moods": [10, 11, 12]
   }
 ]
