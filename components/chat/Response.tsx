@@ -18,6 +18,7 @@ type ResponseProps = {
   setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusInput: React.Dispatch<React.SetStateAction<boolean>>;
   company?: string;
+  insightsSeen?: boolean;
 };
 
 export default function Response(props: ResponseProps) {
@@ -33,9 +34,7 @@ export default function Response(props: ResponseProps) {
     .split(" ");
 
   const buttonClick = () => {
-    if (props.message.button === "company") {
-      alert("Coming soon");
-    } else if (props.message.button === "upsell") {
+    if (props.message.button === "upsell") {
       alert("Coming soon");
     } else {
       router.dismissAll();
@@ -67,7 +66,7 @@ export default function Response(props: ResponseProps) {
     <View
       style={{
         flexDirection: "row",
-        minHeight: props.message.height ? props.message.height : Device.deviceType !== 1 ? 224 : 192,
+        minHeight: props.message.height ? props.message.height : Device.deviceType !== 1 ? 240 : 208,
         padding: spacing,
         gap: Device.deviceType !== 1 ? 16 : 12,
       }}
@@ -105,9 +104,7 @@ export default function Response(props: ResponseProps) {
                 icon={props.message.button === "upsell" ? Sparkles : undefined}
                 gradient={props.message.button === "upsell"}
               >
-                {props.message.button === "company"
-                  ? "View company insights"
-                  : props.message.button === "upsell"
+                {props.message.button === "upsell"
                   ? "Get MOOD.ai Pro"
                   : props.message.button === "respond"
                   ? "Not right now"
@@ -115,8 +112,11 @@ export default function Response(props: ResponseProps) {
               </Button>
             </View>
 
-            {props.company && !props.message.button && !props.generating && displayedText.indexOf("?") === -1 && (
-              <Button func={() => router.push("company")}>{`View ${props.company} insights`}</Button>
+            {((props.company && !props.message.button && displayedText.indexOf("?") === -1) ||
+              (props.company && props.message.button === "respond" && !props.insightsSeen)) && (
+              <View style={{ alignSelf: "flex-start" }}>
+                <Button func={() => router.push("company")}>{`View ${props.company} insights`}</Button>
+              </View>
             )}
           </Animated.View>
         ) : (

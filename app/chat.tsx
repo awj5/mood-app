@@ -39,6 +39,7 @@ export default function Chat() {
   const [showInput, setShowInput] = useState(false);
   const [focusInput, setFocusInput] = useState(false);
   const [company, setCompany] = useState("");
+  const [insightsSeen, setInsightsSeen] = useState(false);
 
   const requestAIResponse = async (type: string, uuid: string) => {
     try {
@@ -211,7 +212,9 @@ export default function Chat() {
 
   const getCompany = async () => {
     const name = await getStoredVal("company-name");
+    const send = await getStoredVal("send-check-ins");
     if (name) setCompany(name);
+    if (send) setInsightsSeen(true);
   };
 
   useEffect(() => {
@@ -300,6 +303,7 @@ export default function Chat() {
               setShowInput={setShowInput}
               setFocusInput={setFocusInput}
               company={company}
+              insightsSeen={insightsSeen}
             />
           ) : (
             <Message key={index} text={item.content} />
