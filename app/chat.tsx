@@ -21,6 +21,7 @@ export type MessageType = {
   role: string;
   content: string;
   button?: string;
+  height?: number;
 };
 
 export default function Chat() {
@@ -36,6 +37,7 @@ export default function Chat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
   const [showInput, setShowInput] = useState(false);
+  const [focusInput, setFocusInput] = useState(false);
   const [company, setCompany] = useState("");
 
   const requestAIResponse = async (type: string, uuid: string) => {
@@ -104,7 +106,10 @@ export default function Chat() {
           role: "assistant",
           content: `${
             history?.length === 1 ? "You've just completed your first check in!\n\n" : ""
-          }I'm MOOD, I help you navigate your feelings at work using colour as a research-backed emotional framework.\n\nWhat's your first name?`,
+          }I'm MOOD, I help you navigate your feelings at work using ${
+            localization[0].languageTag === "en-US" ? "color" : "colour"
+          } as a research-backed emotional framework.\n\nWhat's your first name?`,
+          height: 112,
         },
       ]);
     } else {
@@ -154,7 +159,11 @@ export default function Chat() {
       ? "I've updated this check-in with your message."
       : aiResponseCount
       ? `Thanks for sharing, ${name}. To have a deeper chat with me, you'll need a MOOD.ai Pro subscription. However, I've archived what you've shared here for your future reference.\n\nAnything else you'd like to add?`
-      : `Hi ${name}, thanks for checking in. ${mood.description}\n\nWould you like to share more about what's contributing to your ${mood.name} mood?`;
+      : `Hi ${name}, thanks for checking in. The ${
+          localization[0].languageTag === "en-US" ? "color" : "colour"
+        } you selected, ${mood.description}\n\nWould you like to share more about what's contributing to your ${
+          mood.name
+        } mood?`;
 
     if (!uuid) await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay response if user doesn't have AI access
 
@@ -216,7 +225,8 @@ export default function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    if (!generating && !showInput && company) setShowInput(true);
+    if (!generating && !showInput && messages[messages.length - 1].content.includes("What's your first name?"))
+      setShowInput(true);
   }, [generating]);
 
   useEffect(() => {
@@ -285,11 +295,12 @@ export default function Chat() {
           item.role === "assistant" ? (
             <Response
               key={index}
-              text={item.content}
+              message={item}
               generating={index + 1 === messages.length ? generating : false}
               setGenerating={setGenerating}
+              showInput={showInput}
               setShowInput={setShowInput}
-              button={item.button}
+              setFocusInput={setFocusInput}
             />
           ) : (
             <Message key={index} text={item.content} />
@@ -297,7 +308,14 @@ export default function Chat() {
         )}
       </ScrollView>
 
-      <Input generating={generating} setMessages={setMessages} showInput={showInput} />
+      <Input
+        generating={generating}
+        setMessages={setMessages}
+        showInput={showInput}
+        focusInput={focusInput}
+        setFocusInput={setFocusInput}
+      />
+
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
   );

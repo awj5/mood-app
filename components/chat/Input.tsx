@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { StyleSheet, TextInput, View, SafeAreaView, Pressable, Keyboard, LayoutChangeEvent } from "react-native";
 import * as Device from "expo-device";
 import Animated, { useSharedValue, withTiming, Easing } from "react-native-reanimated";
@@ -11,12 +11,16 @@ type InputProps = {
   generating: boolean;
   setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
   showInput: boolean;
+  focusInput: boolean;
+  setFocusInput: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Input(props: InputProps) {
   const colors = theme();
   const marginBottom = useSharedValue(0);
   const opacity = useSharedValue(0);
+  const inputRef = useRef<TextInput | null>(null);
+  const inputShowingRef = useRef(false);
   const [text, setText] = useState("");
   const [focused, setFocused] = useState(false);
   const stroke = Device.deviceType !== 1 ? 2.5 : 2;
@@ -45,8 +49,26 @@ export default function Input(props: InputProps) {
       // Animate in
       marginBottom.value = withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) });
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+
+      const timer = setTimeout(() => {
+        inputShowingRef.current = true;
+
+        if (props.focusInput) {
+          inputRef.current?.focus();
+          props.setFocusInput(false); // Reset
+        }
+      }, 500); // Wait for input to finish animating
+
+      return () => clearTimeout(timer);
     }
   }, [props.showInput]);
+
+  useEffect(() => {
+    if (inputShowingRef.current) {
+      inputRef.current?.focus();
+      props.setFocusInput(false); // Reset
+    }
+  }, [props.focusInput]);
 
   return (
     <SafeAreaView>
@@ -54,8 +76,7 @@ export default function Input(props: InputProps) {
         onLayout={onLayout}
         style={{
           padding: spacing,
-          paddingTop: spacing / 2,
-          gap: spacing / 2,
+          gap: spacing,
           marginBottom,
           opacity,
         }}
@@ -71,6 +92,7 @@ export default function Input(props: InputProps) {
           }}
         >
           <TextInput
+            ref={inputRef}
             onChangeText={setText}
             value={text}
             placeholder="Message"

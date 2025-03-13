@@ -185,6 +185,7 @@ export default function Song(props: SongProps) {
                 .replace(/\*/g, "")
                 .replace(/3/g, "")
                 .replace(/7/g, "")
+                .replace(/\?/g, "")
                 .replace(/\!/g, "") as keyof typeof images
             ]
           }
