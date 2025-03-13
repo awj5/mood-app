@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { StyleSheet, TextInput, View, SafeAreaView, Pressable, Keyboard, LayoutChangeEvent } from "react-native";
+import { StyleSheet, TextInput, View, Pressable, Keyboard, LayoutChangeEvent } from "react-native";
 import * as Device from "expo-device";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { ArrowUp } from "lucide-react-native";
 import { MessageType } from "app/chat";
@@ -17,8 +18,8 @@ type InputProps = {
 
 export default function Input(props: InputProps) {
   const colors = theme();
+  const insets = useSafeAreaInsets();
   const marginBottom = useSharedValue(0);
-  const opacity = useSharedValue(0);
   const inputRef = useRef<TextInput | null>(null);
   const inputShowingRef = useRef(false);
   const [text, setText] = useState("");
@@ -48,7 +49,6 @@ export default function Input(props: InputProps) {
     if (props.showInput) {
       // Animate in
       marginBottom.value = withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) });
-      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
 
       const timer = setTimeout(() => {
         inputShowingRef.current = true;
@@ -71,81 +71,79 @@ export default function Input(props: InputProps) {
   }, [props.focusInput]);
 
   return (
-    <SafeAreaView>
-      <Animated.View
-        onLayout={onLayout}
+    <Animated.View
+      onLayout={onLayout}
+      style={{
+        padding: spacing,
+        paddingBottom: focused ? spacing : spacing + insets.bottom,
+        gap: spacing,
+        marginBottom,
+      }}
+    >
+      <Note />
+
+      <View
         style={{
-          padding: spacing,
-          gap: spacing,
-          marginBottom,
-          opacity,
+          flexDirection: "row",
+          borderWidth: stroke,
+          borderColor: focused ? colors.primary : colors.secondary,
+          borderRadius: Device.deviceType !== 1 ? 44 : 32,
         }}
       >
-        <Note />
+        <TextInput
+          ref={inputRef}
+          onChangeText={setText}
+          value={text}
+          placeholder="Message"
+          placeholderTextColor={colors.secondary}
+          style={[
+            styles.input,
+            {
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 24 : 18,
+              paddingVertical: smallSpacing,
+              paddingLeft: Device.deviceType !== 1 ? 28 : 20,
+            },
+          ]}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          allowFontScaling={false}
+          multiline
+        />
 
-        <View
-          style={{
-            flexDirection: "row",
-            borderWidth: stroke,
-            borderColor: focused ? colors.primary : colors.secondary,
-            borderRadius: Device.deviceType !== 1 ? 44 : 32,
-          }}
+        <Pressable
+          onPress={press}
+          style={({ pressed }) => [
+            pressedDefault(pressed),
+            styles.submit,
+            {
+              width: Device.deviceType !== 1 ? 56 : 40,
+              margin: smallSpacing,
+              borderWidth: focused && !props.generating && text.length ? 0 : stroke,
+              borderColor: !focused ? colors.secondary : colors.primary,
+              backgroundColor: focused && !props.generating && text.length ? colors.primary : "transparent",
+            },
+          ]}
+          hitSlop={8}
+          disabled={!focused || props.generating || !text.length}
         >
-          <TextInput
-            ref={inputRef}
-            onChangeText={setText}
-            value={text}
-            placeholder="Message"
-            placeholderTextColor={colors.secondary}
-            style={[
-              styles.input,
-              {
-                color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 24 : 18,
-                paddingVertical: smallSpacing,
-                paddingLeft: Device.deviceType !== 1 ? 28 : 20,
-              },
-            ]}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            allowFontScaling={false}
-            multiline
+          <ArrowUp
+            color={
+              !focused
+                ? colors.secondary
+                : props.generating || !text.length
+                ? colors.primary
+                : colors.primary === "white"
+                ? "black"
+                : "white"
+            }
+            size={Device.deviceType !== 1 ? 32 : 24}
+            absoluteStrokeWidth
+            strokeWidth={stroke}
           />
-
-          <Pressable
-            onPress={press}
-            style={({ pressed }) => [
-              pressedDefault(pressed),
-              styles.submit,
-              {
-                width: Device.deviceType !== 1 ? 56 : 40,
-                margin: smallSpacing,
-                borderWidth: focused && !props.generating && text.length ? 0 : stroke,
-                borderColor: !focused ? colors.secondary : colors.primary,
-                backgroundColor: focused && !props.generating && text.length ? colors.primary : "transparent",
-              },
-            ]}
-            hitSlop={8}
-            disabled={!focused || props.generating || !text.length}
-          >
-            <ArrowUp
-              color={
-                !focused
-                  ? colors.secondary
-                  : props.generating || !text.length
-                  ? colors.primary
-                  : colors.primary === "white"
-                  ? "black"
-                  : "white"
-              }
-              size={Device.deviceType !== 1 ? 32 : 24}
-              absoluteStrokeWidth
-              strokeWidth={stroke}
-            />
-          </Pressable>
-        </View>
-      </Animated.View>
-    </SafeAreaView>
+        </Pressable>
+      </View>
+    </Animated.View>
   );
 }
 
