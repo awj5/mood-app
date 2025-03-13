@@ -17,6 +17,7 @@ type ResponseProps = {
   showInput: boolean;
   setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusInput: React.Dispatch<React.SetStateAction<boolean>>;
+  company?: string;
 };
 
 export default function Response(props: ResponseProps) {
@@ -66,7 +67,7 @@ export default function Response(props: ResponseProps) {
     <View
       style={{
         flexDirection: "row",
-        minHeight: props.message.height ? props.message.height : Device.deviceType !== 1 ? 320 : 256,
+        minHeight: props.message.height ? props.message.height : Device.deviceType !== 1 ? 224 : 192,
         padding: spacing,
         gap: Device.deviceType !== 1 ? 16 : 12,
       }}
@@ -93,24 +94,30 @@ export default function Response(props: ResponseProps) {
         {(!props.generating && props.message.button) || (!props.generating && displayedText.indexOf("?") === -1) ? (
           <Animated.View
             entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
-            style={{ gap: spacing, flexDirection: "row" }}
+            style={{ gap: spacing, alignSelf: "flex-start" }}
           >
-            {props.message.button === "respond" && <Button func={showInput}>Let's chat</Button>}
+            <View style={{ gap: spacing, flexDirection: "row" }}>
+              {props.message.button === "respond" && <Button func={showInput}>Let's chat</Button>}
 
-            <Button
-              func={buttonClick}
-              fill={props.message.button === "upsell"}
-              icon={props.message.button === "upsell" ? Sparkles : undefined}
-              gradient={props.message.button === "upsell"}
-            >
-              {props.message.button === "company"
-                ? "View company insights"
-                : props.message.button === "upsell"
-                ? "Get MOOD.ai Pro"
-                : props.message.button === "respond"
-                ? "Not right now"
-                : "View my dashboard"}
-            </Button>
+              <Button
+                func={buttonClick}
+                fill={props.message.button === "upsell"}
+                icon={props.message.button === "upsell" ? Sparkles : undefined}
+                gradient={props.message.button === "upsell"}
+              >
+                {props.message.button === "company"
+                  ? "View company insights"
+                  : props.message.button === "upsell"
+                  ? "Get MOOD.ai Pro"
+                  : props.message.button === "respond"
+                  ? "Not right now"
+                  : "View my dashboard"}
+              </Button>
+            </View>
+
+            {props.company && !props.message.button && !props.generating && displayedText.indexOf("?") === -1 && (
+              <Button func={() => router.push("company")}>{`View ${props.company} insights`}</Button>
+            )}
           </Animated.View>
         ) : (
           <></>

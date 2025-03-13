@@ -148,6 +148,7 @@ export default function Chat() {
       {
         role: "assistant",
         content: "",
+        height: !uuid && aiResponseCount < 2 ? (Device.deviceType !== 1 ? 320 : 256) : undefined,
       },
     ]);
 
@@ -177,14 +178,11 @@ export default function Chat() {
         : "Sorry, I'm unable to respond at the moment.";
 
       // Button
-      updatedMessages[updatedMessages.length - 1].button =
-        !aiResponseCount && uuid
-          ? "dash"
-          : !aiResponseCount
-          ? "respond"
-          : !uuid && aiResponseCount === 1
-          ? "upsell"
-          : undefined;
+      updatedMessages[updatedMessages.length - 1].button = !aiResponseCount
+        ? "respond"
+        : !uuid && aiResponseCount === 1
+        ? "upsell"
+        : undefined;
 
       return updatedMessages;
     });
@@ -301,6 +299,7 @@ export default function Chat() {
               showInput={showInput}
               setShowInput={setShowInput}
               setFocusInput={setFocusInput}
+              company={company}
             />
           ) : (
             <Message key={index} text={item.content} />
