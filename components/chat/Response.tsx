@@ -13,6 +13,7 @@ type ResponseProps = {
   text: string;
   generating: boolean;
   setGenerating: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
   button?: string; // dash, company, upsell
 };
 
@@ -21,6 +22,7 @@ export default function Response(props: ResponseProps) {
   const router = useRouter();
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
+  const [hideButtons, setHideButtons] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const words = props.text
@@ -36,6 +38,11 @@ export default function Response(props: ResponseProps) {
     } else {
       router.dismissAll();
     }
+  };
+
+  const showInput = () => {
+    setHideButtons(true);
+    props.setShowInput(true);
   };
 
   useEffect(() => {
@@ -86,8 +93,10 @@ export default function Response(props: ResponseProps) {
         {(!props.generating && props.button) || (!props.generating && displayedText.indexOf("?") === -1) ? (
           <Animated.View
             entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
-            style={{ alignSelf: "flex-start" }}
+            style={{ gap: spacing, flexDirection: "row", display: hideButtons ? "none" : "flex" }}
           >
+            {props.button === "respond" && <Button func={showInput}>Sure</Button>}
+
             <Button
               func={buttonClick}
               fill={props.button === "upsell"}
@@ -98,6 +107,8 @@ export default function Response(props: ResponseProps) {
                 ? "View company insights"
                 : props.button === "upsell"
                 ? "Get MOOD.ai Pro"
+                : props.button === "respond"
+                ? "Maybe later"
                 : "View my dashboard"}
             </Button>
           </Animated.View>
@@ -112,7 +123,7 @@ export default function Response(props: ResponseProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    minHeight: 160,
+    minHeight: 256,
   },
   wrapper: {
     flex: 1,

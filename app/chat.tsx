@@ -35,6 +35,7 @@ export default function Chat() {
   const checkInRef = useRef<PromptDataType>();
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
+  const [showInput, setShowInput] = useState(false);
   const [company, setCompany] = useState("");
 
   const requestAIResponse = async (type: string, uuid: string) => {
@@ -145,15 +146,15 @@ export default function Chat() {
       },
     ]);
 
+    const mood = MoodsData.filter((mood) => mood.id === checkInRef.current?.mood)[0];
+
     const aiResponse = uuid
       ? await requestAIResponse("chat", uuid)
       : aiResponseCount >= 2
       ? "I've updated this check-in with your message."
       : aiResponseCount
       ? `Thanks for sharing, ${name}. To have a deeper chat with me, you'll need a MOOD.ai Pro subscription. However, I've archived what you've shared here for your future reference.\n\nAnything else you'd like to add?`
-      : `Hi ${name}, thanks for checking in. ${
-          MoodsData.filter((mood) => mood.id === checkInRef.current?.mood)[0].description
-        }\n\nWhy do you think you're feeling this way?`;
+      : `Hi ${name}, thanks for checking in. ${mood.description}\n\nWould you like to share more about what's contributing to your ${mood.name} mood?`;
 
     if (!uuid) await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay response if user doesn't have AI access
 
@@ -167,11 +168,14 @@ export default function Chat() {
         : "Sorry, I'm unable to respond at the moment.";
 
       // Button
-      updatedMessages[updatedMessages.length - 1].button = !aiResponseCount
-        ? "dash"
-        : !uuid && aiResponseCount === 1
-        ? "upsell"
-        : undefined;
+      updatedMessages[updatedMessages.length - 1].button =
+        !aiResponseCount && uuid
+          ? "dash"
+          : !aiResponseCount
+          ? "respond"
+          : !uuid && aiResponseCount === 1
+          ? "upsell"
+          : undefined;
 
       return updatedMessages;
     });
@@ -210,6 +214,10 @@ export default function Chat() {
       scrollViewRef.current?.scrollToEnd({ animated: true });
     });
   }, [messages]);
+
+  useEffect(() => {
+    if (!generating && !showInput && company) setShowInput(true);
+  }, [generating]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -280,6 +288,7 @@ export default function Chat() {
               text={item.content}
               generating={index + 1 === messages.length ? generating : false}
               setGenerating={setGenerating}
+              setShowInput={setShowInput}
               button={item.button}
             />
           ) : (
@@ -288,7 +297,7 @@ export default function Chat() {
         )}
       </ScrollView>
 
-      <Input generating={generating} setMessages={setMessages} />
+      <Input generating={generating} setMessages={setMessages} showInput={showInput} />
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
   );

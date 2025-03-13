@@ -1,5 +1,6 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
+import { ShieldCheck } from "lucide-react-native";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function Note() {
@@ -13,8 +14,15 @@ export default function Note() {
 
   return (
     <View style={styles.container}>
+      <ShieldCheck
+        color={colors.secondary}
+        size={Device.deviceType !== 1 ? 28 : 20}
+        absoluteStrokeWidth
+        strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+      />
+
       <Text style={textStyle} allowFontScaling={false}>
-        Your conversations are always private.
+        Your conversations are private.
       </Text>
 
       <Pressable
@@ -38,6 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
     gap: 4,
   },
 });

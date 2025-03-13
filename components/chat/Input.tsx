@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { StyleSheet, TextInput, View, SafeAreaView, Pressable, Keyboard } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, TextInput, View, SafeAreaView, Pressable, Keyboard, LayoutChangeEvent } from "react-native";
 import * as Device from "expo-device";
+import Animated, { useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { ArrowUp } from "lucide-react-native";
 import { MessageType } from "app/chat";
 import Note from "./input/Note";
@@ -9,10 +10,13 @@ import { theme, pressedDefault } from "utils/helpers";
 type InputProps = {
   generating: boolean;
   setMessages: React.Dispatch<React.SetStateAction<MessageType[]>>;
+  showInput: boolean;
 };
 
 export default function Input(props: InputProps) {
   const colors = theme();
+  const marginBottom = useSharedValue(0);
+  const opacity = useSharedValue(0);
   const [text, setText] = useState("");
   const [focused, setFocused] = useState(false);
   const stroke = Device.deviceType !== 1 ? 2.5 : 2;
@@ -32,12 +36,28 @@ export default function Input(props: InputProps) {
     Keyboard.dismiss();
   };
 
+  const onLayout = (event: LayoutChangeEvent) => {
+    if (!props.showInput) marginBottom.value = 0 - event.nativeEvent.layout.height; // Hide on mount
+  };
+
+  useEffect(() => {
+    if (props.showInput) {
+      // Animate in
+      marginBottom.value = withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) });
+      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    }
+  }, [props.showInput]);
+
   return (
     <SafeAreaView>
-      <View
+      <Animated.View
+        onLayout={onLayout}
         style={{
           padding: spacing,
-          gap: spacing,
+          paddingTop: spacing / 2,
+          gap: spacing / 2,
+          marginBottom,
+          opacity,
         }}
       >
         <Note />
@@ -102,7 +122,7 @@ export default function Input(props: InputProps) {
             />
           </Pressable>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
