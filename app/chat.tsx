@@ -109,7 +109,7 @@ export default function Chat() {
           }I'm MOOD, I help you navigate your feelings at work using ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
           } as a research-backed emotional framework.\n\nWhat's your first name?`,
-          height: 112,
+          height: Device.deviceType !== 1 ? 160 : 112,
         },
       ]);
     } else {

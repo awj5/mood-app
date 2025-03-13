@@ -66,7 +66,7 @@ export default function Response(props: ResponseProps) {
     <View
       style={{
         flexDirection: "row",
-        minHeight: props.message.height ? props.message.height : 256,
+        minHeight: props.message.height ? props.message.height : Device.deviceType !== 1 ? 320 : 256,
         padding: spacing,
         gap: Device.deviceType !== 1 ? 16 : 12,
       }}

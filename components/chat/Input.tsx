@@ -76,7 +76,7 @@ export default function Input(props: InputProps) {
         onLayout={onLayout}
         style={{
           padding: spacing,
-          gap: spacing,
+          gap: spacing / 2,
           marginBottom,
           opacity,
         }}
