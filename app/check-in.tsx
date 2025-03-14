@@ -36,6 +36,7 @@ export type TagType = {
 export type CompetencyType = {
   id: number;
   statement: string;
+  type: string;
 };
 
 export default function CheckIn() {
@@ -51,7 +52,7 @@ export default function CheckIn() {
   const [foregroundColor, setForegroundColor] = useState("");
   const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
-  const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "" });
+  const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
@@ -104,7 +105,7 @@ export default function CheckIn() {
       color: mood.value.id,
       tags: selectedTags,
       competency: competency.id,
-      statementResponse: sliderVal.value,
+      statementResponse: competency.type === "neg" ? Math.floor((1 - sliderVal.value) * 100) / 100 : sliderVal.value,
       company: name ? name : undefined,
     };
 
@@ -178,7 +179,7 @@ export default function CheckIn() {
 
           {showStatement && (
             <>
-              <BackgroundOverlay color={selectedMood.color} sliderVal={sliderVal} />
+              <BackgroundOverlay color={selectedMood.color} sliderVal={sliderVal} competency={competency} />
               <Heading text="Do you agree with this statement?" color={foregroundColor} />
               <Done color={foregroundColor} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 

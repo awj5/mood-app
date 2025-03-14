@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import * as Device from "expo-device";
+import tagsData from "data/tags.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
 import Note from "./check-in/Note";
-import { theme } from "utils/helpers";
+import { getMostCommon, theme } from "utils/helpers";
 import { getStatement } from "utils/data";
 
 type CheckInProps = {
@@ -15,10 +17,25 @@ type CheckInProps = {
 
 export default function CheckIn(props: CheckInProps) {
   const colors = theme();
+  const [statement, setStatement] = useState("");
   const mood: CheckInMoodType = JSON.parse(props.data.mood);
   const utc = new Date(`${props.data.date}Z`);
   const local = new Date(utc);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
+
+  useEffect(() => {
+    const tagTypes = [];
+
+    // Loop selected tags and get type
+    for (let i = 0; i < mood.tags.length; i++) {
+      let tag = tagsData.filter((item) => item.id === mood.tags[i])[0];
+      tagTypes.push(tag.type);
+    }
+
+    const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
+    const response = primaryTagType === "neg" ? 1 - mood.statementResponse : mood.statementResponse;
+    setStatement(getStatement(mood.competency, response, primaryTagType, mood.company));
+  }, []);
 
   return (
     <View
@@ -49,7 +66,7 @@ export default function CheckIn(props: CheckInProps) {
           }}
           allowFontScaling={false}
         >
-          {getStatement(mood.competency, mood.statementResponse, mood.company)}
+          {statement}
         </Text>
 
         <Note text={props.data.note} />

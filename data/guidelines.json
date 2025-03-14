@@ -89,291 +89,363 @@
     "competencies": [
       {
         "id": 1.01,
-        "statement": "I have a choice in deciding what I do at work"
+        "posStatement": "I have a choice in deciding what I do at work",
+        "negStatement": "I have little choice in deciding what I do at work"
       },
       {
         "id": 1.02,
-        "statement": "I have some say over the way I get the job done"
+        "posStatement": "I have some say over the way I get the job done",
+        "negStatement": "I have no say over the way I get the job done"
       },
       {
         "id": 1.03,
-        "statement": "I have a say in my own work speed"
+        "posStatement": "I have a say in my own work speed",
+        "negStatement": "I have no say in my own work speed"
       },
       {
         "id": 2.01,
-        "statement": "I am able to work reasonable hours"
+        "posStatement": "I am able to work reasonable hours",
+        "negStatement": "I am pressured to work long hours"
       },
       {
         "id": 2.02,
-        "statement": "I have achievable deadlines"
+        "posStatement": "I have achievable deadlines",
+        "negStatement": "I have unachievable deadlines"
       },
       {
         "id": 2.03,
-        "statement": "I have realistic time pressures"
+        "posStatement": "I have realistic time pressures",
+        "negStatement": "I have unrealistic time pressures"
       },
       {
         "id": 2.04,
-        "statement": "I am able to manage all my tasks without neglecting any"
+        "posStatement": "I am able to manage all my tasks without neglecting any",
+        "negStatement": "I have to neglect some tasks because I have too much to do"
       },
       {
         "id": 3.01,
-        "statement": "I can rely on my supervisor to help me out with a work problem"
+        "posStatement": "I can rely on my supervisor to help me out with a work problem",
+        "negStatement": "I cannot rely on my supervisor to help me out with a work problem"
       },
       {
         "id": 3.02,
-        "statement": "my supervisor will help me if the work gets difficult"
+        "posStatement": "my supervisor will help me if the work gets difficult",
+        "negStatement": "my supervisor will not help me if the work gets difficult"
       },
       {
         "id": 3.03,
-        "statement": "I get the help and support I need from my supervisor"
+        "posStatement": "I get the help and support I need from my supervisor",
+        "negStatement": "I do not get the help and support I need from my supervisor"
       },
       {
         "id": 3.04,
-        "statement": "my supervisor is willing to listen to my work-related problems"
+        "posStatement": "my supervisor is willing to listen to my work-related problems",
+        "negStatement": "my supervisor is not willing to listen to my work-related problems"
       },
       {
         "id": 4.01,
-        "statement": "I am clear what is expected of me at work"
+        "posStatement": "I am clear what is expected of me at work",
+        "negStatement": "I am not clear what is expected of me at work"
       },
       {
         "id": 4.02,
-        "statement": "I know how to go about getting my job done"
+        "posStatement": "I know how to go about getting my job done",
+        "negStatement": "I do not know how to go about getting my job done"
       },
       {
         "id": 4.03,
-        "statement": "I am clear what my duties and responsibilities are"
+        "posStatement": "I am clear what my duties and responsibilities are",
+        "negStatement": "I am not clear what my duties and responsibilities are"
       },
       {
         "id": 4.04,
-        "statement": "I understand how my work fits into the overall aim of the organisation"
+        "posStatement": "I understand how my work fits into the overall aim of the organisation",
+        "negStatement": "I do not understand how my work fits into the overall aim of the organisation"
       },
       {
         "id": 5.01,
-        "statement": "I can rely on my co-workers to help me out with a work problem"
+        "posStatement": "I can rely on my co-workers to help me out with a work problem",
+        "negStatement": "I cannot rely on my co-workers to help me out with a work problem"
       },
       {
         "id": 5.02,
-        "statement": "my co-workers will help me if the work gets difficult"
+        "posStatement": "my co-workers will help me if the work gets difficult",
+        "negStatement": "my co-workers will not help me if the work gets difficult"
       },
       {
         "id": 5.03,
-        "statement": "I get the help and support I need from my co-workers"
+        "posStatement": "I get the help and support I need from my co-workers",
+        "negStatement": "I do not get the help and support I need from my co-workers"
       },
       {
         "id": 5.04,
-        "statement": "my co-workers are willing to listen to my work-related problems"
+        "posStatement": "my co-workers are willing to listen to my work-related problems",
+        "negStatement": "my co-workers are not willing to listen to my work-related problems"
       },
       {
         "id": 6.01,
-        "statement": "I do things which are accepted by everyone"
+        "posStatement": "I do things which are accepted by everyone",
+        "negStatement": "I do things which are accepted by one person, but not by another"
       },
       {
         "id": 6.02,
-        "statement": "different groups support me in accomplishing tasks at the same time"
+        "posStatement": "different groups support me in accomplishing tasks at the same time",
+        "negStatement": "different groups demand things from me that are difficult to do at the same time"
       },
       {
         "id": 6.03,
-        "statement": "different people have clear and consistent expectations of me"
+        "posStatement": "different people have clear and consistent expectations of me",
+        "negStatement": "different people expect conflicting things from me"
       },
       {
         "id": 6.04,
-        "statement": "I receive compatible requests from all the people I work with"
+        "posStatement": "I receive compatible requests from all the people I work with",
+        "negStatement": "I receive incompatible requests from two or more people"
       },
       {
         "id": 7.01,
-        "statement": "I feel that my supervisor values my contributions to this organisation"
+        "posStatement": "I feel that my supervisor values my contributions to this organisation",
+        "negStatement": "I feel that my supervisor does not value my contributions to this organisation"
       },
       {
         "id": 7.02,
-        "statement": "my supervisor gives me sufficient credit for my hard work"
+        "posStatement": "my supervisor gives me sufficient credit for my hard work",
+        "negStatement": "my supervisor does not give me sufficient credit for my hard work"
       },
       {
         "id": 7.03,
-        "statement": "my supervisor encourages me in my work with praise and thanks"
+        "posStatement": "my supervisor encourages me in my work with praise and thanks",
+        "negStatement": "my supervisor does not encourage me in my work with praise and thanks"
       },
       {
         "id": 8.01,
-        "statement": "processes for handling conflicts are applied consistently in my workgroup"
+        "posStatement": "processes for handling conflicts are applied consistently in my workgroup",
+        "negStatement": "processes for handling conflicts are not applied consistently in my workgroup"
       },
       {
         "id": 8.02,
-        "statement": "processes for handling conflicts are free from bias in my workgroup"
+        "posStatement": "processes for handling conflicts are free from bias in my workgroup",
+        "negStatement": "processes for handling conflicts are biased in my workgroup"
       },
       {
         "id": 8.03,
-        "statement": "employees in my workgroup are able to express their views and feelings during processes for handling conflicts"
+        "posStatement": "employees in my workgroup are able to express their views and feelings during processes for handling conflicts",
+        "negStatement": "employees in my workgroup are not able to express their views and feelings during processes for handling conflicts"
       },
       {
         "id": 8.04,
-        "statement": "processes for handling conflicts are based on accurate information about my workgroup"
+        "posStatement": "processes for handling conflicts are based on accurate information about my workgroup",
+        "negStatement": "processes for handling conflicts are not based on accurate information about my workgroup"
       },
       {
         "id": 9.01,
-        "statement": "my work puts me in emotionally stable situations"
+        "posStatement": "my work puts me in emotionally stable situations",
+        "negStatement": "my work puts me in emotionally disturbing situations"
       },
       {
         "id": 9.02,
-        "statement": "my work is emotionally rewarding"
+        "posStatement": "my work is emotionally rewarding",
+        "negStatement": "my work is emotionally demanding"
       },
       {
         "id": 9.03,
-        "statement": "I maintain a healthy emotional distance from my work"
+        "posStatement": "I maintain a healthy emotional distance from my work",
+        "negStatement": "I get emotionally over-involved in my work"
       },
       {
         "id": 10.01,
-        "statement": "I am consulted about proposed changes at work"
+        "posStatement": "I am consulted about proposed changes at work",
+        "negStatement": "I am not consulted about proposed changes at work"
       },
       {
         "id": 10.02,
-        "statement": "when changes are made at work, I am clear about how they will work out in practice"
+        "posStatement": "when changes are made at work, I am clear about how they will work out in practice",
+        "negStatement": "when changes are made at work, I am unclear about how they will work out in practice"
       },
       {
         "id": 10.03,
-        "statement": "I am clearly informed about the nature of the changes that take place in this organisation"
+        "posStatement": "I am clearly informed about the nature of the changes that take place in this organisation",
+        "negStatement": "I am not clearly informed about the nature of the changes that take place in this organisation"
       },
       {
         "id": 10.04,
-        "statement": "I can voice concerns about changes that affect my job"
+        "posStatement": "I can voice concerns about changes that affect my job",
+        "negStatement": "I cannot voice concerns about changes that affect my job"
       },
       {
         "id": 11.01,
-        "statement": "me and members of my workgroup agree about the work being done"
+        "posStatement": "me and members of my workgroup agree about the work being done",
+        "negStatement": "me and members of my workgroup disagree about the work being done"
       },
       {
         "id": 11.02,
-        "statement": "there is constructive discussion about ideas between me and members of my workgroup"
+        "posStatement": "there is constructive discussion about ideas between me and members of my workgroup",
+        "negStatement": "there are conflicts about ideas between me and members of my workgroup"
       },
       {
         "id": 11.03,
-        "statement": "there is alignment between me and members of my workgroup about the work I do"
+        "posStatement": "there is alignment between me and members of my workgroup about the work I do",
+        "negStatement": "there is conflict between me and members of my workgroup about the work I do"
       },
       {
         "id": 11.04,
-        "statement": "there is consensus of opinion between me and members of my workgroup"
+        "posStatement": "there is consensus of opinion between me and members of my workgroup",
+        "negStatement": "there are differences of opinion between me and members of my workgroup"
       },
       {
         "id": 12.01,
-        "statement": "there are positive feelings among members in my workgroup"
+        "posStatement": "there are positive feelings among members in my workgroup",
+        "negStatement": "there are bad feelings among members in my workgroup"
       },
       {
         "id": 12.02,
-        "statement": "personality differences are respected in my workgroup"
+        "posStatement": "personality differences are respected in my workgroup",
+        "negStatement": "personality conflicts are evidenced in my workgroup"
       },
       {
         "id": 12.03,
-        "statement": "there is harmony among members in my workgroup"
+        "posStatement": "there is harmony among members in my workgroup",
+        "negStatement": "there is tension among members in my workgroup"
       },
       {
         "id": 12.04,
-        "statement": "there is emotional support among members in my workgroup"
+        "posStatement": "there is emotional support among members in my workgroup",
+        "negStatement": "there is emotional conflict among members in my workgroup"
       },
       {
         "id": 13.01,
-        "statement": "I have recently received respectful verbal communication in my workgroup"
+        "posStatement": "I have recently received respectful verbal communication in my workgroup",
+        "negStatement": "I have recently been subjected to verbal abuse in my workgroup"
       },
       {
         "id": 13.02,
-        "statement": "I have recently been treated fairly and without threats in my workgroup"
+        "posStatement": "I have recently been treated fairly and without threats in my workgroup",
+        "negStatement": "I have recently been subjected to threats of punishment for no reason in my workgroup"
       },
       {
         "id": 13.03,
-        "statement": "I have recently received encouragement and positive feedback in my workgroup"
+        "posStatement": "I have recently received encouragement and positive feedback in my workgroup",
+        "negStatement": "#ERROR!"
       },
       {
         "id": 13.04,
-        "statement": "I have recently received respectful messages via telephone, written, or electronic means in my workgroup"
+        "posStatement": "I have recently received respectful messages via telephone, written, or electronic means in my workgroup",
+        "negStatement": "I have recently been subjected to offensive messages via telephone, written, or electronic means in my workgroup"
       },
       {
         "id": 13.05,
-        "statement": "I have recently experienced collaboration and support of my work in my workgroup"
+        "posStatement": "I have recently experienced collaboration and support of my work in my workgroup",
+        "negStatement": "I have recently been subjected to sabotage of my work in my workgroup"
       },
       {
         "id": 13.06,
-        "statement": "I have recently been included in workplace activities in my workgroup"
+        "posStatement": "I have recently been included in workplace activities in my workgroup",
+        "negStatement": "I have recently been subjected to exclusion or isolation from workplace  activities in my workgroup"
       },
       {
         "id": 13.07,
-        "statement": "I have recently received constructive and fair feedback in my workgroup"
+        "posStatement": "I have recently received constructive and fair feedback in my workgroup",
+        "negStatement": "I have recently been subjected to persistent and unjustified  criticisms in my workgroup"
       },
       {
         "id": 13.08,
-        "statement": "I have recently been treated with respect through gestures, communication, and support in my workgroup"
+        "posStatement": "I have recently been treated with respect through gestures, communication, and support in my workgroup",
+        "negStatement": "I have recently been subjected to humiliation through gestures, sarcasm, criticism, or insults in my workgroup"
       },
       {
         "id": 13.09,
-        "statement": "I have recently been the subject of positive discussions in my workgroup"
+        "posStatement": "I have recently been the subject of positive discussions in my workgroup",
+        "negStatement": "I have recently been the subject of gossip or false, malicious rumours in my workgroup"
       },
       {
         "id": 13.1,
-        "statement": "I have recently witnessed supportive behaviour in my workgroup"
+        "posStatement": "I have recently witnessed supportive behaviour in my workgroup",
+        "negStatement": "I have recently witnessed workplace bullying in my workgroup"
       },
       {
         "id": 13.11,
-        "statement": "I have recently experienced a supportive workgroup"
+        "posStatement": "I have recently experienced a supportive workgroup",
+        "negStatement": "I have recently been subjected to workplace bullying in my workgroup"
       },
       {
         "id": 14.01,
-        "statement": "I have recently felt energetic and alert"
+        "posStatement": "I have recently felt energetic and alert",
+        "negStatement": "I have recently felt tired out for no good reason"
       },
       {
         "id": 14.02,
-        "statement": "I have recently felt calm and relaxed"
+        "posStatement": "I have recently felt calm and relaxed",
+        "negStatement": "I have recently felt nervous"
       },
       {
         "id": 14.03,
-        "statement": "I have recently felt calm and in control"
+        "posStatement": "I have recently felt calm and in control",
+        "negStatement": "I have recently felt so nervous that nothing could calm me down"
       },
       {
         "id": 14.04,
-        "statement": "I have recently felt hopeful and positive"
+        "posStatement": "I have recently felt hopeful and positive",
+        "negStatement": "I have recently felt hopeless"
       },
       {
         "id": 14.05,
-        "statement": "I have recently felt calm and settled"
+        "posStatement": "I have recently felt calm and settled",
+        "negStatement": "I have recently felt restless or fidgety"
       },
       {
         "id": 14.06,
-        "statement": "I have recently felt composed and at ease"
+        "posStatement": "I have recently felt composed and at ease",
+        "negStatement": "I have recently felt so restless I could not sit still"
       },
       {
         "id": 14.07,
-        "statement": "I have recently felt that everything was manageable"
+        "posStatement": "I have recently felt that everything was manageable",
+        "negStatement": "I have recently felt that everything was an effort"
       },
       {
         "id": 14.08,
-        "statement": "I have recently felt happy and uplifted"
+        "posStatement": "I have recently felt happy and uplifted",
+        "negStatement": "I have recently felt so sad nothing could cheer me up"
       },
       {
         "id": 14.09,
-        "statement": "I have recently felt valued and capable"
+        "posStatement": "I have recently felt valued and capable",
+        "negStatement": "I have recently felt worthless"
       },
       {
         "id": 14.1,
-        "statement": "I have recently felt positive and upbeat"
+        "posStatement": "I have recently felt positive and upbeat",
+        "negStatement": "I have recently felt depressed"
       },
       {
         "id": 14.11,
-        "statement": "I have recently felt rested and rejuvenated"
+        "posStatement": "I have recently felt rested and rejuvenated",
+        "negStatement": "I have recently felt tired"
       },
       {
         "id": 14.12,
-        "statement": "I have recently had plenty of energy for going to work in the morning"
+        "posStatement": "I have recently had plenty of energy for going to work in the morning",
+        "negStatement": "I have recently had no energy for going to work in the morning"
       },
       {
         "id": 14.13,
-        "statement": "I have recently felt physically well and strong"
+        "posStatement": "I have recently felt physically well and strong",
+        "negStatement": "I have recently felt physically drained"
       },
       {
         "id": 14.14,
-        "statement": "I have recently felt content and satisfied"
+        "posStatement": "I have recently felt content and satisfied",
+        "negStatement": "I have recently felt fed up"
       },
       {
         "id": 14.15,
-        "statement": "I have recently felt energised and recharged"
+        "posStatement": "I have recently felt energised and recharged",
+        "negStatement": "I have recently felt like my batteries are dead"
       },
       {
         "id": 14.16,
-        "statement": "I have recently felt enthusiastic and motivated"
+        "posStatement": "I have recently felt enthusiastic and motivated",
+        "negStatement": "I have recently felt burned out"
       }
     ]
   }

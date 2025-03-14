@@ -1,9 +1,11 @@
 import { StyleSheet, View } from "react-native";
 import Animated, { SharedValue, useAnimatedReaction, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
+import { CompetencyType } from "app/check-in";
 
 type BackgroundOverlayProps = {
   color: string;
   sliderVal: SharedValue<number>;
+  competency: CompetencyType;
 };
 
 export default function BackgroundOverlay(props: BackgroundOverlayProps) {
@@ -14,7 +16,14 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
     () => props.sliderVal.value,
     (currentValue, previousValue) => {
       if (currentValue !== previousValue) {
-        backgroundColor.value = currentValue >= 0.5 ? "white" : "black";
+        backgroundColor.value =
+          currentValue >= 0.5
+            ? props.competency.type === "neg"
+              ? "black"
+              : "white"
+            : props.competency.type === "neg"
+            ? "white"
+            : "black";
 
         if (currentValue === 0.5) {
           opacity.value = 0;

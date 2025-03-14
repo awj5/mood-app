@@ -46,10 +46,12 @@ export default function Statement(props: StatementProps) {
   useEffect(() => {
     getCompany();
     const competencies: number[] = [];
+    const tagTypes = [];
 
     // Loop selected tags and get competencies
     for (let i = 0; i < props.selectedTags.length; i++) {
       let tag = tagsData.filter((item) => item.id === props.selectedTags[i])[0];
+      tagTypes.push(tag.type);
 
       // Loop competencies
       for (let i = 0; i < tag.competencies.length; i++) {
@@ -57,9 +59,17 @@ export default function Statement(props: StatementProps) {
       }
     }
 
+    const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
     const shuffled = shuffleArray(competencies);
     const mostFrequent = getMostCommon(shuffled); // Get most common competency in selected tags
-    props.setCompetency(guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0]);
+    const competency = guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0];
+
+    props.setCompetency({
+      id: competency.id,
+      statement: primaryTagType === "neg" ? competency.negStatement : competency.posStatement,
+      type: primaryTagType,
+    });
+
     opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 

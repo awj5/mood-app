@@ -3,7 +3,7 @@ import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import { CompanyCheckInType } from "app/company";
 
-export const getStatement = (statement: number, response: number, company?: string) => {
+export const getStatement = (statement: number, response: number, type: string, company?: string) => {
   const percentage = Math.round(response * 100);
   let start = "";
 
@@ -30,7 +30,9 @@ export const getStatement = (statement: number, response: number, company?: stri
       start = `I strongly disagreed (${percentage}%) that`;
   }
 
-  return `${start} ${guidelinesData[0].competencies.filter((item) => item.id === statement)[0].statement} at ${
+  const competency = guidelinesData[0].competencies.filter((item) => item.id === statement)[0];
+
+  return `${start} ${type === "neg" ? competency.negStatement : competency.posStatement} at ${
     company ? company : "my company"
   }.`;
 };
