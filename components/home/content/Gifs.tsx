@@ -5,7 +5,7 @@ import { Image } from "expo-image";
 import * as Linking from "expo-linking";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import GifsData from "data/gifs.json";
-import { CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "data/database";
 import Gif from "./gifs/Gif";
 import { theme, pressedDefault, shuffleArray } from "utils/helpers";
 
@@ -31,8 +31,25 @@ export default function Gifs(props: GifsProps) {
   };
 
   useEffect(() => {
-    const shuffled = shuffleArray(GifsData);
-    setGifsList(shuffled.slice(0, 10));
+    const tags: number[] = [];
+
+    // Loop all check-ins and get tags
+    for (let i = 0; i < props.checkIns.length; i++) {
+      let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+
+      for (let i = 0; i < mood.tags.length; i++) {
+        let tag = mood.tags[i];
+        if (!tags.includes(tag)) tags.push(tag);
+      }
+    }
+
+    const gifs = GifsData.filter((item) => item.tags.some((tag) => tags.includes(tag))); // Get gifs with check-in tags
+
+    if (gifs.length) {
+      const shuffled = shuffleArray(gifs);
+      setGifsList(shuffled.slice(0, 20));
+    }
+
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 

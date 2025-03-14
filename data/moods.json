@@ -18,7 +18,7 @@
     "satisfaction": 67,
     "energy": 83,
     "tags": [9, 25, 31, 69, 70, 72, 73, 74, 76, 79, 93, 112, 117, 121, 127, 142, 155, 174, 199, 200, 204],
-    "description": "Yellow is where energy and positivity shine brightest. It represents enthusiasm, excitement, and motivation. People in this zone feel vibrant, empowered, and ready to tackle challenges with gusto. It's a dynamic and highly active state."
+    "description": "Yellow is a vibrant and empowered zone, bursting with enthusiasm and excitement. Here, motivation shines brightest, and you're energised and eager to face challenges with positivity and zeal."
   },
   {
     "id": 2,
@@ -31,7 +31,7 @@
       93, 95, 96, 101, 102, 107, 108, 109, 110, 112, 117, 118, 120, 121, 127, 130, 131, 132, 138, 140, 142, 143, 146,
       147, 151, 155, 159, 161, 162, 163, 174, 177, 178, 179, 194, 199, 200, 202, 203, 204
     ],
-    "description": "Lime reflects a blend of positivity and focused energy. It's the feeling of being motivated and aligned, with a sense of purpose and clarity. This zone is balanced yet driven, ideal for productivity and teamwork."
+    "description": "Lime blends the enthusiasm of Yellow with the steady calm of Green, creating a state of purposeful, positive energy. In this zone, you're both driven and composed, optimally poised for productive engagement."
   },
   {
     "id": 3,
@@ -43,7 +43,7 @@
       3, 4, 5, 6, 11, 16, 19, 22, 28, 30, 32, 36, 38, 41, 43, 45, 75, 77, 86, 90, 95, 96, 101, 102, 107, 108, 109, 110,
       118, 120, 130, 131, 132, 138, 140, 143, 146, 147, 151, 159, 161, 162, 163, 177, 178, 179, 194, 202, 203
     ],
-    "description": "Green is the epitome of balance and positivity. It's where confidence, connection, and calm coexist. This is a state of feeling in control, fulfilled, and deeply content - the emotional sweet spot."
+    "description": "Green is the zone of perfect emotional harmony. Confidence, calmness, and connection coexist effortlessly, representing a balanced and deeply fulfilling emotional sweet spot."
   },
   {
     "id": 4,
@@ -57,7 +57,7 @@
       143, 145, 146, 147, 148, 149, 151, 152, 158, 159, 161, 162, 163, 164, 165, 171, 172, 177, 178, 179, 184, 185, 190,
       193, 194, 202, 203
     ],
-    "description": "Mint represents calm positivity. It's the feeling of being composed, steady, and at ease. This zone captures a quiet, confident serenity - the kind of state that encourages thoughtful reflection and relaxation."
+    "description": "Mint is a gentle fusion of Green's emotional balance and Cyan's tranquil relaxation. This zone embodies serene positivity and composed confidence, ideal for thoughtful reflection and easeful productivity."
   },
   {
     "id": 5,
@@ -69,7 +69,7 @@
       17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 71, 88, 91, 92, 94, 98, 136, 137, 145, 148, 149, 152, 158, 164, 165,
       171, 172, 184, 185, 190, 193
     ],
-    "description": "Cyan reflects deep relaxation and tranquillity. It's a state of peace, safety, and comfort. People in this zone feel calm and unhurried, free from tension or pressure."
+    "description": "Cyan signifies pure tranquillity and deep relaxation. It’s a calm, safe haven where stress dissolves, leaving you feeling comforted and peacefully content."
   },
   {
     "id": 6,
@@ -82,7 +82,7 @@
       91, 92, 94, 97, 98, 99, 103, 115, 119, 122, 123, 124, 136, 137, 139, 145, 148, 149, 152, 157, 158, 164, 165, 168,
       169, 170, 171, 172, 184, 185, 190, 193, 195, 207
     ],
-    "description": "Azure represents stillness and rest. It's a neutral, low-energy state, often associated with recovery or reflection. This is where people recharge and find calm after periods of activity or stress."
+    "description": "Azure combines Cyan's deep tranquillity with Blue's quiet melancholy. This zone is one of restfulness and introspection, where your energy gently slows, guiding you into restorative stillness."
   },
   {
     "id": 7,
@@ -94,7 +94,7 @@
       12, 48, 50, 51, 52, 53, 55, 57, 58, 65, 66, 67, 68, 81, 82, 97, 99, 103, 115, 119, 122, 123, 124, 139, 157, 168,
       169, 170, 195, 207
     ],
-    "description": "Blue is a state of low-energy negativity, characterised by sadness, fatigue, or loneliness. It's when energy is drained, and emotions lean toward disconnection or despondency."
+    "description": "Blue represents a state of low-energy sadness or fatigue. Here, your emotional batteries are depleted, signalling a need for self-care, rest, and gentle reconnection with your inner self."
   },
   {
     "id": 8,
@@ -108,7 +108,7 @@
       150, 154, 157, 160, 167, 168, 169, 170, 173, 180, 183, 186, 187, 188, 189, 191, 192, 195, 196, 197, 198, 201, 205,
       206, 207
     ],
-    "description": "Violet represents conflicted emotions and unease. It's the feeling of being lost, misunderstood, or hesitant. This zone is where vulnerability begins to surface, paired with a sense of uncertainty."
+    "description": "Violet is a transitional zone between Blue's sadness and Aubergine's deeper discomfort. It's characterised by unease, uncertainty, and a sense of vulnerability, inviting careful self-exploration and gentle reassurance."
   },
   {
     "id": 9,
@@ -120,7 +120,7 @@
       1, 10, 18, 23, 24, 26, 39, 40, 46, 49, 54, 56, 59, 60, 61, 64, 80, 100, 104, 105, 106, 111, 113, 125, 126, 128,
       129, 133, 144, 150, 154, 160, 167, 173, 180, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206
     ],
-    "description": "Aubergine reflects deep emotional discomfort. It's the state of feeling hurt, excluded, or vulnerable. The energy level is higher than sadness but still weighed down by negative emotions."
+    "description": "Aubergine captures deep emotional discomfort, marked by hurt, exclusion, or vulnerability. It's a signal to acknowledge emotional wounds openly, fostering clarity and paving the way for healing."
   },
   {
     "id": 10,
@@ -134,7 +134,7 @@
       156, 160, 166, 167, 173, 175, 176, 180, 181, 182, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206,
       208
     ],
-    "description": "Burgundy is a state of agitation or frustration. It's where tension and negativity dominate, creating feelings of anger, irritation, or resentment. This zone can feel overwhelming but also charged with energy."
+    "description": "Burgundy blends Aubergine's vulnerability with Red's intensity. Agitation and frustration dominate, creating an emotionally charged zone where irritation and resentment surface, calling for urgent self-awareness and emotional release."
   },
   {
     "id": 11,
@@ -146,6 +146,6 @@
       2, 7, 8, 13, 14, 15, 47, 62, 63, 78, 83, 84, 85, 87, 89, 114, 116, 134, 135, 141, 153, 156, 166, 175, 176, 181,
       182, 208
     ],
-    "description": "Red is the zone of high-energy negativity. It's the feeling of being overwhelmed, anxious, or angry. This state is intense, with emotions running high and stress levels peaking."
+    "description": "Red is the peak of high-energy negativity, defined by overwhelming anxiety, anger, or intense stress. Emotions run high, urging immediate attention to restore emotional balance and regain a sense of calm."
   }
 ]
