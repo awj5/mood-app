@@ -69,7 +69,8 @@ export const getPromptData = (checkIns: CheckInType[] | CompanyCheckInType[]) =>
       ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }),
       mood: mood.color,
       feelings: tags,
-      note: "note" in checkIn ? checkIn.note : getStatement(mood.competency, mood.statementResponse, mood.company),
+      note:
+        "note" in checkIn ? checkIn.note : getStatement(mood.competency, mood.statementResponse, "pos", mood.company),
     });
 
     ids.push(checkIn.id);

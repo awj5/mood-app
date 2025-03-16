@@ -61,11 +61,10 @@ export default function Stats(props: StatsProps) {
           borderRadius: spacing,
           padding: spacing,
           opacity,
-          gap: spacing,
         },
       ]}
     >
-      <View style={{ gap: spacing }}>
+      <View style={{ gap: spacing, width: "50%" }}>
         <Text
           style={{
             fontFamily: "Circular-Bold",
@@ -81,7 +80,7 @@ export default function Stats(props: StatsProps) {
           style={{
             flexDirection: "row",
             gap: Device.deviceType !== 1 ? spacing * 2 : spacing,
-            marginLeft: Device.deviceType !== 1 ? spacing * 2 : 0,
+            justifyContent: "center",
           }}
         >
           <View style={{ gap: spacing / 4 }}>
@@ -121,7 +120,6 @@ const styles = StyleSheet.create({
   },
   chart: {
     alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
+    width: "50%",
   },
 });
