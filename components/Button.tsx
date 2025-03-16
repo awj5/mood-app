@@ -15,7 +15,6 @@ type ButtonProps = {
 
 export default function Button(props: ButtonProps) {
   const colors = theme();
-  const stroke = Device.deviceType !== 1 ? 2 : 1.5;
   const Icon = props.icon;
 
   return (
@@ -26,7 +25,7 @@ export default function Button(props: ButtonProps) {
         styles.container,
         {
           height: Device.deviceType !== 1 ? (props.fill ? 64 : 48) : props.fill ? 48 : 36,
-          borderWidth: props.destructive || props.fill ? 0 : stroke,
+          borderWidth: props.destructive || props.fill ? 0 : Device.deviceType !== 1 ? 2.5 : 2,
           borderColor: colors.primary,
           backgroundColor: props.destructive
             ? colors.secondary
@@ -62,7 +61,7 @@ export default function Button(props: ButtonProps) {
             color={!props.fill ? colors.primary : colors.primary === "white" ? "black" : "white"}
             size={Device.deviceType !== 1 ? 28 : 20}
             absoluteStrokeWidth
-            strokeWidth={stroke}
+            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
         )}
 
