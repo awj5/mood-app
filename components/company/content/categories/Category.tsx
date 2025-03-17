@@ -27,6 +27,7 @@ export default function Category(props: CategoryProps) {
     router.push({
       pathname: "category",
       params: {
+        id: String(props.data.id),
         checkIns: JSON.stringify(props.data.checkIns),
         title: props.data.title,
         icon: props.data.icon.displayName,

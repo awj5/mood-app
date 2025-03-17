@@ -14,6 +14,7 @@ type SummaryProps = {
   getInsights: () => Promise<void>;
   dates: CalendarDatesType;
   checkIns: CheckInType[] | CompanyCheckInType[];
+  category?: number;
 };
 
 export default function Summary(props: SummaryProps) {
@@ -69,6 +70,7 @@ export default function Summary(props: SummaryProps) {
             visible={props.text ? true : false}
             checkIns={props.checkIns}
             func={props.getInsights}
+            category={props.category}
           />
         </View>
       </View>

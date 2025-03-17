@@ -13,6 +13,7 @@ import { getStoredVal, removeAccess } from "utils/helpers";
 type InsightsProps = {
   checkIns: CompanyCheckInType[];
   dates: CalendarDatesType;
+  category?: number;
 };
 
 export default function Insights(props: InsightsProps) {
@@ -52,6 +53,7 @@ export default function Insights(props: InsightsProps) {
         {
           uuid: uuid,
           ids: ids,
+          ...(props.category !== undefined && { category: props.category }),
         }
       );
 
@@ -93,6 +95,7 @@ export default function Insights(props: InsightsProps) {
                 uuid: uuid,
                 ids: promptData.ids,
                 summary: aiResponse,
+                ...(props.category !== undefined && { category: props.category }),
               }
             );
           } catch (error) {
@@ -117,7 +120,13 @@ export default function Insights(props: InsightsProps) {
           <Loading text="Generating insights" />
         </View>
       ) : (
-        <Summary text={text} getInsights={getInsights} dates={dates} checkIns={props.checkIns} />
+        <Summary
+          text={text}
+          getInsights={getInsights}
+          dates={dates}
+          checkIns={props.checkIns}
+          category={props.category}
+        />
       )}
     </View>
   );

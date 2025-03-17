@@ -14,6 +14,7 @@ type ReportProps = {
   visible: boolean;
   checkIns?: CheckInType[] | CompanyCheckInType[];
   func?: () => void;
+  category?: number;
 };
 
 export default function Report(props: ReportProps) {
@@ -46,6 +47,7 @@ export default function Report(props: ReportProps) {
           {
             uuid: uuid,
             ids: ids,
+            ...(props.category !== undefined && { category: props.category }),
           }
         );
 
