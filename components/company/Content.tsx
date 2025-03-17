@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import { CompanyCheckInType } from "app/company";
-import Insights from "./content/Insights";
+import Insights from "components/Insights";
 import Categories from "./content/Categories";
 import Stats from "./content/Stats";
 import { getStoredVal, theme, pressedDefault, removeAccess } from "utils/helpers";

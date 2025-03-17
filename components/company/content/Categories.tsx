@@ -17,29 +17,19 @@ import {
   Gavel,
   HeartPulse,
   Lightbulb,
-  LucideIcon,
 } from "lucide-react-native";
 import guidelinesData from "data/guidelines.json";
 import { CompanyCheckInType } from "app/company";
+import { CategoryType } from "app/category";
 import Category from "./categories/Category";
 import { getMostCommon } from "utils/helpers";
-
-export type CategoriesType = {
-  id: number;
-  title: string;
-  icon: LucideIcon;
-  mood: number;
-  score: number;
-  trend: string;
-  checkIns: CompanyCheckInType[];
-};
 
 type CategoriesProps = {
   checkIns: CompanyCheckInType[];
 };
 
 export default function Categories(props: CategoriesProps) {
-  const [categories, setCategories] = useState<CategoriesType[]>();
+  const [categories, setCategories] = useState<CategoryType[]>();
 
   const icons = {
     Compass,
@@ -69,7 +59,7 @@ export default function Categories(props: CategoriesProps) {
       groups[category].push(checkIn);
     }
 
-    const list: CategoriesType[] = [];
+    const list: CategoryType[] = [];
 
     // Loop groups and get category details
     Object.entries(groups).forEach(([key, value]) => {

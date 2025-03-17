@@ -1,18 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { CategoriesType } from "../Categories";
+import { CategoryType } from "app/category";
 import Header from "./category/Header";
 import { pressedDefault, theme } from "utils/helpers";
 
 type CategoryProps = {
-  data: CategoriesType;
+  data: CategoryType;
 };
 
 export default function Category(props: CategoryProps) {
   const colors = theme();
+  const router = useRouter();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [score, setScore] = useState(0);
   const Icon =
@@ -20,6 +22,17 @@ export default function Category(props: CategoryProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
   const lowScore = props.data.score < 40 ? true : false;
+
+  const click = () => {
+    router.push({
+      pathname: "category",
+      params: {
+        checkIns: JSON.stringify(props.data.checkIns),
+        title: props.data.title,
+        icon: props.data.icon.displayName,
+      },
+    });
+  };
 
   useEffect(() => {
     let currentScore = 0;
@@ -42,6 +55,7 @@ export default function Category(props: CategoryProps) {
 
   return (
     <Pressable
+      onPress={click}
       style={({ pressed }) => [
         pressedDefault(pressed),
         {

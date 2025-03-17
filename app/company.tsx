@@ -10,7 +10,7 @@ import Upsell from "components/company/Upsell";
 import Disclaimer from "components/company/Disclaimer";
 import Content from "components/company/Content";
 import HeaderTitle from "components/HeaderTitle";
-import Bg from "components/company/Bg";
+import Bg from "components/Bg";
 import { getStoredVal, theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
