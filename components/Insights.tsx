@@ -37,6 +37,7 @@ export default function Insights(props: InsightsProps) {
             },
           ],
           loc: localization[0].languageTag,
+          ...(props.category !== undefined && { category: props.category }),
         }
       );
 
