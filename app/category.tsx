@@ -127,7 +127,12 @@ export default function Category() {
             ]}
           >
             <Insights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
-            <Sentiment score={Number(params.score)} trend={params.trend} />
+
+            <View style={{ flexDirection: "row", gap: spacing }}>
+              <Sentiment score={Number(params.score)} trend={params.trend} />
+              <Sentiment score={Number(100)} trend={params.trend} />
+            </View>
+
             <About id={Number(params.id)} title={params.title.toUpperCase()} />
           </View>
         </ScrollView>
