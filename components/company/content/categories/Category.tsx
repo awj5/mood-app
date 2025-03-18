@@ -31,6 +31,8 @@ export default function Category(props: CategoryProps) {
         checkIns: JSON.stringify(props.data.checkIns),
         title: props.data.title,
         icon: props.data.icon.displayName,
+        score: props.data.score,
+        trend: props.data.trend,
       },
     });
   };

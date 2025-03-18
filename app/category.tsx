@@ -21,11 +21,12 @@ import {
   HeartPulse,
   Lightbulb,
 } from "lucide-react-native";
-import guidelinesData from "data/guidelines.json";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import { CompanyCheckInType } from "./company";
 import Bg from "components/Bg";
 import Insights from "components/Insights";
+import About from "components/category/About";
+import Sentiment from "components/category/Sentiment";
 import { theme } from "utils/helpers";
 
 export type CategoryType = {
@@ -39,14 +40,20 @@ export type CategoryType = {
 };
 
 export default function Category() {
-  const params = useLocalSearchParams<{ id: string; checkIns: string; title: string; icon: string }>();
+  const params = useLocalSearchParams<{
+    id: string;
+    checkIns: string;
+    title: string;
+    icon: string;
+    score: string;
+    trend: string;
+  }>();
   const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const description = guidelinesData[0].categories.filter((item) => item.id === Number(params.id))[0].description;
 
   const icons = {
     Compass,
@@ -120,31 +127,8 @@ export default function Category() {
             ]}
           >
             <Insights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
-
-            <View style={{ alignItems: "center", gap: Device.deviceType !== 1 ? 6 : 4 }}>
-              <Text
-                style={{
-                  fontFamily: "Circular-Bold",
-                  fontSize: Device.deviceType !== 1 ? 18 : 14,
-                  color: colors.primary,
-                }}
-                allowFontScaling={false}
-              >
-                {`ABOUT ${params.title.toUpperCase()}`}
-              </Text>
-
-              <Text
-                style={[
-                  styles.text,
-                  {
-                    fontSize: Device.deviceType !== 1 ? 20 : 16,
-                    color: colors.primary,
-                  },
-                ]}
-              >
-                {description}
-              </Text>
-            </View>
+            <Sentiment score={Number(params.score)} trend={params.trend} />
+            <About id={Number(params.id)} title={params.title.toUpperCase()} />
           </View>
         </ScrollView>
       </View>
@@ -162,9 +146,5 @@ const styles = StyleSheet.create({
     maxWidth: 720 + 48,
     alignSelf: "center",
     width: "100%",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
   },
 });
