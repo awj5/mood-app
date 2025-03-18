@@ -24,6 +24,7 @@ import {
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import { CompanyCheckInType } from "./company";
 import Bg from "components/Bg";
+import Article from "components/Article";
 import Insights from "components/Insights";
 import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
@@ -130,7 +131,7 @@ export default function Category() {
 
             <View style={{ flexDirection: "row", gap: spacing }}>
               <Sentiment score={Number(params.score)} trend={params.trend} />
-              <Sentiment score={Number(100)} trend={params.trend} />
+              <Article competency={params.id} />
             </View>
 
             <About id={Number(params.id)} title={params.title.toUpperCase()} />

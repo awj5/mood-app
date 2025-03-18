@@ -10,7 +10,7 @@ import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
 import Quote from "./content/Quote";
-import Article from "./content/Article";
+import Article from "../Article";
 import Fact from "./content/Fact";
 import Song from "./content/Song";
 import Gifs from "./content/Gifs";

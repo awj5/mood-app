@@ -3,39 +3,39 @@
     "categories": [
       {
         "id": 1,
-        "title": "Change Consultation",
-        "description": "Change Consultation is the extent to which organisations involve and inform workers about workplace changes. Strong change consultation means workers are properly consulted about proposed changes, clearly understand how changes will work in practice, receive clear information about organisational changes, and can voice concerns about changes affecting their roles. Organisations should ensure transparent communication and meaningful engagement throughout change processes.",
-        "icon": "Compass"
+        "title": "Job Control",
+        "description": "Job Control is the degree to which workers can influence their work environment and make decisions about their tasks. Strong job control means having meaningful input into how work is performed, including choice over tasks, methods, and work pace. This enables workers to perform effectively while maintaining appropriate independence in their role. Organisations should avoid overly restrictive oversight that removes workers' ability to make reasonable decisions about their work.",
+        "icon": "Cog"
       },
       {
         "id": 2,
+        "title": "Workload Management",
+        "description": "Workload Management is the organisation's ability to maintain reasonable work demands and achievable expectations. Strong workload management ensures deadlines are realistic, time pressures are sustainable, and work volumes allow tasks to be completed properly. This prevents role overload, where workers feel stressed due to excessive demands and unreasonable deadlines. Organisations should avoid creating excessive pressure through unreasonable timeframes or unmanageable workloads that could lead to task neglect or burnout.",
+        "icon": "Scale"
+      },
+      {
+        "id": 3,
+        "title": "Supervisor Support",
+        "description": "Supervisor Support is the extent to which supervisors provide practical and emotional support to their workers. Strong supervisor support means supervisors offer reliable assistance with work problems, active help during difficult situations, and willingness to listen to work-related concerns. This ensures workers receive the guidance and support they need from their leaders. Organisations should ensure supervisors are equipped and encouraged to provide both practical guidance and supportive leadership to their team members.",
+        "icon": "LifeBuoy"
+      },
+      {
+        "id": 4,
+        "title": "Role Clarity",
+        "description": "Role Clarity is the degree to which workers understand their responsibilities, methods, and organisational context. Strong role clarity exists when workers know exactly what is expected of them, understand their duties, and see how their work contributes to organisational goals. This prevents role ambiguity, which occurs when there is uncertainty or lack of information about role requirements. Organisations should ensure expectations, responsibilities and procedures are well-defined and communicated, avoiding situations where workers are uncertain about their role or how to accomplish their work.",
+        "icon": "Lightbulb"
+      },
+      {
+        "id": 5,
         "title": "Co-worker Support",
         "description": "Co-worker Support is the practical and emotional support shared between team members. Strong co-worker support means workers can rely on colleagues for help with problems, assistance during difficult periods, and a willingness to listen to concerns. This creates an environment where team members actively support each other's success through practical assistance and emotional support. Organisations should foster a culture where collaborative support between co-workers is valued and encouraged.",
         "icon": "Users"
       },
       {
-        "id": 3,
-        "title": "Emotional Ease",
-        "description": "Emotional Ease is the ability for workers to handle emotional aspects of work naturally and professionally. Strong emotional ease means workers can flow between different emotional situations genuinely, without the emotional demands that require false displays of emotion or expose workers to unnecessarily distressing situations. Organisations should create environments where authentic responses are valued, while providing appropriate support for managing emotionally challenging situations.",
-        "icon": "Waves"
-      },
-      {
-        "id": 4,
-        "title": "Group Cohesion",
-        "description": "Group Cohesion is the strength of interpersonal connections within workgroups. Strong group cohesion exists when teams work together effectively, integrate different personalities successfully, and maintain professional relationships. This prevents group relationship conflict, where personality differences and tensions disrupt team performance. Organisations should foster environments where diverse team members can blend their strengths while addressing any interpersonal tensions before they affect team performance.",
-        "icon": "Blend"
-      },
-      {
-        "id": 5,
-        "title": "Group Task Agreement",
-        "description": "Group Task Agreement is the constructive handling of different perspectives about work-related matters. Strong group task agreement means workgroups can merge different viewpoints effectively, manage disagreements about work approaches professionally, and resolve conflicts about ideas productively. This helps prevent group task conflict, where disagreements about work decisions become sources of tension. Organisations should foster an environment where diverse viewpoints about work can be expressed and resolved constructively, while preventing destructive conflict.",
-        "icon": "ListChecks"
-      },
-      {
         "id": 6,
-        "title": "Job Control",
-        "description": "Job Control is the degree to which workers can influence their work environment and make decisions about their tasks. Strong job control means having meaningful input into how work is performed, including choice over tasks, methods, and work pace. This enables workers to perform effectively while maintaining appropriate independence in their role. Organisations should avoid overly restrictive oversight that removes workers' ability to make reasonable decisions about their work.",
-        "icon": "Cog"
+        "title": "Role Alignment",
+        "description": "Role Alignment is the consistency of expectations and demands placed on workers. Strong role alignment means different aspects of the role fit together coherently, with compatible requests from stakeholders and manageable demands across groups. This prevents role conflict, where workers receive contradictory tasks or directions that conflict with their values. Organisations should prevent situations where workers receive conflicting instructions or face incompatible expectations from different people or teams.",
+        "icon": "Puzzle"
       },
       {
         "id": 7,
@@ -51,39 +51,39 @@
       },
       {
         "id": 9,
-        "title": "Psychological Wellbeing",
-        "description": "Psychological Wellbeing is the mental and emotional energy workers maintain in their professional lives. Strong psychological wellbeing is characterised by sustained energy levels, emotional stability, and resilience in the face of workplace challenges. This helps prevent psychological distress, which can manifest as fatigue, nervousness, hopelessness, or burnout. Organisations should actively monitor and support workers' psychological wellbeing through preventive measures, while being alert to signs of declining psychological health.",
-        "icon": "HeartPulse"
+        "title": "Emotional Ease",
+        "description": "Emotional Ease is the ability for workers to handle emotional aspects of work naturally and professionally. Strong emotional ease means workers can flow between different emotional situations genuinely, without the emotional demands that require false displays of emotion or expose workers to unnecessarily distressing situations. Organisations should create environments where authentic responses are valued, while providing appropriate support for managing emotionally challenging situations.",
+        "icon": "Waves"
       },
       {
         "id": 10,
-        "title": "Role Alignment",
-        "description": "Role Alignment is the consistency of expectations and demands placed on workers. Strong role alignment means different aspects of the role fit together coherently, with compatible requests from stakeholders and manageable demands across groups. This prevents role conflict, where workers receive contradictory tasks or directions that conflict with their values. Organisations should prevent situations where workers receive conflicting instructions or face incompatible expectations from different people or teams.",
-        "icon": "Puzzle"
+        "title": "Change Consultation",
+        "description": "Change Consultation is the extent to which organisations involve and inform workers about workplace changes. Strong change consultation means workers are properly consulted about proposed changes, clearly understand how changes will work in practice, receive clear information about organisational changes, and can voice concerns about changes affecting their roles. Organisations should ensure transparent communication and meaningful engagement throughout change processes.",
+        "icon": "Compass"
       },
       {
         "id": 11,
-        "title": "Role Clarity",
-        "description": "Role Clarity is the degree to which workers understand their responsibilities, methods, and organisational context. Strong role clarity exists when workers know exactly what is expected of them, understand their duties, and see how their work contributes to organisational goals. This prevents role ambiguity, which occurs when there is uncertainty or lack of information about role requirements. Organisations should ensure expectations, responsibilities and procedures are well-defined and communicated, avoiding situations where workers are uncertain about their role or how to accomplish their work.",
-        "icon": "Lightbulb"
+        "title": "Group Task Agreement",
+        "description": "Group Task Agreement is the constructive handling of different perspectives about work-related matters. Strong group task agreement means workgroups can merge different viewpoints effectively, manage disagreements about work approaches professionally, and resolve conflicts about ideas productively. This helps prevent group task conflict, where disagreements about work decisions become sources of tension. Organisations should foster an environment where diverse viewpoints about work can be expressed and resolved constructively, while preventing destructive conflict.",
+        "icon": "ListChecks"
       },
       {
         "id": 12,
-        "title": "Supervisor Support",
-        "description": "Supervisor Support is the extent to which supervisors provide practical and emotional support to their workers. Strong supervisor support means supervisors offer reliable assistance with work problems, active help during difficult situations, and willingness to listen to work-related concerns. This ensures workers receive the guidance and support they need from their leaders. Organisations should ensure supervisors are equipped and encouraged to provide both practical guidance and supportive leadership to their team members.",
-        "icon": "LifeBuoy"
+        "title": "Group Cohesion",
+        "description": "Group Cohesion is the strength of interpersonal connections within workgroups. Strong group cohesion exists when teams work together effectively, integrate different personalities successfully, and maintain professional relationships. This prevents group relationship conflict, where personality differences and tensions disrupt team performance. Organisations should foster environments where diverse team members can blend their strengths while addressing any interpersonal tensions before they affect team performance.",
+        "icon": "Blend"
       },
       {
         "id": 13,
-        "title": "Workload Management",
-        "description": "Workload Management is the organisation's ability to maintain reasonable work demands and achievable expectations. Strong workload management ensures deadlines are realistic, time pressures are sustainable, and work volumes allow tasks to be completed properly. This prevents role overload, where workers feel stressed due to excessive demands and unreasonable deadlines. Organisations should avoid creating excessive pressure through unreasonable timeframes or unmanageable workloads that could lead to task neglect or burnout.",
-        "icon": "Scale"
-      },
-      {
-        "id": 14,
         "title": "Workplace Respect",
         "description": "Workplace Respect is the maintenance of professional and respectful behaviour throughout the workplace. Strong workplace respect means communication remains professional across all channels, feedback is constructive rather than critical, and all workers are included appropriately in workplace activities. This prevents workplace bullying, which includes verbal abuse, threats, ridicule, sabotage, exclusion, and malicious gossip. Organisations should actively prevent and address unacceptable behaviours while ensuring respect is maintained in all interactions.",
         "icon": "HeartHandshake"
+      },
+      {
+        "id": 14,
+        "title": "Psychological Wellbeing",
+        "description": "Psychological Wellbeing is the mental and emotional energy workers maintain in their professional lives. Strong psychological wellbeing is characterised by sustained energy levels, emotional stability, and resilience in the face of workplace challenges. This helps prevent psychological distress, which can manifest as fatigue, nervousness, hopelessness, or burnout. Organisations should actively monitor and support workers' psychological wellbeing through preventive measures, while being alert to signs of declining psychological health.",
+        "icon": "HeartPulse"
       }
     ],
     "competencies": [

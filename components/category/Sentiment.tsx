@@ -1,7 +1,8 @@
-import { Text, View, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
-import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
-import { theme } from "utils/helpers";
+import { TrendingUp, TrendingDown, MoveRight, Info } from "lucide-react-native";
+import { theme, pressedDefault } from "utils/helpers";
 
 type SentimentProps = {
   score: number;
@@ -10,10 +11,31 @@ type SentimentProps = {
 
 export default function Sentiment(props: SentimentProps) {
   const colors = theme();
+  const [score, setScore] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const lowScore = props.score < 40 ? true : false;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
+  const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
   const Icon = props.trend === "increasing" ? TrendingUp : props.trend === "decreasing" ? TrendingDown : MoveRight;
+
+  useEffect(() => {
+    let currentScore = 0;
+    const step = Math.max(1, Math.ceil(props.score / 50));
+
+    // Animate score
+    const interval = setInterval(() => {
+      currentScore += step;
+
+      if (currentScore >= props.score) {
+        setScore(props.score);
+        clearInterval(interval);
+      } else {
+        setScore(currentScore);
+      }
+    }, 10);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View
@@ -55,9 +77,33 @@ export default function Sentiment(props: SentimentProps) {
             }}
             allowFontScaling={false}
           >
-            {lowScore ? "Under\nreview" : `${props.score}%`}
+            {lowScore ? "Under\nreview" : `${score}%`}
           </Text>
         </View>
+
+        <Pressable
+          onPress={() => alert("Coming soon")}
+          style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
+          hitSlop={16}
+        >
+          <Info
+            color={grey}
+            size={Device.deviceType !== 1 ? 20 : 16}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
+          />
+
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              color: grey,
+              fontSize: fontSize,
+            }}
+            allowFontScaling={false}
+          >
+            Learn more
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -67,5 +113,9 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: "space-between",
+  },
+  info: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
