@@ -115,7 +115,7 @@ export default function Stats(props: StatsProps) {
         </View>
       </View>
 
-      <View style={styles.chart}>
+      <View style={[styles.chart, { height: Device.deviceType !== 1 ? 200 : 144 }]}>
         <PieChart
           data={moodData}
           donut
