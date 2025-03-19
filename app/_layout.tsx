@@ -173,6 +173,13 @@ export default function Layout() {
                       presentation: "modal",
                     }}
                   />
+
+                  <Stack.Screen
+                    name="mood"
+                    options={{
+                      presentation: "modal",
+                    }}
+                  />
                 </Stack>
 
                 <StatusBar style="auto" />

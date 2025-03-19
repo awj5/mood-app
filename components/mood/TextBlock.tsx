@@ -1,26 +1,23 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
-import guidelinesData from "data/guidelines.json";
-import { theme } from "utils/helpers";
 
-type AboutProps = {
-  id: number;
+type TextBlockProps = {
   title: string;
+  text: string;
+  background: string;
+  color: string;
 };
 
-export default function About(props: AboutProps) {
-  const colors = theme();
+export default function TextBlock(props: TextBlockProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const invertedColor = colors.primary === "white" ? "black" : "white";
   const fontSize = Device.deviceType !== 1 ? 18 : 14;
-  const description = guidelinesData[0].categories.filter((item) => item.id === props.id)[0].description;
 
   return (
     <View
       style={[
         styles.container,
         {
-          backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+          backgroundColor: props.background,
           borderRadius: spacing,
           padding: spacing * 1.5,
           gap: spacing / 2,
@@ -31,11 +28,11 @@ export default function About(props: AboutProps) {
         style={{
           fontFamily: "Circular-Bold",
           fontSize: fontSize,
-          color: invertedColor,
+          color: props.color,
         }}
         allowFontScaling={false}
       >
-        {`WHAT'S ${props.title}?`}
+        {props.title}
       </Text>
 
       <Text
@@ -43,11 +40,11 @@ export default function About(props: AboutProps) {
           styles.text,
           {
             fontSize: fontSize,
-            color: invertedColor,
+            color: props.color,
           },
         ]}
       >
-        {description}
+        {props.text}
       </Text>
     </View>
   );
