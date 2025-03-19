@@ -16,7 +16,8 @@ export type GifType = {
 };
 
 type GifsProps = {
-  checkIns: CheckInType[];
+  checkIns?: CheckInType[];
+  tags?: number[];
 };
 
 export default function Gifs(props: GifsProps) {
@@ -26,20 +27,22 @@ export default function Gifs(props: GifsProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const images = {
-    light: require("../../../assets/img/tenor.png"),
-    dark: require("../../../assets/img/tenor-dark.png"),
+    light: require("../assets/img/tenor.png"),
+    dark: require("../assets/img/tenor-dark.png"),
   };
 
   useEffect(() => {
-    const tags: number[] = [];
+    const tags: number[] = props.tags ? props.tags : [];
 
-    // Loop all check-ins and get tags
-    for (let i = 0; i < props.checkIns.length; i++) {
-      let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+    if (props.checkIns) {
+      // Loop all check-ins and get tags
+      for (let i = 0; i < props.checkIns.length; i++) {
+        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
 
-      for (let i = 0; i < mood.tags.length; i++) {
-        let tag = mood.tags[i];
-        if (!tags.includes(tag)) tags.push(tag);
+        for (let i = 0; i < mood.tags.length; i++) {
+          let tag = mood.tags[i];
+          if (!tags.includes(tag)) tags.push(tag);
+        }
       }
     }
 

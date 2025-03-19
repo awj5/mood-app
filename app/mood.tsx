@@ -5,6 +5,8 @@ import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MoodsData from "data/moods.json";
 import TextBlock from "components/mood/TextBlock";
+import Song from "components/Song";
+import Gifs from "components/Gifs";
 import { pressedDefault } from "utils/helpers";
 
 export default function Mood() {
@@ -91,8 +93,22 @@ export default function Mood() {
           {data.description}
         </Text>
 
-        <TextBlock title="SCIENCE" text={data.science} background={foreground} color={data.color} />
-        <TextBlock title="STRATEGIES" text={data.strategies} background={foreground} color={data.color} />
+        <TextBlock
+          title={`${data.name.toUpperCase()} SCIENCE`}
+          text={data.science}
+          background={foreground}
+          color={data.color}
+        />
+
+        <TextBlock
+          title={`${data.name.toUpperCase()} STRATEGIES`}
+          text={data.strategies}
+          background={foreground}
+          color={data.color}
+        />
+
+        <Song mood={data.id} />
+        <Gifs tags={data.tags} />
       </ScrollView>
     </View>
   );
