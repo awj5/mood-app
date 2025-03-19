@@ -77,7 +77,7 @@ export default function Sentiment(props: SentimentProps) {
             }}
             allowFontScaling={false}
           >
-            {lowScore ? "Under\nreview" : `${score}%`}
+            {lowScore ? "Needs\nattention" : `${score}%`}
           </Text>
         </View>
 

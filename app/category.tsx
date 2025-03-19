@@ -49,6 +49,7 @@ export default function Category() {
     score: string;
     trend: string;
   }>();
+
   const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
@@ -100,12 +101,12 @@ export default function Category() {
       <Bg checkIns={JSON.parse(params.checkIns)} />
 
       <View style={{ marginTop: headerHeight, flex: 1 }}>
-        <View style={[styles.heading, { gap: spacing / 2, padding: spacing }]}>
+        <View style={{ alignItems: "center", gap: spacing / 2, padding: spacing }}>
           <Icon
             color={colors.primary}
-            size={Device.deviceType !== 1 ? 40 : 32}
+            size={Device.deviceType !== 1 ? 48 : 40}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 3 : 2.5}
+            strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
           />
 
           <Text
@@ -143,11 +144,6 @@ export default function Category() {
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   wrapper: {
     maxWidth: 720 + 48,
     alignSelf: "center",

@@ -48,7 +48,24 @@ export default function Stats(props: StatsProps) {
     });
 
     moods.sort((a, b) => b.value - a.value); // Highest first
-    setMoodData(moods);
+    const topMoods = moods.slice(0, 7);
+    const otherMoods = moods.slice(7);
+
+    if (otherMoods.length > 0) {
+      const otherTotal = otherMoods.reduce((sum, item) => sum + item.value, 0);
+
+      topMoods.push({
+        value: otherTotal,
+        color: colors.secondary,
+        text: ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%",
+        tooltipText: "Other",
+        shiftTextX: -2,
+        shiftTextY: 4,
+        textColor: "black",
+      });
+    }
+
+    setMoodData(topMoods);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [props.checkIns]);
 
@@ -64,7 +81,7 @@ export default function Stats(props: StatsProps) {
         },
       ]}
     >
-      <View style={{ gap: spacing, width: "50%" }}>
+      <View style={{ width: "50%" }}>
         <Text
           style={{
             fontFamily: "Circular-Bold",
@@ -76,23 +93,24 @@ export default function Stats(props: StatsProps) {
           MOOD SNAPSHOT
         </Text>
 
-        <View
-          style={{
-            flexDirection: "row",
-            gap: Device.deviceType !== 1 ? spacing * 2 : spacing,
-            justifyContent: "center",
-          }}
-        >
-          <View style={{ gap: spacing / 4 }}>
-            {moodData.slice(0, 6).map((item, index) => (
-              <Stat key={index} text={item.tooltipText as string} color={item.color as string} />
-            ))}
-          </View>
+        <View style={styles.list}>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: Device.deviceType !== 1 ? spacing * 2 : spacing,
+            }}
+          >
+            <View style={{ gap: spacing / 4 }}>
+              {moodData.slice(0, 4).map((item, index) => (
+                <Stat key={index} text={item.tooltipText as string} color={item.color as string} />
+              ))}
+            </View>
 
-          <View style={{ gap: spacing / 4 }}>
-            {moodData.slice(6, 12).map((item, index) => (
-              <Stat key={index} text={item.tooltipText as string} color={item.color as string} />
-            ))}
+            <View style={{ gap: spacing / 4 }}>
+              {moodData.slice(4, 8).map((item, index) => (
+                <Stat key={index} text={item.tooltipText as string} color={item.color as string} />
+              ))}
+            </View>
           </View>
         </View>
       </View>
@@ -117,6 +135,11 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "row",
+  },
+  list: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
   },
   chart: {
     alignItems: "center",

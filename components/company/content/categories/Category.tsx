@@ -93,7 +93,7 @@ export default function Category(props: CategoryProps) {
           }}
           allowFontScaling={false}
         >
-          {lowScore ? "Under review" : `${score}%`}
+          {lowScore ? "Needs attention" : `${score}%`}
         </Text>
 
         <Text

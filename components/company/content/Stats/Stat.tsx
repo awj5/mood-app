@@ -16,6 +16,7 @@ export default function Stat(props: StatProps) {
       onPress={() => null}
       style={({ pressed }) => [pressedDefault(pressed), styles.container, { gap: Device.deviceType !== 1 ? 6 : 4 }]}
       hitSlop={2}
+      disabled={props.text === "Other"}
     >
       <View
         style={[
