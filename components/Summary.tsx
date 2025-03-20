@@ -1,7 +1,9 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
+import ParsedText from "react-native-parsed-text";
 import { CheckInType } from "data/database";
 import { CalendarDatesType } from "context/home-dates";
 import { CompanyCheckInType } from "app/company";
@@ -19,6 +21,7 @@ type SummaryProps = {
 
 export default function Summary(props: SummaryProps) {
   const colors = theme();
+  const router = useRouter();
   const spacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -39,6 +42,15 @@ export default function Summary(props: SummaryProps) {
   }INSIGHTS`;
 
   const subTitle = getDateRange(props.dates, true);
+
+  const colorPress = (name: string) => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: name,
+      },
+    });
+  };
 
   return (
     <Animated.View
@@ -89,7 +101,14 @@ export default function Summary(props: SummaryProps) {
         </Text>
       )}
 
-      <Text
+      <ParsedText
+        parse={[
+          {
+            pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
+            style: { textDecorationLine: "underline" },
+            onPress: colorPress,
+          },
+        ]}
         style={[
           styles.summary,
           {
@@ -100,7 +119,7 @@ export default function Summary(props: SummaryProps) {
         ]}
       >
         {props.text ? props.text : "Unable to generate insights at the moment."}
-      </Text>
+      </ParsedText>
 
       {!props.text && (
         <Pressable onPress={() => props.getInsights()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>

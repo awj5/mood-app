@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn, useSharedValue, withTiming } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
+import ParsedText from "react-native-parsed-text";
 import { CheckInType } from "data/database";
 import { theme, pressedDefault } from "utils/helpers";
 
@@ -46,6 +47,15 @@ export default function Journal(props: JournalProps) {
   const arrowPress = (count: number) => {
     setCount(count);
     scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Reset
+  };
+
+  const colorPress = (name: string) => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: name,
+      },
+    });
   };
 
   const datePress = () => {
@@ -162,7 +172,14 @@ export default function Journal(props: JournalProps) {
 
             <ScrollView ref={scrollViewRef} nestedScrollEnabled={true}>
               <Animated.View key={entries[count].id} entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
-                <Text
+                <ParsedText
+                  parse={[
+                    {
+                      pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
+                      style: { textDecorationLine: "underline" },
+                      onPress: colorPress,
+                    },
+                  ]}
                   style={{
                     fontFamily: "Circular-BookItalic",
                     color: invertedColor,
@@ -172,7 +189,7 @@ export default function Journal(props: JournalProps) {
                   allowFontScaling={false}
                 >
                   {entries[count].note.replace("[NOTE FROM USER]:", "")}
-                </Text>
+                </ParsedText>
               </Animated.View>
             </ScrollView>
           </View>

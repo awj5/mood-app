@@ -1,6 +1,8 @@
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import { Sparkles } from "lucide-react-native";
+import ParsedText from "react-native-parsed-text";
 import Report from "components/Report";
 import { theme } from "utils/helpers";
 
@@ -10,6 +12,16 @@ type NoteProps = {
 
 export default function Note(props: NoteProps) {
   const colors = theme();
+  const router = useRouter();
+
+  const colorPress = (name: string) => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: name,
+      },
+    });
+  };
 
   return (
     <View
@@ -50,7 +62,14 @@ export default function Note(props: NoteProps) {
       </View>
 
       <ScrollView>
-        <Text
+        <ParsedText
+          parse={[
+            {
+              pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
+              style: { textDecorationLine: "underline" },
+              onPress: colorPress,
+            },
+          ]}
           style={{
             fontFamily:
               props.text && props.text.indexOf("[NOTE FROM USER]:") === -1 ? "Circular-BookItalic" : "Circular-Book",
@@ -61,7 +80,7 @@ export default function Note(props: NoteProps) {
           allowFontScaling={false}
         >
           {props.text ? props.text.replace("[NOTE FROM USER]:", "") : "Not generated"}
-        </Text>
+        </ParsedText>
       </ScrollView>
     </View>
   );

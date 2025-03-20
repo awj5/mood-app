@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
+import ParsedText from "react-native-parsed-text";
 import { MessageType } from "app/chat";
 import Icon from "./response/Icon";
 import Report from "components/Report";
@@ -46,6 +47,15 @@ export default function Response(props: ResponseProps) {
     props.setFocusInput(true);
   };
 
+  const colorPress = (name: string) => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: name,
+      },
+    });
+  };
+
   useEffect(() => {
     if (props.message.content) {
       // Type out word by word
@@ -75,7 +85,14 @@ export default function Response(props: ResponseProps) {
 
       <View style={[styles.wrapper, { gap: spacing }]}>
         <View style={{ gap: Device.deviceType !== 1 ? 8 : 6 }}>
-          <Text
+          <ParsedText
+            parse={[
+              {
+                pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
+                style: { textDecorationLine: "underline" },
+                onPress: colorPress,
+              },
+            ]}
             style={[
               styles.text,
               {
@@ -85,7 +102,7 @@ export default function Response(props: ResponseProps) {
             ]}
           >
             {displayedText}
-          </Text>
+          </ParsedText>
 
           <Report text={displayedText} visible={!props.generating} />
         </View>
