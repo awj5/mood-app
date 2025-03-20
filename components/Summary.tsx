@@ -105,7 +105,7 @@ export default function Summary(props: SummaryProps) {
         parse={[
           {
             pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
-            style: { textDecorationLine: "underline" },
+            style: styles.color,
             onPress: colorPress,
           },
         ]}
@@ -162,6 +162,10 @@ const styles = StyleSheet.create({
   summary: {
     fontFamily: "Circular-Book",
     textAlign: "center",
+  },
+  color: {
+    textDecorationLine: "underline",
+    fontFamily: "Circular-Bold",
   },
   button: {
     fontFamily: "Circular-Book",

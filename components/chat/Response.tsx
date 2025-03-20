@@ -89,7 +89,7 @@ export default function Response(props: ResponseProps) {
             parse={[
               {
                 pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
-                style: { textDecorationLine: "underline" },
+                style: styles.color,
                 onPress: colorPress,
               },
             ]}
@@ -152,5 +152,9 @@ const styles = StyleSheet.create({
   text: {
     flexShrink: 1,
     fontFamily: "Circular-Book",
+  },
+  color: {
+    textDecorationLine: "underline",
+    fontFamily: "Circular-Bold",
   },
 });
