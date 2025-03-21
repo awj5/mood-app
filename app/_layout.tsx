@@ -16,6 +16,7 @@ import { LayoutReadyContext } from "context/layout-ready";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
 import { CompanyDatesContext } from "context/company-dates";
+import { CompanyFiltersContext, CompanyFiltersType } from "context/company-filters";
 import { setStoredVal, theme } from "../utils/helpers";
 import { getMonday } from "utils/dates";
 
@@ -30,6 +31,7 @@ export default function Layout() {
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
   const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const [companyDates, setCompanyDates] = useState<CalendarDatesType>({ weekStart: new Date() });
+  const [companyFilters, setCompanyFilters] = useState<CompanyFiltersType>();
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
@@ -154,36 +156,45 @@ export default function Layout() {
         <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
           <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
             <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
-              <GestureHandlerRootView style={{ flex: 1 }}>
-                <Stack
-                  screenOptions={{
-                    contentStyle: {
-                      backgroundColor: colors.primaryBg,
-                    },
-                    headerShadowVisible: false,
-                    headerStyle: {
-                      backgroundColor: colors.primaryBg,
-                    },
-                    headerTintColor: colors.primary,
-                  }}
-                >
-                  <Stack.Screen
-                    name="date-filters"
-                    options={{
-                      presentation: "modal",
+              <CompanyFiltersContext.Provider value={{ companyFilters, setCompanyFilters }}>
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                  <Stack
+                    screenOptions={{
+                      contentStyle: {
+                        backgroundColor: colors.primaryBg,
+                      },
+                      headerShadowVisible: false,
+                      headerStyle: {
+                        backgroundColor: colors.primaryBg,
+                      },
+                      headerTintColor: colors.primary,
                     }}
-                  />
+                  >
+                    <Stack.Screen
+                      name="date-filters"
+                      options={{
+                        presentation: "modal",
+                      }}
+                    />
 
-                  <Stack.Screen
-                    name="mood"
-                    options={{
-                      presentation: "modal",
-                    }}
-                  />
-                </Stack>
+                    <Stack.Screen
+                      name="mood"
+                      options={{
+                        presentation: "modal",
+                      }}
+                    />
 
-                <StatusBar style="auto" />
-              </GestureHandlerRootView>
+                    <Stack.Screen
+                      name="company-filters"
+                      options={{
+                        presentation: "modal",
+                      }}
+                    />
+                  </Stack>
+
+                  <StatusBar style="auto" />
+                </GestureHandlerRootView>
+              </CompanyFiltersContext.Provider>
             </CompanyDatesContext.Provider>
           </HomeDatesContext.Provider>
         </DimensionsContext.Provider>

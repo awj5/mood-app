@@ -19,8 +19,8 @@ export default function Settings() {
   const insets = useSafeAreaInsets();
   const [reminderVisible, setReminderVisible] = useState(false);
   const [company, setCompany] = useState("");
-  const padding = Device.deviceType !== 1 ? 24 : 16;
-  const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: padding };
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const getCompany = async () => {
@@ -92,9 +92,9 @@ export default function Settings() {
 
       <ScrollView
         contentContainerStyle={{
-          paddingHorizontal: padding,
-          paddingTop: padding / 2,
-          paddingBottom: insets.bottom + padding,
+          paddingHorizontal: spacing,
+          paddingTop: spacing / 2,
+          paddingBottom: insets.bottom + spacing,
         }}
       >
         <Name />
