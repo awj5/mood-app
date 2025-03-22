@@ -1,5 +1,6 @@
 import { StyleSheet, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import { theme, pressedDefault } from "utils/helpers";
 
@@ -9,10 +10,22 @@ type LinkProps = {
 
 export default function Link(props: LinkProps) {
   const colors = theme();
+  const router = useRouter();
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   return (
-    <Pressable onPress={() => null} style={({ pressed }) => [pressedDefault(pressed), styles.container]} hitSlop={16}>
+    <Pressable
+      onPress={() =>
+        router.push({
+          pathname: "company-filters/list",
+          params: {
+            title: props.title,
+          },
+        })
+      }
+      style={({ pressed }) => [pressedDefault(pressed), styles.container]}
+      hitSlop={16}
+    >
       <Text
         style={{
           color: colors.primary,

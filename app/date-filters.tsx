@@ -15,6 +15,7 @@ export default function DateFilters() {
   const router = useRouter();
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   return (
     <View style={{ flex: 1 }}>
@@ -51,9 +52,9 @@ export default function DateFilters() {
       <View
         style={[
           {
-            paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
-            paddingTop: Device.deviceType !== 1 ? 36 : 24,
-            gap: Device.deviceType !== 1 ? 48 : 32,
+            paddingHorizontal: spacing,
+            paddingTop: spacing * 1.5,
+            gap: spacing * 2,
           },
         ]}
       >

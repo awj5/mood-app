@@ -93,7 +93,7 @@ export default function Settings() {
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: spacing,
-          paddingTop: spacing / 2,
+          paddingTop: spacing * 1.5,
           paddingBottom: insets.bottom + spacing,
         }}
       >

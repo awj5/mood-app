@@ -188,6 +188,7 @@ export default function Layout() {
                       name="company-filters"
                       options={{
                         presentation: "modal",
+                        headerShown: false,
                       }}
                     />
                   </Stack>

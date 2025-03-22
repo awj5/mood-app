@@ -95,7 +95,7 @@ export default function Company() {
               <View
                 style={{
                   paddingRight: spacing,
-                  paddingTop: spacing,
+                  paddingTop: spacing / 2,
                 }}
               >
                 <Button icon={Settings2} func={openFilters}>
