@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, View, ScrollView, Text, ActivityIndicator, KeyboardAvoidingView } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
@@ -7,7 +7,8 @@ import { HeaderBackButton } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
 import HeaderTitle from "components/HeaderTitle";
-import Item from "components/List/Item";
+import Item from "components/list/Item";
+import Search from "components/list/Search";
 import { getStoredVal, removeAccess, theme } from "utils/helpers";
 
 export type ListItemType = {
@@ -65,7 +66,7 @@ export default function List() {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           title: "",
@@ -83,11 +84,13 @@ export default function List() {
       />
 
       <HeaderTitle text={params.title} />
+      <Search />
 
       <ScrollView
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         contentContainerStyle={{
-          paddingHorizontal: spacing,
-          paddingTop: spacing * 1.5,
+          padding: spacing,
           paddingBottom: insets.bottom + spacing,
           flex: 1,
         }}
@@ -121,7 +124,7 @@ export default function List() {
           </View>
         )}
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
