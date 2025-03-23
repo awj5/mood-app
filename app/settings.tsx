@@ -110,6 +110,7 @@ export default function Settings() {
         )}
 
         <Version />
+        <View style={[styles.divider, dividerStyle]} />
       </ScrollView>
 
       <ReminderOverlay visible={reminderVisible} setVisible={setReminderVisible} />

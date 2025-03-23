@@ -1,30 +1,24 @@
+import { useState } from "react";
 import { StyleSheet, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
-import { useRouter } from "expo-router";
-import { ChevronRight } from "lucide-react-native";
+import { Check } from "lucide-react-native";
+import { ListItemType } from "app/company-filters/list";
 import { theme, pressedDefault } from "utils/helpers";
 
-type LinkProps = {
-  title: string;
+type ItemProps = {
+  data: ListItemType;
 };
 
-export default function Link(props: LinkProps) {
+export default function Item(props: ItemProps) {
   const colors = theme();
-  const router = useRouter();
+  const [checked, setChecked] = useState(false);
+
+  const press = () => {
+    setChecked(true);
+  };
 
   return (
-    <Pressable
-      onPress={() =>
-        router.push({
-          pathname: "company-filters/list",
-          params: {
-            title: props.title,
-          },
-        })
-      }
-      style={({ pressed }) => [pressedDefault(pressed), styles.container]}
-      hitSlop={16}
-    >
+    <Pressable onPress={press} style={({ pressed }) => [pressedDefault(pressed), styles.container]} hitSlop={16}>
       <Text
         style={{
           color: colors.primary,
@@ -33,14 +27,15 @@ export default function Link(props: LinkProps) {
         }}
         allowFontScaling={false}
       >
-        {props.title}
+        {props.data.name}
       </Text>
 
-      <ChevronRight
+      <Check
         color={colors.primary}
         size={Device.deviceType !== 1 ? 28 : 20}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+        style={{ display: checked ? "flex" : "none" }}
       />
     </Pressable>
   );

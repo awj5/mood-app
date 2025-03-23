@@ -55,6 +55,7 @@ export default function CompanyFilters() {
         <Link title="Locations" />
         <View style={[styles.divider, dividerStyle]} />
         <Link title="Teams" />
+        <View style={[styles.divider, dividerStyle]} />
       </ScrollView>
     </View>
   );

@@ -119,7 +119,7 @@ export default function Content(props: ContentProps) {
                 },
               ]}
             >
-              You must be online to view company insights.
+              {"You must be online to view\ncompany insights."}
             </Text>
 
             <Pressable onPress={getCheckIns} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
   text: {
     opacity: 0.5,
     fontFamily: "Circular-Book",
+    textAlign: "center",
   },
   button: {
     fontFamily: "Circular-Book",
