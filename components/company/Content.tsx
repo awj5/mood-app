@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useContext, useState } from "react";
 import { ScrollView, View, Text, StyleSheet, Pressable, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
+import { useFocusEffect } from "expo-router";
 import axios from "axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
+import { CompanyFiltersType } from "context/company-filters";
 import { CompanyCheckInType } from "app/company";
 import Insights from "components/Insights";
 import Categories from "./content/Categories";
@@ -17,12 +19,14 @@ import { convertToISO } from "utils/dates";
 type ContentProps = {
   checkIns: CompanyCheckInType[] | undefined;
   setCheckIns: React.Dispatch<React.SetStateAction<CompanyCheckInType[] | undefined>>;
+  filters: CompanyFiltersType;
 };
 
 export default function Content(props: ContentProps) {
   const colors = theme();
   const insets = useSafeAreaInsets();
   const latestQueryRef = useRef<symbol>();
+  const filtersRef = useRef<CompanyFiltersType | undefined>();
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const [isOffline, setIsOffline] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
@@ -46,6 +50,8 @@ export default function Content(props: ContentProps) {
           uuid: uuid,
           start: convertToISO(start),
           end: convertToISO(end),
+          ...(props.filters.locations.length !== undefined && { locations: props.filters.locations }),
+          ...(props.filters.teams.length !== undefined && { teams: props.filters.teams }),
         }
       );
 
@@ -74,6 +80,7 @@ export default function Content(props: ContentProps) {
 
       if (latestQueryRef.current === currentQuery) {
         props.setCheckIns(checkInData);
+        filtersRef.current = props.filters;
       }
     } else if (!network.isInternetReachable) {
       setIsOffline(true);
@@ -89,6 +96,16 @@ export default function Content(props: ContentProps) {
 
     return () => clearTimeout(timeout);
   }, [companyDates]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (filtersRef.current && props.filters !== filtersRef.current) {
+        // Filters have changed
+        props.setCheckIns(undefined); // Show loader
+        getCheckIns();
+      }
+    }, [props.filters])
+  );
 
   return (
     <ScrollView contentContainerStyle={{ flex: props.checkIns?.length ? 0 : 1, alignItems: "center" }}>

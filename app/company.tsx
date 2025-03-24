@@ -110,7 +110,7 @@ export default function Company() {
               </View>
             </View>
 
-            <Content checkIns={checkIns} setCheckIns={setCheckIns} />
+            <Content checkIns={checkIns} setCheckIns={setCheckIns} filters={companyFilters} />
           </View>
         </>
       ) : company ? (
