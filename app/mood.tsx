@@ -1,8 +1,9 @@
-import { Pressable, Text, View, ScrollView, StyleSheet } from "react-native";
+import { Pressable, Text, View, ScrollView, StyleSheet, Platform } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { HeaderBackButton } from "@react-navigation/elements";
 import MoodsData from "data/moods.json";
 import TextBlock from "components/mood/TextBlock";
 import Song from "components/Song";
@@ -44,42 +45,62 @@ export default function Mood() {
           headerStyle: {
             backgroundColor: data.color,
           },
-          headerRight: () => (
-            <Pressable onPress={() => router.back()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
-              <Text
-                style={{
-                  fontFamily: "Circular-Book",
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: foreground,
-                }}
-                allowFontScaling={false}
-              >
-                Close
-              </Text>
-            </Pressable>
-          ),
+          headerLeft:
+            Platform.OS === "android"
+              ? () => (
+                  <HeaderBackButton
+                    onPress={() => router.dismissAll()}
+                    label="Back"
+                    labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
+                    tintColor={foreground}
+                    allowFontScaling={false}
+                    style={{ marginLeft: -8 }}
+                  />
+                )
+              : () => null,
+          headerRight:
+            Platform.OS === "ios"
+              ? () => (
+                  <Pressable
+                    onPress={() => router.back()}
+                    style={({ pressed }) => pressedDefault(pressed)}
+                    hitSlop={16}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Circular-Book",
+                        fontSize: Device.deviceType !== 1 ? 20 : 16,
+                        color: foreground,
+                      }}
+                      allowFontScaling={false}
+                    >
+                      Close
+                    </Text>
+                  </Pressable>
+                )
+              : () => null,
         }}
       />
 
-      <View style={{ alignItems: "center", gap: spacing / 2, padding: spacing }}>
-        <Image
-          source={emojis[data.id as keyof typeof emojis]}
-          style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 64 : 48 }}
-        />
-
-        <Text
-          style={{
-            fontFamily: "Circular-Bold",
-            fontSize: Device.deviceType !== 1 ? 48 : 36,
-            color: foreground,
-          }}
-          allowFontScaling={false}
-        >
-          {data.name}
-        </Text>
-      </View>
-
       <ScrollView contentContainerStyle={{ padding: spacing, paddingBottom: spacing + insets.bottom, gap: spacing }}>
+        <View style={{ alignItems: "center", gap: spacing / 2 }}>
+          <Image
+            source={emojis[data.id as keyof typeof emojis]}
+            style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 64 : 48 }}
+          />
+
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              fontSize: Device.deviceType !== 1 ? 48 : 36,
+              color: foreground,
+            }}
+            allowFontScaling={false}
+          >
+            {data.name}
+          </Text>
+        </View>
+
         <Text
           style={[
             styles.description,

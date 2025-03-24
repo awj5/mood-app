@@ -17,7 +17,7 @@ export default function Gif(props: GifProps) {
   return (
     <View style={{ aspectRatio: "1/1", height: Device.deviceType !== 1 ? 144 : 96 }}>
       <Pressable onPress={() => Linking.openURL(props.item.link)} style={({ pressed }) => pressedDefault(pressed)}>
-        <Image source={props.item.url} style={styles.image} onLoadEnd={() => setLoading(false)} />
+        <Image source={{ uri: props.item.url }} style={styles.image} onLoadEnd={() => setLoading(false)} />
       </Pressable>
 
       {loading && <ActivityIndicator color={colors.primary} style={[styles.image, { position: "absolute" }]} />}
