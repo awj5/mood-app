@@ -22,6 +22,7 @@ export default function List() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [items, setItems] = useState<ListItemType[]>([]);
+  const [searchText, setSearchText] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
@@ -66,7 +67,7 @@ export default function List() {
   }, []);
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           title: "",
@@ -84,47 +85,52 @@ export default function List() {
       />
 
       <HeaderTitle text={params.title} />
-      <Search />
 
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        contentContainerStyle={{
-          padding: spacing,
-          paddingBottom: insets.bottom + spacing,
-          flex: 1,
-        }}
-      >
-        {items?.length ? (
-          <>
-            {items.map((item, index) => (
-              <View key={index}>
-                <Item data={item} />
-                <View style={[styles.divider, dividerStyle]} />
-              </View>
-            ))}
-          </>
-        ) : isOffline ? (
-          <View style={styles.wrapper}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: colors.primary,
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
-                },
-              ]}
-            >
-              {"You must be online to display\ncompany locations."}
-            </Text>
-          </View>
-        ) : (
-          <View style={styles.wrapper}>
-            <ActivityIndicator color={colors.primary} size="large" />
-          </View>
-        )}
-      </ScrollView>
-    </KeyboardAvoidingView>
+      {items?.length ? (
+        <View style={{ flex: 1 }}>
+          <Search text={searchText} setText={setSearchText} />
+
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={{
+              paddingHorizontal: spacing,
+              paddingTop: spacing / 2,
+              paddingBottom: insets.bottom + spacing,
+            }}
+          >
+            {items.map((item, index) => {
+              if (searchText === "" || item.name.toLowerCase().includes(searchText.toLowerCase())) {
+                return (
+                  <View key={index}>
+                    <Item data={item} />
+                    <View style={[styles.divider, dividerStyle]} />
+                  </View>
+                );
+              }
+            })}
+          </ScrollView>
+        </View>
+      ) : isOffline ? (
+        <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colors.primary,
+                fontSize: Device.deviceType !== 1 ? 20 : 16,
+              },
+            ]}
+          >
+            {"You must be online to display\ncompany locations."}
+          </Text>
+        </View>
+      ) : (
+        <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
+          <ActivityIndicator color={colors.primary} size="large" />
+        </View>
+      )}
+    </View>
   );
 }
 

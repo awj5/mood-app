@@ -5,13 +5,13 @@ import { SearchIcon, X } from "lucide-react-native";
 import { theme, pressedDefault } from "utils/helpers";
 
 type SearchProps = {
-  //
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Search(props: SearchProps) {
   const colors = theme();
   const inputRef = useRef<TextInput | null>(null);
-  const [text, setText] = useState("");
   const [focused, setFocused] = useState(false);
   const stroke = Device.deviceType !== 1 ? 2.5 : 2;
   const spacing = Device.deviceType !== 1 ? 24 : 16;
@@ -19,7 +19,7 @@ export default function Search(props: SearchProps) {
 
   const clear = () => {
     inputRef.current?.blur();
-    setText("");
+    props.setText("");
   };
 
   return (
@@ -30,7 +30,7 @@ export default function Search(props: SearchProps) {
           borderWidth: stroke,
           borderColor: focused ? colors.primary : colors.secondary,
           marginHorizontal: spacing,
-          paddingHorizontal: spacing / 1.5,
+          paddingHorizontal: spacing / 2,
           marginBottom: spacing,
           marginTop: spacing / 2,
         },
@@ -47,8 +47,8 @@ export default function Search(props: SearchProps) {
 
       <TextInput
         ref={inputRef}
-        onChangeText={setText}
-        value={text}
+        onChangeText={props.setText}
+        value={props.text}
         placeholder="Search"
         placeholderTextColor={colors.secondary}
         style={[
@@ -57,7 +57,7 @@ export default function Search(props: SearchProps) {
             color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 24 : 18,
             paddingHorizontal: spacing / 2,
-            paddingVertical: spacing / 1.5,
+            paddingVertical: spacing / 2,
           },
         ]}
         onFocus={() => setFocused(true)}
