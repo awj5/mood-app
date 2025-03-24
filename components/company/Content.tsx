@@ -100,9 +100,7 @@ export default function Content(props: ContentProps) {
   useFocusEffect(
     useCallback(() => {
       if (filtersRef.current && props.filters !== filtersRef.current) {
-        // Filters have changed
-        props.setCheckIns(undefined); // Show loader
-        getCheckIns();
+        getCheckIns(); // Filters have changed
       }
     }, [props.filters])
   );
