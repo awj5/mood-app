@@ -40,7 +40,7 @@ export default function CompanyFilters() {
 
       <HeaderTitle
         text="Filters"
-        description={`Refine company insights by selecting a location or a specific team within your ${
+        description={`Refine company insights by selecting locations or specific teams within your ${
           localization[0].languageTag === "en-US" ? "organization" : "organisation"
         }.`}
       />

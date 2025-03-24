@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, Text, ActivityIndicator, KeyboardAvoidingView } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet, View, ScrollView, Text, ActivityIndicator, Pressable } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
+import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } from "context/company-filters";
 import HeaderTitle from "components/HeaderTitle";
 import Item from "components/list/Item";
 import Search from "components/list/Search";
-import { getStoredVal, removeAccess, theme } from "utils/helpers";
+import { getStoredVal, removeAccess, theme, pressedDefault } from "utils/helpers";
 
 export type ListItemType = {
   id: number;
@@ -21,11 +22,13 @@ export default function List() {
   const colors = theme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [items, setItems] = useState<ListItemType[]>([]);
   const [searchText, setSearchText] = useState("");
   const [isOffline, setIsOffline] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
+  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const getItemsData = async (uuid: string) => {
     try {
@@ -75,11 +78,38 @@ export default function List() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: fontSize }}
               tintColor={colors.primary}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
+          ),
+          headerRight: () => (
+            <Pressable
+              onPress={() =>
+                setCompanyFilters({ ...companyFilters, [params.title.toLowerCase() as keyof CompanyFiltersType]: [] })
+              }
+              style={({ pressed }) => [
+                pressedDefault(pressed),
+                {
+                  display: companyFilters[params.title.toLowerCase() as keyof CompanyFiltersType].length
+                    ? "flex"
+                    : "none",
+                },
+              ]}
+              hitSlop={16}
+            >
+              <Text
+                style={{
+                  fontFamily: "Circular-Book",
+                  fontSize: fontSize,
+                  color: colors.primary,
+                }}
+                allowFontScaling={false}
+              >
+                Clear All
+              </Text>
+            </Pressable>
           ),
         }}
       />
@@ -103,7 +133,7 @@ export default function List() {
               if (searchText === "" || item.name.toLowerCase().includes(searchText.toLowerCase())) {
                 return (
                   <View key={index}>
-                    <Item data={item} />
+                    <Item data={item} type={params.title.toLowerCase()} />
                     <View style={[styles.divider, dividerStyle]} />
                   </View>
                 );
@@ -118,7 +148,7 @@ export default function List() {
               styles.text,
               {
                 color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 20 : 16,
+                fontSize: fontSize,
               },
             ]}
           >

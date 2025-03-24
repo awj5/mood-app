@@ -13,9 +13,9 @@ export default function Search(props: SearchProps) {
   const colors = theme();
   const inputRef = useRef<TextInput | null>(null);
   const [focused, setFocused] = useState(false);
-  const stroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const stroke = Device.deviceType !== 1 ? 2 : 1.5;
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const iconSize = Device.deviceType !== 1 ? 32 : 24;
+  const iconSize = Device.deviceType !== 1 ? 28 : 20;
 
   const clear = () => {
     inputRef.current?.blur();
@@ -27,10 +27,10 @@ export default function Search(props: SearchProps) {
       style={[
         styles.container,
         {
-          borderWidth: stroke,
+          borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
           borderColor: focused ? colors.primary : colors.secondary,
           marginHorizontal: spacing,
-          paddingHorizontal: spacing / 2,
+          paddingHorizontal: spacing / 1.5,
           marginBottom: spacing,
           marginTop: spacing / 2,
         },

@@ -6,6 +6,7 @@ import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { Settings2 } from "lucide-react-native";
 import { CheckInMoodType } from "data/database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
+import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } from "context/company-filters";
 import HeaderDates from "components/HeaderDates";
 import Upsell from "components/company/Upsell";
 import Disclaimer from "components/company/Disclaimer";
@@ -27,6 +28,7 @@ export default function Company() {
   const router = useRouter();
   const headerHeight = useHeaderHeight();
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
+  const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [hasAccess, setHasAccess] = useState(false);
   const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
   const [company, setCompany] = useState("");
@@ -98,7 +100,11 @@ export default function Company() {
                   paddingTop: spacing / 2,
                 }}
               >
-                <Button icon={Settings2} func={openFilters}>
+                <Button
+                  icon={Settings2}
+                  func={openFilters}
+                  count={companyFilters.locations.length + companyFilters.teams.length}
+                >
                   Filters
                 </Button>
               </View>

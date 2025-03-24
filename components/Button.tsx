@@ -11,11 +11,13 @@ type ButtonProps = {
   disabled?: boolean;
   destructive?: boolean;
   gradient?: boolean;
+  count?: number;
 };
 
 export default function Button(props: ButtonProps) {
   const colors = theme();
   const Icon = props.icon;
+  const iconSize = Device.deviceType !== 1 ? 28 : 20;
 
   return (
     <Pressable
@@ -59,7 +61,7 @@ export default function Button(props: ButtonProps) {
         {Icon && (
           <Icon
             color={!props.fill ? colors.primary : colors.primary === "white" ? "black" : "white"}
-            size={Device.deviceType !== 1 ? 28 : 20}
+            size={iconSize}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
@@ -81,6 +83,32 @@ export default function Button(props: ButtonProps) {
         >
           {props.children}
         </Text>
+
+        {props.count ? (
+          <View
+            style={[
+              styles.count,
+              {
+                backgroundColor: colors.primary,
+                width: iconSize,
+                height: iconSize,
+              },
+            ]}
+          >
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: colors.primary === "white" ? "black" : "white",
+                fontSize: Device.deviceType !== 1 ? 18 : 14,
+              }}
+              allowFontScaling={false}
+            >
+              {props.count}
+            </Text>
+          </View>
+        ) : (
+          <></>
+        )}
       </View>
     </Pressable>
   );
@@ -101,5 +129,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
+  },
+  count: {
+    borderRadius: 999,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

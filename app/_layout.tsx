@@ -31,7 +31,7 @@ export default function Layout() {
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
   const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const [companyDates, setCompanyDates] = useState<CalendarDatesType>({ weekStart: new Date() });
-  const [companyFilters, setCompanyFilters] = useState<CompanyFiltersType>();
+  const [companyFilters, setCompanyFilters] = useState<CompanyFiltersType>({ locations: [], teams: [] });
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";

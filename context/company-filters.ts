@@ -6,11 +6,11 @@ export type CompanyFiltersType = {
 };
 
 export type CompanyFiltersContextType = {
-  companyFilters: CompanyFiltersType | undefined;
+  companyFilters: CompanyFiltersType;
   setCompanyFilters: (companyFilters: CompanyFiltersType) => void;
 };
 
 export const CompanyFiltersContext = createContext<CompanyFiltersContextType>({
-  companyFilters: undefined,
+  companyFilters: { locations: [], teams: [] },
   setCompanyFilters: () => undefined,
 });
