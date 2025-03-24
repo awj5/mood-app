@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
 import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } from "context/company-filters";
 import HeaderTitle from "components/HeaderTitle";
-import Item from "components/list/Item";
+import ListItem from "components/list/ListItem";
 import Search from "components/list/Search";
 import { getStoredVal, removeAccess, theme, pressedDefault } from "utils/helpers";
 
@@ -133,7 +133,7 @@ export default function List() {
               if (searchText === "" || item.name.toLowerCase().includes(searchText.toLowerCase())) {
                 return (
                   <View key={index}>
-                    <Item data={item} type={params.title.toLowerCase()} />
+                    <ListItem data={item} type={params.title.toLowerCase()} />
                     <View style={[styles.divider, dividerStyle]} />
                   </View>
                 );

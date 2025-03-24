@@ -6,12 +6,12 @@ import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } 
 import { ListItemType } from "app/company-filters/list";
 import { theme, pressedDefault } from "utils/helpers";
 
-type ItemProps = {
+type ListItemProps = {
   data: ListItemType;
   type: string;
 };
 
-export default function Item(props: ItemProps) {
+export default function ListItem(props: ListItemProps) {
   const colors = theme();
   const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [checked, setChecked] = useState(false);
