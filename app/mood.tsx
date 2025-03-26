@@ -49,7 +49,7 @@ export default function Mood() {
             Platform.OS === "android"
               ? () => (
                   <HeaderBackButton
-                    onPress={() => router.dismissAll()}
+                    onPress={() => router.back()}
                     label="Back"
                     labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
                     tintColor={foreground}

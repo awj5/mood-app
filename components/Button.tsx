@@ -100,6 +100,7 @@ export default function Button(props: ButtonProps) {
                 fontFamily: "Circular-Book",
                 color: colors.primary === "white" ? "black" : "white",
                 fontSize: Device.deviceType !== 1 ? 18 : 14,
+                lineHeight: Device.deviceType !== 1 ? 21 : 17,
               }}
               allowFontScaling={false}
             >
