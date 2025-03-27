@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet } from "react-native";
+import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet, Keyboard } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Device from "expo-device";
@@ -235,8 +235,16 @@ export default function Chat() {
       setFirstResponse();
     }, 500); // Wait for screen transition
 
+    const listener = Keyboard.addListener("keyboardDidShow", () => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    });
+
     getCompany();
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);
+      listener.remove();
+    };
   }, []);
 
   return (
