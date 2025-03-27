@@ -48,8 +48,8 @@ export default function Company() {
   useEffect(() => {
     checkAccess();
 
-    // Always set date to past 30 days on mount
-    const today = new Date();
+    // Always set date to past 30 days on mount (UTC)
+    const today = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
     today.setHours(0, 0, 0, 0);
     const daysAgo = new Date();
     daysAgo.setHours(0, 0, 0, 0);
