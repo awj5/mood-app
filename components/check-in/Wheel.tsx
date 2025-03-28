@@ -128,14 +128,14 @@ export default function Wheel(props: WheelProps) {
       }
 
       newRotation = Math.round(newRotation);
-      props.rotation.value = newRotation;
+      if (Device.deviceType === 1 || Device.deviceType === 2) props.rotation.value = newRotation; // Only on touch devices
     })
     .onEnd(() => {
       if (opacity.value !== 1) {
         return; // Not faded in yet
       }
 
-      previousRotation.value = props.rotation.value;
+      if (Device.deviceType === 1 || Device.deviceType === 2) previousRotation.value = props.rotation.value; // Only on touch devices
     });
 
   const animatedStyles = useAnimatedStyle(() => ({
