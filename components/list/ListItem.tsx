@@ -54,7 +54,7 @@ export default function ListItem(props: ListItemProps) {
         size={Device.deviceType !== 1 ? 28 : 20}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-        style={{ display: checked ? "flex" : "none" }}
+        style={{ opacity: checked ? 1 : 0 }}
       />
     </Pressable>
   );
