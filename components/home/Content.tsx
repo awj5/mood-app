@@ -140,7 +140,7 @@ export default function Content() {
                 </View>
               </>
             ) : (
-              <View style={{ width: "100%" }}>
+              <View style={styles.upsell}>
                 <Button route="pro" fill icon={Sparkles} gradient>
                   Get MOOD.ai Pro
                 </Button>
@@ -181,5 +181,9 @@ const styles = StyleSheet.create({
   },
   double: {
     flexDirection: "row",
+  },
+  upsell: {
+    width: "100%",
+    maxWidth: 448,
   },
 });
