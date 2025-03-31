@@ -101,42 +101,40 @@ export default function Category() {
       <Bg checkIns={JSON.parse(params.checkIns)} />
 
       <View style={{ marginTop: headerHeight, flex: 1 }}>
-        <View style={{ alignItems: "center", gap: spacing / 2, padding: spacing }}>
-          <Icon
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 48 : 40}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
-          />
+        <ScrollView
+          contentContainerStyle={[
+            styles.wrapper,
+            { padding: spacing, paddingBottom: spacing + insets.bottom, gap: spacing },
+          ]}
+        >
+          <View style={{ alignItems: "center", gap: spacing / 2 }}>
+            <Icon
+              color={colors.primary}
+              size={Device.deviceType !== 1 ? 48 : 40}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
+            />
 
-          <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              fontSize: Device.deviceType !== 1 ? 30 : 24,
-              color: colors.primary,
-            }}
-            allowFontScaling={false}
-          >
-            {params.title}
-          </Text>
-        </View>
-
-        <ScrollView>
-          <View
-            style={[
-              styles.wrapper,
-              { paddingHorizontal: spacing, paddingBottom: insets.bottom + spacing, gap: spacing },
-            ]}
-          >
-            <Insights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
-
-            <View style={{ flexDirection: "row", gap: spacing }}>
-              <Sentiment score={Number(params.score)} trend={params.trend} />
-              <Article competency={params.id} />
-            </View>
-
-            <About id={Number(params.id)} title={params.title.toUpperCase()} />
+            <Text
+              style={{
+                fontFamily: "Circular-Bold",
+                fontSize: Device.deviceType !== 1 ? 30 : 24,
+                color: colors.primary,
+              }}
+              allowFontScaling={false}
+            >
+              {params.title}
+            </Text>
           </View>
+
+          <Insights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
+
+          <View style={{ flexDirection: "row", gap: spacing }}>
+            <Sentiment score={Number(params.score)} trend={params.trend} />
+            <Article competency={params.id} />
+          </View>
+
+          <About id={Number(params.id)} title={params.title.toUpperCase()} />
         </ScrollView>
       </View>
     </View>

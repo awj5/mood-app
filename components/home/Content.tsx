@@ -6,6 +6,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
+import { Sparkles } from "lucide-react-native";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
@@ -17,7 +18,7 @@ import Gifs from "../Gifs";
 import Burnout from "./content/Burnout";
 import Journal from "./content/Journal";
 import Stats from "./content/Stats";
-import Upsell from "./content/Upsell";
+import Button from "components/Button";
 import { shuffleArray, theme, getStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
@@ -139,7 +140,11 @@ export default function Content() {
                 </View>
               </>
             ) : (
-              <>{/*<Upsell />*/}</>
+              <View style={{ width: "100%" }}>
+                <Button fill icon={Sparkles} gradient>
+                  Get MOOD.ai Pro
+                </Button>
+              </View>
             )}
 
             {widgets}
