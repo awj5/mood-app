@@ -36,7 +36,7 @@ export default function Response(props: ResponseProps) {
 
   const buttonClick = () => {
     if (props.message.button === "upsell") {
-      alert("Coming soon");
+      router.push("pro");
     } else {
       router.dismissAll();
     }
@@ -132,7 +132,7 @@ export default function Response(props: ResponseProps) {
             {((props.company && !props.message.button && displayedText.indexOf("?") === -1) ||
               (props.company && props.message.button === "respond" && !props.insightsSeen)) && (
               <View style={{ alignSelf: "flex-start" }}>
-                <Button func={() => router.push("company")}>{`View ${props.company} insights`}</Button>
+                <Button route="company">{`View ${props.company} insights`}</Button>
               </View>
             )}
           </Animated.View>

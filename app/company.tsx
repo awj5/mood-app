@@ -41,10 +41,6 @@ export default function Company() {
     if (name && send) setHasAccess(true);
   };
 
-  const openFilters = () => {
-    router.push("company-filters");
-  };
-
   useEffect(() => {
     checkAccess();
 
@@ -102,7 +98,7 @@ export default function Company() {
               >
                 <Button
                   icon={Settings2}
-                  func={openFilters}
+                  route="company-filters"
                   count={companyFilters.locations.length + companyFilters.teams.length}
                 >
                   Filters

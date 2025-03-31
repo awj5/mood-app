@@ -141,7 +141,7 @@ export default function Content() {
               </>
             ) : (
               <View style={{ width: "100%" }}>
-                <Button fill icon={Sparkles} gradient>
+                <Button route="pro" fill icon={Sparkles} gradient>
                   Get MOOD.ai Pro
                 </Button>
               </View>

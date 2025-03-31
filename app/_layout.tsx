@@ -185,6 +185,13 @@ export default function Layout() {
                     />
 
                     <Stack.Screen
+                      name="pro"
+                      options={{
+                        presentation: "modal",
+                      }}
+                    />
+
+                    <Stack.Screen
                       name="company-filters"
                       options={{
                         presentation: "modal",

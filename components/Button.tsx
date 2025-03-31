@@ -1,11 +1,13 @@
 import { StyleSheet, Pressable, Text, View } from "react-native";
 import * as Device from "expo-device";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { pressedDefault, theme } from "utils/helpers";
 
 type ButtonProps = {
   children: string;
   func?: () => void;
+  route?: string;
   fill?: boolean;
   icon?: React.ElementType;
   disabled?: boolean;
@@ -16,12 +18,13 @@ type ButtonProps = {
 
 export default function Button(props: ButtonProps) {
   const colors = theme();
+  const router = useRouter();
   const Icon = props.icon;
   const iconSize = Device.deviceType !== 1 ? 28 : 20;
 
   return (
     <Pressable
-      onPress={() => props.func && props.func()}
+      onPress={() => (props.func ? props.func() : props.route && router.push(props.route))}
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
