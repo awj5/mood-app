@@ -1,8 +1,9 @@
-import { Pressable, Text, View, Platform } from "react-native";
+import { Pressable, Text, View, Platform, ScrollView } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton } from "@react-navigation/elements";
-import BigButton from "components/BigButton";
+import { Sparkles } from "lucide-react-native";
+import IAP from "components/pro/IAP";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function Pro() {
@@ -28,10 +29,7 @@ export default function Pro() {
                     style={{ marginLeft: -8 }}
                   />
                 )
-              : () => null,
-          headerRight:
-            Platform.OS === "ios"
-              ? () => (
+              : () => (
                   <Pressable
                     onPress={() => router.back()}
                     style={({ pressed }) => pressedDefault(pressed)}
@@ -48,13 +46,49 @@ export default function Pro() {
                       Close
                     </Text>
                   </Pressable>
+                ),
+          headerRight:
+            Platform.OS === "ios"
+              ? () => (
+                  <Pressable onPress={() => null} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+                    <Text
+                      style={{
+                        fontFamily: "Circular-Book",
+                        fontSize: Device.deviceType !== 1 ? 20 : 16,
+                        color: colors.primary,
+                      }}
+                      allowFontScaling={false}
+                    >
+                      Restore
+                    </Text>
+                  </Pressable>
                 )
               : () => null,
         }}
       />
-      <View style={{ paddingHorizontal: spacing }}>
-        <BigButton route="">Subscribe</BigButton>
-      </View>
+      <ScrollView contentContainerStyle={{ padding: spacing, gap: spacing }}>
+        <View style={{ alignItems: "center", gap: spacing / 2 }}>
+          <Sparkles
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 88 : 64}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
+          />
+
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              fontSize: Device.deviceType !== 1 ? 48 : 36,
+              color: colors.primary,
+            }}
+            allowFontScaling={false}
+          >
+            MOOD.ai Pro
+          </Text>
+        </View>
+      </ScrollView>
+
+      <IAP />
     </View>
   );
 }

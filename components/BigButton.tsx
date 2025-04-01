@@ -17,7 +17,8 @@ import { pressedDefault, theme } from "utils/helpers";
 
 type BigButtonProps = {
   children: string;
-  route: string;
+  route?: string;
+  func?: () => void;
   shadow?: boolean;
   bounce?: boolean;
   icon?: React.ElementType;
@@ -31,7 +32,12 @@ export default function BigButton(props: BigButtonProps) {
 
   const press = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    router.push(props.route);
+
+    if (props.func) {
+      props.func();
+    } else if (props.route) {
+      router.push(props.route);
+    }
   };
 
   const animatedStyles = useAnimatedStyle(() => ({

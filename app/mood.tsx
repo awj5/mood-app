@@ -57,10 +57,7 @@ export default function Mood() {
                     style={{ marginLeft: -8 }}
                   />
                 )
-              : () => null,
-          headerRight:
-            Platform.OS === "ios"
-              ? () => (
+              : () => (
                   <Pressable
                     onPress={() => router.back()}
                     style={({ pressed }) => pressedDefault(pressed)}
@@ -77,8 +74,7 @@ export default function Mood() {
                       Close
                     </Text>
                   </Pressable>
-                )
-              : () => null,
+                ),
         }}
       />
 
