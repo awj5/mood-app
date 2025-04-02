@@ -116,7 +116,11 @@ export default function Content() {
   );
 
   return (
-    <ScrollView ref={scrollViewRef} contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}>
+    <ScrollView
+      ref={scrollViewRef}
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}
+    >
       <View
         style={[
           styles.wrapper,

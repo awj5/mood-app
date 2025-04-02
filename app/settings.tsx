@@ -91,6 +91,7 @@ export default function Settings() {
       <HeaderTitle text="Settings" />
 
       <ScrollView
+        style={{ flex: 1 }}
         contentContainerStyle={{
           paddingHorizontal: spacing,
           paddingTop: spacing * 1.5,

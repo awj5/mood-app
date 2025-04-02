@@ -16,8 +16,7 @@ export default function HeaderTitle(props: HeaderTitleProps) {
   return (
     <View
       style={{
-        paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
-        paddingVertical: Device.deviceType !== 1 ? 12 : 8,
+        padding: Device.deviceType !== 1 ? 24 : 16,
         gap: Device.deviceType !== 1 ? 8 : 4,
         marginTop: props.transparentHeader ? headerHeight : 0,
         flexShrink: 1,

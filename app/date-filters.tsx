@@ -52,8 +52,7 @@ export default function DateFilters() {
       <View
         style={[
           {
-            paddingHorizontal: spacing,
-            paddingTop: spacing * 1.5,
+            padding: spacing,
             gap: spacing * 2,
           },
         ]}

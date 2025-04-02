@@ -299,7 +299,7 @@ export default function Chat() {
         }}
       />
 
-      <ScrollView ref={scrollViewRef}>
+      <ScrollView ref={scrollViewRef} style={{ flex: 1 }}>
         {messages.map((item, index) =>
           item.role === "assistant" ? (
             <Response

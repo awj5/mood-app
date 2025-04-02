@@ -32,7 +32,6 @@ export default function Search(props: SearchProps) {
           marginHorizontal: spacing,
           paddingHorizontal: spacing / 1.5,
           marginBottom: spacing,
-          marginTop: spacing / 2,
         },
       ]}
     >
