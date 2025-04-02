@@ -106,7 +106,10 @@ export default function Content(props: ContentProps) {
   );
 
   return (
-    <ScrollView contentContainerStyle={{ flex: props.checkIns?.length ? 0 : 1, alignItems: "center" }}>
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flex: props.checkIns?.length ? 0 : 1, alignItems: "center" }}
+    >
       <View
         style={[
           styles.wrapper,

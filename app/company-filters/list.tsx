@@ -123,9 +123,9 @@ export default function List() {
           <ScrollView
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
+            style={{ flex: 1 }}
             contentContainerStyle={{
-              paddingHorizontal: spacing,
-              paddingTop: spacing / 2,
+              padding: spacing,
               paddingBottom: insets.bottom + spacing,
             }}
           >

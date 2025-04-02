@@ -86,14 +86,14 @@ export default function Company() {
         <>
           <Bg checkIns={checkIns} />
 
-          <View style={{ flex: 1, marginTop: headerHeight, gap: spacing / 2 }}>
+          <View style={{ flex: 1, marginTop: headerHeight }}>
             <View style={styles.header}>
               <HeaderTitle text={company} />
 
               <View
                 style={{
                   paddingRight: spacing,
-                  paddingTop: spacing / 2,
+                  paddingTop: spacing,
                 }}
               >
                 <Button

@@ -43,7 +43,7 @@ export default function IAP() {
           })}
         </>
       ) : (
-        <BigButton>Subscribe</BigButton>
+        <BigButton>Try free for 1 week</BigButton>
       )}
     </View>
   );

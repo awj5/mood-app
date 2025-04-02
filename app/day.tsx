@@ -118,7 +118,7 @@ export default function Day() {
         <></>
       )}
 
-      <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ minHeight: "100%" }}>
         <Animated.View
           style={{
             opacity,

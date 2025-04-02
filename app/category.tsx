@@ -102,6 +102,7 @@ export default function Category() {
 
       <View style={{ marginTop: headerHeight, flex: 1 }}>
         <ScrollView
+          style={{ flex: 1 }}
           contentContainerStyle={[
             styles.wrapper,
             { padding: spacing, paddingBottom: spacing + insets.bottom, gap: spacing },
