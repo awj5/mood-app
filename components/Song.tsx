@@ -29,7 +29,7 @@ export default function Song(props: SongProps) {
   const [song, setSong] = useState<SongType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
-  const url = "https://hvwvyufuezybxttghqiy.supabase.co/storage/v1/object/public/content/music/";
+  const url = "https://www.mood.ai/img/music/";
 
   const images = {
     KeepYourHeadUp: "keep-your-head-up.jpg",

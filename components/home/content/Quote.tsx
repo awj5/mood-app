@@ -24,7 +24,7 @@ export default function Quote(props: QuoteProps) {
   const [quoteData, setQuoteData] = useState<QuoteType>();
   const [authorImage, setAuthorImage] = useState("");
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const url = "https://hvwvyufuezybxttghqiy.supabase.co/storage/v1/object/public/content/quotes/authors/";
+  const url = "https://www.mood.ai/img/quotes/authors/";
 
   const images = {
     WilliamShakespeare: "william-shakespeare.jpg",
