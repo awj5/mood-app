@@ -23,7 +23,7 @@ export default function Article(props: ArticleProps) {
   const opacity = useSharedValue(props.checkIns ? 0 : 1);
   const [articleData, setArticleData] = useState<ArticleType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const url = "https://hvwvyufuezybxttghqiy.supabase.co/storage/v1/object/public/content/articles/";
+  const url = "https://www.mood.ai/img/articles/";
 
   const images = {
     1.01: "1.01.jpg",
