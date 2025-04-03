@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { Sparkles } from "lucide-react-native";
 import IAP from "components/pro/IAP";
+import Features from "components/pro/Features";
 import { theme, pressedDefault } from "utils/helpers";
 
 export default function Pro() {
@@ -54,23 +55,20 @@ export default function Pro() {
                     </Text>
                   </Pressable>
                 ),
-          headerRight:
-            Platform.OS === "ios"
-              ? () => (
-                  <Pressable onPress={() => null} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
-                    <Text
-                      style={{
-                        fontFamily: "Circular-Book",
-                        fontSize: Device.deviceType !== 1 ? 20 : 16,
-                        color: foreground,
-                      }}
-                      allowFontScaling={false}
-                    >
-                      Restore
-                    </Text>
-                  </Pressable>
-                )
-              : () => null,
+          headerRight: () => (
+            <Pressable onPress={() => null} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+              <Text
+                style={{
+                  fontFamily: "Circular-Book",
+                  fontSize: Device.deviceType !== 1 ? 20 : 16,
+                  color: foreground,
+                }}
+                allowFontScaling={false}
+              >
+                Restore
+              </Text>
+            </Pressable>
+          ),
         }}
       />
 
@@ -83,60 +81,45 @@ export default function Pro() {
         style={{ marginTop: headerHeight, flex: 1 }}
         contentContainerStyle={{
           padding: spacing,
-          gap: spacing,
+          gap: spacing * 2,
         }}
       >
-        <View style={{ alignItems: "center", gap: spacing / 2 }}>
-          <Sparkles
-            color={foreground}
-            size={Device.deviceType !== 1 ? 88 : 64}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
-          />
+        <View style={{ gap: Device.deviceType !== 1 ? 8 : 4 }}>
+          <View style={[styles.heading, { gap: spacing / 2 }]}>
+            <Sparkles
+              color={foreground}
+              size={Device.deviceType !== 1 ? 48 : 40}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
+            />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Bold",
+                fontSize: Device.deviceType !== 1 ? 48 : 36,
+                color: foreground,
+              }}
+              allowFontScaling={false}
+            >
+              Work Like a Pro
+            </Text>
+          </View>
 
           <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              fontSize: Device.deviceType !== 1 ? 48 : 36,
-              color: foreground,
-            }}
+            style={[
+              styles.description,
+              {
+                color: foreground,
+                fontSize: Device.deviceType !== 1 ? 20 : 16,
+              },
+            ]}
             allowFontScaling={false}
           >
-            MOOD.ai Pro
+            {"Supercharge your emotional intelligence and\nunlock your best self at work."}
           </Text>
         </View>
 
-        <Text>
-          Mood check-in dolor sit amet, anonymous feedback adipiscing elit. Real-time insights eiusmod tempor incididunt
-          ut labore et psychological safety. Excepteur sint occaecat cupidatat non disclosure agreements. Sentiment
-          analysis proident, sunt in culpa qui officia deserunt mollit anim id est dashboard data. Mood check-in dolor
-          sit amet, anonymous feedback adipiscing elit. Real-time insights eiusmod tempor incididunt ut labore et
-          psychological safety. Excepteur sint occaecat cupidatat non disclosure agreements. Sentiment analysis
-          proident, sunt in culpa qui officia deserunt mollit anim id est dashboard data. Mood check-in dolor sit amet,
-          anonymous feedback adipiscing elit. Real-time insights eiusmod tempor incididunt ut labore et psychological
-          safety. Excepteur sint occaecat cupidatat non disclosure agreements. Sentiment analysis proident, sunt in
-          culpa qui officia deserunt mollit anim id est dashboard data. Mood check-in dolor sit amet, anonymous feedback
-          adipiscing elit. Real-time insights eiusmod tempor incididunt ut labore et psychological safety. Excepteur
-          sint occaecat cupidatat non disclosure agreements. Sentiment analysis proident, sunt in culpa qui officia
-          deserunt mollit anim id est dashboard data. Mood check-in dolor sit amet, anonymous feedback adipiscing elit.
-          Real-time insights eiusmod tempor incididunt ut labore et psychological safety. Excepteur sint occaecat
-          cupidatat non disclosure agreements. Sentiment analysis proident, sunt in culpa qui officia deserunt mollit
-          anim id est dashboard data. Mood check-in dolor sit amet, anonymous feedback adipiscing elit. Real-time
-          insights eiusmod tempor incididunt ut labore et psychological safety. Excepteur sint occaecat cupidatat non
-          disclosure agreements. Sentiment analysis proident, sunt in culpa qui officia deserunt mollit anim id est
-          dashboard data. Mood check-in dolor sit amet, anonymous feedback adipiscing elit. Real-time insights eiusmod
-          tempor incididunt ut labore et psychological safety. Excepteur sint occaecat cupidatat non disclosure
-          agreements. Sentiment analysis proident, sunt in culpa qui officia deserunt mollit anim id est dashboard data.
-          Mood check-in dolor sit amet, anonymous feedback adipiscing elit. Real-time insights eiusmod tempor incididunt
-          ut labore et psychological safety. Excepteur sint occaecat cupidatat non disclosure agreements. Sentiment
-          analysis proident, sunt in culpa qui officia deserunt mollit anim id est dashboard data. Mood check-in dolor
-          sit amet, anonymous feedback adipiscing elit. Real-time insights eiusmod tempor incididunt ut labore et
-          psychological safety. Excepteur sint occaecat cupidatat non disclosure agreements. Sentiment analysis
-          proident, sunt in culpa qui officia deserunt mollit anim id est dashboard data. Mood check-in dolor sit amet,
-          anonymous feedback adipiscing elit. Real-time insights eiusmod tempor incididunt ut labore et psychological
-          safety. Excepteur sint occaecat cupidatat non disclosure agreements. Sentiment analysis proident, sunt in
-          culpa qui officia deserunt mollit anim id est dashboard data.
-        </Text>
+        <Features />
       </ScrollView>
 
       <IAP />
@@ -149,5 +132,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
+  },
+  heading: {
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  description: {
+    fontFamily: "Circular-Book",
+    textAlign: "center",
   },
 });
