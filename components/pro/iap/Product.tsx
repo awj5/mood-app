@@ -4,10 +4,12 @@ import { Circle, CircleCheck } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
 type ProductProps = {
+  id: string;
   title: string;
-  price: number;
+  price: string;
   cycle: string;
   selected: boolean;
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Product(props: ProductProps) {
@@ -17,9 +19,13 @@ export default function Product(props: ProductProps) {
   const invertedColor = colors.primary === "white" ? "black" : "white";
   const Icon = props.selected ? CircleCheck : Circle;
 
+  const press = () => {
+    props.setSelected(props.id);
+  };
+
   return (
     <Pressable
-      onPress={() => alert("Coming soon")}
+      onPress={press}
       style={({ pressed }) => [
         pressedDefault(pressed),
         {
@@ -75,7 +81,7 @@ export default function Product(props: ProductProps) {
             }}
             allowFontScaling={false}
           >
-            ${props.price}
+            {props.price}
           </Text>
 
           <Text
