@@ -6,7 +6,7 @@ import { PurchasesOffering } from "react-native-purchases";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import Footer from "./iap/Footer";
-import Button from "components/Button";
+import BigButton from "components/BigButton";
 import Product from "./iap/Product";
 import { theme } from "utils/helpers";
 
@@ -87,7 +87,7 @@ export default function IAP() {
             <Product
               id="com.moodplatforms.moodai.pro.annual"
               title="ANNUAL"
-              price="$159.99"
+              price="$149.99"
               cycle="year"
               selected={selected === "com.moodplatforms.moodai.pro.annual"}
               setSelected={setSelected}
@@ -99,10 +99,7 @@ export default function IAP() {
       </View>
 
       <View style={{ gap: spacing / 2 }}>
-        <Button fill disabled={Constants.appOwnership !== "expo" && !offering}>
-          Try it FREE for 1 week
-        </Button>
-
+        <BigButton disabled={Constants.appOwnership !== "expo" && !offering}>Try it FREE for 1 week</BigButton>
         <Footer />
       </View>
     </View>

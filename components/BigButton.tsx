@@ -22,6 +22,7 @@ type BigButtonProps = {
   shadow?: boolean;
   bounce?: boolean;
   icon?: React.ElementType;
+  disabled?: boolean;
 };
 
 export default function BigButton(props: BigButtonProps) {
@@ -82,8 +83,10 @@ export default function BigButton(props: BigButtonProps) {
             height: Device.deviceType !== 1 ? 96 : 72,
             gap: Device.deviceType !== 1 ? 12 : 8,
           },
+          props.disabled && { opacity: 0.25 },
         ]}
         hitSlop={8}
+        disabled={props.disabled}
       >
         {Icon && (
           <Icon

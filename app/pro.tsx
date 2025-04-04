@@ -3,7 +3,6 @@ import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { LinearGradient } from "expo-linear-gradient";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
-import { Sparkles } from "lucide-react-native";
 import IAP from "components/pro/IAP";
 import Features from "components/pro/Features";
 import { theme, pressedDefault } from "utils/helpers";
@@ -84,26 +83,17 @@ export default function Pro() {
           gap: spacing * 2,
         }}
       >
-        <View style={{ gap: Device.deviceType !== 1 ? 8 : 4 }}>
-          <View style={[styles.heading, { gap: spacing / 2 }]}>
-            <Sparkles
-              color={foreground}
-              size={Device.deviceType !== 1 ? 48 : 40}
-              absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
-            />
-
-            <Text
-              style={{
-                fontFamily: "Circular-Bold",
-                fontSize: Device.deviceType !== 1 ? 48 : 36,
-                color: foreground,
-              }}
-              allowFontScaling={false}
-            >
-              Work Like a Pro
-            </Text>
-          </View>
+        <View style={{ gap: spacing / 2, alignItems: "center" }}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              fontSize: Device.deviceType !== 1 ? 48 : 36,
+              color: foreground,
+            }}
+            allowFontScaling={false}
+          >
+            Work Like a Pro
+          </Text>
 
           <Text
             style={[
@@ -132,11 +122,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: "100%",
-  },
-  heading: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
   },
   description: {
     fontFamily: "Circular-Book",

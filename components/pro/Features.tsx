@@ -1,6 +1,5 @@
 import { View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
-import { MessageCircle, NotebookPen, TrendingUp, Flame, FileText } from "lucide-react-native";
 import Item from "./features/Item";
 
 export default function Features() {
@@ -17,11 +16,11 @@ export default function Features() {
         },
       ]}
     >
-      <Item icon={MessageCircle}>Chat with AI that gets how you feel</Item>
-      <Item icon={NotebookPen}>See clear summaries of your check-ins</Item>
-      <Item icon={TrendingUp}>Track trends with AI-powered insights</Item>
-      <Item icon={Flame}>Detect early signs of burnout</Item>
-      <Item icon={FileText}>Create custom reports to work smarter</Item>
+      <Item>Empathetic AI chat support</Item>
+      <Item>Smart check-in summaries</Item>
+      <Item>Actionable AI-powered insights</Item>
+      <Item>Early burnout detection</Item>
+      <Item>Powerful custom reports</Item>
     </View>
   );
 }
