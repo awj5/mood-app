@@ -1,17 +1,15 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
+import { Check } from "lucide-react-native";
 
 type ItemProps = {
   children: string;
-  icon: React.ElementType;
 };
 
 export default function Item(props: ItemProps) {
-  const Icon = props.icon;
-
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 12 : 8 }]}>
-      <Icon
+      <Check
         color="white"
         size={Device.deviceType !== 1 ? 28 : 20}
         absoluteStrokeWidth
