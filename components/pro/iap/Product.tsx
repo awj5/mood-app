@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
+import { PurchasesPackage } from "react-native-purchases";
 import { Circle, CircleCheck } from "lucide-react-native";
 import { pressedDefault, theme } from "utils/helpers";
 
@@ -9,7 +10,8 @@ type ProductProps = {
   price: string;
   cycle: string;
   selected: boolean;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected: React.Dispatch<React.SetStateAction<PurchasesPackage | string | null>>;
+  package?: PurchasesPackage;
 };
 
 export default function Product(props: ProductProps) {
