@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Platform, View, ActivityIndicator, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { PurchasesOffering } from "react-native-purchases";
+import { useRouter } from "expo-router";
+import Purchases, { PurchasesOffering, PurchasesPackage } from "react-native-purchases";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import Footer from "./iap/Footer";
@@ -12,10 +13,12 @@ import { theme } from "utils/helpers";
 
 export default function IAP() {
   const colors = theme();
+  const router = useRouter();
   const insets = useSafeAreaInsets();
+  const purchasesRef = useRef<typeof Purchases | null>(null);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [offering, setOffering] = useState<PurchasesOffering | null>(null);
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState<PurchasesPackage | string | null>(null);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const APIKeys = {
@@ -33,12 +36,27 @@ export default function IAP() {
     try {
       const purchasesModule = require("react-native-purchases");
       const purchases = purchasesModule.default;
+      purchasesRef.current = purchases;
       purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
       const offerings = await purchases.getOfferings();
       setOffering(offerings.current);
-      setSelected(offerings.current.availablePackages[0].product.identifier);
+      setSelected(offerings.current.availablePackages[0]);
     } catch (error) {
       console.warn("RevenueCat not available or failed:", error);
+    }
+  };
+
+  const purchase = async () => {
+    if (!selected || Constants.appOwnership === "expo") return;
+
+    try {
+      const customerInfo = await purchasesRef.current?.purchasePackage(selected as PurchasesPackage);
+      router.back(); // Close modal
+      console.log("Purchase success:", customerInfo);
+    } catch (error: any) {
+      if (!error.userCancelled) {
+        console.warn("Purchase error:", error);
+      }
     }
   };
 
@@ -68,8 +86,9 @@ export default function IAP() {
                   item.packageType === "MONTHLY" ? item.product.pricePerMonthString : item.product.pricePerYearString
                 }
                 cycle={item.packageType === "MONTHLY" ? "month" : "year"}
-                selected={selected === item.product.identifier}
+                selected={(selected as PurchasesPackage)?.product.identifier === item.product.identifier}
                 setSelected={setSelected}
+                package={item}
               />
             ))}
           </>
@@ -99,7 +118,9 @@ export default function IAP() {
       </View>
 
       <View style={{ gap: spacing / 2 }}>
-        <BigButton disabled={Constants.appOwnership !== "expo" && !offering}>Try it FREE for 1 week</BigButton>
+        <BigButton func={purchase} disabled={Constants.appOwnership !== "expo" && !offering}>
+          Try it FREE for 1 week
+        </BigButton>
         <Footer />
       </View>
     </View>
