@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Dimensions, Alert } from "react-native";
+import { Dimensions, Alert, Platform } from "react-native";
 import { SplashScreen, Stack, useRouter } from "expo-router";
 import * as Network from "expo-network";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as Linking from "expo-linking";
@@ -17,7 +18,7 @@ import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
 import { CompanyDatesContext } from "context/company-dates";
 import { CompanyFiltersContext, CompanyFiltersType } from "context/company-filters";
-import { setStoredVal, theme } from "../utils/helpers";
+import { getStoredVal, setStoredVal, theme, removeStoredVal } from "../utils/helpers";
 import { getMonday } from "utils/dates";
 
 SplashScreen.preventAutoHideAsync();
@@ -35,6 +36,11 @@ export default function Layout() {
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
+
+  const APIKeys = {
+    ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
+    android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
+  };
 
   const [fontsLoaded, fontError] = useFonts({
     "Circular-Black": require("../assets/fonts/lineto-circular-black.ttf"),
@@ -92,9 +98,28 @@ export default function Layout() {
     }
   };
 
+  const getPurchases = async () => {
+    if (Constants.appOwnership === "expo") return; // Is Expo Go
+    const proID = await getStoredVal("pro-id"); // Pro user
+
+    if (proID) {
+      // Confirm user is still subscribed to Pro
+      try {
+        const purchasesModule = require("react-native-purchases");
+        const purchases = purchasesModule.default;
+        purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
+        const info = await purchases.getCustomerInfo();
+        if (!info.activeSubscriptions.length) removeStoredVal("pro-id"); // User not longer subscribes to Pro
+      } catch (error) {
+        console.warn("RevenueCat not available or failed:", error);
+      }
+    }
+  };
+
   useEffect(() => {
     if (layoutReady) {
       SplashScreen.hideAsync(); // Hide splash
+      getPurchases(); // Check if user subscribes to Pro
 
       // Deep linking
       const handleDeepLink = (event: { url: string }) => {

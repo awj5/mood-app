@@ -1,18 +1,69 @@
-import { Pressable, Text, View, Platform, ScrollView, StyleSheet } from "react-native";
+import { useContext, useState } from "react";
+import { Pressable, Text, View, Platform, ScrollView, StyleSheet, Alert } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
+import Constants from "expo-constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import IAP from "components/pro/IAP";
 import Features from "components/pro/Features";
-import { theme, pressedDefault } from "utils/helpers";
+import { theme, pressedDefault, setStoredVal } from "utils/helpers";
+import { getMonday } from "utils/dates";
 
 export default function Pro() {
   const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
+  const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const [submitting, setSubmitting] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const foreground = colors.primary === "white" ? "black" : "white";
+
+  const APIKeys = {
+    ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
+    android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
+  };
+
+  const restore = async () => {
+    if (Constants.appOwnership === "expo") return;
+    setSubmitting(true);
+
+    try {
+      const purchasesModule = require("react-native-purchases");
+      const purchases = purchasesModule.default;
+      purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
+      const restore = await purchases.restorePurchases();
+      const isPro = restore.activeSubscriptions.length > 0;
+
+      if (isPro) {
+        const appUserID = await purchases.getAppUserID(); // Get unique ID from RC
+        setStoredVal("pro-id", appUserID as string); // Store RC ID
+
+        // Trigger dashboard refresh
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const monday = getMonday(today);
+        setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+
+        Alert.alert("Success!", "MOOD.ai Pro has been restored.", [
+          {
+            text: "OK",
+            onPress: () => {
+              router.back(); // Close modal
+            },
+          },
+        ]);
+      } else {
+        Alert.alert("No Active Subscription", "We couldn't find an active MOOD.ai Pro subscription.");
+      }
+    } catch (error) {
+      console.warn("RevenueCat not available or failed:", error);
+      alert("An unexpected error has occurred.");
+    }
+
+    setSubmitting(false);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -55,7 +106,12 @@ export default function Pro() {
                   </Pressable>
                 ),
           headerRight: () => (
-            <Pressable onPress={() => null} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+            <Pressable
+              onPress={restore}
+              style={({ pressed }) => pressedDefault(pressed)}
+              hitSlop={16}
+              disabled={submitting}
+            >
               <Text
                 style={{
                   fontFamily: "Circular-Book",

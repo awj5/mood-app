@@ -1,15 +1,17 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Platform, View, ActivityIndicator, StyleSheet } from "react-native";
+import { Platform, View, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import Purchases, { PurchasesOffering, PurchasesPackage } from "react-native-purchases";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Footer from "./iap/Footer";
 import BigButton from "components/BigButton";
 import Product from "./iap/Product";
-import { theme } from "utils/helpers";
+import { theme, setStoredVal } from "utils/helpers";
+import { getMonday } from "utils/dates";
 
 export default function IAP() {
   const colors = theme();
@@ -17,8 +19,10 @@ export default function IAP() {
   const insets = useSafeAreaInsets();
   const purchasesRef = useRef<typeof Purchases | null>(null);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [offering, setOffering] = useState<PurchasesOffering | null>(null);
   const [selected, setSelected] = useState<PurchasesPackage | string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const APIKeys = {
@@ -40,7 +44,7 @@ export default function IAP() {
       purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
       const offerings = await purchases.getOfferings();
       setOffering(offerings.current);
-      setSelected(offerings.current.availablePackages[0]);
+      setSelected(offerings.current.availablePackages[0]); // Default selected
     } catch (error) {
       console.warn("RevenueCat not available or failed:", error);
     }
@@ -48,15 +52,32 @@ export default function IAP() {
 
   const purchase = async () => {
     if (!selected || Constants.appOwnership === "expo") return;
+    setSubmitting(true);
 
     try {
-      const customerInfo = await purchasesRef.current?.purchasePackage(selected as PurchasesPackage);
+      const result = await purchasesRef.current?.purchasePackage(selected as PurchasesPackage);
+      const appUserID = result?.customerInfo.originalAppUserId; // Get unique ID from RC
+      setStoredVal("pro-id", appUserID as string); // Store RC ID
+
+      // Trigger dashboard refresh
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const monday = getMonday(today);
+      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+
+      /* Alert.alert(
+        "You've Gone Pro!",
+        "Congratulations - your MOOD.ai Pro subscription is now active. Get ready for deeper, more powerful insights into how you feel each day."
+      ); */
+
       router.back(); // Close modal
-      console.log("Purchase success:", customerInfo);
     } catch (error: any) {
       if (!error.userCancelled) {
         console.warn("Purchase error:", error);
+        alert("An unexpected error has occurred.");
       }
+
+      setSubmitting(false);
     }
   };
 
@@ -118,7 +139,7 @@ export default function IAP() {
       </View>
 
       <View style={{ gap: spacing / 2 }}>
-        <BigButton func={purchase} disabled={Constants.appOwnership !== "expo" && !offering}>
+        <BigButton func={purchase} disabled={(Constants.appOwnership !== "expo" && !offering) || submitting}>
           Try it FREE for 1 week
         </BigButton>
         <Footer />
