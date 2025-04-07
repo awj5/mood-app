@@ -35,10 +35,11 @@ export default function Company() {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const checkAccess = async () => {
+    const uuid = await getStoredVal("uuid");
     const name = await getStoredVal("company-name");
     const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
     if (name) setCompany(name);
-    if (name && send) setHasAccess(true);
+    if (uuid && name && send) setHasAccess(true);
   };
 
   useEffect(() => {
