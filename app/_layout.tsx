@@ -111,7 +111,7 @@ export default function Layout() {
         const info = await purchases.getCustomerInfo();
         if (!info.activeSubscriptions.length) removeStoredVal("pro-id"); // User not longer subscribes to Pro
       } catch (error) {
-        console.warn("RevenueCat not available or failed:", error);
+        console.log(error);
       }
     }
   };
