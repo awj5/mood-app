@@ -60,7 +60,10 @@ export default function Home() {
       console.log(error);
     }
 
-    setLayoutReady(true);
+    // Hack! Wait for router push
+    requestAnimationFrame(() => {
+      setLayoutReady(true);
+    });
   };
 
   useFocusEffect(
