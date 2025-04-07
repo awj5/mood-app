@@ -46,7 +46,7 @@ export default function IAP() {
       setOffering(offerings.current);
       setSelected(offerings.current.availablePackages[0]); // Default selected
     } catch (error) {
-      console.warn("RevenueCat not available or failed:", error);
+      console.log(error);
     }
   };
 
@@ -73,7 +73,7 @@ export default function IAP() {
       router.back(); // Close modal
     } catch (error: any) {
       if (!error.userCancelled) {
-        console.warn("Purchase error:", error);
+        console.log(error);
         alert("An unexpected error has occurred.");
       }
 

@@ -58,7 +58,7 @@ export default function Pro() {
         Alert.alert("No Active Subscription", "We couldn't find an active MOOD.ai Pro subscription.");
       }
     } catch (error) {
-      console.warn("RevenueCat not available or failed:", error);
+      console.log(error);
       alert("An unexpected error has occurred.");
     }
 
