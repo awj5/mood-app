@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
+import Constants from "expo-constants";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
@@ -72,9 +73,7 @@ export default function CheckIn() {
           // Save to Supabase
           try {
             await axios.post(
-              process.env.NODE_ENV === "production"
-                ? "https://mood.ai/api/check-in"
-                : "http://localhost:3000/api/check-in",
+              Constants.appOwnership !== "expo" ? "https://mood.ai/api/check-in" : "http://localhost:3000/api/check-in",
               {
                 uuid: uuid,
                 value: checkIn,

@@ -61,9 +61,10 @@ export default function Content() {
     latestQueryRef.current = currentQuery;
     const checkInData = await getCheckInData();
     const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const proID = await getStoredVal("pro-id"); // Check if pro subscriber
 
     if (latestQueryRef.current === currentQuery) {
-      setHasAccess(uuid ? true : false);
+      setHasAccess(uuid || proID ? true : false);
       setCheckIns(checkInData);
     }
   };

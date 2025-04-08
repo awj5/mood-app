@@ -2,6 +2,7 @@ import { useState } from "react";
 import { StyleSheet, Text, Pressable, Alert } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
+import Constants from "expo-constants";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
 import { CheckInType } from "data/database";
@@ -41,7 +42,7 @@ export default function Report(props: ReportProps) {
     } else if (uuid) {
       try {
         await axios.post(
-          process.env.NODE_ENV === "production"
+          Constants.appOwnership !== "expo"
             ? "https://mood.ai/api/insights/delete"
             : "http://localhost:3000/api/insights/delete",
           {
@@ -87,7 +88,7 @@ export default function Report(props: ReportProps) {
     // Send email to team
     try {
       await axios.post(
-        process.env.NODE_ENV === "production" ? "https://mood.ai/api/report" : "http://localhost:3000/api/report",
+        Constants.appOwnership !== "expo" ? "https://mood.ai/api/report" : "http://localhost:3000/api/report",
         {
           text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text,
         }

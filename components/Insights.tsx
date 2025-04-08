@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
+import Constants from "expo-constants";
 import axios from "axios";
 import { CalendarDatesType } from "context/home-dates";
 import { CompanyCheckInType } from "app/company";
@@ -26,7 +27,7 @@ export default function Insights(props: InsightsProps) {
   const requestAISummary = async (promptData: PromptDataType[], uuid: string, company: string) => {
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
+        Constants.appOwnership !== "expo" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
           type: "summarize_company_check_ins",
           uuid: uuid,
@@ -50,7 +51,7 @@ export default function Insights(props: InsightsProps) {
   const getInsightsData = async (ids: number[], uuid: string) => {
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production" ? "https://mood.ai/api/insights" : "http://localhost:3000/api/insights",
+        Constants.appOwnership !== "expo" ? "https://mood.ai/api/insights" : "http://localhost:3000/api/insights",
         {
           uuid: uuid,
           ids: ids,
@@ -89,7 +90,7 @@ export default function Insights(props: InsightsProps) {
           // Save response to Supabase
           try {
             await axios.post(
-              process.env.NODE_ENV === "production"
+              Constants.appOwnership !== "expo"
                 ? "https://mood.ai/api/insights/save"
                 : "http://localhost:3000/api/insights/save",
               {

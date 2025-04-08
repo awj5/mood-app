@@ -62,7 +62,7 @@ export default function Layout() {
         // Validate UUID
         try {
           const response = await axios.post(
-            process.env.NODE_ENV === "production" ? "https://mood.ai/api/uuid" : "http://localhost:3000/api/uuid",
+            Constants.appOwnership !== "expo" ? "https://mood.ai/api/uuid" : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
             }
