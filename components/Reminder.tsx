@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Modal, StyleSheet, View, Text, Pressable, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import * as Haptics from "expo-haptics";
 import { CircleX, BellRing } from "lucide-react-native";
 import Button from "components/Button";
 import Select from "components/reminder/Select";
@@ -29,7 +28,7 @@ type ReminderProps = {
 
 export default function Reminder(props: ReminderProps) {
   const colors = theme();
-  const [showRemove, setShowRemove] = useState(false);
+  const [showRemove, setShowRemove] = useState<boolean | undefined>();
 
   const [reminder, setReminder] = useState<ReminderType>({
     days: { sun: false, mon: true, tue: true, wed: true, thu: true, fri: true, sat: false },
@@ -49,8 +48,6 @@ export default function Reminder(props: ReminderProps) {
   };
 
   const press = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-
     try {
       const { status } = await Notifications.requestPermissionsAsync();
 
@@ -130,6 +127,7 @@ export default function Reminder(props: ReminderProps) {
   };
 
   useEffect(() => {
+    setShowRemove(undefined); // Reset to avoid overlay size jump on Android
     if (props.visible) checkReminder(); // Only fire on open
   }, [props.visible]);
 
@@ -154,6 +152,7 @@ export default function Reminder(props: ReminderProps) {
               width: Device.deviceType !== 1 ? 448 : 320,
               backgroundColor: colors.primaryBg,
               borderRadius: spacing,
+              display: showRemove === undefined ? "none" : "flex",
             },
           ]}
         >
@@ -166,7 +165,7 @@ export default function Reminder(props: ReminderProps) {
             hitSlop={12}
           >
             <CircleX
-              color={colors.primary}
+              color={colors.link}
               size={Device.deviceType !== 1 ? 32 : 24}
               absoluteStrokeWidth
               strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}

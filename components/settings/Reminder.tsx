@@ -81,24 +81,21 @@ export default function Reminder(props: ReminderProps) {
       >
         {reminder ? (
           <BellRing
-            color={colors.primary}
+            color={colors.link}
             size={Device.deviceType !== 1 ? 28 : 20}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
         ) : (
           <Bell
-            color={colors.primary}
+            color={colors.link}
             size={Device.deviceType !== 1 ? 28 : 20}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
         )}
 
-        <Text
-          style={{ fontFamily: "Circular-Book", fontSize: fontSize, color: colors.primary }}
-          allowFontScaling={false}
-        >
+        <Text style={{ fontFamily: "Circular-Book", fontSize: fontSize, color: colors.link }} allowFontScaling={false}>
           {reminder ? times.filter((item) => item.value === reminder.time)[0].label : "Set"}
         </Text>
       </Pressable>

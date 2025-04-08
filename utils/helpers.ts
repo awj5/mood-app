@@ -13,6 +13,8 @@ export const theme = () => {
   return {
     primary: colorScheme === "light" ? "black" : "white",
     secondary: colorScheme === "light" ? "#999999" : "#666666",
+    link: "#0080FF",
+    destructive: "#FF0000",
     primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
     secondaryBg: colorScheme === "light" ? "#DDDDDD" : "#333333",
   };

@@ -33,7 +33,7 @@ export default function Day(props: DayProps) {
         {props.text.charAt(0)}
       </Text>
 
-      <Checkbox value={isChecked} onValueChange={toggleDay} color={colors.secondary} hitSlop={8} />
+      <Checkbox value={isChecked} onValueChange={toggleDay} color={colors.link} hitSlop={8} />
     </View>
   );
 }
