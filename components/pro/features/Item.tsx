@@ -27,6 +27,7 @@ export default function Item(props: ItemProps) {
             fontSize: Device.deviceType !== 1 ? 20 : 16,
           },
         ]}
+        allowFontScaling={false}
       >
         {props.children}
       </Text>

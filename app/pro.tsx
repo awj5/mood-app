@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import { Pressable, Text, View, Platform, ScrollView, StyleSheet, Alert } from "react-native";
-import { Stack, usePathname, useRouter } from "expo-router";
+import { Stack, useRouter, useFocusEffect } from "expo-router";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,8 +14,8 @@ import { getMonday } from "utils/dates";
 export default function Pro() {
   const colors = theme();
   const router = useRouter();
-  const pathname = usePathname();
   const headerHeight = useHeaderHeight();
+  const isMountedRef = useRef(true);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [submitting, setSubmitting] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
@@ -50,12 +50,11 @@ export default function Pro() {
         Alert.alert("Success!", "MOOD.ai Pro has been restored.", [
           {
             text: "OK",
-            onPress:
-              pathname === "/pro"
-                ? () => {
-                    router.back(); // Close modal
-                  }
-                : () => null,
+            onPress: isMountedRef.current
+              ? () => {
+                  router.back(); // Close modal
+                }
+              : () => null,
           },
         ]);
       } else {
@@ -68,6 +67,12 @@ export default function Pro() {
 
     setSubmitting(false);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => (isMountedRef.current = false);
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1 }}>
