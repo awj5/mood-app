@@ -87,16 +87,16 @@ export default function Header(props: HeaderProps) {
         />
 
         <Text
-          style={{ fontFamily: "Circular-Medium", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
+          style={{ fontFamily: "Circular-Bold", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
           allowFontScaling={false}
         >
-          {time.toLocaleLowerCase()}
+          {time.toLowerCase()}
         </Text>
       </View>
 
       <Pressable onPress={confirmDelete} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
         <Trash2
-          color={colors.primary}
+          color={colors.opaque}
           size={Device.deviceType !== 1 ? 28 : 20}
           absoluteStrokeWidth
           strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}

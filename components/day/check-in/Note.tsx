@@ -61,7 +61,7 @@ export default function Note(props: NoteProps) {
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView nestedScrollEnabled={true}>
         <ParsedText
           parse={[
             {
@@ -71,10 +71,8 @@ export default function Note(props: NoteProps) {
             },
           ]}
           style={{
-            fontFamily:
-              props.text && props.text.indexOf("[NOTE FROM USER]:") === -1 ? "Circular-BookItalic" : "Circular-Book",
-            color: colors.primary,
-            opacity: props.text ? 1 : 0.5,
+            fontFamily: props.text ? "Circular-BookItalic" : "Circular-Book",
+            color: props.text ? colors.primary : colors.opaque,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
           }}
           allowFontScaling={false}

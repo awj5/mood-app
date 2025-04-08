@@ -98,7 +98,7 @@ export default function Home() {
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >
-                <Download color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
+                <Download color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
               </Pressable>
 
               <Pressable
@@ -106,7 +106,7 @@ export default function Home() {
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >
-                <Settings color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
+                <Settings color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
               </Pressable>
             </View>
           ),

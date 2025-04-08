@@ -24,7 +24,7 @@ export default function HeaderTitle(props: HeaderTitleProps) {
     >
       <Text
         style={{
-          fontFamily: "Circular-Bold",
+          fontFamily: "Circular-Black",
           fontSize: props.text.length > 12 ? (Device.deviceType !== 1 ? 30 : 24) : Device.deviceType !== 1 ? 48 : 36,
           color: colors.primary,
         }}

@@ -49,7 +49,7 @@ export default function CheckIn(props: CheckInProps) {
         style={{
           flex: 1,
           gap: spacing,
-          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+          backgroundColor: colors.opaqueBg,
           paddingVertical: spacing,
           borderRadius: spacing,
         }}

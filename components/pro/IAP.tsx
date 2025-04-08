@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Platform, View, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { useRouter } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 import Purchases, { PurchasesOffering, PurchasesPackage } from "react-native-purchases";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
@@ -13,16 +13,21 @@ import Product from "./iap/Product";
 import { theme, setStoredVal } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
-export default function IAP() {
+type IAPProps = {
+  submitting: boolean;
+  setSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function IAP(props: IAPProps) {
   const colors = theme();
   const router = useRouter();
+  const pathname = usePathname();
   const insets = useSafeAreaInsets();
   const purchasesRef = useRef<typeof Purchases | null>(null);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [offering, setOffering] = useState<PurchasesOffering | null>(null);
   const [selected, setSelected] = useState<PurchasesPackage | string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const APIKeys = {
@@ -52,7 +57,7 @@ export default function IAP() {
 
   const purchase = async () => {
     if (!selected || Constants.appOwnership === "expo") return;
-    setSubmitting(true);
+    props.setSubmitting(true);
 
     try {
       const result = await purchasesRef.current?.purchasePackage(selected as PurchasesPackage);
@@ -70,14 +75,14 @@ export default function IAP() {
         "Congratulations - your MOOD.ai Pro subscription is now active. Get ready for deeper, more powerful insights into how you feel each day."
       ); */
 
-      router.back(); // Close modal
+      if (pathname === "/pro") router.back(); // Close modal
     } catch (error: any) {
       if (!error.userCancelled) {
         console.log(error);
         alert("An unexpected error has occurred.");
       }
 
-      setSubmitting(false);
+      props.setSubmitting(false);
     }
   };
 
@@ -139,7 +144,7 @@ export default function IAP() {
       </View>
 
       <View style={{ gap: spacing / 2 }}>
-        <BigButton func={purchase} disabled={(Constants.appOwnership !== "expo" && !offering) || submitting}>
+        <BigButton func={purchase} disabled={(Constants.appOwnership !== "expo" && !offering) || props.submitting}>
           Try it FREE for 1 week
         </BigButton>
         <Footer />

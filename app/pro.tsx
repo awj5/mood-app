@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Pressable, Text, View, Platform, ScrollView, StyleSheet, Alert } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { Stack, usePathname, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,6 +14,7 @@ import { getMonday } from "utils/dates";
 export default function Pro() {
   const colors = theme();
   const router = useRouter();
+  const pathname = usePathname();
   const headerHeight = useHeaderHeight();
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [submitting, setSubmitting] = useState(false);
@@ -49,9 +50,12 @@ export default function Pro() {
         Alert.alert("Success!", "MOOD.ai Pro has been restored.", [
           {
             text: "OK",
-            onPress: () => {
-              router.back(); // Close modal
-            },
+            onPress:
+              pathname === "/pro"
+                ? () => {
+                    router.back(); // Close modal
+                  }
+                : () => null,
           },
         ]);
       } else {
@@ -142,7 +146,7 @@ export default function Pro() {
         <View style={{ gap: spacing / 2, alignItems: "center" }}>
           <Text
             style={{
-              fontFamily: "Circular-Bold",
+              fontFamily: "Circular-Black",
               fontSize: Device.deviceType !== 1 ? 48 : 36,
               color: foreground,
             }}
@@ -168,7 +172,7 @@ export default function Pro() {
         <Features />
       </ScrollView>
 
-      <IAP />
+      <IAP submitting={submitting} setSubmitting={setSubmitting} />
     </View>
   );
 }

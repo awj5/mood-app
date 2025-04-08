@@ -36,16 +36,16 @@ export default function HeaderDates(props: HeaderDatesProps) {
       disabled={props.hidden}
     >
       {props.dates.rangeStart || props.type === "company" ? (
-        <CalendarRange color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
+        <CalendarRange color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
       ) : (
-        <CalendarDays color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
+        <CalendarDays color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
       )}
 
       <View
         style={[
           styles.wrapper,
           {
-            backgroundColor: props.dates.rangeStart && props.type === "home" ? colors.primary : "transparent",
+            backgroundColor: props.dates.rangeStart && props.type === "home" ? colors.link : "transparent",
             height: Device.deviceType !== 1 ? 36 : 28,
             paddingHorizontal: !props.dates.rangeStart || props.type !== "home" ? 0 : Device.deviceType !== 1 ? 16 : 12,
           },
@@ -53,11 +53,11 @@ export default function HeaderDates(props: HeaderDatesProps) {
       >
         <Text
           style={{
-            fontFamily: props.dates.rangeStart && props.type === "home" ? "Circular-Bold" : "Circular-Book",
+            fontFamily: "Circular-Book",
             fontSize: Device.deviceType !== 1 ? 24 : 18,
             color:
               !props.dates.rangeStart || props.type !== "home"
-                ? colors.primary
+                ? colors.link
                 : colors.primary === "white"
                 ? "black"
                 : "white",
