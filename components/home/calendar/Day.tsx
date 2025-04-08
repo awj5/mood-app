@@ -133,7 +133,13 @@ export default function Day(props: DayProps) {
             },
           ]}
         >
-          <Text style={[styles.countText, { fontSize: Device.deviceType !== 1 ? 12 : 10 }]} allowFontScaling={false}>
+          <Text
+            style={[
+              styles.countText,
+              { fontSize: Device.deviceType !== 1 ? 12 : 10, lineHeight: Device.deviceType !== 1 ? 14 : 12 },
+            ]}
+            allowFontScaling={false}
+          >
             {checkInCount}
           </Text>
         </View>
@@ -152,7 +158,7 @@ export default function Day(props: DayProps) {
 
         <Text
           style={{
-            fontFamily: "Circular-Book",
+            fontFamily: today.getTime() === props.date.getTime() ? "Circular-Bold" : "Circular-Book",
             fontSize:
               Device.deviceType !== 1
                 ? props.date.getFullYear() !== today.getFullYear()
@@ -161,7 +167,12 @@ export default function Day(props: DayProps) {
                 : props.date.getFullYear() !== today.getFullYear()
                 ? 10
                 : 14,
-            color: today.getTime() === props.date.getTime() ? colors.primary : colors.secondary,
+            color:
+              (checkInMood && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd)) ||
+              (today.getTime() === props.date.getTime() &&
+                isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd))
+                ? colors.link
+                : colors.secondary,
           }}
           allowFontScaling={false}
         >

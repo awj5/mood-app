@@ -85,7 +85,7 @@ export default function Range(props: RangeProps) {
             value={props.dates.rangeStart ? props.dates.rangeStart : props.dates.weekStart}
             mode="date"
             onChange={onStartChange}
-            accentColor={colors.primary}
+            accentColor={colors.link}
             style={{ flex: 1 }}
             minimumDate={new Date(2024, 0, 1)}
             maximumDate={endOfYear}
@@ -112,7 +112,7 @@ export default function Range(props: RangeProps) {
             value={props.dates.rangeEnd ? props.dates.rangeEnd : weekEnd}
             mode="date"
             onChange={onEndChange}
-            accentColor={colors.primary}
+            accentColor={colors.link}
             style={{ flex: 1 }}
             minimumDate={new Date(2024, 0, 1)}
             maximumDate={endOfYear}

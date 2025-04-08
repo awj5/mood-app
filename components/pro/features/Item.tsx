@@ -1,16 +1,19 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
 import { Check } from "lucide-react-native";
+import { theme } from "utils/helpers";
 
 type ItemProps = {
   children: string;
 };
 
 export default function Item(props: ItemProps) {
+  const colors = theme();
+
   return (
     <View style={[styles.container, { gap: Device.deviceType !== 1 ? 12 : 8 }]}>
       <Check
-        color="white"
+        color={colors.primary}
         size={Device.deviceType !== 1 ? 28 : 20}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
@@ -20,6 +23,7 @@ export default function Item(props: ItemProps) {
         style={[
           styles.text,
           {
+            color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
           },
         ]}
@@ -37,7 +41,6 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    fontFamily: "Circular-Book",
-    color: "white",
+    fontFamily: "Circular-Medium",
   },
 });

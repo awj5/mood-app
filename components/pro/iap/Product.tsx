@@ -74,28 +74,43 @@ export default function Product(props: ProductProps) {
           </Text>
         </View>
 
-        <View style={[styles.price, { gap: spacing / 4 }]}>
-          <Text
-            style={{
-              fontFamily: "Circular-Medium",
-              color: invertedColor,
-              fontSize: Device.deviceType !== 1 ? 24 : 18,
-            }}
-            allowFontScaling={false}
-          >
-            {props.price}
-          </Text>
+        <View>
+          {props.cycle === "year" && (
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: invertedColor,
+                fontSize: Device.deviceType !== 1 ? 14 : 10,
+              }}
+              allowFontScaling={false}
+            >
+              BEST VALUE
+            </Text>
+          )}
 
-          <Text
-            style={{
-              fontFamily: "Circular-Book",
-              color: invertedColor,
-              fontSize: Device.deviceType !== 1 ? 18 : 14,
-            }}
-            allowFontScaling={false}
-          >
-            {`per ${props.cycle}`}
-          </Text>
+          <View style={[styles.price, { gap: spacing / 4 }]}>
+            <Text
+              style={{
+                fontFamily: "Circular-Medium",
+                color: invertedColor,
+                fontSize: Device.deviceType !== 1 ? 24 : 18,
+              }}
+              allowFontScaling={false}
+            >
+              {props.price}
+            </Text>
+
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: invertedColor,
+                fontSize: Device.deviceType !== 1 ? 18 : 14,
+              }}
+              allowFontScaling={false}
+            >
+              {`per ${props.cycle}`}
+            </Text>
+          </View>
         </View>
       </View>
     </Pressable>

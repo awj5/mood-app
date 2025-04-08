@@ -22,7 +22,6 @@ export default function Report(props: ReportProps) {
   const colors = theme();
   const db = useSQLiteContext();
   const [reported, setReported] = useState(false);
-  const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 
   const deleteInsightsData = async (ids: number[], local: boolean) => {
     const uuid = await getStoredVal("uuid");
@@ -110,7 +109,7 @@ export default function Report(props: ReportProps) {
       disabled={reported}
     >
       <Flag
-        color={grey}
+        color={colors.opaque}
         size={Device.deviceType !== 1 ? 16 : 12}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
@@ -119,7 +118,7 @@ export default function Report(props: ReportProps) {
       <Text
         style={{
           fontFamily: "Circular-Book",
-          color: grey,
+          color: colors.opaque,
           fontSize: Device.deviceType !== 1 ? 16 : 12,
         }}
         allowFontScaling={false}
