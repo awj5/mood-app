@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import { Platform, View, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
-import { usePathname, useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import Purchases, { PurchasesOffering, PurchasesPackage } from "react-native-purchases";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
@@ -21,8 +21,8 @@ type IAPProps = {
 export default function IAP(props: IAPProps) {
   const colors = theme();
   const router = useRouter();
-  const pathname = usePathname();
   const insets = useSafeAreaInsets();
+  const isMountedRef = useRef(true);
   const purchasesRef = useRef<typeof Purchases | null>(null);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
@@ -75,7 +75,7 @@ export default function IAP(props: IAPProps) {
         "Congratulations - your MOOD.ai Pro subscription is now active. Get ready for deeper, more powerful insights into how you feel each day."
       ); */
 
-      if (pathname === "/pro") router.back(); // Close modal
+      if (isMountedRef.current) router.back(); // Close modal
     } catch (error: any) {
       if (!error.userCancelled) {
         console.log(error);
@@ -86,9 +86,12 @@ export default function IAP(props: IAPProps) {
     }
   };
 
-  useEffect(() => {
-    getOffering();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getOffering();
+      return () => (isMountedRef.current = false);
+    }, [])
+  );
 
   return (
     <View style={{ padding: spacing, paddingBottom: spacing + insets.bottom, gap: spacing }}>

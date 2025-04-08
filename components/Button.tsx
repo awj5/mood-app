@@ -29,7 +29,7 @@ export default function Button(props: ButtonProps) {
         pressedDefault(pressed),
         styles.container,
         {
-          height: Device.deviceType !== 1 ? (props.fill ? 64 : 48) : props.fill ? 48 : 36,
+          height: Device.deviceType !== 1 ? (props.fill ? 72 : 48) : props.fill ? 52 : 36,
           borderWidth: props.destructive || props.fill ? 0 : Device.deviceType !== 1 ? 2.5 : 2,
           borderColor: colors.primary,
           backgroundColor: props.destructive
@@ -72,7 +72,7 @@ export default function Button(props: ButtonProps) {
 
         <Text
           style={{
-            fontFamily: "Circular-Medium",
+            fontFamily: props.gradient ? "Circular-Bold" : "Circular-Medium",
             color: props.destructive
               ? "white"
               : !props.fill

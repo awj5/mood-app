@@ -109,6 +109,7 @@ export default function Layout() {
         const purchases = purchasesModule.default;
         purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
         const info = await purchases.getCustomerInfo();
+        console.log(info.activeSubscriptions.length);
         if (!info.activeSubscriptions.length) removeStoredVal("pro-id"); // User not longer subscribes to Pro
       } catch (error) {
         console.log(error);

@@ -28,20 +28,20 @@ export default function Day(props: DayProps) {
   today.setHours(0, 0, 0, 0);
 
   const emojis = {
-    empty: require("../../../assets/img/emoji/small/white-empty.svg"),
-    0: require("../../../assets/img/emoji/small/white.svg"),
-    1: require("../../../assets/img/emoji/small/yellow.svg"),
-    2: require("../../../assets/img/emoji/small/chartreuse.svg"),
-    3: require("../../../assets/img/emoji/small/green.svg"),
-    4: require("../../../assets/img/emoji/small/spring-green.svg"),
-    5: require("../../../assets/img/emoji/small/cyan.svg"),
-    6: require("../../../assets/img/emoji/small/azure.svg"),
-    7: require("../../../assets/img/emoji/small/blue.svg"),
-    8: require("../../../assets/img/emoji/small/dark-violet.svg"),
-    9: require("../../../assets/img/emoji/small/dark-magenta.svg"),
-    10: require("../../../assets/img/emoji/small/dark-rose.svg"),
-    11: require("../../../assets/img/emoji/small/red.svg"),
-    12: require("../../../assets/img/emoji/small/orange.svg"),
+    empty: require("../../../assets/img/emoji/small/white-empty.png"),
+    0: require("../../../assets/img/emoji/small/white.png"),
+    1: require("../../../assets/img/emoji/small/yellow.png"),
+    2: require("../../../assets/img/emoji/small/chartreuse.png"),
+    3: require("../../../assets/img/emoji/small/green.png"),
+    4: require("../../../assets/img/emoji/small/spring-green.png"),
+    5: require("../../../assets/img/emoji/small/cyan.png"),
+    6: require("../../../assets/img/emoji/small/azure.png"),
+    7: require("../../../assets/img/emoji/small/blue.png"),
+    8: require("../../../assets/img/emoji/small/dark-violet.png"),
+    9: require("../../../assets/img/emoji/small/dark-magenta.png"),
+    10: require("../../../assets/img/emoji/small/dark-rose.png"),
+    11: require("../../../assets/img/emoji/small/red.png"),
+    12: require("../../../assets/img/emoji/small/orange.png"),
   };
 
   const press = () => {
