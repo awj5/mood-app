@@ -4,6 +4,7 @@ import { ScrollView, View, Text, StyleSheet, Pressable, ActivityIndicator } from
 import * as Device from "expo-device";
 import * as Network from "expo-network";
 import { useFocusEffect } from "expo-router";
+import Constants from "expo-constants";
 import axios from "axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
@@ -45,7 +46,7 @@ export default function Content(props: ContentProps) {
 
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production" ? "https://mood.ai/api/check-ins" : "http://localhost:3000/api/check-ins",
+        Constants.appOwnership !== "expo" ? "https://mood.ai/api/check-ins" : "http://localhost:3000/api/check-ins",
         {
           uuid: uuid,
           start: convertToISO(start),

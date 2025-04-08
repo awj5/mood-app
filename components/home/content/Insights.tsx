@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
+import Constants from "expo-constants";
 import axios from "axios";
 import MoodsData from "data/moods.json";
 import { CheckInMoodType, CheckInType, InsightType } from "data/database";
@@ -54,13 +55,12 @@ export default function Insights(props: InsightsProps) {
     return result;
   };
 
-  const requestAISummary = async (promptData: PromptDataType[], uuid: string) => {
+  const requestAISummary = async (promptData: PromptDataType[], uuid?: string | null, proID?: string | null) => {
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
+        Constants.appOwnership !== "expo" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
           type: "summarize_check_ins",
-          uuid: uuid,
           message: [
             {
               role: "user",
@@ -68,6 +68,8 @@ export default function Insights(props: InsightsProps) {
             },
           ],
           loc: localization[0].languageTag,
+          ...(uuid !== undefined && uuid != null && { uuid: uuid }),
+          ...(proID !== undefined && proID != null && { proid: proID }),
         }
       );
 
@@ -99,12 +101,16 @@ export default function Insights(props: InsightsProps) {
     const promptData = getPromptData(props.checkIns);
     const savedResponse = await getInsightsData(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const proID = await getStoredVal("pro-id"); // Check if pro subscriber
 
     // Show saved response if exists or get response from API
     if (savedResponse && latestQueryRef.current === currentQuery) {
       setText(savedResponse.summary);
-    } else if (latestQueryRef.current === currentQuery && uuid) {
-      let aiResponse = await requestAISummary(promptData.data, uuid);
+    } else if (
+      (latestQueryRef.current === currentQuery && uuid) ||
+      (latestQueryRef.current === currentQuery && proID)
+    ) {
+      let aiResponse = await requestAISummary(promptData.data, uuid, proID);
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         // Get mood scores

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet, Keyboard } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
@@ -41,15 +42,17 @@ export default function Chat() {
   const [company, setCompany] = useState("");
   const [insightsSeen, setInsightsSeen] = useState(false);
 
-  const requestAIResponse = async (type: string, uuid: string) => {
+  const requestAIResponse = async (type: string, uuid?: string | null, proID?: string | null) => {
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
+        Constants.appOwnership !== "expo" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
         {
           type: type,
           uuid: uuid,
           message: chatHistoryRef.current,
           loc: localization[0].languageTag,
+          ...(uuid !== undefined && uuid != null && { uuid: uuid }),
+          ...(proID !== undefined && proID != null && { proid: proID }),
         }
       );
 
@@ -122,6 +125,7 @@ export default function Chat() {
     setGenerating(true);
     let name = await getStoredVal("first-name");
     const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const proID = await getStoredVal("pro-id"); // Check if Pro subscriber
     const latestMessage = messages[messages.length - 1];
     const aiResponseCount = chatHistoryRef.current.filter((message) => message.role === "assistant").length;
 
@@ -140,7 +144,7 @@ export default function Chat() {
       ];
     } else if (messages.length) {
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
-      if (!uuid) noteRef.current = `${noteRef.current}${noteRef.current && "\n\n"}${latestMessage.content}`; // Add message to note if user not subscribed
+      if (!uuid && !proID) noteRef.current = `${noteRef.current}${noteRef.current && "\n\n"}${latestMessage.content}`; // Add message to note if user not subscribed
     }
 
     // Add empty response to show loader
@@ -149,25 +153,26 @@ export default function Chat() {
       {
         role: "assistant",
         content: "",
-        height: !uuid && aiResponseCount < 2 ? (Device.deviceType !== 1 ? 320 : 256) : undefined,
+        height: !uuid && !proID && aiResponseCount < 2 ? (Device.deviceType !== 1 ? 320 : 256) : undefined,
       },
     ]);
 
     const mood = MoodsData.filter((mood) => mood.id === checkInRef.current?.mood)[0];
 
-    const aiResponse = uuid
-      ? await requestAIResponse("chat", uuid)
-      : aiResponseCount >= 2
-      ? "I've updated this check-in with your message."
-      : aiResponseCount
-      ? `Thanks for sharing, ${name}. To have a deeper chat with me, you'll need a MOOD.ai Pro subscription. However, I've archived what you've shared here for your future reference.\n\nAnything else you'd like to add?`
-      : `Hi ${name}, thanks for checking in. The ${
-          localization[0].languageTag === "en-US" ? "color" : "colour"
-        } you selected, ${mood.description}\n\nWould you like to share more about what's contributing to your ${
-          mood.name
-        } mood?`;
+    const aiResponse =
+      proID || uuid
+        ? await requestAIResponse("chat", uuid, proID)
+        : aiResponseCount >= 2
+        ? "I've updated this check-in with your message."
+        : aiResponseCount
+        ? `Thanks for sharing, ${name}. To have a deeper chat with me, you'll need a MOOD.ai Pro subscription. However, I've archived what you've shared here for your future reference.\n\nAnything else you'd like to add?`
+        : `Hi ${name}, thanks for checking in. The ${
+            localization[0].languageTag === "en-US" ? "color" : "colour"
+          } you selected, ${mood.description}\n\nWould you like to share more about what's contributing to your ${
+            mood.name
+          } mood?`;
 
-    if (!uuid) await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay response if user doesn't have AI access
+    if (!uuid && !proID) await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay response if user doesn't have AI access
 
     // Update the text of the last message
     setMessages((prevMessages) => {
@@ -181,7 +186,7 @@ export default function Chat() {
       // Button
       updatedMessages[updatedMessages.length - 1].button = !aiResponseCount
         ? "respond"
-        : !uuid && aiResponseCount === 1
+        : !uuid && !proID && aiResponseCount === 1
         ? "upsell"
         : undefined;
 
@@ -194,9 +199,10 @@ export default function Chat() {
 
       // Only save summary if user has replied
       if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
-        const aiSummary = uuid
-          ? await requestAIResponse("summarize_chat", uuid)
-          : "[NOTE FROM USER]:" + noteRef.current;
+        const aiSummary =
+          uuid || proID
+            ? await requestAIResponse("summarize_chat", uuid, proID)
+            : "[NOTE FROM USER]:" + noteRef.current;
 
         if (aiSummary) {
           // Update check-in note

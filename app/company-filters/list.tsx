@@ -3,6 +3,7 @@ import { StyleSheet, View, ScrollView, Text, ActivityIndicator, Pressable } from
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
+import Constants from "expo-constants";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
@@ -33,7 +34,7 @@ export default function List() {
   const getItemsData = async (uuid: string) => {
     try {
       const response = await axios.post(
-        process.env.NODE_ENV === "production"
+        Constants.appOwnership !== "expo"
           ? `https://mood.ai/api/${params.title.toLowerCase()}`
           : `http://localhost:3000/api/${params.title.toLowerCase()}`,
         {
