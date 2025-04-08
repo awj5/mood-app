@@ -11,6 +11,7 @@ import ReminderOverlay from "components/Reminder";
 import Version from "components/settings/Version";
 import HeaderTitle from "components/HeaderTitle";
 import Company from "components/settings/Company";
+import Pro from "components/settings/Pro";
 import { theme, pressedDefault, getStoredVal } from "utils/helpers";
 
 export default function Settings() {
@@ -19,6 +20,7 @@ export default function Settings() {
   const insets = useSafeAreaInsets();
   const [reminderVisible, setReminderVisible] = useState(false);
   const [company, setCompany] = useState("");
+  const [pro, setPro] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -28,8 +30,14 @@ export default function Settings() {
     if (name) setCompany(name);
   };
 
+  const getPro = async () => {
+    const proID = await getStoredVal("pro-id");
+    if (proID) setPro(true);
+  };
+
   useEffect(() => {
     getCompany();
+    getPro();
   }, []);
 
   return (
@@ -42,7 +50,7 @@ export default function Settings() {
               onPress={() => router.dismissAll()}
               label="Back"
               labelStyle={{ fontFamily: "Circular-Book", fontSize: fontSize }}
-              tintColor={colors.primary}
+              tintColor={colors.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -52,7 +60,7 @@ export default function Settings() {
               onPress={() => {
                 const email = "support@mood.ai";
                 const subject = "Support Request";
-                const body = "Hi team,\n\nI need help with...";
+                const body = "Hi MOOD.ai team,\n\nI need help with...";
                 const emailUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
                   body
                 )}`;
@@ -67,7 +75,7 @@ export default function Settings() {
               hitSlop={16}
             >
               <Mail
-                color={colors.primary}
+                color={colors.link}
                 size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth
                 strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
@@ -77,7 +85,7 @@ export default function Settings() {
                 style={{
                   fontFamily: "Circular-Book",
                   fontSize: fontSize,
-                  color: colors.primary,
+                  color: colors.link,
                 }}
                 allowFontScaling={false}
               >
@@ -106,6 +114,13 @@ export default function Settings() {
         {company && (
           <>
             <Company company={company} setCompany={setCompany} />
+            <View style={[styles.divider, dividerStyle]} />
+          </>
+        )}
+
+        {(!company || (company && pro)) && (
+          <>
+            <Pro />
             <View style={[styles.divider, dividerStyle]} />
           </>
         )}

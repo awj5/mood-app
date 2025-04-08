@@ -33,7 +33,7 @@ export default function Button(props: ButtonProps) {
           borderWidth: props.destructive || props.fill ? 0 : Device.deviceType !== 1 ? 2.5 : 2,
           borderColor: colors.primary,
           backgroundColor: props.destructive
-            ? colors.secondary
+            ? colors.destructive
             : props.fill && !props.gradient
             ? colors.primary
             : "transparent",
