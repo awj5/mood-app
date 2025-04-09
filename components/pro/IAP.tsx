@@ -77,7 +77,7 @@ export default function IAP(props: IAPProps) {
 
       if (isMountedRef.current) router.back(); // Close modal
     } catch (error: any) {
-      if (!error.userCancelled) {
+      if (!error.userCancelled && error?.message !== "The payment is pending. The payment is deferred.") {
         console.log(error);
         alert("An unexpected error has occurred.");
       }
