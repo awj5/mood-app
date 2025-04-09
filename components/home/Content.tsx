@@ -159,8 +159,7 @@ export default function Content() {
             <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
               <Text
                 style={{
-                  color: colors.primary,
-                  opacity: 0.5,
+                  color: colors.opaque,
                   fontFamily: "Circular-Book",
                   fontSize: Device.deviceType !== 1 ? 20 : 16,
                 }}
