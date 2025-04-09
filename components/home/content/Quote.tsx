@@ -132,7 +132,7 @@ export default function Quote(props: QuoteProps) {
     <Animated.View
       style={{
         width: "100%",
-        backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        backgroundColor: colors.opaqueBg,
         borderRadius: spacing,
         padding: spacing,
         gap: spacing,
@@ -175,7 +175,7 @@ export default function Quote(props: QuoteProps) {
             fontFamily: "Tiempos-RegularItalic",
             color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
-            lineHeight: Device.deviceType !== 1 ? 28 : 20,
+            lineHeight: Device.deviceType !== 1 ? 24 : 20,
           }}
           allowFontScaling={false}
         >
@@ -197,7 +197,7 @@ export default function Quote(props: QuoteProps) {
 
           <Text
             style={{
-              fontFamily: "Circular-Medium",
+              fontFamily: "Circular-Book",
               color: colors.primary,
               fontSize: Device.deviceType !== 1 ? 18 : 14,
             }}

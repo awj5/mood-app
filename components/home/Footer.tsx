@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    maxWidth: 448 + 48,
+    maxWidth: 768,
     alignSelf: "center",
   },
 });

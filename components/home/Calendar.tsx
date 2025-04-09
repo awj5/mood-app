@@ -160,7 +160,7 @@ export default function Calendar() {
             onPageSelected={(e) => pageSelected(e)}
           >
             {weeks.map((item, index) => (
-              <View key={index} style={styles.page}>
+              <View key={index} style={[styles.page, { paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }]}>
                 <Week monday={item} />
               </View>
             ))}
@@ -177,6 +177,5 @@ const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 16,
   },
 });

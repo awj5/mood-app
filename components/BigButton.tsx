@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 999,
     width: "100%",
-    maxWidth: 448,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

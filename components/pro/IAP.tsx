@@ -150,6 +150,7 @@ export default function IAP(props: IAPProps) {
         <BigButton func={purchase} disabled={(Constants.appOwnership !== "expo" && !offering) || props.submitting}>
           Try it FREE for 1 week
         </BigButton>
+
         <Footer />
       </View>
     </View>

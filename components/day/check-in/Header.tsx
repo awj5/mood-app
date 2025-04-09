@@ -96,7 +96,7 @@ export default function Header(props: HeaderProps) {
 
       <Pressable onPress={confirmDelete} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
         <Trash2
-          color={colors.opaque}
+          color={colors.primary}
           size={Device.deviceType !== 1 ? 28 : 20}
           absoluteStrokeWidth
           strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
