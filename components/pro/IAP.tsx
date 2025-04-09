@@ -100,7 +100,7 @@ export default function IAP(props: IAPProps) {
           styles.wrapper,
           {
             gap: spacing,
-            height: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 128 : 160) : 112,
+            height: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 144 : 160) : 112,
           },
         ]}
       >
