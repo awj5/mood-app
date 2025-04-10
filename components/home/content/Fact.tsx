@@ -109,12 +109,12 @@ export default function Fact(props: FactProps) {
                 : 20, // Smaller for iPhone SE
             lineHeight:
               Device.deviceType !== 1
-                ? 31
+                ? 32
                 : dimensions.width <= 375 && fact.length > 50
-                ? 17
+                ? 18
                 : dimensions.width <= 375 || fact.length > 50
-                ? 19
-                : 21, // Smaller for iPhone SE
+                ? 20
+                : 22, // Smaller for iPhone SE
           }}
           allowFontScaling={false}
         >
