@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     width: "100%",
-    maxWidth: 768 - 48,
+    maxWidth: 768 - 96,
     justifyContent: "space-between",
   },
 });

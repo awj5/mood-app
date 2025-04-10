@@ -53,7 +53,7 @@ export default function Footer() {
       style={[
         styles.container,
         {
-          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+          paddingHorizontal: Device.deviceType !== 1 ? 48 : 32,
           marginBottom: Device.deviceType !== 1 ? 24 + insets.bottom : 16 + insets.bottom,
         },
       ]}

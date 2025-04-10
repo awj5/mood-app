@@ -122,7 +122,7 @@ export default function Response(props: ResponseProps) {
                 gradient={props.message.button === "upsell"}
               >
                 {props.message.button === "upsell"
-                  ? "Get MOOD.ai Pro"
+                  ? "Try MOOD.ai Pro"
                   : props.message.button === "respond"
                   ? "Not right now"
                   : "View my dashboard"}

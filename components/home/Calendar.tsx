@@ -160,7 +160,7 @@ export default function Calendar() {
             onPageSelected={(e) => pageSelected(e)}
           >
             {weeks.map((item, index) => (
-              <View key={index} style={[styles.page, { paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }]}>
+              <View key={index} style={[styles.page, { paddingHorizontal: Device.deviceType !== 1 ? 48 : 16 }]}>
                 <Week monday={item} />
               </View>
             ))}

@@ -190,7 +190,7 @@ export default function Quote(props: QuoteProps) {
               {
                 width: Device.deviceType !== 1 ? 44 : 32,
                 display: authorImage ? "flex" : "none",
-                backgroundColor: colors.secondaryBg,
+                backgroundColor: colors.opaqueBg,
               },
             ]}
           />

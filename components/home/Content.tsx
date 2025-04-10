@@ -145,9 +145,9 @@ export default function Content() {
                 </View>
               </>
             ) : (
-              <View style={{ width: "100%", marginTop: spacing }}>
+              <View style={{ width: "100%", marginTop: spacing, paddingHorizontal: spacing }}>
                 <Button route="pro" fill icon={Sparkles} gradient>
-                  Get MOOD.ai Pro
+                  Try MOOD.ai Pro
                 </Button>
               </View>
             )}
