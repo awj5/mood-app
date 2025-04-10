@@ -70,7 +70,7 @@ export default function Settings() {
               style={({ pressed }) => [
                 pressedDefault(pressed),
                 styles.support,
-                { gap: Device.deviceType !== 1 ? 12 : 8 },
+                { gap: Device.deviceType !== 1 ? 10 : 6 },
               ]}
               hitSlop={16}
             >

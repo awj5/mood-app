@@ -81,7 +81,7 @@ export default function BigButton(props: BigButtonProps) {
           {
             backgroundColor: colors.primary,
             height: Device.deviceType !== 1 ? 96 : 72,
-            gap: Device.deviceType !== 1 ? 12 : 8,
+            gap: Device.deviceType !== 1 ? 10 : 6,
           },
           props.disabled && { opacity: 0.25 },
         ]}

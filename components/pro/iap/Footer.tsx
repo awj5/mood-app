@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import * as Device from "expo-device";
+import * as WebBrowser from "expo-web-browser";
 import ParsedText from "react-native-parsed-text";
 import { theme } from "utils/helpers";
 
@@ -12,12 +13,12 @@ export default function Footer() {
         {
           pattern: /terms/,
           style: styles.link,
-          onPress: () => alert("Coming soon"),
+          onPress: () => WebBrowser.openBrowserAsync("https://articles.mood.ai/terms"),
         },
         {
           pattern: /privacy policy/,
           style: styles.link,
-          onPress: () => alert("Coming soon"),
+          onPress: () => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy-policy/"),
         },
       ]}
       style={[

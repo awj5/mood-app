@@ -81,14 +81,14 @@ export default function Gifs(props: GifsProps) {
 
         <Pressable
           onPress={() => Linking.openURL("https://tenor.com/")}
-          style={({ pressed }) => [pressedDefault(pressed), styles.logo, { gap: spacing / 4 }]}
+          style={({ pressed }) => [pressedDefault(pressed), styles.logo, { gap: Device.deviceType !== 1 ? 10 : 6 }]}
           hitSlop={16}
         >
           <Text
             style={[
               styles.logoText,
               {
-                color: colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)",
+                color: colors.opaque,
                 fontSize: Device.deviceType !== 1 ? 12 : 8,
               },
             ]}

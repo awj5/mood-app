@@ -182,7 +182,7 @@ export default function Quote(props: QuoteProps) {
           “{quoteData?.quote}”
         </Text>
 
-        <View style={[styles.author, { gap: spacing / 2 }]}>
+        <View style={[styles.author, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
           <Image
             source={{ uri: url + authorImage }}
             style={[
@@ -203,7 +203,7 @@ export default function Quote(props: QuoteProps) {
             }}
             allowFontScaling={false}
           >
-            {`${!authorImage ? "— " : ""}${quoteData?.author}`}
+            {`${!authorImage ? "\u2014 " : ""}${quoteData?.author}`}
           </Text>
         </View>
       </View>

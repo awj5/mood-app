@@ -178,7 +178,7 @@ export default function Song(props: SongProps) {
         </View>
       </View>
 
-      <View style={{ flexDirection: "row", gap: spacing }}>
+      <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 20 : 12 }}>
         <Image
           source={{
             uri:
@@ -201,7 +201,7 @@ export default function Song(props: SongProps) {
             width: Device.deviceType !== 1 ? 192 : 128,
             aspectRatio: "1/1",
             borderRadius: spacing / 2,
-            backgroundColor: colors.secondaryBg,
+            backgroundColor: colors.opaqueBg,
           }}
         />
 

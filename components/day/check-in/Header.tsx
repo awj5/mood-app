@@ -76,7 +76,7 @@ export default function Header(props: HeaderProps) {
 
   return (
     <View style={[styles.container, { paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }]}>
-      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 12 : 8 }]}>
+      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
         <Image
           source={
             colors.primary === "black"

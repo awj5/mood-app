@@ -30,7 +30,7 @@ export default function HeaderDates(props: HeaderDatesProps) {
       style={({ pressed }) => [
         styles.container,
         pressedDefault(pressed),
-        { gap: Device.deviceType !== 1 ? 12 : 8, display: props.hidden ? "none" : "flex" },
+        { gap: Device.deviceType !== 1 ? 10 : 6, display: props.hidden ? "none" : "flex" },
       ]}
       hitSlop={16}
       disabled={props.hidden}
