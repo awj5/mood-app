@@ -88,7 +88,7 @@ export default function Next(props: NextProps) {
     >
       <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
         <CircleArrowRight
-          color={props.color !== undefined ? props.color : colors.primary}
+          color={props.color !== undefined ? props.color : colors.link}
           size={Device.deviceType !== 1 ? 88 : 64}
           absoluteStrokeWidth
           strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}

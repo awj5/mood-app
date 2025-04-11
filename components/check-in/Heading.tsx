@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   text: {
-    fontFamily: "Circular-Bold",
+    fontFamily: "Circular-Black",
     textAlign: "center",
   },
 });
