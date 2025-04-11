@@ -64,13 +64,13 @@
       {
         "id": 11,
         "title": "Group Task Agreement",
-        "description": "Group Task Agreement is the constructive handling of different perspectives about work-related matters. Strong group task agreement means workgroups can merge different viewpoints effectively, manage disagreements about work approaches professionally, and resolve conflicts about ideas productively. This helps prevent group task conflict, where disagreements about work decisions become sources of tension. Organisations should foster an environment where diverse viewpoints about work can be expressed and resolved constructively, while preventing destructive conflict.",
+        "description": "Group Task Agreement is the constructive handling of different perspectives about work-related matters. Strong group task agreement means teams can merge different viewpoints effectively, manage disagreements about work approaches professionally, and resolve conflicts about ideas productively. This helps prevent group task conflict, where disagreements about work decisions become sources of tension. Organisations should foster an environment where diverse viewpoints about work can be expressed and resolved constructively, while preventing destructive conflict.",
         "icon": "ListChecks"
       },
       {
         "id": 12,
         "title": "Group Cohesion",
-        "description": "Group Cohesion is the strength of interpersonal connections within workgroups. Strong group cohesion exists when teams work together effectively, integrate different personalities successfully, and maintain professional relationships. This prevents group relationship conflict, where personality differences and tensions disrupt team performance. Organisations should foster environments where diverse team members can blend their strengths while addressing any interpersonal tensions before they affect team performance.",
+        "description": "Group Cohesion is the strength of interpersonal connections within teams. Strong group cohesion exists when teams work together effectively, integrate different personalities successfully, and maintain professional relationships. This prevents group relationship conflict, where personality differences and tensions disrupt team performance. Organisations should foster environments where diverse team members can blend their strengths while addressing any interpersonal tensions before they affect team performance.",
         "icon": "Blend"
       },
       {
@@ -219,23 +219,23 @@
       },
       {
         "id": 8.01,
-        "posStatement": "processes for handling conflicts are applied consistently in my workgroup",
-        "negStatement": "processes for handling conflicts are not applied consistently in my workgroup"
+        "posStatement": "processes for handling conflicts are applied consistently in my team",
+        "negStatement": "processes for handling conflicts are not applied consistently in my team"
       },
       {
         "id": 8.02,
-        "posStatement": "processes for handling conflicts are free from bias in my workgroup",
-        "negStatement": "processes for handling conflicts are biased in my workgroup"
+        "posStatement": "processes for handling conflicts are free from bias in my team",
+        "negStatement": "processes for handling conflicts are biased in my team"
       },
       {
         "id": 8.03,
-        "posStatement": "employees in my workgroup are able to express their views and feelings during processes for handling conflicts",
-        "negStatement": "employees in my workgroup are not able to express their views and feelings during processes for handling conflicts"
+        "posStatement": "employees in my team are able to express their views and feelings during processes for handling conflicts",
+        "negStatement": "employees in my team are not able to express their views and feelings during processes for handling conflicts"
       },
       {
         "id": 8.04,
-        "posStatement": "processes for handling conflicts are based on accurate information about my workgroup",
-        "negStatement": "processes for handling conflicts are not based on accurate information about my workgroup"
+        "posStatement": "processes for handling conflicts are based on accurate information about my team",
+        "negStatement": "processes for handling conflicts are not based on accurate information about my team"
       },
       {
         "id": 9.01,
@@ -274,98 +274,98 @@
       },
       {
         "id": 11.01,
-        "posStatement": "me and members of my workgroup agree about the work being done",
-        "negStatement": "me and members of my workgroup disagree about the work being done"
+        "posStatement": "me and members of my team agree about the work being done",
+        "negStatement": "me and members of my team disagree about the work being done"
       },
       {
         "id": 11.02,
-        "posStatement": "there is constructive discussion about ideas between me and members of my workgroup",
-        "negStatement": "there are conflicts about ideas between me and members of my workgroup"
+        "posStatement": "there is constructive discussion about ideas between me and members of my team",
+        "negStatement": "there are conflicts about ideas between me and members of my team"
       },
       {
         "id": 11.03,
-        "posStatement": "there is alignment between me and members of my workgroup about the work I do",
-        "negStatement": "there is conflict between me and members of my workgroup about the work I do"
+        "posStatement": "there is alignment between me and members of my team about the work I do",
+        "negStatement": "there is conflict between me and members of my team about the work I do"
       },
       {
         "id": 11.04,
-        "posStatement": "there is consensus of opinion between me and members of my workgroup",
-        "negStatement": "there are differences of opinion between me and members of my workgroup"
+        "posStatement": "there is consensus of opinion between me and members of my team",
+        "negStatement": "there are differences of opinion between me and members of my team"
       },
       {
         "id": 12.01,
-        "posStatement": "there are positive feelings among members in my workgroup",
-        "negStatement": "there are bad feelings among members in my workgroup"
+        "posStatement": "there are positive feelings among members in my team",
+        "negStatement": "there are bad feelings among members in my team"
       },
       {
         "id": 12.02,
-        "posStatement": "personality differences are respected in my workgroup",
-        "negStatement": "personality conflicts are evidenced in my workgroup"
+        "posStatement": "personality differences are respected in my team",
+        "negStatement": "personality conflicts are evidenced in my team"
       },
       {
         "id": 12.03,
-        "posStatement": "there is harmony among members in my workgroup",
-        "negStatement": "there is tension among members in my workgroup"
+        "posStatement": "there is harmony among members in my team",
+        "negStatement": "there is tension among members in my team"
       },
       {
         "id": 12.04,
-        "posStatement": "there is emotional support among members in my workgroup",
-        "negStatement": "there is emotional conflict among members in my workgroup"
+        "posStatement": "there is emotional support among members in my team",
+        "negStatement": "there is emotional conflict among members in my team"
       },
       {
         "id": 13.01,
-        "posStatement": "I have recently received respectful verbal communication in my workgroup",
-        "negStatement": "I have recently been subjected to verbal abuse in my workgroup"
+        "posStatement": "I have recently received respectful verbal communication in my team",
+        "negStatement": "I have recently been subjected to verbal abuse in my team"
       },
       {
         "id": 13.02,
-        "posStatement": "I have recently been treated fairly and without threats in my workgroup",
-        "negStatement": "I have recently been subjected to threats of punishment for no reason in my workgroup"
+        "posStatement": "I have recently been treated fairly and without threats in my team",
+        "negStatement": "I have recently been subjected to threats of punishment for no reason in my team"
       },
       {
         "id": 13.03,
-        "posStatement": "I have recently received encouragement and positive feedback in my workgroup",
+        "posStatement": "I have recently received encouragement and positive feedback in my team",
         "negStatement": "#ERROR!"
       },
       {
         "id": 13.04,
-        "posStatement": "I have recently received respectful messages via telephone, written, or electronic means in my workgroup",
-        "negStatement": "I have recently been subjected to offensive messages via telephone, written, or electronic means in my workgroup"
+        "posStatement": "I have recently received respectful messages via telephone, written, or electronic means in my team",
+        "negStatement": "I have recently been subjected to offensive messages via telephone, written, or electronic means in my team"
       },
       {
         "id": 13.05,
-        "posStatement": "I have recently experienced collaboration and support of my work in my workgroup",
-        "negStatement": "I have recently been subjected to sabotage of my work in my workgroup"
+        "posStatement": "I have recently experienced collaboration and support of my work in my team",
+        "negStatement": "I have recently been subjected to sabotage of my work in my team"
       },
       {
         "id": 13.06,
-        "posStatement": "I have recently been included in workplace activities in my workgroup",
-        "negStatement": "I have recently been subjected to exclusion or isolation from workplace  activities in my workgroup"
+        "posStatement": "I have recently been included in workplace activities in my team",
+        "negStatement": "I have recently been subjected to exclusion or isolation from workplace  activities in my team"
       },
       {
         "id": 13.07,
-        "posStatement": "I have recently received constructive and fair feedback in my workgroup",
-        "negStatement": "I have recently been subjected to persistent and unjustified  criticisms in my workgroup"
+        "posStatement": "I have recently received constructive and fair feedback in my team",
+        "negStatement": "I have recently been subjected to persistent and unjustified  criticisms in my team"
       },
       {
         "id": 13.08,
-        "posStatement": "I have recently been treated with respect through gestures, communication, and support in my workgroup",
-        "negStatement": "I have recently been subjected to humiliation through gestures, sarcasm, criticism, or insults in my workgroup"
+        "posStatement": "I have recently been treated with respect through gestures, communication, and support in my team",
+        "negStatement": "I have recently been subjected to humiliation through gestures, sarcasm, criticism, or insults in my team"
       },
       {
         "id": 13.09,
-        "posStatement": "I have recently been the subject of positive discussions in my workgroup",
-        "negStatement": "I have recently been the subject of gossip or false, malicious rumours in my workgroup"
+        "posStatement": "I have recently been the subject of positive discussions in my team",
+        "negStatement": "I have recently been the subject of gossip or false, malicious rumours in my team"
       },
       {
         "id": 13.1,
-        "posStatement": "I have recently witnessed supportive behaviour in my workgroup",
-        "negStatement": "I have recently witnessed workplace bullying in my workgroup"
+        "posStatement": "I have recently witnessed supportive behaviour in my team",
+        "negStatement": "I have recently witnessed workplace bullying in my team"
       },
       {
         "id": 13.11,
-        "posStatement": "I have recently experienced a supportive workgroup",
-        "negStatement": "I have recently been subjected to workplace bullying in my workgroup"
+        "posStatement": "I have recently experienced a supportive team",
+        "negStatement": "I have recently been subjected to workplace bullying in my team"
       },
       {
         "id": 14.01,
