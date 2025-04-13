@@ -50,7 +50,21 @@ export default function Gifs(props: GifsProps) {
 
     if (gifs.length) {
       const shuffled = shuffleArray(gifs);
-      setGifsList(shuffled.slice(0, 20));
+      let selectedGifs = shuffled.slice(0, 20);
+
+      if (selectedGifs.length < 20) {
+        // Add random gifs to reach 20 total
+        const existingUrls = new Set(selectedGifs.map((gif) => gif.url));
+
+        const additionalGifs = shuffleArray(GifsData.filter((item) => !existingUrls.has(item.url))).slice(
+          0,
+          20 - selectedGifs.length
+        );
+
+        selectedGifs = selectedGifs.concat(additionalGifs);
+      }
+
+      setGifsList(selectedGifs);
     }
 
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
