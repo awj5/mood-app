@@ -74,7 +74,7 @@ export default function Company() {
               onPress={() => router.back()}
               label="Back"
               labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-              tintColor={colors.primary}
+              tintColor={colors.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />

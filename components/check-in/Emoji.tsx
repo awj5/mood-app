@@ -49,7 +49,7 @@ export default function Emoji(props: EmojiProps) {
       <Ionicons
         name="caret-down-sharp"
         size={Device.deviceType !== 1 ? 32 : 24}
-        color={colors.secondary}
+        color={colors.secondaryBg}
         style={[
           styles.caret,
           {

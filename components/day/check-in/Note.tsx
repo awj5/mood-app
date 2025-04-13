@@ -57,6 +57,7 @@ export default function Note(props: NoteProps) {
           <Report
             text={props.text}
             visible={props.text && props.text.indexOf("[NOTE FROM USER]:") === -1 ? true : false}
+            opaque
           />
         </View>
       </View>

@@ -24,21 +24,27 @@ export default function Home() {
   const db = useSQLiteContext();
   const todayRef = useRef<Date>();
   const reminderSeenRef = useRef(false);
+  const isFocusedRef = useRef(false);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
 
-  const checkNotifications = async () => {
-    try {
-      const { status, canAskAgain } = await Notifications.getPermissionsAsync();
-      if (status !== "granted" && canAskAgain) setReminderVisible(true);
-    } catch (error) {
-      console.log(error);
-    }
+  const checkNotifications = () => {
+    // Delay 1 sec
+    const timeout = setTimeout(async () => {
+      try {
+        const { status, canAskAgain } = await Notifications.getPermissionsAsync();
+        if (status !== "granted" && canAskAgain) setReminderVisible(true);
+      } catch (error) {
+        console.log(error);
+      }
 
-    reminderSeenRef.current = true;
+      reminderSeenRef.current = true;
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   };
 
   const verifyCheckInData = async () => {
@@ -68,11 +74,15 @@ export default function Home() {
 
   useFocusEffect(
     useCallback(() => {
+      isFocusedRef.current = true;
+
       if (!todayRef.current) {
         verifyCheckInData(); // Redirect if no check-in today
       } else if (!reminderSeenRef.current) {
         checkNotifications();
       }
+
+      return () => (isFocusedRef.current = false);
     }, [])
   );
 

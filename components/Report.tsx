@@ -16,6 +16,7 @@ type ReportProps = {
   checkIns?: CheckInType[] | CompanyCheckInType[];
   func?: () => void;
   category?: number;
+  opaque?: boolean;
 };
 
 export default function Report(props: ReportProps) {
@@ -103,13 +104,13 @@ export default function Report(props: ReportProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
-        { gap: Device.deviceType !== 1 ? 4 : 2, display: props.visible ? "flex" : "none" },
+        { gap: Device.deviceType !== 1 ? 5 : 3, display: props.visible ? "flex" : "none" },
       ]}
       hitSlop={8}
       disabled={reported}
     >
       <Flag
-        color={colors.opaque}
+        color={props.opaque ? colors.opaque : colors.secondary}
         size={Device.deviceType !== 1 ? 16 : 12}
         absoluteStrokeWidth
         strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
@@ -118,7 +119,7 @@ export default function Report(props: ReportProps) {
       <Text
         style={{
           fontFamily: "Circular-Book",
-          color: colors.opaque,
+          color: props.opaque ? colors.opaque : colors.secondary,
           fontSize: Device.deviceType !== 1 ? 16 : 12,
         }}
         allowFontScaling={false}

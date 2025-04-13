@@ -14,6 +14,7 @@ type InputProps = {
   showInput: boolean;
   focusInput: boolean;
   setFocusInput: React.Dispatch<React.SetStateAction<boolean>>;
+  keyboardShowing: boolean;
 };
 
 export default function Input(props: InputProps) {
@@ -75,7 +76,7 @@ export default function Input(props: InputProps) {
       onLayout={onLayout}
       style={{
         padding: spacing,
-        paddingBottom: focused ? spacing : spacing + insets.bottom,
+        paddingBottom: props.keyboardShowing ? spacing : spacing + insets.bottom,
         gap: spacing,
         marginBottom,
       }}

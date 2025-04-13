@@ -39,6 +39,7 @@ export default function Chat() {
   const [generating, setGenerating] = useState(true);
   const [showInput, setShowInput] = useState(false);
   const [focusInput, setFocusInput] = useState(false);
+  const [keyboardShowing, setKeyboardShowing] = useState(false);
   const [company, setCompany] = useState("");
   const [insightsSeen, setInsightsSeen] = useState(false);
 
@@ -109,10 +110,10 @@ export default function Chat() {
         {
           role: "assistant",
           content: `${
-            history?.length === 1 ? "You've just completed your first check in!\n\n" : ""
-          }I'm MOOD, I help you navigate your feelings at work using ${
+            history?.length === 1 ? "You've just completed your first check-in — nice one! 🙌\n\n" : ""
+          }I'm MOOD, I use ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
-          } as a research-backed emotional framework.\n\nWhat's your first name?`,
+          } and emotion science to help you understand your feelings at work — all privately, of course. 😊\n\nWhat's your first name?`,
           height: Device.deviceType !== 1 ? 160 : 112,
         },
       ]);
@@ -241,15 +242,25 @@ export default function Chat() {
       setFirstResponse();
     }, 500); // Wait for screen transition
 
-    const listener = Keyboard.addListener("keyboardDidShow", () => {
+    const didShowListener = Keyboard.addListener("keyboardDidShow", () => {
       scrollViewRef.current?.scrollToEnd({ animated: true });
+    });
+
+    const willShowListener = Keyboard.addListener("keyboardWillShow", () => {
+      setKeyboardShowing(true);
+    });
+
+    const willHideListener = Keyboard.addListener("keyboardWillHide", () => {
+      setKeyboardShowing(false);
     });
 
     getCompany();
 
     return () => {
       clearTimeout(timer);
-      listener.remove();
+      didShowListener.remove();
+      willShowListener.remove();
+      willHideListener.remove();
     };
   }, []);
 
@@ -268,7 +279,7 @@ export default function Chat() {
               onPress={() => router.dismissAll()}
               label="Dashboard"
               labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-              tintColor={colors.primary}
+              tintColor={colors.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -284,7 +295,7 @@ export default function Chat() {
               hitSlop={16}
             >
               <ChartSpline
-                color={colors.primary}
+                color={colors.link}
                 size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth
                 strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
@@ -294,7 +305,7 @@ export default function Chat() {
                 style={{
                   fontFamily: "Circular-Medium",
                   fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.primary,
+                  color: colors.link,
                 }}
                 allowFontScaling={false}
               >
@@ -331,6 +342,7 @@ export default function Chat() {
         showInput={showInput}
         focusInput={focusInput}
         setFocusInput={setFocusInput}
+        keyboardShowing={keyboardShowing}
       />
 
       <StatusBar style="auto" />

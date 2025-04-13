@@ -78,13 +78,13 @@ export default function Response(props: ResponseProps) {
         flexDirection: "row",
         minHeight: props.message.height ? props.message.height : Device.deviceType !== 1 ? 240 : 208,
         padding: spacing,
-        gap: Device.deviceType !== 1 ? 16 : 12,
+        gap: Device.deviceType !== 1 ? 20 : 12,
       }}
     >
       <Icon generating={props.generating} />
 
       <View style={[styles.wrapper, { gap: spacing }]}>
-        <View style={{ gap: Device.deviceType !== 1 ? 8 : 6 }}>
+        <View style={{ gap: spacing / 2 }}>
           <ParsedText
             parse={[
               {
@@ -98,6 +98,7 @@ export default function Response(props: ResponseProps) {
               {
                 color: colors.primary,
                 fontSize: Device.deviceType !== 1 ? 20 : 16,
+                lineHeight: Device.deviceType !== 1 ? 28 : 22,
               },
             ]}
           >

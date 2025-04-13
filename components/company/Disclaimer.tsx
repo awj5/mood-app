@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
-import { EyeOff, ShieldCheck } from "lucide-react-native";
+import * as WebBrowser from "expo-web-browser";
+import { ChartSpline, ShieldCheck } from "lucide-react-native";
 import Button from "components/Button";
 import { theme, pressedDefault, setStoredVal } from "utils/helpers";
 
@@ -26,12 +27,11 @@ export default function Disclaimer(props: DisclaimerProps) {
         styles.container,
         {
           paddingHorizontal: spacing * 1.5,
-          gap: spacing * 2,
         },
       ]}
     >
       <View style={[styles.wrapper, { gap: spacing }]}>
-        <ShieldCheck
+        <ChartSpline
           color={colors.primary}
           size={Device.deviceType !== 1 ? 88 : 64}
           absoluteStrokeWidth
@@ -39,13 +39,11 @@ export default function Disclaimer(props: DisclaimerProps) {
         />
 
         <Text
-          style={[
-            styles.title,
-            {
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 30 : 24,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Black",
+            color: colors.primary,
+            fontSize: Device.deviceType !== 1 ? 48 : 30,
+          }}
           allowFontScaling={false}
         >
           {props.company} Insights
@@ -56,7 +54,7 @@ export default function Disclaimer(props: DisclaimerProps) {
             styles.text,
             {
               color: colors.primary,
-              fontSize: fontSize,
+              fontSize: Device.deviceType !== 1 ? 20 : 16,
             },
           ]}
           allowFontScaling={false}
@@ -79,7 +77,7 @@ export default function Disclaimer(props: DisclaimerProps) {
           ]}
         >
           <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-            <EyeOff
+            <ShieldCheck
               color={colors.primary}
               size={Device.deviceType !== 1 ? 28 : 20}
               absoluteStrokeWidth
@@ -113,14 +111,17 @@ export default function Disclaimer(props: DisclaimerProps) {
             check-in.
           </Text>
 
-          <Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+          <Pressable
+            onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
+            style={({ pressed }) => pressedDefault(pressed)}
+            hitSlop={16}
+          >
             <Text
               style={[
                 styles.text,
                 {
-                  color: colors.secondary,
+                  color: colors.link,
                   fontSize: fontSizeSmall,
-                  textDecorationLine: "underline",
                 },
               ]}
               allowFontScaling={false}
@@ -129,12 +130,12 @@ export default function Disclaimer(props: DisclaimerProps) {
             </Text>
           </Pressable>
         </View>
-      </View>
 
-      <View style={{ alignItems: "center" }}>
-        <Button func={agree} fill>
-          Agree and continue
-        </Button>
+        <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
+          <Button func={agree} fill>
+            Agree and continue
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -147,25 +148,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   wrapper: {
+    maxWidth: 768 - 72,
     alignItems: "center",
-    maxWidth: 672,
     width: "100%",
-  },
-  title: {
-    fontFamily: "Circular-Black",
-    textAlign: "center",
   },
   text: {
     fontFamily: "Circular-Book",
     textAlign: "center",
   },
+  privacy: {
+    width: "100%",
+    alignItems: "center",
+  },
   heading: {
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "center",
-  },
-  privacy: {
-    width: "100%",
-    maxWidth: 512,
   },
 });

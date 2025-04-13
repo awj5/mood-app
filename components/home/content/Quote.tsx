@@ -175,7 +175,7 @@ export default function Quote(props: QuoteProps) {
             fontFamily: "Tiempos-RegularItalic",
             color: colors.primary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
-            lineHeight: Device.deviceType !== 1 ? 24 : 20,
+            lineHeight: Device.deviceType !== 1 ? 28 : 20,
           }}
           allowFontScaling={false}
         >

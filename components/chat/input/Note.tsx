@@ -1,5 +1,6 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import * as Device from "expo-device";
+import * as WebBrowser from "expo-web-browser";
 import { ShieldCheck } from "lucide-react-native";
 import { theme, pressedDefault } from "utils/helpers";
 
@@ -13,7 +14,7 @@ export default function Note() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 5 : 3 }]}>
       <ShieldCheck
         color={colors.secondary}
         size={Device.deviceType !== 1 ? 28 : 20}
@@ -26,11 +27,11 @@ export default function Note() {
       </Text>
 
       <Pressable
-        onPress={() => alert("Coming soon")}
+        onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
         style={({ pressed }) => [pressedDefault(pressed), { flexDirection: "row" }]}
         hitSlop={8}
       >
-        <Text style={[textStyle, { textDecorationLine: "underline" }]} allowFontScaling={false}>
+        <Text style={[textStyle, { color: colors.link }]} allowFontScaling={false}>
           Learn more
         </Text>
 
@@ -47,6 +48,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap: 4,
   },
 });

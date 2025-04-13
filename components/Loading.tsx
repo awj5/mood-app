@@ -10,7 +10,7 @@ export default function Loading(props: LoadingProps) {
   const colors = theme();
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 8 : 6 }]}>
+    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
       <ActivityIndicator color={colors.primary} />
 
       <Text

@@ -18,7 +18,6 @@ export default function Upsell() {
         styles.container,
         {
           paddingHorizontal: spacing * 1.5,
-          gap: spacing * 2,
           backgroundColor: colors.secondaryBg,
         },
       ]}
@@ -32,13 +31,11 @@ export default function Upsell() {
         />
 
         <Text
-          style={[
-            styles.title,
-            {
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 30 : 24,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Black",
+            color: colors.primary,
+            fontSize: Device.deviceType !== 1 ? 48 : 30,
+          }}
           allowFontScaling={false}
         >
           Put MOOD.ai to Work
@@ -55,17 +52,18 @@ export default function Upsell() {
           allowFontScaling={false}
         >
           Using anonymous mood check-ins, <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> provides you and
-          your company with real-time insights into overall workplace wellbeing trends. It's a game-changer for building
-          a more supportive and psychologically safe work culture—all while ensuring maximum privacy.{"\n\n"}Think your
-          company could be more transparent about its commitment to emotional wellbeing? Share{" "}
+          your company with <Text style={{ fontFamily: "Circular-Bold" }}>real-time insights</Text> into overall
+          workplace wellbeing trends. It's a game-changer for building a more supportive and psychologically safe work
+          culture—<Text style={{ fontFamily: "Circular-Bold" }}>all while ensuring maximum privacy</Text>.{"\n\n"}Think
+          your company could be more transparent about its commitment to emotional wellbeing?{"\n\n"}Share{" "}
           <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> with your employer today.
         </Text>
-      </View>
 
-      <View style={{ alignItems: "center" }}>
-        <Button func={share} icon={Share} fill>
-          Share now
-        </Button>
+        <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
+          <Button func={share} icon={Share} fill>
+            Share now
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -78,13 +76,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   wrapper: {
+    maxWidth: 768 - 72,
     alignItems: "center",
-    maxWidth: 672,
     width: "100%",
-  },
-  title: {
-    fontFamily: "Circular-Black",
-    textAlign: "center",
   },
   text: {
     fontFamily: "Circular-Book",
