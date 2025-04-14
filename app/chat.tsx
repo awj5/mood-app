@@ -110,7 +110,7 @@ export default function Chat() {
         {
           role: "assistant",
           content: `${
-            history?.length === 1 ? "You've just completed your first check-in — nice one! 🙌\n\n" : ""
+            history?.length === 1 ? "You've just completed your first check-in — nice one!\n\n" : ""
           }I'm MOOD, I use ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
           } and emotion science to help you understand your feelings at work — all privately, of course.\n\nWhat's your first name?`,
@@ -196,10 +196,11 @@ export default function Chat() {
 
     // Save AI response to chat history and store conversation summary
     if (aiResponse) {
-      chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: aiResponse }];
+      if (proID || uuid || !aiResponseCount)
+        chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: aiResponse }];
 
       // Only save summary if user has replied
-      if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
+      if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2 || noteRef.current) {
         const aiSummary =
           uuid || proID
             ? await requestAIResponse("summarize_chat", uuid, proID)

@@ -87,7 +87,7 @@ export default function Mood() {
 
           <Text
             style={{
-              fontFamily: "Circular-Bold",
+              fontFamily: "Circular-Black",
               fontSize: Device.deviceType !== 1 ? 48 : 36,
               color: foreground,
             }}
@@ -107,7 +107,7 @@ export default function Mood() {
             },
           ]}
         >
-          {data.description}
+          {data.summary}
         </Text>
 
         <TextBlock

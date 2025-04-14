@@ -93,7 +93,7 @@ export default function Response(props: ResponseProps) {
                 onPress: colorPress,
               },
               {
-                pattern: /MOOD|MOOD.ai/,
+                pattern: /MOOD.ai Pro|MOOD.ai|MOOD/,
                 style: { fontFamily: "Circular-Bold" },
               },
             ]}
@@ -102,7 +102,6 @@ export default function Response(props: ResponseProps) {
               {
                 color: colors.primary,
                 fontSize: Device.deviceType !== 1 ? 20 : 16,
-                lineHeight: Device.deviceType !== 1 ? 28 : 22,
               },
             ]}
           >

@@ -13,7 +13,7 @@ export default function Stat(props: StatProps) {
   const router = useRouter();
   const invertedColor = colors.primary === "white" ? "black" : "white";
 
-  const click = () => {
+  const press = () => {
     router.push({
       pathname: "mood",
       params: {
@@ -24,7 +24,7 @@ export default function Stat(props: StatProps) {
 
   return (
     <Pressable
-      onPress={click}
+      onPress={press}
       style={({ pressed }) => [pressedDefault(pressed), styles.container, { gap: Device.deviceType !== 1 ? 6 : 4 }]}
       hitSlop={2}
       disabled={props.text === "Other"}

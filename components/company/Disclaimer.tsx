@@ -42,7 +42,7 @@ export default function Disclaimer(props: DisclaimerProps) {
           style={{
             fontFamily: "Circular-Black",
             color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 48 : 30,
+            fontSize: Device.deviceType !== 1 ? 36 : 30,
           }}
           allowFontScaling={false}
         >

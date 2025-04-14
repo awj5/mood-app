@@ -23,7 +23,7 @@ export default function Note() {
       />
 
       <Text style={textStyle} allowFontScaling={false}>
-        Your conversations are private.
+        Your conversations are <Text style={{ fontFamily: "Circular-Bold" }}>private</Text>.
       </Text>
 
       <Pressable

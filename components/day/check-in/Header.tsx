@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import { Image } from "expo-image";
 import { useSQLiteContext } from "expo-sqlite";
 import { Trash2 } from "lucide-react-native";
+import MoodsData from "data/moods.json";
 import { CheckInMoodType } from "data/database";
 import { pressedDefault, theme } from "utils/helpers";
 
@@ -15,37 +17,24 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps) {
   const colors = theme();
+  const router = useRouter();
   const db = useSQLiteContext();
   const time = props.date.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  const color = MoodsData.filter((mood) => mood.id === props.mood.color)[0];
 
-  const emojisBlack = {
-    1: require("../../../assets/img/emoji/small/black/yellow.svg"),
-    2: require("../../../assets/img/emoji/small/black/chartreuse.svg"),
-    3: require("../../../assets/img/emoji/small/black/green.svg"),
-    4: require("../../../assets/img/emoji/small/black/spring-green.svg"),
-    5: require("../../../assets/img/emoji/small/black/cyan.svg"),
-    6: require("../../../assets/img/emoji/small/black/azure.svg"),
-    7: require("../../../assets/img/emoji/small/black/blue.svg"),
-    8: require("../../../assets/img/emoji/small/black/dark-violet.svg"),
-    9: require("../../../assets/img/emoji/small/black/dark-magenta.svg"),
-    10: require("../../../assets/img/emoji/small/black/dark-rose.svg"),
-    11: require("../../../assets/img/emoji/small/black/red.svg"),
-    12: require("../../../assets/img/emoji/small/black/orange.svg"),
-  };
-
-  const emojisWhite = {
-    1: require("../../../assets/img/emoji/small/white/yellow.svg"),
-    2: require("../../../assets/img/emoji/small/white/chartreuse.svg"),
-    3: require("../../../assets/img/emoji/small/white/green.svg"),
-    4: require("../../../assets/img/emoji/small/white/spring-green.svg"),
-    5: require("../../../assets/img/emoji/small/white/cyan.svg"),
-    6: require("../../../assets/img/emoji/small/white/azure.svg"),
-    7: require("../../../assets/img/emoji/small/white/blue.svg"),
-    8: require("../../../assets/img/emoji/small/white/dark-violet.svg"),
-    9: require("../../../assets/img/emoji/small/white/dark-magenta.svg"),
-    10: require("../../../assets/img/emoji/small/white/dark-rose.svg"),
-    11: require("../../../assets/img/emoji/small/white/red.svg"),
-    12: require("../../../assets/img/emoji/small/white/orange.svg"),
+  const emojis = {
+    1: require("../../../assets/img/emoji/small/yellow.png"),
+    2: require("../../../assets/img/emoji/small/chartreuse.png"),
+    3: require("../../../assets/img/emoji/small/green.png"),
+    4: require("../../../assets/img/emoji/small/spring-green.png"),
+    5: require("../../../assets/img/emoji/small/cyan.png"),
+    6: require("../../../assets/img/emoji/small/azure.png"),
+    7: require("../../../assets/img/emoji/small/blue.png"),
+    8: require("../../../assets/img/emoji/small/dark-violet.png"),
+    9: require("../../../assets/img/emoji/small/dark-magenta.png"),
+    10: require("../../../assets/img/emoji/small/dark-rose.png"),
+    11: require("../../../assets/img/emoji/small/red.png"),
+    12: require("../../../assets/img/emoji/small/orange.png"),
   };
 
   const confirmDelete = () => {
@@ -74,15 +63,24 @@ export default function Header(props: HeaderProps) {
     }
   };
 
+  const press = () => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: color.name,
+      },
+    });
+  };
+
   return (
     <View style={[styles.container, { paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }]}>
-      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+      <Pressable
+        onPress={press}
+        style={({ pressed }) => [pressedDefault(pressed), styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}
+        hitSlop={8}
+      >
         <Image
-          source={
-            colors.primary === "black"
-              ? emojisBlack[props.mood.color as keyof typeof emojisBlack]
-              : emojisWhite[props.mood.color as keyof typeof emojisWhite]
-          }
+          source={emojis[props.mood.color as keyof typeof emojis]}
           style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 44 : 32 }}
         />
 
@@ -92,7 +90,7 @@ export default function Header(props: HeaderProps) {
         >
           {time.toLowerCase()}
         </Text>
-      </View>
+      </Pressable>
 
       <Pressable onPress={confirmDelete} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
         <Trash2
