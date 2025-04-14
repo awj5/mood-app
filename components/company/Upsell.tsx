@@ -55,8 +55,7 @@ export default function Upsell() {
           your company with <Text style={{ fontFamily: "Circular-Bold" }}>real-time insights</Text> into overall
           workplace wellbeing trends. It's a game-changer for building a more supportive and psychologically safe work
           culture—<Text style={{ fontFamily: "Circular-Bold" }}>all while ensuring maximum privacy</Text>.{"\n\n"}Think
-          your company could be more transparent about its commitment to emotional wellbeing?{"\n\n"}Share{" "}
-          <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> with your employer today.
+          your company could be more transparent about its commitment to emotional wellbeing?
         </Text>
 
         <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>

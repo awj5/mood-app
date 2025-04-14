@@ -136,7 +136,10 @@ export default function Day(props: DayProps) {
           <Text
             style={[
               styles.countText,
-              { fontSize: Device.deviceType !== 1 ? 14 : 10, lineHeight: Device.deviceType !== 1 ? 16 : 12 },
+              {
+                fontSize: Device.deviceType !== 1 ? 14 : 10,
+                lineHeight: Device.deviceType !== 1 ? 16 : 12,
+              },
             ]}
             allowFontScaling={false}
           >

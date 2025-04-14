@@ -113,7 +113,7 @@ export default function Chat() {
             history?.length === 1 ? "You've just completed your first check-in — nice one! 🙌\n\n" : ""
           }I'm MOOD, I use ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
-          } and emotion science to help you understand your feelings at work — all privately, of course. 😊\n\nWhat's your first name?`,
+          } and emotion science to help you understand your feelings at work — all privately, of course.\n\nWhat's your first name?`,
           height: Device.deviceType !== 1 ? 160 : 112,
         },
       ]);

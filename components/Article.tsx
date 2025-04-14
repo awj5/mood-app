@@ -144,7 +144,7 @@ export default function Article(props: ArticleProps) {
               styles.text,
               {
                 fontSize: Device.deviceType !== 1 ? 24 : 16,
-                lineHeight: Device.deviceType !== 1 ? 30 : 18,
+                lineHeight: Device.deviceType !== 1 ? 28 : 18,
               },
             ]}
             allowFontScaling={false}

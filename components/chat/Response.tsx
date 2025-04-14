@@ -92,6 +92,10 @@ export default function Response(props: ResponseProps) {
                 style: styles.color,
                 onPress: colorPress,
               },
+              {
+                pattern: /MOOD|MOOD.ai/,
+                style: { fontFamily: "Circular-Bold" },
+              },
             ]}
             style={[
               styles.text,

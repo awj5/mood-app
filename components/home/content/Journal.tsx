@@ -184,7 +184,7 @@ export default function Journal(props: JournalProps) {
                     fontFamily: "Circular-BookItalic",
                     color: invertedColor,
                     fontSize: fontSize,
-                    lineHeight: Device.deviceType !== 1 ? 20 : 16,
+                    lineHeight: Device.deviceType !== 1 ? 24 : 18,
                   }}
                   allowFontScaling={false}
                 >
