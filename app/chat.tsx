@@ -201,8 +201,6 @@ export default function Chat() {
         { role: "assistant", content: proID || uuid || !aiResponseCount ? aiResponse : "" },
       ];
 
-      console.log(chatHistoryRef.current);
-
       // Only save summary if user has replied
       if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
         const aiSummary =
