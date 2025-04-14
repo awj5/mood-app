@@ -32,7 +32,13 @@ export default function Gifs(props: GifsProps) {
   };
 
   useEffect(() => {
-    const tags: number[] = props.tags ? props.tags : [];
+    const tags: number[] = props.tags
+      ? props.tags
+      : props.checkIns
+      ? JSON.parse(props.checkIns[props.checkIns.length - 1].mood).tags
+      : [];
+
+    const allTags: number[] = [];
 
     if (props.checkIns) {
       // Loop all check-ins and get tags
@@ -41,32 +47,33 @@ export default function Gifs(props: GifsProps) {
 
         for (let i = 0; i < mood.tags.length; i++) {
           let tag = mood.tags[i];
-          if (!tags.includes(tag)) tags.push(tag);
+          if (!tags.includes(tag) && !allTags.includes(tag)) allTags.push(tag);
         }
       }
     }
 
-    const gifs = GifsData.filter((item) => item.tags.some((tag) => tags.includes(tag))); // Get gifs with check-in tags
+    let gifs = shuffleArray(GifsData.filter((item) => item.tags.some((tag) => tags.includes(tag)))); // Get gifs with latest check-in tags
 
-    if (gifs.length) {
-      const shuffled = shuffleArray(gifs);
-      let selectedGifs = shuffled.slice(0, 20);
-
-      if (selectedGifs.length < 20) {
-        // Add random gifs to reach 20 total
-        const existingUrls = new Set(selectedGifs.map((gif) => gif.url));
-
-        const additionalGifs = shuffleArray(GifsData.filter((item) => !existingUrls.has(item.url))).slice(
-          0,
-          20 - selectedGifs.length
-        );
-
-        selectedGifs = selectedGifs.concat(additionalGifs);
-      }
-
-      setGifsList(selectedGifs);
+    if (allTags.length) {
+      const allGifs = shuffleArray(GifsData.filter((item) => item.tags.some((tag) => allTags.includes(tag)))); // Get gifs with all other check-in tags
+      gifs = gifs.concat(allGifs); // Combine
     }
 
+    gifs = gifs.slice(0, 20);
+
+    if (gifs.length < 20) {
+      // Add random gifs to reach 20 total
+      const existingUrls = new Set(gifs.map((gif) => gif.url));
+
+      const additionalGifs = shuffleArray(GifsData.filter((item) => !existingUrls.has(item.url))).slice(
+        0,
+        20 - gifs.length
+      );
+
+      gifs = gifs.concat(additionalGifs); // Combine
+    }
+
+    setGifsList(gifs);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
