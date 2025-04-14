@@ -196,11 +196,15 @@ export default function Chat() {
 
     // Save AI response to chat history and store conversation summary
     if (aiResponse) {
-      if (proID || uuid || !aiResponseCount)
-        chatHistoryRef.current = [...chatHistoryRef.current, { role: "assistant", content: aiResponse }];
+      chatHistoryRef.current = [
+        ...chatHistoryRef.current,
+        { role: "assistant", content: proID || uuid || !aiResponseCount ? aiResponse : "" },
+      ];
+
+      console.log(chatHistoryRef.current);
 
       // Only save summary if user has replied
-      if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2 || noteRef.current) {
+      if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
         const aiSummary =
           uuid || proID
             ? await requestAIResponse("summarize_chat", uuid, proID)
