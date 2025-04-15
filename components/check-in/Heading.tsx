@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
@@ -8,6 +8,7 @@ import { theme } from "utils/helpers";
 
 type HeadingProps = {
   text: string;
+  description?: string;
   delay?: number;
   color?: string;
 };
@@ -40,20 +41,42 @@ export default function Heading(props: HeadingProps) {
           : { paddingBottom: Device.deviceType !== 1 ? 224 : 152 },
       ]}
     >
-      <Text
-        style={[
-          styles.text,
-          {
-            color: props.color !== undefined ? props.color : colors.primary,
-            fontSize: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 36 : 48) : 30,
-            paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
-            maxWidth: Device.deviceType !== 1 ? 512 : 320,
-          },
-        ]}
-        allowFontScaling={false}
+      <View
+        style={{
+          alignItems: "center",
+          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
+          gap: Device.deviceType !== 1 ? 12 : 8,
+          maxWidth: Device.deviceType !== 1 ? 512 : 320,
+        }}
       >
-        {props.text}
-      </Text>
+        <Text
+          style={[
+            styles.text,
+            {
+              color: props.color !== undefined ? props.color : colors.primary,
+              fontSize: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 36 : 48) : 30,
+            },
+          ]}
+          allowFontScaling={false}
+        >
+          {props.text}
+        </Text>
+
+        {props.description && (
+          <Text
+            style={[
+              styles.description,
+              {
+                color: props.color !== undefined ? props.color : colors.primary,
+                fontSize: Device.deviceType !== 1 ? 24 : 18,
+              },
+            ]}
+            allowFontScaling={false}
+          >
+            {props.description}
+          </Text>
+        )}
+      </View>
     </Animated.View>
   );
 }
@@ -75,6 +98,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Circular-Black",
+    textAlign: "center",
+  },
+  description: {
+    fontFamily: "Circular-Book",
     textAlign: "center",
   },
 });

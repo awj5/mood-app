@@ -4,10 +4,11 @@ import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import Constants from "expo-constants";
+import { getLocales } from "expo-localization";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType } from "data/database";
+import { CheckInMoodType, CheckInType } from "data/database";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
@@ -45,6 +46,7 @@ export default function CheckIn() {
   const db = useSQLiteContext();
   const router = useRouter();
   const colors = theme();
+  const localization = getLocales();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
   const mood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [] });
@@ -55,7 +57,19 @@ export default function CheckIn() {
   const [foregroundColor, setForegroundColor] = useState("");
   const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, name: "", color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
+  const [isFirstCheckIn, setIsFirstCheckIn] = useState(false);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
+
+  const longPress = () => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: mood.value.name,
+      },
+    });
+
+    isMountedRef.current = false;
+  };
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
@@ -120,6 +134,20 @@ export default function CheckIn() {
     }
   };
 
+  const getCheckInCount = async () => {
+    try {
+      const rows: CheckInType[] = await db.getAllAsync(`SELECT * FROM check_ins`);
+      return rows.length;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkFirstCheckIn = async () => {
+    const count = await getCheckInCount();
+    setIsFirstCheckIn(!count ? true : false);
+  };
+
   useAnimatedReaction(
     () => rotation.value,
     (currentValue, previousValue) => {
@@ -135,20 +163,10 @@ export default function CheckIn() {
     }
   );
 
-  const longPress = () => {
-    router.push({
-      pathname: "mood",
-      params: {
-        name: mood.value.name,
-      },
-    });
-
-    isMountedRef.current = false;
-  };
-
   useFocusEffect(
     useCallback(() => {
       if (mood.value.id && isMountedRef.current) router.dismiss(); // Already checked in. Go back to home
+      checkFirstCheckIn();
       isMountedRef.current = true;
     }, [])
   );
@@ -171,8 +189,19 @@ export default function CheckIn() {
         }}
       />
 
-      <Heading text="How's work?" delay={1000} />
-      <Instructions />
+      <Heading
+        text="How's work?"
+        description={
+          isFirstCheckIn
+            ? `Get started by choosing a ${
+                localization[0].languageTag === "en-US" ? "color" : "colour"
+              } that matches your current mood`
+            : ""
+        }
+        delay={1000}
+      />
+
+      <Instructions isFirstCheckIn={isFirstCheckIn} />
       <Background showTags={showTags} mood={mood} />
       <Wheel rotation={rotation} longPress={longPress} />
       <Emoji showTags={showTags} mood={mood} />
@@ -180,7 +209,13 @@ export default function CheckIn() {
 
       {showTags && (
         <>
-          <Heading text="How do you feel right now?" delay={500} color={foregroundColor} />
+          <Heading
+            text="How do you feel right now?"
+            description="Select at least one word that describes your current feeling"
+            delay={500}
+            color={foregroundColor}
+          />
+
           <Next setState={setShowStatement} color={foregroundColor} disabled={selectedTags.length ? false : true} />
 
           <Tags
