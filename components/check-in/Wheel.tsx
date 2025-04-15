@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { StyleSheet, Pressable } from "react-native";
 import { Image } from "expo-image";
+import * as Haptics from "expo-haptics";
 import * as Device from "expo-device";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, SharedValue } from "react-native-reanimated";
@@ -8,25 +9,35 @@ import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 
 type WheelProps = {
   rotation: SharedValue<number>;
+  longPress: () => void;
 };
 
 export default function Wheel(props: WheelProps) {
   const opacity = useSharedValue(0);
   const previousRotation = useSharedValue(0);
   const startAngle = useSharedValue(0);
+  const hasRotated = useSharedValue(false);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
-  const pressRotation = useRef(0);
+  const pressRotationRef = useRef(0);
   const size = Device.deviceType !== 1 ? 448 : 304; // Smaller on phones
 
   const pressIn = () => {
-    pressRotation.current = props.rotation.value;
+    pressRotationRef.current = props.rotation.value;
+  };
+
+  const longPress = () => {
+    if (hasRotated.value) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      pressRotationRef.current = 0; // Reset to cancel regular press
+      props.longPress();
+    }
   };
 
   const pressOut = (event: any) => {
     const { locationX, locationY } = event.nativeEvent;
 
     // If angle hasn't changed (not panned)
-    if (pressRotation.current === props.rotation.value) {
+    if (pressRotationRef.current === props.rotation.value) {
       const section = size / 5;
       let newAngle: number | undefined;
 
@@ -94,6 +105,8 @@ export default function Wheel(props: WheelProps) {
             } else if (isFinished && props.rotation.value >= 360) {
               props.rotation.value = props.rotation.value - 360;
             }
+
+            hasRotated.value = true;
           }
         );
       }
@@ -135,7 +148,10 @@ export default function Wheel(props: WheelProps) {
         return; // Not faded in yet
       }
 
-      if (Device.deviceType === 1 || Device.deviceType === 2) previousRotation.value = props.rotation.value; // Only on touch devices
+      if (Device.deviceType === 1 || Device.deviceType === 2) {
+        previousRotation.value = props.rotation.value; // Only on touch devices
+        hasRotated.value = true;
+      }
     });
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -148,7 +164,7 @@ export default function Wheel(props: WheelProps) {
     const randomAngle = Math.floor(Math.random() * 361);
     previousRotation.value = randomAngle;
     props.rotation.value = withTiming(randomAngle, { duration: 1000, easing: Easing.out(Easing.cubic) });
-    pressRotation.current = randomAngle;
+    pressRotationRef.current = randomAngle;
     opacity.value = withTiming(1, { duration: 1000, easing: Easing.in(Easing.cubic) });
   }, []);
 
@@ -164,7 +180,7 @@ export default function Wheel(props: WheelProps) {
           },
         ]}
       >
-        <Pressable onPressIn={pressIn} onPressOut={pressOut} hitSlop={16}>
+        <Pressable onPressIn={pressIn} onPressOut={pressOut} onLongPress={longPress} hitSlop={16}>
           <Image source={require("../../assets/img/check-in-wheel.png")} style={styles.image} />
         </Pressable>
       </Animated.View>

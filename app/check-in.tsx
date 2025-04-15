@@ -24,6 +24,7 @@ import { convertToISO } from "utils/dates";
 
 export type MoodType = {
   id: number;
+  name: string;
   color: string;
   tags: number[];
 };
@@ -46,12 +47,13 @@ export default function CheckIn() {
   const colors = theme();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
-  const mood = useSharedValue<MoodType>({ id: 0, color: "", tags: [] });
+  const mood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [] });
   const wheelLoadedRef = useRef(false);
+  const isMountedRef = useRef(true);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [foregroundColor, setForegroundColor] = useState("");
-  const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, color: "", tags: [] });
+  const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, name: "", color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
 
@@ -133,9 +135,21 @@ export default function CheckIn() {
     }
   );
 
+  const longPress = () => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: mood.value.name,
+      },
+    });
+
+    isMountedRef.current = false;
+  };
+
   useFocusEffect(
     useCallback(() => {
-      if (mood.value.id) router.dismiss(); // Already checked in. Go back to home
+      if (mood.value.id && isMountedRef.current) router.dismiss(); // Already checked in. Go back to home
+      isMountedRef.current = true;
     }, [])
   );
 
@@ -160,7 +174,7 @@ export default function CheckIn() {
       <Heading text="How's work?" delay={1000} />
       <Instructions />
       <Background showTags={showTags} mood={mood} />
-      <Wheel rotation={rotation} />
+      <Wheel rotation={rotation} longPress={longPress} />
       <Emoji showTags={showTags} mood={mood} />
       <Next setState={setShowTags} disabled mood={mood} />
 
