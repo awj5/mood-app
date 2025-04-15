@@ -7,7 +7,8 @@
   {
     "quote": "A day of worry is more exhausting than a week of work.",
     "author": "John Lubbock",
-    "tags": [81]
+    "tags": [81],
+    "hasImage": true
   },
   {
     "quote": "A good friend is like a four-leaf clover; hard to find and lucky to have.",
@@ -17,6 +18,7 @@
   {
     "quote": "A heavy heart bears not a nimble tongue.",
     "author": "William Shakespeare",
+    "hasImage": true,
     "tags": [97]
   },
   {
@@ -32,6 +34,7 @@
   {
     "quote": "A man cannot be comfortable without his own approval.",
     "author": "Mark Twain",
+    "hasImage": true,
     "tags": [34]
   },
   {
@@ -41,8 +44,9 @@
   },
   {
     "quote": "A ruffled mind makes a restless pillow.",
-    "author": "Charlotte Brontë",
-    "tags": [153]
+    "author": "Charlotte Bront\u00eb",
+    "tags": [153],
+    "hasImage": true
   },
   {
     "quote": "A smile is like an instant facelift and an instant mood lift.",
@@ -67,7 +71,8 @@
   {
     "quote": "Ability is what you're capable of doing. Motivation determines what you do. Attitude determines how well you do it.",
     "author": "Lou Holtz",
-    "tags": [28, 127]
+    "tags": [28, 127],
+    "hasImage": true
   },
   {
     "quote": "Abusers manipulate victims into abandoning their own reality, forcing them to accept the abuser's version.",
@@ -82,37 +87,44 @@
   {
     "quote": "Acknowledging the good that you already have in your life is the foundation for all abundance.",
     "author": "Eckhart Tolle",
-    "tags": [17]
+    "tags": [17],
+    "hasImage": true
   },
   {
     "quote": "Act as if what you do makes a difference. It does.",
     "author": "William James",
-    "tags": [199, 143]
+    "tags": [199, 143],
+    "hasImage": true
   },
   {
     "quote": "Act enthusiastic and you will be enthusiastic.",
     "author": "Dale Carnegie",
-    "tags": [76]
+    "tags": [76],
+    "hasImage": true
   },
   {
     "quote": "Alienation is a form of living death. It is the acid of despair that dissolves society.",
     "author": "Martin Luther King Jr.",
-    "tags": [10, 55]
+    "tags": [10, 55],
+    "hasImage": true
   },
   {
     "quote": "All forms of fear produce fatigue.",
     "author": "Bertrand Russell",
-    "tags": [82]
+    "tags": [82],
+    "hasImage": true
   },
   {
     "quote": "All highly competent people continually search for ways to keep learning, growing, and improving.",
     "author": "Benjamin Franklin",
-    "tags": [36]
+    "tags": [36],
+    "hasImage": true
   },
   {
     "quote": "All you really need to do is accept this moment fully. You are then at ease in the here and now and at ease with yourself.",
     "author": "Eckhart Tolle",
-    "tags": [20]
+    "tags": [20],
+    "hasImage": true
   },
   {
     "quote": "Almost everything will work again if you unplug it for a few minutes, including you.",
@@ -122,12 +134,14 @@
   {
     "quote": "Alone we can do so little; together we can do so much.",
     "author": "Helen Keller",
-    "tags": [45]
+    "tags": [45],
+    "hasImage": true
   },
   {
     "quote": "Although the world is full of suffering, it is also full of the overcoming of it.",
     "author": "Helen Keller",
-    "tags": [63]
+    "tags": [63],
+    "hasImage": true
   },
   {
     "quote": "An injury is much sooner forgotten than an insult.",
@@ -137,11 +151,13 @@
   {
     "quote": "An investment in knowledge pays the best interest.",
     "author": "Benjamin Franklin",
-    "tags": [118]
+    "tags": [118],
+    "hasImage": true
   },
   {
     "quote": "An open mind leaves a chance for someone to drop a worthwhile thought in it.",
     "author": "Mark Twain",
+    "hasImage": true,
     "tags": [130]
   },
   {
@@ -172,7 +188,8 @@
   {
     "quote": "Anybody can become angry - that is easy, but to be angry with the right person and to the right degree and at the right time and for the right purpose, and in the right way - that is not within everybody's power and is not easy.",
     "author": "Aristotle",
-    "tags": [13]
+    "tags": [13],
+    "hasImage": true
   },
   {
     "quote": "Appreciation can make a day, even change a life. Your willingness to put it into words is all that is necessary.",
@@ -192,7 +209,8 @@
   {
     "quote": "Art is to console those who are broken by life.",
     "author": "Vincent Van Gogh",
-    "tags": [42]
+    "tags": [42],
+    "hasImage": true
   },
   {
     "quote": "As children, our imaginations are vibrant, and our hearts are open.",
@@ -207,7 +225,8 @@
   {
     "quote": "As you grow older, you will discover that you have two hands: one for helping yourself, the other for helping others.",
     "author": "Audrey Hepburn",
-    "tags": [98]
+    "tags": [98],
+    "hasImage": true
   },
   {
     "quote": "At times in life you have to leave people where they left you.",
@@ -222,7 +241,8 @@
   {
     "quote": "Be active, be energetic, be enthusiastic and you will accomplish your object.",
     "author": "Harvey Mackay",
-    "tags": [74, 76]
+    "tags": [74, 76],
+    "hasImage": true
   },
   {
     "quote": "Be alert. The most important things in life are seldom the most obvious.",
@@ -237,7 +257,8 @@
   {
     "quote": "Be content with what you have; rejoice in the way things are. When you realize there is nothing lacking, the whole world belongs to you.",
     "author": "Lao Tzu",
-    "tags": [44]
+    "tags": [44],
+    "hasImage": true
   },
   {
     "quote": "Be not arrogant when fortune smiles, or dejected when she frowns.",
@@ -262,7 +283,8 @@
   {
     "quote": "Be proud of your scars. They remind you that you have the will to live.",
     "author": "Paulo Coelho",
-    "tags": [142]
+    "tags": [142],
+    "hasImage": true
   },
   {
     "quote": "Be so good they can't ignore you.",
@@ -277,7 +299,8 @@
   {
     "quote": "Be wary of the man who urges an action in which he himself incurs no risk.",
     "author": "Lucius Annaeus Seneca",
-    "tags": [206]
+    "tags": [206],
+    "hasImage": true
   },
   {
     "quote": "Behind every sweet smile, there is a bitter sadness that no one can ever see and feel.",
@@ -327,17 +350,20 @@
   {
     "quote": "Beware the barrenness of a busy life.",
     "author": "Socrates",
-    "tags": [193]
+    "tags": [193],
+    "hasImage": true
   },
   {
     "quote": "Blameless people are always the most exasperating.",
     "author": "George Eliot",
-    "tags": [78]
+    "tags": [78],
+    "hasImage": true
   },
   {
     "quote": "By failing to prepare, you are preparing to fail.",
     "author": "Benjamin Franklin",
-    "tags": [140]
+    "tags": [140],
+    "hasImage": true
   },
   {
     "quote": "Calmness is the cradle of power.",
@@ -347,22 +373,26 @@
   {
     "quote": "Challenge is the pathway to engagement and progress in our lives.",
     "author": "Brendon Burchard",
-    "tags": [75]
+    "tags": [75],
+    "hasImage": true
   },
   {
     "quote": "Cheerfulness and contentment are great beautifiers and are famous preservers of youthful looks.",
     "author": "Charles Dickens",
-    "tags": [31, 44]
+    "tags": [31, 44],
+    "hasImage": true
   },
   {
     "quote": "Choose a job you love, and you will never have to work a day in your life.",
     "author": "Confucius",
-    "tags": [174]
+    "tags": [174],
+    "hasImage": true
   },
   {
     "quote": "Choose to be optimistic, it feels better.",
     "author": "Dalai Lama",
-    "tags": [199, 131]
+    "tags": [199, 131],
+    "hasImage": true
   },
   {
     "quote": "Clarity of mind means clarity of passion, too; this is why a great and clear mind loves ardently and sees distinctly what it loves.",
@@ -382,7 +412,8 @@
   {
     "quote": "Communication leads to community, that is, to understanding, intimacy and mutual valuing.",
     "author": "Rollo May",
-    "tags": [190]
+    "tags": [190],
+    "hasImage": true
   },
   {
     "quote": "Confidence comes not from always being right but from not fearing to be wrong.",
@@ -392,7 +423,8 @@
   {
     "quote": "Confidence is a habit that can be developed by acting as if you already had the confidence you desire to have.",
     "author": "Brian Tracy",
-    "tags": [19, 38]
+    "tags": [19, 38],
+    "hasImage": true
   },
   {
     "quote": "Confidence is not 'they will like me.' Confidence is 'I'll be fine if they don't.'",
@@ -432,12 +464,14 @@
   {
     "quote": "Courage is resistance to fear, mastery of fear, not absence of fear.",
     "author": "Mark Twain",
+    "hasImage": true,
     "tags": [83]
   },
   {
     "quote": "Depression is the inability to construct a future.",
     "author": "Rollo May",
-    "tags": [53]
+    "tags": [53],
+    "hasImage": true
   },
   {
     "quote": "Disappointment is inevitable. But to become discouraged, there's a choice I make.",
@@ -457,7 +491,8 @@
   {
     "quote": "Distrust and caution are the parents of security.",
     "author": "Benjamin Franklin",
-    "tags": [64]
+    "tags": [64],
+    "hasImage": true
   },
   {
     "quote": "Distrust those who love you extremely upon a slight acquaintance, and without any visible reason.",
@@ -467,17 +502,20 @@
   {
     "quote": "Do not anticipate trouble or worry about what may never happen. Keep in the sunlight.",
     "author": "Benjamin Franklin",
-    "tags": [145, 208]
+    "tags": [145, 208],
+    "hasImage": true
   },
   {
     "quote": "Do the thing you fear to do and keep on doing it... that is the quickest and surest way ever yet discovered to conquer fear.",
     "author": "Dale Carnegie",
-    "tags": [83]
+    "tags": [83],
+    "hasImage": true
   },
   {
     "quote": "Do your work, then step back. The only path to serenity.",
     "author": "Lao Tzu",
-    "tags": [164]
+    "tags": [164],
+    "hasImage": true
   },
   {
     "quote": "Don't believe every worried thought you have. Worried thoughts are notoriously inaccurate.",
@@ -502,7 +540,8 @@
   {
     "quote": "Doubt is a pain too lonely to know that faith is his twin brother.",
     "author": "Khalil Gibran",
-    "tags": [65]
+    "tags": [65],
+    "hasImage": true
   },
   {
     "quote": "Doubt kills more dreams than failure ever will.",
@@ -517,12 +556,14 @@
   {
     "quote": "Drudgery, calamity, exasperation, want, are instructors in eloquence and wisdom.",
     "author": "Ralph Waldo Emerson",
-    "tags": [78]
+    "tags": [78],
+    "hasImage": true
   },
   {
     "quote": "Dwell on the beauty of life. Watch the stars, and see yourself running with them.",
     "author": "Marcus Aurelius",
-    "tags": [25]
+    "tags": [25],
+    "hasImage": true
   },
   {
     "quote": "Easy is right. Begin right and you are easy.",
@@ -547,7 +588,8 @@
   {
     "quote": "Energy and persistence conquer all things.",
     "author": "Benjamin Franklin",
-    "tags": [74]
+    "tags": [74],
+    "hasImage": true
   },
   {
     "quote": "Enthusiasm is excitement with inspiration, motivation, and a pinch of creativity.",
@@ -557,7 +599,8 @@
   {
     "quote": "Enthusiasm is the yeast that makes your hopes shine to the stars.",
     "author": "Henry Ford",
-    "tags": [76]
+    "tags": [76],
+    "hasImage": true
   },
   {
     "quote": "Even if happiness forgets you a little bit, never completely forget about it.",
@@ -577,7 +620,8 @@
   {
     "quote": "Every deep thinker is more afraid of being understood than of being misunderstood.",
     "author": "Friedrich Nietzsche",
-    "tags": [126]
+    "tags": [126],
+    "hasImage": true
   },
   {
     "quote": "Every human being is entitled to courtesy and consideration. Constructive criticism is not only to be expected but sought.",
@@ -587,7 +631,8 @@
   {
     "quote": "Everybody's got a different circle of competence. The important thing is not how big the circle is. The important thing is staying inside the circle.",
     "author": "Warren Buffett",
-    "tags": [36]
+    "tags": [36],
+    "hasImage": true
   },
   {
     "quote": "Everyone needs to be valued. Everyone has the potential to give something back.",
@@ -602,12 +647,14 @@
   {
     "quote": "Everything that irritates us about others can lead us to an understanding of ourselves.",
     "author": "Carl Jung",
-    "tags": [114]
+    "tags": [114],
+    "hasImage": true
   },
   {
     "quote": "Everything that irritates us about others can lead us to an understanding of ourselves.",
     "author": "Carl Jung",
-    "tags": [14, 114]
+    "tags": [14, 114],
+    "hasImage": true
   },
   {
     "quote": "Everything will be okay in the end. If it's not okay, it's not the end.",
@@ -632,7 +679,8 @@
   {
     "quote": "Fatigue makes fools of us all. It robs us of our skills, our judgment, and blinds us to creative solutions.",
     "author": "Harvey Mackay",
-    "tags": [82]
+    "tags": [82],
+    "hasImage": true
   },
   {
     "quote": "Fear cannot be banished, but it can be calm and without panic; it can be mitigated by reason and evaluation.",
@@ -651,8 +699,9 @@
   },
   {
     "quote": "Feeling irritated, restless, afraid, and hopeless is a reminder to listen more carefully.",
-    "author": "Pema Chödrön",
-    "tags": [114, 153, 103]
+    "author": "Pema Ch\u00f6dr\u00f6n",
+    "tags": [114, 153, 103],
+    "hasImage": true
   },
   {
     "quote": "Fiction is life with the dull bits left out.",
@@ -662,7 +711,8 @@
   {
     "quote": "Find a place inside where there's joy, and the joy will burn out the pain.",
     "author": "Joseph Campbell",
-    "tags": [117]
+    "tags": [117],
+    "hasImage": true
   },
   {
     "quote": "Flexibility is the key to stability.",
@@ -672,12 +722,14 @@
   {
     "quote": "For every minute spent organizing, an hour is earned.",
     "author": "Benjamin Franklin",
-    "tags": [132]
+    "tags": [132],
+    "hasImage": true
   },
   {
     "quote": "For every minute you remain angry, you give up sixty seconds of peace of mind.",
     "author": "Ralph Waldo Emerson",
-    "tags": [13]
+    "tags": [13],
+    "hasImage": true
   },
   {
     "quote": "For fast-acting relief, try slowing down.",
@@ -687,12 +739,14 @@
   {
     "quote": "For my part I know nothing with any certainty, but the sight of the stars makes me dream.",
     "author": "Vincent Van Gogh",
-    "tags": [30]
+    "tags": [30],
+    "hasImage": true
   },
   {
     "quote": "For to be free is not merely to cast off one's chains, but to live in a way that respects and enhances the freedom of others.",
     "author": "Nelson Mandela",
-    "tags": [88]
+    "tags": [88],
+    "hasImage": true
   },
   {
     "quote": "Forgive all who have offended you, not for them, but for yourself.",
@@ -702,7 +756,8 @@
   {
     "quote": "Freedom is not worth having if it does not include the freedom to make mistakes.",
     "author": "Mahatma Gandhi",
-    "tags": [88]
+    "tags": [88],
+    "hasImage": true
   },
   {
     "quote": "Frustration is fuel that can lead to the development of an innovative and useful idea.",
@@ -717,7 +772,8 @@
   {
     "quote": "Give me six hours to chop down a tree and I will spend the first four sharpening the axe.",
     "author": "Abraham Lincoln",
-    "tags": [140]
+    "tags": [140],
+    "hasImage": true
   },
   {
     "quote": "Good management is the art of making problems so interesting and their solutions so constructive that everyone wants to get to work and deal with them.",
@@ -752,7 +808,8 @@
   {
     "quote": "Grief has limits, whereas apprehension has none. For we grieve only for what we know has happened, but we fear all that possibly may happen.",
     "author": "Pliny the Elder",
-    "tags": [18]
+    "tags": [18],
+    "hasImage": true
   },
   {
     "quote": "Happiness can exist only in acceptance.",
@@ -762,7 +819,8 @@
   {
     "quote": "Happiness depends upon ourselves.",
     "author": "Aristotle",
-    "tags": [93]
+    "tags": [93],
+    "hasImage": true
   },
   {
     "quote": "Happiness does not come from doing easy work but from the afterglow of satisfaction that comes after the achievement of a difficult task that demanded our best.",
@@ -792,17 +850,20 @@
   {
     "quote": "Happiness is not something ready-made. It comes from your own actions.",
     "author": "Dalai Lama",
-    "tags": [93]
+    "tags": [93],
+    "hasImage": true
   },
   {
     "quote": "Happiness is the settling of the soul into its most appropriate spot.",
     "author": "Aristotle",
-    "tags": [165, 93]
+    "tags": [165, 93],
+    "hasImage": true
   },
   {
     "quote": "Happiness is when what you think, what you say, and what you do are in harmony.",
     "author": "Mahatma Gandhi",
-    "tags": [94, 93]
+    "tags": [94, 93],
+    "hasImage": true
   },
   {
     "quote": "Hard work beats talent when talent doesn't work hard.",
@@ -817,22 +878,26 @@
   {
     "quote": "He who does not trust enough will not be trusted.",
     "author": "Lao Tzu",
-    "tags": [185]
+    "tags": [185],
+    "hasImage": true
   },
   {
     "quote": "He who has health has hope; and he who has hope, has everything.",
     "author": "Thomas Carlyle",
-    "tags": [95, 102]
+    "tags": [95, 102],
+    "hasImage": true
   },
   {
     "quote": "He who has overcome his fears will truly be free.",
     "author": "Aristotle",
-    "tags": [182, 83]
+    "tags": [182, 83],
+    "hasImage": true
   },
   {
     "quote": "He who is not contented with what he has, would not be contented with what he would like to have.",
     "author": "Socrates",
-    "tags": [44]
+    "tags": [44],
+    "hasImage": true
   },
   {
     "quote": "He who undervalues himself is justly undervalued by others.",
@@ -847,7 +912,8 @@
   {
     "quote": "Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.",
     "author": "Buddha",
-    "tags": [95, 44]
+    "tags": [95, 44],
+    "hasImage": true
   },
   {
     "quote": "Heavy hearts, like heavy clouds in the sky, are best relieved by the letting of a little water.",
@@ -862,7 +928,8 @@
   {
     "quote": "Holding on to anger is like grasping a hot coal with the intent of throwing it at someone else; you are the one who gets burned.",
     "author": "Buddha",
-    "tags": [150, 13]
+    "tags": [150, 13],
+    "hasImage": true
   },
   {
     "quote": "Honor lies in honest toil.",
@@ -887,7 +954,8 @@
   {
     "quote": "Hope sees the invisible, feels the intangible, and achieves the impossible.",
     "author": "Helen Keller",
-    "tags": [102]
+    "tags": [102],
+    "hasImage": true
   },
   {
     "quote": "Humans are driven by a perpetual and restless desire of power.",
@@ -902,7 +970,8 @@
   {
     "quote": "I am deliberate and afraid of nothing.",
     "author": "Audre Lorde",
-    "tags": [6, 127]
+    "tags": [6, 127],
+    "hasImage": true
   },
   {
     "quote": "I am determined to be cheerful and happy in whatever situation I may find myself.",
@@ -912,7 +981,8 @@
   {
     "quote": "I am fundamentally an optimist. Whether that comes from nature or nurture, I cannot say. Part of being optimistic is keeping one's head pointed toward the sun, one's feet moving forward.",
     "author": "Nelson Mandela",
-    "tags": [131]
+    "tags": [131],
+    "hasImage": true
   },
   {
     "quote": "I am in the right place at the right time, doing the right thing.",
@@ -921,8 +991,9 @@
   },
   {
     "quote": "I am no bird; and no net ensnares me: I am a free human being with an independent will.",
-    "author": "Charlotte Brontë",
-    "tags": [88]
+    "author": "Charlotte Bront\u00eb",
+    "tags": [88],
+    "hasImage": true
   },
   {
     "quote": "I am so tired of being tired. Why do I have to fight every day for my rights and for respect?",
@@ -962,27 +1033,32 @@
   {
     "quote": "I don't get upset over things I can control, because if I can control them there's no sense in getting upset. And I don't get upset over things I can't control, because if I can't control them there's no sense in getting upset.",
     "author": "Yogi Berra",
-    "tags": [201]
+    "tags": [201],
+    "hasImage": true
   },
   {
     "quote": "I get nervous when I don't get nervous. If I'm nervous, I know I'm going to have a good show.",
     "author": "Beyonc\u00e9 Knowles",
-    "tags": [116]
+    "tags": [116],
+    "hasImage": true
   },
   {
     "quote": "I speak to everyone in the same way, whether he is the garbage man or the president of the university.",
     "author": "Albert Einstein",
-    "tags": [151]
+    "tags": [151],
+    "hasImage": true
   },
   {
     "quote": "I try to view the challenges in my life not as annoyances, but as confirmations of fortitude.",
     "author": "Oprah Winfrey",
-    "tags": [14]
+    "tags": [14],
+    "hasImage": true
   },
   {
     "quote": "I used to go away for weeks in a state of confusion.",
     "author": "Albert Einstein",
-    "tags": [40]
+    "tags": [40],
+    "hasImage": true
   },
   {
     "quote": "I would encourage you: be informed\u2014knowledge is power.",
@@ -992,7 +1068,8 @@
   {
     "quote": "I'm not in this world to live up to your expectations and you're not in this world to live up to mine.",
     "author": "Bruce Lee",
-    "tags": [141]
+    "tags": [141],
+    "hasImage": true
   },
   {
     "quote": "I'm not looking for pity, I'm really not, but I'm constantly uneasy and every day it is pretty much like getting up and going to war.",
@@ -1017,12 +1094,14 @@
   {
     "quote": "If everyone is moving forward together, then success takes care of itself.",
     "author": "Henry Ford",
-    "tags": [45]
+    "tags": [45],
+    "hasImage": true
   },
   {
     "quote": "If someone irritates you, it is only your own response that is irritating you.",
     "author": "Epictetus",
-    "tags": [114]
+    "tags": [114],
+    "hasImage": true
   },
   {
     "quote": "If they don't appreciate your presence, perhaps you should try giving them your absence.",
@@ -1037,12 +1116,14 @@
   {
     "quote": "If we did all the things we are capable of, we would literally astound ourselves.",
     "author": "Thomas Edison",
-    "tags": [28]
+    "tags": [28],
+    "hasImage": true
   },
   {
     "quote": "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.",
     "author": "Marcus Aurelius",
-    "tags": [63]
+    "tags": [63],
+    "hasImage": true
   },
   {
     "quote": "If you are feeling helpless, help someone.",
@@ -1062,12 +1143,14 @@
   {
     "quote": "If you let cloudy water settle, it will become clear. If you let your upset mind settle, your course will also become clear.",
     "author": "Buddha",
-    "tags": [165, 201]
+    "tags": [165, 201],
+    "hasImage": true
   },
   {
     "quote": "If you live your life burning for the highest possibility, in that burning itself, there is liberation.",
     "author": "Jaggi Vasudev",
-    "tags": [120]
+    "tags": [120],
+    "hasImage": true
   },
   {
     "quote": "If you look at life one way, there is always cause for alarm.",
@@ -1077,12 +1160,14 @@
   {
     "quote": "If you trust, you will be disappointed occasionally, but if you mistrust, you will be miserable all the time.",
     "author": "Abraham Lincoln",
-    "tags": [125]
+    "tags": [125],
+    "hasImage": true
   },
   {
     "quote": "If you want something you have never had, you must be willing to do something you have never done.",
     "author": "Thomas Jefferson",
-    "tags": [195]
+    "tags": [195],
+    "hasImage": true
   },
   {
     "quote": "If you want to improve your self-worth, stop giving other people the calculator.",
@@ -1107,7 +1192,8 @@
   {
     "quote": "In the depth of winter, I finally learned that within me there lay an invincible summer.",
     "author": "Albert Camus",
-    "tags": [55, 102]
+    "tags": [55, 102],
+    "hasImage": true
   },
   {
     "quote": "In the shelter of each other, people survive.",
@@ -1117,7 +1203,8 @@
   {
     "quote": "In this world nothing can be said to be certain, except death and taxes.",
     "author": "Benjamin Franklin",
-    "tags": [30]
+    "tags": [30],
+    "hasImage": true
   },
   {
     "quote": "Inclusion is not a matter of political correctness. It is the key to growth.",
@@ -1137,7 +1224,8 @@
   {
     "quote": "Invisible threads are the strongest ties.",
     "author": "Friedrich Nietzsche",
-    "tags": [41]
+    "tags": [41],
+    "hasImage": true
   },
   {
     "quote": "Isn't it the moment of most profound doubt that gives birth to new certainties? Perhaps hopelessness is the very soil that nourishes human hope.",
@@ -1147,12 +1235,14 @@
   {
     "quote": "It always seems impossible until it's done.",
     "author": "Nelson Mandela",
-    "tags": [195]
+    "tags": [195],
+    "hasImage": true
   },
   {
     "quote": "It does not matter how slowly you go as long as you do not stop.",
     "author": "Confucius",
-    "tags": [57]
+    "tags": [57],
+    "hasImage": true
   },
   {
     "quote": "It hurts because it mattered.",
@@ -1167,22 +1257,26 @@
   {
     "quote": "It is more shameful to distrust our friends than to be deceived by them.",
     "author": "Confucius",
-    "tags": [64]
+    "tags": [64],
+    "hasImage": true
   },
   {
     "quote": "It is neither wealth nor splendor; but tranquility and occupation which give you happiness.",
     "author": "Thomas Jefferson",
-    "tags": [184, 93]
+    "tags": [184, 93],
+    "hasImage": true
   },
   {
     "quote": "It is never too late to be what you might have been.",
     "author": "George Eliot",
-    "tags": [112]
+    "tags": [112],
+    "hasImage": true
   },
   {
     "quote": "It is not death, it is dying that alarms me.",
     "author": "Michel de Montaigne",
-    "tags": [8]
+    "tags": [8],
+    "hasImage": true
   },
   {
     "quote": "It is not defeat that destroys you, it is being demoralized by defeat that destroys you.",
@@ -1212,12 +1306,14 @@
   {
     "quote": "It's not the load that breaks you down, it's the way you carry it.",
     "author": "Lou Holtz",
-    "tags": [26]
+    "tags": [26],
+    "hasImage": true
   },
   {
     "quote": "It's not the load that breaks you down, it's the way you carry it.",
     "author": "Lou Holtz",
-    "tags": [134]
+    "tags": [134],
+    "hasImage": true
   },
   {
     "quote": "It's not the world that distresses you but how you relate to it.",
@@ -1242,7 +1338,8 @@
   {
     "quote": "Just as your car runs more smoothly and requires less energy to go faster and farther when the wheels are in perfect alignment, you perform better when your thoughts, feelings, emotions, goals, and values are in balance.",
     "author": "Brian Tracy",
-    "tags": [11, 22]
+    "tags": [11, 22],
+    "hasImage": true
   },
   {
     "quote": "Just because you're offended, doesn't mean you're right.",
@@ -1252,22 +1349,26 @@
   {
     "quote": "Keep away from people who try to belittle your ambitions. Small people always do that, but the really great make you feel that you, too, can become great.",
     "author": "Mark Twain",
+    "hasImage": true,
     "tags": [23]
   },
   {
     "quote": "Keep calm and carry on.",
     "author": "Winston Churchill",
-    "tags": [33, 27]
+    "tags": [33, 27],
+    "hasImage": true
   },
   {
     "quote": "Keep your face always toward the sunshine\u2014and shadows will fall behind you.",
     "author": "Walt Whitman",
-    "tags": [25, 138]
+    "tags": [25, 138],
+    "hasImage": true
   },
   {
     "quote": "Know that no one is capable of making you upset without your consent.",
     "author": "Wayne Dyer",
-    "tags": [201]
+    "tags": [201],
+    "hasImage": true
   },
   {
     "quote": "Knowledge is of no value unless you put it into practice.",
@@ -1291,8 +1392,9 @@
   },
   {
     "quote": "Lean into the discomfort of the work.",
-    "author": "Brené Brown",
-    "tags": [188]
+    "author": "Bren\u00e9 Brown",
+    "tags": [188],
+    "hasImage": true
   },
   {
     "quote": "Let the waters settle and you will see the moon and the stars mirrored in your own being.",
@@ -1312,12 +1414,14 @@
   {
     "quote": "Let your soul stand cool and composed before a million universes.",
     "author": "Walt Whitman",
-    "tags": [37]
+    "tags": [37],
+    "hasImage": true
   },
   {
     "quote": "Let's not allow ourselves to be upset by small things we should despise and forget. Remember 'Life is too short to be little'.",
     "author": "Dale Carnegie",
-    "tags": [201]
+    "tags": [201],
+    "hasImage": true
   },
   {
     "quote": "Lethargy is the enemy of the soul.",
@@ -1347,12 +1451,14 @@
   {
     "quote": "Life is fluid, ever evolving. The more dynamic you are, the more happens in your life, all the time.",
     "author": "Jaggi Vasudev",
-    "tags": [69]
+    "tags": [69],
+    "hasImage": true
   },
   {
     "quote": "Life is like riding a bicycle. To keep your balance, you must keep moving.",
     "author": "Albert Einstein",
-    "tags": [22]
+    "tags": [22],
+    "hasImage": true
   },
   {
     "quote": "Life is not a solo act. It's a huge collaboration, and we all need to assemble around us the people who care about us and support us in times of strife.",
@@ -1382,12 +1488,14 @@
   {
     "quote": "Loneliness and the feeling of being unwanted is the most terrible poverty.",
     "author": "Mother Teresa",
-    "tags": [12, 122]
+    "tags": [12, 122],
+    "hasImage": true
   },
   {
     "quote": "Loneliness is caused by an alienation from life. It is a loneliness from your real self.",
     "author": "Maxwell Maltz",
-    "tags": [10, 122]
+    "tags": [10, 122],
+    "hasImage": true
   },
   {
     "quote": "Make up your mind to act decidedly and take the consequences. No good is ever done in this world by hesitation.",
@@ -1397,7 +1505,8 @@
   {
     "quote": "Man maintains his balance, poise, and sense of security only as he is moving forward.",
     "author": "Maxwell Maltz",
-    "tags": [137, 161, 22]
+    "tags": [137, 161, 22],
+    "hasImage": true
   },
   {
     "quote": "Man's inability to communicate is a result of his failure to listen effectively.",
@@ -1422,7 +1531,8 @@
   {
     "quote": "Mistrust those in whom the urge to punish is strong.",
     "author": "Friedrich Nietzsche",
-    "tags": [125]
+    "tags": [125],
+    "hasImage": true
   },
   {
     "quote": "Modern man is frantically trying to earn enough to buy things he's too busy to enjoy.",
@@ -1432,7 +1542,8 @@
   {
     "quote": "Money can't buy happiness, but it can make you awfully comfortable while you're being miserable.",
     "author": "Clare Boothe Luce",
-    "tags": [124]
+    "tags": [124],
+    "hasImage": true
   },
   {
     "quote": "Most of the successful people I've known are the ones who do more listening than talking.",
@@ -1457,7 +1568,8 @@
   {
     "quote": "Nature does not hurry, yet everything is accomplished.",
     "author": "Lao Tzu",
-    "tags": [156, 193]
+    "tags": [156, 193],
+    "hasImage": true
   },
   {
     "quote": "Neglect kills love, not with a weapon but with a silence that drowns all the noise.",
@@ -1467,7 +1579,8 @@
   {
     "quote": "Neglect starts out as an infection then becomes a disease.",
     "author": "Jim Rohn",
-    "tags": [128]
+    "tags": [128],
+    "hasImage": true
   },
   {
     "quote": "Never be bullied into silence. Never allow yourself to be made a victim. Accept no one's definition of your life; define yourself.",
@@ -1482,12 +1595,14 @@
   {
     "quote": "No one can make you feel inferior without your consent.",
     "author": "Eleanor Roosevelt",
-    "tags": [77, 191]
+    "tags": [77, 191],
+    "hasImage": true
   },
   {
     "quote": "No one is useless in this world who lightens the burdens of another.",
     "author": "Charles Dickens",
-    "tags": [179, 26]
+    "tags": [179, 26],
+    "hasImage": true
   },
   {
     "quote": "No person was ever honored for what he received. Honor has been the reward for what he gave.",
@@ -1502,17 +1617,20 @@
   {
     "quote": "Not to feel exasperated, or defeated, or despondent because your days aren't packed with wise and moral actions. But to get back up when you fail, to celebrate behaving like a human - however imperfectly - and fully embrace the pursuit that you've embarked on.",
     "author": "Marcus Aurelius",
-    "tags": [78, 46]
+    "tags": [78, 46],
+    "hasImage": true
   },
   {
     "quote": "Not until we are lost do we begin to understand ourselves.",
     "author": "Henry David Thoreau",
-    "tags": [123]
+    "tags": [123],
+    "hasImage": true
   },
   {
     "quote": "Nothing can bring you peace but yourself.",
     "author": "Ralph Waldo Emerson",
-    "tags": [27, 136]
+    "tags": [27, 136],
+    "hasImage": true
   },
   {
     "quote": "Nothing can refresh a soul like kind words.",
@@ -1527,7 +1645,8 @@
   {
     "quote": "Nothing great was ever achieved without enthusiasm.",
     "author": "Ralph Waldo Emerson",
-    "tags": [76]
+    "tags": [76],
+    "hasImage": true
   },
   {
     "quote": "Now I feel like whatever I do, no one can hurt me. I cannot be violated, I cannot be humiliated, I cannot be disregarded, I cannot be disrespected.",
@@ -1547,7 +1666,8 @@
   {
     "quote": "Once people take ownership over the decision to receive feedback, they're less defensive about it.",
     "author": "Adam Grant",
-    "tags": [47]
+    "tags": [47],
+    "hasImage": true
   },
   {
     "quote": "Once suspicion is aroused, everything feeds it.",
@@ -1567,7 +1687,8 @@
   {
     "quote": "One of the most beautiful qualities of true friendship is to understand and to be understood.",
     "author": "Lucius Annaeus Seneca",
-    "tags": [190]
+    "tags": [190],
+    "hasImage": true
   },
   {
     "quote": "One of the most important things you can do on this earth is to let people know they are not alone.",
@@ -1582,12 +1703,14 @@
   {
     "quote": "Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.",
     "author": "Helen Keller",
-    "tags": [131, 102, 38]
+    "tags": [131, 102, 38],
+    "hasImage": true
   },
   {
     "quote": "Our greatest glory is not in never falling, but in rising every time we fall.",
     "author": "Confucius",
-    "tags": [46]
+    "tags": [46],
+    "hasImage": true
   },
   {
     "quote": "Overcoming abuse doesn't just happen. It takes positive steps every day. Let today be the day you start to move forward.",
@@ -1602,17 +1725,20 @@
   {
     "quote": "Panic is highly contagious, especially in situations when nothing is known and everything is in flux.",
     "author": "Stephen King",
-    "tags": [135]
+    "tags": [135],
+    "hasImage": true
   },
   {
     "quote": "Peace comes from within. Do not seek it without.",
     "author": "Buddha",
-    "tags": [136]
+    "tags": [136],
+    "hasImage": true
   },
   {
     "quote": "Peace is not merely a distant goal that we seek, but a means by which we arrive at that goal.",
     "author": "Martin Luther King Jr.",
-    "tags": [136]
+    "tags": [136],
+    "hasImage": true
   },
   {
     "quote": "People don't notice the things we do for them until we stop doing them.",
@@ -1632,12 +1758,14 @@
   {
     "quote": "People wish to be settled; only as far as they are unsettled is there any hope for them.",
     "author": "Ralph Waldo Emerson",
-    "tags": [197]
+    "tags": [197],
+    "hasImage": true
   },
   {
     "quote": "People, even more than things, have to be restored, renewed, revived, reclaimed, and redeemed; never throw out anyone.",
     "author": "Audrey Hepburn",
-    "tags": [155]
+    "tags": [155],
+    "hasImage": true
   },
   {
     "quote": "Perfectionism is the unparalleled defense for emotionally abandoned children.",
@@ -1652,7 +1780,8 @@
   {
     "quote": "Permanence, perseverance and persistence in spite of all obstacles, discouragements and impossibilities: It is this that in all things distinguishes the strong soul from the weak.",
     "author": "Thomas Carlyle",
-    "tags": [177]
+    "tags": [177],
+    "hasImage": true
   },
   {
     "quote": "Perseverance is not a long race; it is many short races one after the other.",
@@ -1677,7 +1806,8 @@
   {
     "quote": "Power is not given to you. You have to take it.",
     "author": "Beyonc\u00e9 Knowles",
-    "tags": [139]
+    "tags": [139],
+    "hasImage": true
   },
   {
     "quote": "Pressure can either burst a pipe or make a diamond.",
@@ -1697,12 +1827,14 @@
   {
     "quote": "Rather fail with honor than succeed by fraud.",
     "author": "Sophocles",
-    "tags": [101]
+    "tags": [101],
+    "hasImage": true
   },
   {
     "quote": "Rather than arriving five hours late and flustered, it would be better all around if he were to arrive five hours and a few extra minutes late, but triumphantly in command.",
     "author": "Douglas Adams",
-    "tags": [85]
+    "tags": [85],
+    "hasImage": true
   },
   {
     "quote": "Reality is on a delay. For you, nothing is now. Realizing this fact is unsettling.",
@@ -1712,7 +1844,8 @@
   {
     "quote": "Realize that everything connects to everything else.",
     "author": "Leonardo da Vinci",
-    "tags": [41]
+    "tags": [41],
+    "hasImage": true
   },
   {
     "quote": "Recognition is not a scarce resource. You can't use it up or run out of it.",
@@ -1742,7 +1875,8 @@
   {
     "quote": "Respect yourself and others will respect you.",
     "author": "Confucius",
-    "tags": [151]
+    "tags": [151],
+    "hasImage": true
   },
   {
     "quote": "Rest and self-care are so important. When you take time to replenish your spirit, it allows you to serve others from the overflow. You cannot serve from an empty vessel.",
@@ -1752,7 +1886,8 @@
   {
     "quote": "Rest is not idleness, and to lie sometimes on the grass under trees on a summer's day, listening to the murmur of water, or watching the clouds float across the sky, is by no means a waste of time.",
     "author": "John Lubbock",
-    "tags": [152]
+    "tags": [152],
+    "hasImage": true
   },
   {
     "quote": "Rest when you're weary. Refresh and renew yourself, your body, your mind, your spirit. Then get back to work.",
@@ -1762,7 +1897,8 @@
   {
     "quote": "Restlessness and discontent are the first necessities of progress.",
     "author": "Thomas Edison",
-    "tags": [153]
+    "tags": [153],
+    "hasImage": true
   },
   {
     "quote": "Rule number one is, don't sweat the small stuff. Rule number two is, it's all small stuff.",
@@ -1777,7 +1913,8 @@
   {
     "quote": "Satisfaction lies in the effort, not in the attainment, full effort is full victory.",
     "author": "Mahatma Gandhi",
-    "tags": [159]
+    "tags": [159],
+    "hasImage": true
   },
   {
     "quote": "Science is the organized skepticism in the reliability of expert opinion.",
@@ -1787,7 +1924,8 @@
   {
     "quote": "Seek first to understand, then to be understood.",
     "author": "Stephen Covey",
-    "tags": [190]
+    "tags": [190],
+    "hasImage": true
   },
   {
     "quote": "Self-care is how you take your power back.",
@@ -1812,7 +1950,8 @@
   {
     "quote": "Simplicity is the ultimate sophistication.",
     "author": "Leonardo da Vinci",
-    "tags": [132]
+    "tags": [132],
+    "hasImage": true
   },
   {
     "quote": "Skepticism is the first step toward truth.",
@@ -1847,7 +1986,8 @@
   {
     "quote": "Sometimes the greatest support comes from within.",
     "author": "Albert Einstein",
-    "tags": [198]
+    "tags": [198],
+    "hasImage": true
   },
   {
     "quote": "Sometimes the hardest pieces of a puzzle to assemble are the ones missing from the box.",
@@ -1902,7 +2042,8 @@
   {
     "quote": "Stay open-minded; the world is weirder than any of us can think.",
     "author": "Neil Gaiman",
-    "tags": [130]
+    "tags": [130],
+    "hasImage": true
   },
   {
     "quote": "Strange, how being left out of a secret always feels like a betrayal of trust.",
@@ -1912,12 +2053,14 @@
   {
     "quote": "Strength does not come from physical capacity. It comes from an indomitable will.",
     "author": "Mahatma Gandhi",
-    "tags": [177, 72]
+    "tags": [177, 72],
+    "hasImage": true
   },
   {
     "quote": "Stress is caused by being 'here' but wanting to be 'there.'",
     "author": "Eckhart Tolle",
-    "tags": [176]
+    "tags": [176],
+    "hasImage": true
   },
   {
     "quote": "Striving for excellence motivates you; striving for perfection is demoralizing.",
@@ -1932,12 +2075,14 @@
   {
     "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
     "author": "Winston Churchill",
-    "tags": [51, 57, 127]
+    "tags": [51, 57, 127],
+    "hasImage": true
   },
   {
     "quote": "Success is steady progress toward one's personal goals.",
     "author": "Jim Rohn",
-    "tags": [172]
+    "tags": [172],
+    "hasImage": true
   },
   {
     "quote": "Success is the sum of small efforts, repeated day in and day out.",
@@ -1947,12 +2092,14 @@
   {
     "quote": "Success without fulfillment is the ultimate failure.",
     "author": "Tony Robbins",
-    "tags": [90]
+    "tags": [90],
+    "hasImage": true
   },
   {
     "quote": "Surround yourself with only people who are going to lift you higher.",
     "author": "Oprah Winfrey",
-    "tags": [178, 200]
+    "tags": [178, 200],
+    "hasImage": true
   },
   {
     "quote": "Surround yourself with positive people who will support you when it rains, not just when it shines.",
@@ -1962,17 +2109,20 @@
   {
     "quote": "Suspicion often creates what it suspects.",
     "author": "C.S. Lewis",
-    "tags": [180]
+    "tags": [180],
+    "hasImage": true
   },
   {
     "quote": "Take care of your body. It's the only place you have to live.",
     "author": "Jim Rohn",
-    "tags": [95]
+    "tags": [95],
+    "hasImage": true
   },
   {
     "quote": "Take rest; a field that has rested gives a bountiful crop.",
     "author": "Ovid",
-    "tags": [152]
+    "tags": [152],
+    "hasImage": true
   },
   {
     "quote": "Take the world nice and easy, and the world will take you the same.",
@@ -1982,7 +2132,8 @@
   {
     "quote": "Take time for all things: great haste makes great waste.",
     "author": "Benjamin Franklin",
-    "tags": [156]
+    "tags": [156],
+    "hasImage": true
   },
   {
     "quote": "Taking care is one way to show your love. Another way is letting people take good care of you when you need it.",
@@ -1992,12 +2143,14 @@
   {
     "quote": "Tears are words that need to be written.",
     "author": "Paulo Coelho",
-    "tags": [157]
+    "tags": [157],
+    "hasImage": true
   },
   {
     "quote": "Tension is a habit. Relaxing is a habit. Bad habits can be broken, good habits formed.",
     "author": "William James",
-    "tags": [181]
+    "tags": [181],
+    "hasImage": true
   },
   {
     "quote": "Tension is who you think you should be. Relaxation is who you are.",
@@ -2022,17 +2175,20 @@
   {
     "quote": "The beauty of truth: whether it is bad or good, it is liberating.",
     "author": "Paulo Coelho",
-    "tags": [120]
+    "tags": [120],
+    "hasImage": true
   },
   {
     "quote": "The best way to find out if you can trust somebody is to trust them.",
     "author": "Ernest Hemingway",
-    "tags": [185]
+    "tags": [185],
+    "hasImage": true
   },
   {
     "quote": "The best way to find yourself is to lose yourself in the service of others.",
     "author": "Mahatma Gandhi",
-    "tags": [98, 179]
+    "tags": [98, 179],
+    "hasImage": true
   },
   {
     "quote": "The best way to gain self-confidence is to do what you are afraid to do.",
@@ -2042,7 +2198,8 @@
   {
     "quote": "The best way to predict the future is to create it.",
     "author": "Abraham Lincoln",
-    "tags": [127]
+    "tags": [127],
+    "hasImage": true
   },
   {
     "quote": "The bitter truth is that the world doesn't notice much of what we do until we stop doing it.",
@@ -2052,7 +2209,8 @@
   {
     "quote": "The burden which is well borne becomes light.",
     "author": "Ovid",
-    "tags": [26]
+    "tags": [26],
+    "hasImage": true
   },
   {
     "quote": "The closest thing to being cared for is to care for someone else.",
@@ -2062,7 +2220,8 @@
   {
     "quote": "The deepest desire of the human spirit is to be acknowledged.",
     "author": "Stephen Covey",
-    "tags": [5]
+    "tags": [5],
+    "hasImage": true
   },
   {
     "quote": "The difference between try and triumph is just a little umph!",
@@ -2082,12 +2241,14 @@
   {
     "quote": "The future belongs to those who believe in the beauty of their dreams.",
     "author": "Eleanor Roosevelt",
-    "tags": [72]
+    "tags": [72],
+    "hasImage": true
   },
   {
     "quote": "The future depends on what you do today.",
     "author": "Mahatma Gandhi",
-    "tags": [174]
+    "tags": [174],
+    "hasImage": true
   },
   {
     "quote": "The future is uncertain, but this uncertainty is at the very heart of human creativity.",
@@ -2097,12 +2258,14 @@
   {
     "quote": "The good life is one inspired by love and guided by knowledge.",
     "author": "Bertrand Russell",
-    "tags": [92, 118]
+    "tags": [92, 118],
+    "hasImage": true
   },
   {
     "quote": "The great thing, then, in all education, is to make our nervous system our ally instead of our enemy.",
     "author": "William James",
-    "tags": [116]
+    "tags": [116],
+    "hasImage": true
   },
   {
     "quote": "The greater the feeling of inferiority that has been experienced, the more powerful is the urge for conquest and the more violent the emotional agitation.",
@@ -2112,7 +2275,8 @@
   {
     "quote": "The greater the tension, the greater is the potential.",
     "author": "Carl Jung",
-    "tags": [181]
+    "tags": [181],
+    "hasImage": true
   },
   {
     "quote": "The greatest humiliation in life is to work hard on something from which you expect great appreciation, and then fail to get it.",
@@ -2127,7 +2291,8 @@
   {
     "quote": "The greatest thing in the world is to know how to belong to oneself.",
     "author": "Michel de Montaigne",
-    "tags": [12, 161, 115, 163]
+    "tags": [12, 161, 115, 163],
+    "hasImage": true
   },
   {
     "quote": "The greatest wealth is to live content with little.",
@@ -2137,7 +2302,8 @@
   {
     "quote": "The greatest weapon against stress is our ability to choose one thought over another.",
     "author": "William James",
-    "tags": [175, 181, 176]
+    "tags": [175, 181, 176],
+    "hasImage": true
   },
   {
     "quote": "The human spirit fails, except when the will is strong. The will is strong, except when the body is tired.",
@@ -2152,17 +2318,20 @@
   {
     "quote": "The key is not to prioritize what's on your schedule, but to schedule your priorities.",
     "author": "Stephen Covey",
-    "tags": [175]
+    "tags": [175],
+    "hasImage": true
   },
   {
     "quote": "The key is to keep company only with people who uplift you, whose presence calls forth your best.",
     "author": "Epictetus",
-    "tags": [200]
+    "tags": [200],
+    "hasImage": true
   },
   {
     "quote": "The key to success is emotional stability.",
     "author": "Warren Buffett",
-    "tags": [171]
+    "tags": [171],
+    "hasImage": true
   },
   {
     "quote": "The key to winning is poise under stress.",
@@ -2217,7 +2386,8 @@
   {
     "quote": "The moment there is suspicion about a person's motives, everything he does becomes tainted.",
     "author": "Mahatma Gandhi",
-    "tags": [180]
+    "tags": [180],
+    "hasImage": true
   },
   {
     "quote": "The more you seek the uncomfortable, the more you will become comfortable.",
@@ -2252,22 +2422,26 @@
   {
     "quote": "The most profound isolation is the realization that no one keeps you in mind.",
     "author": "F. Scott Fitzgerald",
-    "tags": [133]
+    "tags": [133],
+    "hasImage": true
   },
   {
     "quote": "The nearer a man comes to a calm mind, the closer he is to strength.",
     "author": "Marcus Aurelius",
-    "tags": [27]
+    "tags": [27],
+    "hasImage": true
   },
   {
     "quote": "The only certainty is that nothing is certain.",
     "author": "Pliny the Elder",
-    "tags": [30]
+    "tags": [30],
+    "hasImage": true
   },
   {
     "quote": "The only limit to our realization of tomorrow is our doubts of today.",
     "author": "Franklin D. Roosevelt",
-    "tags": [65, 51]
+    "tags": [65, 51],
+    "hasImage": true
   },
   {
     "quote": "The only permission, the only validation, and the only opinion that matters in our quest for greatness is our own.",
@@ -2277,7 +2451,8 @@
   {
     "quote": "The only person you are destined to become is the person you decide to be.",
     "author": "Ralph Waldo Emerson",
-    "tags": [127]
+    "tags": [127],
+    "hasImage": true
   },
   {
     "quote": "The only place where success comes before work is in the dictionary.",
@@ -2287,17 +2462,20 @@
   {
     "quote": "The only real security that a man will have in this world is a reserve of knowledge, experience, and ability.",
     "author": "Henry Ford",
-    "tags": [161]
+    "tags": [161],
+    "hasImage": true
   },
   {
     "quote": "The only thing constant in life is change.",
-    "author": "François de La Rochefoucauld",
-    "tags": [69]
+    "author": "Fran\u00e7ois de La Rochefoucauld",
+    "tags": [69],
+    "hasImage": true
   },
   {
     "quote": "The only thing we have to fear is fear itself.",
     "author": "Franklin D. Roosevelt",
-    "tags": [182, 83]
+    "tags": [182, 83],
+    "hasImage": true
   },
   {
     "quote": "The only time you are actually growing is when you are uncomfortable.",
@@ -2307,7 +2485,8 @@
   {
     "quote": "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.",
     "author": "Albert Camus",
-    "tags": [173, 88]
+    "tags": [173, 88],
+    "hasImage": true
   },
   {
     "quote": "The only way to do great work is to love what you do.",
@@ -2322,7 +2501,8 @@
   {
     "quote": "The pain of yesterday is the strength of today.",
     "author": "Paulo Coelho",
-    "tags": [105, 177]
+    "tags": [105, 177],
+    "hasImage": true
   },
   {
     "quote": "The path of sound credence is through the thick forest of skepticism.",
@@ -2332,12 +2512,14 @@
   {
     "quote": "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
     "author": "Winston Churchill",
-    "tags": [131]
+    "tags": [131],
+    "hasImage": true
   },
   {
     "quote": "The present moment is filled with joy and happiness. If you are attentive, you will see it.",
     "author": "Thich Nhat Hanh",
-    "tags": [117, 93]
+    "tags": [117, 93],
+    "hasImage": true
   },
   {
     "quote": "The purpose of life is a life of purpose.",
@@ -2347,7 +2529,8 @@
   {
     "quote": "The real difficulty is to overcome how you think about yourself.",
     "author": "Maya Angelou",
-    "tags": [111]
+    "tags": [111],
+    "hasImage": true
   },
   {
     "quote": "The risk of a wrong decision is preferable to the terror of indecision.",
@@ -2357,7 +2540,8 @@
   {
     "quote": "The roots of all goodness lie in the soil of appreciation for goodness.",
     "author": "Dalai Lama",
-    "tags": [16]
+    "tags": [16],
+    "hasImage": true
   },
   {
     "quote": "The saddest thing about betrayal is that it never comes from your enemies.",
@@ -2367,11 +2551,13 @@
   {
     "quote": "The secret of getting ahead is getting started. The secret of getting started is breaking your overwhelming tasks into small manageable tasks, and then starting on the first one.",
     "author": "Mark Twain",
+    "hasImage": true,
     "tags": [134, 70]
   },
   {
     "quote": "The sense of death is most in apprehension.",
     "author": "William Shakespeare",
+    "hasImage": true,
     "tags": [18]
   },
   {
@@ -2382,12 +2568,14 @@
   {
     "quote": "The struggle of my life created empathy\u2014I could relate to pain, being abandoned, having people not love me.",
     "author": "Oprah Winfrey",
-    "tags": [1]
+    "tags": [1],
+    "hasImage": true
   },
   {
     "quote": "The successful warrior is the average man, with laser-like focus.",
     "author": "Bruce Lee",
-    "tags": [86]
+    "tags": [86],
+    "hasImage": true
   },
   {
     "quote": "The sudden awakening of the samurai to his own agitated state illustrates the crucial difference between being caught up in a feeling and becoming aware that you are being swept away by it.",
@@ -2397,7 +2585,8 @@
   {
     "quote": "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on.",
     "author": "Charles Dickens",
-    "tags": [25, 177]
+    "tags": [25, 177],
+    "hasImage": true
   },
   {
     "quote": "The task we must set for ourselves is not to feel secure, but to be able to tolerate insecurity.",
@@ -2407,7 +2596,8 @@
   {
     "quote": "The test of a first-rate intelligence is the ability to hold two opposed ideas in mind at the same time and still retain the ability to function.",
     "author": "F. Scott Fitzgerald",
-    "tags": [39]
+    "tags": [39],
+    "hasImage": true
   },
   {
     "quote": "The time to relax is when you don't have time for it.",
@@ -2437,7 +2627,8 @@
   {
     "quote": "The Universe, as has been observed before, is an unsettlingly big place, a fact which for the sake of a quiet life most people tend to ignore.",
     "author": "Douglas Adams",
-    "tags": [197]
+    "tags": [197],
+    "hasImage": true
   },
   {
     "quote": "The way to develop self-confidence is to do the thing you fear.",
@@ -2447,17 +2638,20 @@
   {
     "quote": "The word 'happy' would lose its meaning if it were not balanced by sadness.",
     "author": "Carl Jung",
-    "tags": [157]
+    "tags": [157],
+    "hasImage": true
   },
   {
     "quote": "The world belongs to the energetic.",
     "author": "Ralph Waldo Emerson",
-    "tags": [74]
+    "tags": [74],
+    "hasImage": true
   },
   {
     "quote": "The world breaks everyone, and afterward, some are strong at the broken places.",
     "author": "Ernest Hemingway",
-    "tags": [177]
+    "tags": [177],
+    "hasImage": true
   },
   {
     "quote": "The world can only seem a safe place when we feel safe inside.",
@@ -2467,7 +2661,8 @@
   {
     "quote": "The world is full of interesting things to do. Don't lead a dull life in such a thrilling world.",
     "author": "Dale Carnegie",
-    "tags": [68]
+    "tags": [68],
+    "hasImage": true
   },
   {
     "quote": "The world will never value you more than you value yourself.",
@@ -2482,17 +2677,20 @@
   {
     "quote": "There are more things to alarm us than to harm us, and we suffer more often in apprehension than reality.",
     "author": "Lucius Annaeus Seneca",
-    "tags": [8, 18]
+    "tags": [8, 18],
+    "hasImage": true
   },
   {
     "quote": "There are no hopeless situations; there are only men who have grown hopeless about them.",
     "author": "Clare Boothe Luce",
-    "tags": [103]
+    "tags": [103],
+    "hasImage": true
   },
   {
     "quote": "There is more hunger for love and appreciation in this world than for bread.",
     "author": "Mother Teresa",
-    "tags": [5, 16]
+    "tags": [5, 16],
+    "hasImage": true
   },
   {
     "quote": "There is no greater sorrow than to recall happiness in times of misery.",
@@ -2527,7 +2725,8 @@
   {
     "quote": "To be beautiful means to be yourself. You don't need to be accepted by others. You need to accept yourself.",
     "author": "Thich Nhat Hanh",
-    "tags": [3]
+    "tags": [3],
+    "hasImage": true
   },
   {
     "quote": "To be calm is the highest achievement of the self.",
@@ -2537,7 +2736,8 @@
   {
     "quote": "To be great is to be misunderstood.",
     "author": "Ralph Waldo Emerson",
-    "tags": [126]
+    "tags": [126],
+    "hasImage": true
   },
   {
     "quote": "To be human and to be adult means constantly to be in the grip of opposing emotions, to have daily to reconcile apparently conflicting tensions.",
@@ -2547,12 +2747,14 @@
   {
     "quote": "To be loved means to be recognized as existing.",
     "author": "Thich Nhat Hanh",
-    "tags": [162, 146]
+    "tags": [162, 146],
+    "hasImage": true
   },
   {
     "quote": "To belittle, you have to be little.",
     "author": "Khalil Gibran",
-    "tags": [23]
+    "tags": [23],
+    "hasImage": true
   },
   {
     "quote": "To define is to limit.",
@@ -2582,7 +2784,8 @@
   {
     "quote": "To walk safely through the maze of human life, one needs the light of wisdom and the guidance of virtue.",
     "author": "Buddha",
-    "tags": [92]
+    "tags": [92],
+    "hasImage": true
   },
   {
     "quote": "Too many rules stifle innovation.",
@@ -2592,12 +2795,14 @@
   {
     "quote": "Too many vacations that last too long, too many movies, too much TV, too much video game playing\u2014too much undisciplined leisure time in which a person continually takes the course of least resistance gradually wastes a life.",
     "author": "Stephen Covey",
-    "tags": [119]
+    "tags": [119],
+    "hasImage": true
   },
   {
     "quote": "Toxic workplaces destroy people's confidence and creativity. It's not just about bad bosses; it's about broken systems.",
     "author": "Adam Grant",
-    "tags": [189]
+    "tags": [189],
+    "hasImage": true
   },
   {
     "quote": "True inspiration overrides all fears. When you are inspired, you enter a trance state and can accomplish things that you may never have felt capable of doing.",
@@ -2612,12 +2817,14 @@
   {
     "quote": "Trust dies but mistrust blossoms.",
     "author": "Sophocles",
-    "tags": [125]
+    "tags": [125],
+    "hasImage": true
   },
   {
     "quote": "Trust, but verify.",
     "author": "Ronald Reagan",
-    "tags": [185]
+    "tags": [185],
+    "hasImage": true
   },
   {
     "quote": "Truth is everybody is going to hurt you: you just gotta find the ones worth suffering for.",
@@ -2632,7 +2839,8 @@
   {
     "quote": "Turn your wounds into wisdom.",
     "author": "Oprah Winfrey",
-    "tags": [105]
+    "tags": [105],
+    "hasImage": true
   },
   {
     "quote": "Uncertainty is a very good thing: it's the beginning of an investigation, and the investigation should never end.",
@@ -2642,22 +2850,26 @@
   {
     "quote": "Understanding that the world is indifferent to our fate is the first step to controlling our own destiny.",
     "author": "Neil Gaiman",
-    "tags": [133]
+    "tags": [133],
+    "hasImage": true
   },
   {
     "quote": "Uneasy lies the head that wears a crown.",
     "author": "William Shakespeare",
+    "hasImage": true,
     "tags": [192]
   },
   {
     "quote": "Unity to be real must stand the severest strain without breaking.",
     "author": "Mahatma Gandhi",
-    "tags": [194]
+    "tags": [194],
+    "hasImage": true
   },
   {
     "quote": "Vulnerability sounds like truth and feels like courage. Truth and courage aren't always comfortable, but they're never weakness.",
-    "author": "Brené Brown",
-    "tags": [205]
+    "author": "Bren\u00e9 Brown",
+    "tags": [205],
+    "hasImage": true
   },
   {
     "quote": "We are all capable of infinitely more than we believe.",
@@ -2682,7 +2894,8 @@
   {
     "quote": "We are like islands in the sea, separate on the surface but connected in the deep.",
     "author": "William James",
-    "tags": [41]
+    "tags": [41],
+    "hasImage": true
   },
   {
     "quote": "We are not here to fix, change or belittle another person. We are here to support, forgive and heal one another.",
@@ -2692,7 +2905,8 @@
   {
     "quote": "We can't help everyone, but everyone can help someone.",
     "author": "Ronald Reagan",
-    "tags": [179]
+    "tags": [179],
+    "hasImage": true
   },
   {
     "quote": "We don't get harmony when everybody sings the same note.",
@@ -2707,7 +2921,8 @@
   {
     "quote": "We must accept finite disappointment, but never lose infinite hope.",
     "author": "Martin Luther King Jr.",
-    "tags": [56, 102]
+    "tags": [56, 102],
+    "hasImage": true
   },
   {
     "quote": "We must always change, renew, rejuvenate ourselves; otherwise, we harden.",
@@ -2737,12 +2952,14 @@
   {
     "quote": "We're so engaged in doing things to achieve purposes of outer value that we forget the inner value.",
     "author": "Joseph Campbell",
-    "tags": [75, 191]
+    "tags": [75, 191],
+    "hasImage": true
   },
   {
     "quote": "What a liberation to realize that the 'voice in my head' is not who I am. 'Who am I, then?' The one who sees that.",
     "author": "Eckhart Tolle",
-    "tags": [120]
+    "tags": [120],
+    "hasImage": true
   },
   {
     "quote": "What can I say? I prefer to die well informed.",
@@ -2751,8 +2968,9 @@
   },
   {
     "quote": "What if rather than being disheartened by the ambiguity, the uncertainty of life, we accepted it and relaxed into it?",
-    "author": "Pema Chödrön",
-    "tags": [58, 187]
+    "author": "Pema Ch\u00f6dr\u00f6n",
+    "tags": [58, 187],
+    "hasImage": true
   },
   {
     "quote": "What screws us up most in life is the picture in our head of how it's supposed to be.",
@@ -2797,12 +3015,14 @@
   {
     "quote": "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.",
     "author": "Henry Ford",
-    "tags": [73]
+    "tags": [73],
+    "hasImage": true
   },
   {
     "quote": "When I despair, I remember that all through history the way of truth and love have always won.",
     "author": "Mahatma Gandhi",
-    "tags": [66]
+    "tags": [66],
+    "hasImage": true
   },
   {
     "quote": "When I'm fidgety, and I just feel like everything is closing in, I go to the gym. You're building endorphins and feeling good about yourself. It's saved me.",
@@ -2832,7 +3052,8 @@
   {
     "quote": "When someone disrespects you, beware the impulse to win their respect. For disrespect is not a valuation of your worth but a signal of their character.",
     "author": "Brendon Burchard",
-    "tags": [61]
+    "tags": [61],
+    "hasImage": true
   },
   {
     "quote": "When the mind and body are in harmony, the mind works better.",
@@ -2861,13 +3082,15 @@
   },
   {
     "quote": "When we are unable to find tranquility within ourselves, it is useless to seek it elsewhere.",
-    "author": "François de La Rochefoucauld",
-    "tags": [184]
+    "author": "Fran\u00e7ois de La Rochefoucauld",
+    "tags": [184],
+    "hasImage": true
   },
   {
     "quote": "When we feel seen and heard by others, it creates a sense of belonging and connection.",
-    "author": "Brené Brown",
-    "tags": [162, 96]
+    "author": "Bren\u00e9 Brown",
+    "tags": [162, 96],
+    "hasImage": true
   },
   {
     "quote": "When we focus on our gratitude, the tide of disappointment goes out and the tide of love rushes in.",
@@ -2892,12 +3115,14 @@
   {
     "quote": "When you come to a fork in the road, take it.",
     "author": "Yogi Berra",
-    "tags": [183]
+    "tags": [183],
+    "hasImage": true
   },
   {
     "quote": "When you come to the end of your rope, tie a knot and hang on.",
     "author": "Franklin D. Roosevelt",
-    "tags": [55]
+    "tags": [55],
+    "hasImage": true
   },
   {
     "quote": "When you feel like giving up, remember why you held on for so long in the first place.",
@@ -2917,7 +3142,8 @@
   {
     "quote": "When you undervalue what you do, the world will undervalue who you are.",
     "author": "Oprah Winfrey",
-    "tags": [77, 191]
+    "tags": [77, 191],
+    "hasImage": true
   },
   {
     "quote": "When you're comfortable in your own skin, you can be at peace anywhere.",
@@ -2927,7 +3153,8 @@
   {
     "quote": "When your thoughts, words, and actions are in alignment, you can manifest anything you desire.",
     "author": "Wayne Dyer",
-    "tags": [11]
+    "tags": [11],
+    "hasImage": true
   },
   {
     "quote": "Whenever anyone has offended me, I try to raise my soul so high that the offense cannot reach it.",
@@ -2937,7 +3164,8 @@
   {
     "quote": "Where focus goes, energy flows.",
     "author": "Tony Robbins",
-    "tags": [86]
+    "tags": [86],
+    "hasImage": true
   },
   {
     "quote": "Where there is unity, there is always victory.",
@@ -2957,7 +3185,8 @@
   {
     "quote": "With realization of one's own potential and self-confidence in one's ability, one can build a better world.",
     "author": "Dalai Lama",
-    "tags": [163, 38]
+    "tags": [163, 38],
+    "hasImage": true
   },
   {
     "quote": "Worry never robs tomorrow of its sorrow, it only saps today of its joy.",
@@ -2977,7 +3206,8 @@
   {
     "quote": "You are never too old to set another goal or to dream a new dream.",
     "author": "C.S. Lewis",
-    "tags": [73, 199]
+    "tags": [73, 199],
+    "hasImage": true
   },
   {
     "quote": "You are not entitled to your opinion. You are entitled to your informed opinion. No one is entitled to be ignorant.",
@@ -2992,7 +3222,8 @@
   {
     "quote": "You can, you should, and if you're brave enough to start, you will.",
     "author": "Stephen King",
-    "tags": [72, 127]
+    "tags": [72, 127],
+    "hasImage": true
   },
   {
     "quote": "You can't have a million-dollar dream with a minimum-wage work ethic.",
@@ -3007,7 +3238,8 @@
   {
     "quote": "You cannot perceive beauty but with a serene mind.",
     "author": "Henry David Thoreau",
-    "tags": [164]
+    "tags": [164],
+    "hasImage": true
   },
   {
     "quote": "You cannot teach a man anything; you can only help him find it within himself.",
@@ -3017,12 +3249,14 @@
   {
     "quote": "You don't have to see the whole staircase, just take the first step.",
     "author": "Martin Luther King Jr.",
-    "tags": [134]
+    "tags": [134],
+    "hasImage": true
   },
   {
     "quote": "You gain strength, courage, and confidence by every experience in which you really stop to look fear in the face.",
     "author": "Eleanor Roosevelt",
-    "tags": [182, 83]
+    "tags": [182, 83],
+    "hasImage": true
   },
   {
     "quote": "You have to put up with the risk of being misunderstood if you are going to try to communicate.",
@@ -3032,7 +3266,8 @@
   {
     "quote": "You may encounter many defeats, but you must not be defeated. In fact, it may be necessary to encounter the defeats, so you can know who you are, what you can rise from, how you can still come out of it.",
     "author": "Maya Angelou",
-    "tags": [46]
+    "tags": [46],
+    "hasImage": true
   },
   {
     "quote": "You must not be discouraged or let yourself become dejected if your actions have not succeeded as perfectly as you intended. What do you expect? We are made of clay and not every soil yields the fruits expected by the one who tills it.",
@@ -3062,11 +3297,13 @@
   {
     "quote": "Your purpose in life is to find your purpose and give your whole heart and soul to it.",
     "author": "Buddha",
-    "tags": [143]
+    "tags": [143],
+    "hasImage": true
   },
   {
     "quote": "Your silence will not protect you.",
     "author": "Audre Lorde",
-    "tags": [173, 167]
+    "tags": [173, 167],
+    "hasImage": true
   }
 ]

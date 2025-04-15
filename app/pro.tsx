@@ -170,7 +170,8 @@ export default function Pro() {
             ]}
             allowFontScaling={false}
           >
-            {"Supercharge your emotional intelligence and\nunlock your best self at work."}
+            Boost emotional intelligence and unlock your best self at work with{" "}
+            <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai Pro</Text>.
           </Text>
         </View>
 

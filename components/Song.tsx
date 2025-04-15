@@ -33,95 +33,6 @@ export default function Song(props: SongProps) {
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const url = "https://www.mood.ai/img/music/";
 
-  const images = {
-    KeepYourHeadUp: "keep-your-head-up.jpg",
-    WakeMeUp: "wake-me-up.jpg",
-    Happy: "happy.jpg",
-    DontBeSoHardOnYourself: "dont-be-so-hard-on-yourself.jpg",
-    DontStopBelievin: "dont-stop-believin.jpg",
-    HeroeswecouldbeftToveLo: "heroes-we-could-be-ft-tove-lo.jpg",
-    Roar: "roar.jpg",
-    ShakeItOff: "shake-it-off.jpg",
-    BeOK: "be-ok.jpg",
-    RainOnMe: "rain-on-me.jpg",
-    BestDayOfMyLife: "best-day-of-my-life.jpg",
-    CANTSTOPTHEFEELING: "cant-stop-the-feeling.jpg",
-    GoodasHell: "good-as-hell.jpg",
-    Brave: "brave.jpg",
-    FightSong: "fight-song.jpg",
-    FkinPerfect: "fkin-perfect.jpg",
-    Say: "say.jpg",
-    ShakeItOut: "shake-it-out.jpg",
-    ILived: "i-lived.jpg",
-    TheClimb: "the-climb.jpg",
-    SomewhereOnlyWeKnow: "somewhere-only-we-know.jpg",
-    burninggold: "burning-gold.jpg",
-    OneStepAtaTime: "one-step-at-a-time.jpg",
-    FlyfeatRihanna: "fly-feat-rihanna.jpg",
-    Things: "3-things.jpg",
-    IAmLight: "i-am-light.jpg",
-    JusttheWayYouAre: "just-the-way-you-are.jpg",
-    LivingintheMoment: "living-in-the-moment.jpg",
-    WhatAWonderfulWorld: "what-a-wonderful-world.jpg",
-    CountonMe: "count-on-me.jpg",
-    MyWay: "my-way.jpg",
-    OneCallAway: "one-call-away.jpg",
-    AtTheRiver: "at-the-river.jpg",
-    Golden: "golden.jpg",
-    Easy: "easy.jpg",
-    Feeling: "feeling.jpg",
-    Beautiful: "beautiful.jpg",
-    TrueColors: "true-colors.jpg",
-    Try: "try.jpg",
-    human: "human.jpg",
-    Breathe2AM: "breathe-2-am.jpg",
-    RiseUp: "rise-up.jpg",
-    Angel: "angel.jpg",
-    FixYou: "fix-you.jpg",
-    Hands: "hands.jpg",
-    WhoYouAre: "who-you-are.jpg",
-    MadWorld: "mad-world.jpg",
-    AndSoItGoes: "and-so-it-goes.jpg",
-    WhatWasIMadeFor: "what-was-i-made-for.jpg",
-    colorblind: "colorblind.jpg",
-    Everglow: "everglow.jpg",
-    Landslide: "landslide.jpg",
-    SoI: "so-i.jpg",
-    breathin: "breathin.jpg",
-    Unwell: "unwell.jpg",
-    Years: "7-years.jpg",
-    Demons: "demons.jpg",
-    Rise: "rise.jpg",
-    Skyscraper: "skyscraper.jpg",
-    BadDay: "bad-day.jpg",
-    BoulevardofBrokenDreams: "boulevard-of-broken-dreams.jpg",
-    DarkSide: "dark-side.jpg",
-    EverybodyHurts: "everybody-hurts.jpg",
-    KingofAnything: "king-of-anything.jpg",
-    NoMoreDrama: "no-more-drama.jpg",
-    ScarsToYourBeautiful: "scars-to-your-beautiful.jpg",
-    StressedOut: "stressed-out.jpg",
-    Unsteady: "unsteady.jpg",
-    BehindBlueEyes: "behind-blue-eyes.jpg",
-    BreatheMe: "breathe-me.jpg",
-    IntheEnd: "in-the-end.jpg",
-    OKAnxietyAnthem: "ok-anxiety-anthem.jpg",
-    Numb: "numb.jpg",
-    HallofFamefeatwilliam: "hall-of-fame-feat-william.jpg",
-    NotAfraid: "not-afraid.jpg",
-    Superheroes: "superheroes.jpg",
-    TitaniumfeatSia: "titanium-feat-sia.jpg",
-    Confident: "confident.jpg",
-    EyeoftheTiger: "eye-of-the-tiger.jpg",
-    Radioactive: "radioactive.jpg",
-    Ride: "ride.jpg",
-    MyShot: "my-shot.jpg",
-    BreakingtheHabit: "breaking-the-habit.jpg",
-    Survivor: "survivor.jpg",
-    OneStepCloser: "one-step-closer.jpg",
-    BREAKMYSOUL: "break-my-soul.jpg",
-  };
-
   useEffect(() => {
     let color;
 
@@ -196,21 +107,16 @@ export default function Song(props: SongProps) {
       <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 20 : 12 }}>
         <Image
           source={{
-            uri:
-              url +
-              images[
-                song?.title
-                  .replace(/ /g, "")
-                  .replace(/\./g, "")
-                  .replace(/\'/g, "")
-                  .replace(/\(/g, "")
-                  .replace(/\)/g, "")
-                  .replace(/\*/g, "")
-                  .replace(/3/g, "")
-                  .replace(/7/g, "")
-                  .replace(/\?/g, "")
-                  .replace(/\!/g, "") as keyof typeof images
-              ],
+            uri: `${url}${song?.title
+              .replace(/ /g, "-")
+              .replace(/\./g, "")
+              .replace(/\'/g, "")
+              .replace(/\(/g, "")
+              .replace(/\)/g, "")
+              .replace(/\*/g, "")
+              .replace(/\?/g, "")
+              .replace(/\!/g, "")
+              .toLowerCase()}.jpg`,
           }}
           style={{
             width: Device.deviceType !== 1 ? 192 : 128,

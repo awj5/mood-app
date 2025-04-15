@@ -17,7 +17,7 @@ export default function Features() {
         backgroundColor: colors.opaqueBg,
       }}
     >
-      <Item>Empathetic AI chat support</Item>
+      <Item>Empathetic AI chat</Item>
       <Item>Smart check-in summaries</Item>
       <Item>Actionable AI-powered insights</Item>
       <Item>Early burnout detection</Item>

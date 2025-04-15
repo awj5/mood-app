@@ -148,7 +148,7 @@ export default function IAP(props: IAPProps) {
 
       <View style={{ gap: spacing / 2, paddingHorizontal: spacing }}>
         <BigButton func={purchase} disabled={(Constants.appOwnership !== "expo" && !offering) || props.submitting}>
-          Try Pro FREE for 1 week
+          Try FREE for 1 week
         </BigButton>
 
         <Footer />
