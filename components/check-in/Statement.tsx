@@ -3,10 +3,32 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, SharedValue, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import Slider from "@react-native-community/slider";
+import {
+  LucideIcon,
+  Compass,
+  Waves,
+  Users,
+  Puzzle,
+  LifeBuoy,
+  HeartHandshake,
+  Scale,
+  Blend,
+  ListChecks,
+  Cog,
+  Award,
+  Gavel,
+  HeartPulse,
+  Lightbulb,
+} from "lucide-react-native";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CompetencyType } from "app/check-in";
 import { getStoredVal, shuffleArray, getMostCommon } from "utils/helpers";
+
+type CategoryType = {
+  title: string;
+  icon: LucideIcon;
+};
 
 type StatementProps = {
   moodID: number;
@@ -20,8 +42,28 @@ type StatementProps = {
 export default function Statement(props: StatementProps) {
   const opacity = useSharedValue(0);
   const [company, setCompany] = useState("");
+  const [category, setCategory] = useState<CategoryType>();
+  const Icon = category?.icon;
   const margin = Platform.OS === "ios" ? 8 : 0;
-  const labelFontSize = Device.deviceType !== 1 ? 18 : 14;
+  const fontSize = Device.deviceType !== 1 ? 18 : 14;
+  const spacing = Device.deviceType !== 1 ? 24 : 16;
+
+  const icons = {
+    Compass,
+    Waves,
+    Users,
+    Puzzle,
+    LifeBuoy,
+    HeartHandshake,
+    Scale,
+    Blend,
+    ListChecks,
+    Cog,
+    Award,
+    Gavel,
+    HeartPulse,
+    Lightbulb,
+  };
 
   const thumbs = {
     1: require("../../assets/img/slider-thumb/yellow.png"),
@@ -63,6 +105,8 @@ export default function Statement(props: StatementProps) {
     const shuffled = shuffleArray(competencies);
     const mostFrequent = getMostCommon(shuffled); // Get most common competency in selected tags
     const competency = guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0];
+    const category = guidelinesData[0].categories.filter((item) => item.id === Math.trunc(competency.id))[0];
+    setCategory({ title: category.title.toUpperCase(), icon: icons[category.icon as keyof typeof icons] });
 
     props.setCompetency({
       id: competency.id,
@@ -74,15 +118,39 @@ export default function Statement(props: StatementProps) {
   }, []);
 
   return (
-    <Animated.View style={[styles.container, { opacity }]}>
-      <Text
-        style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
-        allowFontScaling={false}
-      >
-        At {company ? company : "my company"}, {props.competency.statement}.
-      </Text>
+    <Animated.View style={[styles.container, { opacity, gap: spacing * 2 }]}>
+      <View style={{ gap: spacing / 2, alignItems: "center" }}>
+        <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+          {Icon && (
+            <Icon
+              color={props.color}
+              size={Device.deviceType !== 1 ? 28 : 20}
+              absoluteStrokeWidth
+              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            />
+          )}
 
-      <View style={{ gap: 12 }}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: props.color,
+              fontSize: fontSize,
+            }}
+            allowFontScaling={false}
+          >
+            {category?.title}
+          </Text>
+        </View>
+
+        <Text
+          style={[styles.text, { color: props.color, fontSize: Device.deviceType !== 1 ? 30 : 24 }]}
+          allowFontScaling={false}
+        >
+          At {company ? company : "my company"}, {props.competency.statement}.
+        </Text>
+      </View>
+
+      <View style={{ gap: spacing / 2 }}>
         <View style={{ justifyContent: "center" }}>
           <View style={styles.sliderTrackWrapper}>
             <View style={[styles.sliderTrack, { marginHorizontal: margin }]}></View>
@@ -106,7 +174,7 @@ export default function Statement(props: StatementProps) {
               styles.label,
               {
                 color: props.color,
-                fontSize: labelFontSize,
+                fontSize: fontSize,
                 marginLeft: margin,
               },
             ]}
@@ -120,7 +188,7 @@ export default function Statement(props: StatementProps) {
               styles.label,
               {
                 color: props.color,
-                fontSize: labelFontSize,
+                fontSize: fontSize,
                 textAlign: "right",
                 marginRight: margin,
               },
@@ -142,8 +210,11 @@ const styles = StyleSheet.create({
     maxWidth: 448 + 48,
     width: "100%",
     paddingHorizontal: 24,
-    gap: 48,
     opacity: 0,
+  },
+  heading: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   text: {
     fontFamily: "Circular-Book",
