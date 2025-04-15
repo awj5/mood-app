@@ -8,6 +8,7 @@ import MoodsData from "data/moods.json";
 import TextBlock from "components/mood/TextBlock";
 import Song from "components/Song";
 import Gifs from "components/Gifs";
+import Quote from "components/Quote";
 import { pressedDefault } from "utils/helpers";
 
 export default function Mood() {
@@ -126,6 +127,7 @@ export default function Mood() {
 
         <Song mood={data.id} />
         <Gifs tags={data.tags} />
+        <Quote tags={data.tags} />
       </ScrollView>
     </View>
   );

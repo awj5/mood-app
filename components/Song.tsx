@@ -7,7 +7,8 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import SongsData from "data/songs.json";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { theme, pressedDefault } from "utils/helpers";
+import { CalendarDatesType } from "context/home-dates";
+import { theme, pressedDefault, getMostCommon } from "utils/helpers";
 
 export type SongType = {
   title: string;
@@ -21,6 +22,7 @@ export type SongType = {
 type SongProps = {
   checkIns?: CheckInType[];
   mood?: number;
+  dates?: CalendarDatesType;
 };
 
 export default function Song(props: SongProps) {
@@ -121,11 +123,24 @@ export default function Song(props: SongProps) {
   };
 
   useEffect(() => {
-    const mood: CheckInMoodType = props.checkIns
-      ? JSON.parse(props.checkIns[props.checkIns.length - 1].mood) // Latest check-in
-      : undefined;
+    let color;
 
-    const color = mood ? mood.color : props.mood;
+    if (props.checkIns && props.dates?.rangeStart) {
+      // Get most common mood color
+      const colors = [];
+
+      for (let i = 0; i < props.checkIns.length; i++) {
+        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+        colors.push(mood.color);
+      }
+
+      color = getMostCommon(colors);
+    } else if (props.checkIns) {
+      color = JSON.parse(props.checkIns[props.checkIns.length - 1].mood).color; // Latest check-in mood color
+    } else {
+      color = props.mood;
+    }
+
     const songs = color ? SongsData.filter((item) => item.moods.includes(color)) : undefined; // Songs with check-in mood
 
     if (songs && songs.length) {

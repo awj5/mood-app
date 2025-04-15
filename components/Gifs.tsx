@@ -6,6 +6,7 @@ import * as Linking from "expo-linking";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import GifsData from "data/gifs.json";
 import { CheckInMoodType, CheckInType } from "data/database";
+import { CalendarDatesType } from "context/home-dates";
 import Gif from "./gifs/Gif";
 import { theme, pressedDefault, shuffleArray } from "utils/helpers";
 
@@ -18,6 +19,7 @@ export type GifType = {
 type GifsProps = {
   checkIns?: CheckInType[];
   tags?: number[];
+  dates?: CalendarDatesType;
 };
 
 export default function Gifs(props: GifsProps) {
@@ -34,7 +36,7 @@ export default function Gifs(props: GifsProps) {
   useEffect(() => {
     const tags: number[] = props.tags
       ? props.tags
-      : props.checkIns
+      : props.checkIns && !props.dates?.rangeStart
       ? JSON.parse(props.checkIns[props.checkIns.length - 1].mood).tags
       : [];
 

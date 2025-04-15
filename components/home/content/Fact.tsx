@@ -18,6 +18,7 @@ import {
 import FactsData from "data/facts.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { CalendarDatesType } from "context/home-dates";
 import { theme } from "utils/helpers";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -35,6 +36,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 type FactProps = {
   checkIns: CheckInType[];
+  dates?: CalendarDatesType;
 };
 
 export default function Fact(props: FactProps) {
@@ -47,8 +49,24 @@ export default function Fact(props: FactProps) {
   const invertedColor = colors.primary === "white" ? "black" : "white";
 
   useEffect(() => {
-    const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
-    const tags = mood.tags;
+    let tags: number[] = [];
+
+    if (props.checkIns && props.dates?.rangeStart) {
+      /// All check-in tags
+      for (let i = 0; i < props.checkIns.length; i++) {
+        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+
+        for (let i = 0; i < mood.tags.length; i++) {
+          let tag = mood.tags[i];
+          if (!tags.includes(tag)) tags.push(tag);
+        }
+      }
+    } else if (props.checkIns) {
+      // Latest check-in tags
+      const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood);
+      tags = mood.tags;
+    }
+
     const randTag = tags[Math.floor(Math.random() * tags.length)];
     const facts = FactsData.filter((item) => item.tag === randTag); // Facts with random tag
 

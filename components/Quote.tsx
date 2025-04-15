@@ -6,7 +6,8 @@ import Animated, { Easing, useSharedValue, withTiming } from "react-native-reani
 import { Share } from "lucide-react-native";
 import QuotesData from "data/quotes.json";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { theme, pressedDefault } from "utils/helpers";
+import { CalendarDatesType } from "context/home-dates";
+import { theme, pressedDefault, getMostCommon } from "utils/helpers";
 
 type QuoteType = {
   quote: string;
@@ -15,7 +16,9 @@ type QuoteType = {
 };
 
 type QuoteProps = {
-  checkIns: CheckInType[];
+  checkIns?: CheckInType[];
+  tags?: number[];
+  dates?: CalendarDatesType;
 };
 
 export default function Quote(props: QuoteProps) {
@@ -111,8 +114,26 @@ export default function Quote(props: QuoteProps) {
   };
 
   useEffect(() => {
-    const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood); // Latest check-in
-    const tags = mood.tags;
+    let tags: number[] = [];
+
+    if (props.checkIns && props.dates?.rangeStart) {
+      // All check-in tags
+      for (let i = 0; i < props.checkIns.length; i++) {
+        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+
+        for (let i = 0; i < mood.tags.length; i++) {
+          let tag = mood.tags[i];
+          if (!tags.includes(tag)) tags.push(tag);
+        }
+      }
+    } else if (props.checkIns) {
+      // Latest check-in tags
+      const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood);
+      tags = mood.tags;
+    } else if (props.tags) {
+      tags = props.tags;
+    }
+
     const randTag = tags[Math.floor(Math.random() * tags.length)];
     const quotes = QuotesData.filter((item) => item.tags.includes(randTag)); // Quotes with random tag
 

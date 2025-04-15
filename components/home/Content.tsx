@@ -10,7 +10,7 @@ import { Sparkles } from "lucide-react-native";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
-import Quote from "./content/Quote";
+import Quote from "../Quote";
 import Article from "../Article";
 import Fact from "./content/Fact";
 import Song from "../Song";
@@ -75,8 +75,15 @@ export default function Content() {
 
     // Add widgets
     if (checkIns?.length) {
-      const largeWidgets = [<Quote checkIns={checkIns} />, <Gifs checkIns={checkIns} />, <Song checkIns={checkIns} />];
-      const smallWidgets = [<Article checkIns={checkIns} />, <Fact checkIns={checkIns} />];
+      const largeWidgets = [
+        <Quote checkIns={checkIns} dates={homeDates} />,
+        <Gifs checkIns={checkIns} dates={homeDates} />,
+        <Song checkIns={checkIns} dates={homeDates} />,
+      ];
+      const smallWidgets = [
+        <Article checkIns={checkIns} dates={homeDates} />,
+        <Fact checkIns={checkIns} dates={homeDates} />,
+      ];
       const shuffledLarge = shuffleArray(largeWidgets);
       const shuffledSmall = shuffleArray(smallWidgets);
       const ordered = [];
