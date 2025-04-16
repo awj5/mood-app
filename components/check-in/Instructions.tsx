@@ -4,11 +4,7 @@ import * as Device from "expo-device";
 import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { theme } from "utils/helpers";
 
-type InstructionsProps = {
-  isFirstCheckIn: boolean;
-};
-
-export default function Instructions(props: InstructionsProps) {
+export default function Instructions() {
   const opacity = useSharedValue(0);
   const colors = theme();
   const height = Dimensions.get("screen").height;
@@ -28,13 +24,13 @@ export default function Instructions(props: InstructionsProps) {
         style={[
           styles.text,
           {
-            color: props.isFirstCheckIn ? colors.primary : colors.secondary,
+            color: colors.secondary,
             fontSize: Device.deviceType !== 1 ? 20 : 16,
           },
         ]}
         allowFontScaling={false}
       >
-        {"Rotate the wheel to select your mood\nLong press the emoji to learn more"}
+        {"Rotate the wheel to select your mood\nthen long press the emoji to learn more"}
       </Text>
     </Animated.View>
   );

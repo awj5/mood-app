@@ -174,7 +174,7 @@ export default function Day(props: DayProps) {
               (checkInMood && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd)) ||
               (today.getTime() === props.date.getTime() &&
                 isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd))
-                ? colors.link
+                ? colors.primary
                 : colors.secondary,
           }}
           allowFontScaling={false}

@@ -193,15 +193,15 @@ export default function CheckIn() {
         text="How's work?"
         description={
           isFirstCheckIn
-            ? `Get started by choosing a ${
+            ? `Start your first check-in by choosing a mood ${
                 localization[0].languageTag === "en-US" ? "color" : "colour"
-              } that matches your current mood`
+              }`
             : ""
         }
         delay={1000}
       />
 
-      <Instructions isFirstCheckIn={isFirstCheckIn} />
+      <Instructions />
       <Background showTags={showTags} mood={mood} />
       <Wheel rotation={rotation} longPress={longPress} />
       <Emoji showTags={showTags} mood={mood} />
@@ -211,7 +211,7 @@ export default function CheckIn() {
         <>
           <Heading
             text="How do you feel right now?"
-            description="Select at least one word that describes your current feeling"
+            description={isFirstCheckIn ? "Select at least one word" : ""}
             delay={500}
             color={foregroundColor}
           />
@@ -232,7 +232,7 @@ export default function CheckIn() {
               <Done color={foregroundColor} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
               <Statement
-                moodID={selectedMood.id}
+                mood={selectedMood}
                 color={foregroundColor}
                 sliderVal={sliderVal}
                 competency={competency}

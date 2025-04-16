@@ -83,7 +83,7 @@ export default function Mood() {
         <View style={{ alignItems: "center", gap: spacing / 2 }}>
           <Image
             source={emojis[data.id as keyof typeof emojis]}
-            style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 64 : 48 }}
+            style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 88 : 64 }}
           />
 
           <Text

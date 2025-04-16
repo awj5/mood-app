@@ -22,7 +22,7 @@ import {
 } from "lucide-react-native";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { CompetencyType } from "app/check-in";
+import { CompetencyType, MoodType } from "app/check-in";
 import { getStoredVal, shuffleArray, getMostCommon } from "utils/helpers";
 
 type CategoryType = {
@@ -31,7 +31,7 @@ type CategoryType = {
 };
 
 type StatementProps = {
-  moodID: number;
+  mood: MoodType;
   color: string;
   sliderVal: SharedValue<number>;
   competency: CompetencyType;
@@ -120,21 +120,31 @@ export default function Statement(props: StatementProps) {
   return (
     <Animated.View style={[styles.container, { opacity, gap: spacing * 2 }]}>
       <View style={{ gap: spacing / 2, alignItems: "center" }}>
-        <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+        <View
+          style={[
+            styles.heading,
+            {
+              gap: Device.deviceType !== 1 ? 10 : 6,
+              backgroundColor: props.color,
+              paddingHorizontal: spacing / 2,
+              paddingVertical: spacing / 4,
+            },
+          ]}
+        >
           {Icon && (
             <Icon
-              color={props.color}
-              size={Device.deviceType !== 1 ? 28 : 20}
+              color={props.mood.color}
+              size={Device.deviceType !== 1 ? 20 : 16}
               absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+              strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
             />
           )}
 
           <Text
             style={{
               fontFamily: "Circular-Bold",
-              color: props.color,
-              fontSize: fontSize,
+              color: props.mood.color,
+              fontSize: Device.deviceType !== 1 ? 16 : 12,
             }}
             allowFontScaling={false}
           >
@@ -163,7 +173,7 @@ export default function Statement(props: StatementProps) {
             onValueChange={(value) => (props.sliderVal.value = Math.round(Number(value) * 100) / 100)}
             minimumTrackTintColor="transparent"
             maximumTrackTintColor="transparent"
-            thumbImage={thumbs[props.moodID as keyof typeof thumbs]}
+            thumbImage={thumbs[props.mood.id as keyof typeof thumbs]}
             style={{ height: 40 }}
           />
         </View>
@@ -215,6 +225,7 @@ const styles = StyleSheet.create({
   heading: {
     flexDirection: "row",
     alignItems: "center",
+    borderRadius: 999,
   },
   text: {
     fontFamily: "Circular-Book",

@@ -116,6 +116,7 @@ export default function Fact(props: FactProps) {
         <Text
           style={{
             fontFamily: "Circular-Black",
+            width: "100.1%", // Hack! - Prevents extra linebreak on iOS if text line is exact width
             color: invertedColor,
             fontSize:
               Device.deviceType !== 1
