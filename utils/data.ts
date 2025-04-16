@@ -70,8 +70,10 @@ export const getPromptData = (checkIns: CheckInType[] | CompanyCheckInType[]) =>
       mood: mood.color,
       feelings: tags,
       note:
-        "note" in checkIn
+        "note" in checkIn && checkIn.note
           ? checkIn.note.replace("[NOTE FROM USER]:", "")
+          : "note" in checkIn
+          ? checkIn.note
           : getStatement(mood.competency, mood.statementResponse, "pos", mood.company),
     });
 
