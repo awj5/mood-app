@@ -301,12 +301,17 @@ export default function Chat() {
               style={({ pressed }) => [
                 styles.headerRight,
                 pressedDefault(pressed),
-                { gap: Device.deviceType !== 1 ? 10 : 6 },
+                {
+                  gap: Device.deviceType !== 1 ? 10 : 6,
+                  backgroundColor: colors.link,
+                  height: Device.deviceType !== 1 ? 36 : 28,
+                  paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
+                },
               ]}
               hitSlop={16}
             >
               <ChartSpline
-                color={colors.link}
+                color={colors.primaryBg}
                 size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth
                 strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
@@ -316,7 +321,7 @@ export default function Chat() {
                 style={{
                   fontFamily: "Circular-Medium",
                   fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.link,
+                  color: colors.primaryBg,
                 }}
                 allowFontScaling={false}
               >
@@ -365,5 +370,6 @@ const styles = StyleSheet.create({
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
+    borderRadius: 999,
   },
 });
