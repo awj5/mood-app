@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
-import { Sparkles } from "lucide-react-native";
+import { Sparkles, ChartSpline } from "lucide-react-native";
 import ParsedText from "react-native-parsed-text";
 import { MessageType } from "app/chat";
 import Icon from "./response/Icon";
@@ -122,7 +122,11 @@ export default function Response(props: ResponseProps) {
               <Button
                 func={buttonClick}
                 fill={props.message.button === "upsell"}
-                icon={props.message.button === "upsell" ? Sparkles : undefined}
+                icon={
+                  props.message.button === "upsell" || (props.message.button !== "respond" && props.message.hasAccess)
+                    ? Sparkles
+                    : undefined
+                }
                 gradient={props.message.button === "upsell"}
               >
                 {props.message.button === "upsell"
@@ -136,7 +140,7 @@ export default function Response(props: ResponseProps) {
             {((props.company && !props.message.button && displayedText.indexOf("?") === -1) ||
               (props.company && props.message.button === "respond" && !props.insightsSeen)) && (
               <View style={{ alignSelf: "flex-start" }}>
-                <Button route="company">{`View ${props.company} insights`}</Button>
+                <Button route="company" icon={ChartSpline}>{`View ${props.company} insights`}</Button>
               </View>
             )}
           </Animated.View>

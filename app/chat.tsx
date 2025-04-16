@@ -23,6 +23,7 @@ export type MessageType = {
   content: string;
   button?: string;
   height?: number;
+  hasAccess?: boolean;
 };
 
 export default function Chat() {
@@ -199,6 +200,8 @@ export default function Chat() {
         ? "upsell"
         : undefined;
 
+      // User has Pro
+      updatedMessages[updatedMessages.length - 1].hasAccess = uuid || proID ? true : false;
       return updatedMessages;
     });
 
@@ -301,17 +304,12 @@ export default function Chat() {
               style={({ pressed }) => [
                 styles.headerRight,
                 pressedDefault(pressed),
-                {
-                  gap: Device.deviceType !== 1 ? 10 : 6,
-                  backgroundColor: colors.link,
-                  height: Device.deviceType !== 1 ? 36 : 28,
-                  paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-                },
+                { gap: Device.deviceType !== 1 ? 10 : 6 },
               ]}
               hitSlop={16}
             >
               <ChartSpline
-                color={colors.primaryBg}
+                color={colors.link}
                 size={Device.deviceType !== 1 ? 28 : 20}
                 absoluteStrokeWidth
                 strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
@@ -321,7 +319,7 @@ export default function Chat() {
                 style={{
                   fontFamily: "Circular-Medium",
                   fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.primaryBg,
+                  color: colors.link,
                 }}
                 allowFontScaling={false}
               >
@@ -370,6 +368,5 @@ const styles = StyleSheet.create({
   headerRight: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 999,
   },
 });
