@@ -23,7 +23,7 @@ export type MessageType = {
   content: string;
   button?: string;
   height?: number;
-  hasAccess?: boolean;
+  hasPro?: boolean;
 };
 
 export default function Chat() {
@@ -164,6 +164,7 @@ export default function Chat() {
         role: "assistant",
         content: "",
         height: !uuid && !proID && aiResponseCount < 2 ? (Device.deviceType !== 1 ? 320 : 256) : undefined,
+        hasPro: uuid || proID ? true : false,
       },
     ]);
 
@@ -200,8 +201,6 @@ export default function Chat() {
         ? "upsell"
         : undefined;
 
-      // User has Pro
-      updatedMessages[updatedMessages.length - 1].hasAccess = uuid || proID ? true : false;
       return updatedMessages;
     });
 
