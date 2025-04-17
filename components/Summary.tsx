@@ -83,6 +83,7 @@ export default function Summary(props: SummaryProps) {
             checkIns={props.checkIns}
             func={props.getInsights}
             category={props.category}
+            opaque
           />
         </View>
       </View>
@@ -91,9 +92,8 @@ export default function Summary(props: SummaryProps) {
         <Text
           style={{
             fontFamily: "Circular-Medium",
-            color: colors.primary,
+            color: colors.opaque,
             fontSize: fontSizeSmall,
-            opacity: 0.5,
           }}
           allowFontScaling={false}
         >

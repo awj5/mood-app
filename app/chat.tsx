@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet, Keyboard } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import * as Network from "expo-network";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
@@ -16,7 +17,6 @@ import Message from "components/chat/Message";
 import Input from "components/chat/Input";
 import { pressedDefault, theme, getStoredVal, setStoredVal, removeAccess } from "utils/helpers";
 import { getPromptData, PromptDataType } from "utils/data";
-import { convertToISO } from "utils/dates";
 
 export type MessageType = {
   role: string;
@@ -125,6 +125,7 @@ export default function Chat() {
 
   const addResponse = async () => {
     setGenerating(true);
+    const network = await Network.getNetworkStateAsync();
     let name = await getStoredVal("first-name");
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const proID = await getStoredVal("pro-id"); // Check if Pro subscriber
@@ -184,14 +185,17 @@ export default function Chat() {
       // Message
       updatedMessages[updatedMessages.length - 1].content = aiResponse
         ? aiResponse
-        : "Sorry, I'm unable to respond at the moment.";
+        : network.isInternetReachable
+        ? "Sorry, I'm unable to respond at the moment."
+        : "Sorry, you must be online to chat with me.";
 
       // Button
-      updatedMessages[updatedMessages.length - 1].button = !aiResponseCount
-        ? "respond"
-        : !uuid && !proID && aiResponseCount === 1
-        ? "upsell"
-        : undefined;
+      updatedMessages[updatedMessages.length - 1].button =
+        !aiResponseCount && aiResponse && network.isInternetReachable
+          ? "respond"
+          : !uuid && !proID && aiResponseCount === 1
+          ? "upsell"
+          : undefined;
 
       return updatedMessages;
     });

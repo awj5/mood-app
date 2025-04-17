@@ -141,7 +141,7 @@ export default function Quote(props: QuoteProps) {
 
           <Text
             style={{
-              fontFamily: "Circular-Book",
+              fontFamily: "Circular-Medium",
               color: colors.primary,
               fontSize: Device.deviceType !== 1 ? 18 : 14,
             }}
