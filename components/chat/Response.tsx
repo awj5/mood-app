@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Linking } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
@@ -56,6 +56,10 @@ export default function Response(props: ResponseProps) {
     });
   };
 
+  const linkPress = (url: string) => {
+    Linking.openURL(url);
+  };
+
   useEffect(() => {
     if (props.message.content) {
       // Type out word by word
@@ -95,6 +99,16 @@ export default function Response(props: ResponseProps) {
               {
                 pattern: /MOOD.ai Pro|MOOD.ai|MOOD/,
                 style: { fontFamily: "Circular-Bold" },
+              },
+              {
+                type: "url",
+                style: { color: colors.link },
+                onPress: linkPress,
+                renderText(matchingString) {
+                  const text = matchingString.endsWith("/") ? matchingString.slice(0, -1) : matchingString;
+
+                  return text.replace("https://", "").replace("http://", "").replace("www.", "");
+                },
               },
             ]}
             style={[
