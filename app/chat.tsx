@@ -67,7 +67,7 @@ export default function Chat() {
 
   const getCheckInCount = async () => {
     try {
-      const rows: CheckInType[] = await db.getAllAsync(`SELECT * FROM check_ins`);
+      const rows: CheckInType[] = await db.getAllAsync("SELECT * FROM check_ins");
       return rows.length;
     } catch (error) {
       console.log(error);
@@ -76,15 +76,7 @@ export default function Chat() {
 
   const getCheckInHistoryData = async () => {
     try {
-      const end = new Date(); // Today
-      const start = new Date(end);
-      start.setDate(start.getDate() - 90); // 90 days ago
-
-      const rows: CheckInType[] = await db.getAllAsync(
-        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
-        [convertToISO(start), convertToISO(end)]
-      );
-
+      const rows: CheckInType[] = await db.getAllAsync("SELECT * FROM check_ins ORDER BY id ASC LIMIT 100");
       const promptData = getPromptData(rows); // Convert
       checkInRef.current = promptData.data[promptData.data.length - 1]; // Latest check-in
       return promptData.data;
