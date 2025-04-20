@@ -28,7 +28,7 @@ export default function Burnout(props: BurnoutProps) {
     // Loop check-ins and get mood satisfaction and energy scores
     for (let i = 0; i < props.checkIns.length; i++) {
       let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
-      satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
+      satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
       energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
     }
 

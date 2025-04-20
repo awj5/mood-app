@@ -114,25 +114,25 @@ export default function Insights(props: InsightsProps) {
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         // Get mood scores
-        const satisfaction = [];
+        const stress = [];
         const energy = [];
 
         // Loop check-ins and get mood satisfaction and energy scores
         for (let i = 0; i < props.checkIns.length; i++) {
           let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
-          satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
+          stress.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
           energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
         }
 
         // Calculate averages
-        const avgSatisfaction = Math.floor(satisfaction.reduce((sum, num) => sum + num, 0) / satisfaction.length);
+        const avgStress = Math.floor(stress.reduce((sum, num) => sum + num, 0) / stress.length);
         const avgEnergy = Math.floor(energy.reduce((sum, num) => sum + num, 0) / energy.length);
 
         aiResponse =
           aiResponse +
-          ` Overall, you've felt ${describeMoodScore(
-            avgSatisfaction
-          )} in satisfaction (${avgSatisfaction}%) and ${describeMoodScore(avgEnergy)} in energy (${avgEnergy}%).`;
+          ` Overall, you've felt ${describeMoodScore(avgStress)} in stress (${avgStress}%) and ${describeMoodScore(
+            avgEnergy
+          )} in energy (${avgEnergy}%).`;
 
         setText(aiResponse);
 

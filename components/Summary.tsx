@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
+import * as Network from "expo-network";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
 import ParsedText from "react-native-parsed-text";
@@ -22,6 +24,7 @@ type SummaryProps = {
 export default function Summary(props: SummaryProps) {
   const colors = theme();
   const router = useRouter();
+  const [text, setText] = useState("");
   const spacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -52,54 +55,72 @@ export default function Summary(props: SummaryProps) {
     });
   };
 
+  const checkIfOnline = async (val: string) => {
+    const network = await Network.getNetworkStateAsync();
+
+    setText(
+      val
+        ? val
+        : network.isInternetReachable
+        ? "Unable to generate insights at the moment."
+        : "You must be online to generate insights"
+    );
+  };
+
+  useEffect(() => {
+    checkIfOnline(props.text);
+  }, [props.text]);
+
   return (
     <Animated.View
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
       style={[styles.container, { gap: spacing }]}
     >
-      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6, display: props.text ? "flex" : "none" }]}>
-        <Sparkles
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 28 : 20}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-        />
-
-        <Text
-          style={{
-            fontFamily: "Circular-Bold",
-            color: colors.primary,
-            fontSize: fontSizeSmall,
-          }}
-          allowFontScaling={false}
-        >
-          {title}
-        </Text>
-
-        <View style={styles.report}>
-          <Report
-            text={props.text}
-            visible={props.text ? true : false}
-            checkIns={props.checkIns}
-            func={props.getInsights}
-            category={props.category}
-            opaque
+      <View style={[styles.titleWrapper, { display: props.text ? "flex" : "none" }]}>
+        <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+          <Sparkles
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 28 : 20}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
-        </View>
-      </View>
 
-      {props.text && title === "INSIGHTS" && (
-        <Text
-          style={{
-            fontFamily: "Circular-Medium",
-            color: colors.opaque,
-            fontSize: fontSizeSmall,
-          }}
-          allowFontScaling={false}
-        >
-          {subTitle}
-        </Text>
-      )}
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: colors.primary,
+              fontSize: fontSizeSmall,
+            }}
+            allowFontScaling={false}
+          >
+            {title}
+          </Text>
+
+          <View style={styles.report}>
+            <Report
+              text={props.text}
+              visible={props.text ? true : false}
+              checkIns={props.checkIns}
+              func={props.getInsights}
+              category={props.category}
+              opaque
+            />
+          </View>
+        </View>
+
+        {title === "INSIGHTS" && (
+          <Text
+            style={{
+              fontFamily: "Circular-Medium",
+              color: colors.opaque,
+              fontSize: fontSizeSmall,
+            }}
+            allowFontScaling={false}
+          >
+            {subTitle}
+          </Text>
+        )}
+      </View>
 
       <ParsedText
         parse={[
@@ -108,17 +129,20 @@ export default function Summary(props: SummaryProps) {
             style: styles.color,
             onPress: colorPress,
           },
+          {
+            pattern: / stress | energy /,
+            style: { fontFamily: "Circular-Bold" },
+          },
         ]}
         style={[
           styles.summary,
           {
-            color: colors.primary,
-            opacity: props.text ? 1 : 0.5,
+            color: props.text ? colors.primary : colors.opaque,
             fontSize: fontSize,
           },
         ]}
       >
-        {props.text ? props.text : "Unable to generate insights at the moment."}
+        {text}
       </ParsedText>
 
       {!props.text && (
@@ -148,16 +172,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  report: {
-    position: "absolute",
-    right: 0,
-    top: 0,
+  titleWrapper: {
+    width: "100%",
+    alignItems: "center",
   },
   title: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+  },
+  report: {
+    position: "absolute",
+    right: 0,
+    top: 0,
   },
   summary: {
     fontFamily: "Circular-Book",

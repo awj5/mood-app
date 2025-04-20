@@ -115,7 +115,7 @@ export default function Stats(props: StatsProps) {
       // Loop check-ins and get mood satisfaction and energy scores
       for (let i = 0; i < checkIns.length; i++) {
         let mood: CheckInMoodType = JSON.parse(checkIns[i].mood);
-        satisfactionScores.push(MoodsData.filter((item) => item.id === mood.color)[0].satisfaction);
+        satisfactionScores.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
         energyScores.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
       }
 
