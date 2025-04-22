@@ -165,7 +165,7 @@ export default function Stats(props: StatsProps) {
               fontFamily: "Circular-Book",
               marginTop: Device.deviceType !== 1 ? -2 : -1,
               color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 12 : 8,
+              fontSize: tinyFont,
             }}
             allowFontScaling={false}
           >
@@ -246,7 +246,7 @@ export default function Stats(props: StatsProps) {
               ? 768 - spacing * 4 - spacing * 2.5
               : dimensions.width - spacing * 4 - spacing * 2.5
           }
-          height={Device.deviceType !== 1 ? 104 : 80}
+          height={Device.deviceType !== 1 ? 112 : 80}
           barWidth={barSize}
           roundedTop
           roundedBottom

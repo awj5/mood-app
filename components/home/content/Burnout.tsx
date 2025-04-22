@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
+import * as WebBrowser from "expo-web-browser";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
 import MoodsData from "data/moods.json";
@@ -18,28 +19,24 @@ export default function Burnout(props: BurnoutProps) {
   const [value, setValue] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
-  const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
 
   useEffect(() => {
     // Get mood scores
-    const satisfaction = [];
+    const stress = [];
     const energy = [];
 
-    // Loop check-ins and get mood satisfaction and energy scores
+    // Loop check-ins and get mood stress and energy scores
     for (let i = 0; i < props.checkIns.length; i++) {
       let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
-      satisfaction.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
       energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
+      stress.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
     }
 
-    // Calculate averages
-    const combined = [
-      Math.floor(satisfaction.reduce((sum, num) => sum + num, 0) / satisfaction.length),
-      Math.floor(energy.reduce((sum, num) => sum + num, 0) / energy.length),
-    ];
-
-    const avg = Math.floor(100 - combined.reduce((sum, num) => sum + num, 0) / combined.length);
-    setValue(-90 + (180 * avg) / 100); // Convert to rotation range
+    // Calculate averages and burnout risk
+    const avgEnergy = energy.reduce((sum, num) => sum + num, 0) / energy.length;
+    const avgStress = stress.reduce((sum, num) => sum + num, 0) / stress.length;
+    const risk = Math.round((avgStress + (100 - avgEnergy)) / 2); // Out of 100
+    setValue(-90 + (180 * risk) / 100); // Convert to rotation range
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
@@ -48,7 +45,7 @@ export default function Burnout(props: BurnoutProps) {
       style={{
         flex: 1,
         aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        backgroundColor: colors.opaqueBg,
         borderRadius: spacing,
         opacity,
       }}
@@ -67,13 +64,12 @@ export default function Burnout(props: BurnoutProps) {
           </Text>
 
           <Text
-            style={[
-              styles.beta,
-              {
-                color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 12 : 8,
-              },
-            ]}
+            style={{
+              fontFamily: "Circular-Book",
+              marginTop: Device.deviceType !== 1 ? -2 : -1,
+              color: colors.primary,
+              fontSize: Device.deviceType !== 1 ? 12 : 8,
+            }}
             allowFontScaling={false}
           >
             BETA
@@ -83,12 +79,12 @@ export default function Burnout(props: BurnoutProps) {
         <Gauge value={value} />
 
         <Pressable
-          onPress={() => alert("Coming soon")}
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/mood-levels/")}
           style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
           hitSlop={16}
         >
           <Info
-            color={grey}
+            color={colors.opaque}
             size={Device.deviceType !== 1 ? 20 : 16}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
@@ -97,7 +93,7 @@ export default function Burnout(props: BurnoutProps) {
           <Text
             style={{
               fontFamily: "Circular-Book",
-              color: grey,
+              color: colors.opaque,
               fontSize: fontSize,
             }}
             allowFontScaling={false}
@@ -111,10 +107,6 @@ export default function Burnout(props: BurnoutProps) {
 }
 
 const styles = StyleSheet.create({
-  beta: {
-    fontFamily: "Circular-Book",
-    marginTop: 1,
-  },
   wrapper: {
     justifyContent: "space-between",
     flex: 1,
@@ -122,7 +114,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    width: "100%",
+    alignSelf: "flex-start",
   },
   info: {
     flexDirection: "row",

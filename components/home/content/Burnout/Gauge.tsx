@@ -13,7 +13,7 @@ type GaugeProps = {
 export default function Gauge(props: GaugeProps) {
   const colors = theme();
   const rotation = useSharedValue(0);
-  const fontSize = Device.deviceType !== 1 ? 16 : 12;
+  const fontSize = Device.deviceType !== 1 ? 18 : 14;
 
   const images = {
     light: require("../../../../assets/img/metre.png"),
@@ -32,7 +32,6 @@ export default function Gauge(props: GaugeProps) {
     <View
       style={{
         width: Device.deviceType !== 1 ? 224 : 128,
-        overflow: "hidden",
         gap: Device.deviceType !== 1 ? 6 : 4,
       }}
     >
