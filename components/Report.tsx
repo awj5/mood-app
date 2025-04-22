@@ -104,7 +104,7 @@ export default function Report(props: ReportProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         styles.container,
-        { gap: Device.deviceType !== 1 ? 5 : 3, display: props.visible ? "flex" : "none" },
+        { gap: Device.deviceType !== 1 ? 6 : 4, display: props.visible ? "flex" : "none" },
       ]}
       hitSlop={8}
       disabled={reported}

@@ -66,7 +66,15 @@ export default function Range(props: RangeProps) {
     <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 24 : 16 }}>
       <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
         <Text
-          style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
+          style={[
+            styles.label,
+            {
+              color: colors.primary,
+              fontSize: labelFontSize,
+              width: labelWidth,
+              alignSelf: Platform.OS === "ios" ? "auto" : "center",
+            },
+          ]}
           allowFontScaling={false}
         >
           Start{Device.deviceType !== 1 && " date:"}
@@ -95,7 +103,15 @@ export default function Range(props: RangeProps) {
 
       <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
         <Text
-          style={[styles.label, { color: colors.primary, fontSize: labelFontSize, width: labelWidth }]}
+          style={[
+            styles.label,
+            {
+              color: colors.primary,
+              fontSize: labelFontSize,
+              width: labelWidth,
+              alignSelf: Platform.OS === "ios" ? "auto" : "center",
+            },
+          ]}
           allowFontScaling={false}
         >
           End{Device.deviceType !== 1 && " date:"}

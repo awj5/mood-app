@@ -116,7 +116,7 @@ export default function Insights(props: InsightsProps) {
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <View style={{ flex: 1, minHeight: Device.deviceType !== 1 ? 192 : 208 }}>
+    <View style={{ width: "100%", minHeight: Device.deviceType !== 1 ? 192 : 208 }}>
       {isLoading ? (
         <View style={styles.loading}>
           <Loading text="Generating insights" />

@@ -14,7 +14,7 @@ export default function Note() {
   };
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 5 : 3 }]}>
+    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 6 : 4 }]}>
       <ShieldCheck
         color={colors.secondary}
         size={Device.deviceType !== 1 ? 28 : 20}
