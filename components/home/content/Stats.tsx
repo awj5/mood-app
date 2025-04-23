@@ -30,6 +30,7 @@ export default function Stats(props: StatsProps) {
   const extraSmallFont = Device.deviceType !== 1 ? 14 : 10;
   const tinyFont = Device.deviceType !== 1 ? 12 : 8;
   const barSize = Device.deviceType !== 1 ? 15 : 10;
+  const invertedColor = colors.primary === "white" ? "black" : "white";
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
@@ -111,7 +112,7 @@ export default function Stats(props: StatsProps) {
           ? Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length)
           : 0,
         spacing: spacing / 8,
-        frontColor: "white",
+        frontColor: invertedColor,
         labelTextStyle: {
           fontFamily: "Circular-Medium",
           fontSize:
@@ -129,7 +130,7 @@ export default function Stats(props: StatsProps) {
         value: stressScores.length
           ? Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length)
           : 0,
-        frontColor: "black",
+        frontColor: colors.primary,
       }); // Stress
     }
 
@@ -204,7 +205,7 @@ export default function Stats(props: StatsProps) {
             style={[
               styles.dot,
               {
-                backgroundColor: "white",
+                backgroundColor: invertedColor,
                 width: barSize,
               },
             ]}
@@ -223,7 +224,7 @@ export default function Stats(props: StatsProps) {
         </View>
 
         <View style={[styles.key, { gap: spacing / 4 }]}>
-          <View style={[styles.dot, { backgroundColor: "black", width: barSize }]} />
+          <View style={[styles.dot, { backgroundColor: colors.primary, width: barSize }]} />
 
           <Text
             style={{
