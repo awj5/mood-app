@@ -149,7 +149,7 @@ export default function Journal(props: JournalProps) {
                     fontFamily: "Tiempos-Bold",
                     color: invertedColor,
                     fontSize: fontSize,
-                    paddingTop: Platform.OS === "ios" ? spacing / 8 : 0,
+                    paddingTop: Platform.OS === "ios" ? (Device.deviceType !== 1 ? 4 : 3) : 0,
                   }}
                   allowFontScaling={false}
                 >
