@@ -85,7 +85,7 @@ export default function Header(props: HeaderProps) {
         />
 
         <Text
-          style={{ fontFamily: "Circular-Bold", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
+          style={{ fontFamily: "Tiempos-Bold", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
           allowFontScaling={false}
         >
           {time.toLowerCase()}

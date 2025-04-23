@@ -11,7 +11,7 @@ export default function Item(props: ItemProps) {
   const colors = theme();
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 12 : 8 }]}>
+    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
       <Check
         color={colors.primary}
         size={Device.deviceType !== 1 ? 28 : 20}

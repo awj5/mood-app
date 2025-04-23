@@ -49,6 +49,7 @@ export default function Layout() {
     "Circular-BookItalic": require("../assets/fonts/lineto-circular-bookItalic.ttf"),
     "Circular-Medium": require("../assets/fonts/lineto-circular-medium.ttf"),
     "Tiempos-RegularItalic": require("../assets/fonts/tiempos-text-regularItalic.ttf"),
+    "Tiempos-Bold": require("../assets/fonts/tiempos-text-bold.ttf"),
   });
 
   const checkforUUID = async (url: string) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Pressable, Text, View } from "react-native";
+import { StyleSheet, Pressable, Text, View, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
@@ -53,7 +53,8 @@ export default function HeaderDates(props: HeaderDatesProps) {
       >
         <Text
           style={{
-            fontFamily: "Circular-Book",
+            fontFamily: "Tiempos-Bold",
+            paddingTop: Platform.OS === "ios" ? (Device.deviceType !== 1 ? 3 : 2) : 0,
             fontSize: Device.deviceType !== 1 ? 24 : 18,
             color:
               !props.dates.rangeStart || props.type !== "home"

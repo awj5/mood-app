@@ -76,7 +76,7 @@ export default function Disclaimer(props: DisclaimerProps) {
             },
           ]}
         >
-          <View style={[styles.heading, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+          <View style={[styles.heading, { gap: spacing / 4 }]}>
             <ShieldCheck
               color={colors.primary}
               size={Device.deviceType !== 1 ? 28 : 20}

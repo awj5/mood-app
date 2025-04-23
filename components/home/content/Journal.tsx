@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Pressable, Platform } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn, useSharedValue, withTiming } from "react-native-reanimated";
@@ -22,27 +22,11 @@ export default function Journal(props: JournalProps) {
   const [count, setCount] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const invertedColor = colors.primary === "white" ? "black" : "white";
-  const grey = colors.primary !== "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
-  const fontSize = Device.deviceType !== 1 ? 18 : 14;
+  const invertedOpaque = colors.primary === "white" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.4)";
+  const grey = colors.primary !== "white" ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)";
+  const fontSize = Device.deviceType !== 1 ? 20 : 14;
   const iconSize = Device.deviceType !== 1 ? 40 : 24;
   const iconStroke = Device.deviceType !== 1 ? 3 : 2;
-
-  const convertDate = (date: Date) => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const utc = new Date(`${date}Z`);
-    const entryDate = new Date(utc);
-    const entryYear = entryDate.getFullYear();
-
-    return entryDate
-      .toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        weekday: "short",
-        ...(entryYear !== year && { year: "numeric" }), // Only show year if not current year
-      })
-      .replace(",", "");
-  };
 
   const arrowPress = (count: number) => {
     setCount(count);
@@ -65,6 +49,23 @@ export default function Journal(props: JournalProps) {
       pathname: "day",
       params: { day: utc.getDate(), month: utc.getMonth() + 1, year: utc.getFullYear() },
     });
+  };
+
+  const convertDate = (date: Date) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const utc = new Date(`${date}Z`);
+    const entryDate = new Date(utc);
+    const entryYear = entryDate.getFullYear();
+
+    return entryDate
+      .toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        weekday: "short",
+        ...(entryYear !== year && { year: "numeric" }), // Only show year if not current year
+      })
+      .replace(",", "");
   };
 
   useEffect(() => {
@@ -130,7 +131,7 @@ export default function Journal(props: JournalProps) {
             <View style={styles.date}>
               <Pressable
                 onPress={() => arrowPress(count - 1)}
-                style={({ pressed }) => pressedDefault(pressed)}
+                style={({ pressed }) => [pressedDefault(pressed), { marginLeft: 0 - spacing / 2 }]}
                 hitSlop={8}
                 disabled={!count}
               >
@@ -145,9 +146,10 @@ export default function Journal(props: JournalProps) {
               <Pressable onPress={() => datePress()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
                 <Text
                   style={{
-                    fontFamily: "Circular-Medium",
+                    fontFamily: "Tiempos-Bold",
                     color: invertedColor,
                     fontSize: fontSize,
+                    paddingTop: Platform.OS === "ios" ? spacing / 8 : 0,
                   }}
                   allowFontScaling={false}
                 >
@@ -157,7 +159,7 @@ export default function Journal(props: JournalProps) {
 
               <Pressable
                 onPress={() => arrowPress(count + 1)}
-                style={({ pressed }) => pressedDefault(pressed)}
+                style={({ pressed }) => [pressedDefault(pressed), { marginRight: 0 - spacing / 2 }]}
                 hitSlop={8}
                 disabled={count === entries.length - 1}
               >
@@ -184,7 +186,7 @@ export default function Journal(props: JournalProps) {
                     fontFamily: "Circular-BookItalic",
                     color: invertedColor,
                     fontSize: fontSize,
-                    lineHeight: Device.deviceType !== 1 ? 24 : 18,
+                    lineHeight: Device.deviceType !== 1 ? 24 : 16,
                   }}
                   allowFontScaling={false}
                 >
@@ -199,7 +201,7 @@ export default function Journal(props: JournalProps) {
               style={[
                 styles.text,
                 {
-                  color: invertedColor,
+                  color: invertedOpaque,
                   fontSize: fontSize,
                 },
               ]}
@@ -219,7 +221,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    zIndex: 1,
   },
   empty: {
     flex: 1,
@@ -228,7 +229,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "Circular-Book",
-    opacity: 0.5,
     textAlign: "center",
   },
 });

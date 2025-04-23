@@ -49,12 +49,7 @@ export default function Product(props: ProductProps) {
           },
         ]}
       >
-        <View
-          style={[
-            styles.heading,
-            { gap: Device.deviceType !== 1 ? 10 : 6, marginLeft: 0 - stroke, marginTop: 0 - stroke },
-          ]}
-        >
+        <View style={[styles.heading, { gap: spacing / 4, marginLeft: 0 - stroke, marginTop: 0 - stroke }]}>
           <Icon
             color={invertedColor}
             size={Device.deviceType !== 1 ? 28 : 20}

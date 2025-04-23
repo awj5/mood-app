@@ -104,7 +104,7 @@ export default function Gifs(props: GifsProps) {
 
         <Pressable
           onPress={() => Linking.openURL("https://tenor.com/")}
-          style={({ pressed }) => [pressedDefault(pressed), styles.logo, { gap: Device.deviceType !== 1 ? 10 : 6 }]}
+          style={({ pressed }) => [pressedDefault(pressed), styles.logo, { gap: spacing / 4 }]}
           hitSlop={16}
         >
           <Text

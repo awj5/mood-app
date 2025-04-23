@@ -85,7 +85,7 @@ export default function Day() {
           },
           headerTransparent: true,
           headerTitleStyle: {
-            fontFamily: "Circular-Black",
+            fontFamily: "Tiempos-Bold",
           },
           headerLeft: () => (
             <HeaderBackButton
