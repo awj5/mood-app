@@ -54,7 +54,7 @@ export default function HeaderDates(props: HeaderDatesProps) {
         <Text
           style={{
             fontFamily: "Tiempos-Bold",
-            paddingTop: Platform.OS === "ios" ? (Device.deviceType !== 1 ? 6 : 3) : 0,
+            paddingTop: Platform.OS === "ios" ? (Device.deviceType !== 1 ? 6 : 4) : 0,
             fontSize: Device.deviceType !== 1 ? 24 : 18,
             color:
               !props.dates.rangeStart || props.type !== "home"

@@ -64,6 +64,7 @@ export default function Quote(props: QuoteProps) {
         .replace(/ö/g, "o")
         .replace(/é/g, "e")
         .replace(/ç/g, "c")
+        .replace(/ë/g, "e")
         .toLowerCase();
 
       setAuthorImage(random.hasImage ? image + ".jpg" : "");

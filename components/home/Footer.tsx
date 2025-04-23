@@ -8,11 +8,15 @@ import { CircleCheck } from "lucide-react-native";
 import BigButton from "components/BigButton";
 import { convertToISO } from "utils/dates";
 
-export default function Footer() {
+type FooterProps = {
+  noCheckInToday: boolean;
+  setNoCheckInToday: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function Footer(props: FooterProps) {
   const db = useSQLiteContext();
   const insets = useSafeAreaInsets();
   const appState = useRef(AppState.currentState);
-  const [bounce, setBounce] = useState(false);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   const checkBounce = async () => {
@@ -25,7 +29,7 @@ export default function Footer() {
         convertToISO(today),
       ]);
 
-      setBounce(!row ? true : false);
+      props.setNoCheckInToday(!row ? true : false);
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +62,7 @@ export default function Footer() {
         },
       ]}
     >
-      <BigButton route="check-in" shadow bounce={bounce} icon={CircleCheck}>
+      <BigButton route="check-in" shadow bounce={props.noCheckInToday} icon={CircleCheck}>
         Check-in
       </BigButton>
     </View>

@@ -130,7 +130,7 @@ export default function Summary(props: SummaryProps) {
             onPress: colorPress,
           },
           {
-            pattern: / stress | energy /,
+            pattern: /energy\s?\(\d+%\)|stress\s?\(\d+%\)/gi,
             style: { fontFamily: "Circular-Bold" },
           },
         ]}

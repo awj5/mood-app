@@ -9,6 +9,7 @@ type ButtonProps = {
   func?: () => void;
   route?: string;
   fill?: boolean;
+  large?: boolean;
   icon?: React.ElementType;
   disabled?: boolean;
   destructive?: boolean;
@@ -29,7 +30,7 @@ export default function Button(props: ButtonProps) {
         pressedDefault(pressed),
         styles.container,
         {
-          height: Device.deviceType !== 1 ? (props.fill ? 72 : 48) : props.fill ? 52 : 36,
+          height: Device.deviceType !== 1 ? (props.fill || props.large ? 72 : 48) : props.fill || props.large ? 52 : 36,
           borderWidth: props.destructive || props.fill ? 0 : Device.deviceType !== 1 ? 2.5 : 2,
           borderColor: colors.primary,
           backgroundColor: props.destructive
@@ -57,7 +58,8 @@ export default function Button(props: ButtonProps) {
           styles.wrapper,
           {
             gap: Device.deviceType !== 1 ? 10 : 6,
-            paddingHorizontal: Device.deviceType !== 1 ? (props.fill ? 20 : 16) : props.fill ? 16 : 12,
+            paddingHorizontal:
+              Device.deviceType !== 1 ? (props.fill || props.large ? 20 : 16) : props.fill || props.large ? 16 : 12,
           },
         ]}
       >

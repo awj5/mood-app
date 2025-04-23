@@ -6,7 +6,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
-import { Sparkles } from "lucide-react-native";
+import { Sparkles, ChartSpline } from "lucide-react-native";
 import { CheckInType } from "data/database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
@@ -22,7 +22,11 @@ import Button from "components/Button";
 import { shuffleArray, theme, getStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
-export default function Content() {
+type ContentProps = {
+  noCheckInToday: boolean;
+};
+
+export default function Content(props: ContentProps) {
   const db = useSQLiteContext();
   const colors = theme();
   const insets = useSafeAreaInsets();
@@ -32,6 +36,7 @@ export default function Content() {
   const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const [widgets, setWidgets] = useState<React.ReactNode>();
   const [hasAccess, setHasAccess] = useState(false);
+  const [company, setCompany] = useState("");
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const getCheckInData = async () => {
@@ -62,9 +67,11 @@ export default function Content() {
     const checkInData = await getCheckInData();
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const proID = await getStoredVal("pro-id"); // Check if pro subscriber
+    const name = await getStoredVal("company-name");
 
     if (latestQueryRef.current === currentQuery) {
       setHasAccess(uuid || proID ? true : false);
+      if (name) setCompany(name);
       setCheckIns(checkInData);
     }
   };
@@ -150,6 +157,14 @@ export default function Content() {
                   <Burnout checkIns={checkIns} />
                   <Journal checkIns={checkIns} />
                 </View>
+
+                {company && !props.noCheckInToday && (
+                  <View style={{ width: "100%", paddingHorizontal: spacing }}>
+                    <Button route="company" large icon={ChartSpline}>
+                      {`View ${company} insights`}
+                    </Button>
+                  </View>
+                )}
               </>
             ) : (
               <View style={{ width: "100%", marginTop: spacing, paddingHorizontal: spacing }}>

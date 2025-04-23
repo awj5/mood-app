@@ -28,6 +28,7 @@ export default function Home() {
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
+  const [noCheckInToday, setNoCheckInToday] = useState(false);
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
   const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
 
@@ -127,10 +128,10 @@ export default function Home() {
 
       <View style={{ flex: 1, marginTop: headerHeight }}>
         <Calendar />
-        <Content />
+        <Content noCheckInToday={noCheckInToday} />
       </View>
 
-      <Footer />
+      <Footer noCheckInToday={noCheckInToday} setNoCheckInToday={setNoCheckInToday} />
       <Reminder visible={reminderVisible} setVisible={setReminderVisible} />
     </View>
   );

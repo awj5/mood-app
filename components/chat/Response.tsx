@@ -60,6 +60,10 @@ export default function Response(props: ResponseProps) {
     Linking.openURL(url);
   };
 
+  const emailPress = (email: string) => {
+    Linking.openURL(`mailto:${email}`).catch((err) => console.error("Failed to open email URL:", err));
+  };
+
   useEffect(() => {
     if (props.message.content) {
       // Type out word by word
@@ -109,6 +113,12 @@ export default function Response(props: ResponseProps) {
 
                   return text.replace("https://", "").replace("http://", "").replace("www.", "");
                 },
+              },
+              {
+                pattern: /[\w.-]+@[\w.-]+\.\w{2,}/,
+                style: { color: colors.link },
+                onPress: emailPress,
+                renderText: (text) => text.replace(/[.,;!?]+$/, ""),
               },
             ]}
             style={[

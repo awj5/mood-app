@@ -6,7 +6,7 @@ import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { Settings2 } from "lucide-react-native";
 import { CheckInMoodType } from "data/database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
-import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } from "context/company-filters";
+import { CompanyFiltersContext, CompanyFiltersContextType } from "context/company-filters";
 import HeaderDates from "components/HeaderDates";
 import Upsell from "components/company/Upsell";
 import Disclaimer from "components/company/Disclaimer";
