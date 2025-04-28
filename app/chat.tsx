@@ -65,20 +65,11 @@ export default function Chat() {
     }
   };
 
-  const getCheckInCount = async () => {
-    try {
-      const rows: CheckInType[] = await db.getAllAsync("SELECT * FROM check_ins");
-      return rows.length;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const getCheckInHistoryData = async () => {
     try {
-      const rows: CheckInType[] = await db.getAllAsync("SELECT * FROM check_ins ORDER BY id ASC LIMIT 100");
+      const rows: CheckInType[] = await db.getAllAsync("SELECT * FROM check_ins ORDER BY id DESC LIMIT 100");
       const promptData = getPromptData(rows); // Convert
-      checkInRef.current = promptData.data[promptData.data.length - 1]; // Latest check-in
+      checkInRef.current = promptData.data[0]; // Latest check-in
       return promptData.data;
     } catch (error) {
       console.log(error);
@@ -88,7 +79,6 @@ export default function Chat() {
   const setFirstResponse = async () => {
     const name = await getStoredVal("first-name");
     const history = await getCheckInHistoryData(); // Get recent check-ins
-    const count = await getCheckInCount(); // Total check-ins
     const companyName = await getStoredVal("company-name");
 
     if (history) {
@@ -98,9 +88,9 @@ export default function Chat() {
           role: "user",
           content: `${name ? `My name is ${name}. ` : ""}${
             companyName ? `I work at ${companyName}. ` : ""
-          }Please analyze today's check-in: ${JSON.stringify(history[history.length - 1])}.${
+          }Please analyze today's check-in: ${JSON.stringify(history[0])}.${
             history.length > 1
-              ? ` For reference, here is my recent check-in history: ${JSON.stringify(history.slice(0, -1))}.`
+              ? ` For reference, here is my recent check-in history: ${JSON.stringify(history.slice(1))}.`
               : ""
           }`,
         },
@@ -112,7 +102,9 @@ export default function Chat() {
       setMessages([
         {
           role: "assistant",
-          content: `${count === 1 ? "You've just completed your first check-in — nice one!\n\n" : ""}I'm MOOD, I use ${
+          content: `${
+            history?.length === 1 ? "You've just completed your first check-in — nice one!\n\n" : ""
+          }I'm MOOD, I use ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
           } and emotion science to help you understand your feelings at work — all privately, of course.\n\nWhat's your first name?`,
           height: Device.deviceType !== 1 ? 160 : 112,
