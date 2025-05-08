@@ -161,7 +161,7 @@ export default function Content(props: ContentProps) {
                 {company && !props.noCheckInToday && (
                   <View style={{ width: "100%", paddingHorizontal: spacing }}>
                     <Button route="company" large icon={ChartSpline}>
-                      {`View ${company} insights`}
+                      {`${company} insights`}
                     </Button>
                   </View>
                 )}

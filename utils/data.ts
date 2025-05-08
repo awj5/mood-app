@@ -32,9 +32,13 @@ export const getStatement = (statement: number, response: number, type: string, 
 
   const competency = guidelinesData[0].competencies.filter((item) => item.id === statement)[0];
 
-  return `${start} ${type === "neg" ? competency.negStatement : competency.posStatement} at ${
-    company ? company : "my company"
-  }.`;
+  let companyName = company ? company : "my company";
+
+  if (companyName.endsWith(".")) {
+    companyName = companyName.slice(0, -1);
+  }
+
+  return `${start} ${type === "neg" ? competency.negStatement : competency.posStatement} at ${companyName}.`;
 };
 
 export type PromptDataType = {
