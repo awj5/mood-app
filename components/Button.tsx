@@ -74,7 +74,7 @@ export default function Button(props: ButtonProps) {
 
         <Text
           style={{
-            fontFamily: props.gradient ? "Circular-Bold" : "Circular-Medium",
+            fontFamily: props.gradient || props.large ? "Circular-Bold" : "Circular-Medium",
             color: props.destructive
               ? "white"
               : !props.fill
