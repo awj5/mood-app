@@ -109,9 +109,9 @@ export default function Stats(props: StatsProps) {
             ? `${date.getDate()}/${date.getMonth() + 1}`
             : days[date.getDay()],
         value: energyScores.length
-          ? Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length)
+          ? Math.max(Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length), 2)
           : 0,
-        spacing: spacing / 8,
+        spacing: Device.deviceType !== 1 ? 5 : 3,
         frontColor: invertedColor,
         labelTextStyle: {
           fontFamily: "Circular-Medium",
@@ -123,12 +123,12 @@ export default function Stats(props: StatsProps) {
               : smallFont,
           color: energyScores.length ? colors.primary : colors.opaque,
         },
-        labelWidth: barSize * 2 + (spacing / 8) * 3,
+        labelWidth: barSize * 2 + (Device.deviceType !== 1 ? 5 : 3),
       });
 
       dataItems.push({
         value: stressScores.length
-          ? Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length)
+          ? Math.max(Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length), 2)
           : 0,
         frontColor: colors.primary,
       }); // Stress
@@ -264,7 +264,7 @@ export default function Stats(props: StatsProps) {
             color: colors.opaque,
           }}
           yAxisExtraHeight={spacing}
-          initialSpacing={spacing}
+          initialSpacing={spacing / 2}
           rulesColor={colors.primary === "white" ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)"}
           disablePress
         />
