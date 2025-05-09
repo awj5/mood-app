@@ -25,7 +25,7 @@ export default function Article(props: ArticleProps) {
   const opacity = useSharedValue(props.checkIns ? 0 : 1);
   const [articleData, setArticleData] = useState<ArticleType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const url = "https://www.mood.ai/img/articles/";
+  const url = "https://res.cloudinary.com/dzuz9bul0/image/upload/";
 
   useEffect(() => {
     let article;

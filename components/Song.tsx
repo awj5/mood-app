@@ -31,7 +31,7 @@ export default function Song(props: SongProps) {
   const [song, setSong] = useState<SongType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const iconSize = Device.deviceType !== 1 ? 32 : 24;
-  const url = "https://www.mood.ai/img/music/";
+  const url = "https://res.cloudinary.com/dzuz9bul0/image/upload/";
 
   useEffect(() => {
     let color;

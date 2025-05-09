@@ -28,7 +28,7 @@ export default function Quote(props: QuoteProps) {
   const [quoteData, setQuoteData] = useState<QuoteType>();
   const [authorImage, setAuthorImage] = useState("");
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const url = "https://www.mood.ai/img/quotes/authors/";
+  const url = "https://res.cloudinary.com/dzuz9bul0/image/upload/";
 
   useEffect(() => {
     let tags: number[] = [];
