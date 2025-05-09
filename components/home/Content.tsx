@@ -68,10 +68,11 @@ export default function Content(props: ContentProps) {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const proID = await getStoredVal("pro-id"); // Check if pro subscriber
     const name = await getStoredVal("company-name");
+    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
 
     if (latestQueryRef.current === currentQuery) {
       setHasAccess(uuid || proID ? true : false);
-      if (name) setCompany(name);
+      if (name && send) setCompany(name);
       setCheckIns(checkInData);
     }
   };
