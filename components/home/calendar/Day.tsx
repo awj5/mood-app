@@ -138,7 +138,7 @@ export default function Day(props: DayProps) {
               styles.countText,
               {
                 fontSize: Device.deviceType !== 1 ? 14 : 10,
-                lineHeight: Device.deviceType !== 1 ? 16 : 12,
+                lineHeight: Device.deviceType !== 1 ? 17 : 12,
               },
             ]}
             allowFontScaling={false}

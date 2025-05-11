@@ -126,6 +126,7 @@ export default function Shortcuts(props: ShortcutsProps) {
       <Button func={setLastMonth}>Last month</Button>
       <Button func={() => setPrevDays(30)}>Past 30 days</Button>
       <Button func={() => setPrevDays(60)}>Past 60 days</Button>
+      <Button func={() => setPrevDays(90)}>Past 90 days</Button>
       <Button func={setThisYear}>This year</Button>
       <Button func={setLastYear}>Last year</Button>
     </View>

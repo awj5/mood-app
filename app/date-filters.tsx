@@ -44,7 +44,7 @@ export default function DateFilters() {
         text="History"
         description={
           params.type === "company"
-            ? "Explore the anonymous mood check-in history of your colleagues by selecting a specific date range or tapping a shortcut."
+            ? "Explore the anonymous mood check-in history of your company by selecting a specific date range or tapping a shortcut."
             : "Explore your mood check-in history by selecting a specific date range or tapping a shortcut."
         }
       />
