@@ -50,13 +50,13 @@ export default function Company() {
     today.setHours(0, 0, 0, 0);
     const daysAgo = new Date();
     daysAgo.setHours(0, 0, 0, 0);
-    daysAgo.setDate(today.getDate() - 30);
+    daysAgo.setDate(today.getDate() - 90);
 
     setCompanyDates({
       weekStart: getMonday(daysAgo),
       rangeStart: daysAgo,
       rangeEnd: today,
-      title: "PAST 30 DAYS'",
+      title: "PAST 90 DAYS'",
     });
   }, []);
 

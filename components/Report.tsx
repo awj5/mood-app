@@ -8,7 +8,7 @@ import { Flag } from "lucide-react-native";
 import { CheckInType } from "data/database";
 import { CompanyCheckInType } from "app/company";
 import { theme, pressedDefault, getStoredVal } from "utils/helpers";
-import { getPromptData } from "utils/data";
+import { generateHash, getPromptData } from "utils/data";
 
 type ReportProps = {
   text: string;
@@ -24,10 +24,10 @@ export default function Report(props: ReportProps) {
   const db = useSQLiteContext();
   const [reported, setReported] = useState(false);
 
-  const deleteInsightsData = async (ids: number[], local: boolean) => {
+  const deleteInsightsData = async (ids: number[], hash: string) => {
     const uuid = await getStoredVal("uuid");
 
-    if (local) {
+    if (!hash) {
       try {
         // Delete insight
         const query = `
@@ -47,7 +47,7 @@ export default function Report(props: ReportProps) {
             : "http://localhost:3000/api/insights/delete",
           {
             uuid: uuid,
-            ids: ids,
+            hash: hash,
             ...(props.category !== undefined && { category: props.category }),
           }
         );
@@ -78,7 +78,8 @@ export default function Report(props: ReportProps) {
     // Remove saved summary
     if (props.checkIns) {
       const promptData = getPromptData(props.checkIns);
-      deleteInsightsData(promptData.ids, "value" in props.checkIns[0] ? false : true); // Determine if company check-ins
+      const hash = "value" in props.checkIns[0] ? await generateHash(promptData.ids) : "";
+      deleteInsightsData(promptData.ids, hash); // Determine if company check-ins
     } else {
       setReported(true);
     }

@@ -1,3 +1,4 @@
+import * as Crypto from "expo-crypto";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CheckInMoodType, CheckInType } from "data/database";
@@ -85,4 +86,9 @@ export const getPromptData = (checkIns: CheckInType[] | CompanyCheckInType[]) =>
   }
 
   return { data, ids };
+};
+
+export const generateHash = async (ids: number[]) => {
+  const json = JSON.stringify(ids);
+  return await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, json);
 };

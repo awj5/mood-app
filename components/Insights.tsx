@@ -8,7 +8,7 @@ import { CalendarDatesType } from "context/home-dates";
 import { CompanyCheckInType } from "app/company";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { getPromptData, PromptDataType } from "utils/data";
+import { generateHash, getPromptData, PromptDataType } from "utils/data";
 import { getStoredVal, removeAccess } from "utils/helpers";
 
 type InsightsProps = {
@@ -48,13 +48,13 @@ export default function Insights(props: InsightsProps) {
     }
   };
 
-  const getInsightsData = async (ids: number[], uuid: string) => {
+  const getInsightsData = async (hash: string, uuid: string) => {
     try {
       const response = await axios.post(
         Constants.appOwnership !== "expo" ? "https://mood.ai/api/insights" : "http://localhost:3000/api/insights",
         {
           uuid: uuid,
-          ids: ids,
+          hash: hash,
           ...(props.category !== undefined && { category: props.category }),
         }
       );
@@ -72,11 +72,12 @@ export default function Insights(props: InsightsProps) {
     setIsLoading(true);
     setText("");
     const promptData = getPromptData(props.checkIns);
+    const hash = await generateHash(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const name = await getStoredVal("company-name");
 
     if (uuid) {
-      const savedResponse = await getInsightsData(promptData.ids, uuid);
+      const savedResponse = await getInsightsData(hash, uuid);
 
       // Show saved response if exists or get response from API
       if (savedResponse && latestQueryRef.current === currentQuery) {
@@ -95,7 +96,7 @@ export default function Insights(props: InsightsProps) {
                 : "http://localhost:3000/api/insights/save",
               {
                 uuid: uuid,
-                ids: promptData.ids,
+                hash: hash,
                 summary: aiResponse,
                 ...(props.category !== undefined && { category: props.category }),
               }
