@@ -58,7 +58,7 @@ export default function Link(props: LinkProps) {
         )}
 
         <ChevronRight
-          color={colors.primary}
+          color={colors.secondary}
           size={Device.deviceType !== 1 ? 28 : 20}
           absoluteStrokeWidth
           strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}

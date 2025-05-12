@@ -27,7 +27,7 @@ export default function CompanyFilters() {
                 style={{
                   fontFamily: "Circular-Book",
                   fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.primary,
+                  color: colors.link,
                 }}
                 allowFontScaling={false}
               >

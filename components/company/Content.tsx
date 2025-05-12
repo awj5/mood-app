@@ -133,7 +133,7 @@ export default function Content(props: ContentProps) {
               style={[
                 styles.text,
                 {
-                  color: colors.primary,
+                  color: colors.opaque,
                   fontSize: fontSize,
                 },
               ]}
@@ -163,7 +163,7 @@ export default function Content(props: ContentProps) {
               style={[
                 styles.text,
                 {
-                  color: colors.primary,
+                  color: colors.opaque,
                   fontSize: fontSize,
                 },
               ]}
@@ -189,7 +189,6 @@ const styles = StyleSheet.create({
     maxWidth: 720 + 48,
   },
   text: {
-    opacity: 0.5,
     fontFamily: "Circular-Book",
     textAlign: "center",
   },

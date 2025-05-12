@@ -80,7 +80,7 @@ export default function List() {
               onPress={() => router.dismissAll()}
               label="Back"
               labelStyle={{ fontFamily: "Circular-Book", fontSize: fontSize }}
-              tintColor={colors.primary}
+              tintColor={colors.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -104,7 +104,7 @@ export default function List() {
                 style={{
                   fontFamily: "Circular-Book",
                   fontSize: fontSize,
-                  color: colors.primary,
+                  color: colors.link,
                 }}
                 allowFontScaling={false}
               >
@@ -148,7 +148,7 @@ export default function List() {
             style={[
               styles.text,
               {
-                color: colors.primary,
+                color: colors.secondary,
                 fontSize: fontSize,
               },
             ]}
@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
     height: 1,
   },
   text: {
-    opacity: 0.5,
     fontFamily: "Circular-Book",
     textAlign: "center",
   },
