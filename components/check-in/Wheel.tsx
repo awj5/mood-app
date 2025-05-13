@@ -64,7 +64,7 @@ export default function Wheel(props: WheelProps) {
           newAngle = 240; // Dark violet
           break;
         case locationX >= section * 4 && locationY >= section * 2:
-          newAngle = 270; // Dark magenta
+          newAngle = 270; // Aubergine
           break;
         case locationX >= section * 4 && locationY >= section:
           newAngle = 300; // Dark rose

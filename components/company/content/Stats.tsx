@@ -1,24 +1,33 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
+import { useRouter } from "expo-router";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { PieChart, pieDataItem } from "react-native-gifted-charts";
 import moodsData from "data/moods.json";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CompanyCheckInType } from "app/company";
 import Stat from "./Stats/Stat";
-import { theme } from "utils/helpers";
 
 type StatsProps = {
   checkIns: CompanyCheckInType[];
 };
 
 export default function Stats(props: StatsProps) {
-  const colors = theme();
+  const router = useRouter();
   const opacity = useSharedValue(0);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [moodData, setMoodData] = useState<pieDataItem[]>([]);
-  const invertedColor = colors.primary === "white" ? "black" : "white";
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const bgColor = colors.primary !== "white" ? "#222222" : "#EEEEEE";
+
+  const press = (color: string) => {
+    router.push({
+      pathname: "mood",
+      params: {
+        name: color,
+      },
+    });
+  };
 
   useEffect(() => {
     const groups: Record<string, CompanyCheckInType[]> = {};
@@ -44,6 +53,7 @@ export default function Stats(props: StatsProps) {
         shiftTextX: -2,
         shiftTextY: 4,
         textColor: Number(key) >= 6 && Number(key) <= 11 ? "white" : "black",
+        onPress: () => press(mood.name),
       });
     });
 
@@ -56,7 +66,7 @@ export default function Stats(props: StatsProps) {
 
       topMoods.push({
         value: otherTotal,
-        color: colors.secondary,
+        color: "#FFFFFF",
         text: ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%",
         tooltipText: "Other",
         shiftTextX: -2,
@@ -74,7 +84,6 @@ export default function Stats(props: StatsProps) {
       style={[
         styles.container,
         {
-          backgroundColor: bgColor,
           borderRadius: spacing,
           padding: spacing,
           opacity,
@@ -83,11 +92,12 @@ export default function Stats(props: StatsProps) {
     >
       <View style={{ width: "50%" }}>
         <Text
-          style={{
-            fontFamily: "Circular-Bold",
-            color: invertedColor,
-            fontSize: Device.deviceType !== 1 ? 16 : 12,
-          }}
+          style={[
+            styles.heading,
+            {
+              fontSize: Device.deviceType !== 1 ? 16 : 12,
+            },
+          ]}
           allowFontScaling={false}
         >
           MOOD SNAPSHOT
@@ -97,18 +107,18 @@ export default function Stats(props: StatsProps) {
           <View
             style={{
               flexDirection: "row",
-              gap: Device.deviceType !== 1 ? spacing * 2 : spacing,
+              gap: Device.deviceType !== 1 ? spacing * 2 : dimensions.width <= 375 ? spacing / 2 : spacing,
             }}
           >
-            <View style={{ gap: spacing / 4 }}>
+            <View style={{ gap: spacing / 2 }}>
               {moodData.slice(0, 4).map((item, index) => (
-                <Stat key={index} text={item.tooltipText as string} color={item.color as string} />
+                <Stat key={index} text={item.tooltipText as string} />
               ))}
             </View>
 
-            <View style={{ gap: spacing / 4 }}>
+            <View style={{ gap: spacing / 2 }}>
               {moodData.slice(4, 8).map((item, index) => (
-                <Stat key={index} text={item.tooltipText as string} color={item.color as string} />
+                <Stat key={index} text={item.tooltipText as string} />
               ))}
             </View>
           </View>
@@ -124,7 +134,7 @@ export default function Stats(props: StatsProps) {
           font="Circular-Medium"
           textSize={Device.deviceType !== 1 ? 14 : 11}
           labelsPosition="outward"
-          innerCircleColor={bgColor}
+          innerCircleColor="#000000"
         />
       </View>
     </Animated.View>
@@ -135,6 +145,11 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "row",
+    backgroundColor: "black",
+  },
+  heading: {
+    fontFamily: "Circular-Bold",
+    color: "white",
   },
   list: {
     justifyContent: "center",

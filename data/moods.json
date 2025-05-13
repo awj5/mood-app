@@ -139,7 +139,7 @@
   },
   {
     "id": 9,
-    "name": "Dark Magenta",
+    "name": "Aubergine",
     "color": "#990099",
     "stress": 80,
     "energy": 50,
@@ -147,8 +147,8 @@
       1, 10, 18, 23, 24, 26, 39, 40, 46, 49, 54, 56, 59, 60, 61, 64, 80, 100, 104, 105, 106, 111, 113, 125, 126, 128,
       129, 133, 144, 150, 154, 160, 167, 173, 180, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206
     ],
-    "summary": "When you're in the Dark Magenta zone, you're hurting. There's tension here \u2013 emotional pain, exclusion, or a sense of being off-centre.",
-    "description": "Dark Magenta is where hurt and tension mix. There's emotional weight here — a sense of being pushed out, misunderstood, or carrying pain. It's more active than sadness, but still heavy with strain.",
+    "summary": "When you're in the Aubergine zone, you're hurting. There's tension here \u2013 emotional pain, exclusion, or a sense of being off-centre.",
+    "description": "Aubergine is where hurt and tension mix. There's emotional weight here — a sense of being pushed out, misunderstood, or carrying pain. It's more active than sadness, but still heavy with strain.",
     "science": "Emotional pain lights up the same brain regions as physical pain \u2013 especially the anterior cingulate cortex. The need for connection is primal here, and oxytocin may be low.",
     "strategies": "First, give yourself permission to feel what hurts \u2013 pain is valid and real. Then, consider whether it helps to be alone or to be heard. Finally, take a step toward healing \u2013 through connection, compassion, or simply naming what's true for you."
   },

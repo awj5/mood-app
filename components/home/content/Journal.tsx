@@ -177,7 +177,7 @@ export default function Journal(props: JournalProps) {
                 <ParsedText
                   parse={[
                     {
-                      pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Dark Magenta|Burgundy|Red/,
+                      pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Aubergine|Burgundy|Red/,
                       style: { textDecorationLine: "underline" },
                       onPress: colorPress,
                     },
