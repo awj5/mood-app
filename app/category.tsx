@@ -28,6 +28,7 @@ import Article from "components/Article";
 import Insights from "components/Insights";
 import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
+import Role from "components/Role";
 import { theme } from "utils/helpers";
 
 export type CategoryType = {
@@ -48,6 +49,7 @@ export default function Category() {
     icon: string;
     score: string;
     trend: string;
+    role: string;
   }>();
 
   const colors = theme();
@@ -129,9 +131,10 @@ export default function Category() {
           </View>
 
           <Insights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
+          {params.role !== "user" && <Role text={params.role} />}
 
           <View style={{ flexDirection: "row", gap: spacing }}>
-            <Sentiment score={Number(params.score)} trend={params.trend} />
+            <Sentiment score={Number(params.score)} trend={params.trend} role={params.role} />
             <Article competency={params.id} />
           </View>
 

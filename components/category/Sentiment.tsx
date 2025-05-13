@@ -7,13 +7,14 @@ import { theme, pressedDefault } from "utils/helpers";
 type SentimentProps = {
   score: number;
   trend: string;
+  role: string;
 };
 
 export default function Sentiment(props: SentimentProps) {
   const colors = theme();
   const [score, setScore] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const lowScore = props.score < 40 ? true : false;
+  const lowScore = props.score < 40 && props.role === "user" ? true : false;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
   const Icon = props.trend === "increasing" ? TrendingUp : props.trend === "decreasing" ? TrendingDown : MoveRight;
 

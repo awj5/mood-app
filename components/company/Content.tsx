@@ -14,7 +14,8 @@ import { CompanyCheckInType } from "app/company";
 import Insights from "components/Insights";
 import Categories from "./content/Categories";
 import Stats from "./content/Stats";
-import { getStoredVal, theme, pressedDefault, removeAccess } from "utils/helpers";
+import Role from "components/Role";
+import { getStoredVal, theme, pressedDefault, removeAccess, setStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 type ContentProps = {
@@ -30,6 +31,7 @@ export default function Content(props: ContentProps) {
   const filtersRef = useRef<CompanyFiltersType | undefined>();
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const [isOffline, setIsOffline] = useState(false);
+  const [role, setRole] = useState("");
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const smallSpacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -51,6 +53,7 @@ export default function Content(props: ContentProps) {
           uuid: uuid,
           start: convertToISO(start),
           end: convertToISO(end),
+          role: true, // Will remove
           ...(props.filters.locations.length !== undefined && { locations: props.filters.locations }),
           ...(props.filters.teams.length !== undefined && { teams: props.filters.teams }),
         }
@@ -80,8 +83,10 @@ export default function Content(props: ContentProps) {
       const checkInData = await getCheckInData(uuid); // Get check-ins from Supabase
 
       if (latestQueryRef.current === currentQuery) {
-        props.setCheckIns(checkInData);
+        props.setCheckIns(checkInData.checkInsData);
         filtersRef.current = props.filters;
+        setRole(checkInData.role);
+        setStoredVal("admin", checkInData.role === "admin" ? "true" : "false"); // Remember admin
       }
     } else if (!network.isInternetReachable) {
       setIsOffline(true);
@@ -124,8 +129,9 @@ export default function Content(props: ContentProps) {
         {props.checkIns?.length ? (
           <>
             <Insights checkIns={props.checkIns} dates={companyDates} />
+            {role !== "user" && <Role text={role} />}
             <Stats checkIns={props.checkIns} />
-            <Categories checkIns={props.checkIns} />
+            <Categories checkIns={props.checkIns} role={role} />
           </>
         ) : isOffline ? (
           <View style={{ gap: smallSpacing, alignItems: "center" }}>
@@ -187,6 +193,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     maxWidth: 720 + 48,
+  },
+  role: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 999,
   },
   text: {
     fontFamily: "Circular-Book",

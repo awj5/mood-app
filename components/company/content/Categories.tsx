@@ -26,6 +26,7 @@ import { getMostCommon } from "utils/helpers";
 
 type CategoriesProps = {
   checkIns: CompanyCheckInType[];
+  role: string;
 };
 
 export default function Categories(props: CategoriesProps) {
@@ -111,7 +112,7 @@ export default function Categories(props: CategoriesProps) {
       style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}
     >
       {categories?.map((item, index) => (
-        <Category key={index} data={item} />
+        <Category key={index} data={item} role={props.role} />
       ))}
     </Animated.View>
   );

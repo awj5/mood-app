@@ -10,6 +10,7 @@ import { pressedDefault, theme } from "utils/helpers";
 
 type CategoryProps = {
   data: CategoryType;
+  role: string;
 };
 
 export default function Category(props: CategoryProps) {
@@ -21,7 +22,7 @@ export default function Category(props: CategoryProps) {
     props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
-  const lowScore = props.data.score < 40 ? true : false;
+  const lowScore = props.data.score < 40 && props.role === "user" ? true : false;
 
   const click = () => {
     router.push({
@@ -33,6 +34,7 @@ export default function Category(props: CategoryProps) {
         icon: props.data.icon.displayName,
         score: props.data.score,
         trend: props.data.trend,
+        role: props.role,
       },
     });
   };
