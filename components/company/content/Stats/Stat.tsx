@@ -29,7 +29,7 @@ export default function Stat(props: StatProps) {
     Azure: require("../../../../assets/img/emoji/small/azure.png"),
     Blue: require("../../../../assets/img/emoji/small/blue.png"),
     Violet: require("../../../../assets/img/emoji/small/dark-violet.png"),
-    DarkMagenta: require("../../../../assets/img/emoji/small/dark-magenta.png"),
+    Aubergine: require("../../../../assets/img/emoji/small/dark-magenta.png"),
     Burgundy: require("../../../../assets/img/emoji/small/dark-rose.png"),
     Red: require("../../../../assets/img/emoji/small/red.png"),
     Orange: require("../../../../assets/img/emoji/small/orange.png"),

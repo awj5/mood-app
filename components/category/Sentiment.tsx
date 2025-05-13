@@ -15,7 +15,6 @@ export default function Sentiment(props: SentimentProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const lowScore = props.score < 40 ? true : false;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
-  const grey = colors.primary === "white" ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.5)";
   const Icon = props.trend === "increasing" ? TrendingUp : props.trend === "decreasing" ? TrendingDown : MoveRight;
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export default function Sentiment(props: SentimentProps) {
       style={{
         flex: 1,
         aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+        backgroundColor: colors.opaqueBg,
         borderRadius: spacing,
       }}
     >
@@ -87,7 +86,7 @@ export default function Sentiment(props: SentimentProps) {
           hitSlop={16}
         >
           <Info
-            color={grey}
+            color={colors.opaque}
             size={Device.deviceType !== 1 ? 20 : 16}
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
@@ -96,7 +95,7 @@ export default function Sentiment(props: SentimentProps) {
           <Text
             style={{
               fontFamily: "Circular-Book",
-              color: grey,
+              color: colors.opaque,
               fontSize: fontSize,
             }}
             allowFontScaling={false}

@@ -41,7 +41,7 @@ export default function Header(props: HeaderProps) {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "Circular-Medium",
+    fontFamily: "Circular-Bold",
     textTransform: "uppercase",
   },
   icon: {

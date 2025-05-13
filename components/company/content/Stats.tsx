@@ -132,7 +132,7 @@ export default function Stats(props: StatsProps) {
           radius={Device.deviceType !== 1 ? 100 : 72}
           showText
           font="Circular-Medium"
-          textSize={Device.deviceType !== 1 ? 14 : 11}
+          textSize={Device.deviceType !== 1 ? 16 : 12}
           labelsPosition="outward"
           innerCircleColor="#000000"
         />

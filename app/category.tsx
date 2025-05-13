@@ -90,7 +90,7 @@ export default function Category() {
               onPress={() => router.back()}
               label="Back"
               labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-              tintColor={colors.primary}
+              tintColor={colors.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -111,14 +111,14 @@ export default function Category() {
           <View style={{ alignItems: "center", gap: spacing / 2 }}>
             <Icon
               color={colors.primary}
-              size={Device.deviceType !== 1 ? 48 : 40}
+              size={Device.deviceType !== 1 ? 64 : 48}
               absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 3.5 : 3}
+              strokeWidth={Device.deviceType !== 1 ? 4 : 3.25}
             />
 
             <Text
               style={{
-                fontFamily: "Circular-Bold",
+                fontFamily: "Circular-Black",
                 fontSize: Device.deviceType !== 1 ? 30 : 24,
                 color: colors.primary,
               }}

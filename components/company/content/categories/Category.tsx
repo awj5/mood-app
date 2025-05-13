@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
@@ -64,7 +64,7 @@ export default function Category(props: CategoryProps) {
         {
           width: (parentWidth - spacing * 3) / 2, // 2 columns
           aspectRatio: Device.deviceType !== 1 ? "3/2" : "4/4",
-          backgroundColor: colors.primary === "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+          backgroundColor: colors.opaqueBg,
           borderRadius: spacing,
           padding: spacing,
           justifyContent: "space-between",
@@ -97,13 +97,11 @@ export default function Category(props: CategoryProps) {
         </Text>
 
         <Text
-          style={[
-            styles.text,
-            {
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 14 : 10,
-            },
-          ]}
+          style={{
+            fontFamily: "Circular-Book",
+            color: colors.opaque,
+            fontSize: Device.deviceType !== 1 ? 14 : 10,
+          }}
           allowFontScaling={false}
         >
           SENTIMENT INDEX
@@ -112,10 +110,3 @@ export default function Category(props: CategoryProps) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: "Circular-Book",
-    opacity: 0.5,
-  },
-});
