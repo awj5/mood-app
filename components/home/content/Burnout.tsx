@@ -79,7 +79,7 @@ export default function Burnout(props: BurnoutProps) {
         <Gauge value={value} />
 
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/mood-levels/")}
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/burnout-risk/")}
           style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
           hitSlop={16}
         >

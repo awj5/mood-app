@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
+import * as WebBrowser from "expo-web-browser";
 import { TrendingUp, TrendingDown, MoveRight, Info } from "lucide-react-native";
 import { theme, pressedDefault } from "utils/helpers";
 
@@ -82,7 +83,7 @@ export default function Sentiment(props: SentimentProps) {
         </View>
 
         <Pressable
-          onPress={() => alert("Coming soon")}
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/sentiment-index/")}
           style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
           hitSlop={16}
         >
