@@ -30,7 +30,7 @@ export default function Instructions() {
         ]}
         allowFontScaling={false}
       >
-        {"Rotate the wheel to select your mood\nthen long press the emoji to learn more"}
+        {"Rotate the wheel to select your mood\nand long press the emoji to learn more"}
       </Text>
     </Animated.View>
   );
