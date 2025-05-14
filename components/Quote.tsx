@@ -96,7 +96,7 @@ export default function Quote(props: QuoteProps) {
           WORDS OF WISDOM
         </Text>
 
-        <Pressable
+        {/*<Pressable
           onPress={() => alert("Coming soon")}
           style={({ pressed }) => [
             pressedDefault(pressed),
@@ -111,7 +111,7 @@ export default function Quote(props: QuoteProps) {
             absoluteStrokeWidth
             strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
           />
-        </Pressable>
+        </Pressable>*/}
       </View>
 
       <View style={{ gap: spacing / 2 }}>
