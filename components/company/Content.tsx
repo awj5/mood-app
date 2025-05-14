@@ -18,6 +18,12 @@ import Role from "components/Role";
 import { getStoredVal, theme, pressedDefault, removeAccess, setStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
+export type StatsDataType = {
+  checkIns: number;
+  users: number;
+  participation: number;
+};
+
 type ContentProps = {
   checkIns: CompanyCheckInType[] | undefined;
   setCheckIns: React.Dispatch<React.SetStateAction<CompanyCheckInType[] | undefined>>;
@@ -32,6 +38,7 @@ export default function Content(props: ContentProps) {
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const [isOffline, setIsOffline] = useState(false);
   const [role, setRole] = useState("");
+  const [statsData, setStatsData] = useState<StatsDataType>();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const smallSpacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
@@ -91,6 +98,10 @@ export default function Content(props: ContentProps) {
           setRole(checkInData.role);
           setStoredVal("admin", checkInData.role === "admin" ? "true" : "false"); // Remember admin
         }
+
+        if (checkInData.stats) {
+          setStatsData(checkInData.stats);
+        }
       }
     } else if (!network.isInternetReachable) {
       setIsOffline(true);
@@ -134,7 +145,7 @@ export default function Content(props: ContentProps) {
           <>
             <Insights checkIns={props.checkIns} dates={companyDates} />
             {role !== "user" && <Role text={role} />}
-            <Stats checkIns={props.checkIns} />
+            <Stats checkIns={props.checkIns} statsData={statsData} />
             <Categories checkIns={props.checkIns} role={role} />
           </>
         ) : isOffline ? (

@@ -7,10 +7,13 @@ import { PieChart, pieDataItem } from "react-native-gifted-charts";
 import moodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CompanyCheckInType } from "app/company";
+import { StatsDataType } from "../Content";
 import Stat from "./Stats/Stat";
+import Data from "./Stats/Data";
 
 type StatsProps = {
   checkIns: CompanyCheckInType[];
+  statsData: StatsDataType | undefined;
 };
 
 export default function Stats(props: StatsProps) {
@@ -86,56 +89,65 @@ export default function Stats(props: StatsProps) {
         {
           borderRadius: spacing,
           padding: spacing,
+          gap: spacing,
           opacity,
         },
       ]}
     >
-      <View style={{ width: "50%" }}>
-        <Text
-          style={[
-            styles.heading,
-            {
-              fontSize: Device.deviceType !== 1 ? 16 : 12,
-            },
-          ]}
-          allowFontScaling={false}
-        >
-          MOOD SNAPSHOT
-        </Text>
-
-        <View style={styles.list}>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: Device.deviceType !== 1 ? spacing * 2 : dimensions.width <= 375 ? spacing / 2 : spacing,
-            }}
+      <View style={{ flexDirection: "row" }}>
+        <View style={{ width: "50%" }}>
+          <Text
+            style={[
+              styles.heading,
+              {
+                fontSize: Device.deviceType !== 1 ? 16 : 12,
+              },
+            ]}
+            allowFontScaling={false}
           >
-            <View style={{ gap: spacing / 2 }}>
-              {moodData.slice(0, 4).map((item, index) => (
-                <Stat key={index} text={item.tooltipText as string} />
-              ))}
-            </View>
+            MOOD SNAPSHOT
+          </Text>
 
-            <View style={{ gap: spacing / 2 }}>
-              {moodData.slice(4, 8).map((item, index) => (
-                <Stat key={index} text={item.tooltipText as string} />
-              ))}
+          <View style={styles.list}>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: Device.deviceType !== 1 ? spacing * 2 : dimensions.width <= 375 ? spacing / 2 : spacing,
+              }}
+            >
+              <View style={{ gap: spacing / 2 }}>
+                {moodData.slice(0, 4).map((item, index) => (
+                  <Stat key={index} text={item.tooltipText as string} />
+                ))}
+              </View>
+
+              <View style={{ gap: spacing / 2 }}>
+                {moodData.slice(4, 8).map((item, index) => (
+                  <Stat key={index} text={item.tooltipText as string} />
+                ))}
+              </View>
             </View>
           </View>
         </View>
+
+        <View style={[styles.chart, { height: Device.deviceType !== 1 ? 200 : 144 }]}>
+          <PieChart
+            data={moodData}
+            donut
+            radius={Device.deviceType !== 1 ? 100 : 72}
+            showText
+            font="Circular-Medium"
+            textSize={Device.deviceType !== 1 ? 16 : 12}
+            labelsPosition="outward"
+            innerCircleColor="#000000"
+          />
+        </View>
       </View>
 
-      <View style={[styles.chart, { height: Device.deviceType !== 1 ? 200 : 144 }]}>
-        <PieChart
-          data={moodData}
-          donut
-          radius={Device.deviceType !== 1 ? 100 : 72}
-          showText
-          font="Circular-Medium"
-          textSize={Device.deviceType !== 1 ? 16 : 12}
-          labelsPosition="outward"
-          innerCircleColor="#000000"
-        />
+      <View style={[styles.data, { gap: spacing }]}>
+        <Data number={String(props.statsData?.checkIns)} text="check-ins" />
+        <Data number={String(props.statsData?.users)} text="users" />
+        <Data number={String(props.statsData?.participation) + "%"} text="participation" />
       </View>
     </Animated.View>
   );
@@ -144,7 +156,6 @@ export default function Stats(props: StatsProps) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    flexDirection: "row",
     backgroundColor: "black",
   },
   heading: {
@@ -159,5 +170,9 @@ const styles = StyleSheet.create({
   chart: {
     alignItems: "center",
     width: "50%",
+  },
+  data: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
