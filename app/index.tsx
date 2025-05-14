@@ -104,13 +104,13 @@ export default function Home() {
                 gap: Device.deviceType !== 1 ? 24 : 20,
               }}
             >
-              <Pressable
+              {/*<Pressable
                 onPress={() => alert("Coming soon")}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={8}
               >
                 <Download color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
-              </Pressable>
+              </Pressable>*/}
 
               <Pressable
                 onPress={() => router.push("settings")}

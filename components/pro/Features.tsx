@@ -21,7 +21,7 @@ export default function Features() {
       <Item>Smart check-in summaries</Item>
       <Item>Actionable AI-powered insights</Item>
       <Item>Early burnout detection</Item>
-      <Item>Powerful custom reports</Item>
+      {/*<Item>Powerful custom reports</Item>*/}
     </View>
   );
 }
