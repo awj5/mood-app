@@ -83,10 +83,14 @@ export default function Content(props: ContentProps) {
       const checkInData = await getCheckInData(uuid); // Get check-ins from Supabase
 
       if (latestQueryRef.current === currentQuery) {
-        props.setCheckIns(checkInData.checkInsData);
+        props.setCheckIns(checkInData.checkInsData ? checkInData.checkInsData : []);
         filtersRef.current = props.filters;
-        setRole(checkInData.role);
-        setStoredVal("admin", checkInData.role === "admin" ? "true" : "false"); // Remember admin
+
+        // Assign user's role
+        if (checkInData.role) {
+          setRole(checkInData.role);
+          setStoredVal("admin", checkInData.role === "admin" ? "true" : "false"); // Remember admin
+        }
       }
     } else if (!network.isInternetReachable) {
       setIsOffline(true);

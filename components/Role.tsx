@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
-import { Crown } from "lucide-react-native";
+import { Crown, Users } from "lucide-react-native";
 import { theme } from "utils/helpers";
 
 type RoleProps = {
@@ -10,6 +10,7 @@ type RoleProps = {
 
 export default function Role(props: RoleProps) {
   const colors = theme();
+  const Icon = props.text === "admin" ? Crown : Users;
 
   return (
     <Animated.View
@@ -24,7 +25,7 @@ export default function Role(props: RoleProps) {
         },
       ]}
     >
-      <Crown
+      <Icon
         color={colors.primary}
         size={Device.deviceType !== 1 ? 20 : 16}
         absoluteStrokeWidth
