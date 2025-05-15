@@ -176,7 +176,7 @@ export default function Stats(props: StatsProps) {
           </>
         )}
 
-        <Data number={participation} text="participation" />
+        <Data number={participation} text="participation" userView={props.role === "user"} />
       </View>
     </Animated.View>
   );
