@@ -21,7 +21,7 @@ export default function Role(props: RoleProps) {
           gap: Device.deviceType !== 1 ? 10 : 6,
           backgroundColor: colors.primary === "white" ? "black" : "white",
           paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-          paddingVertical: Device.deviceType !== 1 ? 8 : 6,
+          height: Device.deviceType !== 1 ? 26 : 28,
         },
       ]}
     >

@@ -14,6 +14,7 @@ import Data from "./Stats/Data";
 type StatsProps = {
   checkIns: CompanyCheckInType[];
   statsData: StatsDataType | undefined;
+  role: string;
 };
 
 export default function Stats(props: StatsProps) {
@@ -22,6 +23,20 @@ export default function Stats(props: StatsProps) {
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [moodData, setMoodData] = useState<pieDataItem[]>([]);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const pScore = props.statsData?.participation ? props.statsData?.participation : 0;
+
+  const participation =
+    props.role !== "user"
+      ? pScore + "%"
+      : pScore >= 80
+      ? "EXCELLENT"
+      : pScore >= 60
+      ? "STRONG"
+      : pScore >= 40
+      ? "FAIR"
+      : pScore >= 20
+      ? "LIMITED"
+      : "MINIMAL";
 
   const press = (color: string) => {
     router.push({
@@ -144,10 +159,24 @@ export default function Stats(props: StatsProps) {
         </View>
       </View>
 
-      <View style={[styles.data, { gap: spacing }]}>
-        <Data number={String(props.statsData?.checkIns)} text="check-ins" />
-        <Data number={String(props.statsData?.users)} text="users" />
-        <Data number={String(props.statsData?.participation) + "%"} text="participation" />
+      <View
+        style={[
+          styles.data,
+          {
+            gap: Device.deviceType !== 1 ? 20 : 12,
+            paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
+            height: Device.deviceType !== 1 ? 36 : 28,
+          },
+        ]}
+      >
+        {props.role !== "user" && (
+          <>
+            <Data number={String(props.statsData?.checkIns)} text="check-ins" />
+            <Data number={String(props.statsData?.users)} text="users" />
+          </>
+        )}
+
+        <Data number={participation} text="participation" />
       </View>
     </Animated.View>
   );
@@ -173,6 +202,9 @@ const styles = StyleSheet.create({
   },
   data: {
     flexDirection: "row",
-    justifyContent: "center",
+    backgroundColor: "white",
+    borderRadius: 999,
+    alignSelf: "center",
+    alignItems: "center",
   },
 });

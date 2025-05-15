@@ -7,30 +7,31 @@ type DataProps = {
 };
 
 export default function Data(props: DataProps) {
+  const fontSize = Device.deviceType !== 1 ? 18 : 14;
+
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 6 : 4 }]}>
-      <Text style={[styles.number, { fontSize: Device.deviceType !== 1 ? 20 : 16 }]} allowFontScaling={false}>
+    <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+      <Text
+        style={[styles.number, { fontSize: /\d/.test(props.number) ? fontSize : Device.deviceType !== 1 ? 16 : 12 }]}
+        allowFontScaling={false}
+      >
         {props.number}
       </Text>
 
-      <Text style={[styles.text, { fontSize: Device.deviceType !== 1 ? 18 : 14 }]} allowFontScaling={false}>
-        {props.text}
+      <Text style={[styles.text, { fontSize: fontSize }]} allowFontScaling={false}>
+        {` ${props.text}`}
       </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
   number: {
     fontFamily: "Circular-Bold",
-    color: "white",
+    color: "black",
   },
   text: {
     fontFamily: "Circular-Book",
-    color: "white",
+    color: "black",
   },
 });

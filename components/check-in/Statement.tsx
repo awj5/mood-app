@@ -127,7 +127,7 @@ export default function Statement(props: StatementProps) {
               gap: Device.deviceType !== 1 ? 10 : 6,
               backgroundColor: props.color,
               paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-              paddingVertical: Device.deviceType !== 1 ? 8 : 6,
+              height: Device.deviceType !== 1 ? 36 : 28,
             },
           ]}
         >

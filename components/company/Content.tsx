@@ -90,16 +90,17 @@ export default function Content(props: ContentProps) {
       const checkInData = await getCheckInData(uuid); // Get check-ins from Supabase
 
       if (latestQueryRef.current === currentQuery) {
-        props.setCheckIns(checkInData.checkInsData ? checkInData.checkInsData : []);
+        props.setCheckIns(checkInData && checkInData.checkInsData ? checkInData.checkInsData : []);
         filtersRef.current = props.filters;
 
         // Assign user's role
-        if (checkInData.role) {
+        if (checkInData && checkInData.role) {
           setRole(checkInData.role);
           setStoredVal("admin", checkInData.role === "admin" ? "true" : "false"); // Remember admin
         }
 
-        if (checkInData.stats) {
+        // Stats
+        if (checkInData && checkInData.stats) {
           setStatsData(checkInData.stats);
         }
       }
@@ -145,7 +146,7 @@ export default function Content(props: ContentProps) {
           <>
             <Insights checkIns={props.checkIns} dates={companyDates} />
             {role !== "user" && <Role text={role} />}
-            <Stats checkIns={props.checkIns} statsData={statsData} />
+            <Stats checkIns={props.checkIns} statsData={statsData} role={role} />
             <Categories checkIns={props.checkIns} role={role} />
           </>
         ) : isOffline ? (

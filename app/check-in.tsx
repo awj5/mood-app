@@ -85,7 +85,7 @@ export default function CheckIn() {
           [convertToISO(today)]
         );
 
-        if (rows.length < 3) {
+        if (rows.length < 1) {
           // Save to Supabase
           try {
             await axios.post(
