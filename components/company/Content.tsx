@@ -15,6 +15,7 @@ import Insights from "components/Insights";
 import Categories from "./content/Categories";
 import Stats from "./content/Stats";
 import Role from "components/Role";
+import Note from "./content/Note";
 import { getStoredVal, theme, pressedDefault, removeAccess, setStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
@@ -149,6 +150,7 @@ export default function Content(props: ContentProps) {
             <Insights checkIns={props.checkIns} dates={companyDates} />
             {role !== "user" && <Role text={role} />}
             <Stats checkIns={props.checkIns} statsData={statsData} role={role} />
+            <Note />
             <Categories checkIns={props.checkIns} role={role} />
           </>
         ) : isOffline ? (

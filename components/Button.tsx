@@ -59,7 +59,7 @@ export default function Button(props: ButtonProps) {
           {
             gap: Device.deviceType !== 1 ? 10 : 6,
             paddingHorizontal:
-              Device.deviceType !== 1 ? (props.fill || props.large ? 20 : 16) : props.fill || props.large ? 16 : 12,
+              Device.deviceType !== 1 ? (props.fill || props.large ? 24 : 16) : props.fill || props.large ? 20 : 12,
           },
         ]}
       >
