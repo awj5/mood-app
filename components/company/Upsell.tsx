@@ -1,6 +1,6 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Share } from "react-native";
 import * as Device from "expo-device";
-import { Share, ChartSpline } from "lucide-react-native";
+import { ShareIcon, ChartSpline } from "lucide-react-native";
 import Button from "components/Button";
 import { theme } from "utils/helpers";
 
@@ -8,8 +8,14 @@ export default function Upsell() {
   const colors = theme();
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
-  const share = () => {
-    alert("Coming soon");
+  const share = async () => {
+    try {
+      await Share.share({
+        message: "Ready to turn emotion into action? https://www.mood.ai",
+      });
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
   };
 
   return (
@@ -59,7 +65,7 @@ export default function Upsell() {
         </Text>
 
         <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
-          <Button func={share} icon={Share} fill>
+          <Button func={share} icon={ShareIcon} fill>
             Share now
           </Button>
         </View>

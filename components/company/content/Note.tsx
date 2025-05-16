@@ -31,7 +31,7 @@ export default function Note() {
         style={({ pressed }) => [pressedDefault(pressed), { flexDirection: "row" }]}
         hitSlop={8}
       >
-        <Text style={[textStyle, { color: colors.link }]} allowFontScaling={false}>
+        <Text style={[textStyle, { color: colors.primary, textDecorationLine: "underline" }]} allowFontScaling={false}>
           Learn more
         </Text>
 
