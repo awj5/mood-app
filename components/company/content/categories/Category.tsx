@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
+import { TrendingUp, TrendingDown, MoveRight, EyeOff } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CategoryType } from "app/category";
 import Header from "./category/Header";
@@ -98,17 +98,48 @@ export default function Category(props: CategoryProps) {
           {lowScore ? "Needs attention" : `${score}%`}
         </Text>
 
-        <Text
-          style={{
-            fontFamily: "Circular-Book",
-            color: colors.opaque,
-            fontSize: Device.deviceType !== 1 ? 14 : 10,
-          }}
-          allowFontScaling={false}
-        >
-          SENTIMENT INDEX
-        </Text>
+        <View style={{ gap: spacing / 4 }}>
+          {props.data.score < 40 && props.role !== "user" && (
+            <View style={[styles.hidden, { gap: spacing / 4 }]}>
+              <EyeOff
+                color={colors.primary}
+                size={Device.deviceType !== 1 ? 20 : 16}
+                absoluteStrokeWidth
+                strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
+              />
+
+              <Text
+                style={{
+                  fontFamily: "Circular-Medium",
+                  color: colors.primary,
+                  fontSize: Device.deviceType !== 1 ? 14 : 10,
+                }}
+                allowFontScaling={false}
+              >
+                LOW SCORE HIDDEN
+              </Text>
+            </View>
+          )}
+
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              color: colors.opaque,
+              fontSize: Device.deviceType !== 1 ? 14 : 10,
+            }}
+            allowFontScaling={false}
+          >
+            SENTIMENT INDEX
+          </Text>
+        </View>
       </View>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  hidden: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});

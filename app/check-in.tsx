@@ -89,7 +89,9 @@ export default function CheckIn() {
           // Save to Supabase
           try {
             await axios.post(
-              Constants.appOwnership !== "expo" ? "https://mood.ai/api/check-in" : "http://localhost:3000/api/check-in",
+              Constants.appOwnership !== "expo"
+                ? "https://mood-web-zeta.vercel.app/api/check-in"
+                : "http://localhost:3000/api/check-in",
               {
                 uuid: uuid,
                 value: checkIn,

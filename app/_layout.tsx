@@ -63,7 +63,9 @@ export default function Layout() {
         // Validate UUID
         try {
           const response = await axios.post(
-            Constants.appOwnership !== "expo" ? "https://mood.ai/api/uuid" : "http://localhost:3000/api/uuid",
+            Constants.appOwnership !== "expo"
+              ? "https://mood-web-zeta.vercel.app/api/uuid"
+              : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
             }

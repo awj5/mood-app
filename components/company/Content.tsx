@@ -55,7 +55,9 @@ export default function Content(props: ContentProps) {
 
     try {
       const response = await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood.ai/api/check-ins" : "http://localhost:3000/api/check-ins",
+        Constants.appOwnership !== "expo"
+          ? "https://mood-web-zeta.vercel.app/api/check-ins"
+          : "http://localhost:3000/api/check-ins",
         {
           uuid: uuid,
           start: convertToISO(start),

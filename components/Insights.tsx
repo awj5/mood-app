@@ -27,7 +27,7 @@ export default function Insights(props: InsightsProps) {
   const requestAISummary = async (promptData: PromptDataType[], uuid: string, company: string) => {
     try {
       const response = await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
+        Constants.appOwnership !== "expo" ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
         {
           type: "summarize_company_check_ins",
           uuid: uuid,
@@ -51,7 +51,9 @@ export default function Insights(props: InsightsProps) {
   const getInsightsData = async (hash: string, uuid: string) => {
     try {
       const response = await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood.ai/api/insights" : "http://localhost:3000/api/insights",
+        Constants.appOwnership !== "expo"
+          ? "https://mood-web-zeta.vercel.app/api/insights"
+          : "http://localhost:3000/api/insights",
         {
           uuid: uuid,
           hash: hash,
@@ -92,7 +94,7 @@ export default function Insights(props: InsightsProps) {
           try {
             await axios.post(
               Constants.appOwnership !== "expo"
-                ? "https://mood.ai/api/insights/save"
+                ? "https://mood-web-zeta.vercel.app/api/insights/save"
                 : "http://localhost:3000/api/insights/save",
               {
                 uuid: uuid,

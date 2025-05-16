@@ -43,7 +43,7 @@ export default function Report(props: ReportProps) {
       try {
         await axios.post(
           Constants.appOwnership !== "expo"
-            ? "https://mood.ai/api/insights/delete"
+            ? "https://mood-web-zeta.vercel.app/api/insights/delete"
             : "http://localhost:3000/api/insights/delete",
           {
             uuid: uuid,
@@ -89,7 +89,9 @@ export default function Report(props: ReportProps) {
     // Send email to team
     try {
       await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood.ai/api/report" : "http://localhost:3000/api/report",
+        Constants.appOwnership !== "expo"
+          ? "https://mood-web-zeta.vercel.app/api/report"
+          : "http://localhost:3000/api/report",
         {
           text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text,
         }

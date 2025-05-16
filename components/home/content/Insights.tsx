@@ -58,7 +58,7 @@ export default function Insights(props: InsightsProps) {
   const requestAISummary = async (promptData: PromptDataType[], uuid?: string | null, proID?: string | null) => {
     try {
       const response = await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood.ai/api/ai" : "http://localhost:3000/api/ai",
+        Constants.appOwnership !== "expo" ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
         {
           type: "summarize_check_ins",
           message: [

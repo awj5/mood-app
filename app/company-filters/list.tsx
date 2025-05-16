@@ -35,7 +35,7 @@ export default function List() {
     try {
       const response = await axios.post(
         Constants.appOwnership !== "expo"
-          ? `https://mood.ai/api/${params.title.toLowerCase()}`
+          ? `https://mood-web-zeta.vercel.app/api/${params.title.toLowerCase()}`
           : `http://localhost:3000/api/${params.title.toLowerCase()}`,
         {
           uuid: uuid,

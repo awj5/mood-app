@@ -102,7 +102,7 @@ export default function Sentiment(props: SentimentProps) {
             }}
             allowFontScaling={false}
           >
-            Learn more
+            {props.score < 40 ? "Why not shown?" : "Learn more"}
           </Text>
         </Pressable>
       </View>

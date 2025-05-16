@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useCallback, useContext, useRef, useState } from "react";
-import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Text, StyleSheet, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles, ChartSpline } from "lucide-react-native";
@@ -19,7 +19,7 @@ import Burnout from "./content/Burnout";
 import Journal from "./content/Journal";
 import Stats from "./content/Stats";
 import Button from "components/Button";
-import { shuffleArray, theme, getStoredVal } from "utils/helpers";
+import { shuffleArray, theme, getStoredVal, pressedDefault } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 type ContentProps = {
@@ -28,6 +28,7 @@ type ContentProps = {
 
 export default function Content(props: ContentProps) {
   const db = useSQLiteContext();
+  const router = useRouter();
   const colors = theme();
   const insets = useSafeAreaInsets();
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
@@ -37,7 +38,9 @@ export default function Content(props: ContentProps) {
   const [widgets, setWidgets] = useState<React.ReactNode>();
   const [hasAccess, setHasAccess] = useState(false);
   const [company, setCompany] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const getCheckInData = async () => {
     const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
@@ -69,11 +72,13 @@ export default function Content(props: ContentProps) {
     const proID = await getStoredVal("pro-id"); // Check if pro subscriber
     const name = await getStoredVal("company-name");
     const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
+    const admin = await getStoredVal("admin"); // Check if user is admin of their company (can bypass check-in)
 
     if (latestQueryRef.current === currentQuery) {
       setHasAccess(uuid || proID ? true : false);
       if (name && send) setCompany(name);
       setCheckIns(checkInData);
+      if (admin === "true") setIsAdmin(true);
     }
   };
 
@@ -159,7 +164,7 @@ export default function Content(props: ContentProps) {
                   <Journal checkIns={checkIns} />
                 </View>
 
-                {company && !props.noCheckInToday && (
+                {((company && !props.noCheckInToday) || (company && isAdmin)) && (
                   <View style={{ width: "100%", paddingHorizontal: spacing }}>
                     <Button route="company" large icon={ChartSpline}>
                       {`${company} insights`}
@@ -179,17 +184,39 @@ export default function Content(props: ContentProps) {
           </>
         ) : (
           checkIns !== undefined && (
-            <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
+            <Animated.View
+              entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
+              style={{ alignItems: "center", gap: spacing }}
+            >
               <Text
                 style={{
                   color: colors.opaque,
                   fontFamily: "Circular-Book",
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
+                  fontSize: fontSize,
                 }}
                 allowFontScaling={false}
               >
                 No check-ins found
               </Text>
+
+              <Pressable
+                onPress={() => router.push("company")}
+                style={({ pressed }) => pressedDefault(pressed)}
+                hitSlop={8}
+              >
+                <Text
+                  style={[
+                    styles.link,
+                    {
+                      color: colors.primary,
+                      fontSize: fontSize,
+                    },
+                  ]}
+                  allowFontScaling={false}
+                >
+                  {`View ${company} insights`}
+                </Text>
+              </Pressable>
             </Animated.View>
           )
         )}
@@ -208,5 +235,9 @@ const styles = StyleSheet.create({
   },
   double: {
     flexDirection: "row",
+  },
+  link: {
+    fontFamily: "Circular-Book",
+    textDecorationLine: "underline",
   },
 });
