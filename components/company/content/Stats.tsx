@@ -29,14 +29,14 @@ export default function Stats(props: StatsProps) {
     props.role !== "user"
       ? pScore + "%"
       : pScore >= 80
-      ? "VERY HIGH"
+      ? "Very high"
       : pScore >= 60
-      ? "HIGH"
+      ? "High"
       : pScore >= 40
-      ? "MODERATE"
+      ? "Moderate"
       : pScore >= 20
-      ? "LIMITED"
-      : "LOW";
+      ? "Limited"
+      : "Low";
 
   const press = (color: string) => {
     router.push({

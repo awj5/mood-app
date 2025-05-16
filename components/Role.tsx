@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 import * as Device from "expo-device";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
-import { Crown, User } from "lucide-react-native";
+import { Crown, Eye } from "lucide-react-native";
 import { theme } from "utils/helpers";
 
 type RoleProps = {
@@ -10,7 +10,7 @@ type RoleProps = {
 
 export default function Role(props: RoleProps) {
   const colors = theme();
-  const Icon = props.text === "admin" ? Crown : User;
+  const Icon = props.text === "admin" ? Crown : Eye;
 
   return (
     <Animated.View

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
-import { Users } from "lucide-react-native";
+import { Activity } from "lucide-react-native";
 
 type DataProps = {
   number: string;
@@ -14,7 +14,7 @@ export default function Data(props: DataProps) {
   return (
     <View style={[styles.conatiner, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
       {props.userView && (
-        <Users
+        <Activity
           color="black"
           size={Device.deviceType !== 1 ? 20 : 16}
           absoluteStrokeWidth
@@ -23,10 +23,7 @@ export default function Data(props: DataProps) {
       )}
 
       <View style={styles.wrapper}>
-        <Text
-          style={[styles.number, { fontSize: !props.userView ? fontSize : Device.deviceType !== 1 ? 16 : 12 }]}
-          allowFontScaling={false}
-        >
+        <Text style={[styles.number, { fontSize: fontSize }]} allowFontScaling={false}>
           {props.number}
         </Text>
 
