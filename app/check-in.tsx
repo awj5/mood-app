@@ -20,7 +20,7 @@ import Tags from "components/check-in/Tags";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
-import { getStoredVal, theme } from "utils/helpers";
+import { getStoredVal, removeAccess, theme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 export type MoodType = {
@@ -58,6 +58,8 @@ export default function CheckIn() {
   const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, name: "", color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
   const [isFirstCheckIn, setIsFirstCheckIn] = useState(false);
+  const [categories, setCategories] = useState<number[]>([]);
+  const [focusedCategory, setFocusedCategory] = useState(0);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
 
   const longPress = () => {
@@ -150,6 +152,32 @@ export default function CheckIn() {
     setIsFirstCheckIn(!count ? true : false);
   };
 
+  const getCategories = async () => {
+    const uuid = await getStoredVal("uuid");
+
+    try {
+      const response = await axios.post(
+        Constants.appOwnership !== "expo"
+          ? `https://mood-web-zeta.vercel.app/api/categories`
+          : `http://localhost:3000/api/categories`,
+        {
+          uuid: uuid,
+        }
+      );
+
+      setCategories(response.data.categories);
+      setFocusedCategory(response.data.focused); // WIP!!!!!!!!!!!!!!!!!!!!!!!!!
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        // User doesn't exist
+        removeAccess();
+        alert("Access denied.");
+      }
+
+      console.log(error);
+    }
+  };
+
   useAnimatedReaction(
     () => rotation.value,
     (currentValue, previousValue) => {
@@ -178,6 +206,10 @@ export default function CheckIn() {
     setForegroundColor((rotation.value >= 0 && rotation.value < 165) || rotation.value >= 345 ? "black" : "white");
     sliderVal.value = 0.5; // Reset
   }, [showTags]);
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <View style={styles.container}>
