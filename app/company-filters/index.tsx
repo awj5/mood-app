@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { Pressable, ScrollView, Text, View, StyleSheet } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { CompanyFiltersContext, CompanyFiltersContextType } from "context/company-filters";
 import HeaderTitle from "components/HeaderTitle";
 import Link from "components/company-filters/Link";
 import { theme, pressedDefault } from "utils/helpers";
@@ -12,6 +14,7 @@ export default function CompanyFilters() {
   const colors = theme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
 
@@ -56,6 +59,29 @@ export default function CompanyFilters() {
         <View style={[styles.divider, dividerStyle]} />
         <Link title="Teams" />
         <View style={[styles.divider, dividerStyle]} />
+
+        <Pressable
+          onPress={() => setCompanyFilters({ locations: [], teams: [] })}
+          style={({ pressed }) => [
+            pressedDefault(pressed),
+            {
+              alignItems: "center",
+              display: companyFilters.locations.length || companyFilters.teams.length ? "flex" : "none",
+            },
+          ]}
+          hitSlop={16}
+        >
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              fontSize: Device.deviceType !== 1 ? 20 : 16,
+              color: colors.link,
+            }}
+            allowFontScaling={false}
+          >
+            Clear all
+          </Text>
+        </Pressable>
       </ScrollView>
     </View>
   );

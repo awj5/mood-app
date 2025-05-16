@@ -108,7 +108,7 @@ export default function List() {
                 }}
                 allowFontScaling={false}
               >
-                Clear All
+                Clear all
               </Text>
             </Pressable>
           ),
