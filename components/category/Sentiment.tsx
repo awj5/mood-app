@@ -15,9 +15,29 @@ export default function Sentiment(props: SentimentProps) {
   const colors = theme();
   const [score, setScore] = useState(0);
   const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const lowScore = props.score < 40 && props.role === "user" ? true : false;
   const fontSize = Device.deviceType !== 1 ? 16 : 12;
   const Icon = props.trend === "increasing" ? TrendingUp : props.trend === "decreasing" ? TrendingDown : MoveRight;
+  let range = "";
+
+  switch (true) {
+    case props.score >= 90:
+      range = "Outstanding";
+      break;
+    case props.score >= 80:
+      range = "Excellent";
+      break;
+    case props.score >= 70:
+      range = "Great";
+      break;
+    case props.score >= 60:
+      range = "Good";
+      break;
+    case props.score >= 40:
+      range = "Moderate";
+      break;
+    default:
+      range = "Needs attention";
+  }
 
   useEffect(() => {
     let currentScore = 0;
@@ -60,25 +80,32 @@ export default function Sentiment(props: SentimentProps) {
         </Text>
 
         <View>
-          {!lowScore && (
-            <Icon
-              color={colors.primary}
-              size={Device.deviceType !== 1 ? 40 : 32}
-              absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 3 : 2.5}
-            />
-          )}
+          <Icon
+            color={colors.primary}
+            size={Device.deviceType !== 1 ? 40 : 32}
+            absoluteStrokeWidth
+            strokeWidth={Device.deviceType !== 1 ? 3 : 2.5}
+          />
 
           <Text
             style={{
               fontFamily: "Circular-Bold",
               color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? (lowScore ? 36 : 60) : lowScore ? 28 : 48,
-              lineHeight: Device.deviceType !== 1 ? (lowScore ? 40 : 62) : lowScore ? 30 : 50,
+              fontSize:
+                Device.deviceType !== 1
+                  ? props.role === "user"
+                    ? 30
+                    : 60
+                  : props.role === "user"
+                  ? range === "Outstanding"
+                    ? 20
+                    : 24
+                  : 48,
+              lineHeight: Device.deviceType !== 1 ? (props.role === "user" ? 32 : 62) : props.role === "user" ? 26 : 50,
             }}
             allowFontScaling={false}
           >
-            {lowScore ? "Needs\nattention" : `${score}%`}
+            {props.role === "user" ? range : `${score}%`}
           </Text>
         </View>
 
@@ -102,7 +129,7 @@ export default function Sentiment(props: SentimentProps) {
             }}
             allowFontScaling={false}
           >
-            {props.score < 40 ? "Why not shown?" : "Learn more"}
+            Learn more
           </Text>
         </Pressable>
       </View>

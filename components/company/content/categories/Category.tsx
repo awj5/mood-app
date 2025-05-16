@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import { TrendingUp, TrendingDown, MoveRight, EyeOff } from "lucide-react-native";
+import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CategoryType } from "app/category";
 import Header from "./category/Header";
@@ -22,7 +22,27 @@ export default function Category(props: CategoryProps) {
     props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
-  const lowScore = props.data.score < 40 && props.role === "user" ? true : false;
+  let range = "";
+
+  switch (true) {
+    case props.data.score >= 90:
+      range = "Outstanding";
+      break;
+    case props.data.score >= 80:
+      range = "Excellent";
+      break;
+    case props.data.score >= 70:
+      range = "Great";
+      break;
+    case props.data.score >= 60:
+      range = "Good";
+      break;
+    case props.data.score >= 40:
+      range = "Moderate";
+      break;
+    default:
+      range = "Needs attention";
+  }
 
   const click = () => {
     router.push({
@@ -76,70 +96,46 @@ export default function Category(props: CategoryProps) {
     >
       <Header title={props.data.title} icon={props.data.icon} />
 
-      <View style={{ gap: lowScore ? (Device.deviceType !== 1 ? 6 : 4) : 0 }}>
-        {!lowScore && (
-          <Icon
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 32 : 24}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-          />
-        )}
+      <View style={{ gap: props.role === "user" ? (Device.deviceType !== 1 ? 6 : 4) : 0 }}>
+        <Icon
+          color={colors.primary}
+          size={Device.deviceType !== 1 ? 32 : 24}
+          absoluteStrokeWidth
+          strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+        />
 
         <Text
           style={{
             fontFamily: "Circular-Bold",
             color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? (lowScore ? 28 : 48) : lowScore ? 20 : 36,
-            lineHeight: Device.deviceType !== 1 ? (lowScore ? 30 : 50) : lowScore ? 22 : 38,
+            fontSize:
+              Device.deviceType !== 1
+                ? props.role === "user"
+                  ? 30
+                  : 48
+                : props.role === "user"
+                ? range === "Outstanding"
+                  ? 20
+                  : 24
+                : 36,
+            lineHeight: Device.deviceType !== 1 ? (props.role === "user" ? 32 : 50) : props.role === "user" ? 26 : 38,
           }}
           allowFontScaling={false}
         >
-          {lowScore ? "Needs attention" : `${score}%`}
+          {props.role === "user" ? range : `${score}%`}
         </Text>
 
-        <View style={{ gap: spacing / 4 }}>
-          {props.data.score < 40 && props.role !== "user" && (
-            <View style={[styles.hidden, { gap: spacing / 4 }]}>
-              <EyeOff
-                color={colors.primary}
-                size={Device.deviceType !== 1 ? 20 : 16}
-                absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
-              />
-
-              <Text
-                style={{
-                  fontFamily: "Circular-Medium",
-                  color: colors.primary,
-                  fontSize: Device.deviceType !== 1 ? 14 : 10,
-                }}
-                allowFontScaling={false}
-              >
-                LOW SCORE HIDDEN
-              </Text>
-            </View>
-          )}
-
-          <Text
-            style={{
-              fontFamily: "Circular-Book",
-              color: colors.opaque,
-              fontSize: Device.deviceType !== 1 ? 14 : 10,
-            }}
-            allowFontScaling={false}
-          >
-            SENTIMENT INDEX
-          </Text>
-        </View>
+        <Text
+          style={{
+            fontFamily: "Circular-Book",
+            color: colors.opaque,
+            fontSize: Device.deviceType !== 1 ? 14 : 10,
+          }}
+          allowFontScaling={false}
+        >
+          SENTIMENT INDEX
+        </Text>
       </View>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  hidden: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});
