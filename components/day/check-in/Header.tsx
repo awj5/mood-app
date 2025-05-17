@@ -5,7 +5,7 @@ import { Image } from "expo-image";
 import { useSQLiteContext } from "expo-sqlite";
 import { Trash2 } from "lucide-react-native";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType } from "database";
+import { CheckInMoodType } from "types";
 import { pressedDefault, theme } from "utils/helpers";
 
 type HeaderProps = {

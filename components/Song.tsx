@@ -6,8 +6,7 @@ import * as Linking from "expo-linking";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import SongsData from "data/songs.json";
-import { CheckInMoodType } from "database";
-import { CalendarDatesType, CheckInType } from "types";
+import { CalendarDatesType, CheckInType, CheckInMoodType } from "types";
 import { theme, pressedDefault, getMostCommon } from "utils/helpers";
 
 export type SongType = {

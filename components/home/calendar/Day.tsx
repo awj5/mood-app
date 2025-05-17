@@ -5,9 +5,8 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
-import { CheckInMoodType } from "database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import { CheckInType } from "types";
+import { CheckInType, CheckInMoodType } from "types";
 import { pressedDefault, theme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 

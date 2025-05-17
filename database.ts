@@ -1,18 +1,9 @@
 import * as SQLite from "expo-sqlite";
 
-export type CheckInMoodType = {
-  color: number;
-  tags: number[];
-  competency: number;
-  statementResponse: number;
-  company?: string;
-};
-
 export const initDB = async (db: SQLite.SQLiteDatabase) => {
   //await db.closeAsync();
   //SQLite.deleteDatabaseSync("mood.db");
   //await db.runAsync(`DELETE FROM check_ins WHERE id = 1`);
-  //await db.execAsync(`DELETE FROM check_in_record;`);
 
   try {
     await db.execAsync(`

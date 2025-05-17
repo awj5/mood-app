@@ -1,9 +1,8 @@
 import * as Crypto from "expo-crypto";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { CheckInMoodType } from "database";
 import { CompanyCheckInType } from "app/company";
-import { CheckInType } from "types";
+import { CheckInType, CheckInMoodType } from "types";
 
 export const getStatement = (statement: number, response: number, type: string, company?: string) => {
   const percentage = Math.round(response * 100);

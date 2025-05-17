@@ -7,10 +7,9 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
-import { CheckInMoodType } from "database";
 import MoodsData from "data/moods.json";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
-import { CheckInType } from "types";
+import { CheckInType, CheckInMoodType } from "types";
 import { theme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 

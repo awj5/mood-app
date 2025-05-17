@@ -8,10 +8,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import Animated, { Easing, useSharedValue, withTiming, runOnJS } from "react-native-reanimated";
-import { CheckInMoodType } from "database";
 import MoodsData from "data/moods.json";
 import CheckIn from "components/day/CheckIn";
-import { CheckInType } from "types";
+import { CheckInType, CheckInMoodType } from "types";
 import { theme } from "utils/helpers";
 
 export default function Day() {
