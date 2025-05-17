@@ -6,7 +6,7 @@ import { getLocales } from "expo-localization";
 import Constants from "expo-constants";
 import axios from "axios";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType, CheckInType, InsightType } from "data/database";
+import { CheckInMoodType, CheckInType, InsightType } from "database";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
 import { CalendarDatesType } from "types";

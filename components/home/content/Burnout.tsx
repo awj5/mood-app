@@ -5,7 +5,7 @@ import * as WebBrowser from "expo-web-browser";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "database";
 import Gauge from "./Burnout/Gauge";
 import { pressedDefault, theme } from "utils/helpers";
 

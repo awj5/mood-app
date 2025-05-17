@@ -6,7 +6,7 @@ import Animated, { Easing, FadeIn, useSharedValue, withTiming } from "react-nati
 import Svg, { Path } from "react-native-svg";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import ParsedText from "react-native-parsed-text";
-import { CheckInType } from "data/database";
+import { CheckInType } from "database";
 import { theme, pressedDefault } from "utils/helpers";
 
 type JournalProps = {

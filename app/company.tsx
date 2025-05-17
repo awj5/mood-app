@@ -4,7 +4,7 @@ import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { Settings2 } from "lucide-react-native";
-import { CheckInMoodType } from "data/database";
+import { CheckInMoodType } from "database";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import { CompanyFiltersContext, CompanyFiltersContextType } from "context/company-filters";
 import HeaderDates from "components/HeaderDates";

@@ -7,7 +7,7 @@ import Animated, { Easing, useSharedValue, withTiming } from "react-native-reani
 import { Info } from "lucide-react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CalendarDatesType } from "types";
 import { theme, pressedDefault } from "utils/helpers";

@@ -7,7 +7,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles, ChartSpline } from "lucide-react-native";
-import { CheckInType } from "data/database";
+import { CheckInType } from "database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
 import Quote from "../Quote";

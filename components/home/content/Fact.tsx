@@ -16,7 +16,7 @@ import {
   LucideIcon,
 } from "lucide-react-native";
 import FactsData from "data/facts.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CalendarDatesType } from "types";
 import { theme } from "utils/helpers";

@@ -12,7 +12,7 @@ import * as Linking from "expo-linking";
 import { SQLiteProvider } from "expo-sqlite";
 import axios from "axios";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { initDB } from "data/database";
+import { initDB } from "database";
 import { LayoutReadyContext } from "context/layout-ready";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext } from "context/home-dates";

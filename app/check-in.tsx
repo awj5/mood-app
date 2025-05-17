@@ -8,7 +8,7 @@ import { getLocales } from "expo-localization";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "database";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";

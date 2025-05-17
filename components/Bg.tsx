@@ -5,7 +5,7 @@ import { BlurView } from "expo-blur";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
-import { CheckInMoodType } from "data/database";
+import { CheckInMoodType } from "database";
 import { CompanyCheckInType } from "app/company";
 import MoodsData from "data/moods.json";
 import { theme } from "utils/helpers";

@@ -1,7 +1,7 @@
 import * as Crypto from "expo-crypto";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "database";
 import { CompanyCheckInType } from "app/company";
 
 export const getStatement = (statement: number, response: number, type: string, company?: string) => {

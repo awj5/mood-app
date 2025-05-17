@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import * as Device from "expo-device";
 import tagsData from "data/tags.json";
-import { CheckInMoodType, CheckInType } from "data/database";
+import { CheckInMoodType, CheckInType } from "database";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
 import Note from "./check-in/Note";
