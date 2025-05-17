@@ -5,8 +5,8 @@ import { Image } from "expo-image";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { Share } from "lucide-react-native";
 import QuotesData from "data/quotes.json";
-import { CheckInMoodType, CheckInType } from "database";
-import { CalendarDatesType } from "types";
+import { CheckInMoodType } from "database";
+import { CalendarDatesType, CheckInType } from "types";
 import { theme, pressedDefault } from "utils/helpers";
 
 type QuoteType = {

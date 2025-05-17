@@ -16,9 +16,9 @@ import {
   LucideIcon,
 } from "lucide-react-native";
 import FactsData from "data/facts.json";
-import { CheckInMoodType, CheckInType } from "database";
+import { CheckInMoodType } from "database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { CalendarDatesType } from "types";
+import { CalendarDatesType, CheckInType } from "types";
 import { theme } from "utils/helpers";
 
 const iconMap: Record<string, LucideIcon> = {

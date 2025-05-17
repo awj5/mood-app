@@ -8,7 +8,7 @@ import { getLocales } from "expo-localization";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType, CheckInType } from "database";
+import { CheckInMoodType } from "database";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
@@ -20,6 +20,7 @@ import Tags from "components/check-in/Tags";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
+import { CheckInType } from "types";
 import { getStoredVal, removeAccess, theme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 

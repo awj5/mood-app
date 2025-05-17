@@ -7,7 +7,6 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles, ChartSpline } from "lucide-react-native";
-import { CheckInType } from "database";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Insights from "./content/Insights";
 import Quote from "../Quote";
@@ -19,6 +18,7 @@ import Burnout from "./content/Burnout";
 import Journal from "./content/Journal";
 import Stats from "./content/Stats";
 import Button from "components/Button";
+import { CheckInType } from "types";
 import { shuffleArray, theme, getStoredVal, pressedDefault } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 

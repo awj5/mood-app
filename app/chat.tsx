@@ -11,10 +11,10 @@ import axios from "axios";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { ChartSpline } from "lucide-react-native";
 import MoodsData from "data/moods.json";
-import { CheckInType } from "database";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
+import { CheckInType } from "types";
 import { pressedDefault, theme, getStoredVal, setStoredVal, removeAccess } from "utils/helpers";
 import { getPromptData, PromptDataType } from "utils/data";
 

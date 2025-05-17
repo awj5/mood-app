@@ -5,8 +5,8 @@ import { useSQLiteContext } from "expo-sqlite";
 import Constants from "expo-constants";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
-import { CheckInType } from "database";
 import { CompanyCheckInType } from "app/company";
+import { CheckInType } from "types";
 import { theme, pressedDefault, getStoredVal } from "utils/helpers";
 import { generateHash, getPromptData } from "utils/data";
 

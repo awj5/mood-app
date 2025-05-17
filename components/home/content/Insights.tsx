@@ -6,12 +6,19 @@ import { getLocales } from "expo-localization";
 import Constants from "expo-constants";
 import axios from "axios";
 import MoodsData from "data/moods.json";
-import { CheckInMoodType, CheckInType, InsightType } from "database";
+import { CheckInMoodType } from "database";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { CalendarDatesType } from "types";
+import { CalendarDatesType, CheckInType } from "types";
 import { getPromptData, PromptDataType } from "utils/data";
 import { getStoredVal, removeAccess } from "utils/helpers";
+
+export type InsightType = {
+  id: number;
+  date: Date;
+  check_ins: string;
+  summary: string;
+};
 
 type InsightsProps = {
   checkIns: CheckInType[];
