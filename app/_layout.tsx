@@ -179,13 +179,13 @@ export default function Layout() {
   if (!fontsLoaded && !fontError) return null; // Show splash until fonts ready
 
   return (
-    <SQLiteProvider databaseName="mood.db" onInit={initDB}>
-      <LayoutReadyContext.Provider value={{ layoutReady, setLayoutReady }}>
-        <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
-          <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
-            <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
-              <CompanyFiltersContext.Provider value={{ companyFilters, setCompanyFilters }}>
-                <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SQLiteProvider databaseName="mood.db" onInit={initDB}>
+        <LayoutReadyContext.Provider value={{ layoutReady, setLayoutReady }}>
+          <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
+            <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
+              <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
+                <CompanyFiltersContext.Provider value={{ companyFilters, setCompanyFilters }}>
                   <Stack
                     screenOptions={{
                       contentStyle: {
@@ -198,6 +198,14 @@ export default function Layout() {
                       headerTintColor: colors.primary,
                     }}
                   >
+                    <Stack.Screen name="index" />
+                    <Stack.Screen name="check-in" />
+                    <Stack.Screen name="company" />
+                    <Stack.Screen name="settings" />
+                    <Stack.Screen name="chat" />
+                    <Stack.Screen name="day" />
+                    <Stack.Screen name="category" />
+
                     <Stack.Screen
                       name="date-filters"
                       options={{
@@ -229,12 +237,12 @@ export default function Layout() {
                   </Stack>
 
                   <StatusBar style="auto" />
-                </GestureHandlerRootView>
-              </CompanyFiltersContext.Provider>
-            </CompanyDatesContext.Provider>
-          </HomeDatesContext.Provider>
-        </DimensionsContext.Provider>
-      </LayoutReadyContext.Provider>
-    </SQLiteProvider>
+                </CompanyFiltersContext.Provider>
+              </CompanyDatesContext.Provider>
+            </HomeDatesContext.Provider>
+          </DimensionsContext.Provider>
+        </LayoutReadyContext.Provider>
+      </SQLiteProvider>
+    </GestureHandlerRootView>
   );
 }

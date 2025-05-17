@@ -23,8 +23,8 @@ export default function Day() {
   const opacity = useSharedValue(0);
   const [checkIns, setCheckIns] = useState<CheckInType[]>([]);
   const [gradientHeight, setGradientHeight] = useState(0);
-  const [gradientColors, setGradientColors] = useState([""]);
-  const [gradientLocations, setGradientLocations] = useState([0]);
+  const [gradientColors, setGradientColors] = useState<string[]>([]);
+  const [gradientLocations, setGradientLocations] = useState<number[]>([]);
   const [bgVisible, setBgVisible] = useState(false);
   const iso = `${params.year}-${params.month.padStart(2, "0")}-${params.day.padStart(2, "0")}`;
   const date = new Date(iso);
