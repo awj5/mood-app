@@ -6,7 +6,7 @@ import * as WebBrowser from "expo-web-browser";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import ArticlesData from "data/articles.json";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { CalendarDatesType } from "context/home-dates";
+import { CalendarDatesType } from "types";
 import { getMostCommon, pressedDefault } from "utils/helpers";
 
 type ArticleType = {

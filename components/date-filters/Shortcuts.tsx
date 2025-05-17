@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
-import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
+import { CalendarDatesType } from "types";
 import { theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 

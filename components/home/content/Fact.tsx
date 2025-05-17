@@ -18,7 +18,7 @@ import {
 import FactsData from "data/facts.json";
 import { CheckInMoodType, CheckInType } from "data/database";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { CalendarDatesType } from "context/home-dates";
+import { CalendarDatesType } from "types";
 import { theme } from "utils/helpers";
 
 const iconMap: Record<string, LucideIcon> = {

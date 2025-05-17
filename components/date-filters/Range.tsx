@@ -3,8 +3,8 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import * as Device from "expo-device";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { CalendarDays } from "lucide-react-native";
-import { CalendarDatesType } from "context/home-dates";
 import Button from "components/Button";
+import { CalendarDatesType } from "types";
 import { theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 

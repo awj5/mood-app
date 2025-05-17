@@ -41,6 +41,6 @@ export const initDB = async (db: SQLite.SQLiteDatabase) => {
             CREATE TABLE IF NOT EXISTS check_in_record (id INTEGER PRIMARY KEY AUTOINCREMENT, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
             `);
   } catch (error) {
-    console.log(error);
+    console.error("Error initializing DB tables:", error);
   }
 };

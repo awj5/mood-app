@@ -1,11 +1,7 @@
 import { createContext } from "react";
+import { CalendarDatesType } from "types";
 
-export type CalendarDatesType = {
-  weekStart: Date;
-  rangeStart?: Date;
-  rangeEnd?: Date;
-  title?: string;
-};
+/* Used to access user dashboard dates globally */
 
 export type HomeDatesContextType = {
   homeDates: CalendarDatesType;

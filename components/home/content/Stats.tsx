@@ -8,8 +8,8 @@ import { Info } from "lucide-react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 import MoodsData from "data/moods.json";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { CalendarDatesType } from "context/home-dates";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { CalendarDatesType } from "types";
 import { theme, pressedDefault } from "utils/helpers";
 
 type StatsProps = {

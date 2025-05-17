@@ -1,5 +1,7 @@
 import { createContext } from "react";
 
+/* Used to access device dimesions globally (needed because RN dimensions not returning acurate values on iPad rotation) */
+
 export type DimensionsType = {
   width: number;
   height: number;

@@ -6,8 +6,8 @@ import * as Linking from "expo-linking";
 import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import GifsData from "data/gifs.json";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { CalendarDatesType } from "context/home-dates";
 import Gif from "./gifs/Gif";
+import { CalendarDatesType } from "types";
 import { theme, pressedDefault, shuffleArray } from "utils/helpers";
 
 export type GifType = {

@@ -1,5 +1,7 @@
 import { createContext } from "react";
 
+/* Used to share globally that splash has been hidden after first load */
+
 export type LayoutReadyContextType = {
   layoutReady: boolean;
   setLayoutReady: (layoutReady: boolean) => void;

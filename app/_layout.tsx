@@ -15,9 +15,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "data/database";
 import { LayoutReadyContext } from "context/layout-ready";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
-import { HomeDatesContext, CalendarDatesType } from "context/home-dates";
+import { HomeDatesContext } from "context/home-dates";
 import { CompanyDatesContext } from "context/company-dates";
 import { CompanyFiltersContext, CompanyFiltersType } from "context/company-filters";
+import { CalendarDatesType } from "types";
 import { getStoredVal, setStoredVal, theme, removeStoredVal } from "../utils/helpers";
 import { getMonday } from "utils/dates";
 

@@ -4,10 +4,10 @@ import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import Constants from "expo-constants";
 import axios from "axios";
-import { CalendarDatesType } from "context/home-dates";
 import { CompanyCheckInType } from "app/company";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
+import { CalendarDatesType } from "types";
 import { generateHash, getPromptData, PromptDataType } from "utils/data";
 import { getStoredVal, removeAccess } from "utils/helpers";
 

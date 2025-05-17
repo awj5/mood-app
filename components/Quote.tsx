@@ -6,7 +6,7 @@ import Animated, { Easing, useSharedValue, withTiming } from "react-native-reani
 import { Share } from "lucide-react-native";
 import QuotesData from "data/quotes.json";
 import { CheckInMoodType, CheckInType } from "data/database";
-import { CalendarDatesType } from "context/home-dates";
+import { CalendarDatesType } from "types";
 import { theme, pressedDefault } from "utils/helpers";
 
 type QuoteType = {
