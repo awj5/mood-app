@@ -93,6 +93,7 @@ export default function Reminder(props: ReminderProps) {
                 data: { route: "/check-in" },
               },
               trigger: {
+                type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
                 weekday: index + 1, // Day of the week (1 = Sunday)
                 hour: parseInt(reminder.time.split(":")[0]),
                 minute: parseInt(reminder.time.split(":")[1]),

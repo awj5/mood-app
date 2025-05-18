@@ -199,24 +199,26 @@ export default function Content(props: ContentProps) {
                 No check-ins found
               </Text>
 
-              <Pressable
-                onPress={() => router.push("company")}
-                style={({ pressed }) => pressedDefault(pressed)}
-                hitSlop={8}
-              >
-                <Text
-                  style={[
-                    styles.link,
-                    {
-                      color: colors.primary,
-                      fontSize: fontSize,
-                    },
-                  ]}
-                  allowFontScaling={false}
+              {company && isAdmin && (
+                <Pressable
+                  onPress={() => router.push("company")}
+                  style={({ pressed }) => pressedDefault(pressed)}
+                  hitSlop={8}
                 >
-                  {`View ${company} insights`}
-                </Text>
-              </Pressable>
+                  <Text
+                    style={[
+                      styles.link,
+                      {
+                        color: colors.primary,
+                        fontSize: fontSize,
+                      },
+                    ]}
+                    allowFontScaling={false}
+                  >
+                    {`View ${company} insights`}
+                  </Text>
+                </Pressable>
+              )}
             </Animated.View>
           )
         )}

@@ -1,4 +1,4 @@
-import { CalendarDatesType } from "context/home-dates";
+import { CalendarDatesType } from "types";
 
 export const convertToISO = (date: Date) => {
   const isoDate =

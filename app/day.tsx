@@ -130,7 +130,11 @@ export default function Day() {
             <View style={{ height: headerHeight, backgroundColor: gradientColors[0] }} />
 
             {gradientColors.length > 1 && gradientColors.length === gradientLocations.length && (
-              <LinearGradient colors={gradientColors} locations={gradientLocations} style={{ flex: 1 }} />
+              <LinearGradient
+                colors={gradientColors as [string, string, ...string[]]}
+                locations={gradientLocations as [number, number, ...number[]]}
+                style={{ flex: 1 }}
+              />
             )}
           </View>
 
