@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, useColorScheme } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type HeaderTitleProps = {
   text: string;
@@ -10,23 +9,24 @@ type HeaderTitleProps = {
 };
 
 export default function HeaderTitle(props: HeaderTitleProps) {
-  const colors = theme();
   const headerHeight = useHeaderHeight();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
     <View
       style={{
-        padding: Device.deviceType !== 1 ? 24 : 16,
-        gap: Device.deviceType !== 1 ? 12 : 8,
+        padding: theme.spacing,
+        gap: theme.spacing / 2,
         marginTop: props.transparentHeader ? headerHeight : 0,
-        flexShrink: 1,
+        flexShrink: 1, // Needed for when placed in a flex row
       }}
     >
       <Text
         style={{
           fontFamily: "Circular-Black",
-          fontSize: props.text.length > 12 ? (Device.deviceType !== 1 ? 30 : 24) : Device.deviceType !== 1 ? 48 : 36,
-          color: colors.primary,
+          fontSize: props.text.length > 12 ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
+          color: theme.color.primary,
         }}
         allowFontScaling={false}
       >
@@ -35,7 +35,11 @@ export default function HeaderTitle(props: HeaderTitleProps) {
 
       {props.description && (
         <Text
-          style={{ fontFamily: "Circular-Book", color: colors.secondary, fontSize: Device.deviceType !== 1 ? 20 : 16 }}
+          style={{
+            fontFamily: "Circular-Book",
+            color: theme.color.secondary,
+            fontSize: theme.fontSize.body,
+          }}
           allowFontScaling={false}
         >
           {props.description}

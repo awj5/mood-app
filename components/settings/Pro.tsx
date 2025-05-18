@@ -1,60 +1,52 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Pressable, Platform, Linking } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, Pressable, Platform, Linking, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import * as Application from "expo-application";
 import { Sparkles } from "lucide-react-native";
-import { theme, pressedDefault, getStoredVal } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
-export default function Pro() {
-  const colors = theme();
+type ProProps = {
+  hasPro: boolean;
+};
+
+export default function Pro(props: ProProps) {
   const router = useRouter();
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-  const [pro, setPro] = useState(false);
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   const press = () => {
-    if (pro) {
+    if (props.hasPro) {
       // Has pro
       if (Platform.OS === "ios") {
-        Linking.openURL("https://apps.apple.com/account/subscriptions").catch(() => {
-          alert("Unable to open account subscriptions.");
-        });
+        Linking.openURL("https://apps.apple.com/account/subscriptions").catch(() =>
+          console.error("Unable to open account subscriptions.")
+        );
       } else {
         const packageName = Application.applicationId;
 
-        Linking.openURL(`https://play.google.com/store/account/subscriptions?package=${packageName}`).catch(() => {
-          alert("Unable to open account subscriptions.");
-        });
+        Linking.openURL(`https://play.google.com/store/account/subscriptions?package=${packageName}`).catch(() =>
+          console.error("Unable to open account subscriptions.")
+        );
       }
     } else {
-      router.push("pro"); // Upsell
+      router.push("pro"); // Show paywall
     }
   };
 
-  const getPro = async () => {
-    const proID = await getStoredVal("pro-id");
-    if (proID) setPro(true);
-  };
-
-  useEffect(() => {
-    getPro();
-  }, []);
-
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
-      <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={{ gap: theme.spacing / 3, flexDirection: "row", alignItems: "center" }}>
         <Sparkles
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 28 : 20}
+          color={theme.color.primary}
+          size={theme.icon.base.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+          strokeWidth={theme.icon.base.stroke}
         />
 
         <Text
           style={{
-            color: colors.primary,
+            color: theme.color.primary,
             fontFamily: "Circular-Medium",
-            fontSize: fontSize,
+            fontSize: theme.fontSize.body,
           }}
           allowFontScaling={false}
         >
@@ -62,29 +54,18 @@ export default function Pro() {
         </Text>
       </View>
 
-      <Pressable onPress={press} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+      <Pressable onPress={press} style={({ pressed }) => pressedDefault(pressed)} hitSlop={theme.spacing}>
         <Text
           style={{
-            color: colors.link,
+            color: theme.color.link,
             fontFamily: "Circular-Book",
-            fontSize: fontSize,
+            fontSize: theme.fontSize.body,
           }}
           allowFontScaling={false}
         >
-          {pro ? "Manage" : "Learn more"}
+          {props.hasPro ? "Manage" : "Learn more"}
         </Text>
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});

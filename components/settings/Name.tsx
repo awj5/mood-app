@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
-import * as Device from "expo-device";
-import { theme, getStoredVal, setStoredVal, removeStoredVal } from "utils/helpers";
+import { View, Text, TextInput, useColorScheme } from "react-native";
+import { getStoredVal, setStoredVal, removeStoredVal, getTheme } from "utils/helpers";
 
 export default function Name() {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [text, setText] = useState("");
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-
-  const getName = async () => {
-    const name = await getStoredVal("first-name");
-    if (name) setText(name);
-  };
 
   const setName = async () => {
     const name = text.substring(0, 30).trim();
@@ -24,16 +18,27 @@ export default function Name() {
   };
 
   useEffect(() => {
-    getName();
+    (async () => {
+      // Check if user has provided their name
+      const name = await getStoredVal("first-name");
+      if (name) setText(name);
+    })();
   }, []);
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
+    <View
+      style={{
+        gap: theme.spacing,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <Text
         style={{
-          color: colors.primary,
+          color: theme.color.primary,
           fontFamily: "Circular-Medium",
-          fontSize: fontSize,
+          fontSize: theme.fontSize.body,
         }}
         allowFontScaling={false}
       >
@@ -44,14 +49,14 @@ export default function Name() {
         onChangeText={setText}
         value={text}
         placeholder="Enter first name"
-        placeholderTextColor={colors.secondary}
-        style={[
-          styles.input,
-          {
-            color: colors.primary,
-            fontSize: fontSize,
-          },
-        ]}
+        placeholderTextColor={theme.color.secondary}
+        style={{
+          color: theme.color.primary,
+          fontSize: theme.fontSize.body,
+          fontFamily: "Circular-Book",
+          flex: 1,
+          textAlign: "right",
+        }}
         allowFontScaling={false}
         returnKeyType="done"
         onBlur={setName}
@@ -59,16 +64,3 @@ export default function Name() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  input: {
-    fontFamily: "Circular-Book",
-    flex: 1,
-    textAlign: "right",
-  },
-});
