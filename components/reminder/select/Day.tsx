@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as Device from "expo-device";
 import Checkbox from "expo-checkbox";
-import { ReminderType } from "components/Reminder";
+import { ReminderType } from "types";
 import { theme } from "utils/helpers";
 
 type DayProps = {

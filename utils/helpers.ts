@@ -78,7 +78,7 @@ export const getStoredVal = async (name: string) => {
   try {
     val = await AsyncStorage.getItem(name);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return val;
@@ -88,7 +88,7 @@ export const setStoredVal = async (name: string, val: string) => {
   try {
     await AsyncStorage.setItem(name, val);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -96,7 +96,7 @@ export const removeStoredVal = async (name: string) => {
   try {
     await AsyncStorage.removeItem(name);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

@@ -19,3 +19,8 @@ export type CheckInType = {
   mood: string;
   note: string;
 };
+
+export type ReminderType = {
+  days: { sun: boolean; mon: boolean; tue: boolean; wed: boolean; thu: boolean; fri: boolean; sat: boolean };
+  time: string;
+};

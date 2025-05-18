@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Pressable, Alert, Platform, Linking } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, Pressable, Alert, Platform, Linking, useColorScheme } from "react-native";
 import * as Notifications from "expo-notifications";
 import { Bell, BellRing } from "lucide-react-native";
-import { ReminderType } from "components/Reminder";
-import { theme, pressedDefault } from "utils/helpers";
+import { ReminderType } from "types";
+import { pressedDefault, getTheme } from "utils/helpers";
 import { times, getReminder } from "utils/reminders";
 
 type ReminderProps = {
@@ -13,19 +12,15 @@ type ReminderProps = {
 };
 
 export default function Reminder(props: ReminderProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [reminder, setReminder] = useState<ReminderType>();
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
 
   const openSettings = () => {
     if (Platform.OS === "ios") {
-      Linking.openURL("app-settings:").catch(() => {
-        alert("Unable to open app settings.");
-      });
+      Linking.openURL("app-settings:").catch(() => console.error("Unable to open app settings."));
     } else {
-      Linking.openSettings().catch(() => {
-        alert("Unable to open app settings.");
-      });
+      Linking.openSettings().catch(() => console.error("Unable to open app settings."));
     }
   };
 
@@ -47,27 +42,25 @@ export default function Reminder(props: ReminderProps) {
         );
       }
     } catch (error) {
-      console.log(error);
-      alert("An unexpected error has occurred.");
+      console.error(error);
     }
   };
 
-  const checkReminder = async () => {
-    const current = await getReminder();
-    setReminder(current ? current : undefined);
-  };
-
   useEffect(() => {
-    checkReminder();
+    (async () => {
+      // Get reminder if already set
+      const current = await getReminder();
+      setReminder(current ? current : undefined);
+    })();
   }, [props.reminderVisible]);
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}>
+    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
       <Text
         style={{
-          color: colors.primary,
+          color: theme.color.primary,
           fontFamily: "Circular-Medium",
-          fontSize: fontSize,
+          fontSize: theme.fontSize.body,
         }}
         allowFontScaling={false}
       >
@@ -76,40 +69,35 @@ export default function Reminder(props: ReminderProps) {
 
       <Pressable
         onPress={press}
-        style={({ pressed }) => [pressedDefault(pressed), styles.button, { gap: Device.deviceType !== 1 ? 10 : 6 }]}
-        hitSlop={16}
+        style={({ pressed }) => [
+          pressedDefault(pressed),
+          { flexDirection: "row", alignItems: "center", gap: theme.spacing / 3 },
+        ]}
+        hitSlop={theme.spacing}
       >
         {reminder ? (
           <BellRing
-            color={colors.link}
-            size={Device.deviceType !== 1 ? 28 : 20}
+            color={theme.color.link}
+            size={theme.icon.base.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            strokeWidth={theme.icon.base.stroke}
           />
         ) : (
           <Bell
-            color={colors.link}
-            size={Device.deviceType !== 1 ? 28 : 20}
+            color={theme.color.link}
+            size={theme.icon.base.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            strokeWidth={theme.icon.base.stroke}
           />
         )}
 
-        <Text style={{ fontFamily: "Circular-Book", fontSize: fontSize, color: colors.link }} allowFontScaling={false}>
-          {reminder ? times.filter((item) => item.value === reminder.time)[0].label : "Set"}
+        <Text
+          style={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body, color: theme.color.link }}
+          allowFontScaling={false}
+        >
+          {reminder ? times.find((item) => item.value === reminder.time)?.label : "Set"}
         </Text>
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});

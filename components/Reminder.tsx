@@ -5,6 +5,7 @@ import * as Notifications from "expo-notifications";
 import { CircleX, BellRing } from "lucide-react-native";
 import Button from "components/Button";
 import Select from "components/reminder/Select";
+import { ReminderType } from "types";
 import { theme, pressedDefault } from "utils/helpers";
 import { getReminder } from "utils/reminders";
 
@@ -15,11 +16,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
-export type ReminderType = {
-  days: { sun: boolean; mon: boolean; tue: boolean; wed: boolean; thu: boolean; fri: boolean; sat: boolean };
-  time: string;
-};
 
 type ReminderProps = {
   visible: boolean;
@@ -93,11 +89,10 @@ export default function Reminder(props: ReminderProps) {
                 data: { route: "/check-in" },
               },
               trigger: {
-                type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
+                type: Notifications.SchedulableTriggerInputTypes.WEEKLY,
                 weekday: index + 1, // Day of the week (1 = Sunday)
                 hour: parseInt(reminder.time.split(":")[0]),
                 minute: parseInt(reminder.time.split(":")[1]),
-                repeats: true, // Repeats weekly
               },
             });
           } catch (error) {

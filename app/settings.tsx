@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View, Linking, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton } from "@react-navigation/elements";
-import { Mail } from "lucide-react-native";
 import Name from "components/settings/Name";
 import Reminder from "components/settings/Reminder";
 import ReminderOverlay from "components/Reminder";
@@ -12,32 +10,27 @@ import Version from "components/settings/Version";
 import HeaderTitle from "components/HeaderTitle";
 import Company from "components/settings/Company";
 import Pro from "components/settings/Pro";
-import { theme, pressedDefault, getStoredVal } from "utils/helpers";
+import Support from "components/settings/Support";
+import { getStoredVal, getTheme } from "utils/helpers";
 
 export default function Settings() {
-  const colors = theme();
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [reminderVisible, setReminderVisible] = useState(false);
   const [company, setCompany] = useState("");
-  const [pro, setPro] = useState(false);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-
-  const getCompany = async () => {
-    const name = await getStoredVal("company-name");
-    if (name) setCompany(name);
-  };
-
-  const getPro = async () => {
-    const proID = await getStoredVal("pro-id");
-    if (proID) setPro(true);
-  };
+  const [hasPro, setHasPro] = useState(false);
+  const dividerStyle = { backgroundColor: theme.color.secondaryBg, marginVertical: theme.spacing };
 
   useEffect(() => {
-    getCompany();
-    getPro();
+    (async () => {
+      // Check if user has a company and/or a Pro sub
+      const companyName = await getStoredVal("company-name");
+      const proID = await getStoredVal("pro-id");
+      if (companyName) setCompany(companyName);
+      if (proID) setHasPro(true);
+    })();
   }, []);
 
   return (
@@ -49,50 +42,13 @@ export default function Settings() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: fontSize }}
-              tintColor={colors.link}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
+              tintColor={theme.color.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
           ),
-          headerRight: () => (
-            <Pressable
-              onPress={() => {
-                const email = "support@mood.ai";
-                const subject = "Support Request";
-                const body = "Hi MOOD.ai team,\n\nI need help with...";
-                const emailUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-                  body
-                )}`;
-
-                Linking.openURL(emailUrl).catch((err) => console.error("Failed to open email URL:", err));
-              }}
-              style={({ pressed }) => [
-                pressedDefault(pressed),
-                styles.support,
-                { gap: Device.deviceType !== 1 ? 10 : 6 },
-              ]}
-              hitSlop={16}
-            >
-              <Mail
-                color={colors.link}
-                size={Device.deviceType !== 1 ? 28 : 20}
-                absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-              />
-
-              <Text
-                style={{
-                  fontFamily: "Circular-Book",
-                  fontSize: fontSize,
-                  color: colors.link,
-                }}
-                allowFontScaling={false}
-              >
-                Support
-              </Text>
-            </Pressable>
-          ),
+          headerRight: () => <Support />,
         }}
       />
 
@@ -101,9 +57,8 @@ export default function Settings() {
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{
-          paddingHorizontal: spacing,
-          paddingTop: spacing * 1.5,
-          paddingBottom: insets.bottom + spacing,
+          padding: theme.spacing,
+          paddingBottom: insets.bottom + theme.spacing,
         }}
       >
         <Name />
@@ -118,9 +73,9 @@ export default function Settings() {
           </>
         )}
 
-        {(!company || (company && pro)) && (
+        {(!company || (company && hasPro)) && (
           <>
-            <Pro />
+            <Pro hasPro={hasPro} />
             <View style={[styles.divider, dividerStyle]} />
           </>
         )}
@@ -135,10 +90,6 @@ export default function Settings() {
 }
 
 const styles = StyleSheet.create({
-  support: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
   divider: {
     width: "100%",
     height: 1,

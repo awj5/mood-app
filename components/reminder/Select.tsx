@@ -1,8 +1,8 @@
 import { StyleSheet, View, Platform } from "react-native";
 import * as Device from "expo-device";
 import { Picker } from "@react-native-picker/picker";
-import { ReminderType } from "components/Reminder";
 import Day from "./select/Day";
+import { ReminderType } from "types";
 import { theme } from "utils/helpers";
 import { times } from "utils/reminders";
 

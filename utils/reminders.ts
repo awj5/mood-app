@@ -1,5 +1,5 @@
 import * as Notifications from "expo-notifications";
-import { ReminderType } from "components/Reminder";
+import { ReminderType } from "types";
 
 export const times = [
   { label: "12:00 am", value: "0:0" },
@@ -63,24 +63,25 @@ export const getReminder = async () => {
 
     // Loop current notifications
     for (let i = 0; i < notifications.length; i++) {
-      let trigger = notifications[i].trigger;
+      const trigger = notifications[i].trigger as any; // Casting as any because Notifications.NotificationTrigger types are a mess
       let dayKey = "";
 
-      if ("weekday" in trigger) {
-        // Android
-        dayKey = Object.keys(reminder.days)[trigger.weekday - 1];
-        reminder.time = `${trigger.hour}:${trigger.minute}`; // Update time
-      } else if ("dateComponents" in trigger && trigger.dateComponents.weekday) {
+      // Get day and time
+      if ("dateComponents" in trigger) {
         // iOS
-        dayKey = Object.keys(reminder.days)[trigger.dateComponents.weekday - 1];
+        dayKey = Object.keys(reminder.days)[trigger.dateComponents.weekday - 1]; // Day
         reminder.time = `${trigger.dateComponents.hour}:${trigger.dateComponents.minute}`; // Update time
+      } else if ("weekday" in trigger) {
+        // Android
+        dayKey = Object.keys(reminder.days)[trigger.weekday - 1]; // Day
+        reminder.time = `${trigger.hour}:${trigger.minute}`; // Update time
       }
 
-      reminder.days[dayKey as keyof ReminderType["days"]] = true; // Update day value
+      if (dayKey) reminder.days[dayKey as keyof ReminderType["days"]] = true; // Set day has notification
     }
 
     return notifications.length ? reminder : undefined;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
