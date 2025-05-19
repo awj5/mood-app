@@ -37,6 +37,9 @@ type StatementProps = {
   competency: CompetencyType;
   setCompetency: React.Dispatch<React.SetStateAction<CompetencyType>>;
   selectedTags: number[];
+  categories: number[];
+  focusedCategory: number;
+  setFocusedCategory: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Statement(props: StatementProps) {
@@ -85,10 +88,38 @@ export default function Statement(props: StatementProps) {
     if (name) setCompany(name);
   };
 
-  useEffect(() => {
-    getCompany();
-    const competencies: number[] = [];
+  const setStatement = async () => {
+    let competencies: number[] = [];
+    let companyCompetencies: number[] = [];
     const tagTypes = [];
+    let companyRandom = false;
+
+    if (props.categories.length) {
+      companyCompetencies = guidelinesData[0].competencies
+        .filter((item) => props.categories.some((cat) => Math.trunc(item.id) === cat))
+        .map((item) => item.id);
+
+      if (props.focusedCategory) {
+        const focused = await getStoredVal("focused-statement");
+
+        if (focused && Math.floor(Number(focused)) === props.focusedCategory) {
+          const next = Number((Number(focused) + 0.01).toFixed(2));
+          const exists = guidelinesData[0].competencies.filter((item) => item.id === next);
+
+          if (exists.length) {
+            // Next statement in category
+            competencies.push(next);
+          } else {
+            // Not more statements in category
+            props.setFocusedCategory(0); // Prevent statement from being stored
+            companyRandom = true;
+          }
+        } else {
+          // Start category
+          competencies.push(props.focusedCategory + 0.01);
+        }
+      }
+    }
 
     // Loop selected tags and get competencies
     for (let i = 0; i < props.selectedTags.length; i++) {
@@ -97,10 +128,19 @@ export default function Statement(props: StatementProps) {
 
       // Loop competencies
       for (let i = 0; i < tag.competencies.length; i++) {
-        competencies.push(tag.competencies[i]);
+        const tagCompetency = tag.competencies[i];
+
+        if (
+          !props.categories.length ||
+          (!props.focusedCategory && companyCompetencies.includes(tagCompetency)) ||
+          (companyRandom && companyCompetencies.includes(tagCompetency))
+        ) {
+          competencies.push(tagCompetency);
+        }
       }
     }
 
+    if (!competencies.length && companyCompetencies.length) competencies = companyCompetencies; // All available statements for company
     const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
     const shuffled = shuffleArray(competencies);
     const mostFrequent = getMostCommon(shuffled); // Get most common competency in selected tags
@@ -113,7 +153,11 @@ export default function Statement(props: StatementProps) {
       statement: primaryTagType === "neg" ? competency.negStatement : competency.posStatement,
       type: primaryTagType,
     });
+  };
 
+  useEffect(() => {
+    getCompany();
+    setStatement();
     opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 

@@ -20,7 +20,7 @@ import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
 import { CheckInType, CheckInMoodType } from "types";
-import { getStoredVal, removeAccess, theme } from "utils/helpers";
+import { getStoredVal, removeAccess, removeStoredVal, setStoredVal, theme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 export type MoodType = {
@@ -107,6 +107,8 @@ export default function CheckIn() {
             } catch (error) {
               console.log(error);
             }
+
+            if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
           } catch (error) {
             console.log(error);
           }
@@ -154,27 +156,29 @@ export default function CheckIn() {
 
   const getCategories = async () => {
     const uuid = await getStoredVal("uuid");
+    const send = await getStoredVal("send-check-ins");
 
-    try {
-      const response = await axios.post(
-        Constants.appOwnership !== "expo"
-          ? `https://mood-web-zeta.vercel.app/api/categories`
-          : `http://localhost:3000/api/categories`,
-        {
-          uuid: uuid,
+    if (uuid && send) {
+      try {
+        const response = await axios.post(
+          !__DEV__ ? `https://mood-web-zeta.vercel.app/api/categories` : `http://localhost:3000/api/categories`,
+          {
+            uuid: uuid,
+          }
+        );
+
+        setCategories(response.data.categories);
+        setFocusedCategory(response.data.focused);
+        if (!response.data.focused) removeStoredVal("focused-statement");
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          // User doesn't exist
+          removeAccess();
+          alert("Access denied.");
         }
-      );
 
-      setCategories(response.data.categories);
-      setFocusedCategory(response.data.focused); // WIP!!!!!!!!!!!!!!!!!!!!!!!!!
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        // User doesn't exist
-        removeAccess();
-        alert("Access denied.");
+        console.log(error);
       }
-
-      console.log(error);
     }
   };
 
@@ -272,6 +276,9 @@ export default function CheckIn() {
                 competency={competency}
                 setCompetency={setCompetency}
                 selectedTags={selectedTags}
+                categories={categories}
+                focusedCategory={focusedCategory}
+                setFocusedCategory={setFocusedCategory}
               />
             </>
           )}
