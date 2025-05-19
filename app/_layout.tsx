@@ -75,6 +75,7 @@ export default function Layout() {
           if (response.data) {
             setStoredVal("uuid", queryParams.uuid as string); // Store UUID
             setStoredVal("company-name", response.data); // Store company name
+            removeStoredVal("focused-statement");
 
             // Trigger dashboard refresh
             const today = new Date();
