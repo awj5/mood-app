@@ -132,7 +132,7 @@ export default function Disclaimer(props: DisclaimerProps) {
         </View>
 
         <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
-          <Button func={agree} fill>
+          <Button func={agree} fill large>
             Agree and continue
           </Button>
         </View>

@@ -15,15 +15,18 @@ export const getTheme = (colorScheme: string | null | undefined) => {
     color: {
       primary: colorScheme === "light" ? "black" : "white",
       secondary: colorScheme === "light" ? "#999999" : "#666666",
+      inverted: colorScheme === "light" ? "white" : "black",
       link: "#0080FF",
       destructive: "#FF0000",
       opaque: colorScheme === "light" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.4)",
       primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
       secondaryBg: colorScheme === "light" ? "#DDDDDD" : "#333333",
       opaqueBg: colorScheme === "light" ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.3)",
+      gradient: colorScheme === "light" ? ["#0000FF", "#990099", "#FF0000"] : ["#FF8000", "#00FF00", "#0080FF"],
     },
 
     fontSize: {
+      small: isPhone ? 14 : 18,
       body: isPhone ? 16 : 20,
       large: isPhone ? 18 : 24,
       xLarge: isPhone ? 24 : 30,
@@ -36,6 +39,7 @@ export const getTheme = (colorScheme: string | null | undefined) => {
     },
 
     spacing: isPhone ? 16 : 24,
+    stroke: isPhone ? 2 : 2.5,
   };
 };
 

@@ -50,7 +50,7 @@ export default function Company(props: CompanyProps) {
           pressedDefault(pressed),
           { gap: theme.spacing / 3, flexDirection: "row", alignItems: "center" },
         ]}
-        hitSlop={theme.spacing}
+        hitSlop={16}
       >
         <LogOut
           color={theme.color.primary}

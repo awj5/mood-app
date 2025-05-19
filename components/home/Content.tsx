@@ -174,7 +174,7 @@ export default function Content(props: ContentProps) {
               </>
             ) : (
               <View style={{ width: "100%", marginTop: spacing, paddingHorizontal: spacing }}>
-                <Button route="pro" fill icon={Sparkles} gradient>
+                <Button route="pro" icon={Sparkles} gradient large>
                   Generate AI insights with Pro
                 </Button>
               </View>

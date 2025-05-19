@@ -54,7 +54,7 @@ export default function Pro(props: ProProps) {
         </Text>
       </View>
 
-      <Pressable onPress={press} style={({ pressed }) => pressedDefault(pressed)} hitSlop={theme.spacing}>
+      <Pressable onPress={press} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
         <Text
           style={{
             color: theme.color.link,

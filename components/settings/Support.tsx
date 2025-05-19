@@ -6,22 +6,22 @@ export default function Support() {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
 
+  const press = () => {
+    const email = "support@mood.ai";
+    const subject = "Support Request";
+    const body = "Hi MOOD.ai team,\n\nI need help with...";
+    const emailUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    Linking.openURL(emailUrl).catch((err) => console.error("Failed to open email URL:", err));
+  };
+
   return (
     <Pressable
-      onPress={() => {
-        const email = "support@mood.ai";
-        const subject = "Support Request";
-        const body = "Hi MOOD.ai team,\n\nI need help with...";
-
-        const emailUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-        Linking.openURL(emailUrl).catch((err) => console.error("Failed to open email URL:", err));
-      }}
+      onPress={press}
       style={({ pressed }) => [
         pressedDefault(pressed),
         { gap: theme.spacing / 3, flexDirection: "row", alignItems: "center" },
       ]}
-      hitSlop={theme.spacing}
+      hitSlop={16}
     >
       <Mail
         color={theme.color.link}

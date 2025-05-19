@@ -1,8 +1,8 @@
-import { StyleSheet, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type ButtonProps = {
   children: string;
@@ -18,26 +18,27 @@ type ButtonProps = {
 };
 
 export default function Button(props: ButtonProps) {
-  const colors = theme();
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const Icon = props.icon;
-  const iconSize = Device.deviceType !== 1 ? 28 : 20;
 
   return (
     <Pressable
       onPress={() => (props.func ? props.func() : props.route && router.push(props.route))}
       style={({ pressed }) => [
         pressedDefault(pressed),
-        styles.container,
         {
-          height: Device.deviceType !== 1 ? (props.fill || props.large ? 72 : 48) : props.fill || props.large ? 52 : 36,
-          borderWidth: props.destructive || props.fill ? 0 : Device.deviceType !== 1 ? 2.5 : 2,
-          borderColor: colors.primary,
+          height: Device.deviceType === 1 ? (props.large ? 52 : 36) : props.large ? 72 : 48,
+          borderWidth: props.destructive || props.fill || props.gradient ? 0 : theme.stroke,
+          borderColor: theme.color.primary,
           backgroundColor: props.destructive
-            ? colors.destructive
-            : props.fill && !props.gradient
-            ? colors.primary
+            ? theme.color.destructive
+            : props.fill
+            ? theme.color.primary
             : "transparent",
+          borderRadius: 999,
+          overflow: "hidden",
         },
         props.disabled && { opacity: 0.25 },
       ]}
@@ -46,43 +47,43 @@ export default function Button(props: ButtonProps) {
     >
       {props.gradient && (
         <LinearGradient
-          colors={colors.primary === "white" ? ["#FF8000", "#00FF00", "#0080FF"] : ["#0000FF", "#990099", "#FF0000"]}
+          colors={theme.color.gradient as [string, string, ...string[]]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          style={styles.gradient}
+          style={{ position: "absolute", width: "100%", height: "100%" }}
         />
       )}
 
       <View
-        style={[
-          styles.wrapper,
-          {
-            gap: Device.deviceType !== 1 ? 10 : 6,
-            paddingHorizontal:
-              Device.deviceType !== 1 ? (props.fill || props.large ? 24 : 16) : props.fill || props.large ? 20 : 12,
-          },
-        ]}
+        style={{
+          gap: theme.spacing / 3,
+          paddingHorizontal: Device.deviceType === 1 ? (props.large ? 20 : 12) : props.large ? 24 : 16,
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
+        }}
       >
         {Icon && (
           <Icon
-            color={!props.fill ? colors.primary : colors.primary === "white" ? "black" : "white"}
-            size={iconSize}
+            color={
+              props.destructive ? "white" : props.fill || props.gradient ? theme.color.inverted : theme.color.primary
+            }
+            size={theme.icon.base.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            strokeWidth={theme.icon.base.stroke}
           />
         )}
 
         <Text
           style={{
-            fontFamily: props.gradient || props.large ? "Circular-Bold" : "Circular-Medium",
+            fontFamily: props.large ? "Circular-Bold" : "Circular-Medium",
             color: props.destructive
               ? "white"
-              : !props.fill
-              ? colors.primary
-              : colors.primary === "white"
-              ? "black"
-              : "white",
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
+              : props.fill || props.gradient
+              ? theme.color.inverted
+              : theme.color.primary,
+            fontSize: theme.fontSize.body,
           }}
           allowFontScaling={false}
         >
@@ -91,21 +92,20 @@ export default function Button(props: ButtonProps) {
 
         {props.count ? (
           <View
-            style={[
-              styles.count,
-              {
-                backgroundColor: colors.primary,
-                width: iconSize,
-                height: iconSize,
-              },
-            ]}
+            style={{
+              backgroundColor: theme.color.primary,
+              width: theme.icon.base.size,
+              height: theme.icon.base.size,
+              borderRadius: 999,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <Text
               style={{
                 fontFamily: "Circular-Book",
-                color: colors.primary === "white" ? "black" : "white",
-                fontSize: Device.deviceType !== 1 ? 18 : 14,
-                lineHeight: Device.deviceType !== 1 ? 22 : 17,
+                color: theme.color.inverted,
+                fontSize: theme.fontSize.small,
               }}
               allowFontScaling={false}
             >
@@ -119,26 +119,3 @@ export default function Button(props: ButtonProps) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 999,
-    overflow: "hidden",
-  },
-  wrapper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  gradient: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  },
-  count: {
-    borderRadius: 999,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -81,7 +81,7 @@ export default function Range(props: RangeProps) {
         </Text>
 
         {Platform.OS !== "ios" && (
-          <Button func={() => setShowStartPicker(true)} fill icon={CalendarDays}>
+          <Button func={() => setShowStartPicker(true)} fill large icon={CalendarDays}>
             {props.dates.rangeStart
               ? props.dates.rangeStart.toLocaleDateString()
               : props.dates.weekStart.toLocaleDateString()}
@@ -118,7 +118,7 @@ export default function Range(props: RangeProps) {
         </Text>
 
         {Platform.OS !== "ios" && (
-          <Button func={() => setShowEndPicker(true)} fill icon={CalendarDays}>
+          <Button func={() => setShowEndPicker(true)} fill large icon={CalendarDays}>
             {props.dates.rangeEnd ? props.dates.rangeEnd.toLocaleDateString() : weekEnd.toLocaleDateString()}
           </Button>
         )}

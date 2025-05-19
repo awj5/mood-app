@@ -73,7 +73,7 @@ export default function Reminder(props: ReminderProps) {
           pressedDefault(pressed),
           { flexDirection: "row", alignItems: "center", gap: theme.spacing / 3 },
         ]}
-        hitSlop={theme.spacing}
+        hitSlop={16}
       >
         {reminder ? (
           <BellRing

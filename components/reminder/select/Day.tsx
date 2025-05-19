@@ -1,8 +1,7 @@
-import { StyleSheet, View, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, useColorScheme } from "react-native";
 import Checkbox from "expo-checkbox";
 import { ReminderType } from "types";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type DayProps = {
   text: string;
@@ -11,36 +10,35 @@ type DayProps = {
 };
 
 export default function Day(props: DayProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const isChecked = props.reminder.days[props.text as keyof ReminderType["days"]];
 
-  const toggleDay = () => {
+  const toggle = () => {
     props.setReminder((prevReminder) => ({
       ...prevReminder,
       days: {
         ...prevReminder.days,
-        [props.text]: !isChecked, // Toggle
+        [props.text]: !isChecked,
       },
     }));
   };
 
   return (
-    <View style={{ alignItems: "center", gap: Device.deviceType !== 1 ? 6 : 4 }}>
+    <View style={{ alignItems: "center", gap: theme.spacing / 4 }}>
       <Text
-        style={[styles.text, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 18 : 14 }]}
+        style={{
+          color: theme.color.primary,
+          fontSize: theme.fontSize.small,
+          fontFamily: "Circular-Medium",
+          textTransform: "uppercase",
+        }}
         allowFontScaling={false}
       >
         {props.text.charAt(0)}
       </Text>
 
-      <Checkbox value={isChecked} onValueChange={toggleDay} color={colors.link} hitSlop={8} />
+      <Checkbox value={isChecked} onValueChange={toggle} color={theme.color.secondary} hitSlop={8} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: "Circular-Medium",
-    textTransform: "uppercase",
-  },
-});

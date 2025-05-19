@@ -65,7 +65,7 @@ export default function Upsell() {
         </Text>
 
         <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
-          <Button func={share} icon={ShareIcon} fill>
+          <Button func={share} icon={ShareIcon} fill large>
             Share now
           </Button>
         </View>

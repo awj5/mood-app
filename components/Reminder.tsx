@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
-import { Modal, StyleSheet, View, Text, Pressable, Platform } from "react-native";
+import { Modal, View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
-import * as Notifications from "expo-notifications";
-import { CircleX, BellRing } from "lucide-react-native";
-import Button from "components/Button";
+import { X } from "lucide-react-native";
 import Select from "components/reminder/Select";
+import Set from "./reminder/Set";
+import Remove from "./reminder/remove";
 import { ReminderType } from "types";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 import { getReminder } from "utils/reminders";
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
 
 type ReminderProps = {
   visible: boolean;
@@ -23,108 +15,25 @@ type ReminderProps = {
 };
 
 export default function Reminder(props: ReminderProps) {
-  const colors = theme();
-  const [showRemove, setShowRemove] = useState<boolean | undefined>();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const [showRemove, setShowRemove] = useState(false);
 
   const [reminder, setReminder] = useState<ReminderType>({
     days: { sun: false, mon: true, tue: true, wed: true, thu: true, fri: true, sat: false },
     time: "17:0",
   }); // Default
 
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-
-  const remove = async () => {
-    try {
-      await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
-      props.setVisible(false); // Close
-    } catch (error) {
-      console.log(error);
-      alert("An unexpected error has occurred.");
-    }
-  };
-
-  const press = async () => {
-    try {
-      const { status } = await Notifications.requestPermissionsAsync();
-
-      if (status !== "granted") {
-        console.log("Permission not granted");
-        props.setVisible(false); // Close
-        return;
-      }
-
-      if (Platform.OS === "android") {
-        try {
-          await Notifications.setNotificationChannelAsync("default", {
-            name: "default",
-            importance: Notifications.AndroidImportance.HIGH,
-            vibrationPattern: [0, 250, 250, 250],
-            lightColor: "#FF231F7C",
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
-      scheduleNotifications();
-    } catch (error) {
-      console.log(error);
-      alert("An unexpected error has occurred.");
-    }
-  };
-
-  const scheduleNotifications = async () => {
-    try {
-      await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
-
-      // Loop days of the week and schedule notification
-      Object.keys(reminder.days).forEach(async (day, index) => {
-        if (reminder.days[day as keyof ReminderType["days"]]) {
-          try {
-            await Notifications.scheduleNotificationAsync({
-              content: {
-                title: "How's work?",
-                body: "It's time to check-in.",
-                sound: true,
-                data: { route: "/check-in" },
-              },
-              trigger: {
-                type: Notifications.SchedulableTriggerInputTypes.WEEKLY,
-                weekday: index + 1, // Day of the week (1 = Sunday)
-                hour: parseInt(reminder.time.split(":")[0]),
-                minute: parseInt(reminder.time.split(":")[1]),
-              },
-            });
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      });
-
-      props.setVisible(false); // Close
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const checkReminder = async () => {
-    const current = await getReminder();
-
-    setReminder(
-      current
-        ? current
-        : {
-            days: { sun: false, mon: true, tue: true, wed: true, thu: true, fri: true, sat: false },
-            time: "17:0",
-          }
-    );
-
-    setShowRemove(current ? true : false);
-  };
-
   useEffect(() => {
-    setShowRemove(undefined); // Reset to avoid overlay size jump on Android
-    if (props.visible) checkReminder(); // Only fire on open
+    (async () => {
+      // Only fire on open
+      if (props.visible) {
+        // Get reminder if already set
+        const current = await getReminder();
+        if (current) setReminder(current);
+        setShowRemove(!!current);
+      }
+    })();
   }, [props.visible]);
 
   return (
@@ -136,101 +45,56 @@ export default function Reminder(props: ReminderProps) {
       statusBarTranslucent
     >
       <View
-        style={[
-          styles.container,
-          { backgroundColor: colors.primary === "white" ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.7)" },
-        ]}
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <View
-          style={[
-            styles.wrapper,
-            {
-              width: Device.deviceType !== 1 ? 448 : 320,
-              backgroundColor: colors.primaryBg,
-              borderRadius: spacing,
-              display: showRemove === undefined ? "none" : "flex",
-            },
-          ]}
+          style={{
+            width: Device.deviceType === 1 ? 320 : 448,
+            backgroundColor: theme.color.primaryBg,
+            borderRadius: theme.spacing,
+            padding: theme.spacing,
+            gap: theme.spacing,
+            shadowColor: "black",
+            shadowOffset: { width: 4, height: 4 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+          }}
         >
           <Pressable
             onPress={() => props.setVisible(false)}
-            style={({ pressed }) => [
-              pressedDefault(pressed),
-              { alignSelf: "flex-end", padding: Device.deviceType !== 1 ? 16 : 12 },
-            ]}
-            hitSlop={12}
+            style={({ pressed }) => [pressedDefault(pressed), { alignSelf: "flex-end" }]}
+            hitSlop={16}
           >
-            <CircleX
-              color={colors.link}
-              size={Device.deviceType !== 1 ? 32 : 24}
+            <X
+              color={theme.color.link}
+              size={theme.icon.base.size}
               absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+              strokeWidth={theme.icon.base.stroke}
             />
           </Pressable>
 
           <Text
-            style={[
-              styles.description,
-              {
-                color: colors.primary,
-                fontSize: Device.deviceType !== 1 ? 24 : 18,
-                padding: spacing,
-                paddingTop: 0,
-              },
-            ]}
+            style={{
+              color: theme.color.primary,
+              fontSize: theme.fontSize.large,
+              fontFamily: "Circular-Bold",
+              textAlign: "center",
+            }}
             allowFontScaling={false}
           >
             Schedule a daily check-in{"\n"}reminder notification
           </Text>
 
           <Select reminder={reminder} setReminder={setReminder} />
-
-          <View style={{ padding: spacing, gap: spacing }}>
-            <Button
-              func={press}
-              fill
-              icon={BellRing}
-              disabled={
-                !reminder.days.mon &&
-                !reminder.days.tue &&
-                !reminder.days.wed &&
-                !reminder.days.thu &&
-                !reminder.days.fri &&
-                !reminder.days.sat &&
-                !reminder.days.sun
-                  ? true
-                  : false
-              }
-            >
-              Set reminder
-            </Button>
-
-            {showRemove && (
-              <Button func={remove} fill destructive>
-                Remove
-              </Button>
-            )}
-          </View>
+          <Set reminder={reminder} setVisible={props.setVisible} />
+          {showRemove && <Remove setVisible={props.setVisible} />}
         </View>
       </View>
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  wrapper: {
-    shadowColor: "black",
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  description: {
-    fontFamily: "Circular-Bold",
-    textAlign: "center",
-  },
-});

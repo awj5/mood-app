@@ -149,7 +149,7 @@ export default function Response(props: ResponseProps) {
 
               <Button
                 func={buttonClick}
-                fill={props.message.button === "upsell"}
+                large={props.message.button === "upsell"}
                 icon={
                   props.message.button === "upsell" || (props.message.button !== "respond" && props.message.hasPro)
                     ? Sparkles
