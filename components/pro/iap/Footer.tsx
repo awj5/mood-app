@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import * as WebBrowser from "expo-web-browser";
 import ParsedText from "react-native-parsed-text";
@@ -14,7 +14,9 @@ export default function Footer() {
           pattern: /terms/,
           style: styles.link,
           onPress: () =>
-            WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
+            Platform.OS === "ios"
+              ? WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")
+              : WebBrowser.openBrowserAsync("https://articles.mood.ai/terms"),
         },
         {
           pattern: /privacy policy/,
