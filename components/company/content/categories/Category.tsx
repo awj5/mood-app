@@ -108,16 +108,7 @@ export default function Category(props: CategoryProps) {
           style={{
             fontFamily: "Circular-Bold",
             color: colors.primary,
-            fontSize:
-              Device.deviceType !== 1
-                ? props.role === "user"
-                  ? 30
-                  : 48
-                : props.role === "user"
-                ? range === "Outstanding"
-                  ? 20
-                  : 24
-                : 36,
+            fontSize: Device.deviceType !== 1 ? (props.role === "user" ? 30 : 48) : props.role === "user" ? 22 : 36,
             lineHeight: Device.deviceType !== 1 ? (props.role === "user" ? 32 : 50) : props.role === "user" ? 26 : 38,
           }}
           allowFontScaling={false}
