@@ -13,7 +13,8 @@ export default function Footer() {
         {
           pattern: /terms/,
           style: styles.link,
-          onPress: () => WebBrowser.openBrowserAsync("https://articles.mood.ai/terms"),
+          onPress: () =>
+            WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"),
         },
         {
           pattern: /privacy policy/,
