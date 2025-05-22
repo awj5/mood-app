@@ -1,52 +1,60 @@
-import { StyleSheet, View, Pressable, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Pressable, Text, useColorScheme } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { ShieldCheck } from "lucide-react-native";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 export default function Note() {
-  const colors = theme();
-
-  const textStyle = {
-    fontFamily: "Circular-Book",
-    color: colors.secondary,
-    fontSize: Device.deviceType !== 1 ? 18 : 14,
-  };
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 6 : 4 }]}>
+    <View
+      style={{
+        gap: theme.spacing.base / 4,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <ShieldCheck
-        color={colors.secondary}
-        size={Device.deviceType !== 1 ? 28 : 20}
+        color={theme.color.secondary}
+        size={theme.icon.base.size}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+        strokeWidth={theme.icon.base.stroke}
       />
 
-      <Text style={textStyle} allowFontScaling={false}>
+      <Text
+        style={{ fontFamily: "Circular-Book", color: theme.color.secondary, fontSize: theme.fontSize.small }}
+        allowFontScaling={false}
+      >
         Your conversations are <Text style={{ fontFamily: "Circular-Bold" }}>private</Text>.
       </Text>
 
-      <Pressable
-        onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
-        style={({ pressed }) => [pressedDefault(pressed), { flexDirection: "row" }]}
-        hitSlop={8}
-      >
-        <Text style={[textStyle, { color: colors.link }]} allowFontScaling={false}>
-          Learn more
-        </Text>
+      <View style={{ flexDirection: "row" }}>
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
+          style={({ pressed }) => pressedDefault(pressed)}
+          hitSlop={8}
+        >
+          <Text
+            style={{
+              color: theme.color.link,
+              fontFamily: "Circular-Book",
+              fontSize: theme.fontSize.small,
+            }}
+            allowFontScaling={false}
+          >
+            Learn more
+          </Text>
+        </Pressable>
 
-        <Text style={textStyle} allowFontScaling={false}>
+        <Text
+          style={{ fontFamily: "Circular-Book", color: theme.color.secondary, fontSize: theme.fontSize.small }}
+          allowFontScaling={false}
+        >
           .
         </Text>
-      </Pressable>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -28,7 +28,7 @@ export default function Name() {
   return (
     <View
       style={{
-        gap: theme.spacing,
+        gap: theme.spacing.base,
         flexDirection: "row",
         justifyContent: "space-between",
       }}

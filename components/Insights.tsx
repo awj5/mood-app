@@ -7,8 +7,8 @@ import axios from "axios";
 import { CompanyCheckInType } from "app/company";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { CalendarDatesType } from "types";
-import { generateHash, getPromptData, PromptDataType } from "utils/data";
+import { CalendarDatesType, PromptCheckInType } from "types";
+import { generateHash, getPromptCheckIns } from "utils/data";
 import { getStoredVal, removeAccess } from "utils/helpers";
 
 type InsightsProps = {
@@ -24,7 +24,7 @@ export default function Insights(props: InsightsProps) {
   const [dates, setDates] = useState<CalendarDatesType>(props.dates);
   const [isLoading, setIsLoading] = useState(true);
 
-  const requestAISummary = async (promptData: PromptDataType[], uuid: string, company: string) => {
+  const requestAISummary = async (promptData: PromptCheckInType[], uuid: string, company: string) => {
     try {
       const response = await axios.post(
         Constants.appOwnership !== "expo" ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
@@ -73,7 +73,7 @@ export default function Insights(props: InsightsProps) {
     latestQueryRef.current = currentQuery;
     setIsLoading(true);
     setText("");
-    const promptData = getPromptData(props.checkIns);
+    const promptData = getPromptCheckIns(props.checkIns);
     const hash = await generateHash(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const name = await getStoredVal("company-name");

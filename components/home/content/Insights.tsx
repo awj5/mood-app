@@ -8,8 +8,8 @@ import axios from "axios";
 import MoodsData from "data/moods.json";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { CalendarDatesType, CheckInType, CheckInMoodType } from "types";
-import { getPromptData, PromptDataType } from "utils/data";
+import { CalendarDatesType, CheckInType, CheckInMoodType, PromptCheckInType } from "types";
+import { getPromptCheckIns } from "utils/data";
 import { getStoredVal, removeAccess } from "utils/helpers";
 
 export type InsightType = {
@@ -61,7 +61,7 @@ export default function Insights(props: InsightsProps) {
     return result;
   };
 
-  const requestAISummary = async (promptData: PromptDataType[], uuid?: string | null, proID?: string | null) => {
+  const requestAISummary = async (promptData: PromptCheckInType[], uuid?: string | null, proID?: string | null) => {
     try {
       const response = await axios.post(
         Constants.appOwnership !== "expo" ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
@@ -104,7 +104,7 @@ export default function Insights(props: InsightsProps) {
     latestQueryRef.current = currentQuery;
     setIsLoading(true);
     setText("");
-    const promptData = getPromptData(props.checkIns);
+    const promptData = getPromptCheckIns(props.checkIns);
     const savedResponse = await getInsightsData(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const proID = await getStoredVal("pro-id"); // Check if pro subscriber

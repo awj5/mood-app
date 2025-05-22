@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, StyleSheet, Keyboard } from "react-native";
+import { ScrollView, KeyboardAvoidingView, Platform, Pressable, Text, Keyboard, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as Network from "expo-network";
-import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
@@ -14,9 +13,9 @@ import MoodsData from "data/moods.json";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { CheckInType } from "types";
-import { pressedDefault, theme, getStoredVal, setStoredVal, removeAccess } from "utils/helpers";
-import { getPromptData, PromptDataType } from "utils/data";
+import { CheckInType, PromptCheckInType } from "types";
+import { pressedDefault, getStoredVal, setStoredVal, removeAccess, getTheme } from "utils/helpers";
+import { getPromptCheckIns } from "utils/data";
 
 export type MessageType = {
   role: string;
@@ -31,26 +30,25 @@ export default function Chat() {
   const localization = getLocales();
   const headerHeight = useHeaderHeight();
   const router = useRouter();
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
   const noteRef = useRef("");
-  const checkInRef = useRef<PromptDataType>();
+  const currentCheckInRef = useRef<PromptCheckInType>();
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
   const [showInput, setShowInput] = useState(false);
   const [focusInput, setFocusInput] = useState(false);
-  const [keyboardShowing, setKeyboardShowing] = useState(false);
   const [company, setCompany] = useState("");
   const [insightsSeen, setInsightsSeen] = useState(false);
 
   const requestAIResponse = async (type: string, uuid?: string | null, proID?: string | null) => {
     try {
       const response = await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
+        !__DEV__ ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
         {
           type: type,
-          uuid: uuid,
           message: chatHistoryRef.current,
           loc: localization[0].languageTag,
           ...(uuid !== undefined && uuid != null && { uuid: uuid }),
@@ -61,24 +59,24 @@ export default function Chat() {
       return response.data.response;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
-      console.log(error);
+      console.error(error);
     }
   };
 
   const getCheckInHistoryData = async () => {
     try {
       const rows: CheckInType[] = await db.getAllAsync("SELECT * FROM check_ins ORDER BY id DESC LIMIT 100");
-      const promptData = getPromptData(rows); // Convert
-      checkInRef.current = promptData.data[0]; // Latest check-in
-      return promptData.data;
+      const promptCheckIns = getPromptCheckIns(rows); // Format for AI
+      currentCheckInRef.current = promptCheckIns.data[0]; // Latest check-in
+      return promptCheckIns.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const setFirstResponse = async () => {
-    const name = await getStoredVal("first-name");
     const history = await getCheckInHistoryData(); // Get recent check-ins
+    const name = await getStoredVal("first-name");
     const companyName = await getStoredVal("company-name");
 
     if (history) {
@@ -98,7 +96,7 @@ export default function Chat() {
     }
 
     if (!name) {
-      // User has not shared name yet
+      // User has not shared name yet so ask for their first name
       setMessages([
         {
           role: "assistant",
@@ -119,7 +117,7 @@ export default function Chat() {
     setGenerating(true);
     const network = await Network.getNetworkStateAsync();
     let name = await getStoredVal("first-name");
-    const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const uuid = await getStoredVal("uuid"); // Check if employee
     const proID = await getStoredVal("pro-id"); // Check if Pro subscriber
     const latestMessage = messages[messages.length - 1];
     const aiResponseCount = chatHistoryRef.current.filter((message) => message.role === "assistant").length;
@@ -153,7 +151,7 @@ export default function Chat() {
       },
     ]);
 
-    const mood = MoodsData.filter((mood) => mood.id === checkInRef.current?.mood)[0];
+    const mood = MoodsData.filter((mood) => mood.id === currentCheckInRef.current?.mood)[0];
 
     const aiResponse =
       proID || uuid
@@ -209,20 +207,13 @@ export default function Chat() {
         if (aiSummary) {
           // Update check-in note
           try {
-            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [aiSummary, checkInRef.current?.id]);
+            await db.runAsync("UPDATE check_ins SET note = ? WHERE id = ?", [aiSummary, currentCheckInRef.current?.id]);
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
         }
       }
     }
-  };
-
-  const getCompany = async () => {
-    const name = await getStoredVal("company-name");
-    const send = await getStoredVal("send-check-ins");
-    if (name) setCompany(name);
-    if (send) setInsightsSeen(true);
   };
 
   useEffect(() => {
@@ -234,6 +225,7 @@ export default function Chat() {
   }, [messages]);
 
   useEffect(() => {
+    // Show input if AI has asked for user's name
     if (!generating && !showInput && messages[messages.length - 1].content.includes("What's your first name?"))
       setShowInput(true);
   }, [generating]);
@@ -243,33 +235,29 @@ export default function Chat() {
       setFirstResponse();
     }, 500); // Wait for screen transition
 
+    (async () => {
+      // Check if user has a company and has view company insights
+      const companyName = await getStoredVal("company-name");
+      const send = await getStoredVal("send-check-ins");
+      if (companyName) setCompany(companyName);
+      if (send) setInsightsSeen(true);
+    })();
+
     const didShowListener = Keyboard.addListener("keyboardDidShow", () => {
       scrollViewRef.current?.scrollToEnd({ animated: true });
     });
 
-    const willShowListener = Keyboard.addListener("keyboardWillShow", () => {
-      setKeyboardShowing(true);
-    });
-
-    const willHideListener = Keyboard.addListener("keyboardWillHide", () => {
-      setKeyboardShowing(false);
-    });
-
-    getCompany();
-
     return () => {
       clearTimeout(timer);
       didShowListener.remove();
-      willShowListener.remove();
-      willHideListener.remove();
     };
   }, []);
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={headerHeight}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? headerHeight : 0}
     >
       <Stack.Screen
         options={{
@@ -279,8 +267,8 @@ export default function Chat() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Dashboard"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-              tintColor={colors.link}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
+              tintColor={theme.color.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -289,24 +277,23 @@ export default function Chat() {
             <Pressable
               onPress={() => router.push("company")}
               style={({ pressed }) => [
-                styles.headerRight,
                 pressedDefault(pressed),
-                { gap: Device.deviceType !== 1 ? 10 : 6 },
+                { gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" },
               ]}
               hitSlop={16}
             >
               <ChartSpline
-                color={colors.link}
-                size={Device.deviceType !== 1 ? 28 : 20}
+                color={theme.color.link}
+                size={theme.icon.base.size}
                 absoluteStrokeWidth
-                strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+                strokeWidth={theme.icon.base.stroke}
               />
 
               <Text
                 style={{
-                  fontFamily: "Circular-Medium",
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.link,
+                  fontFamily: "Circular-Bold",
+                  fontSize: theme.fontSize.body,
+                  color: theme.color.link,
                 }}
                 allowFontScaling={false}
               >
@@ -317,7 +304,7 @@ export default function Chat() {
         }}
       />
 
-      <ScrollView ref={scrollViewRef} style={{ flex: 1 }}>
+      <ScrollView ref={scrollViewRef}>
         {messages.map((item, index) =>
           item.role === "assistant" ? (
             <Response
@@ -343,17 +330,9 @@ export default function Chat() {
         showInput={showInput}
         focusInput={focusInput}
         setFocusInput={setFocusInput}
-        keyboardShowing={keyboardShowing}
       />
 
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerRight: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});

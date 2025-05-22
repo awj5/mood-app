@@ -24,3 +24,12 @@ export type ReminderType = {
   days: { sun: boolean; mon: boolean; tue: boolean; wed: boolean; thu: boolean; fri: boolean; sat: boolean };
   time: string;
 };
+
+export type PromptCheckInType = {
+  date: string;
+  id: number;
+  time?: string;
+  mood: number;
+  feelings: string[];
+  note: string;
+};

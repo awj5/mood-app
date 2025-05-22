@@ -34,7 +34,7 @@ export default function Pro(props: ProProps) {
 
   return (
     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-      <View style={{ gap: theme.spacing / 3, flexDirection: "row", alignItems: "center" }}>
+      <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
         <Sparkles
           color={theme.color.primary}
           size={theme.icon.base.size}

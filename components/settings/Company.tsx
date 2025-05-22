@@ -32,7 +32,7 @@ export default function Company(props: CompanyProps) {
   };
 
   return (
-    <View style={{ gap: theme.spacing, flexDirection: "row", justifyContent: "space-between" }}>
+    <View style={{ gap: theme.spacing.base, flexDirection: "row", justifyContent: "space-between" }}>
       <Text
         style={{
           color: theme.color.primary,
@@ -48,7 +48,7 @@ export default function Company(props: CompanyProps) {
         onPress={press}
         style={({ pressed }) => [
           pressedDefault(pressed),
-          { gap: theme.spacing / 3, flexDirection: "row", alignItems: "center" },
+          { gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" },
         ]}
         hitSlop={16}
       >

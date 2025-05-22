@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { StyleSheet, Text, Pressable, Alert } from "react-native";
-import * as Device from "expo-device";
+import { Text, Pressable, Alert, useColorScheme } from "react-native";
 import { useSQLiteContext } from "expo-sqlite";
-import Constants from "expo-constants";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
 import { CompanyCheckInType } from "app/company";
 import { CheckInType } from "types";
-import { theme, pressedDefault, getStoredVal } from "utils/helpers";
-import { generateHash, getPromptData } from "utils/data";
+import { pressedDefault, getStoredVal, getTheme } from "utils/helpers";
+import { generateHash, getPromptCheckIns } from "utils/data";
 
 type ReportProps = {
   text: string;
@@ -20,14 +18,16 @@ type ReportProps = {
 };
 
 export default function Report(props: ReportProps) {
-  const colors = theme();
   const db = useSQLiteContext();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [reported, setReported] = useState(false);
 
   const deleteInsightsData = async (ids: number[], hash: string) => {
     const uuid = await getStoredVal("uuid");
 
     if (!hash) {
+      // User check-ins
       try {
         // Delete insight
         const query = `
@@ -37,12 +37,13 @@ export default function Report(props: ReportProps) {
         await db.runAsync(query, [ids.toString()]);
         if (props.func) props.func(); // Regenerate insights
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     } else if (uuid) {
+      // Company check-ins
       try {
         await axios.post(
-          Constants.appOwnership !== "expo"
+          !__DEV__
             ? "https://mood-web-zeta.vercel.app/api/insights/delete"
             : "http://localhost:3000/api/insights/delete",
           {
@@ -54,12 +55,12 @@ export default function Report(props: ReportProps) {
 
         if (props.func) props.func(); // Regenerate insights
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
 
-  const confirm = () => {
+  const press = () => {
     Alert.alert(
       "Report Bad Response",
       "By tapping 'Send,' this response will be anonymously submitted to our team for review. Thank you for your feedback!",
@@ -77,53 +78,53 @@ export default function Report(props: ReportProps) {
   const send = async () => {
     // Remove saved summary
     if (props.checkIns) {
-      const promptData = getPromptData(props.checkIns);
-      const hash = "value" in props.checkIns[0] ? await generateHash(promptData.ids) : "";
-      deleteInsightsData(promptData.ids, hash); // Determine if company check-ins
+      const promptCheckIns = getPromptCheckIns(props.checkIns);
+      const hash = "value" in props.checkIns[0] ? await generateHash(promptCheckIns.ids) : ""; // Generate hash if check-ins are from company
+      deleteInsightsData(promptCheckIns.ids, hash);
     } else {
       setReported(true);
     }
 
-    const name = await getStoredVal("first-name"); // Redact user's name
+    const name = await getStoredVal("first-name");
 
     // Send email to team
     try {
-      await axios.post(
-        Constants.appOwnership !== "expo"
-          ? "https://mood-web-zeta.vercel.app/api/report"
-          : "http://localhost:3000/api/report",
-        {
-          text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text,
-        }
-      );
+      await axios.post(!__DEV__ ? "https://mood-web-zeta.vercel.app/api/report" : "http://localhost:3000/api/report", {
+        text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text, // Redact user's name
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   return (
     <Pressable
-      onPress={confirm}
+      onPress={press}
       style={({ pressed }) => [
         pressedDefault(pressed),
-        styles.container,
-        { gap: Device.deviceType !== 1 ? 6 : 4, display: props.visible ? "flex" : "none" },
+        {
+          gap: theme.spacing.base / 4,
+          display: props.visible ? "flex" : "none",
+          flexDirection: "row",
+          alignItems: "center",
+          alignSelf: "flex-start",
+        },
       ]}
       hitSlop={8}
       disabled={reported}
     >
       <Flag
-        color={props.opaque ? colors.opaque : colors.secondary}
-        size={Device.deviceType !== 1 ? 16 : 12}
+        color={props.opaque ? theme.color.opaque : theme.color.secondary}
+        size={theme.icon.xSmall.size}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
+        strokeWidth={theme.icon.xSmall.stroke}
       />
 
       <Text
         style={{
           fontFamily: "Circular-Book",
-          color: props.opaque ? colors.opaque : colors.secondary,
-          fontSize: Device.deviceType !== 1 ? 16 : 12,
+          color: props.opaque ? theme.color.opaque : theme.color.secondary,
+          fontSize: theme.fontSize.xSmall,
         }}
         allowFontScaling={false}
       >
@@ -132,11 +133,3 @@ export default function Report(props: ReportProps) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
-  },
-});

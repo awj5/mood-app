@@ -2,7 +2,7 @@ import * as Crypto from "expo-crypto";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CompanyCheckInType } from "app/company";
-import { CheckInType, CheckInMoodType } from "types";
+import { CheckInType, CheckInMoodType, PromptCheckInType } from "types";
 
 export const getStatement = (statement: number, response: number, type: string, company?: string) => {
   const percentage = Math.round(response * 100);
@@ -31,55 +31,40 @@ export const getStatement = (statement: number, response: number, type: string, 
       start = `I strongly disagreed (${percentage}%) that`;
   }
 
-  const competency = guidelinesData[0].competencies.filter((item) => item.id === statement)[0];
-
+  const competency = guidelinesData[0].competencies.filter((item) => item.id === statement)[0]; // Get statement
   let companyName = company ? company : "my company";
-
-  if (companyName.endsWith(".")) {
-    companyName = companyName.slice(0, -1);
-  }
-
+  if (companyName.endsWith(".")) companyName = companyName.slice(0, -1); // Remove . at end of comapmy name if exists
   return `${start} ${type === "neg" ? competency.negStatement : competency.posStatement} at ${companyName}.`;
 };
 
-export type PromptDataType = {
-  date: string;
-  id: number;
-  time?: string;
-  mood: number;
-  feelings: string[];
-  note: string;
-};
-
-export const getPromptData = (checkIns: CheckInType[] | CompanyCheckInType[]) => {
-  const data: PromptDataType[] = [];
+export const getPromptCheckIns = (checkIns: CheckInType[] | CompanyCheckInType[]) => {
+  const data: PromptCheckInType[] = []; // Check-ins formatted for AI prompt
   const ids = []; // Used to collect check-in IDs
 
   // Loop check-ins and create prompt objects
-  for (let i = 0; i < checkIns.length; i++) {
-    let checkIn = checkIns[i];
-    let utc = new Date(`${checkIn.date}Z`);
-    let local = new Date(utc.getTime() ? utc : checkIn.date); // Don't use UTC if date doesn't include time
-    let mood: CheckInMoodType = "mood" in checkIn ? JSON.parse(checkIn.mood) : checkIn.value; // Determine if company check-in
-    let tags: string[] = [];
+  for (const checkIn of checkIns) {
+    const utc = new Date(`${checkIn.date}Z`);
+    const local = new Date(utc.getTime() ? utc : checkIn.date); // Don't use UTC if date doesn't include time (company check-in)
+    const mood: CheckInMoodType = "mood" in checkIn ? JSON.parse(checkIn.mood) : checkIn.value; // Determine if company check-in
+    const tags = [];
 
     // Get tag names
-    for (let i = 0; i < mood.tags.length; i++) {
-      tags.push(tagsData.filter((tag) => tag.id === mood.tags[i])[0].name);
+    for (const tag of mood.tags) {
+      tags.push(tagsData.filter((item) => item.id === tag)[0].name);
     }
 
     data.push({
       date: local.toDateString(),
       id: checkIn.id,
-      ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }),
+      ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }), // Is user check-in
       mood: mood.color,
       feelings: tags,
       note:
         "note" in checkIn && checkIn.note
           ? checkIn.note.replace("[NOTE FROM USER]:", "")
-          : "note" in checkIn
-          ? checkIn.note
-          : getStatement(mood.competency, mood.statementResponse, "pos", mood.company),
+          : !("note" in checkIn)
+          ? getStatement(mood.competency, mood.statementResponse, "pos", mood.company)
+          : "",
     });
 
     ids.push(checkIn.id);

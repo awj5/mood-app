@@ -21,7 +21,7 @@ export default function Settings() {
   const [reminderVisible, setReminderVisible] = useState(false);
   const [company, setCompany] = useState("");
   const [hasPro, setHasPro] = useState(false);
-  const dividerStyle = { backgroundColor: theme.color.secondaryBg, marginVertical: theme.spacing };
+  const dividerStyle = { backgroundColor: theme.color.secondaryBg, marginVertical: theme.spacing.base };
 
   useEffect(() => {
     (async () => {
@@ -57,8 +57,8 @@ export default function Settings() {
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{
-          padding: theme.spacing,
-          paddingBottom: insets.bottom + theme.spacing,
+          padding: theme.spacing.base,
+          paddingBottom: insets.bottom + theme.spacing.base,
         }}
       >
         <Name />

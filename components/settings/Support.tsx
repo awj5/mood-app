@@ -19,7 +19,7 @@ export default function Support() {
       onPress={press}
       style={({ pressed }) => [
         pressedDefault(pressed),
-        { gap: theme.spacing / 3, flexDirection: "row", alignItems: "center" },
+        { gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" },
       ]}
       hitSlop={16}
     >

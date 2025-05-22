@@ -18,7 +18,7 @@ export default function Select(props: SelectProps) {
   return (
     <View
       style={{
-        gap: Platform.OS === "android" ? theme.spacing / 2 : 0,
+        gap: Platform.OS === "android" ? theme.spacing.base / 2 : 0,
       }}
     >
       <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>

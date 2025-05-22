@@ -25,7 +25,7 @@ export default function Day(props: DayProps) {
   };
 
   return (
-    <View style={{ alignItems: "center", gap: theme.spacing / 4 }}>
+    <View style={{ alignItems: "center", gap: theme.spacing.base / 4 }}>
       <Text
         style={{
           color: theme.color.primary,

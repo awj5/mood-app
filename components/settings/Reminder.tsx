@@ -71,7 +71,7 @@ export default function Reminder(props: ReminderProps) {
         onPress={press}
         style={({ pressed }) => [
           pressedDefault(pressed),
-          { flexDirection: "row", alignItems: "center", gap: theme.spacing / 3 },
+          { flexDirection: "row", alignItems: "center", gap: theme.spacing.small / 2 },
         ]}
         hitSlop={16}
       >

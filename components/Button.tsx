@@ -56,7 +56,7 @@ export default function Button(props: ButtonProps) {
 
       <View
         style={{
-          gap: theme.spacing / 3,
+          gap: theme.spacing.small / 2,
           paddingHorizontal: Device.deviceType === 1 ? (props.large ? 20 : 12) : props.large ? 24 : 16,
           flex: 1,
           alignItems: "center",

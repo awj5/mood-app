@@ -56,9 +56,9 @@ export default function Reminder(props: ReminderProps) {
           style={{
             width: Device.deviceType === 1 ? 320 : 448,
             backgroundColor: theme.color.primaryBg,
-            borderRadius: theme.spacing,
-            padding: theme.spacing,
-            gap: theme.spacing,
+            borderRadius: theme.spacing.base,
+            padding: theme.spacing.base,
+            gap: theme.spacing.base,
             shadowColor: "black",
             shadowOffset: { width: 4, height: 4 },
             shadowOpacity: 0.2,
