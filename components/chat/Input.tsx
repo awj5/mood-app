@@ -3,8 +3,8 @@ import { TextInput, View, Pressable, Keyboard, useColorScheme, SafeAreaView } fr
 import * as Device from "expo-device";
 import Animated, { useSharedValue, withTiming, Easing, useAnimatedStyle } from "react-native-reanimated";
 import { ArrowUp } from "lucide-react-native";
-import { MessageType } from "app/chat";
 import Note from "./input/Note";
+import { MessageType } from "types";
 import { pressedDefault, getTheme } from "utils/helpers";
 
 type InputProps = {

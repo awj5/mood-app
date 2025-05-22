@@ -1,8 +1,40 @@
 import * as Crypto from "expo-crypto";
+import { getLocales } from "expo-localization";
+import axios from "axios";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
 import { CompanyCheckInType } from "app/company";
-import { CheckInType, CheckInMoodType, PromptCheckInType } from "types";
+import { CheckInType, CheckInMoodType, PromptCheckInType, MessageType } from "types";
+import { removeAccess } from "./helpers";
+
+export const requestAIResponse = async (
+  type: string,
+  message: MessageType[],
+  uuid?: string | null,
+  proID?: string | null,
+  category?: number
+) => {
+  const localization = getLocales();
+
+  try {
+    const response = await axios.post(
+      !__DEV__ ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
+      {
+        type: type,
+        message: message,
+        loc: localization[0].languageTag,
+        ...(uuid !== undefined && uuid != null && { uuid: uuid }),
+        ...(proID !== undefined && proID != null && { proid: proID }),
+        ...(category !== undefined && { category: category }),
+      }
+    );
+
+    return response.data.response;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
+    console.error(error);
+  }
+};
 
 export const getStatement = (statement: number, response: number, type: string, company?: string) => {
   const percentage = Math.round(response * 100);

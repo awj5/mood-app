@@ -116,7 +116,7 @@ export default function Insights(props: InsightsProps) {
       (latestQueryRef.current === currentQuery && uuid) ||
       (latestQueryRef.current === currentQuery && proID)
     ) {
-      let aiResponse = await requestAISummary(promptData.data, uuid, proID);
+      let aiResponse = await requestAISummary(promptData.data, uuid, proID); // USE requestAIResponse INSTEAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         // Get mood scores

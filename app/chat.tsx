@@ -6,24 +6,15 @@ import * as Network from "expo-network";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
 import { getLocales } from "expo-localization";
-import axios from "axios";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { ChartSpline } from "lucide-react-native";
 import MoodsData from "data/moods.json";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
-import { CheckInType, PromptCheckInType } from "types";
-import { pressedDefault, getStoredVal, setStoredVal, removeAccess, getTheme } from "utils/helpers";
-import { getPromptCheckIns } from "utils/data";
-
-export type MessageType = {
-  role: string;
-  content: string;
-  button?: string;
-  height?: number;
-  hasPro?: boolean;
-};
+import { CheckInType, PromptCheckInType, MessageType } from "types";
+import { pressedDefault, getStoredVal, setStoredVal, getTheme } from "utils/helpers";
+import { getPromptCheckIns, requestAIResponse } from "utils/data";
 
 export default function Chat() {
   const db = useSQLiteContext();
@@ -42,26 +33,6 @@ export default function Chat() {
   const [focusInput, setFocusInput] = useState(false);
   const [company, setCompany] = useState("");
   const [insightsSeen, setInsightsSeen] = useState(false);
-
-  const requestAIResponse = async (type: string, uuid?: string | null, proID?: string | null) => {
-    try {
-      const response = await axios.post(
-        !__DEV__ ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
-        {
-          type: type,
-          message: chatHistoryRef.current,
-          loc: localization[0].languageTag,
-          ...(uuid !== undefined && uuid != null && { uuid: uuid }),
-          ...(proID !== undefined && proID != null && { proid: proID }),
-        }
-      );
-
-      return response.data.response;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
-      console.error(error);
-    }
-  };
 
   const getCheckInHistoryData = async () => {
     try {
@@ -155,7 +126,7 @@ export default function Chat() {
 
     const aiResponse =
       proID || uuid
-        ? await requestAIResponse("chat", uuid, proID)
+        ? await requestAIResponse("chat", chatHistoryRef.current, uuid, proID)
         : aiResponseCount >= 2
         ? "I've updated this check-in with your message."
         : aiResponseCount
@@ -201,7 +172,7 @@ export default function Chat() {
       if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
         const aiSummary =
           uuid || proID
-            ? await requestAIResponse("summarize_chat", uuid, proID)
+            ? await requestAIResponse("summarize_chat", chatHistoryRef.current, uuid, proID)
             : "[NOTE FROM USER]:" + noteRef.current;
 
         if (aiSummary) {

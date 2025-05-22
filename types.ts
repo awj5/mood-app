@@ -33,3 +33,11 @@ export type PromptCheckInType = {
   feelings: string[];
   note: string;
 };
+
+export type MessageType = {
+  role: string;
+  content: string;
+  button?: string;
+  height?: number;
+  hasPro?: boolean;
+};

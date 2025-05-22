@@ -85,7 +85,7 @@ export default function Insights(props: InsightsProps) {
       if (savedResponse && latestQueryRef.current === currentQuery) {
         setText(savedResponse.summary);
       } else if (latestQueryRef.current === currentQuery && name) {
-        let aiResponse = await requestAISummary(promptData.data, uuid, name);
+        let aiResponse = await requestAISummary(promptData.data, uuid, name); // USE requestAIResponse INSTEAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         if (aiResponse && latestQueryRef.current === currentQuery) {
           setText(aiResponse);

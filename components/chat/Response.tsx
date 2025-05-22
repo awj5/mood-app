@@ -3,10 +3,10 @@ import { View, Linking, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import ParsedText from "react-native-parsed-text";
-import { MessageType } from "app/chat";
 import Icon from "./response/Icon";
 import Report from "components/Report";
 import Buttons from "./response/Buttons";
+import { MessageType } from "types";
 import { getTheme } from "utils/helpers";
 
 type ResponseProps = {

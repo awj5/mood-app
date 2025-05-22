@@ -2,8 +2,8 @@ import { View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles, ChartSpline } from "lucide-react-native";
-import { MessageType } from "app/chat";
 import Button from "components/Button";
+import { MessageType } from "types";
 import { getTheme } from "utils/helpers";
 
 type ButtonsProps = {
