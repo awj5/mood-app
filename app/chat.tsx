@@ -137,7 +137,7 @@ export default function Chat() {
       ];
     } else if (messages.length) {
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
-      if (!uuid && !proID) noteRef.current = `${noteRef.current}${noteRef.current && "\n\n"}${latestMessage.content}`; // Add message to note if user not subscribed
+      if (!uuid && !proID) noteRef.current = `${noteRef.current}${noteRef.current && "\n\n"}${latestMessage.content}`; // Add message to note if user doesn't have Pro
     }
 
     // Add empty response to show loader
@@ -151,7 +151,7 @@ export default function Chat() {
       },
     ]);
 
-    const mood = MoodsData.filter((mood) => mood.id === currentCheckInRef.current?.mood)[0];
+    const mood = MoodsData.filter((mood) => mood.id === currentCheckInRef.current?.mood)[0]; // Mood of latest check-in
 
     const aiResponse =
       proID || uuid
@@ -168,7 +168,7 @@ export default function Chat() {
 
     if (!uuid && !proID) await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay response if user doesn't have AI access
 
-    // Update the text of the last message
+    // Update the last message
     setMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
 
