@@ -62,8 +62,8 @@ export const getReminder = async () => {
     };
 
     // Loop current notifications
-    for (let i = 0; i < notifications.length; i++) {
-      const trigger = notifications[i].trigger as any; // Casting as any because Notifications.NotificationTrigger types are a mess
+    for (const notification of notifications) {
+      const trigger = notification.trigger as any; // Casting as any because Notifications.NotificationTrigger types are a mess
       let dayKey = "";
 
       // Get day and time
