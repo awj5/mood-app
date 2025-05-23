@@ -22,7 +22,7 @@ export default function Restore(props: RestoreProps) {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const isMountedRef = useRef(true);
+  const isMountedRef = useRef(false);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
 
   const restore = async () => {
@@ -65,6 +65,7 @@ export default function Restore(props: RestoreProps) {
 
   useFocusEffect(
     useCallback(() => {
+      isMountedRef.current = true;
       return () => (isMountedRef.current = false);
     }, [])
   );

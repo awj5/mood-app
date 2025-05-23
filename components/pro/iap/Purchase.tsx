@@ -18,7 +18,7 @@ export default function Purchase(props: PurchaseProps) {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const isMountedRef = useRef(true);
+  const isMountedRef = useRef(false);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
 
   const purchase = async () => {
@@ -47,6 +47,7 @@ export default function Purchase(props: PurchaseProps) {
 
   useFocusEffect(
     useCallback(() => {
+      isMountedRef.current = true;
       return () => (isMountedRef.current = false);
     }, [])
   );
