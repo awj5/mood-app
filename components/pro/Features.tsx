@@ -1,20 +1,19 @@
-import { View } from "react-native";
+import { useColorScheme, View } from "react-native";
 import * as Device from "expo-device";
 import Item from "./features/Item";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 export default function Features() {
-  const colors = theme();
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
     <View
       style={{
-        width: "100%",
-        borderRadius: spacing,
-        padding: spacing * 1.5,
-        gap: spacing,
-        backgroundColor: colors.opaqueBg,
+        borderRadius: theme.spacing.base,
+        padding: Device.deviceType === 1 ? theme.spacing.small * 2 : theme.spacing.small,
+        gap: Device.deviceType === 1 ? theme.spacing.base : theme.spacing.base / 4,
+        backgroundColor: theme.color.opaqueBg,
       }}
     >
       <Item>Empathetic AI chat</Item>

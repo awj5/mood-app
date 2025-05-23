@@ -1,78 +1,20 @@
-import { useCallback, useContext, useRef, useState } from "react";
-import { Pressable, Text, View, Platform, ScrollView, StyleSheet, Alert } from "react-native";
-import { Stack, useRouter, useFocusEffect } from "expo-router";
+import { useState } from "react";
+import { Pressable, Text, View, Platform, ScrollView, useColorScheme } from "react-native";
+import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
-import Constants from "expo-constants";
 import { LinearGradient } from "expo-linear-gradient";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
-import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import IAP from "components/pro/IAP";
 import Features from "components/pro/Features";
-import { theme, pressedDefault, setStoredVal } from "utils/helpers";
-import { getMonday } from "utils/dates";
+import Restore from "components/pro/Restore";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 export default function Pro() {
-  const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
-  const isMountedRef = useRef(true);
-  const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const [submitting, setSubmitting] = useState(false);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const foreground = colors.primary === "white" ? "black" : "white";
-
-  const APIKeys = {
-    ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
-    android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
-  };
-
-  const restore = async () => {
-    if (Constants.appOwnership === "expo") return;
-    setSubmitting(true);
-
-    try {
-      const purchasesModule = require("react-native-purchases");
-      const purchases = purchasesModule.default;
-      purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
-      const restore = await purchases.restorePurchases();
-      const isPro = restore.activeSubscriptions.length > 0;
-
-      if (isPro) {
-        const appUserID = await purchases.getAppUserID(); // Get unique ID from RC
-        setStoredVal("pro-id", appUserID as string); // Store RC ID
-
-        // Trigger dashboard refresh
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const monday = getMonday(today);
-        setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
-
-        Alert.alert("Success!", "MOOD.ai Pro has been restored.", [
-          {
-            text: "OK",
-            onPress: isMountedRef.current
-              ? () => {
-                  router.back(); // Close modal
-                }
-              : () => null,
-          },
-        ]);
-      } else {
-        Alert.alert("No Active Subscription", "We couldn't find an active MOOD.ai Pro subscription.");
-      }
-    } catch (error) {
-      console.log(error);
-      alert("An unexpected error has occurred.");
-    }
-
-    setSubmitting(false);
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => (isMountedRef.current = false);
-    }, [])
-  );
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const [loading, setLoading] = useState(true);
 
   return (
     <View style={{ flex: 1 }}>
@@ -90,8 +32,8 @@ export default function Pro() {
                   <HeaderBackButton
                     onPress={() => router.back()}
                     label="Back"
-                    labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-                    tintColor={foreground}
+                    labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
+                    tintColor={theme.color.inverted}
                     allowFontScaling={false}
                     style={{ marginLeft: -8 }}
                   />
@@ -105,8 +47,8 @@ export default function Pro() {
                     <Text
                       style={{
                         fontFamily: "Circular-Book",
-                        fontSize: Device.deviceType !== 1 ? 20 : 16,
-                        color: foreground,
+                        fontSize: theme.fontSize.body,
+                        color: theme.color.inverted,
                       }}
                       allowFontScaling={false}
                     >
@@ -114,46 +56,29 @@ export default function Pro() {
                     </Text>
                   </Pressable>
                 ),
-          headerRight: () => (
-            <Pressable
-              onPress={restore}
-              style={({ pressed }) => pressedDefault(pressed)}
-              hitSlop={16}
-              disabled={submitting}
-            >
-              <Text
-                style={{
-                  fontFamily: "Circular-Book",
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: foreground,
-                }}
-                allowFontScaling={false}
-              >
-                Restore
-              </Text>
-            </Pressable>
-          ),
+          headerRight: () => <Restore loading={loading} setLoading={setLoading} />,
         }}
       />
 
       <LinearGradient
-        colors={colors.primary === "white" ? ["#FF8000", "#00FF00", "#0080FF"] : ["#0000FF", "#990099", "#FF0000"]}
-        style={styles.gradient}
+        colors={theme.color.gradient as [string, string, ...string[]]}
+        style={{ position: "absolute", width: "100%", height: "100%" }}
       />
 
       <ScrollView
-        style={{ marginTop: headerHeight, flex: 1 }}
+        style={{ marginTop: headerHeight }}
         contentContainerStyle={{
-          padding: spacing,
-          gap: spacing * 2,
+          padding: theme.spacing.base,
+          paddingTop: Device.deviceType === 1 ? theme.spacing.base : 0,
+          gap: Device.deviceType === 1 ? theme.spacing.base * 2 : theme.spacing.base,
         }}
       >
-        <View style={{ gap: spacing / 2, alignItems: "center" }}>
+        <View style={{ gap: theme.spacing.small / 2, alignItems: "center" }}>
           <Text
             style={{
               fontFamily: "Circular-Black",
-              fontSize: Device.deviceType !== 1 ? 48 : 36,
-              color: foreground,
+              fontSize: theme.fontSize.xxxLarge,
+              color: theme.color.inverted,
             }}
             allowFontScaling={false}
           >
@@ -161,13 +86,12 @@ export default function Pro() {
           </Text>
 
           <Text
-            style={[
-              styles.description,
-              {
-                color: foreground,
-                fontSize: Device.deviceType !== 1 ? 20 : 16,
-              },
-            ]}
+            style={{
+              color: theme.color.inverted,
+              fontSize: theme.fontSize.body,
+              fontFamily: "Circular-Book",
+              textAlign: "center",
+            }}
             allowFontScaling={false}
           >
             Boost emotional intelligence and unlock your best self at work with{" "}
@@ -178,19 +102,7 @@ export default function Pro() {
         <Features />
       </ScrollView>
 
-      <IAP submitting={submitting} setSubmitting={setSubmitting} />
+      <IAP loading={loading} setLoading={setLoading} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  gradient: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  },
-  description: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

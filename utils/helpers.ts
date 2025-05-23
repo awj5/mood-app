@@ -26,6 +26,7 @@ export const getTheme = (colorScheme: string | null | undefined) => {
     },
 
     fontSize: {
+      xxSmall: isPhone ? 10 : 14,
       xSmall: isPhone ? 12 : 16,
       small: isPhone ? 14 : 18,
       body: isPhone ? 16 : 20,

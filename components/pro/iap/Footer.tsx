@@ -1,11 +1,11 @@
-import { Platform, StyleSheet } from "react-native";
-import * as Device from "expo-device";
+import { Platform, StyleSheet, useColorScheme } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import ParsedText from "react-native-parsed-text";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 export default function Footer() {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
     <ParsedText
@@ -24,25 +24,20 @@ export default function Footer() {
           onPress: () => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy-policy/"),
         },
       ]}
-      style={[
-        styles.container,
-        {
-          color: colors.primary === "white" ? "black" : "white",
-          fontSize: Device.deviceType !== 1 ? 16 : 12,
-        },
-      ]}
+      style={{
+        color: theme.color.inverted,
+        fontSize: theme.fontSize.xSmall,
+        fontFamily: "Circular-Book",
+        textAlign: "center",
+      }}
     >
-      You'll only be charged after your free trial ends. Cancel anytime before then and pay nothing. See our terms and
-      privacy policy for all the fine print.
+      You'll only be charged after your free trial ends. Cancel anytime. See our terms and privacy policy for all the
+      fine print.
     </ParsedText>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
   link: {
     textDecorationLine: "underline",
     fontFamily: "Circular-Medium",

@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { PurchasesPackage } from "react-native-purchases";
 import { Circle, CircleCheck } from "lucide-react-native";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type ProductProps = {
   id: string;
@@ -10,15 +10,12 @@ type ProductProps = {
   price: string;
   cycle: string;
   selected: boolean;
-  setSelected: React.Dispatch<React.SetStateAction<PurchasesPackage | string | null>>;
-  package?: PurchasesPackage;
+  setSelected: React.Dispatch<React.SetStateAction<PurchasesPackage | string | null | undefined>>;
 };
 
 export default function Product(props: ProductProps) {
-  const colors = theme();
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const stroke = Device.deviceType !== 1 ? 2 : 1.5;
-  const invertedColor = colors.primary === "white" ? "black" : "white";
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const Icon = props.selected ? CircleCheck : Circle;
 
   const press = () => {
@@ -38,30 +35,35 @@ export default function Product(props: ProductProps) {
       disabled={props.selected}
     >
       <View
-        style={[
-          styles.wrapper,
-          {
-            borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
-            borderColor: invertedColor,
-            borderRadius: spacing,
-            padding: spacing,
-            opacity: props.selected ? 1 : 0.5,
-          },
-        ]}
+        style={{
+          borderWidth: theme.stroke,
+          borderColor: theme.color.inverted,
+          borderRadius: theme.spacing.base,
+          padding: Device.deviceType === 1 ? theme.spacing.base : theme.spacing.base / 2,
+          opacity: props.selected ? 1 : 0.5,
+          justifyContent: "space-between",
+          flex: 1,
+        }}
       >
-        <View style={[styles.heading, { gap: spacing / 4, marginLeft: 0 - stroke, marginTop: 0 - stroke }]}>
+        <View
+          style={{
+            gap: theme.spacing.small / 2,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           <Icon
-            color={invertedColor}
-            size={Device.deviceType !== 1 ? 28 : 20}
+            color={theme.color.inverted}
+            size={theme.icon.base.size}
             absoluteStrokeWidth
-            strokeWidth={stroke}
+            strokeWidth={theme.icon.base.stroke}
           />
 
           <Text
             style={{
               fontFamily: "Circular-Bold",
-              color: invertedColor,
-              fontSize: Device.deviceType !== 1 ? 16 : 12,
+              color: theme.color.inverted,
+              fontSize: theme.fontSize.xSmall,
             }}
             allowFontScaling={false}
           >
@@ -70,12 +72,12 @@ export default function Product(props: ProductProps) {
         </View>
 
         <View>
-          {props.cycle === "year" && (
+          {props.cycle === "year" && Device.deviceType === 1 && (
             <Text
               style={{
                 fontFamily: "Circular-Book",
-                color: invertedColor,
-                fontSize: Device.deviceType !== 1 ? 14 : 10,
+                color: theme.color.inverted,
+                fontSize: theme.fontSize.xxSmall,
               }}
               allowFontScaling={false}
             >
@@ -83,12 +85,12 @@ export default function Product(props: ProductProps) {
             </Text>
           )}
 
-          <View style={[styles.price, { gap: spacing / 4 }]}>
+          <View style={{ flexDirection: "row", alignItems: "baseline" }}>
             <Text
               style={{
                 fontFamily: "Circular-Medium",
-                color: invertedColor,
-                fontSize: Device.deviceType !== 1 ? 24 : 18,
+                color: theme.color.inverted,
+                fontSize: theme.fontSize.large,
               }}
               allowFontScaling={false}
             >
@@ -98,12 +100,12 @@ export default function Product(props: ProductProps) {
             <Text
               style={{
                 fontFamily: "Circular-Book",
-                color: invertedColor,
-                fontSize: Device.deviceType !== 1 ? 18 : 14,
+                color: theme.color.inverted,
+                fontSize: theme.fontSize.small,
               }}
               allowFontScaling={false}
             >
-              {`per ${props.cycle}`}
+              {` per ${props.cycle}`}
             </Text>
           </View>
         </View>
@@ -111,18 +113,3 @@ export default function Product(props: ProductProps) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: "space-between",
-  },
-  heading: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  price: {
-    flexDirection: "row",
-    alignItems: "baseline",
-  },
-});

@@ -1,32 +1,30 @@
-import { StyleSheet, View, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, useColorScheme } from "react-native";
 import { Check } from "lucide-react-native";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type ItemProps = {
   children: string;
 };
 
 export default function Item(props: ItemProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+    <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
       <Check
-        color={colors.primary}
-        size={Device.deviceType !== 1 ? 28 : 20}
+        color={theme.color.primary}
+        size={theme.icon.base.size}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+        strokeWidth={theme.icon.base.stroke}
       />
 
       <Text
-        style={[
-          styles.text,
-          {
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
-          },
-        ]}
+        style={{
+          color: theme.color.primary,
+          fontSize: theme.fontSize.body,
+          fontFamily: "Circular-Medium",
+        }}
         allowFontScaling={false}
       >
         {props.children}
@@ -34,14 +32,3 @@ export default function Item(props: ItemProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  text: {
-    flex: 1,
-    fontFamily: "Circular-Medium",
-  },
-});
