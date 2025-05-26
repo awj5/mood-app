@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { Dimensions, Alert, Platform } from "react-native";
-import { SplashScreen, Stack, useRouter } from "expo-router";
+import { Dimensions, Alert, Platform, useColorScheme } from "react-native";
+import { Stack, useRouter } from "expo-router";
 import * as Network from "expo-network";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { StatusBar } from "expo-status-bar";
-import Constants from "expo-constants";
+import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as Linking from "expo-linking";
 import { SQLiteProvider } from "expo-sqlite";
 import axios from "axios";
+import Purchases from "react-native-purchases";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "database";
 import { LayoutReadyContext } from "context/layout-ready";
@@ -19,16 +20,22 @@ import { HomeDatesContext } from "context/home-dates";
 import { CompanyDatesContext } from "context/company-dates";
 import { CompanyFiltersContext, CompanyFiltersType } from "context/company-filters";
 import { CalendarDatesType } from "types";
-import { getStoredVal, setStoredVal, theme, removeStoredVal } from "../utils/helpers";
+import { getStoredVal, setStoredVal, removeStoredVal, getTheme } from "../utils/helpers";
 import { getMonday } from "utils/dates";
+
+const APIKeys = {
+  ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
+  android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
+};
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
-  const colors = theme();
   const router = useRouter();
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [layoutReady, setLayoutReady] = useState(false);
   const [dimensions, setDimensions] = useState<DimensionsType>({ width: width, height: height });
   const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
@@ -38,12 +45,7 @@ export default function Layout() {
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
 
-  const APIKeys = {
-    ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
-    android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
-  };
-
-  const [fontsLoaded, fontError] = useFonts({
+  const [fontsLoaded, fontsError] = useFonts({
     "Circular-Black": require("../assets/fonts/lineto-circular-black.ttf"),
     "Circular-Bold": require("../assets/fonts/lineto-circular-bold.ttf"),
     "Circular-Book": require("../assets/fonts/lineto-circular-book.ttf"),
@@ -52,6 +54,10 @@ export default function Layout() {
     "Tiempos-RegularItalic": require("../assets/fonts/tiempos-text-regularItalic.ttf"),
     "Tiempos-Bold": require("../assets/fonts/tiempos-text-bold.ttf"),
   });
+
+  const changeScreenOrientation = async () => {
+    await ScreenOrientation.unlockAsync();
+  };
 
   const checkforUUID = async (url: string) => {
     const { queryParams } = Linking.parse(url);
@@ -64,9 +70,7 @@ export default function Layout() {
         // Validate UUID
         try {
           const response = await axios.post(
-            Constants.appOwnership !== "expo"
-              ? "https://mood-web-zeta.vercel.app/api/uuid"
-              : "http://localhost:3000/api/uuid",
+            !__DEV__ ? "https://mood-web-zeta.vercel.app/api/uuid" : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
             }
@@ -75,13 +79,8 @@ export default function Layout() {
           if (response.data) {
             setStoredVal("uuid", queryParams.uuid as string); // Store UUID
             setStoredVal("company-name", response.data); // Store company name
-            removeStoredVal("focused-statement");
-
-            // Trigger dashboard refresh
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const monday = getMonday(today);
-            setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+            removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
+            setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
 
             Alert.alert(
               "You've Gone Pro!",
@@ -95,7 +94,7 @@ export default function Layout() {
             alert("An unexpected error has occurred.");
           }
 
-          console.log(error);
+          console.error(error);
         }
       } else {
         alert("You must be online to complete this action.");
@@ -103,53 +102,47 @@ export default function Layout() {
     }
   };
 
+  const handleDeepLink = (e: { url: string }) => {
+    checkforUUID(e.url);
+  };
+
   const getPurchases = async () => {
-    if (Constants.appOwnership === "expo") return; // Is Expo Go
     const proID = await getStoredVal("pro-id"); // Pro user
 
     if (proID) {
       // Confirm user is still subscribed to Pro
       try {
-        const purchasesModule = require("react-native-purchases");
-        const purchases = purchasesModule.default;
-        purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
-        const info = await purchases.getCustomerInfo();
+        const info = await Purchases.getCustomerInfo();
         if (!info.activeSubscriptions.length) removeStoredVal("pro-id"); // User not longer subscribes to Pro
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
 
   useEffect(() => {
+    // Handle layout ready (redirect to check-in may have occurred)
     if (layoutReady) {
       SplashScreen.hideAsync(); // Hide splash
+      Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
       getPurchases(); // Check if user subscribes to Pro
 
-      // Deep linking
-      const handleDeepLink = (event: { url: string }) => {
-        const { url } = event;
-        checkforUUID(url);
-      };
-
+      // Check if user has clicked activation link
       Linking.getInitialURL().then((url) => {
         if (url) checkforUUID(url);
       });
 
-      const listener = Linking.addEventListener("url", handleDeepLink);
+      const listener = Linking.addEventListener("url", handleDeepLink); // Listen for activation link
       return () => listener.remove();
     }
   }, [layoutReady]);
 
   useEffect(() => {
+    // Handle notification tap
     if (layoutReady) {
-      // Handle notification tap
       const listener = Notifications.addNotificationResponseReceivedListener((response) => {
         const route = response.notification.request.content.data.route;
-
-        if (route) {
-          router.push(route); // Navigate to the route specified in the notification
-        }
+        if (route) router.push(route); // Navigate to the route specified in the notification
       });
 
       return () => listener.remove();
@@ -157,6 +150,7 @@ export default function Layout() {
   }, [router, layoutReady]);
 
   useEffect(() => {
+    // Handle screen orientation
     // Hack! - RN dimensions not returning acurate values on iPad rotation
     const listener = ScreenOrientation.addOrientationChangeListener((e) => {
       if (
@@ -170,15 +164,11 @@ export default function Layout() {
       }
     });
 
-    return () => ScreenOrientation.removeOrientationChangeListener(listener); // Clean up
+    if (Device.deviceType === 2) changeScreenOrientation(); // Allow landscape on tablets
+    return () => ScreenOrientation.removeOrientationChangeListener(listener);
   }, []);
 
-  const changeScreenOrientation = async () => {
-    await ScreenOrientation.unlockAsync();
-  };
-
-  if (Device.deviceType === 2) changeScreenOrientation(); // Allow landscape on tablets
-  if (!fontsLoaded && !fontError) return null; // Show splash until fonts ready
+  if (!fontsLoaded && !fontsError) return null; // Show splash until fonts ready
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -191,13 +181,13 @@ export default function Layout() {
                   <Stack
                     screenOptions={{
                       contentStyle: {
-                        backgroundColor: colors.primaryBg,
+                        backgroundColor: theme.color.primaryBg,
                       },
                       headerShadowVisible: false,
                       headerStyle: {
-                        backgroundColor: colors.primaryBg,
+                        backgroundColor: theme.color.primaryBg,
                       },
-                      headerTintColor: colors.primary,
+                      headerTintColor: theme.color.primary,
                     }}
                   >
                     <Stack.Screen name="index" />

@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import { Platform, View, ActivityIndicator, useColorScheme } from "react-native";
+import { View, ActivityIndicator, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import Purchases, { PurchasesOffering, PurchasesPackage } from "react-native-purchases";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Product from "./iap/Product";
 import Purchase from "./iap/Purchase";
 import { getTheme } from "utils/helpers";
-
-const APIKeys = {
-  ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
-  android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
-};
-
-Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
 
 type IAPProps = {
   loading: boolean;

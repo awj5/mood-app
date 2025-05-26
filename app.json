@@ -5,35 +5,43 @@
     "version": "1.0.1",
     "newArchEnabled": false,
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "scheme": "moodai",
-    "backgroundColor": "#000000",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000000"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.moodplatforms.moodai",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "icon": {
+        "dark": "./assets/icon-dark.png",
+        "light": "./assets/icon-light.png",
+        "tinted": "./assets/icon-tinted.png"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#000000"
+        "foregroundImage": "./assets/adaptive-icon-light.png",
+        "backgroundColor": "#FFFFFF"
       },
       "package": "com.moodplatforms.moodai"
     },
-    "androidStatusBar": {
-      "backgroundColor": "#000000",
-      "barStyle": "light-content",
-      "translucent": true
-    },
-    "plugins": ["expo-router", "expo-localization"],
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icon-light.png",
+          "imageWidth": 200,
+          "backgroundColor": "#FFFFFF",
+          "dark": {
+            "image": "./assets/icon-dark.png",
+            "backgroundColor": "#000000"
+          }
+        }
+      ]
+    ],
     "extra": {
       "router": {
         "origin": false

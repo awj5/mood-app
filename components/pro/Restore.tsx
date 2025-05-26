@@ -1,17 +1,10 @@
 import { useCallback, useContext, useRef } from "react";
-import { Text, Pressable, useColorScheme, Platform, Alert } from "react-native";
+import { Text, Pressable, useColorScheme, Alert } from "react-native";
 import { useFocusEffect, useRouter } from "expo-router";
 import Purchases from "react-native-purchases";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { getTheme, pressedDefault, setStoredVal } from "utils/helpers";
 import { getMonday } from "utils/dates";
-
-const APIKeys = {
-  ios: process.env.EXPO_PUBLIC_REVENUECAT_APPLE_API_KEY!,
-  android: process.env.EXPO_PUBLIC_REVENUECAT_GOOGLE_API_KEY!,
-};
-
-Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] });
 
 type RestoreProps = {
   loading: boolean;
@@ -34,12 +27,7 @@ export default function Restore(props: RestoreProps) {
       if (restore.activeSubscriptions.length > 0) {
         const appUserID = await Purchases.getAppUserID(); // Get unique ID from RC
         setStoredVal("pro-id", appUserID as string); // Store unique RC ID
-
-        // Trigger dashboard refresh
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const monday = getMonday(today);
-        setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+        setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
 
         // Close modal if user hasn't closed already
         Alert.alert("Success!", "MOOD.ai Pro has been restored.", [

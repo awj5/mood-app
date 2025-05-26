@@ -28,12 +28,7 @@ export default function Purchase(props: PurchaseProps) {
       const result = await Purchases.purchasePackage(props.selected as PurchasesPackage);
       const appUserID = result?.customerInfo.originalAppUserId; // Get unique ID from RC
       setStoredVal("pro-id", appUserID as string); // Store unique RC ID
-
-      // Trigger dashboard refresh
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const monday = getMonday(today);
-      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+      setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
       if (isMountedRef.current) router.back(); // Close modal
     } catch (error: any) {
       if (!error.userCancelled && error?.message !== "The payment is pending. The payment is deferred.") {

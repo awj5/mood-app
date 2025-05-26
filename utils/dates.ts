@@ -11,11 +11,14 @@ export const convertToISO = (date: Date) => {
   return isoDate;
 };
 
-export const getMonday = (date: Date) => {
-  const day = date.getDay();
+export const getMonday = (date?: Date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const baseDate = date ? date : today; // Use today's date if date not provided
+  const day = baseDate.getDay();
   const daysFromMonday = day === 0 ? 6 : day - 1;
-  const monday = new Date(date);
-  monday.setDate(date.getDate() - daysFromMonday);
+  const monday = new Date(baseDate);
+  monday.setDate(baseDate.getDate() - daysFromMonday);
   return monday;
 };
 
