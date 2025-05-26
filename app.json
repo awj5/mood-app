@@ -5,6 +5,7 @@
     "version": "1.0.1",
     "newArchEnabled": false,
     "orientation": "portrait",
+    "icon": "./assets/icon-light.png",
     "userInterfaceStyle": "automatic",
     "scheme": "moodai",
     "ios": {
