@@ -3,8 +3,7 @@ import { getLocales } from "expo-localization";
 import axios from "axios";
 import tagsData from "data/tags.json";
 import guidelinesData from "data/guidelines.json";
-import { CompanyCheckInType } from "app/company";
-import { CheckInType, CheckInMoodType, PromptCheckInType, MessageType } from "types";
+import { CheckInType, CheckInMoodType, PromptCheckInType, MessageType, CompanyCheckInType } from "types";
 import { removeAccess } from "./helpers";
 
 export const requestAIResponse = async (

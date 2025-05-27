@@ -19,9 +19,9 @@ import {
   Lightbulb,
 } from "lucide-react-native";
 import guidelinesData from "data/guidelines.json";
-import { CompanyCheckInType } from "app/company";
 import { CategoryType } from "app/category";
 import Category from "./categories/Category";
+import { CompanyCheckInType } from "types";
 import { getMostCommon } from "utils/helpers";
 
 type CategoriesProps = {

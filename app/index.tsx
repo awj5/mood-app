@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useContext, useEffect } from "react";
 import { View, Pressable, useColorScheme, AppState } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
+import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -10,10 +11,11 @@ import { LayoutReadyContext, LayoutReadyContextType } from "context/layout-ready
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Calendar from "components/home/Calendar";
 import HeaderDates from "components/HeaderDates";
-import Bg from "components/home/Bg";
+import Bg from "components/Bg";
 import BigButton from "components/BigButton";
 import Content from "components/home/Content";
 import Reminder from "components/Reminder";
+import { CheckInType } from "types";
 import { getTheme, pressedDefault } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
@@ -27,11 +29,37 @@ export default function Home() {
   const todayRef = useRef<Date>();
   const reminderSeenRef = useRef(false);
   const appStateRef = useRef(AppState.currentState);
+  const latestQueryRef = useRef<symbol>();
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
   const [noCheckInToday, setNoCheckInToday] = useState(false);
   const [appStateVisible, setAppStateVisible] = useState(appStateRef.current);
+  const [checkIns, setCheckIns] = useState<CheckInType[]>([]);
+
+  const getCheckIns = async () => {
+    const currentQuery = Symbol("currentQuery");
+    latestQueryRef.current = currentQuery;
+    const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
+    let end = new Date(start);
+
+    if (homeDates.rangeEnd) {
+      end = homeDates.rangeEnd;
+    } else {
+      end.setDate(start.getDate() + 6); // Sunday
+    }
+
+    try {
+      const rows: CheckInType[] = await db.getAllAsync(
+        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
+        [convertToISO(start), convertToISO(end)]
+      );
+
+      if (latestQueryRef.current === currentQuery) setCheckIns(rows);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const showReminder = () => {
     // Show after 1 sec
@@ -49,7 +77,7 @@ export default function Home() {
     return () => clearTimeout(timeout);
   };
 
-  const countCheckIns = async (init: boolean) => {
+  const checkToday = async (init: boolean) => {
     todayRef.current = new Date();
 
     try {
@@ -65,7 +93,6 @@ export default function Home() {
         router.push("check-in"); // Redirect since user hasn't checked-in today
       } else if (init) {
         setLayoutReady(true); // Hide splash screen
-        showReminder();
       }
 
       if (row && !reminderSeenRef.current) showReminder();
@@ -76,8 +103,11 @@ export default function Home() {
 
   useFocusEffect(
     useCallback(() => {
-      if (appStateVisible === "active") countCheckIns(!todayRef.current);
-    }, [appStateVisible])
+      if (appStateVisible === "active") {
+        checkToday(!todayRef.current);
+        getCheckIns();
+      }
+    }, [appStateVisible, homeDates, colorScheme])
   );
 
   useEffect(() => {
@@ -137,7 +167,7 @@ export default function Home() {
         }}
       />
 
-      <Bg />
+      <Bg checkIns={checkIns} topOffset={Device.deviceType === 1 ? 96 : 128} />
 
       <View style={{ flex: 1, marginTop: headerHeight }}>
         <Calendar />

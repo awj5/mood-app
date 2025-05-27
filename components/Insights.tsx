@@ -4,10 +4,9 @@ import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import Constants from "expo-constants";
 import axios from "axios";
-import { CompanyCheckInType } from "app/company";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { CalendarDatesType, PromptCheckInType } from "types";
+import { CalendarDatesType, PromptCheckInType, CompanyCheckInType } from "types";
 import { generateHash, getPromptCheckIns } from "utils/data";
 import { getStoredVal, removeAccess } from "utils/helpers";
 

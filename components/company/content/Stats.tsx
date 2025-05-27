@@ -6,10 +6,10 @@ import Animated, { Easing, useSharedValue, withTiming } from "react-native-reani
 import { PieChart, pieDataItem } from "react-native-gifted-charts";
 import moodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { CompanyCheckInType } from "app/company";
 import { StatsDataType } from "../Content";
 import Stat from "./Stats/Stat";
 import Data from "./Stats/Data";
+import { CompanyCheckInType } from "types";
 
 type StatsProps = {
   checkIns: CompanyCheckInType[];

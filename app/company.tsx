@@ -13,16 +13,9 @@ import Content from "components/company/Content";
 import HeaderTitle from "components/HeaderTitle";
 import Bg from "components/Bg";
 import Button from "components/Button";
-import { CheckInMoodType } from "types";
-
+import { CompanyCheckInType } from "types";
 import { getStoredVal, theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
-
-export type CompanyCheckInType = {
-  id: number;
-  value: CheckInMoodType;
-  date: Date;
-};
 
 export default function Company() {
   const colors = theme();
@@ -31,7 +24,7 @@ export default function Company() {
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [hasAccess, setHasAccess] = useState(false);
-  const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
+  const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>(); // !!!!!!!!!!!!! Why can't I use an empty array so I don't need Bg prop to support undefined
   const [company, setCompany] = useState("");
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 
@@ -86,7 +79,7 @@ export default function Company() {
 
       {hasAccess ? (
         <>
-          <Bg checkIns={checkIns} />
+          <Bg checkIns={checkIns} topOffset={Device.deviceType === 1 ? 96 : 128} />
 
           <View style={{ flex: 1, marginTop: headerHeight }}>
             <View style={styles.header}>

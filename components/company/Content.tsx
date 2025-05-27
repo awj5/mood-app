@@ -10,12 +10,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import { CompanyFiltersType } from "context/company-filters";
-import { CompanyCheckInType } from "app/company";
 import Insights from "components/Insights";
 import Categories from "./content/Categories";
 import Stats from "./content/Stats";
 import Role from "components/Role";
 import Note from "./content/Note";
+import { CompanyCheckInType } from "types";
 import { getStoredVal, theme, pressedDefault, removeAccess, setStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 

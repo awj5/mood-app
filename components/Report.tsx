@@ -3,8 +3,7 @@ import { Text, Pressable, Alert, useColorScheme } from "react-native";
 import { useSQLiteContext } from "expo-sqlite";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
-import { CompanyCheckInType } from "app/company";
-import { CheckInType } from "types";
+import { CheckInType, CompanyCheckInType } from "types";
 import { pressedDefault, getStoredVal, getTheme } from "utils/helpers";
 import { generateHash, getPromptCheckIns } from "utils/data";
 

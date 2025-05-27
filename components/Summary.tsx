@@ -6,9 +6,8 @@ import * as Network from "expo-network";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles } from "lucide-react-native";
 import ParsedText from "react-native-parsed-text";
-import { CompanyCheckInType } from "app/company";
 import Report from "./Report";
-import { CalendarDatesType, CheckInType } from "types";
+import { CalendarDatesType, CheckInType, CompanyCheckInType } from "types";
 import { theme, pressedDefault } from "utils/helpers";
 import { getDateRange, getMonday } from "utils/dates";
 

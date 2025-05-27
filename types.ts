@@ -20,6 +20,12 @@ export type CheckInType = {
   note: string;
 };
 
+export type CompanyCheckInType = {
+  id: number;
+  value: CheckInMoodType;
+  date: Date;
+};
+
 export type ReminderType = {
   days: { sun: boolean; mon: boolean; tue: boolean; wed: boolean; thu: boolean; fri: boolean; sat: boolean };
   time: string;

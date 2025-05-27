@@ -22,13 +22,13 @@ import {
   Lightbulb,
 } from "lucide-react-native";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
-import { CompanyCheckInType } from "./company";
 import Bg from "components/Bg";
 import Article from "components/Article";
 import Insights from "components/Insights";
 import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
 import Role from "components/Role";
+import { CompanyCheckInType } from "types";
 import { theme } from "utils/helpers";
 
 export type CategoryType = {
@@ -100,7 +100,7 @@ export default function Category() {
         }}
       />
 
-      <Bg checkIns={JSON.parse(params.checkIns)} />
+      <Bg checkIns={JSON.parse(params.checkIns)} topOffset={Device.deviceType === 1 ? 96 : 128} />
 
       <View style={{ marginTop: headerHeight, flex: 1 }}>
         <ScrollView
