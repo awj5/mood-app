@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { StyleSheet, Pressable, Text } from "react-native";
+import { StyleSheet, Pressable, Text, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
@@ -13,7 +13,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type BigButtonProps = {
   children: string;
@@ -27,8 +27,9 @@ type BigButtonProps = {
 
 export default function BigButton(props: BigButtonProps) {
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const scale = useSharedValue(1);
-  const colors = theme();
   const Icon = props.icon;
 
   const press = () => {
@@ -65,23 +66,27 @@ export default function BigButton(props: BigButtonProps) {
         -1
       );
     } else {
+      // Stop bounce animation
       cancelAnimation(scale);
-      scale.value = withTiming(1, { duration: 200, easing: Easing.inOut(Easing.ease) }); // Stop bounce animation
+      scale.value = withTiming(1, { duration: 200, easing: Easing.inOut(Easing.ease) });
     }
   }, [props.bounce]);
 
   return (
-    <Animated.View style={[styles.container, animatedStyles]}>
+    <Animated.View style={animatedStyles}>
       <Pressable
         onPress={press}
         style={({ pressed }) => [
           pressedDefault(pressed),
-          styles.button,
           props.shadow && styles.shadow,
           {
-            backgroundColor: colors.primary,
-            height: Device.deviceType !== 1 ? 96 : 72,
-            gap: Device.deviceType !== 1 ? 10 : 6,
+            backgroundColor: theme.color.primary,
+            height: Device.deviceType === 1 ? 72 : 96,
+            gap: theme.spacing.small / 2,
+            borderRadius: 999,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
           },
           props.disabled && { opacity: 0.25 },
         ]}
@@ -90,18 +95,18 @@ export default function BigButton(props: BigButtonProps) {
       >
         {Icon && (
           <Icon
-            color={colors.primary === "white" ? "black" : "white"}
-            size={Device.deviceType !== 1 ? 32 : 24}
+            color={theme.color.inverted}
+            size={theme.icon.large.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+            strokeWidth={theme.icon.large.stroke}
           />
         )}
 
         <Text
           style={{
             fontFamily: "Circular-Bold",
-            color: colors.primary === "white" ? "black" : "white",
-            fontSize: Device.deviceType !== 1 ? 24 : 18,
+            color: theme.color.inverted,
+            fontSize: theme.fontSize.large,
           }}
           allowFontScaling={false}
         >
@@ -113,22 +118,10 @@ export default function BigButton(props: BigButtonProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    transform: [{ scale: 1 }],
-    alignItems: "center",
-    width: "100%",
-  },
-  button: {
-    borderRadius: 999,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
   shadow: {
     shadowColor: "black",
     shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
   },
 });

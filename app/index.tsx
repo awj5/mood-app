@@ -1,45 +1,46 @@
-import { useState, useRef, useCallback, useContext } from "react";
-import { View, Pressable } from "react-native";
+import { useState, useRef, useCallback, useContext, useEffect } from "react";
+import { View, Pressable, useColorScheme, AppState } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { Settings, Download } from "lucide-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Settings, Download, CircleCheck } from "lucide-react-native";
 import { LayoutReadyContext, LayoutReadyContextType } from "context/layout-ready";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Calendar from "components/home/Calendar";
 import HeaderDates from "components/HeaderDates";
 import Bg from "components/home/Bg";
-import Footer from "components/home/Footer";
+import BigButton from "components/BigButton";
 import Content from "components/home/Content";
 import Reminder from "components/Reminder";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 export default function Home() {
   const headerHeight = useHeaderHeight();
-  const colors = theme();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const db = useSQLiteContext();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const todayRef = useRef<Date>();
   const reminderSeenRef = useRef(false);
-  const isFocusedRef = useRef(false);
+  const appStateRef = useRef(AppState.currentState);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
   const [noCheckInToday, setNoCheckInToday] = useState(false);
-  const iconSize = Device.deviceType !== 1 ? 32 : 24;
-  const iconStroke = Device.deviceType !== 1 ? 2.5 : 2;
+  const [appStateVisible, setAppStateVisible] = useState(appStateRef.current);
 
-  const checkNotifications = () => {
-    // Delay 1 sec
+  const showReminder = () => {
+    // Show after 1 sec
     const timeout = setTimeout(async () => {
       try {
         const { status, canAskAgain } = await Notifications.getPermissionsAsync();
         if (status !== "granted" && canAskAgain) setReminderVisible(true);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
 
       reminderSeenRef.current = true;
@@ -48,44 +49,46 @@ export default function Home() {
     return () => clearTimeout(timeout);
   };
 
-  const verifyCheckInData = async () => {
+  const countCheckIns = async (init: boolean) => {
     todayRef.current = new Date();
 
-    // Redirect if user hasn't checked-in today
     try {
       // Check for check-in today (date column converted to local)
       const row = await db.getFirstAsync(`SELECT id FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ?`, [
         convertToISO(todayRef.current),
       ]);
 
-      if (!row) {
-        router.push("check-in"); // Redirect
-      } else {
-        checkNotifications();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      setNoCheckInToday(!row ? true : false);
 
-    // Hack! Wait for router push
-    requestAnimationFrame(() => {
-      setLayoutReady(true);
-    });
+      // On mount
+      if (init && !row) {
+        router.push("check-in"); // Redirect since user hasn't checked-in today
+      } else if (init) {
+        setLayoutReady(true); // Hide splash screen
+        showReminder();
+      }
+
+      if (row && !reminderSeenRef.current) showReminder();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useFocusEffect(
     useCallback(() => {
-      isFocusedRef.current = true;
-
-      if (!todayRef.current) {
-        verifyCheckInData(); // Redirect if no check-in today
-      } else if (!reminderSeenRef.current) {
-        checkNotifications();
-      }
-
-      return () => (isFocusedRef.current = false);
-    }, [])
+      if (appStateVisible === "active") countCheckIns(!todayRef.current);
+    }, [appStateVisible])
   );
+
+  useEffect(() => {
+    // Detect when app gets focused
+    const listener = AppState.addEventListener("change", (e) => {
+      appStateRef.current = e;
+      setAppStateVisible(appStateRef.current);
+    });
+
+    return () => listener.remove();
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -101,23 +104,33 @@ export default function Home() {
             <View
               style={{
                 flexDirection: "row",
-                gap: Device.deviceType !== 1 ? 24 : 20,
+                gap: theme.spacing.small * 2,
               }}
             >
-              {/*<Pressable
+              <Pressable
                 onPress={() => alert("Coming soon")}
                 style={({ pressed }) => pressedDefault(pressed)}
-                hitSlop={8}
+                hitSlop={12}
               >
-                <Download color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
-              </Pressable>*/}
+                <Download
+                  color={theme.color.link}
+                  size={theme.icon.large.size}
+                  absoluteStrokeWidth
+                  strokeWidth={theme.icon.large.stroke}
+                />
+              </Pressable>
 
               <Pressable
                 onPress={() => router.push("settings")}
                 style={({ pressed }) => pressedDefault(pressed)}
-                hitSlop={8}
+                hitSlop={12}
               >
-                <Settings color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={iconStroke} />
+                <Settings
+                  color={theme.color.link}
+                  size={theme.icon.large.size}
+                  absoluteStrokeWidth
+                  strokeWidth={theme.icon.large.stroke}
+                />
               </Pressable>
             </View>
           ),
@@ -131,7 +144,22 @@ export default function Home() {
         <Content noCheckInToday={noCheckInToday} />
       </View>
 
-      <Footer noCheckInToday={noCheckInToday} setNoCheckInToday={setNoCheckInToday} />
+      <View
+        style={{
+          paddingHorizontal: theme.spacing.base * 2,
+          marginBottom: theme.spacing.base + insets.bottom,
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+          maxWidth: 512,
+          alignSelf: "center",
+        }}
+      >
+        <BigButton route="check-in" shadow bounce={noCheckInToday} icon={CircleCheck}>
+          Check-in
+        </BigButton>
+      </View>
+
       <Reminder visible={reminderVisible} setVisible={setReminderVisible} />
     </View>
   );

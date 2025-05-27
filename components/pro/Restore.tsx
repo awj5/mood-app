@@ -15,7 +15,7 @@ export default function Restore(props: RestoreProps) {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const isMountedRef = useRef(false);
+  const isFocusedRef = useRef(false);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
 
   const restore = async () => {
@@ -33,7 +33,7 @@ export default function Restore(props: RestoreProps) {
         Alert.alert("Success!", "MOOD.ai Pro has been restored.", [
           {
             text: "OK",
-            onPress: isMountedRef.current
+            onPress: isFocusedRef.current
               ? () => {
                   router.back(); // Close modal
                 }
@@ -53,8 +53,8 @@ export default function Restore(props: RestoreProps) {
 
   useFocusEffect(
     useCallback(() => {
-      isMountedRef.current = true;
-      return () => (isMountedRef.current = false);
+      isFocusedRef.current = true;
+      return () => (isFocusedRef.current = false);
     }, [])
   );
 

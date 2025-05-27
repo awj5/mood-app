@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import { useCallback, useEffect, useState, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
@@ -8,6 +8,7 @@ import { getLocales } from "expo-localization";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
+import { LayoutReadyContext, LayoutReadyContextType } from "context/layout-ready";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
@@ -52,6 +53,7 @@ export default function CheckIn() {
   const mood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [] });
   const wheelLoadedRef = useRef(false);
   const isMountedRef = useRef(true);
+  const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [foregroundColor, setForegroundColor] = useState("");
@@ -212,6 +214,7 @@ export default function CheckIn() {
   }, [showTags]);
 
   useEffect(() => {
+    setLayoutReady(true); // Hide splash screen
     getCategories();
   }, []);
 

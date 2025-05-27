@@ -60,9 +60,9 @@ export default function Reminder(props: ReminderProps) {
             padding: theme.spacing.base,
             gap: theme.spacing.base,
             shadowColor: "black",
-            shadowOffset: { width: 4, height: 4 },
-            shadowOpacity: 0.2,
-            shadowRadius: 4,
+            shadowOffset: { width: 8, height: 8 },
+            shadowOpacity: 0.3,
+            shadowRadius: 8,
           }}
         >
           <Pressable
