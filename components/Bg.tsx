@@ -1,8 +1,9 @@
 import { useCallback, useRef, useState } from "react";
-import { View, StyleSheet, LayoutChangeEvent, useColorScheme } from "react-native";
+import { View, StyleSheet, LayoutChangeEvent, useColorScheme, Platform } from "react-native";
 import { BlurView } from "expo-blur";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useFocusEffect } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { Canvas, Rect, LinearGradient, vec } from "@shopify/react-native-skia";
 import MoodsData from "data/moods.json";
@@ -16,6 +17,7 @@ type BgProps = {
 
 export default function Bg(props: BgProps) {
   const headerHeight = useHeaderHeight();
+  const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const color1 = useSharedValue(theme.color.primaryBg);
@@ -26,7 +28,8 @@ export default function Bg(props: BgProps) {
   const indexRef = useRef(0);
   const stepRef = useRef(0);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
-  const top = props.topOffset ? headerHeight + props.topOffset : headerHeight;
+  const trueHeaderHeight = Platform.OS === "android" ? insets.top + headerHeight : headerHeight;
+  const top = props.topOffset ? trueHeaderHeight + props.topOffset : trueHeaderHeight;
   const animationDuration = 3000;
 
   const gradientColors = useDerivedValue(() => {
