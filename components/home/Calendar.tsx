@@ -1,102 +1,68 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { StyleSheet, View, AppState, ActivityIndicator } from "react-native";
-import * as Device from "expo-device";
+import { View } from "react-native";
 import { useFocusEffect } from "expo-router";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import PagerView, { PagerViewOnPageSelectedEvent } from "react-native-pager-view";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Week from "./calendar/Week";
-import { theme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
-export default function Calendar() {
-  const colors = theme();
+type CalendarProps = {
+  height: number;
+  appState: "active" | "background" | "inactive" | "unknown" | "extension";
+};
+
+export default function Calendar(props: CalendarProps) {
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const pagerViewRef = useRef<PagerView>(null);
-  const appStateRef = useRef(AppState.currentState);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const todayRef = useRef<Date | null>(null);
   const [weeks, setWeeks] = useState<Date[]>([]);
-  const [visible, setVisible] = useState(false);
   const [initPage, setInitPage] = useState(0);
-  const [page, setPage] = useState(0);
-  const [appStateVisible, setAppStateVisible] = useState(appStateRef.current);
   const defaultPageCount = 11; // Display 12 weeks
 
+  const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
+    const monday = weeks[e.nativeEvent.position];
+
+    if (!homeDates.rangeStart && homeDates.weekStart.getTime() !== monday.getTime())
+      setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
+  };
+
+  const setDefaultPages = () => {
+    // Weeks to display when no start and end date range is set
+    const monday = getMonday();
+    const mondays: Date[] = [];
+
+    // Get 11 previous Mondays
+    for (let i = defaultPageCount; i >= 1; i--) {
+      const prevMonday = new Date(monday);
+      prevMonday.setDate(monday.getDate() - i * 7);
+      mondays.push(prevMonday);
+    }
+
+    mondays.push(monday); // Include current Monday last
+
+    // Hack! - Force PagerView to re-mount so initialPage is updated
+    requestAnimationFrame(() => {
+      setWeeks(mondays);
+    });
+  };
+
   const isLastWeek = (date: Date) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const monday = getMonday(today);
+    const monday = getMonday();
     const prevMonday = new Date(monday);
     prevMonday.setDate(monday.getDate() - 7);
     return prevMonday.getTime() === date.getTime();
   };
 
-  const pageSelected = (e: PagerViewOnPageSelectedEvent) => {
-    if (!homeDates.rangeStart) {
-      setPage(e.nativeEvent.position);
-
-      if (homeDates.weekStart.getTime() !== weeks[e.nativeEvent.position].getTime())
-        setHomeDates({ weekStart: weeks[e.nativeEvent.position], rangeStart: undefined, rangeEnd: undefined });
-    }
-  };
-
-  const setDefaultPages = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const monday = getMonday(today);
-    const mondays = [];
-
-    // Get 11 previous Mondays
-    for (let i = defaultPageCount; i >= 1; i--) {
-      let prevMonday = new Date(monday);
-      prevMonday.setDate(monday.getDate() - i * 7);
-      mondays.push(prevMonday);
-    }
-
-    mondays.push(monday); // Add current
-    setWeeks(mondays);
-
-    timeoutRef.current = setTimeout(() => {
-      setVisible(true);
-      timeoutRef.current = null;
-    }, 500);
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      // Set calendar to current week on init and when app returns to focus
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      // Only set on focus if day has changed
-      if (
-        (appStateVisible === "active" && !todayRef.current) ||
-        (appStateVisible === "active" && todayRef.current && todayRef.current.getTime() !== today.getTime())
-      ) {
-        setVisible(false);
-        setInitPage(defaultPageCount);
-        const monday = getMonday(today);
-        setHomeDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined }); // Reset
-        setDefaultPages();
-      }
-
-      todayRef.current = today;
-    }, [appStateVisible])
-  );
-
   useEffect(() => {
+    setWeeks([]);
+
     if (homeDates.rangeStart && homeDates.rangeEnd) {
       // Date range has been set
-      setVisible(false);
       setInitPage(0);
       const startMonday = new Date(homeDates.weekStart);
       const endMonday = getMonday(homeDates.rangeEnd);
-      const mondays = [];
+      const mondays: Date[] = [];
 
       // Get mondays within date range
       for (
@@ -107,51 +73,56 @@ export default function Calendar() {
         mondays.push(new Date(currentMonday));
       }
 
-      setWeeks(mondays);
-
-      const timeout = setTimeout(() => {
-        setVisible(true);
-      }, 500);
-
-      return () => clearTimeout(timeout);
+      // Hack! - Force PagerView to re-mount so initialPage is updated
+      requestAnimationFrame(() => {
+        setWeeks(mondays);
+      });
     } else {
       // Date range no longer applied
-      setVisible(false);
-      setInitPage(isLastWeek(homeDates.weekStart) ? defaultPageCount - 1 : defaultPageCount); // Current or last week
+      setInitPage(isLastWeek(homeDates.weekStart) ? defaultPageCount - 1 : defaultPageCount); // Last or current week
       setDefaultPages();
     }
   }, [homeDates.rangeStart, homeDates.rangeEnd]);
 
   useEffect(() => {
     // Automatically move to current or last week
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const monday = getMonday(today);
+    const monday = getMonday();
 
-    if (page !== defaultPageCount - 1 && isLastWeek(homeDates.weekStart)) {
+    if (isLastWeek(homeDates.weekStart)) {
       pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount - 1); // Last week
-    } else if (page !== defaultPageCount && monday.getTime() === homeDates.weekStart.getTime()) {
+    } else if (monday.getTime() === homeDates.weekStart.getTime()) {
       pagerViewRef.current?.setPageWithoutAnimation(defaultPageCount); // Current week
     }
   }, [homeDates]);
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", (nextAppState) => {
-      appStateRef.current = nextAppState;
-      setAppStateVisible(appStateRef.current);
-    });
+  useFocusEffect(
+    useCallback(() => {
+      // Set calendar to current week on init and when app returns to focus
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-    return () => subscription.remove();
-  }, []);
+      // Only set on focus if day has changed
+      if (
+        (props.appState === "active" && !todayRef.current) ||
+        (props.appState === "active" && todayRef.current && todayRef.current.getTime() !== today.getTime())
+      ) {
+        setWeeks([]);
+        setInitPage(defaultPageCount); // Last week
+        setHomeDates({ weekStart: getMonday(today), rangeStart: undefined, rangeEnd: undefined }); // Reset
+        setDefaultPages();
+      }
+
+      todayRef.current = today;
+    }, [props.appState])
+  );
 
   return (
     <View
       style={{
-        justifyContent: "center",
-        height: Device.deviceType !== 1 ? 128 : 96,
+        height: props.height,
       }}
     >
-      {visible ? (
+      {weeks.length ? (
         <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
           <PagerView
             ref={pagerViewRef}
@@ -159,23 +130,12 @@ export default function Calendar() {
             style={{ height: "100%" }}
             onPageSelected={(e) => pageSelected(e)}
           >
-            {weeks.map((item, index) => (
-              <View key={index} style={[styles.page, { paddingHorizontal: Device.deviceType !== 1 ? 48 : 16 }]}>
-                <Week monday={item} />
-              </View>
+            {weeks.map((item) => (
+              <Week key={item.getTime()} monday={item} />
             ))}
           </PagerView>
         </Animated.View>
-      ) : (
-        <ActivityIndicator color={colors.primary} />
-      )}
+      ) : null}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

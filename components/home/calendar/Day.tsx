@@ -1,5 +1,5 @@
-import { useCallback, useState, useRef, useContext } from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { useCallback, useState, useContext } from "react";
+import { View, Text, Pressable, useColorScheme } from "react-native";
 import { Image } from "expo-image";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -7,7 +7,7 @@ import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { CheckInType, CheckInMoodType } from "types";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 type DayProps = {
@@ -16,16 +16,28 @@ type DayProps = {
 
 export default function Day(props: DayProps) {
   const db = useSQLiteContext();
-  const colors = theme();
   const router = useRouter();
   const localization = getLocales();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const queriedRef = useRef(false);
   const [checkInMood, setCheckInMood] = useState<CheckInMoodType>();
   const [checkInCount, setCheckInCount] = useState(0);
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const isToday = today.getTime() === props.date.getTime();
+  const isThisYear = props.date.getFullYear() === today.getFullYear();
+  const month = props.date.getMonth() + 1;
+  const year = props.date.getFullYear();
+
+  // Returns true if no date range is currently set
+  const inRange =
+    !homeDates.rangeStart ||
+    (homeDates.rangeStart &&
+      homeDates.rangeEnd &&
+      props.date >= homeDates.rangeStart &&
+      props.date <= homeDates.rangeEnd);
 
   const emojis = {
     empty: require("../../../assets/img/emoji/small/white-empty.png"),
@@ -45,102 +57,78 @@ export default function Day(props: DayProps) {
   };
 
   const press = () => {
-    if (!checkInMood && today.getTime() === props.date.getTime()) {
+    if (!checkInMood && isToday) {
       router.push("check-in"); // Is current day and not check-ins yet
     } else {
       router.push({
         pathname: "day",
-        params: { day: props.date.getDate(), month: props.date.getMonth() + 1, year: props.date.getFullYear() },
+        params: { day: props.date.getDate(), month: month, year: year },
       });
     }
   };
 
-  const isInRange = (date: Date, start?: Date, end?: Date, weekStart?: Date) => {
-    let sunday: Date | undefined;
+  const getCheckIns = async () => {
+    try {
+      // Check for check-ins on this date (date column converted to local)
+      const rows: CheckInType[] = await db.getAllAsync(
+        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC`,
+        [convertToISO(props.date)]
+      );
 
-    if (weekStart && !start) {
-      sunday = new Date(weekStart);
-      sunday.setDate(weekStart.getDate() + 6);
-    }
-
-    return (
-      (weekStart && sunday && date >= weekStart && date <= sunday) ||
-      (!weekStart && !start) ||
-      (start && end && date >= start && date <= end)
-    );
-  };
-
-  const getCheckInData = async () => {
-    // Query again if date is in range
-    if (
-      !queriedRef.current ||
-      (queriedRef.current && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd, homeDates.weekStart))
-    ) {
-      try {
-        // Check for check-ins on this date (date column converted to local)
-        const rows: CheckInType[] = await db.getAllAsync(
-          `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) = ? ORDER BY id DESC`,
-          [convertToISO(props.date)]
-        );
-
-        if (rows.length) {
-          const mood: CheckInMoodType = JSON.parse(rows[0].mood);
-          setCheckInMood(mood);
-          setCheckInCount(rows.length);
-        } else {
-          // Clear
-          setCheckInMood(undefined);
-          setCheckInCount(0);
-        }
-
-        queriedRef.current = true;
-      } catch (error) {
-        console.log(error);
+      if (rows.length) {
+        const mood: CheckInMoodType = JSON.parse(rows[0].mood); // Most recent mood
+        setCheckInMood(mood);
+      } else {
+        setCheckInMood(undefined); // Clear
       }
+
+      setCheckInCount(rows.length ? rows.length : 0);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   useFocusEffect(
     useCallback(() => {
-      getCheckInData();
-    }, [homeDates])
+      getCheckIns();
+    }, [])
   );
 
   return (
     <Pressable
       onPress={press}
-      style={({ pressed }) => [pressedDefault(pressed)]}
+      style={({ pressed }) => pressedDefault(pressed)}
       hitSlop={4}
-      disabled={
-        (checkInMood && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd)) ||
-        (today.getTime() === props.date.getTime() && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd))
-          ? false
-          : true
-      }
+      disabled={(!checkInMood && !isToday) || !inRange}
     >
       <View
-        style={[
-          styles.container,
-          { opacity: isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd) ? 1 : 0.25 },
-        ]}
+        style={{
+          opacity: inRange ? 1 : 0.25,
+          alignItems: "center",
+          gap: theme.spacing.base / 4,
+        }}
       >
         <View
-          style={[
-            styles.count,
-            {
-              display: checkInCount > 1 ? "flex" : "none",
-              width: Device.deviceType !== 1 ? 20 : 16,
-            },
-          ]}
+          style={{
+            display: checkInCount > 1 ? "flex" : "none",
+            width: Device.deviceType === 1 ? 16 : 20,
+            position: "absolute",
+            top: -4,
+            right: -2,
+            zIndex: 1,
+            backgroundColor: "black",
+            borderRadius: 999,
+            aspectRatio: "1/1",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Text
-            style={[
-              styles.countText,
-              {
-                fontSize: Device.deviceType !== 1 ? 14 : 10,
-                lineHeight: Device.deviceType !== 1 ? 17 : 12,
-              },
-            ]}
+            style={{
+              fontSize: theme.fontSize.xxSmall,
+              fontFamily: "Circular-Medium",
+              color: "white",
+            }}
             allowFontScaling={false}
           >
             {checkInCount}
@@ -148,7 +136,6 @@ export default function Day(props: DayProps) {
         </View>
 
         <Image
-          key={checkInMood ? checkInMood.color : 0}
           source={
             checkInMood
               ? emojis[checkInMood.color as keyof typeof emojis]
@@ -156,66 +143,24 @@ export default function Day(props: DayProps) {
               ? emojis["empty"]
               : emojis[0]
           }
-          style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 52 : 40 }}
+          style={{ aspectRatio: "1/1", width: Device.deviceType === 1 ? 40 : 52 }}
         />
 
         <Text
           style={{
-            fontFamily: today.getTime() === props.date.getTime() ? "Circular-Bold" : "Circular-Book",
-            fontSize:
-              Device.deviceType !== 1
-                ? props.date.getFullYear() !== today.getFullYear()
-                  ? 14
-                  : 18
-                : props.date.getFullYear() !== today.getFullYear()
-                ? 10
-                : 14,
-            color:
-              (checkInMood && isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd)) ||
-              (today.getTime() === props.date.getTime() &&
-                isInRange(props.date, homeDates.rangeStart, homeDates.rangeEnd))
-                ? colors.primary
-                : colors.secondary,
+            fontFamily: isToday ? "Circular-Bold" : "Circular-Book",
+            fontSize: !isThisYear ? theme.fontSize.xxSmall : theme.fontSize.small,
+            color: checkInMood ? theme.color.primary : theme.color.secondary,
           }}
           allowFontScaling={false}
         >
           {!homeDates.rangeStart
             ? days[props.date.getDay()]
             : localization[0].languageTag === "en-US"
-            ? `${props.date.getMonth() + 1}/${props.date.getDate()}${
-                props.date.getFullYear() !== today.getFullYear()
-                  ? `/${props.date.getFullYear().toString().slice(-2)}`
-                  : ""
-              }`
-            : `${props.date.getDate()}/${props.date.getMonth() + 1}${
-                props.date.getFullYear() !== today.getFullYear()
-                  ? `/${props.date.getFullYear().toString().slice(-2)}`
-                  : ""
-              }`}
+            ? `${month}/${props.date.getDate()}${!isThisYear ? `/${year.toString().slice(-2)}` : ""}`
+            : `${props.date.getDate()}/${month}${!isThisYear ? `/${year.toString().slice(-2)}` : ""}`}
         </Text>
       </View>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    gap: 4,
-  },
-  count: {
-    position: "absolute",
-    top: -4,
-    right: -2,
-    zIndex: 1,
-    backgroundColor: "black",
-    borderRadius: 999,
-    aspectRatio: "1/1",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  countText: {
-    fontFamily: "Circular-Medium",
-    color: "white",
-  },
-});

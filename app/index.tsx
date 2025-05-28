@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useContext, useEffect } from "react";
-import { View, Pressable, useColorScheme, AppState } from "react-native";
+import { View, Pressable, useColorScheme, AppState, Platform } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
@@ -28,14 +28,14 @@ export default function Home() {
   const theme = getTheme(colorScheme);
   const todayRef = useRef<Date>();
   const reminderSeenRef = useRef(false);
-  const appStateRef = useRef(AppState.currentState);
   const latestQueryRef = useRef<symbol>();
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
   const [noCheckInToday, setNoCheckInToday] = useState(false);
-  const [appStateVisible, setAppStateVisible] = useState(appStateRef.current);
+  const [appState, setAppState] = useState(AppState.currentState);
   const [checkIns, setCheckIns] = useState<CheckInType[]>([]);
+  const calendarHeight = Device.deviceType === 1 ? 96 : 128;
 
   const getCheckIns = async () => {
     const currentQuery = Symbol("currentQuery");
@@ -71,7 +71,7 @@ export default function Home() {
         console.error(error);
       }
 
-      reminderSeenRef.current = true;
+      reminderSeenRef.current = true; // Prevent from being shown again in current session
     }, 1000);
 
     return () => clearTimeout(timeout);
@@ -88,7 +88,7 @@ export default function Home() {
 
       setNoCheckInToday(!row ? true : false);
 
-      // On mount
+      // On mount only
       if (init && !row) {
         router.push("check-in"); // Redirect since user hasn't checked-in today
       } else if (init) {
@@ -101,24 +101,24 @@ export default function Home() {
     }
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      if (appStateVisible === "active") {
-        checkToday(!todayRef.current);
-        getCheckIns();
-      }
-    }, [appStateVisible, homeDates, colorScheme])
-  );
-
   useEffect(() => {
-    // Detect when app gets focused
+    // Detect when app gets focused/unfocused
     const listener = AppState.addEventListener("change", (e) => {
-      appStateRef.current = e;
-      setAppStateVisible(appStateRef.current);
+      setAppState(e);
     });
 
     return () => listener.remove();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      // Only fire when app is open
+      if (appState === "active") {
+        checkToday(!todayRef.current); // Check if user has checked in today
+        getCheckIns(); // Get all check-ins within current date range
+      }
+    }, [appState, homeDates, colorScheme])
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -167,10 +167,10 @@ export default function Home() {
         }}
       />
 
-      <Bg checkIns={checkIns} topOffset={Device.deviceType === 1 ? 96 : 128} />
+      <Bg checkIns={checkIns} topOffset={calendarHeight} />
 
-      <View style={{ flex: 1, marginTop: headerHeight }}>
-        <Calendar />
+      <View style={{ flex: 1, marginTop: Platform.OS === "android" ? insets.top + headerHeight : headerHeight }}>
+        <Calendar height={calendarHeight} appState={appState} />
         <Content noCheckInToday={noCheckInToday} />
       </View>
 
