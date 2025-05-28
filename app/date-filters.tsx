@@ -1,21 +1,20 @@
 import { useContext } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Range from "components/date-filters/Range";
 import Shortcuts from "components/date-filters/Shortcuts";
 import HeaderTitle from "components/HeaderTitle";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 export default function DateFilters() {
   const params = useLocalSearchParams<{ type: string }>();
-  const colors = theme();
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { homeDates, setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   return (
     <View style={{ flex: 1 }}>
@@ -27,9 +26,9 @@ export default function DateFilters() {
             <Pressable onPress={() => router.back()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
               <Text
                 style={{
-                  fontFamily: "Circular-Book",
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.link,
+                  fontFamily: "Circular-Bold",
+                  fontSize: theme.fontSize.body,
+                  color: theme.color.link,
                 }}
                 allowFontScaling={false}
               >
@@ -52,8 +51,8 @@ export default function DateFilters() {
       <View
         style={[
           {
-            padding: spacing,
-            gap: spacing * 2,
+            padding: theme.spacing.base,
+            gap: theme.spacing.base * 2,
           },
         ]}
       >

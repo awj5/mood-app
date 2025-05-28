@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import * as Device from "expo-device";
+import { Platform, Text, useColorScheme, View, StyleSheet } from "react-native";
 import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { CalendarDays } from "lucide-react-native";
 import Button from "components/Button";
 import { CalendarDatesType } from "types";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
 type RangeProps = {
@@ -14,24 +13,18 @@ type RangeProps = {
 };
 
 export default function Range(props: RangeProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [showStartPicker, setShowStartPicker] = useState(Platform.OS === "ios");
   const [showEndPicker, setShowEndPicker] = useState(Platform.OS === "ios");
-  const labelFontSize = Device.deviceType !== 1 ? 20 : 16;
-  const colGap = Device.deviceType !== 1 ? 16 : Platform.OS === "ios" ? 4 : 12;
-  const labelWidth = Device.deviceType !== 1 ? 120 : Platform.OS === "ios" ? 40 : "auto";
-  const colDirection = Platform.OS === "ios" ? "row" : "column";
-  const colAlign = Platform.OS === "ios" ? "center" : "stretch";
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
   const weekEnd = new Date(props.dates.weekStart);
   weekEnd.setDate(props.dates.weekStart.getDate() + 6); // Sunday
   const endOfYear = new Date(new Date().getFullYear(), 11, 31);
 
-  const onStartChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  const onStartChange = (e: DateTimePickerEvent, selectedDate?: Date) => {
     setShowStartPicker(Platform.OS === "ios"); // Hide picker on Android
 
-    if (event.type === "set") {
+    if (e.type === "set") {
       const date = selectedDate as Date;
       const monday = getMonday(date);
       const weekLater = new Date(date);
@@ -45,10 +38,10 @@ export default function Range(props: RangeProps) {
     }
   };
 
-  const onEndChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  const onEndChange = (e: DateTimePickerEvent, selectedDate?: Date) => {
     setShowEndPicker(Platform.OS === "ios"); // Hide picker on Android
 
-    if (event.type === "set") {
+    if (e.type === "set") {
       const date = selectedDate as Date;
       const prevWeek = new Date(date);
       prevWeek.setDate(date.getDate() - 7);
@@ -63,25 +56,21 @@ export default function Range(props: RangeProps) {
   };
 
   return (
-    <View style={{ flexDirection: "row", gap: Device.deviceType !== 1 ? 24 : 16 }}>
-      <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
+    <View style={{ gap: theme.spacing.base }}>
+      <View style={styles.date}>
         <Text
-          style={[
-            styles.label,
-            {
-              color: colors.primary,
-              fontSize: labelFontSize,
-              width: labelWidth,
-              alignSelf: Platform.OS === "ios" ? "auto" : "center",
-            },
-          ]}
+          style={{
+            color: theme.color.primary,
+            fontFamily: "Circular-Medium",
+            fontSize: theme.fontSize.body,
+          }}
           allowFontScaling={false}
         >
-          Start{Device.deviceType !== 1 && " date:"}
+          Start Date
         </Text>
 
-        {Platform.OS !== "ios" && (
-          <Button func={() => setShowStartPicker(true)} fill large icon={CalendarDays}>
+        {Platform.OS === "android" && (
+          <Button func={() => setShowStartPicker(true)} fill icon={CalendarDays}>
             {props.dates.rangeStart
               ? props.dates.rangeStart.toLocaleDateString()
               : props.dates.weekStart.toLocaleDateString()}
@@ -93,32 +82,33 @@ export default function Range(props: RangeProps) {
             value={props.dates.rangeStart ? props.dates.rangeStart : props.dates.weekStart}
             mode="date"
             onChange={onStartChange}
-            accentColor={colors.link}
-            style={{ flex: 1 }}
+            accentColor={theme.color.link}
             minimumDate={new Date(2024, 0, 1)}
             maximumDate={endOfYear}
           />
         )}
       </View>
 
-      <View style={[styles.col, { gap: colGap, flexDirection: colDirection, alignItems: colAlign }]}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Text
-          style={[
-            styles.label,
-            {
-              color: colors.primary,
-              fontSize: labelFontSize,
-              width: labelWidth,
-              alignSelf: Platform.OS === "ios" ? "auto" : "center",
-            },
-          ]}
+          style={{
+            color: theme.color.primary,
+            fontFamily: "Circular-Medium",
+            fontSize: theme.fontSize.body,
+          }}
           allowFontScaling={false}
         >
-          End{Device.deviceType !== 1 && " date:"}
+          End Date
         </Text>
 
-        {Platform.OS !== "ios" && (
-          <Button func={() => setShowEndPicker(true)} fill large icon={CalendarDays}>
+        {Platform.OS === "android" && (
+          <Button func={() => setShowEndPicker(true)} fill icon={CalendarDays}>
             {props.dates.rangeEnd ? props.dates.rangeEnd.toLocaleDateString() : weekEnd.toLocaleDateString()}
           </Button>
         )}
@@ -128,8 +118,7 @@ export default function Range(props: RangeProps) {
             value={props.dates.rangeEnd ? props.dates.rangeEnd : weekEnd}
             mode="date"
             onChange={onEndChange}
-            accentColor={colors.link}
-            style={{ flex: 1 }}
+            accentColor={theme.color.link}
             minimumDate={new Date(2024, 0, 1)}
             maximumDate={endOfYear}
           />
@@ -140,10 +129,9 @@ export default function Range(props: RangeProps) {
 }
 
 const styles = StyleSheet.create({
-  col: {
-    flex: 1,
-  },
-  label: {
-    fontFamily: "Circular-Medium",
+  date: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

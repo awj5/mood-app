@@ -1,9 +1,8 @@
-import { StyleSheet, View, Text } from "react-native";
+import { View, Text, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
-import * as Device from "expo-device";
 import Button from "components/Button";
 import { CalendarDatesType } from "types";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
 type ShortcutsProps = {
@@ -12,42 +11,37 @@ type ShortcutsProps = {
 
 export default function Shortcuts(props: ShortcutsProps) {
   const router = useRouter();
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const year = today.getFullYear();
+  const month = today.getMonth();
 
   const setThisWeek = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const monday = getMonday(today);
-    props.setDates({ weekStart: monday, rangeStart: undefined, rangeEnd: undefined });
-    router.back();
+    props.setDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined });
+    router.back(); // Close
   };
 
   const setLastWeek = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const monday = getMonday(today);
+    const monday = getMonday();
     const prevMonday = new Date(monday);
     prevMonday.setDate(monday.getDate() - 7);
     props.setDates({ weekStart: prevMonday, rangeStart: undefined, rangeEnd: undefined });
-    router.back();
+    router.back(); // Close
   };
 
   const setThisMonth = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
     const firstDayOfMonth = new Date(year, month, 1);
     const monday = getMonday(firstDayOfMonth);
     const firstDayOfNextMonth = new Date(year, month + 1, 1);
     const lastDayOfMonth = new Date(firstDayOfNextMonth);
     lastDayOfMonth.setDate(firstDayOfNextMonth.getDate() - 1);
     props.setDates({ weekStart: monday, rangeStart: firstDayOfMonth, rangeEnd: lastDayOfMonth, title: "THIS MONTH'S" });
-    router.back();
+    router.back(); // Close
   };
 
   const setPrevDays = (days: number) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
     const daysAgo = new Date();
     daysAgo.setHours(0, 0, 0, 0);
     daysAgo.setDate(today.getDate() - days);
@@ -59,13 +53,10 @@ export default function Shortcuts(props: ShortcutsProps) {
       title: `PAST ${days} DAYS'`,
     });
 
-    router.back();
+    router.back(); // Close
   };
 
   const setLastMonth = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
     const prevMonth = month === 0 ? 11 : month - 1;
     const prevMonthYear = month === 0 ? year - 1 : year;
     const firstDayOfPrevMonth = new Date(prevMonthYear, prevMonth, 1);
@@ -81,25 +72,22 @@ export default function Shortcuts(props: ShortcutsProps) {
       title: "LAST MONTH'S",
     });
 
-    router.back();
+    router.back(); // Close
   };
 
   const setThisYear = () => {
-    const today = new Date();
-    const year = today.getFullYear();
     const firstDayOfYear = new Date(year, 0, 1);
     const monday = getMonday(firstDayOfYear);
     const lastDayOfYear = new Date(year, 11, 31);
     props.setDates({ weekStart: monday, rangeStart: firstDayOfYear, rangeEnd: lastDayOfYear, title: "THIS YEAR'S" });
-    router.back();
+    router.back(); // Close
   };
 
   const setLastYear = () => {
-    const today = new Date();
-    const year = today.getFullYear() - 1;
-    const firstDayOfLastYear = new Date(year, 0, 1);
+    const lastYear = year - 1;
+    const firstDayOfLastYear = new Date(lastYear, 0, 1);
     const firstMondayOfLastYear = getMonday(firstDayOfLastYear);
-    const lastDayOfLastYear = new Date(year, 11, 31);
+    const lastDayOfLastYear = new Date(lastYear, 11, 31);
 
     props.setDates({
       weekStart: firstMondayOfLastYear,
@@ -108,13 +96,18 @@ export default function Shortcuts(props: ShortcutsProps) {
       title: "LAST YEAR'S",
     });
 
-    router.back();
+    router.back(); // Close
   };
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 16 : 12 }]}>
+    <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap" }}>
       <Text
-        style={[styles.label, { color: colors.primary, fontSize: Device.deviceType !== 1 ? 18 : 14 }]}
+        style={{
+          color: theme.color.primary,
+          fontSize: theme.fontSize.small,
+          fontFamily: "Circular-Bold",
+          width: "100%",
+        }}
         allowFontScaling={false}
       >
         SHORTCUTS
@@ -132,14 +125,3 @@ export default function Shortcuts(props: ShortcutsProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  label: {
-    fontFamily: "Circular-Bold",
-    width: "100%",
-  },
-});

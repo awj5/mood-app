@@ -73,7 +73,11 @@ export default function Company() {
               style={{ marginLeft: -8 }}
             />
           ),
-          headerRight: () => <HeaderDates dates={companyDates} type="company" hidden={!hasAccess} />,
+          headerRight: () => (
+            <View style={{ display: !hasAccess ? "none" : "flex" }}>
+              <HeaderDates dates={companyDates} type="company" />
+            </View>
+          ),
         }}
       />
 

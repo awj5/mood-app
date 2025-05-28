@@ -87,7 +87,7 @@ export default function Reminder(props: ReminderProps) {
             }}
             allowFontScaling={false}
           >
-            Schedule a daily check-in{"\n"}reminder notification
+            Schedule a Daily Check-in{"\n"}Reminder Notification
           </Text>
 
           <Select reminder={reminder} setReminder={setReminder} />

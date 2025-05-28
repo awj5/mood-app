@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Pressable, Text, View, Platform } from "react-native";
+import { Pressable, Text, View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
 import { CalendarDatesType } from "types";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 import { getDateRange } from "utils/dates";
 
 type HeaderDatesProps = {
   dates: CalendarDatesType;
-  type: string;
-  hidden?: boolean;
+  type: string; // home or company
 };
 
 export default function HeaderDates(props: HeaderDatesProps) {
   const router = useRouter();
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [rangeText, setRangeText] = useState("");
-  const stroke = Device.deviceType !== 1 ? 2.5 : 2;
-  const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   useEffect(() => {
     setRangeText(getDateRange(props.dates));
@@ -28,40 +25,40 @@ export default function HeaderDates(props: HeaderDatesProps) {
     <Pressable
       onPress={() => router.push({ pathname: "date-filters", params: { type: props.type } })}
       style={({ pressed }) => [
-        styles.container,
         pressedDefault(pressed),
-        { gap: Device.deviceType !== 1 ? 10 : 6, display: props.hidden ? "none" : "flex" },
+        { gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" },
       ]}
       hitSlop={16}
-      disabled={props.hidden}
     >
-      {props.dates.rangeStart || props.type === "company" ? (
-        <CalendarRange color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
+      {props.dates.rangeStart ? (
+        <CalendarRange
+          color={theme.color.link}
+          size={theme.icon.large.size}
+          absoluteStrokeWidth
+          strokeWidth={theme.icon.large.stroke}
+        />
       ) : (
-        <CalendarDays color={colors.link} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
+        <CalendarDays
+          color={theme.color.link}
+          size={theme.icon.large.size}
+          absoluteStrokeWidth
+          strokeWidth={theme.icon.large.stroke}
+        />
       )}
 
       <View
-        style={[
-          styles.wrapper,
-          {
-            backgroundColor: props.dates.rangeStart && props.type === "home" ? colors.link : "transparent",
-            height: Device.deviceType !== 1 ? 36 : 28,
-            paddingHorizontal: !props.dates.rangeStart || props.type !== "home" ? 0 : Device.deviceType !== 1 ? 16 : 12,
-          },
-        ]}
+        style={{
+          backgroundColor: props.dates.rangeStart ? theme.color.link : "transparent",
+          paddingHorizontal: props.dates.rangeStart ? theme.spacing.small : 0,
+          paddingVertical: props.dates.rangeStart ? theme.spacing.small / 2 : 0,
+          borderRadius: 999,
+        }}
       >
         <Text
           style={{
             fontFamily: "Tiempos-Bold",
-            paddingTop: Platform.OS === "ios" ? (Device.deviceType !== 1 ? 6 : 4) : 0,
-            fontSize: Device.deviceType !== 1 ? 24 : 18,
-            color:
-              !props.dates.rangeStart || props.type !== "home"
-                ? colors.link
-                : colors.primary === "white"
-                ? "black"
-                : "white",
+            fontSize: theme.fontSize.large,
+            color: !props.dates.rangeStart ? theme.color.link : theme.color.inverted,
           }}
           allowFontScaling={false}
         >
@@ -71,14 +68,3 @@ export default function HeaderDates(props: HeaderDatesProps) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  wrapper: {
-    borderRadius: 999,
-    justifyContent: "center",
-  },
-});
