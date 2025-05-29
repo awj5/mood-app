@@ -2,7 +2,7 @@ import * as Crypto from "expo-crypto";
 import { getLocales } from "expo-localization";
 import axios from "axios";
 import tagsData from "data/tags.json";
-import guidelinesData from "data/guidelines.json";
+import competenciesData from "data/competencies.json";
 import { CheckInType, CheckInMoodType, PromptCheckInType, MessageType, CompanyCheckInType } from "types";
 import { removeAccess } from "./helpers";
 
@@ -62,7 +62,7 @@ export const getStatement = (statement: number, response: number, type: string, 
       start = `I strongly disagreed (${percentage}%) that`;
   }
 
-  const competency = guidelinesData[0].competencies.filter((item) => item.id === statement)[0]; // Get statement
+  const competency = competenciesData[0].competencies.filter((item) => item.id === statement)[0]; // Get statement
   let companyName = company ? company : "my company";
   if (companyName.endsWith(".")) companyName = companyName.slice(0, -1); // Remove . at end of comapmy name if exists
   return `${start} ${type === "neg" ? competency.negStatement : competency.posStatement} at ${companyName}.`;

@@ -18,7 +18,7 @@ import {
   HeartPulse,
   Lightbulb,
 } from "lucide-react-native";
-import guidelinesData from "data/guidelines.json";
+import competenciesData from "data/competencies.json";
 import { CategoryType } from "app/category";
 import Category from "./categories/Category";
 import { CompanyCheckInType } from "types";
@@ -64,7 +64,7 @@ export default function Categories(props: CategoriesProps) {
 
     // Loop groups and get category details
     Object.entries(groups).forEach(([key, value]) => {
-      let category = guidelinesData[0].categories.filter((item) => item.id === Number(key))[0];
+      let category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
       const moods: number[] = [];
       const responses: number[] = [];
 

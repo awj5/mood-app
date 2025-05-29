@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { Text, View, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
-import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Share } from "lucide-react-native";
 import QuotesData from "data/quotes.json";
 import { CalendarDatesType, CheckInType, CheckInMoodType } from "types";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme, slugify } from "utils/helpers";
 
 type QuoteType = {
   quote: string;
@@ -17,56 +17,45 @@ type QuoteType = {
 
 type QuoteProps = {
   checkIns?: CheckInType[];
-  tags?: number[];
   dates?: CalendarDatesType;
+  tags?: number[];
 };
 
 export default function Quote(props: QuoteProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
   const [quoteData, setQuoteData] = useState<QuoteType>();
-  const [authorImage, setAuthorImage] = useState("");
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const url = "https://res.cloudinary.com/dzuz9bul0/image/upload/";
+  const assetsURL = "https://res.cloudinary.com/dzuz9bul0/image/upload/";
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   useEffect(() => {
-    let tags: number[] = [];
+    const tags: number[] = props.tags
+      ? props.tags
+      : props.checkIns && !props.dates?.rangeStart
+      ? JSON.parse(props.checkIns[props.checkIns.length - 1].mood).tags
+      : [];
 
     if (props.checkIns && props.dates?.rangeStart) {
-      // All check-in tags
-      for (let i = 0; i < props.checkIns.length; i++) {
-        let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+      // Tags from all check-ins within date range
+      for (const checkIn of props.checkIns) {
+        const mood: CheckInMoodType = JSON.parse(checkIn.mood);
 
-        for (let i = 0; i < mood.tags.length; i++) {
-          let tag = mood.tags[i];
-          if (!tags.includes(tag)) tags.push(tag);
+        for (const tag of mood.tags) {
+          if (!tags.includes(tag)) tags.push(tag); // Add tag if not included already
         }
       }
-    } else if (props.checkIns) {
-      // Latest check-in tags
-      const mood: CheckInMoodType = JSON.parse(props.checkIns[props.checkIns.length - 1].mood);
-      tags = mood.tags;
-    } else if (props.tags) {
-      tags = props.tags;
     }
 
-    const randTag = tags[Math.floor(Math.random() * tags.length)];
+    const randTag = tags[Math.floor(Math.random() * tags.length)]; // Get random tag
     const quotes = QuotesData.filter((item) => item.tags.includes(randTag)); // Quotes with random tag
 
     if (quotes.length) {
       const random = quotes[Math.floor(Math.random() * quotes.length)]; // Random quote
       setQuoteData(random);
-
-      const image = random.author
-        .replace(/ /g, "-")
-        .replace(/\./g, "")
-        .replace(/ö/g, "o")
-        .replace(/é/g, "e")
-        .replace(/ç/g, "c")
-        .replace(/ë/g, "e")
-        .toLowerCase();
-
-      setAuthorImage(random.hasImage ? image + ".jpg" : "");
     }
 
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
@@ -74,99 +63,83 @@ export default function Quote(props: QuoteProps) {
 
   return (
     <Animated.View
-      style={{
-        width: "100%",
-        backgroundColor: colors.opaqueBg,
-        borderRadius: spacing,
-        padding: spacing,
-        gap: spacing,
-        opacity,
-      }}
+      style={[
+        animatedStyles,
+        {
+          backgroundColor: theme.color.opaqueBg,
+          borderRadius: theme.spacing.base,
+          padding: theme.spacing.base,
+          gap: theme.spacing.base,
+        },
+      ]}
     >
-      <View>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
           style={{
             fontFamily: "Circular-Bold",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 16 : 12,
+            color: theme.color.primary,
+            fontSize: theme.fontSize.xSmall,
           }}
           allowFontScaling={false}
         >
           WORDS OF WISDOM
         </Text>
 
-        {/*<Pressable
-          onPress={() => alert("Coming soon")}
-          style={({ pressed }) => [
-            pressedDefault(pressed),
-            styles.share,
-            { margin: Device.deviceType !== 1 ? -2 : -1.5 },
-          ]}
-          hitSlop={16}
-        >
+        {/*<Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
           <Share
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 28 : 20}
+            color={theme.color.primary}
+            size={theme.icon.base.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+            strokeWidth={theme.icon.base.stroke}
           />
         </Pressable>*/}
       </View>
 
-      <View style={{ gap: spacing / 2 }}>
+      <View style={{ gap: quoteData?.hasImage ? theme.spacing.base : theme.spacing.base / 2 }}>
         <Text
           style={{
             fontFamily: "Tiempos-RegularItalic",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
-            lineHeight: Device.deviceType !== 1 ? 28 : 22,
+            color: theme.color.primary,
+            fontSize: theme.fontSize.body,
+            lineHeight: theme.fontSize.xLarge,
           }}
           allowFontScaling={false}
         >
           “{quoteData?.quote}”
         </Text>
 
-        <View style={[styles.author, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-          <Image
-            source={{ uri: url + authorImage }}
-            style={[
-              styles.image,
-              {
-                width: Device.deviceType !== 1 ? 44 : 32,
-                display: authorImage ? "flex" : "none",
-                backgroundColor: colors.opaqueBg,
-              },
-            ]}
-          />
+        <View
+          style={{
+            gap: theme.spacing.small / 2,
+            flexDirection: "row",
+            alignSelf: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          {quoteData?.hasImage && (
+            <Image
+              source={{ uri: `${assetsURL}${slugify(quoteData.author)}` }}
+              style={{
+                width: Device.deviceType === 1 ? 32 : 44,
+                backgroundColor: theme.color.opaqueBg,
+                aspectRatio: "1/1",
+                borderRadius: 999,
+              }}
+            />
+          )}
 
           <Text
             style={{
-              fontFamily: "Circular-Medium",
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 18 : 14,
+              fontFamily: "Circular-Bold",
+              color: theme.color.primary,
+              fontSize: theme.fontSize.small,
             }}
             allowFontScaling={false}
           >
-            {`${!authorImage ? "\u2014 " : ""}${quoteData?.author}`}
+            {`${!quoteData?.hasImage ? "\u2014 " : ""}${quoteData?.author}`}
           </Text>
         </View>
       </View>
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  share: {
-    position: "absolute",
-    right: 0,
-  },
-  author: {
-    flexDirection: "row",
-    alignSelf: "flex-end",
-    alignItems: "center",
-  },
-  image: {
-    aspectRatio: "1/1",
-    borderRadius: 999,
-  },
-});

@@ -24,7 +24,7 @@ export default function Company() {
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [hasAccess, setHasAccess] = useState(false);
-  const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>(); // !!!!!!!!!!!!! Why can't I use an empty array so I don't need Bg prop to support undefined
+  const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
   const [company, setCompany] = useState("");
   const spacing = Device.deviceType !== 1 ? 24 : 16;
 

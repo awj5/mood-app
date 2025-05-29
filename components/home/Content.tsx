@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { useCallback, useContext, useRef, useState } from "react";
-import { ScrollView, View, Text, StyleSheet, Pressable } from "react-native";
+import React, { useCallback, useEffect } from "react";
+import { useContext, useRef, useState } from "react";
+import { ScrollView, View, useColorScheme } from "react-native";
 import * as Device from "expo-device";
-import { useSQLiteContext } from "expo-sqlite";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { Sparkles, ChartSpline } from "lucide-react-native";
@@ -18,100 +17,59 @@ import Burnout from "./content/Burnout";
 import Journal from "./content/Journal";
 import Stats from "./content/Stats";
 import Button from "components/Button";
+import NoCheckIns from "./content/NoCheckIns";
 import { CheckInType } from "types";
-import { shuffleArray, theme, getStoredVal, pressedDefault } from "utils/helpers";
-import { convertToISO } from "utils/dates";
+import { shuffleArray, getStoredVal, getTheme } from "utils/helpers";
 
 type ContentProps = {
+  checkIns: CheckInType[] | undefined;
   noCheckInToday: boolean;
 };
 
 export default function Content(props: ContentProps) {
-  const db = useSQLiteContext();
-  const router = useRouter();
-  const colors = theme();
   const insets = useSafeAreaInsets();
-  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
-  const latestQueryRef = useRef<symbol>();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const scrollViewRef = useRef<ScrollView>(null);
-  const [checkIns, setCheckIns] = useState<CheckInType[]>();
+  const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [widgets, setWidgets] = useState<React.ReactNode>();
   const [hasAccess, setHasAccess] = useState(false);
   const [company, setCompany] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-
-  const getCheckInData = async () => {
-    const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
-    let end = new Date(start);
-
-    if (homeDates.rangeEnd) {
-      end = homeDates.rangeEnd;
-    } else {
-      end.setDate(start.getDate() + 6); // Sunday
-    }
-
-    try {
-      const rows: CheckInType[] = await db.getAllAsync(
-        `SELECT * FROM check_ins WHERE DATE(datetime(date, 'localtime')) BETWEEN ? AND ? ORDER BY id ASC`,
-        [convertToISO(start), convertToISO(end)]
-      );
-
-      return rows;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getCheckIns = async () => {
-    const currentQuery = Symbol("currentQuery");
-    latestQueryRef.current = currentQuery;
-    const checkInData = await getCheckInData();
-    const uuid = await getStoredVal("uuid"); // Check if customer employee
-    const proID = await getStoredVal("pro-id"); // Check if pro subscriber
-    const name = await getStoredVal("company-name");
-    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
-    const admin = await getStoredVal("admin"); // Check if user is admin of their company (can bypass check-in)
-
-    if (latestQueryRef.current === currentQuery) {
-      setHasAccess(uuid || proID ? true : false);
-      if (name && send) setCompany(name);
-      setCheckIns(checkInData);
-      if (admin === "true") setIsAdmin(true);
-    }
-  };
 
   useEffect(() => {
-    const now = Date.now(); // Use to make keys unique
-    scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Reset
+    const now = Date.now(); // Use to make unique keys
+    scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Scroll to top
 
     // Add widgets
-    if (checkIns?.length) {
+    if (props.checkIns?.length) {
       const largeWidgets = [
-        <Quote checkIns={checkIns} dates={homeDates} />,
-        <Gifs checkIns={checkIns} dates={homeDates} />,
-        <Song checkIns={checkIns} dates={homeDates} />,
+        <Quote checkIns={props.checkIns} dates={homeDates} />,
+        <Gifs checkIns={props.checkIns} dates={homeDates} />,
+        <Song checkIns={props.checkIns} dates={homeDates} />,
       ];
+
       const smallWidgets = [
-        <Article checkIns={checkIns} dates={homeDates} />,
-        <Fact checkIns={checkIns} dates={homeDates} />,
+        <Article checkIns={props.checkIns} dates={homeDates} />,
+        <Fact checkIns={props.checkIns} dates={homeDates} />,
       ];
+
       const shuffledLarge = shuffleArray(largeWidgets);
       const shuffledSmall = shuffleArray(smallWidgets);
       const ordered = [];
       let index = 0;
 
+      // Randomise order
       while (shuffledLarge.length || shuffledSmall.length) {
-        let pickLarge = shuffledLarge.length ? Math.random() > 0.5 : false; // 50% chance of large
+        const pickLarge = shuffledLarge.length ? Math.random() > 0.5 : false; // 50% chance of large
 
         if (pickLarge) {
-          ordered.push(React.cloneElement(shuffledLarge.pop()!, { key: now + index }));
+          ordered.push(React.cloneElement(shuffledLarge.pop(), { key: now + index }));
           index++;
         } else if (shuffledSmall.length > 1) {
-          // Two small widgets available
+          // Two small widgets available to add
           let double = (
-            <View style={[styles.double, { gap: spacing }]} key={now + index}>
+            <View style={{ gap: theme.spacing.base, flexDirection: "row" }} key={now + index}>
               {shuffledSmall.pop()}
               {shuffledSmall.pop()}
             </View>
@@ -128,118 +86,71 @@ export default function Content(props: ContentProps) {
     } else {
       setWidgets([]); // Clear
     }
-  }, [JSON.stringify(checkIns)]);
+  }, [JSON.stringify(props.checkIns)]);
 
   useFocusEffect(
     useCallback(() => {
-      getCheckIns();
+      (async () => {
+        const uuid = await getStoredVal("uuid"); // Check if customer employee
+        const proID = await getStoredVal("pro-id"); // Check if pro subscriber
+        const companyName = await getStoredVal("company-name"); // Get company name
+        const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
+        const admin = await getStoredVal("admin"); // Check if user is admin of their company (can bypass check-in)
+        setHasAccess(uuid || proID ? true : false);
+        setCompany(companyName && send ? companyName : "");
+        setIsAdmin(admin === "true" ? true : false);
+      })();
     }, [homeDates])
   );
 
   return (
     <ScrollView
       ref={scrollViewRef}
-      style={{ flex: 1 }}
-      contentContainerStyle={{ flex: checkIns?.length ? 0 : 1, alignItems: "center" }}
+      contentContainerStyle={{
+        paddingHorizontal: theme.spacing.base,
+        paddingBottom: theme.spacing.base * 2 + insets.bottom + (Device.deviceType === 1 ? 72 : 96),
+        gap: theme.spacing.base,
+        width: "100%",
+        maxWidth: 768,
+        margin: "auto",
+      }}
     >
-      <View
-        style={[
-          styles.wrapper,
-          {
-            paddingBottom: spacing * 2 + insets.bottom + (Device.deviceType !== 1 ? 96 : 72),
-            gap: spacing,
-            paddingHorizontal: spacing,
-          },
-        ]}
-      >
-        {checkIns?.length ? (
-          <>
-            {hasAccess ? (
-              <>
-                <Insights checkIns={checkIns} dates={homeDates} />
-                <Stats checkIns={checkIns} dates={homeDates} />
+      {props.checkIns?.length ? (
+        <>
+          {hasAccess ? (
+            <>
+              <Insights checkIns={props.checkIns} dates={homeDates} />
+              <Stats checkIns={props.checkIns} dates={homeDates} />
 
-                <View style={[styles.double, { gap: spacing }]}>
-                  <Burnout checkIns={checkIns} />
-                  <Journal checkIns={checkIns} />
-                </View>
-
-                {((company && !props.noCheckInToday) || (company && isAdmin)) && (
-                  <View style={{ width: "100%", paddingHorizontal: spacing }}>
-                    <Button route="company" large icon={ChartSpline}>
-                      {`${company} insights`}
-                    </Button>
-                  </View>
-                )}
-              </>
-            ) : (
-              <View style={{ width: "100%", marginTop: spacing, paddingHorizontal: spacing }}>
-                <Button route="pro" icon={Sparkles} gradient large>
-                  Generate AI insights with Pro
-                </Button>
+              <View style={{ gap: theme.spacing.base, flexDirection: "row" }}>
+                <Burnout checkIns={props.checkIns} />
+                <Journal checkIns={props.checkIns} />
               </View>
-            )}
 
-            {widgets}
-          </>
-        ) : (
-          checkIns !== undefined && (
+              {((company && !props.noCheckInToday) || (company && isAdmin)) && (
+                <View style={{ width: "100%", paddingHorizontal: theme.spacing.base }}>
+                  <Button route="company" large icon={ChartSpline}>
+                    {`${company} insights`}
+                  </Button>
+                </View>
+              )}
+            </>
+          ) : (
             <Animated.View
               entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
-              style={{ alignItems: "center", gap: spacing }}
+              style={{ width: "100%", marginTop: theme.spacing.base, paddingHorizontal: theme.spacing.base }}
             >
-              <Text
-                style={{
-                  color: colors.opaque,
-                  fontFamily: "Circular-Book",
-                  fontSize: fontSize,
-                }}
-                allowFontScaling={false}
-              >
-                No check-ins found
-              </Text>
-
-              {company && isAdmin && (
-                <Pressable
-                  onPress={() => router.push("company")}
-                  style={({ pressed }) => pressedDefault(pressed)}
-                  hitSlop={8}
-                >
-                  <Text
-                    style={[
-                      styles.link,
-                      {
-                        color: colors.primary,
-                        fontSize: fontSize,
-                      },
-                    ]}
-                    allowFontScaling={false}
-                  >
-                    {`View ${company} insights`}
-                  </Text>
-                </Pressable>
-              )}
+              <Button route="pro" icon={Sparkles} gradient large>
+                Generate AI insights with Pro
+              </Button>
             </Animated.View>
-          )
-        )}
-      </View>
+          )}
+
+          {widgets}
+        </>
+      ) : (
+        props.checkIns !== undefined && <NoCheckIns company={company} isAdmin={isAdmin} />
+      )}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    maxWidth: 720 + 48,
-  },
-  double: {
-    flexDirection: "row",
-  },
-  link: {
-    fontFamily: "Circular-Book",
-    textDecorationLine: "underline",
-  },
-});

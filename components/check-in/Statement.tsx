@@ -21,7 +21,7 @@ import {
   Lightbulb,
 } from "lucide-react-native";
 import tagsData from "data/tags.json";
-import guidelinesData from "data/guidelines.json";
+import competenciesData from "data/competencies.json";
 import { CompetencyType, MoodType } from "app/check-in";
 import { getStoredVal, shuffleArray, getMostCommon } from "utils/helpers";
 
@@ -95,7 +95,7 @@ export default function Statement(props: StatementProps) {
     let companyRandom = false;
 
     if (props.categories.length) {
-      companyCompetencies = guidelinesData[0].competencies
+      companyCompetencies = competenciesData[0].competencies
         .filter((item) => props.categories.some((cat) => Math.trunc(item.id) === cat))
         .map((item) => item.id);
 
@@ -104,7 +104,7 @@ export default function Statement(props: StatementProps) {
 
         if (focused && Math.floor(Number(focused)) === props.focusedCategory) {
           const next = Number((Number(focused) + 0.01).toFixed(2));
-          const exists = guidelinesData[0].competencies.filter((item) => item.id === next);
+          const exists = competenciesData[0].competencies.filter((item) => item.id === next);
 
           if (exists.length) {
             // Next statement in category
@@ -144,8 +144,8 @@ export default function Statement(props: StatementProps) {
     const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
     const shuffled = shuffleArray(competencies);
     const mostFrequent = getMostCommon(shuffled); // Get most common competency in selected tags
-    const competency = guidelinesData[0].competencies.filter((item) => item.id === mostFrequent)[0];
-    const category = guidelinesData[0].categories.filter((item) => item.id === Math.trunc(competency.id))[0];
+    const competency = competenciesData[0].competencies.filter((item) => item.id === mostFrequent)[0];
+    const category = competenciesData[0].categories.filter((item) => item.id === Math.trunc(competency.id))[0];
     setCategory({ title: category.title.toUpperCase(), icon: icons[category.icon as keyof typeof icons] });
 
     props.setCompetency({

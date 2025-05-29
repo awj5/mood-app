@@ -26,6 +26,7 @@ export const getTheme = (colorScheme: string | null | undefined) => {
     },
 
     fontSize: {
+      xxxSmall: isPhone ? 8 : 12,
       xxSmall: isPhone ? 10 : 14,
       xSmall: isPhone ? 12 : 16,
       small: isPhone ? 14 : 18,
@@ -78,6 +79,15 @@ export const getMostCommon = (array: any[]) => {
   );
 };
 
+export const slugify = (text: string) => {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9 ]/g, "")
+    .replace(/ /g, "-")
+    .toLowerCase();
+};
+
 /* Storage */
 
 export const getStoredVal = async (name: string) => {
@@ -113,4 +123,5 @@ export const removeAccess = () => {
   removeStoredVal("uuid");
   removeStoredVal("company-name");
   removeStoredVal("send-check-ins");
+  removeStoredVal("admin");
 };

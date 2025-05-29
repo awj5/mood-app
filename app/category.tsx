@@ -135,7 +135,7 @@ export default function Category() {
 
           <View style={{ flexDirection: "row", gap: spacing }}>
             <Sentiment score={Number(params.score)} trend={params.trend} role={params.role} />
-            <Article competency={params.id} />
+            <Article category={params.id} />
           </View>
 
           <About id={Number(params.id)} title={params.title.toUpperCase()} />

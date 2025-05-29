@@ -11,7 +11,7 @@ import { CheckInType, CheckInMoodType, CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
 
 type BgProps = {
-  checkIns: CheckInType[] | CompanyCheckInType[] | undefined;
+  checkIns?: CheckInType[] | CompanyCheckInType[];
   topOffset?: number;
 };
 

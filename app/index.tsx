@@ -34,7 +34,7 @@ export default function Home() {
   const [reminderVisible, setReminderVisible] = useState(false);
   const [noCheckInToday, setNoCheckInToday] = useState(false);
   const [appState, setAppState] = useState(AppState.currentState);
-  const [checkIns, setCheckIns] = useState<CheckInType[]>([]);
+  const [checkIns, setCheckIns] = useState<CheckInType[]>();
   const calendarHeight = Device.deviceType === 1 ? 96 : 128;
 
   const getCheckIns = async () => {
@@ -137,7 +137,7 @@ export default function Home() {
                 gap: theme.spacing.small * 2,
               }}
             >
-              <Pressable
+              {/*<Pressable
                 onPress={() => alert("Coming soon")}
                 style={({ pressed }) => pressedDefault(pressed)}
                 hitSlop={12}
@@ -148,7 +148,7 @@ export default function Home() {
                   absoluteStrokeWidth
                   strokeWidth={theme.icon.large.stroke}
                 />
-              </Pressable>
+              </Pressable>*/}
 
               <Pressable
                 onPress={() => router.push("settings")}
@@ -171,7 +171,7 @@ export default function Home() {
 
       <View style={{ flex: 1, marginTop: Platform.OS === "android" ? insets.top + headerHeight : headerHeight }}>
         <Calendar height={calendarHeight} appState={appState} />
-        <Content noCheckInToday={noCheckInToday} />
+        <Content checkIns={checkIns} noCheckInToday={noCheckInToday} />
       </View>
 
       <View
