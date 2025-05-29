@@ -98,7 +98,7 @@ export default function Day() {
             animatedStyles,
             {
               minHeight: "100%",
-              backgroundColor: gradientColors.length ? gradientColors[gradientColors.length - 1] : "transparent",
+              backgroundColor: gradientColors.length === 1 ? gradientColors[0] : "transparent",
             },
           ]}
         >
@@ -115,21 +115,26 @@ export default function Day() {
             )}
           </View>
 
-          {gradientColors.length ? (
-            <BlurView intensity={50} tint={colorScheme as "light" | "dark"} style={styles.container} />
-          ) : null}
-
-          {/* Items */}
+          {/* Check-ins */}
           <View
             style={{
               marginTop: headerHeight,
-              paddingBottom: theme.spacing.base + insets.bottom,
+              paddingBottom: theme.spacing.base,
             }}
           >
             {checkIns.map((item) => (
               <CheckIn key={item.id} data={item} itemHeight={itemHeight} getCheckInData={getCheckIns} />
             ))}
           </View>
+
+          {/* End of gradient fill */}
+          <View
+            style={{
+              backgroundColor: gradientColors.length ? gradientColors[gradientColors.length - 1] : "transparent",
+              flex: 1,
+              paddingBottom: insets.bottom,
+            }}
+          />
         </Animated.View>
       </ScrollView>
 
