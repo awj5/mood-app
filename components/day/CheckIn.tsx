@@ -1,76 +1,36 @@
-import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
-import * as Device from "expo-device";
-import tagsData from "data/tags.json";
+import { View, useColorScheme } from "react-native";
 import Header from "./check-in/Header";
 import Feelings from "./check-in/Feelings";
 import Note from "./check-in/Note";
+import Statement from "./check-in/Statement";
 import { CheckInType, CheckInMoodType } from "types";
-import { getMostCommon, theme } from "utils/helpers";
-import { getStatement } from "utils/data";
+import { getTheme } from "utils/helpers";
 
 type CheckInProps = {
   data: CheckInType;
   itemHeight: number;
-  getCheckInData: () => Promise<void>;
+  getCheckIns: () => Promise<void>;
 };
 
 export default function CheckIn(props: CheckInProps) {
-  const colors = theme();
-  const [statement, setStatement] = useState("");
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const mood: CheckInMoodType = JSON.parse(props.data.mood);
-  const utc = new Date(`${props.data.date}Z`);
-  const local = new Date(utc);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-
-  useEffect(() => {
-    const tagTypes = [];
-
-    // Loop selected tags and get type
-    for (let i = 0; i < mood.tags.length; i++) {
-      let tag = tagsData.filter((item) => item.id === mood.tags[i])[0];
-      tagTypes.push(tag.type);
-    }
-
-    const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
-    const response = primaryTagType === "neg" ? 1 - mood.statementResponse : mood.statementResponse;
-    setStatement(getStatement(mood.competency, response, primaryTagType, mood.company));
-  }, []);
 
   return (
     <View
       style={{
-        padding: spacing,
-        paddingBottom: 0,
+        gap: theme.spacing.base,
+        backgroundColor: theme.color.opaqueBg,
+        paddingVertical: theme.spacing.base,
+        borderRadius: theme.spacing.base,
         height: props.itemHeight,
       }}
     >
-      <View
-        style={{
-          flex: 1,
-          gap: spacing,
-          backgroundColor: colors.opaqueBg,
-          paddingVertical: spacing,
-          borderRadius: spacing,
-        }}
-      >
-        <Header id={props.data.id} mood={mood} date={local} getCheckInData={props.getCheckInData} />
-        <Feelings tags={mood.tags} />
-
-        <Text
-          style={{
-            fontFamily: "Circular-Book",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
-            paddingHorizontal: spacing,
-          }}
-          allowFontScaling={false}
-        >
-          {statement}
-        </Text>
-
-        <Note text={props.data.note} />
-      </View>
+      <Header id={props.data.id} mood={mood} date={props.data.date} getCheckIns={props.getCheckIns} />
+      <Feelings tags={mood.tags} />
+      <Statement mood={mood} />
+      <Note text={props.data.note} />
     </View>
   );
 }

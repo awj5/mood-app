@@ -1,4 +1,4 @@
-import { Pressable, Text, View, ScrollView, StyleSheet, Platform } from "react-native";
+import { Pressable, Text, View, ScrollView, StyleSheet, Platform, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
@@ -9,15 +9,16 @@ import TextBlock from "components/mood/TextBlock";
 import Song from "components/Song";
 import Gifs from "components/Gifs";
 import Quote from "components/Quote";
-import { pressedDefault } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 export default function Mood() {
   const params = useLocalSearchParams<{ name: string }>();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const data = MoodsData.filter((mood) => mood.name === params.name)[0];
-  const foreground = data.id >= 6 && data.id <= 11 ? "white" : "black";
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const mood = MoodsData.filter((item) => item.name === params.name)[0];
+  const foreground = mood.id >= 6 && mood.id <= 11 ? "white" : "black";
 
   const emojis = {
     1: require("../assets/img/emoji/small/black/yellow.svg"),
@@ -41,10 +42,10 @@ export default function Mood() {
           headerBackVisible: false,
           title: "",
           contentStyle: {
-            backgroundColor: data.color,
+            backgroundColor: mood.color,
           },
           headerStyle: {
-            backgroundColor: data.color,
+            backgroundColor: mood.color,
           },
           headerLeft:
             Platform.OS === "android"
@@ -52,7 +53,7 @@ export default function Mood() {
                   <HeaderBackButton
                     onPress={() => router.back()}
                     label="Back"
-                    labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
+                    labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
                     tintColor={foreground}
                     allowFontScaling={false}
                     style={{ marginLeft: -8 }}
@@ -67,7 +68,7 @@ export default function Mood() {
                     <Text
                       style={{
                         fontFamily: "Circular-Book",
-                        fontSize: Device.deviceType !== 1 ? 20 : 16,
+                        fontSize: theme.fontSize.body,
                         color: foreground,
                       }}
                       allowFontScaling={false}
@@ -79,22 +80,28 @@ export default function Mood() {
         }}
       />
 
-      <ScrollView contentContainerStyle={{ padding: spacing, paddingBottom: spacing + insets.bottom, gap: spacing }}>
-        <View style={{ alignItems: "center", gap: spacing / 2 }}>
+      <ScrollView
+        contentContainerStyle={{
+          padding: theme.spacing.base,
+          paddingBottom: theme.spacing.base + insets.bottom,
+          gap: theme.spacing.base,
+        }}
+      >
+        <View style={{ alignItems: "center", gap: theme.spacing.base / 2 }}>
           <Image
-            source={emojis[data.id as keyof typeof emojis]}
-            style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 88 : 64 }}
+            source={emojis[mood.id as keyof typeof emojis]}
+            style={{ aspectRatio: "1/1", width: Device.deviceType === 1 ? 64 : 88 }}
           />
 
           <Text
             style={{
               fontFamily: "Circular-Black",
-              fontSize: Device.deviceType !== 1 ? 48 : 36,
+              fontSize: theme.fontSize.xxxLarge,
               color: foreground,
             }}
             allowFontScaling={false}
           >
-            {data.name}
+            {mood.name}
           </Text>
         </View>
 
@@ -104,30 +111,30 @@ export default function Mood() {
             {
               color: foreground,
               fontSize: Device.deviceType !== 1 ? 20 : 16,
-              paddingBottom: spacing,
+              paddingBottom: theme.spacing.base,
             },
           ]}
         >
-          {data.summary}
+          {mood.summary}
         </Text>
 
         <TextBlock
-          title={`${data.name.toUpperCase()} SCIENCE`}
-          text={data.science}
+          title={`${mood.name.toUpperCase()} SCIENCE`}
+          text={mood.science}
           background={foreground}
-          color={data.color}
+          color={mood.color}
         />
 
         <TextBlock
-          title={`${data.name.toUpperCase()} STRATEGIES`}
-          text={data.strategies}
+          title={`${mood.name.toUpperCase()} STRATEGIES`}
+          text={mood.strategies}
           background={foreground}
-          color={data.color}
+          color={mood.color}
         />
 
-        <Song mood={data.id} />
-        <Gifs tags={data.tags} />
-        <Quote tags={data.tags} />
+        <Song mood={mood.id} />
+        <Gifs tags={mood.tags} />
+        <Quote tags={mood.tags} />
       </ScrollView>
     </View>
   );

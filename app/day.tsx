@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, useColorScheme, View } from "react-native";
+import { ScrollView, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
@@ -29,7 +29,7 @@ export default function Day() {
   const iso = `${params.year}-${params.month.padStart(2, "0")}-${params.day.padStart(2, "0")}`;
   const date = new Date(iso);
   const title = date.toDateString();
-  const itemHeight = Device.deviceType === 1 ? 320 : 448;
+  const itemHeight = Device.deviceType === 1 ? 384 : 448;
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -43,7 +43,7 @@ export default function Day() {
         [iso]
       );
 
-      setGradientHeight(rows.length * itemHeight + headerHeight + theme.spacing.base); // Gradient height needs to be fixed
+      setGradientHeight(rows.length * itemHeight + theme.spacing.base * (rows.length - 1)); // Gradient height needs to be fixed
       const checkInColors = [];
 
       // Get check in colors from check-ins
@@ -103,14 +103,14 @@ export default function Day() {
           ]}
         >
           {/* Gradient background */}
-          <View style={[styles.container, { height: gradientHeight }]}>
-            <View style={{ height: headerHeight, backgroundColor: gradientColors[0] }} />
+          <View style={{ position: "absolute", width: "100%" }}>
+            <View style={{ height: headerHeight + theme.spacing.base, backgroundColor: gradientColors[0] }} />
 
             {gradientColors.length > 1 && gradientColors.length === gradientLocations.length && (
               <LinearGradient
                 colors={gradientColors as [string, string, ...string[]]}
                 locations={gradientLocations as [number, number, ...number[]]}
-                style={{ flex: 1 }}
+                style={{ flex: 1, height: gradientHeight }}
               />
             )}
           </View>
@@ -119,11 +119,13 @@ export default function Day() {
           <View
             style={{
               marginTop: headerHeight,
-              paddingBottom: theme.spacing.base,
+              padding: theme.spacing.base,
+              paddingBottom: 0,
+              gap: theme.spacing.base,
             }}
           >
             {checkIns.map((item) => (
-              <CheckIn key={item.id} data={item} itemHeight={itemHeight} getCheckInData={getCheckIns} />
+              <CheckIn key={item.id} data={item} itemHeight={itemHeight} getCheckIns={getCheckIns} />
             ))}
           </View>
 
@@ -132,7 +134,7 @@ export default function Day() {
             style={{
               backgroundColor: gradientColors.length ? gradientColors[gradientColors.length - 1] : "transparent",
               flex: 1,
-              paddingBottom: insets.bottom,
+              paddingBottom: theme.spacing.base + insets.bottom,
             }}
           />
         </Animated.View>
@@ -149,11 +151,3 @@ export default function Day() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-  },
-});

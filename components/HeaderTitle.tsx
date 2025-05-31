@@ -17,7 +17,7 @@ export default function HeaderTitle(props: HeaderTitleProps) {
     <View
       style={{
         padding: theme.spacing.base,
-        gap: theme.spacing.small / 2,
+        gap: theme.spacing.base / 2,
         marginTop: props.transparentHeader ? headerHeight : 0,
         flexShrink: 1, // Needed for when placed in a flex row
       }}

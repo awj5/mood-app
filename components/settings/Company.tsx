@@ -16,7 +16,7 @@ export default function Company(props: CompanyProps) {
     props.setCompany(""); // Hide section
   };
 
-  const press = () => {
+  const confirm = () => {
     Alert.alert(
       "Remove Company",
       `By tapping 'Remove,' you will lose access to ${props.company}'s insights and MOOD.ai Pro features. Are you sure you want to remove ${props.company}?`,
@@ -45,7 +45,7 @@ export default function Company(props: CompanyProps) {
       </Text>
 
       <Pressable
-        onPress={press}
+        onPress={confirm}
         style={({ pressed }) => [
           pressedDefault(pressed),
           { gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" },

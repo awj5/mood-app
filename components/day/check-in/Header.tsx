@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
+import { View, Text, Pressable, Alert, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
@@ -6,20 +6,23 @@ import { useSQLiteContext } from "expo-sqlite";
 import { Trash2 } from "lucide-react-native";
 import MoodsData from "data/moods.json";
 import { CheckInMoodType } from "types";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type HeaderProps = {
   id: number;
   mood: CheckInMoodType;
   date: Date;
-  getCheckInData: () => Promise<void>;
+  getCheckIns: () => Promise<void>;
 };
 
 export default function Header(props: HeaderProps) {
-  const colors = theme();
   const router = useRouter();
   const db = useSQLiteContext();
-  const time = props.date.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const utc = new Date(`${props.date}Z`);
+  const local = new Date(utc);
+  const time = local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
   const color = MoodsData.filter((mood) => mood.id === props.mood.color)[0];
 
   const emojis = {
@@ -37,7 +40,7 @@ export default function Header(props: HeaderProps) {
     12: require("../../../assets/img/emoji/small/orange.png"),
   };
 
-  const confirmDelete = () => {
+  const confirm = () => {
     Alert.alert("Delete Check-In", "Are you sure you want to delete this check-in? It cannot be recovered.", [
       {
         text: "Cancel",
@@ -56,9 +59,9 @@ export default function Header(props: HeaderProps) {
       `;
 
       await db.runAsync(query, [props.id]);
-      props.getCheckInData();
+      props.getCheckIns(); // Reload day
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("An unexpected error occurred.");
     }
   };
@@ -73,45 +76,47 @@ export default function Header(props: HeaderProps) {
   };
 
   return (
-    <View style={[styles.container, { paddingHorizontal: Device.deviceType !== 1 ? 24 : 16 }]}>
+    <View
+      style={{
+        paddingHorizontal: theme.spacing.base,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
       <Pressable
         onPress={press}
-        style={({ pressed }) => [pressedDefault(pressed), styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}
+        style={({ pressed }) => [
+          pressedDefault(pressed),
+          { gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" },
+        ]}
         hitSlop={8}
       >
         <Image
           source={emojis[props.mood.color as keyof typeof emojis]}
-          style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 44 : 32 }}
+          style={{ aspectRatio: "1/1", width: Device.deviceType === 1 ? 32 : 44 }}
         />
 
         <Text
-          style={{ fontFamily: "Tiempos-Bold", color: colors.primary, fontSize: Device.deviceType !== 1 ? 24 : 18 }}
+          style={{
+            fontFamily: "Tiempos-Bold",
+            color: theme.color.primary,
+            fontSize: theme.fontSize.large,
+          }}
           allowFontScaling={false}
         >
-          {time.toLowerCase()}
+          {time}
         </Text>
       </Pressable>
 
-      <Pressable onPress={confirmDelete} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+      <Pressable onPress={confirm} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
         <Trash2
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 28 : 20}
+          color={theme.color.opaque}
+          size={theme.icon.base.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+          strokeWidth={theme.icon.base.stroke}
         />
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});
