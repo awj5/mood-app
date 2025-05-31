@@ -41,6 +41,9 @@ export const getTheme = (colorScheme: string | null | undefined) => {
       xSmall: { size: isPhone ? 12 : 16, stroke: isPhone ? 1 : 1.5 },
       base: { size: isPhone ? 20 : 28, stroke: isPhone ? 1.5 : 2 },
       large: { size: isPhone ? 24 : 32, stroke: isPhone ? 2 : 2.5 },
+      xLarge: { size: isPhone ? 32 : 40, stroke: isPhone ? 2.5 : 3 },
+      xxLarge: { size: isPhone ? 48 : 64, stroke: isPhone ? 3.5 : 4 },
+      xxxLarge: { size: isPhone ? 64 : 88, stroke: isPhone ? 4 : 4.5 },
     },
 
     spacing: { base: isPhone ? 16 : 24, small: isPhone ? 12 : 16 },

@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, useColorScheme } from "react-native";
+import { getTheme } from "utils/helpers";
 
 type TextBlockProps = {
   title: string;
@@ -9,25 +9,23 @@ type TextBlockProps = {
 };
 
 export default function TextBlock(props: TextBlockProps) {
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 18 : 14;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: props.background,
-          borderRadius: spacing,
-          padding: spacing * 1.5,
-          gap: spacing / 2,
-        },
-      ]}
+      style={{
+        backgroundColor: props.background,
+        borderRadius: theme.spacing.base,
+        padding: theme.spacing.small * 2,
+        gap: theme.spacing.base / 2,
+        alignItems: "center",
+      }}
     >
       <Text
         style={{
           fontFamily: "Circular-Bold",
-          fontSize: fontSize,
+          fontSize: theme.fontSize.xSmall,
           color: props.color,
         }}
         allowFontScaling={false}
@@ -36,27 +34,15 @@ export default function TextBlock(props: TextBlockProps) {
       </Text>
 
       <Text
-        style={[
-          styles.text,
-          {
-            fontSize: fontSize,
-            color: props.color,
-          },
-        ]}
+        style={{
+          fontSize: theme.fontSize.small,
+          color: props.color,
+          fontFamily: "Circular-Book",
+          textAlign: "center",
+        }}
       >
         {props.text}
       </Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    alignItems: "center",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

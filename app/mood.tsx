@@ -1,4 +1,4 @@
-import { Pressable, Text, View, ScrollView, StyleSheet, Platform, useColorScheme } from "react-native";
+import { Pressable, Text, View, ScrollView, Platform, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { Image } from "expo-image";
@@ -9,7 +9,8 @@ import TextBlock from "components/mood/TextBlock";
 import Song from "components/Song";
 import Gifs from "components/Gifs";
 import Quote from "components/Quote";
-import { getTheme, pressedDefault } from "utils/helpers";
+import { getTheme, pressedDefault, shuffleArray } from "utils/helpers";
+import { useEffect, useState } from "react";
 
 export default function Mood() {
   const params = useLocalSearchParams<{ name: string }>();
@@ -17,6 +18,7 @@ export default function Mood() {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const [widgets, setWidgets] = useState<React.ReactNode>();
   const mood = MoodsData.filter((item) => item.name === params.name)[0];
   const foreground = mood.id >= 6 && mood.id <= 11 ? "white" : "black";
 
@@ -34,6 +36,18 @@ export default function Mood() {
     11: require("../assets/img/emoji/small/white/red.svg"),
     12: require("../assets/img/emoji/small/black/orange.svg"),
   };
+
+  useEffect(() => {
+    // Add widgets
+    const widgets = [
+      <Song key={1} mood={mood.id} color={mood.name} />,
+      <Gifs key={2} tags={mood.tags} color={mood.name} />,
+      <Quote key={3} tags={mood.tags} color={mood.name} />,
+    ];
+
+    const shuffled = shuffleArray(widgets);
+    setWidgets(<>{shuffled}</>);
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -90,7 +104,7 @@ export default function Mood() {
         <View style={{ alignItems: "center", gap: theme.spacing.base / 2 }}>
           <Image
             source={emojis[mood.id as keyof typeof emojis]}
-            style={{ aspectRatio: "1/1", width: Device.deviceType === 1 ? 64 : 88 }}
+            style={{ aspectRatio: "1/1", width: theme.icon.xxxLarge.size }}
           />
 
           <Text
@@ -106,14 +120,13 @@ export default function Mood() {
         </View>
 
         <Text
-          style={[
-            styles.description,
-            {
-              color: foreground,
-              fontSize: Device.deviceType !== 1 ? 20 : 16,
-              paddingBottom: theme.spacing.base,
-            },
-          ]}
+          style={{
+            color: foreground,
+            fontSize: theme.fontSize.body,
+            paddingBottom: theme.spacing.base,
+            fontFamily: "Circular-Book",
+            textAlign: "center",
+          }}
         >
           {mood.summary}
         </Text>
@@ -132,17 +145,8 @@ export default function Mood() {
           color={mood.color}
         />
 
-        <Song mood={mood.id} />
-        <Gifs tags={mood.tags} />
-        <Quote tags={mood.tags} />
+        {widgets}
       </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  description: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

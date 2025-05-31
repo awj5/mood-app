@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
@@ -14,36 +14,33 @@ import HeaderTitle from "components/HeaderTitle";
 import Bg from "components/Bg";
 import Button from "components/Button";
 import { CompanyCheckInType } from "types";
-import { getStoredVal, theme } from "utils/helpers";
+import { getStoredVal, getTheme } from "utils/helpers";
 import { getMonday } from "utils/dates";
 
 export default function Company() {
-  const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [hasAccess, setHasAccess] = useState(false);
   const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
   const [company, setCompany] = useState("");
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-
-  const checkAccess = async () => {
-    const uuid = await getStoredVal("uuid");
-    const name = await getStoredVal("company-name");
-    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
-    if (name) setCompany(name);
-    if (uuid && name && send) setHasAccess(true);
-  };
 
   useEffect(() => {
-    checkAccess();
+    (async () => {
+      const uuid = await getStoredVal("uuid"); // Is customer employee
+      const name = await getStoredVal("company-name");
+      const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
+      if (name) setCompany(name);
+      if (uuid && name && send) setHasAccess(true);
+    })();
 
-    // Always set date to past 30 days on mount (UTC)
+    // Always set date range to past 90 days on mount (UTC)
     const today = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
     today.setHours(0, 0, 0, 0);
-    const daysAgo = new Date();
-    daysAgo.setHours(0, 0, 0, 0);
+    const daysAgo = new Date(today);
     daysAgo.setDate(today.getDate() - 90);
 
     setCompanyDates({
@@ -67,17 +64,13 @@ export default function Company() {
             <HeaderBackButton
               onPress={() => router.back()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-              tintColor={colors.link}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
+              tintColor={theme.color.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
           ),
-          headerRight: () => (
-            <View style={{ display: !hasAccess ? "none" : "flex" }}>
-              <HeaderDates dates={companyDates} type="company" />
-            </View>
-          ),
+          headerRight: () => (hasAccess ? <HeaderDates dates={companyDates} type="company" /> : null),
         }}
       />
 
@@ -86,13 +79,13 @@ export default function Company() {
           <Bg checkIns={checkIns} topOffset={Device.deviceType === 1 ? 96 : 128} />
 
           <View style={{ flex: 1, marginTop: headerHeight }}>
-            <View style={styles.header}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
               <HeaderTitle text={company} />
 
               <View
                 style={{
-                  paddingRight: spacing,
-                  paddingTop: spacing,
+                  paddingRight: theme.spacing.base,
+                  paddingTop: theme.spacing.base,
                 }}
               >
                 <Button
@@ -116,10 +109,3 @@ export default function Company() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-});

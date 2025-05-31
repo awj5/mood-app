@@ -1,46 +1,42 @@
-import { StyleSheet, View, Text, Share } from "react-native";
-import * as Device from "expo-device";
-import { ShareIcon, ChartSpline } from "lucide-react-native";
+import { View, Text, useColorScheme, Linking } from "react-native";
+import { ChartSpline, Info } from "lucide-react-native";
 import Button from "components/Button";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 export default function Upsell() {
-  const colors = theme();
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-
-  const share = async () => {
-    try {
-      await Share.share({
-        message: "Ready to turn emotion into action? https://www.mood.ai",
-      });
-    } catch (error) {
-      console.error("Error sharing:", error);
-    }
-  };
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          paddingHorizontal: spacing * 1.5,
-          backgroundColor: colors.secondaryBg,
-        },
-      ]}
+      style={{
+        backgroundColor: theme.color.secondaryBg,
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
-      <View style={[styles.wrapper, { gap: spacing }]}>
+      <View
+        style={{
+          gap: theme.spacing.base,
+          maxWidth: 768,
+          width: "100%",
+          paddingHorizontal: theme.spacing.small * 2,
+          alignItems: "center",
+        }}
+      >
         <ChartSpline
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 88 : 64}
+          color={theme.color.primary}
+          size={theme.icon.xxxLarge.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
+          strokeWidth={theme.icon.xxxLarge.stroke}
         />
 
         <Text
           style={{
             fontFamily: "Circular-Black",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 36 : 30,
+            color: theme.color.primary,
+            fontSize: theme.fontSize.xxLarge,
           }}
           allowFontScaling={false}
         >
@@ -48,45 +44,27 @@ export default function Upsell() {
         </Text>
 
         <Text
-          style={[
-            styles.text,
-            {
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 20 : 16,
-            },
-          ]}
+          style={{
+            color: theme.color.primary,
+            fontSize: theme.fontSize.body,
+            fontFamily: "Circular-Book",
+            textAlign: "center",
+          }}
           allowFontScaling={false}
         >
-          Using anonymous mood check-ins, <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> provides you and
-          your company with <Text style={{ fontFamily: "Circular-Bold" }}>real-time insights</Text> into overall
-          workplace wellbeing trends. It's a game-changer for building a more supportive and psychologically safe work
-          culture—<Text style={{ fontFamily: "Circular-Bold" }}>all while ensuring maximum privacy</Text>.{"\n\n"}Think
-          your company could be more transparent about its commitment to emotional wellbeing?
+          Using anonymous mood check-ins, <Text style={{ fontFamily: "Circular-Black" }}>MOOD</Text>.ai gives you and
+          your company <Text style={{ fontFamily: "Circular-Bold" }}>real-time insights</Text> into workplace wellbeing
+          trends.{"\n\n"}Could your company be more transparent about emotional wellbeing?
         </Text>
 
-        <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
-          <Button func={share} icon={ShareIcon} fill large>
-            Share now
+        <View
+          style={{ width: "100%", maxWidth: 512, paddingHorizontal: theme.spacing.base, marginTop: theme.spacing.base }}
+        >
+          <Button func={() => Linking.openURL("https://mood.ai")} gradient fill large icon={Info}>
+            Learn more
           </Button>
         </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  wrapper: {
-    maxWidth: 768 - 72,
-    alignItems: "center",
-    width: "100%",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

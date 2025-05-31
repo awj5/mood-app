@@ -22,6 +22,7 @@ type SongProps = {
   checkIns?: CheckInType[];
   dates?: CalendarDatesType;
   mood?: number;
+  color?: string;
 };
 
 export default function Song(props: SongProps) {
@@ -85,7 +86,7 @@ export default function Song(props: SongProps) {
           }}
           allowFontScaling={false}
         >
-          MOOD MUSIC
+          {`${props.color ? props.color.toUpperCase() : "MOOD"} MUSIC`}
         </Text>
 
         <View style={{ flexDirection: "row", gap: theme.spacing.small * 2 }}>

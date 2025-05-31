@@ -42,8 +42,7 @@ export default function Shortcuts(props: ShortcutsProps) {
   };
 
   const setPrevDays = (days: number) => {
-    const daysAgo = new Date();
-    daysAgo.setHours(0, 0, 0, 0);
+    const daysAgo = new Date(today);
     daysAgo.setDate(today.getDate() - days);
 
     props.setDates({

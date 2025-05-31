@@ -19,6 +19,7 @@ type QuoteProps = {
   checkIns?: CheckInType[];
   dates?: CalendarDatesType;
   tags?: number[];
+  color?: string;
 };
 
 export default function Quote(props: QuoteProps) {
@@ -82,7 +83,7 @@ export default function Quote(props: QuoteProps) {
           }}
           allowFontScaling={false}
         >
-          WORDS OF WISDOM
+          {props.color ? `${props.color.toUpperCase()} WORDS` : "WORDS OF WISDOM"}
         </Text>
 
         {/*<Pressable onPress={() => alert("Coming soon")} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>

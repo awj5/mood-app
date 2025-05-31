@@ -18,6 +18,7 @@ type GifsProps = {
   checkIns?: CheckInType[];
   dates?: CalendarDatesType;
   tags?: number[];
+  color?: string;
 };
 
 export default function Gifs(props: GifsProps) {
@@ -96,7 +97,7 @@ export default function Gifs(props: GifsProps) {
           }}
           allowFontScaling={false}
         >
-          RELATABLE MEMES
+          {`${props.color ? props.color.toUpperCase() : "RELATABLE"} MEMES`}
         </Text>
 
         <Pressable
