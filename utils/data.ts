@@ -22,9 +22,9 @@ export const requestAIResponse = async (
         type: type,
         message: message,
         loc: localization[0].languageTag,
-        ...(uuid !== undefined && uuid != null && { uuid: uuid }),
-        ...(proID !== undefined && proID != null && { proid: proID }),
-        ...(category !== undefined && { category: category }),
+        ...(uuid && uuid != null && { uuid: uuid }),
+        ...(proID && proID != null && { proid: proID }),
+        ...(category && { category: category }),
       }
     );
 

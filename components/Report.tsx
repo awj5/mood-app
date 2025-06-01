@@ -48,7 +48,7 @@ export default function Report(props: ReportProps) {
           {
             uuid: uuid,
             hash: hash,
-            ...(props.category !== undefined && { category: props.category }),
+            ...(props.category && { category: props.category }),
           }
         );
 

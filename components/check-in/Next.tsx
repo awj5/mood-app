@@ -1,12 +1,12 @@
 import { useContext, useEffect, useRef } from "react";
-import { StyleSheet, Pressable } from "react-native";
-import * as Device from "expo-device";
+import { Pressable, useColorScheme } from "react-native";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   Easing,
   SharedValue,
   useAnimatedReaction,
+  useAnimatedStyle,
   useSharedValue,
   withDelay,
   withTiming,
@@ -14,21 +14,27 @@ import Animated, {
 import { CircleArrowRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { MoodType } from "app/check-in";
-import { theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type NextProps = {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
-  color?: string;
+  wheelSize: number;
+  foreground?: string;
   disabled?: boolean;
   mood?: SharedValue<MoodType>;
 };
 
 export default function Next(props: NextProps) {
-  const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const colors = theme();
-  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const opacity = useSharedValue(0);
   const fadedInRef = useRef(false);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   const press = () => {
     if (opacity.value > 0.25) {
@@ -37,22 +43,10 @@ export default function Next(props: NextProps) {
     }
   };
 
-  const pressIn = () => {
-    if (opacity.value === 1) {
-      opacity.value = 0.3;
-    }
-  };
-
-  const pressOut = () => {
-    if (opacity.value > 0.25) {
-      opacity.value = 1;
-    }
-  };
-
   useAnimatedReaction(
     () => props.mood && props.mood.value,
-    (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue?.color && opacity.value > 0 && !fadedInRef.current) {
+    (currentVal, previousVal) => {
+      if (currentVal !== previousVal && currentVal?.color && opacity.value > 0 && !fadedInRef.current) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
         fadedInRef.current = true;
       }
@@ -73,45 +67,38 @@ export default function Next(props: NextProps) {
   return (
     <Animated.View
       style={[
-        styles.container,
-        dimensions.width > dimensions.height ? styles.landscape : styles.portrait,
+        animatedStyles,
         {
-          opacity,
           paddingBottom: insets.bottom,
-          zIndex: props.color !== undefined ? 1 : 0,
+          zIndex: props.foreground ? 1 : 0,
+          position: "absolute",
+          justifyContent: "center",
         },
         dimensions.width > dimensions.height
-          ? { paddingLeft: Device.deviceType !== 1 ? 224 : 152, paddingTop: insets.top }
-          : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
+          ? {
+              paddingLeft: props.wheelSize / 2,
+              paddingTop: insets.top,
+              height: "100%",
+              width: "50%",
+              right: 0,
+              alignItems: "center",
+            }
+          : { paddingTop: props.wheelSize / 2, bottom: 0, height: "50%" },
       ]}
       pointerEvents="box-none"
     >
-      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
+      <Pressable
+        onPress={press}
+        style={({ pressed }) => (opacity.value === 1 ? pressedDefault(pressed) : null)}
+        hitSlop={8}
+      >
         <CircleArrowRight
-          color={props.color !== undefined ? props.color : colors.primary}
-          size={Device.deviceType !== 1 ? 88 : 64}
+          color={props.foreground ? props.foreground : theme.color.primary}
+          size={theme.icon.xxxLarge.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
+          strokeWidth={theme.icon.xxxLarge.stroke}
         />
       </Pressable>
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    justifyContent: "center",
-    opacity: 0,
-  },
-  portrait: {
-    bottom: 0,
-    height: "50%",
-  },
-  landscape: {
-    height: "100%",
-    width: "50%",
-    right: 0,
-    alignItems: "center",
-  },
-});

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react";
-import { StyleSheet, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { Image } from "expo-image";
 import * as Haptics from "expo-haptics";
 import * as Device from "expo-device";
@@ -10,6 +10,7 @@ import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 type WheelProps = {
   rotation: SharedValue<number>;
   longPress: () => void;
+  wheelSize: number;
 };
 
 export default function Wheel(props: WheelProps) {
@@ -17,20 +18,16 @@ export default function Wheel(props: WheelProps) {
   const previousRotation = useSharedValue(0);
   const startAngle = useSharedValue(0);
   const hasRotated = useSharedValue(false);
-  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const pressRotationRef = useRef(0);
-  const size = Device.deviceType !== 1 ? 448 : 304; // Smaller on phones
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${props.rotation.value}deg` }],
+    opacity: opacity.value,
+  }));
 
   const pressIn = () => {
     pressRotationRef.current = props.rotation.value;
-  };
-
-  const longPress = () => {
-    if (hasRotated.value) {
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-      pressRotationRef.current = 0; // Reset to cancel regular press
-      props.longPress();
-    }
   };
 
   const pressOut = (event: any) => {
@@ -38,18 +35,18 @@ export default function Wheel(props: WheelProps) {
 
     // If angle hasn't changed (not panned)
     if (pressRotationRef.current === props.rotation.value) {
-      const section = size / 5;
+      const section = props.wheelSize / 5;
       let newAngle: number | undefined;
 
       switch (true) {
         case locationX < section && locationY < section * 2:
-          newAngle = 60; // Chartreuse
+          newAngle = 60; // Lime
           break;
         case locationX < section && locationY < section * 3:
           newAngle = 90; // Green
           break;
         case locationX < section && locationY >= section * 3:
-          newAngle = 120; // Spring green
+          newAngle = 120; // Mint
           break;
         case locationX < section * 2 && locationY >= section * 4:
           newAngle = 150; // Cyan
@@ -61,13 +58,13 @@ export default function Wheel(props: WheelProps) {
           newAngle = 210; // Blue
           break;
         case locationX >= section * 4 && locationY >= section * 3:
-          newAngle = 240; // Dark violet
+          newAngle = 240; // Violet
           break;
         case locationX >= section * 4 && locationY >= section * 2:
           newAngle = 270; // Plum
           break;
         case locationX >= section * 4 && locationY >= section:
-          newAngle = 300; // Dark rose
+          newAngle = 300; // Maroon
           break;
         case locationX >= section * 3 && locationY < section:
           newAngle = 330; // Red
@@ -85,11 +82,7 @@ export default function Wheel(props: WheelProps) {
       if (newAngle !== undefined) {
         // Calculate the shortest path for rotation
         let delta = newAngle - props.rotation.value;
-
-        if (delta < 0) {
-          delta += 360;
-        }
-
+        if (delta < 0) delta += 360;
         const shortestDelta = delta > 180 ? delta - 360 : delta; // Backward or forward
         newAngle = props.rotation.value + shortestDelta;
         previousRotation.value = newAngle;
@@ -113,21 +106,23 @@ export default function Wheel(props: WheelProps) {
     }
   };
 
+  const longPress = () => {
+    if (hasRotated.value) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      pressRotationRef.current = 0; // Reset to cancel regular press
+      props.longPress();
+    }
+  };
+
   const pan = Gesture.Pan()
     .onBegin((e) => {
-      if (opacity.value !== 1) {
-        return; // Not faded in yet
-      }
-
+      if (opacity.value !== 1) return; // Not faded in yet
       const deltaX = e.absoluteX - dimensions.width / 2;
       const deltaY = e.absoluteY - dimensions.height / 2;
       startAngle.value = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convert to degrees
     })
     .onUpdate((e) => {
-      if (opacity.value !== 1) {
-        return; // Not faded in yet
-      }
-
+      if (opacity.value !== 1) return; // Not faded in yet
       const deltaX = e.absoluteX - dimensions.width / 2;
       const deltaY = e.absoluteY - dimensions.height / 2;
       const currentAngle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convert to degrees
@@ -144,20 +139,13 @@ export default function Wheel(props: WheelProps) {
       if (Device.deviceType === 1 || Device.deviceType === 2) props.rotation.value = newRotation; // Only on touch devices
     })
     .onEnd(() => {
-      if (opacity.value !== 1) {
-        return; // Not faded in yet
-      }
+      if (opacity.value !== 1) return; // Not faded in yet
 
       if (Device.deviceType === 1 || Device.deviceType === 2) {
         previousRotation.value = props.rotation.value; // Only on touch devices
         hasRotated.value = true;
       }
     });
-
-  const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${props.rotation.value}deg` }],
-    opacity: opacity.value,
-  }));
 
   useEffect(() => {
     // Animate in
@@ -173,28 +161,17 @@ export default function Wheel(props: WheelProps) {
       <Animated.View
         style={[
           animatedStyles,
-          styles.wheel,
           {
-            width: size + 48, // Padding
-            height: size + 48, // Padding
+            width: props.wheelSize + 48, // Include padding
+            height: props.wheelSize + 48, // Include padding
+            padding: 24,
           },
         ]}
       >
         <Pressable onPressIn={pressIn} onPressOut={pressOut} onLongPress={longPress} hitSlop={16}>
-          <Image source={require("../../assets/img/check-in-wheel.png")} style={styles.image} />
+          <Image source={require("../../assets/img/check-in-wheel.png")} style={{ width: "100%", height: "100%" }} />
         </Pressable>
       </Animated.View>
     </GestureDetector>
   );
 }
-
-const styles = StyleSheet.create({
-  wheel: {
-    opacity: 0,
-    padding: 24,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-});

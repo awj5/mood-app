@@ -1,23 +1,29 @@
 import { useContext, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type HeadingProps = {
   text: string;
+  wheelSize: number;
   description?: string;
   delay?: number;
-  color?: string;
+  foreground?: string;
 };
 
 export default function Heading(props: HeadingProps) {
   const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   useEffect(() => {
     opacity.value = withDelay(
@@ -29,79 +35,57 @@ export default function Heading(props: HeadingProps) {
   return (
     <Animated.View
       style={[
-        styles.container,
-        dimensions.width > dimensions.height ? styles.landscape : styles.portrait,
+        animatedStyles,
         {
-          opacity,
           paddingTop: insets.top,
-          zIndex: props.color !== undefined ? 1 : 0,
+          zIndex: props.foreground ? 1 : 0,
+          position: "absolute",
+          justifyContent: "center",
+          alignItems: "center",
+          paddingHorizontal: theme.spacing.base,
+          gap: theme.spacing.base / 2,
         },
         dimensions.width > dimensions.height
-          ? { paddingRight: Device.deviceType !== 1 ? 224 : 152, paddingBottom: insets.bottom }
-          : { paddingBottom: Device.deviceType !== 1 ? 224 : 152 },
+          ? {
+              paddingRight: props.wheelSize / 2 + theme.spacing.base,
+              paddingBottom: insets.bottom,
+              height: "100%",
+              width: "50%",
+              left: 0,
+            }
+          : {
+              paddingBottom: props.wheelSize / 2,
+              height: "50%",
+              top: 0,
+              maxWidth: Device.deviceType === 1 ? 320 : 512,
+            },
       ]}
     >
-      <View
+      <Text
         style={{
-          alignItems: "center",
-          paddingHorizontal: Device.deviceType !== 1 ? 24 : 16,
-          gap: Device.deviceType !== 1 ? 12 : 8,
-          maxWidth: Device.deviceType !== 1 ? 512 : 320,
+          color: props.foreground ? props.foreground : theme.color.primary,
+          fontSize: theme.fontSize.xxLarge,
+          fontFamily: "Circular-Black",
+          textAlign: "center",
         }}
+        allowFontScaling={false}
       >
+        {props.text}
+      </Text>
+
+      {props.description && (
         <Text
-          style={[
-            styles.text,
-            {
-              color: props.color !== undefined ? props.color : colors.primary,
-              fontSize: Device.deviceType !== 1 ? (dimensions.width > dimensions.height ? 36 : 48) : 30,
-            },
-          ]}
+          style={{
+            color: props.foreground ? props.foreground : theme.color.primary,
+            fontSize: theme.fontSize.large,
+            fontFamily: "Circular-Book",
+            textAlign: "center",
+          }}
           allowFontScaling={false}
         >
-          {props.text}
+          {props.description}
         </Text>
-
-        {props.description && (
-          <Text
-            style={[
-              styles.description,
-              {
-                color: props.color !== undefined ? props.color : colors.primary,
-                fontSize: Device.deviceType !== 1 ? 24 : 18,
-              },
-            ]}
-            allowFontScaling={false}
-          >
-            {props.description}
-          </Text>
-        )}
-      </View>
+      )}
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    justifyContent: "center",
-    opacity: 0,
-  },
-  portrait: {
-    height: "50%",
-    top: 0,
-  },
-  landscape: {
-    height: "100%",
-    width: "50%",
-    left: 0,
-  },
-  text: {
-    fontFamily: "Circular-Black",
-    textAlign: "center",
-  },
-  description: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

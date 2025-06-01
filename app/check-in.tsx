@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { useCallback, useEffect, useState, useRef } from "react";
-import { View, StyleSheet } from "react-native";
+import { useColorScheme, View } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
+import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { getLocales } from "expo-localization";
 import axios from "axios";
@@ -21,7 +22,7 @@ import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
 import { CheckInType, CheckInMoodType } from "types";
-import { getStoredVal, removeAccess, removeStoredVal, setStoredVal, theme } from "utils/helpers";
+import { getStoredVal, removeAccess, removeStoredVal, setStoredVal } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 export type MoodType = {
@@ -44,9 +45,9 @@ export type CompetencyType = {
 };
 
 export default function CheckIn() {
+  const colorScheme = useColorScheme();
   const db = useSQLiteContext();
   const router = useRouter();
-  const colors = theme();
   const localization = getLocales();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
@@ -63,6 +64,7 @@ export default function CheckIn() {
   const [categories, setCategories] = useState<number[]>([]);
   const [focusedCategory, setFocusedCategory] = useState(0);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
+  const wheelSize = Device.deviceType === 1 ? 304 : 448; // Smaller on phones
 
   const longPress = () => {
     router.push({
@@ -199,14 +201,6 @@ export default function CheckIn() {
     }
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      if (mood.value.id && isMountedRef.current) router.dismiss(); // Already checked in. Go back to home
-      checkFirstCheckIn();
-      isMountedRef.current = true;
-    }, [])
-  );
-
   useEffect(() => {
     setSelectedMood(mood.value);
     setForegroundColor((rotation.value >= 0 && rotation.value < 165) || rotation.value >= 345 ? "black" : "white");
@@ -218,20 +212,29 @@ export default function CheckIn() {
     getCategories();
   }, []);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (mood.value.id && isMountedRef.current) router.dismiss(); // Already checked in. Go back to home
+      checkFirstCheckIn();
+      isMountedRef.current = true;
+    }, [])
+  );
+
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Stack.Screen
         options={{
           headerShown: false,
           animation: "none",
           contentStyle: {
-            backgroundColor: colors.primary === "white" ? "black" : "white",
+            backgroundColor: colorScheme === "light" ? "white" : "black",
           },
         }}
       />
 
       <Heading
         text="How's work?"
+        wheelSize={wheelSize}
         description={
           isFirstCheckIn
             ? `Start your first check-in by choosing a mood ${
@@ -242,22 +245,28 @@ export default function CheckIn() {
         delay={1000}
       />
 
-      <Instructions />
+      <Instructions wheelSize={wheelSize} />
       <Background showTags={showTags} mood={mood} />
-      <Wheel rotation={rotation} longPress={longPress} />
-      <Emoji showTags={showTags} mood={mood} />
-      <Next setState={setShowTags} disabled mood={mood} />
+      <Wheel rotation={rotation} longPress={longPress} wheelSize={wheelSize} />
+      <Emoji showTags={showTags} mood={mood} wheelSize={wheelSize} />
+      <Next setState={setShowTags} disabled mood={mood} wheelSize={wheelSize} />
 
       {showTags && (
         <>
           <Heading
             text="How do you feel right now?"
+            wheelSize={wheelSize}
             description={isFirstCheckIn ? "Select at least one word" : ""}
             delay={500}
-            color={foregroundColor}
+            foreground={foregroundColor}
           />
 
-          <Next setState={setShowStatement} color={foregroundColor} disabled={selectedTags.length ? false : true} />
+          <Next
+            setState={setShowStatement}
+            foreground={foregroundColor}
+            disabled={selectedTags.length ? false : true}
+            wheelSize={wheelSize}
+          />
 
           <Tags
             tags={selectedMood.tags}
@@ -269,7 +278,7 @@ export default function CheckIn() {
           {showStatement && (
             <>
               <BackgroundOverlay color={selectedMood.color} sliderVal={sliderVal} competency={competency} />
-              <Heading text="Do you agree with this statement?" color={foregroundColor} />
+              <Heading wheelSize={wheelSize} text="Do you agree with this statement?" foreground={foregroundColor} />
               <Done color={foregroundColor} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
 
               <Statement
@@ -286,18 +295,9 @@ export default function CheckIn() {
             </>
           )}
 
-          <Close setShowTags={setShowTags} setShowStatement={setShowStatement} color={foregroundColor} />
+          <Close setShowTags={setShowTags} setShowStatement={setShowStatement} foreground={foregroundColor} />
         </>
       )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-});

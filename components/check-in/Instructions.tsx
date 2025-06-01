@@ -1,13 +1,21 @@
 import { useEffect } from "react";
-import { StyleSheet, Text, Dimensions } from "react-native";
-import * as Device from "expo-device";
-import Animated, { Easing, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
-import { theme } from "utils/helpers";
+import { Text, Dimensions, useColorScheme } from "react-native";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import { getTheme } from "utils/helpers";
 
-export default function Instructions() {
-  const opacity = useSharedValue(0);
-  const colors = theme();
+type InstructionsProps = {
+  wheelSize: number;
+};
+
+export default function Instructions(props: InstructionsProps) {
   const height = Dimensions.get("screen").height;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const opacity = useSharedValue(0);
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   useEffect(() => {
     opacity.value = withDelay(1500, withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) }));
@@ -16,34 +24,25 @@ export default function Instructions() {
   return (
     <Animated.View
       style={[
-        styles.container,
-        { opacity, marginTop: Device.deviceType !== 1 ? 224 + 28 : height <= 667 ? 152 + 12 : 152 + 20 },
+        animatedStyles,
+        {
+          marginTop: props.wheelSize / 2 + (height <= 667 ? theme.spacing.small : theme.spacing.base),
+          position: "absolute",
+          top: "50%",
+        },
       ]}
     >
       <Text
-        style={[
-          styles.text,
-          {
-            color: colors.secondary,
-            fontSize: Device.deviceType !== 1 ? 20 : 16,
-          },
-        ]}
+        style={{
+          color: theme.color.secondary,
+          fontSize: theme.fontSize.body,
+          fontFamily: "Circular-Book",
+          textAlign: "center",
+        }}
         allowFontScaling={false}
       >
-        {"Rotate the wheel to select your mood\nand long press the emoji to learn more"}
+        {"Rotate the wheel to select your mood\nand long press to learn more"}
       </Text>
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    top: "50%",
-    opacity: 0,
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

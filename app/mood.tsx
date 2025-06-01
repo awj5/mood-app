@@ -1,6 +1,5 @@
 import { Pressable, Text, View, ScrollView, Platform, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton } from "@react-navigation/elements";

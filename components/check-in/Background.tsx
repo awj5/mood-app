@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { StyleSheet } from "react-native";
 import * as Device from "expo-device";
 import * as Haptics from "expo-haptics";
 import Animated, {
@@ -39,9 +38,9 @@ export default function Background(props: BackgroundProps) {
 
   useAnimatedReaction(
     () => props.mood.value,
-    (currentValue, previousValue) => {
-      if (currentValue !== previousValue && currentValue.color && opacity.value === 1) {
-        backgroundColor.value = withTiming(currentValue.color, { duration: 200, easing: Easing.linear });
+    (currentVal, previousVal) => {
+      if (currentVal !== previousVal && currentVal.color && opacity.value === 1) {
+        backgroundColor.value = withTiming(currentVal.color, { duration: 200, easing: Easing.linear });
         runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Light);
       }
     }
@@ -49,18 +48,16 @@ export default function Background(props: BackgroundProps) {
 
   useEffect(() => {
     if (props.showTags) {
-      // Expand background fullscreen
+      // Expand fullscreen
       const fullscreen = dimensions.width > dimensions.height ? dimensions.width : dimensions.height;
       width.value = withTiming(fullscreen, { duration: 500, easing: Easing.out(Easing.cubic) });
       height.value = withTiming(fullscreen, { duration: 500, easing: Easing.out(Easing.cubic) });
       borderRadius.value = withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) });
     } else {
-      // Reset
-      runOnJS(() => {
-        width.value = size;
-        height.value = size;
-        borderRadius.value = 999;
-      })();
+      // Init/reset
+      width.value = size;
+      height.value = size;
+      borderRadius.value = 999;
     }
   }, [props.showTags]);
 
@@ -68,12 +65,5 @@ export default function Background(props: BackgroundProps) {
     opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
-  return <Animated.View style={[styles.container, animatedStyles, { zIndex: props.showTags ? 1 : 0 }]} />;
+  return <Animated.View style={[animatedStyles, { zIndex: props.showTags ? 1 : 0, position: "absolute" }]} />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    opacity: 0,
-  },
-});
