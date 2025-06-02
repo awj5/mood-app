@@ -108,7 +108,7 @@ export default function CheckIn() {
           alert("Access denied.");
         }
 
-        console.log(error);
+        console.error(error);
       }
     }
   };

@@ -57,17 +57,18 @@ export default function Statement(props: StatementProps) {
   const setStatement = async () => {
     let competencies: number[] = [];
 
+    // Company may limit available categories
     const companyCompetencies: number[] = props.categories.length
       ? competenciesData[0].competencies
           .filter((item) => props.categories.some((cat) => Math.trunc(item.id) === cat))
           .map((item) => item.id)
       : [];
 
-    const tagTypes = [];
+    const tagTypes = []; // Pos or neg
     let companyRandom = false;
 
     if (props.focusedCategory) {
-      const focused = await getStoredVal("focused-statement");
+      const focused = await getStoredVal("focused-statement"); // Last statement shown
 
       if (focused && Math.floor(Number(focused)) === props.focusedCategory) {
         // Continue category
@@ -79,8 +80,8 @@ export default function Statement(props: StatementProps) {
           competencies.push(next);
         } else {
           // Not more statements in category
-          props.setFocusedCategory(0); // Prevent statement from being stored
-          companyRandom = true;
+          props.setFocusedCategory(0); // Prevent statement from being stored on submit
+          companyRandom = true; // Can show any competency in company available categories
         }
       } else {
         // Start category

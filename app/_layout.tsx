@@ -81,6 +81,8 @@ export default function Layout() {
             setStoredVal("uuid", queryParams.uuid as string); // Store UUID
             setStoredVal("company-name", response.data); // Store company name
             removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
+            removeStoredVal("send-check-ins");
+            removeStoredVal("admin");
             setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
 
             Alert.alert(
