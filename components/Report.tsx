@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Text, Pressable, Alert, useColorScheme } from "react-native";
 import { useSQLiteContext } from "expo-sqlite";
+import * as Device from "expo-device";
 import axios from "axios";
 import { Flag } from "lucide-react-native";
 import { CheckInType, CompanyCheckInType } from "types";
@@ -21,6 +22,7 @@ export default function Report(props: ReportProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const [reported, setReported] = useState(false);
+  const isSimulator = Device.isDevice === false;
 
   const deleteInsightsData = async (ids: number[], hash: string) => {
     const uuid = await getStoredVal("uuid");
@@ -42,7 +44,7 @@ export default function Report(props: ReportProps) {
       // Company check-ins
       try {
         await axios.post(
-          !__DEV__
+          !isSimulator
             ? "https://mood-web-zeta.vercel.app/api/insights/delete"
             : "http://localhost:3000/api/insights/delete",
           {
@@ -88,9 +90,12 @@ export default function Report(props: ReportProps) {
 
     // Send email to team
     try {
-      await axios.post(!__DEV__ ? "https://mood-web-zeta.vercel.app/api/report" : "http://localhost:3000/api/report", {
-        text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text, // Redact user's name
-      });
+      await axios.post(
+        !isSimulator ? "https://mood-web-zeta.vercel.app/api/report" : "http://localhost:3000/api/report",
+        {
+          text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text, // Redact user's name
+        }
+      );
     } catch (error) {
       console.error(error);
     }

@@ -63,6 +63,7 @@ export default function CheckIn() {
   const [focusedCategory, setFocusedCategory] = useState(0);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
   const wheelSize = Device.deviceType === 1 ? 304 : 448; // Smaller on phones
+  const isSimulator = Device.isDevice === false;
 
   const longPress = () => {
     router.push({
@@ -91,7 +92,7 @@ export default function CheckIn() {
     if (uuid && send) {
       try {
         const response = await axios.post(
-          !__DEV__ ? `https://mood-web-zeta.vercel.app/api/categories` : `http://localhost:3000/api/categories`,
+          !isSimulator ? `https://mood-web-zeta.vercel.app/api/categories` : `http://localhost:3000/api/categories`,
           {
             uuid: uuid,
           }

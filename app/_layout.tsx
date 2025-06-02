@@ -44,6 +44,7 @@ export default function Layout() {
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
+  const isSimulator = Device.isDevice === false;
 
   const [fontsLoaded, fontsError] = useFonts({
     "Circular-Black": require("../assets/fonts/lineto-circular-black.ttf"),
@@ -70,7 +71,7 @@ export default function Layout() {
         // Validate UUID
         try {
           const response = await axios.post(
-            !__DEV__ ? "https://mood-web-zeta.vercel.app/api/uuid" : "http://localhost:3000/api/uuid",
+            !isSimulator ? "https://mood-web-zeta.vercel.app/api/uuid" : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
             }

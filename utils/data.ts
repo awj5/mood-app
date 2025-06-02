@@ -1,5 +1,6 @@
 import * as Crypto from "expo-crypto";
 import { getLocales } from "expo-localization";
+import * as Device from "expo-device";
 import axios from "axios";
 import tagsData from "data/tags.json";
 import competenciesData from "data/competencies.json";
@@ -14,10 +15,11 @@ export const requestAIResponse = async (
   category?: number
 ) => {
   const localization = getLocales();
+  const isSimulator = Device.isDevice === false;
 
   try {
     const response = await axios.post(
-      !__DEV__ ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
+      !isSimulator ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
       {
         type: type,
         message: message,

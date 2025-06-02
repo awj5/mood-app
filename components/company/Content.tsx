@@ -43,6 +43,7 @@ export default function Content(props: ContentProps) {
   const spacing = Device.deviceType !== 1 ? 24 : 16;
   const smallSpacing = Device.deviceType !== 1 ? 6 : 4;
   const fontSize = Device.deviceType !== 1 ? 20 : 16;
+  const isSimulator = Device.isDevice === false;
 
   const getCheckInData = async (uuid: string) => {
     const start = companyDates.rangeStart ? companyDates.rangeStart : companyDates.weekStart;
@@ -56,7 +57,7 @@ export default function Content(props: ContentProps) {
 
     try {
       const response = await axios.post(
-        !__DEV__ ? "https://mood-web-zeta.vercel.app/api/check-ins" : "http://localhost:3000/api/check-ins",
+        !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-ins" : "http://localhost:3000/api/check-ins",
         {
           uuid: uuid,
           start: convertToISO(start),

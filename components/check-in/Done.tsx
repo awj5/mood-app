@@ -1,5 +1,6 @@
 import { useSQLiteContext } from "expo-sqlite";
 import { useRouter } from "expo-router";
+import * as Device from "expo-device";
 import { SharedValue } from "react-native-reanimated";
 import axios from "axios";
 import Next from "./Next";
@@ -21,6 +22,7 @@ type DoneProps = {
 export default function Done(props: DoneProps) {
   const db = useSQLiteContext();
   const router = useRouter();
+  const isSimulator = Device.isDevice === false;
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
@@ -40,7 +42,7 @@ export default function Done(props: DoneProps) {
           // Save to Supabase
           try {
             await axios.post(
-              !__DEV__ ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
+              !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
               {
                 uuid: uuid,
                 value: checkIn,
