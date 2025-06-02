@@ -15,7 +15,7 @@ export default function Message(props: MessageProps) {
       style={{
         margin: theme.spacing.base,
         paddingHorizontal: theme.spacing.base,
-        paddingVertical: theme.spacing.base / 2,
+        paddingVertical: theme.spacing.small,
         backgroundColor: theme.color.secondaryBg,
         borderRadius: theme.spacing.small * 2,
         alignSelf: "flex-end",

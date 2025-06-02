@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pressable, Text, View, useColorScheme } from "react-native";
+import { Pressable, Text, View, useColorScheme, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
@@ -51,7 +51,8 @@ export default function HeaderDates(props: HeaderDatesProps) {
         style={{
           backgroundColor: props.dates.rangeStart ? theme.color.link : "transparent",
           paddingHorizontal: props.dates.rangeStart ? theme.spacing.small : 0,
-          height: Device.deviceType === 1 ? 32 : 40,
+          paddingTop: Platform.OS === "ios" ? theme.spacing.base / 2 : theme.spacing.small / 2,
+          paddingBottom: theme.spacing.small / 2,
           justifyContent: "center",
           borderRadius: 999,
         }}

@@ -38,7 +38,7 @@ export const getTheme = (colorScheme: string | null | undefined) => {
     },
 
     icon: {
-      xSmall: { size: isPhone ? 12 : 16, stroke: isPhone ? 1 : 1.5 },
+      xSmall: { size: isPhone ? 12 : 16, stroke: isPhone ? 1 : 1 },
       small: { size: isPhone ? 16 : 20, stroke: isPhone ? 1 : 1.5 },
       base: { size: isPhone ? 20 : 28, stroke: isPhone ? 1.5 : 2 },
       large: { size: isPhone ? 24 : 32, stroke: isPhone ? 2 : 2.5 },

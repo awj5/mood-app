@@ -111,7 +111,7 @@ export default function Header(props: HeaderProps) {
 
       <Pressable onPress={confirm} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
         <Trash2
-          color={theme.color.opaque}
+          color={theme.color.primary}
           size={theme.icon.base.size}
           absoluteStrokeWidth
           strokeWidth={theme.icon.base.stroke}
