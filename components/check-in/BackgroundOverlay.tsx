@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import Animated, { SharedValue, useAnimatedReaction, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 import { CompetencyType } from "app/check-in";
 
@@ -14,10 +14,10 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
 
   useAnimatedReaction(
     () => props.sliderVal.value,
-    (currentValue, previousValue) => {
-      if (currentValue !== previousValue) {
+    (currentVal, previousVal) => {
+      if (currentVal !== previousVal) {
         backgroundColor.value =
-          currentValue >= 0.5
+          currentVal >= 0.5
             ? props.competency.type === "neg"
               ? "black"
               : "white"
@@ -25,12 +25,12 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
             ? "white"
             : "black";
 
-        if (currentValue === 0.5) {
+        if (currentVal === 0.5) {
           opacity.value = 0;
-        } else if (currentValue < 0.5) {
-          opacity.value = 0.5 * (1 - currentValue / 0.5); // Opacity increases as currentValue moves from 0.5 to 0, with a max of 0.5
+        } else if (currentVal < 0.5) {
+          opacity.value = 0.5 * (1 - currentVal / 0.5); // Opacity increases as currentValue moves from 0.5 to 0, with a max of 0.5
         } else {
-          opacity.value = 0.5 * ((currentValue - 0.5) / 0.5); // Opacity increases as currentValue moves from 0.5 to 1, with a max of 0.5
+          opacity.value = 0.5 * ((currentVal - 0.5) / 0.5); // Opacity increases as currentValue moves from 0.5 to 1, with a max of 0.5
         }
       }
     }
@@ -42,21 +42,8 @@ export default function BackgroundOverlay(props: BackgroundOverlayProps) {
   }));
 
   return (
-    <View style={[styles.container, { backgroundColor: props.color }]}>
-      <Animated.View style={[styles.overlay, animatedStyles]} />
+    <View style={{ backgroundColor: props.color, position: "absolute", zIndex: 1, width: "100%", height: "100%" }}>
+      <Animated.View style={[animatedStyles, { flex: 1 }]} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    zIndex: 1,
-    width: "100%",
-    height: "100%",
-  },
-  overlay: {
-    flex: 1,
-    opacity: 0,
-  },
-});

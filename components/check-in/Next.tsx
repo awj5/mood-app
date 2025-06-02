@@ -11,17 +11,20 @@ import Animated, {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
-import { CircleArrowRight } from "lucide-react-native";
+import { CircleArrowRight, CircleCheck } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { MoodType } from "app/check-in";
-import { getTheme, pressedDefault } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type NextProps = {
-  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  setState?: React.Dispatch<React.SetStateAction<boolean>>;
+  func?: () => void;
   wheelSize: number;
+  delay: number;
   foreground?: string;
   disabled?: boolean;
   mood?: SharedValue<MoodType>;
+  sliderVal?: SharedValue<number>;
 };
 
 export default function Next(props: NextProps) {
@@ -31,6 +34,7 @@ export default function Next(props: NextProps) {
   const opacity = useSharedValue(0);
   const fadedInRef = useRef(false);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const Icon = props.sliderVal ? CircleCheck : CircleArrowRight;
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -38,9 +42,18 @@ export default function Next(props: NextProps) {
 
   const press = () => {
     if (opacity.value > 0.25) {
-      props.setState(true);
+      if (props.setState) props.setState(true);
+      if (props.func) props.func();
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
+  };
+
+  const pressIn = () => {
+    if (opacity.value === 1) opacity.value = 0.3;
+  };
+
+  const pressOut = () => {
+    if (opacity.value > 0.25) opacity.value = 1;
   };
 
   useAnimatedReaction(
@@ -53,12 +66,19 @@ export default function Next(props: NextProps) {
     }
   );
 
+  useAnimatedReaction(
+    () => props.sliderVal && props.sliderVal.value,
+    () => {
+      if (opacity.value === 0.25) opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    }
+  );
+
   useEffect(() => {
     if (!props.disabled) {
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     } else {
       opacity.value = withDelay(
-        !opacity.value ? 1500 : 0,
+        !opacity.value ? props.delay : 0,
         withTiming(0.25, { duration: 300, easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic) })
       );
     }
@@ -87,12 +107,8 @@ export default function Next(props: NextProps) {
       ]}
       pointerEvents="box-none"
     >
-      <Pressable
-        onPress={press}
-        style={({ pressed }) => (opacity.value === 1 ? pressedDefault(pressed) : null)}
-        hitSlop={8}
-      >
-        <CircleArrowRight
+      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
+        <Icon
           color={props.foreground ? props.foreground : theme.color.primary}
           size={theme.icon.xxxLarge.size}
           absoluteStrokeWidth

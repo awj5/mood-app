@@ -1,103 +1,101 @@
-import { useContext, useEffect } from "react";
-import { StyleSheet, Pressable } from "react-native";
-import * as Device from "expo-device";
-import * as Haptics from "expo-haptics";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, {
-  Easing,
-  SharedValue,
-  useAnimatedReaction,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from "react-native-reanimated";
-import { CircleCheck } from "lucide-react-native";
-import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { useSQLiteContext } from "expo-sqlite";
+import { useRouter } from "expo-router";
+import { SharedValue } from "react-native-reanimated";
+import axios from "axios";
+import Next from "./Next";
+import { CompetencyType, MoodType } from "app/check-in";
+import { CheckInMoodType } from "types";
+import { getStoredVal, setStoredVal } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 type DoneProps = {
-  color: string;
+  foreground: string;
   sliderVal: SharedValue<number>;
-  submitCheckIn: () => void;
+  wheelSize: number;
+  focusedCategory: number;
+  selectedTags: number[];
+  mood: MoodType;
+  competency: CompetencyType;
 };
 
 export default function Done(props: DoneProps) {
-  const opacity = useSharedValue(0);
-  const insets = useSafeAreaInsets();
-  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const db = useSQLiteContext();
+  const router = useRouter();
 
-  const press = () => {
-    if (opacity.value > 0.25) {
-      props.submitCheckIn();
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    }
-  };
+  const postCheckIn = async (checkIn: CheckInMoodType) => {
+    const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
 
-  const pressIn = () => {
-    if (opacity.value === 1) {
-      opacity.value = 0.3;
-    }
-  };
+    if (uuid && send) {
+      const today = new Date();
 
-  const pressOut = () => {
-    if (opacity.value > 0.25) {
-      opacity.value = 1;
-    }
-  };
+      try {
+        // Count today's recorded check-ins
+        const rows = await db.getAllAsync(
+          `SELECT id FROM check_in_record WHERE DATE(datetime(date, 'localtime')) = ?`,
+          [convertToISO(today)]
+        );
 
-  useAnimatedReaction(
-    () => props.sliderVal.value,
-    () => {
-      if (opacity.value === 0.25) {
-        opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+        if (rows.length < 1) {
+          // Save to Supabase
+          try {
+            await axios.post(
+              !__DEV__ ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
+              {
+                uuid: uuid,
+                value: checkIn,
+                date: convertToISO(today),
+              }
+            );
+
+            // Record check-in locally (users can only send 1 check-in per day to cpmpany insights)
+            try {
+              await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;");
+            } catch (error) {
+              console.error(error);
+            }
+
+            if (props.focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
-  );
+  };
 
-  useEffect(() => {
-    opacity.value = withDelay(500, withTiming(0.25, { duration: 300, easing: Easing.in(Easing.cubic) }));
-  }, []);
+  const submitCheckIn = async () => {
+    const name = await getStoredVal("company-name");
+
+    const value: CheckInMoodType = {
+      color: props.mood.id,
+      tags: props.selectedTags,
+      competency: props.competency.id,
+      statementResponse:
+        props.competency.type === "neg" ? Math.floor((1 - props.sliderVal.value) * 100) / 100 : props.sliderVal.value,
+      company: name ? name : undefined,
+    };
+
+    // Save check-in to local DB
+    try {
+      await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
+      router.push("chat");
+      postCheckIn(value);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        dimensions.width > dimensions.height ? styles.landscape : styles.portrait,
-        {
-          opacity,
-          paddingBottom: insets.bottom,
-        },
-        dimensions.width > dimensions.height
-          ? { paddingLeft: Device.deviceType !== 1 ? 224 : 152, paddingTop: insets.top }
-          : { paddingTop: Device.deviceType !== 1 ? 224 : 152 },
-      ]}
-    >
-      <Pressable onPress={press} onPressIn={pressIn} onPressOut={pressOut} hitSlop={8}>
-        <CircleCheck
-          color={props.color}
-          size={Device.deviceType !== 1 ? 88 : 64}
-          absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
-        />
-      </Pressable>
-    </Animated.View>
+    <Next
+      func={submitCheckIn}
+      delay={500}
+      foreground={props.foreground}
+      wheelSize={props.wheelSize}
+      sliderVal={props.sliderVal}
+      disabled
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    justifyContent: "center",
-    zIndex: 1,
-    opacity: 0,
-  },
-  portrait: {
-    bottom: 0,
-    height: "50%",
-  },
-  landscape: {
-    height: "100%",
-    width: "50%",
-    right: 0,
-    alignItems: "center",
-  },
-});

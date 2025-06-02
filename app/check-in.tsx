@@ -4,7 +4,6 @@ import { useColorScheme, View } from "react-native";
 import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
-import Constants from "expo-constants";
 import { getLocales } from "expo-localization";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
@@ -21,9 +20,8 @@ import Tags from "components/check-in/Tags";
 import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
-import { CheckInType, CheckInMoodType } from "types";
-import { getStoredVal, removeAccess, removeStoredVal, setStoredVal } from "utils/helpers";
-import { convertToISO } from "utils/dates";
+import { CheckInType } from "types";
+import { getStoredVal, removeAccess, removeStoredVal } from "utils/helpers";
 
 export type MoodType = {
   id: number;
@@ -51,9 +49,9 @@ export default function CheckIn() {
   const localization = getLocales();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
-  const mood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [] });
-  const wheelLoadedRef = useRef(false);
-  const isMountedRef = useRef(true);
+  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [] });
+  const wheelActivatedRef = useRef(false);
+  const isFocusedRef = useRef(true);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
@@ -70,92 +68,20 @@ export default function CheckIn() {
     router.push({
       pathname: "mood",
       params: {
-        name: mood.value.name,
+        name: wheelMood.value.name,
       },
     });
 
-    isMountedRef.current = false;
+    isFocusedRef.current = false;
   };
 
-  const postCheckIn = async (checkIn: CheckInMoodType) => {
-    const uuid = await getStoredVal("uuid"); // Check if customer employee
-    const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
-
-    if (uuid && send) {
-      const today = new Date();
-
-      try {
-        // Count today's check-ins
-        const rows = await db.getAllAsync(
-          `SELECT id FROM check_in_record WHERE DATE(datetime(date, 'localtime')) = ?`,
-          [convertToISO(today)]
-        );
-
-        if (rows.length < 1) {
-          // Save to Supabase
-          try {
-            await axios.post(
-              Constants.appOwnership !== "expo"
-                ? "https://mood-web-zeta.vercel.app/api/check-in"
-                : "http://localhost:3000/api/check-in",
-              {
-                uuid: uuid,
-                value: checkIn,
-                date: convertToISO(today),
-              }
-            );
-
-            // Record check-in locally (users can only send check-in 3 times per day)
-            try {
-              await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;");
-            } catch (error) {
-              console.log(error);
-            }
-
-            if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
-          } catch (error) {
-            console.log(error);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
-  const submitCheckIn = async () => {
-    const name = await getStoredVal("company-name");
-
-    const value: CheckInMoodType = {
-      color: mood.value.id,
-      tags: selectedTags,
-      competency: competency.id,
-      statementResponse: competency.type === "neg" ? Math.floor((1 - sliderVal.value) * 100) / 100 : sliderVal.value,
-      company: name ? name : undefined,
-    };
-
-    try {
-      await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
-      router.push("chat");
-      postCheckIn(value);
-    } catch (error) {
-      console.log(error);
-      alert("An unexpected error has occurred.");
-    }
-  };
-
-  const getCheckInCount = async () => {
+  const getTotalCheckInCount = async () => {
     try {
       const rows: CheckInType[] = await db.getAllAsync(`SELECT * FROM check_ins`);
       return rows.length;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  };
-
-  const checkFirstCheckIn = async () => {
-    const count = await getCheckInCount();
-    setIsFirstCheckIn(!count ? true : false);
   };
 
   const getCategories = async () => {
@@ -188,35 +114,39 @@ export default function CheckIn() {
 
   useAnimatedReaction(
     () => rotation.value,
-    (currentValue, previousValue) => {
+    (currentVal, previousVal) => {
       if (
-        (!wheelLoadedRef.current && currentValue !== previousValue && currentValue >= 0) ||
-        (wheelLoadedRef.current && currentValue !== previousValue)
+        (!wheelActivatedRef.current && currentVal !== previousVal && currentVal >= 0) ||
+        (wheelActivatedRef.current && currentVal !== previousVal)
       ) {
-        const angle = currentValue < 0 ? currentValue + 360 : currentValue; // Check if negative angle and convert
+        const angle = currentVal < 0 ? currentVal + 360 : currentVal; // Check if negative angle and convert
         const index = Math.floor((angle + 15) / 30) % MoodsData.length; // Snap to 1 of 12 angles (groups of 30 degrees)
-        mood.value = MoodsData[index];
-        wheelLoadedRef.current = true;
+        wheelMood.value = MoodsData[index];
+        wheelActivatedRef.current = true;
       }
     }
   );
 
   useEffect(() => {
-    setSelectedMood(mood.value);
+    setSelectedMood(wheelMood.value);
     setForegroundColor((rotation.value >= 0 && rotation.value < 165) || rotation.value >= 345 ? "black" : "white");
     sliderVal.value = 0.5; // Reset
   }, [showTags]);
 
   useEffect(() => {
+    (async () => {
+      const count = await getTotalCheckInCount();
+      setIsFirstCheckIn(!count ? true : false);
+    })();
+
     setLayoutReady(true); // Hide splash screen
     getCategories();
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      if (mood.value.id && isMountedRef.current) router.dismiss(); // Already checked in. Go back to home
-      checkFirstCheckIn();
-      isMountedRef.current = true;
+      if (wheelMood.value.id && isFocusedRef.current) router.dismiss(); // Already checked in. Go back to home
+      isFocusedRef.current = true;
     }, [])
   );
 
@@ -246,10 +176,10 @@ export default function CheckIn() {
       />
 
       <Instructions wheelSize={wheelSize} />
-      <Background showTags={showTags} mood={mood} />
+      <Background showTags={showTags} mood={wheelMood} />
       <Wheel rotation={rotation} longPress={longPress} wheelSize={wheelSize} />
-      <Emoji showTags={showTags} mood={mood} wheelSize={wheelSize} />
-      <Next setState={setShowTags} disabled mood={mood} wheelSize={wheelSize} />
+      <Emoji showTags={showTags} mood={wheelMood} wheelSize={wheelSize} />
+      <Next setState={setShowTags} delay={1500} disabled mood={wheelMood} wheelSize={wheelSize} />
 
       {showTags && (
         <>
@@ -263,6 +193,7 @@ export default function CheckIn() {
 
           <Next
             setState={setShowStatement}
+            delay={1500}
             foreground={foregroundColor}
             disabled={selectedTags.length ? false : true}
             wheelSize={wheelSize}
@@ -272,18 +203,27 @@ export default function CheckIn() {
             tags={selectedMood.tags}
             setSelectedTags={setSelectedTags}
             selectedTags={selectedTags}
-            color={foregroundColor}
+            foreground={foregroundColor}
           />
 
           {showStatement && (
             <>
               <BackgroundOverlay color={selectedMood.color} sliderVal={sliderVal} competency={competency} />
               <Heading wheelSize={wheelSize} text="Do you agree with this statement?" foreground={foregroundColor} />
-              <Done color={foregroundColor} sliderVal={sliderVal} submitCheckIn={submitCheckIn} />
+
+              <Done
+                foreground={foregroundColor}
+                sliderVal={sliderVal}
+                wheelSize={wheelSize}
+                focusedCategory={focusedCategory}
+                selectedTags={selectedTags}
+                mood={selectedMood}
+                competency={competency}
+              />
 
               <Statement
                 mood={selectedMood}
-                color={foregroundColor}
+                foreground={foregroundColor}
                 sliderVal={sliderVal}
                 competency={competency}
                 setCompetency={setCompetency}
