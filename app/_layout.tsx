@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as Linking from "expo-linking";
+import * as Crypto from "expo-crypto";
 import { SQLiteProvider } from "expo-sqlite";
 import axios from "axios";
 import Purchases from "react-native-purchases";
@@ -79,6 +80,7 @@ export default function Layout() {
 
           if (response.data) {
             setStoredVal("uuid", queryParams.uuid as string); // Store UUID
+            setStoredVal("device-uuid", Crypto.randomUUID()); // Create a UUID for this device
             setStoredVal("company-name", response.data); // Store company name
             removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
             removeStoredVal("send-check-ins");
@@ -126,7 +128,9 @@ export default function Layout() {
   useEffect(() => {
     // Handle layout ready (redirect to check-in may have occurred)
     if (layoutReady) {
-      SplashScreen.hideAsync(); // Hide splash
+      requestAnimationFrame(() => {
+        SplashScreen.hideAsync(); // Hide splash
+      });
 
       if (!isSimulator) {
         Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
