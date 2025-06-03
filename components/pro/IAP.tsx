@@ -62,7 +62,7 @@ export default function IAP(props: IAPProps) {
               <Product
                 key={item.product.identifier}
                 id={item.product.identifier}
-                title={item.packageType}
+                title={item.packageType.replace("ANNUAL", "YEARLY")}
                 price={
                   item.packageType === "MONTHLY" ? item.product.pricePerMonthString : item.product.pricePerYearString
                 }
@@ -84,11 +84,11 @@ export default function IAP(props: IAPProps) {
             />
 
             <Product
-              id="com.moodplatforms.moodai.pro.annual"
-              title="ANNUAL"
+              id="com.moodplatforms.moodai.pro.yearly"
+              title="YEARLY"
               price="$149.99"
               cycle="year"
-              selected={selected === "com.moodplatforms.moodai.pro.annual"}
+              selected={selected === "com.moodplatforms.moodai.pro.yearly"}
               setSelected={setSelected}
             />
           </>
