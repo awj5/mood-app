@@ -131,6 +131,8 @@ export default function Layout() {
       if (!isSimulator) {
         Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
         getPurchases(); // Check if user subscribes to Pro
+      } else {
+        removeStoredVal("pro-id"); // Reset
       }
 
       // Check if user has clicked activation link

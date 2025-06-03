@@ -1,6 +1,7 @@
 import { useCallback, useContext, useRef } from "react";
 import { useColorScheme, View } from "react-native";
 import { useFocusEffect, useRouter } from "expo-router";
+import * as Device from "expo-device";
 import Purchases, { PurchasesPackage } from "react-native-purchases";
 import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Footer from "./Footer";
@@ -20,24 +21,33 @@ export default function Purchase(props: PurchaseProps) {
   const theme = getTheme(colorScheme);
   const isFocusedRef = useRef(false);
   const { setHomeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
+  const isSimulator = Device.isDevice === false;
 
   const purchase = async () => {
     props.setLoading(true);
 
-    try {
-      const result = await Purchases.purchasePackage(props.selected as PurchasesPackage);
-      const appUserID = result?.customerInfo.originalAppUserId; // Get unique ID from RC
-      setStoredVal("pro-id", appUserID as string); // Store unique RC ID
+    if (!isSimulator) {
+      try {
+        const result = await Purchases.purchasePackage(props.selected as PurchasesPackage);
+        const appUserID = result?.customerInfo.originalAppUserId; // Get unique ID from RC
+        setStoredVal("pro-id", appUserID as string); // Store unique RC ID
+        setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
+        if (isFocusedRef.current) router.back(); // Close modal
+      } catch (error: any) {
+        if (!error.userCancelled && error?.message !== "The payment is pending. The payment is deferred.") {
+          console.error(error);
+          alert("An unexpected error has occurred.");
+        }
+      }
+    } else {
+      // Use for testing
+      setStoredVal("pro-id", "testing123");
+      alert("Pro enabled for testing!");
       setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
       if (isFocusedRef.current) router.back(); // Close modal
-    } catch (error: any) {
-      if (!error.userCancelled && error?.message !== "The payment is pending. The payment is deferred.") {
-        console.error(error);
-        alert("An unexpected error has occurred.");
-      }
-
-      props.setLoading(false);
     }
+
+    props.setLoading(false);
   };
 
   useFocusEffect(
