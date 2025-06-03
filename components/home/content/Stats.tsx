@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable, PixelRatio } from "react-native";
+import { View, Text, StyleSheet, Pressable, PixelRatio, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import * as WebBrowser from "expo-web-browser";
-import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
 import MoodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CalendarDatesType, CheckInType, CheckInMoodType } from "types";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 type StatsProps = {
   checkIns: CheckInType[];
@@ -17,21 +17,19 @@ type StatsProps = {
 };
 
 export default function Stats(props: StatsProps) {
-  const colors = theme();
   const localization = getLocales();
   const fontScale = PixelRatio.getFontScale();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [data, setData] = useState<barDataItem[]>([]);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 18 : 14;
-  const smallFont = Device.deviceType !== 1 ? 16 : 12;
-  const extraSmallFont = Device.deviceType !== 1 ? 14 : 10;
-  const tinyFont = Device.deviceType !== 1 ? 12 : 8;
-  const barSize = Device.deviceType !== 1 ? 15 : 10;
-  const invertedColor = colors.primary === "white" ? "black" : "white";
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   useEffect(() => {
     const dataItems: barDataItem[] = [];
@@ -66,18 +64,16 @@ export default function Stats(props: StatsProps) {
     } else {
       // Week
       for (let i = 0; i < 7; i++) {
-        let date = new Date(props.dates.weekStart);
+        const date = new Date(props.dates.weekStart);
         date.setDate(date.getDate() + i);
         dates.push(date);
       }
     }
 
-    for (let i = 0; i < dates.length; i++) {
-      let date = dates[i];
-
+    for (const date of dates) {
       // Get date check-ins
-      let checkIns = props.checkIns.filter((item) => {
-        let itemDate = new Date(`${item.date}Z`); // Convert to UTC
+      const checkIns = props.checkIns.filter((item) => {
+        const itemDate = new Date(`${item.date}Z`); // Convert to UTC
         itemDate.setHours(0, 0, 0, 0);
 
         return chartType === "months"
@@ -88,11 +84,11 @@ export default function Stats(props: StatsProps) {
           : itemDate.getTime() === date.getTime();
       });
 
-      let energyScores = [];
-      let stressScores = [];
+      const energyScores = [];
+      const stressScores = [];
 
-      for (let i = 0; i < checkIns.length; i++) {
-        let mood: CheckInMoodType = JSON.parse(checkIns[i].mood);
+      for (const checkIn of checkIns) {
+        const mood: CheckInMoodType = JSON.parse(checkIn.mood);
         energyScores.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
         stressScores.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
       }
@@ -110,131 +106,137 @@ export default function Stats(props: StatsProps) {
         value: energyScores.length
           ? Math.max(Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length), 2)
           : 0,
-        spacing: Device.deviceType !== 1 ? 5 : 3,
-        frontColor: invertedColor,
+        spacing: 0,
+        frontColor: theme.color.inverted,
         labelTextStyle: {
           fontFamily: "Circular-Medium",
           fontSize:
             fontScale >= 1.2 && chartType === "days"
-              ? tinyFont
+              ? theme.fontSize.xxxSmall
               : fontScale >= 1.2 || chartType === "days"
-              ? extraSmallFont
-              : smallFont,
-          color: energyScores.length ? colors.primary : colors.opaque,
+              ? theme.fontSize.xxSmall
+              : theme.fontSize.xSmall,
+          color: energyScores.length ? theme.color.primary : theme.color.opaque,
         },
-        labelWidth: barSize * 2 + (Device.deviceType !== 1 ? 5 : 3),
+        labelWidth: theme.spacing.small * 2,
       });
 
       dataItems.push({
         value: stressScores.length
           ? Math.max(Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length), 2)
           : 0,
-        frontColor: colors.primary,
+        frontColor: theme.color.primary,
       }); // Stress
     }
 
     setData(dataItems);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-  }, [props.checkIns, colors.primary]);
+  }, [props.checkIns, colorScheme]);
 
   return (
     <Animated.View
-      style={{
-        width: "100%",
-        backgroundColor: colors.opaqueBg,
-        borderRadius: spacing,
-        padding: spacing,
-        opacity,
-      }}
+      style={[
+        animatedStyles,
+        {
+          backgroundColor: theme.color.opaqueBg,
+          borderRadius: theme.spacing.base,
+          padding: theme.spacing.base,
+        },
+      ]}
     >
-      <View style={{ paddingBottom: spacing / 2 }}>
-        <View style={{ flexDirection: "row", gap: spacing / 4 }}>
-          <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              color: colors.primary,
-              fontSize: smallFont,
-            }}
-            allowFontScaling={false}
-          >
-            MOOD LEVELS
-          </Text>
+      <View style={{ gap: theme.spacing.base / 2 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View style={{ flexDirection: "row", gap: theme.spacing.base / 4 }}>
+            <Text
+              style={{
+                fontFamily: "Circular-Bold",
+                color: theme.color.primary,
+                fontSize: theme.fontSize.xSmall,
+              }}
+              allowFontScaling={false}
+            >
+              MOOD LEVELS
+            </Text>
 
-          <Text
-            style={{
-              fontFamily: "Circular-Book",
-              marginTop: Device.deviceType !== 1 ? -2 : -1,
-              color: colors.primary,
-              fontSize: tinyFont,
-            }}
-            allowFontScaling={false}
-          >
-            BETA
-          </Text>
-        </View>
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                marginTop: Device.deviceType === 1 ? -1 : -2,
+                color: theme.color.primary,
+                fontSize: theme.fontSize.xxxSmall,
+              }}
+              allowFontScaling={false}
+            >
+              BETA
+            </Text>
+          </View>
 
-        <Pressable
-          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/mood-levels/?iab=1")}
-          style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
-          hitSlop={16}
-        >
-          <Info
-            color={colors.opaque}
-            size={Device.deviceType !== 1 ? 20 : 16}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
-          />
-
-          <Text
-            style={{
-              fontFamily: "Circular-Book",
-              color: colors.opaque,
-              fontSize: smallFont,
-            }}
-            allowFontScaling={false}
-          >
-            Learn more
-          </Text>
-        </Pressable>
-      </View>
-
-      <View style={[styles.legend, { gap: spacing }]}>
-        <View style={[styles.key, { gap: spacing / 4 }]}>
-          <View
-            style={[
-              styles.dot,
-              {
-                backgroundColor: invertedColor,
-                width: barSize,
-              },
+          <Pressable
+            onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/mood-levels/?iab=1")}
+            style={({ pressed }) => [
+              pressedDefault(pressed),
+              { gap: theme.spacing.base / 4, flexDirection: "row", alignItems: "center" },
             ]}
-          />
-
-          <Text
-            style={{
-              fontFamily: "Circular-Medium",
-              color: colors.primary,
-              fontSize: fontSize,
-            }}
-            allowFontScaling={false}
+            hitSlop={16}
           >
-            Energy
-          </Text>
+            <Info
+              color={theme.color.opaque}
+              size={theme.icon.small.size}
+              absoluteStrokeWidth
+              strokeWidth={theme.icon.small.stroke}
+            />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: theme.color.opaque,
+                fontSize: theme.fontSize.xSmall,
+              }}
+              allowFontScaling={false}
+            >
+              Learn more
+            </Text>
+          </Pressable>
         </View>
 
-        <View style={[styles.key, { gap: spacing / 4 }]}>
-          <View style={[styles.dot, { backgroundColor: colors.primary, width: barSize }]} />
+        <View style={{ gap: theme.spacing.base, flexDirection: "row", justifyContent: "center" }}>
+          <View style={[styles.key, { gap: theme.spacing.small / 2 }]}>
+            <View
+              style={[
+                styles.dot,
+                {
+                  backgroundColor: theme.color.inverted,
+                  width: theme.spacing.small,
+                },
+              ]}
+            />
 
-          <Text
-            style={{
-              fontFamily: "Circular-Medium",
-              color: colors.primary,
-              fontSize: fontSize,
-            }}
-            allowFontScaling={false}
-          >
-            Stress
-          </Text>
+            <Text
+              style={{
+                fontFamily: "Circular-Medium",
+                color: theme.color.primary,
+                fontSize: theme.fontSize.small,
+              }}
+              allowFontScaling={false}
+            >
+              Energy
+            </Text>
+          </View>
+
+          <View style={[styles.key, { gap: theme.spacing.small / 2 }]}>
+            <View style={[styles.dot, { backgroundColor: theme.color.primary, width: theme.spacing.small }]} />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Medium",
+                color: theme.color.primary,
+                fontSize: theme.fontSize.small,
+              }}
+              allowFontScaling={false}
+            >
+              Stress
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -243,28 +245,27 @@ export default function Stats(props: StatsProps) {
           data={data}
           width={
             dimensions.width > dimensions.height
-              ? 768 - spacing * 4 - spacing * 2.5
-              : dimensions.width - spacing * 4 - spacing * 2.5
+              ? 768 - theme.spacing.base * 4 - theme.spacing.base * 2.5
+              : dimensions.width - theme.spacing.base * 4 - theme.spacing.base * 2.5
           }
-          height={Device.deviceType !== 1 ? 112 : 80}
-          barWidth={barSize}
-          roundedTop
-          roundedBottom
-          spacing={Device.deviceType !== 1 ? 48 : 16}
+          height={Device.deviceType === 1 ? 88 : 128}
+          barWidth={theme.spacing.small}
+          spacing={Device.deviceType === 1 ? theme.spacing.base : theme.spacing.base * 2}
           yAxisThickness={0}
           xAxisThickness={0}
           maxValue={100}
           noOfSections={4}
-          yAxisLabelWidth={spacing * 2.5}
+          yAxisLabelWidth={theme.spacing.base * 2.5}
+          roundedTop
           yAxisLabelSuffix="%"
           yAxisTextStyle={{
             fontFamily: "Circular-Book",
-            fontSize: fontScale >= 1.2 ? extraSmallFont : smallFont,
-            color: colors.opaque,
+            fontSize: fontScale >= 1.2 ? theme.fontSize.xxSmall : theme.fontSize.xSmall,
+            color: theme.color.opaque,
           }}
-          yAxisExtraHeight={spacing}
-          initialSpacing={spacing / 2}
-          rulesColor={colors.primary === "white" ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)"}
+          yAxisExtraHeight={theme.spacing.base}
+          initialSpacing={theme.spacing.base / 2}
+          rulesColor={colorScheme === "light" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)"}
           disablePress
         />
       </View>
@@ -273,16 +274,6 @@ export default function Stats(props: StatsProps) {
 }
 
 const styles = StyleSheet.create({
-  info: {
-    position: "absolute",
-    right: 0,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  legend: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
   key: {
     flexDirection: "row",
     alignItems: "center",
