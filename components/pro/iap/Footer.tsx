@@ -16,12 +16,12 @@ export default function Footer() {
           onPress: () =>
             Platform.OS === "ios"
               ? WebBrowser.openBrowserAsync("https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")
-              : WebBrowser.openBrowserAsync("https://articles.mood.ai/terms"),
+              : WebBrowser.openBrowserAsync("https://articles.mood.ai/terms/?iab=1"),
         },
         {
           pattern: /privacy policy/,
           style: styles.link,
-          onPress: () => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy-policy/"),
+          onPress: () => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy-policy/?iab=1"),
         },
       ]}
       style={{

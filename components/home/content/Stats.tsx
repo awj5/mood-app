@@ -174,7 +174,7 @@ export default function Stats(props: StatsProps) {
         </View>
 
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/mood-levels/")}
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/mood-levels/?iab=1")}
           style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
           hitSlop={16}
         >

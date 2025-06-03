@@ -32,7 +32,7 @@ export default function Note() {
 
       <View style={{ flexDirection: "row" }}>
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy/?iab=1")}
           style={({ pressed }) => pressedDefault(pressed)}
           hitSlop={8}
         >

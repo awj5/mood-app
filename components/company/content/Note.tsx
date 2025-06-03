@@ -27,7 +27,7 @@ export default function Note() {
       </Text>
 
       <Pressable
-        onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
+        onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy/?iab=1")}
         style={({ pressed }) => [pressedDefault(pressed), { flexDirection: "row" }]}
         hitSlop={8}
       >

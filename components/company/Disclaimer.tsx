@@ -112,7 +112,7 @@ export default function Disclaimer(props: DisclaimerProps) {
           </Text>
 
           <Pressable
-            onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy")}
+            onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy/?iab=1")}
             style={({ pressed }) => pressedDefault(pressed)}
             hitSlop={16}
           >

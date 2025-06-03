@@ -127,8 +127,11 @@ export default function Layout() {
     // Handle layout ready (redirect to check-in may have occurred)
     if (layoutReady) {
       SplashScreen.hideAsync(); // Hide splash
-      Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
-      getPurchases(); // Check if user subscribes to Pro
+
+      if (!isSimulator) {
+        Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
+        getPurchases(); // Check if user subscribes to Pro
+      }
 
       // Check if user has clicked activation link
       Linking.getInitialURL().then((url) => {

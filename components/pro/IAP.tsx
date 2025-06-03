@@ -18,16 +18,20 @@ export default function IAP(props: IAPProps) {
   const theme = getTheme(colorScheme);
   const [offering, setOffering] = useState<PurchasesOffering | null>(null);
   const [selected, setSelected] = useState<PurchasesPackage | string | null>();
-  const testProducts = false; // Used for testing UI in dev mode
+  const isSimulator = Device.isDevice === false;
 
   useEffect(() => {
     (async () => {
-      try {
-        const offerings = await Purchases.getOfferings();
-        setOffering(offerings.current);
-        setSelected(offerings.current?.availablePackages[0]); // Default
-      } catch (error) {
-        console.error(error);
+      if (!isSimulator) {
+        try {
+          const offerings = await Purchases.getOfferings();
+          setOffering(offerings.current);
+          setSelected(offerings.current?.availablePackages[0]); // Default
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        setSelected("com.moodplatforms.moodai.pro.monthly"); // Default
       }
 
       props.setLoading(false);
@@ -72,7 +76,7 @@ export default function IAP(props: IAPProps) {
               />
             ))}
           </>
-        ) : testProducts ? (
+        ) : isSimulator ? (
           <>
             <Product
               id="com.moodplatforms.moodai.pro.monthly"

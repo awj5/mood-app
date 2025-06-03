@@ -110,7 +110,7 @@ export default function Sentiment(props: SentimentProps) {
         </View>
 
         <Pressable
-          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/sentiment-index/")}
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/sentiment-index/?iab=1")}
           style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
           hitSlop={16}
         >
