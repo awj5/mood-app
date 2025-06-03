@@ -96,7 +96,7 @@ export default function Content(props: ContentProps) {
         const companyName = await getStoredVal("company-name"); // Get company name
         const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
         const admin = await getStoredVal("admin"); // Check if user is admin of their company (can bypass check-in)
-        setHasAccess(uuid || proID ? true : false);
+        setHasAccess(!!(uuid || proID));
         setCompany(companyName && send ? companyName : "");
         setIsAdmin(admin === "true" ? true : false);
       })();

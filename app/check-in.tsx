@@ -137,7 +137,7 @@ export default function CheckIn() {
   useEffect(() => {
     (async () => {
       const count = await getTotalCheckInCount();
-      setIsFirstCheckIn(!count ? true : false);
+      setIsFirstCheckIn(!!count);
     })();
 
     setLayoutReady(true); // Hide splash screen

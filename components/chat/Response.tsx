@@ -88,7 +88,7 @@ export default function Response(props: ResponseProps) {
             parse={[
               {
                 pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red/,
-                style: { textDecorationLine: "underline", fontFamily: "Circular-Bold" },
+                style: { textDecorationLine: "underline", fontFamily: "Circular-Medium" },
                 onPress: colorPress,
               },
               {

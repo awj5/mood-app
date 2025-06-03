@@ -56,7 +56,7 @@ export default function Note(props: NoteProps) {
           </Text>
         </View>
 
-        <Report text={props.text} visible={aiGenerated ? true : false} opaque />
+        <Report text={props.text} visible={!!aiGenerated} opaque />
       </View>
 
       <ScrollView nestedScrollEnabled={true}>

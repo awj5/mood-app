@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, Pressable, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import * as Network from "expo-network";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
@@ -8,7 +7,7 @@ import { Sparkles } from "lucide-react-native";
 import ParsedText from "react-native-parsed-text";
 import Report from "./Report";
 import { CalendarDatesType, CheckInType, CompanyCheckInType } from "types";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 import { getDateRange, getMonday } from "utils/dates";
 
 type SummaryProps = {
@@ -20,15 +19,11 @@ type SummaryProps = {
 };
 
 export default function Summary(props: SummaryProps) {
-  const colors = theme();
   const router = useRouter();
-  const [text, setText] = useState("");
-  const spacing = Device.deviceType !== 1 ? 6 : 4;
-  const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const monday = getMonday(today);
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
+  const [displayedText, setDisplayedText] = useState("");
+  const monday = getMonday();
   const lastMonday = new Date(monday);
   lastMonday.setDate(monday.getDate() - 7);
 
@@ -53,12 +48,12 @@ export default function Summary(props: SummaryProps) {
     });
   };
 
-  const checkIfOnline = async (val: string) => {
+  const validateText = async (text: string) => {
     const network = await Network.getNetworkStateAsync();
 
-    setText(
-      val
-        ? val
+    setDisplayedText(
+      text
+        ? text
         : network.isInternetReachable
         ? "Unable to generate insights at the moment."
         : "You must be online to generate insights"
@@ -66,65 +61,73 @@ export default function Summary(props: SummaryProps) {
   };
 
   useEffect(() => {
-    checkIfOnline(props.text);
+    validateText(props.text);
   }, [props.text]);
 
   return (
     <Animated.View
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
-      style={[styles.container, { gap: spacing }]}
+      style={{ gap: theme.spacing.base / 4, flex: 1, alignItems: "center", justifyContent: "center" }}
     >
-      <View style={[styles.titleWrapper, { display: props.text ? "flex" : "none" }]}>
-        <View style={[styles.title, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-          <Sparkles
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 28 : 20}
-            absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
-          />
-
-          <Text
+      <View style={{ display: props.text ? "flex" : "none", width: "100%" }}>
+        <View style={{ alignItems: "center", gap: theme.spacing.base / 4 }}>
+          <View
             style={{
-              fontFamily: "Circular-Bold",
-              color: colors.primary,
-              fontSize: fontSizeSmall,
+              gap: theme.spacing.small / 2,
+              flexDirection: "row",
+              alignItems: "center",
             }}
-            allowFontScaling={false}
           >
-            {title}
-          </Text>
-
-          <View style={styles.report}>
-            <Report
-              text={props.text}
-              visible={props.text ? true : false}
-              checkIns={props.checkIns}
-              func={props.getInsights}
-              category={props.category}
-              opaque
+            <Sparkles
+              color={theme.color.primary}
+              size={theme.icon.base.size}
+              absoluteStrokeWidth
+              strokeWidth={theme.icon.base.stroke}
             />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Bold",
+                color: theme.color.primary,
+                fontSize: theme.fontSize.small,
+              }}
+              allowFontScaling={false}
+            >
+              {title}
+            </Text>
           </View>
+
+          {title === "INSIGHTS" && (
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: theme.color.opaque,
+                fontSize: theme.fontSize.small,
+              }}
+              allowFontScaling={false}
+            >
+              {subTitle}
+            </Text>
+          )}
         </View>
 
-        {title === "INSIGHTS" && (
-          <Text
-            style={{
-              fontFamily: "Circular-Medium",
-              color: colors.opaque,
-              fontSize: fontSizeSmall,
-            }}
-            allowFontScaling={false}
-          >
-            {subTitle}
-          </Text>
-        )}
+        <View style={{ position: "absolute", right: 0 }}>
+          <Report
+            text={props.text}
+            visible={!!props.text}
+            checkIns={props.checkIns}
+            func={props.getInsights}
+            category={props.category}
+            opaque
+          />
+        </View>
       </View>
 
       <ParsedText
         parse={[
           {
             pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red/,
-            style: styles.color,
+            style: { textDecorationLine: "underline", fontFamily: "Circular-Medium" },
             onPress: colorPress,
           },
           {
@@ -132,28 +135,25 @@ export default function Summary(props: SummaryProps) {
             style: { fontFamily: "Circular-Bold" },
           },
         ]}
-        style={[
-          styles.summary,
-          {
-            color: props.text ? colors.primary : colors.opaque,
-            fontSize: fontSize,
-          },
-        ]}
+        style={{
+          color: props.text ? theme.color.primary : theme.color.opaque,
+          fontSize: theme.fontSize.body,
+          fontFamily: "Circular-Book",
+          textAlign: "center",
+        }}
       >
-        {text}
+        {displayedText}
       </ParsedText>
 
       {!props.text && (
         <Pressable onPress={() => props.getInsights()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
           <Text
-            style={[
-              styles.button,
-              {
-                color: colors.primary,
-                fontSize: fontSize,
-                padding: spacing,
-              },
-            ]}
+            style={{
+              color: theme.color.primary,
+              fontSize: theme.fontSize.body,
+              fontFamily: "Circular-Book",
+              textDecorationLine: "underline",
+            }}
             allowFontScaling={false}
           >
             Try again
@@ -163,38 +163,3 @@ export default function Summary(props: SummaryProps) {
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  titleWrapper: {
-    width: "100%",
-    alignItems: "center",
-  },
-  title: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-  },
-  report: {
-    position: "absolute",
-    right: 0,
-    top: 0,
-  },
-  summary: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-  color: {
-    textDecorationLine: "underline",
-    fontFamily: "Circular-Bold",
-  },
-  button: {
-    fontFamily: "Circular-Book",
-    textDecorationLine: "underline",
-  },
-});

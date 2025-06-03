@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import * as Device from "expo-device";
 import { useSQLiteContext } from "expo-sqlite";
-import { getLocales } from "expo-localization";
-import Constants from "expo-constants";
-import axios from "axios";
 import MoodsData from "data/moods.json";
 import Loading from "components/Loading";
 import Summary from "components/Summary";
-import { CalendarDatesType, CheckInType, CheckInMoodType, PromptCheckInType } from "types";
-import { getPromptCheckIns } from "utils/data";
-import { getStoredVal, removeAccess } from "utils/helpers";
+import { CalendarDatesType, CheckInType, CheckInMoodType } from "types";
+import { getPromptCheckIns, requestAIResponse } from "utils/data";
+import { getStoredVal } from "utils/helpers";
 
 export type InsightType = {
   id: number;
@@ -26,7 +23,6 @@ type InsightsProps = {
 
 export default function Insights(props: InsightsProps) {
   const db = useSQLiteContext();
-  const localization = getLocales();
   const latestQueryRef = useRef<symbol>();
   const [text, setText] = useState("");
   const [dates, setDates] = useState<CalendarDatesType>(props.dates);
@@ -61,31 +57,6 @@ export default function Insights(props: InsightsProps) {
     return result;
   };
 
-  const requestAISummary = async (promptData: PromptCheckInType[], uuid?: string | null, proID?: string | null) => {
-    try {
-      const response = await axios.post(
-        Constants.appOwnership !== "expo" ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
-        {
-          type: "summarize_check_ins",
-          message: [
-            {
-              role: "user",
-              content: `Please analyze these check-ins: ${JSON.stringify(promptData)}.`,
-            },
-          ],
-          loc: localization[0].languageTag,
-          ...(uuid !== undefined && uuid != null && { uuid: uuid }),
-          ...(proID !== undefined && proID != null && { proid: proID }),
-        }
-      );
-
-      return response.data.response;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) removeAccess(); // User doesn't exist
-      console.log(error);
-    }
-  };
-
   const getInsightsData = async (ids: number[]) => {
     try {
       const row: InsightType | null = await db.getFirstAsync(
@@ -95,7 +66,7 @@ export default function Insights(props: InsightsProps) {
 
       return row;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -104,7 +75,7 @@ export default function Insights(props: InsightsProps) {
     latestQueryRef.current = currentQuery;
     setIsLoading(true);
     setText("");
-    const promptData = getPromptCheckIns(props.checkIns);
+    const promptData = getPromptCheckIns(props.checkIns); // Format for AI
     const savedResponse = await getInsightsData(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const proID = await getStoredVal("pro-id"); // Check if pro subscriber
@@ -116,7 +87,17 @@ export default function Insights(props: InsightsProps) {
       (latestQueryRef.current === currentQuery && uuid) ||
       (latestQueryRef.current === currentQuery && proID)
     ) {
-      let aiResponse = await requestAISummary(promptData.data, uuid, proID); // USE requestAIResponse INSTEAD!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      let aiResponse = await requestAIResponse(
+        "summarize_check_ins",
+        [
+          {
+            role: "user",
+            content: `Please analyze these check-ins: ${JSON.stringify(promptData)}.`,
+          },
+        ],
+        uuid,
+        proID
+      );
 
       if (aiResponse && latestQueryRef.current === currentQuery) {
         // Get mood scores
@@ -124,8 +105,8 @@ export default function Insights(props: InsightsProps) {
         const energy = [];
 
         // Loop check-ins and get mood satisfaction and energy scores
-        for (let i = 0; i < props.checkIns.length; i++) {
-          let mood: CheckInMoodType = JSON.parse(props.checkIns[i].mood);
+        for (const checkIn of props.checkIns) {
+          const mood: CheckInMoodType = JSON.parse(checkIn.mood);
           stress.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
           energy.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
         }
@@ -149,12 +130,12 @@ export default function Insights(props: InsightsProps) {
             aiResponse,
           ]);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     }
 
-    setDates(props.dates); // Update here to avoid new date showing first
+    setDates(props.dates); // Update here to avoid new date showing before text set
     setIsLoading(false);
   };
 
@@ -163,15 +144,15 @@ export default function Insights(props: InsightsProps) {
 
     const timeout = setTimeout(() => {
       getInsights();
-    }, 1000); // Delay to avoid unnecessary calls when the calendar is swiped quickly
+    }, 500); // Delay to avoid unnecessary calls when the calendar is swiped quickly
 
     return () => clearTimeout(timeout);
   }, [JSON.stringify(props.checkIns)]);
 
   return (
-    <View style={{ width: "100%", minHeight: Device.deviceType !== 1 ? 192 : 208 }}>
+    <View style={{ minHeight: Device.deviceType === 1 ? 208 : 192 }}>
       {isLoading ? (
-        <View style={styles.loading}>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <Loading text="Generating insights" />
         </View>
       ) : (
@@ -180,11 +161,3 @@ export default function Insights(props: InsightsProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  loading: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -118,7 +118,7 @@ export default function Chat() {
         role: "assistant",
         content: "",
         height: !uuid && !proID && aiResponseCount < 2 ? (Device.deviceType !== 1 ? 320 : 256) : undefined,
-        hasPro: uuid || proID ? true : false,
+        hasPro: !!(uuid || proID),
       },
     ]);
 

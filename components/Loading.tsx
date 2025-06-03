@@ -1,23 +1,23 @@
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
-import * as Device from "expo-device";
-import { theme } from "utils/helpers";
+import { View, Text, ActivityIndicator, useColorScheme } from "react-native";
+import { getTheme } from "utils/helpers";
 
 type LoadingProps = {
   text: string;
 };
 
 export default function Loading(props: LoadingProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
-      <ActivityIndicator color={colors.primary} />
+    <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
+      <ActivityIndicator color={theme.color.primary} />
 
       <Text
         style={{
-          color: colors.primary,
+          color: theme.color.primary,
           fontFamily: "Circular-Book",
-          fontSize: Device.deviceType !== 1 ? 20 : 16,
+          fontSize: theme.fontSize.body,
         }}
         allowFontScaling={false}
       >
@@ -26,10 +26,3 @@ export default function Loading(props: LoadingProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});
