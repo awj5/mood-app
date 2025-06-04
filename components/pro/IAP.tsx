@@ -25,8 +25,8 @@ export default function IAP(props: IAPProps) {
       if (!isSimulator) {
         try {
           const offerings = await Purchases.getOfferings();
-          setOffering(offerings.current);
-          setSelected(offerings.current?.availablePackages[0]); // Default
+          setOffering(offerings.all["new-default"]);
+          setSelected(offerings.current?.availablePackages[0]); // Default package
         } catch (error) {
           console.error(error);
         }

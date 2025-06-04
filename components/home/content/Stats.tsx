@@ -106,7 +106,7 @@ export default function Stats(props: StatsProps) {
         value: energyScores.length
           ? Math.max(Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length), 2)
           : 0,
-        spacing: 0,
+        spacing: theme.spacing.small / 4,
         frontColor: theme.color.inverted,
         labelTextStyle: {
           fontFamily: "Circular-Medium",
@@ -118,7 +118,7 @@ export default function Stats(props: StatsProps) {
               : theme.fontSize.xSmall,
           color: energyScores.length ? theme.color.primary : theme.color.opaque,
         },
-        labelWidth: theme.spacing.small * 2,
+        labelWidth: theme.spacing.small * 2 + theme.spacing.small / 4,
       });
 
       dataItems.push({
