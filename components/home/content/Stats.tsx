@@ -248,7 +248,7 @@ export default function Stats(props: StatsProps) {
               ? 768 - theme.spacing.base * 4 - theme.spacing.base * 2.5
               : dimensions.width - theme.spacing.base * 4 - theme.spacing.base * 2.5
           }
-          height={Device.deviceType === 1 ? 88 : 128}
+          height={Device.deviceType === 1 ? 80 : 112}
           barWidth={theme.spacing.small}
           spacing={Device.deviceType === 1 ? theme.spacing.base : theme.spacing.base * 2}
           yAxisThickness={0}
@@ -257,6 +257,7 @@ export default function Stats(props: StatsProps) {
           noOfSections={4}
           yAxisLabelWidth={theme.spacing.base * 2.5}
           roundedTop
+          roundedBottom
           yAxisLabelSuffix="%"
           yAxisTextStyle={{
             fontFamily: "Circular-Book",

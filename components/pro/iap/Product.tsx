@@ -5,10 +5,7 @@ import { Circle, CircleCheck } from "lucide-react-native";
 import { getTheme, pressedDefault } from "utils/helpers";
 
 type ProductProps = {
-  id: string;
-  title: string;
-  price: string;
-  cycle: string;
+  item: PurchasesPackage;
   selected: boolean;
   setSelected: React.Dispatch<React.SetStateAction<PurchasesPackage | string | null | undefined>>;
 };
@@ -17,14 +14,11 @@ export default function Product(props: ProductProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const Icon = props.selected ? CircleCheck : Circle;
-
-  const press = () => {
-    props.setSelected(props.id);
-  };
+  const cycle = props.item.packageType === "MONTHLY" ? "month" : "year";
 
   return (
     <Pressable
-      onPress={press}
+      onPress={() => props.setSelected(props.item)}
       style={({ pressed }) => [
         pressedDefault(pressed),
         {
@@ -67,12 +61,12 @@ export default function Product(props: ProductProps) {
             }}
             allowFontScaling={false}
           >
-            {props.title}
+            {props.item.packageType.replace("ANNUAL", "YEARLY")}
           </Text>
         </View>
 
         <View>
-          {props.cycle === "year" && Device.deviceType === 1 && (
+          {cycle === "year" && Device.deviceType === 1 && (
             <Text
               style={{
                 fontFamily: "Circular-Book",
@@ -94,7 +88,9 @@ export default function Product(props: ProductProps) {
               }}
               allowFontScaling={false}
             >
-              {props.price}
+              {props.item.packageType === "MONTHLY"
+                ? props.item.product.pricePerMonthString
+                : props.item.product.pricePerYearString}
             </Text>
 
             <Text
@@ -105,7 +101,7 @@ export default function Product(props: ProductProps) {
               }}
               allowFontScaling={false}
             >
-              {` per ${props.cycle}`}
+              {` per ${cycle}`}
             </Text>
           </View>
         </View>

@@ -30,8 +30,6 @@ export default function IAP(props: IAPProps) {
         } catch (error) {
           console.error(error);
         }
-      } else {
-        setSelected("com.moodplatforms.moodai.pro.monthly"); // Default
       }
 
       props.setLoading(false);
@@ -65,36 +63,11 @@ export default function IAP(props: IAPProps) {
             {offering?.availablePackages.map((item) => (
               <Product
                 key={item.product.identifier}
-                id={item.product.identifier}
-                title={item.packageType.replace("ANNUAL", "YEARLY")}
-                price={
-                  item.packageType === "MONTHLY" ? item.product.pricePerMonthString : item.product.pricePerYearString
-                }
-                cycle={item.packageType === "MONTHLY" ? "month" : "year"}
+                item={item}
                 selected={(selected as PurchasesPackage)?.product.identifier === item.product.identifier}
                 setSelected={setSelected}
               />
             ))}
-          </>
-        ) : isSimulator ? (
-          <>
-            <Product
-              id="com.moodplatforms.moodai.pro.monthly"
-              title="MONTHLY"
-              price="$14.99"
-              cycle="month"
-              selected={selected === "com.moodplatforms.moodai.pro.monthly"}
-              setSelected={setSelected}
-            />
-
-            <Product
-              id="com.moodplatforms.moodai.pro.yearly"
-              title="YEARLY"
-              price="$149.99"
-              cycle="year"
-              selected={selected === "com.moodplatforms.moodai.pro.yearly"}
-              setSelected={setSelected}
-            />
           </>
         ) : (
           <ActivityIndicator color={theme.color.inverted} size="large" />
