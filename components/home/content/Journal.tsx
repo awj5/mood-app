@@ -17,7 +17,7 @@ export default function Journal(props: JournalProps) {
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
   const pagerViewRef = useRef<PagerView>(null);
-  const [entries, setEntries] = useState<CheckInType[]>([]);
+  const [entries, setEntries] = useState<CheckInType[]>();
   const [initPage, setInitPage] = useState(0);
   const [page, setPage] = useState(0);
 
@@ -26,6 +26,7 @@ export default function Journal(props: JournalProps) {
   }));
 
   useEffect(() => {
+    setEntries(undefined); // Reset
     const checkIns = [];
 
     // Get check-ins with notes
@@ -35,7 +36,12 @@ export default function Journal(props: JournalProps) {
 
     const recent = checkIns.slice(-10); // 10 most recent
     setInitPage(Math.max(0, recent.length - 1)); // Set here because Android doesn't like it being set in component prop
-    setEntries(recent);
+
+    // Hack! - Force PagerView to re-mount so initialPage is updated
+    requestAnimationFrame(() => {
+      setEntries(recent);
+    });
+
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
@@ -86,7 +92,7 @@ export default function Journal(props: JournalProps) {
         )}
       </View>
 
-      {entries.length ? (
+      {entries?.length ? (
         <>
           <View style={{ flex: 1, paddingBottom: entries.length === 1 ? theme.spacing.base : 0 }}>
             <PagerView
@@ -126,26 +132,28 @@ export default function Journal(props: JournalProps) {
           )}
         </>
       ) : (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            paddingHorizontal: theme.spacing.base,
-          }}
-        >
-          <Text
+        entries && (
+          <View
             style={{
-              color: theme.color.invertedOpaque,
-              fontSize: theme.fontSize.small,
-              fontFamily: "Circular-Book",
-              textAlign: "center",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              paddingHorizontal: theme.spacing.base,
             }}
-            allowFontScaling={false}
           >
-            Summaries of your chats with <Text style={{ fontFamily: "Circular-Bold" }}>MOOD</Text> will appear here
-          </Text>
-        </View>
+            <Text
+              style={{
+                color: theme.color.invertedOpaque,
+                fontSize: theme.fontSize.small,
+                fontFamily: "Circular-Book",
+                textAlign: "center",
+              }}
+              allowFontScaling={false}
+            >
+              Summaries of your chats with <Text style={{ fontFamily: "Circular-Bold" }}>MOOD</Text> will appear here
+            </Text>
+          </View>
+        )
       )}
     </Animated.View>
   );
