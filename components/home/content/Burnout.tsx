@@ -24,6 +24,7 @@ export default function Burnout(props: BurnoutProps) {
   }));
 
   useEffect(() => {
+    // Calculate burnout risk score
     const scores = [];
 
     for (const checkIn of props.checkIns) {
@@ -39,25 +40,34 @@ export default function Burnout(props: BurnoutProps) {
     let posStreak = 0;
 
     for (const score of scores) {
-      subTotal += score;
-
       // Calculate a bonus for consecutive pos or neg check-ins
       if (score > 0) {
         // Neg
-        if (prevScore > 0) bonus += (score / 2) * negStreak;
-        if (negStreak < 5) negStreak++; // Limit to avoid excessive bonus
+        if (prevScore > 0) {
+          bonus += (score / 2) * negStreak; // Increase
+        } else if (subTotal + bonus < 0) {
+          // Reset to min burnout
+          subTotal = 0;
+          bonus = 0;
+        }
+
+        negStreak++;
         posStreak = 0; // Reset
       } else if (score < 0) {
         // Pos
-        if (prevScore < 0) bonus += score * posStreak; // Higher bonus reward because pos scores are lower
-        if (posStreak < 5) posStreak++; // Limit to avoid excessive bonus
+        if (prevScore < 0) {
+          bonus += (score / 2) * posStreak; // Decrease
+        } else if (subTotal + bonus > 100) {
+          // Reset to max burnout
+          subTotal = 100;
+          bonus = 0;
+        }
+
+        posStreak++;
         negStreak = 0; // Reset
-      } else {
-        // Neutral - reset both
-        posStreak = 0;
-        negStreak = 0;
       }
 
+      subTotal += score;
       prevScore = score;
     }
 

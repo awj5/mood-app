@@ -86,7 +86,7 @@ export default function Home() {
         convertToISO(todayRef.current),
       ]);
 
-      setNoCheckInToday(!!row);
+      setNoCheckInToday(!row);
 
       // On mount only
       if (init && !row) {
