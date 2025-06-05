@@ -99,7 +99,7 @@ export default function Header(props: HeaderProps) {
 
         <Text
           style={{
-            fontFamily: "Tiempos-Bold",
+            fontFamily: "Circular-Bold",
             color: theme.color.primary,
             fontSize: theme.fontSize.large,
           }}

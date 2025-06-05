@@ -1,234 +1,152 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, ScrollView, StyleSheet, Pressable, Platform } from "react-native";
+import { View, Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
-import { useRouter } from "expo-router";
-import Animated, { Easing, FadeIn, useSharedValue, withTiming } from "react-native-reanimated";
+import PagerView from "react-native-pager-view";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
-import { ChevronLeft, ChevronRight } from "lucide-react-native";
-import ParsedText from "react-native-parsed-text";
+import Entry from "./journal/Entry";
 import { CheckInType } from "types";
-import { theme, pressedDefault } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type JournalProps = {
   checkIns: CheckInType[];
 };
 
 export default function Journal(props: JournalProps) {
-  const colors = theme();
-  const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
-  const scrollViewRef = useRef<ScrollView>(null);
+  const pagerViewRef = useRef<PagerView>(null);
   const [entries, setEntries] = useState<CheckInType[]>([]);
-  const [count, setCount] = useState(0);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const invertedColor = colors.primary === "white" ? "black" : "white";
-  const invertedOpaque = colors.primary === "white" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.4)";
-  const grey = colors.primary !== "white" ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.25)";
-  const fontSize = Device.deviceType !== 1 ? 20 : 14;
-  const iconSize = Device.deviceType !== 1 ? 40 : 24;
-  const iconStroke = Device.deviceType !== 1 ? 3 : 2;
+  const [initPage, setInitPage] = useState(0);
+  const [page, setPage] = useState(0);
 
-  const arrowPress = (count: number) => {
-    setCount(count);
-    scrollViewRef.current?.scrollTo({ y: 0, animated: false }); // Reset
-  };
-
-  const colorPress = (name: string) => {
-    router.push({
-      pathname: "mood",
-      params: {
-        name: name,
-      },
-    });
-  };
-
-  const datePress = () => {
-    const utc = new Date(`${entries[count].date}Z`);
-
-    router.push({
-      pathname: "day",
-      params: { day: utc.getDate(), month: utc.getMonth() + 1, year: utc.getFullYear() },
-    });
-  };
-
-  const convertDate = (date: Date) => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const utc = new Date(`${date}Z`);
-    const entryDate = new Date(utc);
-    const entryYear = entryDate.getFullYear();
-
-    return entryDate
-      .toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        weekday: "short",
-        ...(entryYear !== year && { year: "numeric" }), // Only show year if not current year
-      })
-      .replace(",", "");
-  };
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   useEffect(() => {
     const checkIns = [];
 
     // Get check-ins with notes
-    for (let i = 0; i < props.checkIns.length; i++) {
-      let checkIn = props.checkIns[i];
+    for (const checkIn of props.checkIns) {
       if (checkIn.note) checkIns.push(checkIn);
     }
 
-    setCount(checkIns.length ? checkIns.length - 1 : 0);
-    setEntries(checkIns);
+    const recent = checkIns.slice(-10); // 10 most recent
+    setInitPage(Math.max(0, recent.length - 1)); // Set here because Android doesn't like it being set in component prop
+    setEntries(recent);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
 
   return (
     <Animated.View
-      style={{
-        flex: 1,
-        aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
-        borderRadius: spacing,
-        opacity,
-      }}
+      style={[
+        animatedStyles,
+        {
+          flex: 1,
+          aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
+          backgroundColor: theme.color.invertedOpaqueBg,
+          borderRadius: theme.spacing.base,
+        },
+      ]}
     >
-      <View style={{ flex: 1, padding: spacing }}>
+      <View style={{ padding: theme.spacing.base, paddingBottom: 0 }}>
         <Text
           style={{
             fontFamily: "Circular-Bold",
-            color: invertedColor,
-            fontSize: Device.deviceType !== 1 ? 16 : 12,
+            color: theme.color.inverted,
+            fontSize: theme.fontSize.xSmall,
           }}
           allowFontScaling={false}
         >
           JOURNAL
         </Text>
 
-        {Device.deviceType !== 1 ? (
-          <Svg
-            width="32"
-            height="40"
-            viewBox="0 0 32 40"
-            fill={invertedColor}
-            style={{ position: "absolute", right: spacing }}
-          >
-            <Path d="M31.1111 40L15.5556 31.1111L0 40V4.44444V0H4.44445H26.6667H31.1111V4.44444V40Z" />
-          </Svg>
-        ) : (
+        {Device.deviceType === 1 ? (
           <Svg
             width="22"
             height="28"
             viewBox="0 0 22 28"
-            fill={invertedColor}
-            style={{ position: "absolute", right: spacing }}
+            fill={theme.color.inverted}
+            style={{ position: "absolute", right: theme.spacing.base }}
           >
             <Path d="M21.7778 28L10.8889 21.7778L0 28V3.11111V0H3.11111H18.6667H21.7778V3.11111V28Z" />
           </Svg>
-        )}
-
-        {entries?.length ? (
-          <View style={{ flex: 1, marginTop: spacing / 2, gap: spacing / 4 }}>
-            <View style={styles.date}>
-              <Pressable
-                onPress={() => arrowPress(count - 1)}
-                style={({ pressed }) => [pressedDefault(pressed), { marginLeft: 0 - spacing / 2 }]}
-                hitSlop={8}
-                disabled={!count}
-              >
-                <ChevronLeft
-                  color={!count ? grey : invertedColor}
-                  size={iconSize}
-                  absoluteStrokeWidth
-                  strokeWidth={iconStroke}
-                />
-              </Pressable>
-
-              <Pressable onPress={() => datePress()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
-                <Text
-                  style={{
-                    fontFamily: "Tiempos-Bold",
-                    color: invertedColor,
-                    fontSize: fontSize,
-                    paddingTop: Platform.OS === "ios" ? (Device.deviceType !== 1 ? 4 : 3) : 0,
-                  }}
-                  allowFontScaling={false}
-                >
-                  {convertDate(entries[count].date)}
-                </Text>
-              </Pressable>
-
-              <Pressable
-                onPress={() => arrowPress(count + 1)}
-                style={({ pressed }) => [pressedDefault(pressed), { marginRight: 0 - spacing / 2 }]}
-                hitSlop={8}
-                disabled={count === entries.length - 1}
-              >
-                <ChevronRight
-                  color={count === entries.length - 1 ? grey : invertedColor}
-                  size={iconSize}
-                  absoluteStrokeWidth
-                  strokeWidth={iconStroke}
-                />
-              </Pressable>
-            </View>
-
-            <ScrollView ref={scrollViewRef} nestedScrollEnabled={true}>
-              <Animated.View key={entries[count].id} entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
-                <ParsedText
-                  parse={[
-                    {
-                      pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red/,
-                      style: { textDecorationLine: "underline" },
-                      onPress: colorPress,
-                    },
-                  ]}
-                  style={{
-                    fontFamily: "Circular-BookItalic",
-                    color: invertedColor,
-                    fontSize: fontSize,
-                    lineHeight: Device.deviceType !== 1 ? 24 : 16,
-                  }}
-                  allowFontScaling={false}
-                >
-                  {entries[count].note.replace("[NOTE FROM USER]:", "")}
-                </ParsedText>
-              </Animated.View>
-            </ScrollView>
-          </View>
         ) : (
-          <View style={styles.empty}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: invertedOpaque,
-                  fontSize: fontSize,
-                },
-              ]}
-              allowFontScaling={false}
-            >
-              Your chat summaries with MOOD will appear here.
-            </Text>
-          </View>
+          <Svg
+            width="32"
+            height="40"
+            viewBox="0 0 32 40"
+            fill={theme.color.inverted}
+            style={{ position: "absolute", right: theme.spacing.base }}
+          >
+            <Path d="M31.1111 40L15.5556 31.1111L0 40V4.44444V0H4.44445H26.6667H31.1111V4.44444V40Z" />
+          </Svg>
         )}
       </View>
+
+      {entries.length ? (
+        <>
+          <View style={{ flex: 1, paddingBottom: entries.length === 1 ? theme.spacing.base : 0 }}>
+            <PagerView
+              ref={pagerViewRef}
+              initialPage={initPage}
+              overdrag={true}
+              onPageSelected={(e) => setPage(e.nativeEvent.position)}
+              style={{ flex: 1 }}
+            >
+              {entries.map((item) => (
+                <Entry key={item.id} checkIn={item} />
+              ))}
+            </PagerView>
+          </View>
+
+          {entries.length > 1 && (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                gap: theme.spacing.small / 2,
+                paddingVertical: theme.spacing.small,
+              }}
+            >
+              {entries.map((item, index) => (
+                <View
+                  key={item.id}
+                  style={{
+                    backgroundColor: index === page ? theme.color.inverted : theme.color.opaqueBg,
+                    borderRadius: 999,
+                    width: theme.spacing.small / 2,
+                    aspectRatio: "1/1",
+                  }}
+                />
+              ))}
+            </View>
+          )}
+        </>
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: theme.spacing.base,
+          }}
+        >
+          <Text
+            style={{
+              color: theme.color.invertedOpaque,
+              fontSize: theme.fontSize.small,
+              fontFamily: "Circular-Book",
+              textAlign: "center",
+            }}
+            allowFontScaling={false}
+          >
+            Summaries of your chats with <Text style={{ fontFamily: "Circular-Bold" }}>MOOD</Text> will appear here
+          </Text>
+        </View>
+      )}
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  date: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  empty: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

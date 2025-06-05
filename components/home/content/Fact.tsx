@@ -83,7 +83,7 @@ export default function Fact(props: FactProps) {
         {
           flex: 1,
           aspectRatio: Device.deviceType === 1 ? "4/4" : "5/3",
-          backgroundColor: colorScheme === "light" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
+          backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
         },
       ]}

@@ -266,7 +266,7 @@ export default function Stats(props: StatsProps) {
           }}
           yAxisExtraHeight={theme.spacing.base}
           initialSpacing={theme.spacing.base / 2}
-          rulesColor={colorScheme === "light" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)"}
+          rulesColor={theme.color.invertedOpaqueBg}
           disablePress
         />
       </View>

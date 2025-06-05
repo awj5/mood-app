@@ -19,9 +19,11 @@ export const getTheme = (colorScheme: string | null | undefined) => {
       link: "#0080FF",
       destructive: "#FF0000",
       opaque: colorScheme === "light" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.4)",
+      invertedOpaque: colorScheme === "light" ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.5)",
       primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
       secondaryBg: colorScheme === "light" ? "#DDDDDD" : "#333333",
       opaqueBg: colorScheme === "light" ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.3)",
+      invertedOpaqueBg: colorScheme === "light" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
       gradient: colorScheme === "light" ? ["#0000FF", "#990099", "#FF0000"] : ["#FF8000", "#00FF00", "#0080FF"],
     },
 
