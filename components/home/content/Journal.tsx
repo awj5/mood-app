@@ -27,19 +27,18 @@ export default function Journal(props: JournalProps) {
 
   useEffect(() => {
     setEntries(undefined); // Reset
-    const checkIns = [];
+    const checkIns: CheckInType[] = [];
 
     // Get check-ins with notes
     for (const checkIn of props.checkIns) {
       if (checkIn.note) checkIns.push(checkIn);
     }
 
-    const recent = checkIns.slice(-10); // 10 most recent
-    setInitPage(Math.max(0, recent.length - 1)); // Set here because Android doesn't like it being set in component prop
+    setInitPage(Math.max(0, checkIns.length - 1)); // Set here because Android doesn't like it being set in component prop
 
     // Hack! - Force PagerView to re-mount so initialPage is updated
     requestAnimationFrame(() => {
-      setEntries(recent);
+      setEntries(checkIns);
     });
 
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
@@ -117,17 +116,22 @@ export default function Journal(props: JournalProps) {
                 paddingVertical: theme.spacing.small,
               }}
             >
-              {entries.map((item, index) => (
-                <View
-                  key={item.id}
-                  style={{
-                    backgroundColor: index === page ? theme.color.inverted : theme.color.opaqueBg,
-                    borderRadius: 999,
-                    width: theme.spacing.small / 2,
-                    aspectRatio: "1/1",
-                  }}
-                />
-              ))}
+              {entries.slice(-10).map((item, index) => {
+                const originalIndex = entries.findIndex((entry) => entry.id === item.id);
+                const selected = (index === 0 && page <= originalIndex) || page === originalIndex; // Keep first dot selected if showing entry that is greater than latest 10
+
+                return (
+                  <View
+                    key={item.id}
+                    style={{
+                      backgroundColor: selected ? theme.color.inverted : theme.color.opaqueBg,
+                      borderRadius: 999,
+                      width: theme.spacing.small / 2,
+                      aspectRatio: "1/1",
+                    }}
+                  />
+                );
+              })}
             </View>
           )}
         </>

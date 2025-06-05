@@ -63,7 +63,7 @@ export default function Entry(props: EntryProps) {
               style={{
                 fontFamily: "Tiempos-Bold",
                 color: theme.color.inverted,
-                fontSize: theme.fontSize.body,
+                fontSize: theme.fontSize.small,
               }}
               allowFontScaling={false}
             >
