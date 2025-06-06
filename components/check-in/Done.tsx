@@ -72,6 +72,7 @@ export default function Done(props: DoneProps) {
 
   const submitCheckIn = async () => {
     const name = await getStoredVal("company-name");
+    const manualDate = false; // Use for staging check-ins
 
     const value: CheckInMoodType = {
       color: props.mood.id,
@@ -84,7 +85,17 @@ export default function Done(props: DoneProps) {
 
     // Save check-in to local DB
     try {
-      await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
+      if (manualDate) {
+        const date = "2025-06-06 09:00:00"; // UTC so make time in morning to show same day as Sydney
+
+        await db.runAsync("INSERT INTO check_ins (date, mood) VALUES (?, ?) RETURNING *", [
+          date,
+          JSON.stringify(value),
+        ]);
+      } else {
+        await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
+      }
+
       router.push("chat");
       postCheckIn(value);
     } catch (error) {
