@@ -169,7 +169,7 @@ export default function Home() {
 
       <Bg checkIns={checkIns} topOffset={calendarHeight} />
 
-      <View style={{ flex: 1, marginTop: Platform.OS === "android" ? insets.top + headerHeight : headerHeight }}>
+      <View style={{ flex: 1, marginTop: Platform.OS === "android" ? 106 : headerHeight }}>
         <Calendar height={calendarHeight} appState={appState} />
         <Content checkIns={checkIns} noCheckInToday={noCheckInToday} />
       </View>
