@@ -104,7 +104,7 @@ export default function Stats(props: StatsProps) {
             ? `${date.getDate()}/${date.getMonth() + 1}`
             : days[date.getDay()],
         value: energyScores.length
-          ? Math.max(Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length), 2)
+          ? Math.max(Math.floor(energyScores.reduce((sum, num) => sum + num, 0) / energyScores.length), 0)
           : 0,
         spacing: theme.spacing.small / 4,
         frontColor: theme.color.inverted,
@@ -123,7 +123,7 @@ export default function Stats(props: StatsProps) {
 
       dataItems.push({
         value: stressScores.length
-          ? Math.max(Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length), 2)
+          ? Math.max(Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length), 0)
           : 0,
         frontColor: theme.color.primary,
       }); // Stress

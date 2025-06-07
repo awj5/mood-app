@@ -1,5 +1,5 @@
 import { useCallback, useContext, useRef } from "react";
-import { useColorScheme, View } from "react-native";
+import { Alert, Platform, useColorScheme, View } from "react-native";
 import { useFocusEffect, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import Purchases, { PurchasesPackage } from "react-native-purchases";
@@ -31,6 +31,20 @@ export default function Purchase(props: PurchaseProps) {
         const result = await Purchases.purchasePackage(props.selected as PurchasesPackage);
         const appUserID = result?.customerInfo.originalAppUserId; // Get unique ID from RC
         setStoredVal("pro-id", appUserID as string); // Store unique RC ID
+
+        if (Platform.OS === "android") {
+          Alert.alert("You've Gone Pro!", "Your subscription was successful.", [
+            {
+              text: "OK",
+              onPress: isFocusedRef.current
+                ? () => {
+                    router.back(); // Close modal
+                  }
+                : () => null,
+            },
+          ]);
+        }
+
         setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
         if (isFocusedRef.current) router.back(); // Close modal
       } catch (error: any) {

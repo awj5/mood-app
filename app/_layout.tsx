@@ -128,9 +128,12 @@ export default function Layout() {
   useEffect(() => {
     // Handle layout ready (redirect to check-in may have occurred)
     if (layoutReady) {
-      requestAnimationFrame(() => {
-        SplashScreen.hideAsync(); // Hide splash
-      });
+      // Delay to allow for redirect
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          SplashScreen.hideAsync(); // Hide splash
+        });
+      }, 0);
 
       if (!isSimulator) {
         Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
