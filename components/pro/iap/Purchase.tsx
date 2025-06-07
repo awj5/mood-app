@@ -31,6 +31,7 @@ export default function Purchase(props: PurchaseProps) {
         const result = await Purchases.purchasePackage(props.selected as PurchasesPackage);
         const appUserID = result?.customerInfo.originalAppUserId; // Get unique ID from RC
         setStoredVal("pro-id", appUserID as string); // Store unique RC ID
+        setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
 
         if (Platform.OS === "android") {
           Alert.alert("You've Gone Pro!", "Your subscription was successful.", [
@@ -43,10 +44,9 @@ export default function Purchase(props: PurchaseProps) {
                 : () => null,
             },
           ]);
+        } else if (isFocusedRef.current) {
+          router.back(); // Close modal on iOS
         }
-
-        setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
-        if (isFocusedRef.current) router.back(); // Close modal
       } catch (error: any) {
         if (!error.userCancelled && error?.message !== "The payment is pending. The payment is deferred.") {
           console.error(error);
@@ -56,8 +56,8 @@ export default function Purchase(props: PurchaseProps) {
     } else {
       // Use for testing
       setStoredVal("pro-id", "testing123");
-      alert("Pro enabled for testing!");
       setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
+      alert("Pro enabled for testing!");
       if (isFocusedRef.current) router.back(); // Close modal
     }
 
