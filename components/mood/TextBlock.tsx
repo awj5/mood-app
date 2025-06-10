@@ -25,7 +25,7 @@ export default function TextBlock(props: TextBlockProps) {
       <Text
         style={{
           fontFamily: "Circular-Bold",
-          fontSize: theme.fontSize.xSmall,
+          fontSize: theme.fontSize.small,
           color: props.color,
         }}
         allowFontScaling={false}

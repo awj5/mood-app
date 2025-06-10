@@ -30,11 +30,10 @@ export default function Company() {
 
   useEffect(() => {
     (async () => {
-      const uuid = await getStoredVal("uuid"); // Is customer employee
       const name = await getStoredVal("company-name");
       const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
       if (name) setCompany(name);
-      if (uuid && name && send) setHasAccess(true);
+      if (name && send) setHasAccess(true);
     })();
 
     // Always set date range to past 90 days on mount (UTC)

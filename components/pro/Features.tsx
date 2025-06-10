@@ -18,8 +18,8 @@ export default function Features() {
     >
       <Item>Empathetic AI chat</Item>
       <Item>Smart check-in summaries</Item>
-      <Item>Actionable AI-powered insights</Item>
       <Item>Early burnout detection</Item>
+      <Item>Actionable AI-powered insights</Item>
       {/*<Item>Powerful custom reports</Item>*/}
     </View>
   );

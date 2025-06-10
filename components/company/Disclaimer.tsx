@@ -1,9 +1,8 @@
-import { StyleSheet, View, Text, Pressable } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { ChartSpline, ShieldCheck } from "lucide-react-native";
 import Button from "components/Button";
-import { theme, pressedDefault, setStoredVal } from "utils/helpers";
+import { pressedDefault, setStoredVal, getTheme } from "utils/helpers";
 
 type DisclaimerProps = {
   company: string;
@@ -11,38 +10,43 @@ type DisclaimerProps = {
 };
 
 export default function Disclaimer(props: DisclaimerProps) {
-  const colors = theme();
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
-  const fontSizeSmall = Device.deviceType !== 1 ? 18 : 14;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
-  const agree = () => {
+  const press = () => {
     setStoredVal("send-check-ins", "true");
     props.setHasAccess(true);
   };
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          paddingHorizontal: spacing * 1.5,
-        },
-      ]}
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
-      <View style={[styles.wrapper, { gap: spacing }]}>
+      <View
+        style={{
+          gap: theme.spacing.base,
+          maxWidth: 768,
+          alignItems: "center",
+          paddingHorizontal: theme.spacing.small * 2,
+          width: "100%",
+        }}
+      >
         <ChartSpline
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 88 : 64}
+          color={theme.color.primary}
+          size={theme.icon.xxxLarge.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 5.5 : 4}
+          strokeWidth={theme.icon.xxxLarge.stroke}
         />
 
         <Text
           style={{
             fontFamily: "Circular-Black",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 36 : 30,
+            color: theme.color.primary,
+            fontSize: theme.fontSize.xxLarge,
           }}
           allowFontScaling={false}
         >
@@ -50,13 +54,12 @@ export default function Disclaimer(props: DisclaimerProps) {
         </Text>
 
         <Text
-          style={[
-            styles.text,
-            {
-              color: colors.primary,
-              fontSize: Device.deviceType !== 1 ? 20 : 16,
-            },
-          ]}
+          style={{
+            color: theme.color.primary,
+            fontSize: theme.fontSize.body,
+            fontFamily: "Circular-Book",
+            textAlign: "center",
+          }}
           allowFontScaling={false}
         >
           To view real-time insights into workplace wellbeing trends at{" "}
@@ -66,29 +69,29 @@ export default function Disclaimer(props: DisclaimerProps) {
         </Text>
 
         <View
-          style={[
-            styles.privacy,
-            {
-              backgroundColor: colors.secondaryBg,
-              padding: spacing,
-              borderRadius: spacing,
-              gap: spacing,
-            },
-          ]}
+          style={{
+            backgroundColor: theme.color.secondaryBg,
+            borderRadius: theme.spacing.base,
+            padding: theme.spacing.small * 2,
+            gap: theme.spacing.base / 2,
+            width: "100%",
+            maxWidth: 512,
+            alignItems: "center",
+          }}
         >
-          <View style={[styles.heading, { gap: spacing / 4 }]}>
+          <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
             <ShieldCheck
-              color={colors.primary}
-              size={Device.deviceType !== 1 ? 28 : 20}
+              color={theme.color.primary}
+              size={theme.icon.base.size}
               absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+              strokeWidth={theme.icon.base.stroke}
             />
 
             <Text
               style={{
                 fontFamily: "Circular-Bold",
-                color: colors.primary,
-                fontSize: fontSizeSmall,
+                color: theme.color.primary,
+                fontSize: theme.fontSize.small,
               }}
               allowFontScaling={false}
             >
@@ -97,42 +100,41 @@ export default function Disclaimer(props: DisclaimerProps) {
           </View>
 
           <Text
-            style={[
-              styles.text,
-              {
-                color: colors.primary,
-                fontSize: fontSize,
-              },
-            ]}
+            style={{
+              color: theme.color.primary,
+              fontSize: theme.fontSize.body,
+              fontFamily: "Circular-Book",
+              textAlign: "center",
+            }}
             allowFontScaling={false}
           >
-            Neither <Text style={{ fontFamily: "Circular-Bold" }}>{props.company}</Text> nor{" "}
-            <Text style={{ fontFamily: "Circular-Bold" }}>MOOD.ai</Text> are able to identify an individual user's
-            check-in.
+            Neither <Text style={{ fontFamily: "Circular-Bold" }}>{props.company}</Text> or{" "}
+            <Text style={{ fontFamily: "Circular-Black" }}>MOOD</Text>.ai can identify an individual user's check-in.
           </Text>
 
           <Pressable
             onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy/?iab=1")}
             style={({ pressed }) => pressedDefault(pressed)}
-            hitSlop={16}
+            hitSlop={8}
           >
             <Text
-              style={[
-                styles.text,
-                {
-                  color: colors.link,
-                  fontSize: fontSizeSmall,
-                },
-              ]}
+              style={{
+                color: theme.color.link,
+                fontSize: theme.fontSize.small,
+                fontFamily: "Circular-Book",
+                textAlign: "center",
+              }}
               allowFontScaling={false}
             >
-              Learn more about our{"\n"}commitment to your privacy
+              Learn about our privacy commitment
             </Text>
           </Pressable>
         </View>
 
-        <View style={{ width: "100%", paddingHorizontal: spacing, paddingTop: spacing }}>
-          <Button func={agree} fill large>
+        <View
+          style={{ width: "100%", maxWidth: 512, paddingHorizontal: theme.spacing.base, marginTop: theme.spacing.base }}
+        >
+          <Button func={press} fill large>
             Agree and continue
           </Button>
         </View>
@@ -140,28 +142,3 @@ export default function Disclaimer(props: DisclaimerProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  wrapper: {
-    maxWidth: 768 - 72,
-    alignItems: "center",
-    width: "100%",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-  privacy: {
-    width: "100%",
-    alignItems: "center",
-  },
-  heading: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});
