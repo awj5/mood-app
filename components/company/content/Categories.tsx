@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import * as Device from "expo-device";
+import { useColorScheme } from "react-native";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import {
   Compass,
@@ -22,7 +21,7 @@ import competenciesData from "data/competencies.json";
 import { CategoryType } from "app/category";
 import Category from "./categories/Category";
 import { CompanyCheckInType } from "types";
-import { getMostCommon } from "utils/helpers";
+import { getMostCommon, getTheme } from "utils/helpers";
 
 type CategoriesProps = {
   checkIns: CompanyCheckInType[];
@@ -30,6 +29,8 @@ type CategoriesProps = {
 };
 
 export default function Categories(props: CategoriesProps) {
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [categories, setCategories] = useState<CategoryType[]>();
 
   const icons = {
@@ -109,19 +110,11 @@ export default function Categories(props: CategoriesProps) {
   return (
     <Animated.View
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
-      style={[styles.container, { gap: Device.deviceType !== 1 ? 24 : 16 }]}
+      style={{ gap: theme.spacing.base, flexDirection: "row", flexWrap: "wrap" }}
     >
-      {categories?.map((item, index) => (
-        <Category key={index} data={item} role={props.role} />
+      {categories?.map((item) => (
+        <Category key={item.id} data={item} role={props.role} />
       ))}
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: "100%",
-  },
-});

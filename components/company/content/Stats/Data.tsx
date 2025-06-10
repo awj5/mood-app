@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
-import * as Device from "expo-device";
+import { Text, useColorScheme, View } from "react-native";
 import { Activity } from "lucide-react-native";
+import { getTheme } from "utils/helpers";
 
 type DataProps = {
   number: string;
@@ -9,47 +9,35 @@ type DataProps = {
 };
 
 export default function Data(props: DataProps) {
-  const fontSize = Device.deviceType !== 1 ? 18 : 14;
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
-    <View style={[styles.conatiner, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+    <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
       {props.userView && (
         <Activity
           color="black"
-          size={Device.deviceType !== 1 ? 20 : 16}
+          size={theme.icon.small.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
+          strokeWidth={theme.icon.small.stroke}
         />
       )}
 
-      <View style={styles.wrapper}>
-        <Text style={[styles.number, { fontSize: fontSize }]} allowFontScaling={false}>
+      <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+        <Text
+          style={{ fontSize: theme.fontSize.xSmall, fontFamily: "Circular-Bold", color: "black" }}
+          allowFontScaling={false}
+        >
           {props.number}
         </Text>
 
-        <Text style={[styles.text, { fontSize: fontSize }]} allowFontScaling={false}>
+        <Text
+          style={{ fontSize: theme.fontSize.xSmall, fontFamily: "Circular-Book", color: "black" }}
+          allowFontScaling={false}
+        >
           {` ${props.text}`}
         </Text>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  conatiner: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  wrapper: {
-    flexDirection: "row",
-    alignItems: "baseline",
-  },
-  number: {
-    fontFamily: "Circular-Bold",
-    color: "black",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    color: "black",
-  },
-});

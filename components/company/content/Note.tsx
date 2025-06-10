@@ -1,52 +1,56 @@
-import { StyleSheet, View, Pressable, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Pressable, Text, useColorScheme } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { ShieldCheck } from "lucide-react-native";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 export default function Note() {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   const textStyle = {
     fontFamily: "Circular-Book",
-    color: colors.primary,
-    fontSize: Device.deviceType !== 1 ? 18 : 14,
+    color: theme.color.primary,
+    fontSize: theme.fontSize.small,
   };
 
   return (
-    <View style={[styles.container, { gap: Device.deviceType !== 1 ? 6 : 4 }]}>
+    <View
+      style={{
+        gap: theme.spacing.base / 4,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <ShieldCheck
-        color={colors.primary}
-        size={Device.deviceType !== 1 ? 28 : 20}
+        color={theme.color.primary}
+        size={theme.icon.base.size}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+        strokeWidth={theme.icon.base.stroke}
       />
 
       <Text style={textStyle} allowFontScaling={false}>
         All check-in data is <Text style={{ fontFamily: "Circular-Bold" }}>anonymous</Text>.
       </Text>
 
-      <Pressable
-        onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy/?iab=1")}
-        style={({ pressed }) => [pressedDefault(pressed), { flexDirection: "row" }]}
-        hitSlop={8}
-      >
-        <Text style={[textStyle, { color: colors.primary, textDecorationLine: "underline" }]} allowFontScaling={false}>
-          Learn more
-        </Text>
+      <View style={{ flexDirection: "row" }}>
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy/?iab=1")}
+          style={({ pressed }) => pressedDefault(pressed)}
+          hitSlop={8}
+        >
+          <Text
+            style={[textStyle, { color: theme.color.primary, textDecorationLine: "underline" }]}
+            allowFontScaling={false}
+          >
+            Learn more
+          </Text>
+        </Pressable>
 
         <Text style={textStyle} allowFontScaling={false}>
           .
         </Text>
-      </Pressable>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -1,8 +1,7 @@
-import { StyleSheet, Text, Pressable } from "react-native";
-import * as Device from "expo-device";
+import { Text, Pressable, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
-import { pressedDefault } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type StatProps = {
   text: string;
@@ -10,6 +9,8 @@ type StatProps = {
 
 export default function Stat(props: StatProps) {
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   const press = () => {
     router.push({
@@ -39,22 +40,24 @@ export default function Stat(props: StatProps) {
   return (
     <Pressable
       onPress={press}
-      style={({ pressed }) => [pressedDefault(pressed), styles.container, { gap: Device.deviceType !== 1 ? 8 : 4 }]}
+      style={({ pressed }) => [
+        pressedDefault(pressed),
+        { gap: theme.spacing.base / 4, flexDirection: "row", alignItems: "center" },
+      ]}
       hitSlop={4}
       disabled={props.text === "Other"}
     >
       <Image
         source={emojis[props.text as keyof typeof emojis]}
-        style={{ aspectRatio: "1/1", width: Device.deviceType !== 1 ? 24 : 16 }}
+        style={{ aspectRatio: "1/1", width: theme.icon.small.size }}
       />
 
       <Text
-        style={[
-          styles.text,
-          {
-            fontSize: Device.deviceType !== 1 ? 18 : 12,
-          },
-        ]}
+        style={{
+          fontSize: theme.fontSize.xSmall,
+          fontFamily: "Circular-Book",
+          color: "white",
+        }}
         allowFontScaling={false}
       >
         {props.text}
@@ -62,14 +65,3 @@ export default function Stat(props: StatProps) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    color: "white",
-  },
-});

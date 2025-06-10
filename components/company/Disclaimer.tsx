@@ -79,7 +79,7 @@ export default function Disclaimer(props: DisclaimerProps) {
             alignItems: "center",
           }}
         >
-          <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
+          <View style={{ gap: theme.spacing.base / 4, flexDirection: "row", alignItems: "center" }}>
             <ShieldCheck
               color={theme.color.primary}
               size={theme.icon.base.size}

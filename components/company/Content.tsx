@@ -41,7 +41,7 @@ export default function Content(props: ContentProps) {
   const isSimulator = Device.isDevice === false;
 
   const getCheckInData = async (uuid: string) => {
-    const start = companyDates.rangeStart ? companyDates.rangeStart : companyDates.weekStart;
+    const start = companyDates.rangeStart ?? companyDates.weekStart;
     let end = new Date(start);
 
     if (companyDates.rangeEnd) {
@@ -123,7 +123,7 @@ export default function Content(props: ContentProps) {
         <>
           <CompanyInsights checkIns={props.checkIns} dates={companyDates} />
           {role !== "user" && <Role text={role} />}
-          <Stats checkIns={props.checkIns} statsData={statsData} role={role} />
+          <Stats checkIns={props.checkIns} role={role} statsData={statsData} />
           <Note />
           <Categories checkIns={props.checkIns} role={role} />
         </>

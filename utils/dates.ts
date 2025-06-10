@@ -14,7 +14,7 @@ export const convertToISO = (date: Date) => {
 export const getMonday = (date?: Date) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const baseDate = date ? date : today; // Use today's date if date not provided
+  const baseDate = date ?? today; // Use today's date if date not provided
   const day = baseDate.getDay();
   const daysFromMonday = day === 0 ? 6 : day - 1;
   const monday = new Date(baseDate);
@@ -26,7 +26,7 @@ export const getDateRange = (dates: CalendarDatesType, showDays?: boolean) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const today = new Date();
   const year = today.getFullYear();
-  const startDate = dates.rangeStart ? dates.rangeStart : dates.weekStart;
+  const startDate = dates.rangeStart ?? dates.weekStart;
 
   const start = `${months[startDate.getMonth()]} ${startDate.getDate()}${
     startDate.getFullYear() !== year ? ` ${startDate.getFullYear()}` : ""

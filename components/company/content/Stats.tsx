@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { View, Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import Animated, { Easing, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { PieChart, pieDataItem } from "react-native-gifted-charts";
 import moodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
@@ -10,33 +10,40 @@ import { StatsDataType } from "../Content";
 import Stat from "./Stats/Stat";
 import Data from "./Stats/Data";
 import { CompanyCheckInType } from "types";
+import { getTheme } from "utils/helpers";
 
 type StatsProps = {
   checkIns: CompanyCheckInType[];
-  statsData: StatsDataType | undefined;
   role: string;
+  statsData?: StatsDataType;
 };
 
 export default function Stats(props: StatsProps) {
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [moodData, setMoodData] = useState<pieDataItem[]>([]);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const pScore = props.statsData?.participation ? props.statsData?.participation : 0;
+  const participationScore = props.statsData?.participation ?? 0;
+  const chartSize = Device.deviceType === 1 ? 144 : 200;
 
   const participation =
     props.role !== "user"
-      ? pScore + "%"
-      : pScore >= 80
+      ? participationScore + "%"
+      : participationScore >= 80
       ? "Very high"
-      : pScore >= 60
+      : participationScore >= 60
       ? "High"
-      : pScore >= 40
+      : participationScore >= 40
       ? "Moderate"
-      : pScore >= 20
+      : participationScore >= 20
       ? "Limited"
       : "Low";
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   const press = (color: string) => {
     router.push({
@@ -51,9 +58,8 @@ export default function Stats(props: StatsProps) {
     const groups: Record<string, CompanyCheckInType[]> = {};
 
     // Loop all check-ins and group into moods
-    for (let i = 0; i < props.checkIns.length; i++) {
-      let checkIn = props.checkIns[i];
-      let mood = checkIn.value.color;
+    for (const checkIn of props.checkIns) {
+      const mood = checkIn.value.color;
       if (!groups[mood]) groups[mood] = []; // Create mood if doesn't exist
       groups[mood].push(checkIn);
     }
@@ -61,14 +67,14 @@ export default function Stats(props: StatsProps) {
     const moods: pieDataItem[] = [];
 
     Object.entries(groups).forEach(([key, value]) => {
-      let mood = moodsData.filter((item) => item.id === Number(key))[0];
+      const mood = moodsData.filter((item) => item.id === Number(key))[0];
 
       moods.push({
         value: value.length,
         color: mood.color,
         text: ((value.length / props.checkIns.length) * 100).toFixed(0) + "%",
         tooltipText: mood.name,
-        shiftTextX: -2,
+        shiftTextX: -4,
         shiftTextY: 4,
         textColor: Number(key) >= 6 && Number(key) <= 11 ? "white" : "black",
         onPress: () => press(mood.name),
@@ -84,10 +90,10 @@ export default function Stats(props: StatsProps) {
 
       topMoods.push({
         value: otherTotal,
-        color: "#FFFFFF",
+        color: "white",
         text: ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%",
         tooltipText: "Other",
-        shiftTextX: -2,
+        shiftTextX: -4,
         shiftTextY: 4,
         textColor: "black",
       });
@@ -100,59 +106,63 @@ export default function Stats(props: StatsProps) {
   return (
     <Animated.View
       style={[
-        styles.container,
+        animatedStyles,
         {
-          borderRadius: spacing,
-          padding: spacing,
-          gap: spacing,
-          opacity,
+          borderRadius: theme.spacing.base,
+          padding: theme.spacing.base,
+          gap: theme.spacing.base,
+          backgroundColor: "black",
         },
       ]}
     >
       <View style={{ flexDirection: "row" }}>
         <View style={{ width: "50%" }}>
           <Text
-            style={[
-              styles.heading,
-              {
-                fontSize: Device.deviceType !== 1 ? 16 : 12,
-              },
-            ]}
+            style={{
+              fontSize: theme.fontSize.xSmall,
+              fontFamily: "Circular-Bold",
+              color: "white",
+            }}
             allowFontScaling={false}
           >
             MOOD SNAPSHOT
           </Text>
 
-          <View style={styles.list}>
+          <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
             <View
               style={{
                 flexDirection: "row",
-                gap: Device.deviceType !== 1 ? spacing * 2 : dimensions.width <= 375 ? spacing / 2 : spacing,
+                gap:
+                  dimensions.width <= 375
+                    ? theme.spacing.base / 2
+                    : Device.deviceType === 1
+                    ? theme.spacing.base
+                    : theme.spacing.base * 2,
               }}
             >
-              <View style={{ gap: spacing / 2 }}>
-                {moodData.slice(0, 4).map((item, index) => (
-                  <Stat key={index} text={item.tooltipText as string} />
+              <View style={{ gap: theme.spacing.base / 2 }}>
+                {moodData.slice(0, 4).map((item) => (
+                  <Stat key={item.tooltipText} text={item.tooltipText as string} />
                 ))}
               </View>
 
-              <View style={{ gap: spacing / 2 }}>
-                {moodData.slice(4, 8).map((item, index) => (
-                  <Stat key={index} text={item.tooltipText as string} />
+              <View style={{ gap: theme.spacing.base / 2 }}>
+                {moodData.slice(4, 8).map((item) => (
+                  <Stat key={item.tooltipText} text={item.tooltipText as string} />
                 ))}
               </View>
             </View>
           </View>
         </View>
 
-        <View style={[styles.chart, { height: Device.deviceType !== 1 ? 200 : 144 }]}>
+        <View style={{ height: chartSize, alignItems: "center", width: "50%" }}>
           <PieChart
             data={moodData}
             donut
-            radius={Device.deviceType !== 1 ? 100 : 72}
+            radius={chartSize / 2}
             showText
-            font="Circular-Medium"
-            textSize={Device.deviceType !== 1 ? 16 : 12}
+            font="Circular-Book"
+            textSize={theme.fontSize.xSmall}
             labelsPosition="outward"
             innerCircleColor="#000000"
           />
@@ -160,51 +170,25 @@ export default function Stats(props: StatsProps) {
       </View>
 
       <View
-        style={[
-          styles.data,
-          {
-            gap: Device.deviceType !== 1 ? 20 : 12,
-            paddingHorizontal: Device.deviceType !== 1 ? 16 : 12,
-            height: Device.deviceType !== 1 ? 36 : 28,
-          },
-        ]}
+        style={{
+          gap: theme.spacing.small,
+          paddingHorizontal: theme.spacing.small,
+          height: theme.spacing.base * 2,
+          flexDirection: "row",
+          backgroundColor: "white",
+          borderRadius: 999,
+          alignSelf: "center",
+        }}
       >
         {props.role !== "user" && (
           <>
-            <Data number={String(props.statsData?.checkIns)} text="check-ins" />
-            <Data number={String(props.statsData?.users)} text="users" />
+            <Data number={String(props.statsData?.checkIns)} text="CHECK-INS" />
+            <Data number={String(props.statsData?.users)} text="USERS" />
           </>
         )}
 
-        <Data number={participation} text="participation" userView={props.role === "user"} />
+        <Data number={participation.toUpperCase()} text="PARTICIPATION" userView={props.role === "user"} />
       </View>
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    backgroundColor: "black",
-  },
-  heading: {
-    fontFamily: "Circular-Bold",
-    color: "white",
-  },
-  list: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
-  chart: {
-    alignItems: "center",
-    width: "50%",
-  },
-  data: {
-    flexDirection: "row",
-    backgroundColor: "white",
-    borderRadius: 999,
-    alignSelf: "center",
-    alignItems: "center",
-  },
-});

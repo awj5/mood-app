@@ -20,7 +20,7 @@ export default function Role(props: RoleProps) {
         gap: theme.spacing.small / 2,
         backgroundColor: theme.color.inverted,
         paddingHorizontal: theme.spacing.small,
-        height: Device.deviceType === 1 ? 28 : 36,
+        height: theme.spacing.base * 2,
         flexDirection: "row",
         alignItems: "center",
         borderRadius: 999,

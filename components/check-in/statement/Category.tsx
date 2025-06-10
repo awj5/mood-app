@@ -56,7 +56,7 @@ export default function Category(props: CategoryProps) {
         gap: theme.spacing.small / 2,
         backgroundColor: props.foreground,
         paddingHorizontal: theme.spacing.small,
-        height: Device.deviceType === 1 ? 28 : 36,
+        height: theme.spacing.base * 2,
         flexDirection: "row",
         alignItems: "center",
         borderRadius: 999,

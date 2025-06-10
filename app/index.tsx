@@ -40,7 +40,7 @@ export default function Home() {
   const getCheckIns = async () => {
     const currentQuery = Symbol("currentQuery");
     latestQueryRef.current = currentQuery;
-    const start = homeDates.rangeStart ? homeDates.rangeStart : homeDates.weekStart;
+    const start = homeDates.rangeStart ?? homeDates.weekStart;
     let end = new Date(start);
 
     if (homeDates.rangeEnd) {
