@@ -57,7 +57,7 @@ export default function Insights(props: InsightsProps) {
     return result;
   };
 
-  const getInsightsData = async (ids: number[]) => {
+  const getStoredInsights = async (ids: number[]) => {
     try {
       const row: InsightType | null = await db.getFirstAsync(
         `SELECT * FROM insights WHERE check_ins = ?`,
@@ -76,7 +76,7 @@ export default function Insights(props: InsightsProps) {
     setIsLoading(true);
     setText("");
     const promptData = getPromptCheckIns(props.checkIns); // Format for AI
-    const savedResponse = await getInsightsData(promptData.ids);
+    const savedResponse = await getStoredInsights(promptData.ids);
     const uuid = await getStoredVal("uuid"); // Check if customer employee
     const proID = await getStoredVal("pro-id"); // Check if pro subscriber
 
@@ -92,7 +92,7 @@ export default function Insights(props: InsightsProps) {
         [
           {
             role: "user",
-            content: `Please analyze these check-ins: ${JSON.stringify(promptData)}.`,
+            content: `Please analyze these check-ins: ${JSON.stringify(promptData.data)}.`,
           },
         ],
         uuid,

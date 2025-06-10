@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { View, useColorScheme } from "react-native";
+import { Platform, View, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { Settings2 } from "lucide-react-native";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
@@ -75,16 +74,16 @@ export default function Company() {
 
       {hasAccess ? (
         <>
-          <Bg checkIns={checkIns} topOffset={Device.deviceType === 1 ? 96 : 128} />
+          <Bg checkIns={checkIns} />
 
-          <View style={{ flex: 1, marginTop: headerHeight }}>
+          <View style={{ flex: 1, marginTop: Platform.OS === "android" ? 106 : headerHeight }}>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
               <HeaderTitle text={company} />
 
               <View
                 style={{
-                  paddingRight: theme.spacing.base,
-                  paddingTop: theme.spacing.base,
+                  marginRight: theme.spacing.base,
+                  marginTop: theme.spacing.base,
                 }}
               >
                 <Button
@@ -97,7 +96,7 @@ export default function Company() {
               </View>
             </View>
 
-            <Content checkIns={checkIns} setCheckIns={setCheckIns} filters={companyFilters} />
+            <Content checkIns={checkIns} setCheckIns={setCheckIns} />
           </View>
         </>
       ) : company ? (

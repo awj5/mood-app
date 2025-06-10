@@ -66,7 +66,7 @@ export default function Pro() {
       />
 
       <ScrollView
-        style={{ marginTop: headerHeight }}
+        style={{ marginTop: Platform.OS === "android" ? 106 : headerHeight }}
         contentContainerStyle={{
           padding: theme.spacing.base,
           paddingTop: Device.deviceType === 1 ? theme.spacing.base : 0,

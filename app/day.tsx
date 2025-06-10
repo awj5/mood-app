@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, useColorScheme, View } from "react-native";
+import { Platform, ScrollView, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
@@ -30,6 +30,7 @@ export default function Day() {
   const date = new Date(iso);
   const title = date.toDateString();
   const itemHeight = Device.deviceType === 1 ? 384 : 448;
+  const trueHeaderHeight = Platform.OS === "android" ? 106 : headerHeight;
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -104,7 +105,7 @@ export default function Day() {
         >
           {/* Gradient background */}
           <View style={{ position: "absolute", width: "100%" }}>
-            <View style={{ height: headerHeight + theme.spacing.base, backgroundColor: gradientColors[0] }} />
+            <View style={{ height: trueHeaderHeight + theme.spacing.base, backgroundColor: gradientColors[0] }} />
 
             {gradientColors.length > 1 && gradientColors.length === gradientLocations.length && (
               <LinearGradient
@@ -118,7 +119,7 @@ export default function Day() {
           {/* Check-ins */}
           <View
             style={{
-              marginTop: headerHeight,
+              marginTop: trueHeaderHeight,
               padding: theme.spacing.base,
               paddingBottom: 0,
               gap: theme.spacing.base,
@@ -145,7 +146,7 @@ export default function Day() {
         <BlurView
           intensity={50}
           tint={colorScheme as "light" | "dark"}
-          style={{ height: headerHeight, position: "absolute", width: "100%" }}
+          style={{ height: trueHeaderHeight, position: "absolute", width: "100%" }}
         />
       ) : null}
     </>

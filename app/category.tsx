@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
@@ -24,7 +24,7 @@ import {
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
 import Bg from "components/Bg";
 import Article from "components/Article";
-import Insights from "components/Insights";
+import CompanyInsights from "components/CompanyInsights";
 import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
 import Role from "components/Role";
@@ -102,7 +102,7 @@ export default function Category() {
 
       <Bg checkIns={JSON.parse(params.checkIns)} topOffset={Device.deviceType === 1 ? 96 : 128} />
 
-      <View style={{ marginTop: headerHeight, flex: 1 }}>
+      <View style={{ marginTop: Platform.OS === "android" ? 106 : headerHeight, flex: 1 }}>
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={[
@@ -130,7 +130,7 @@ export default function Category() {
             </Text>
           </View>
 
-          <Insights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
+          <CompanyInsights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
           {params.role !== "user" && <Role text={params.role} />}
 
           <View style={{ flexDirection: "row", gap: spacing }}>

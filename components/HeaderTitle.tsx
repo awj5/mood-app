@@ -1,15 +1,12 @@
 import { View, Text, useColorScheme } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { getTheme } from "utils/helpers";
 
 type HeaderTitleProps = {
   text: string;
   description?: string;
-  transparentHeader?: boolean;
 };
 
 export default function HeaderTitle(props: HeaderTitleProps) {
-  const headerHeight = useHeaderHeight();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
 
@@ -18,7 +15,6 @@ export default function HeaderTitle(props: HeaderTitleProps) {
       style={{
         padding: theme.spacing.base,
         gap: theme.spacing.base / 2,
-        marginTop: props.transparentHeader ? headerHeight : 0,
         flexShrink: 1, // Needed for when placed in a flex row
       }}
     >

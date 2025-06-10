@@ -1,22 +1,20 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useContext, useState } from "react";
-import { ScrollView, View, Text, StyleSheet, Pressable, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, Pressable, ActivityIndicator, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
-import { useFocusEffect } from "expo-router";
-import Constants from "expo-constants";
 import axios from "axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
 import { CompanyDatesContext, CompanyDatesContextType } from "context/company-dates";
-import { CompanyFiltersType } from "context/company-filters";
-import Insights from "components/Insights";
+import { CompanyFiltersContext, CompanyFiltersContextType } from "context/company-filters";
+import CompanyInsights from "components/CompanyInsights";
 import Categories from "./content/Categories";
 import Stats from "./content/Stats";
 import Role from "components/Role";
 import Note from "./content/Note";
 import { CompanyCheckInType } from "types";
-import { getStoredVal, theme, pressedDefault, removeAccess, setStoredVal } from "utils/helpers";
+import { getStoredVal, pressedDefault, removeAccess, setStoredVal, getTheme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
 
 export type StatsDataType = {
@@ -28,21 +26,18 @@ export type StatsDataType = {
 type ContentProps = {
   checkIns: CompanyCheckInType[] | undefined;
   setCheckIns: React.Dispatch<React.SetStateAction<CompanyCheckInType[] | undefined>>;
-  filters: CompanyFiltersType;
 };
 
 export default function Content(props: ContentProps) {
-  const colors = theme();
   const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const latestQueryRef = useRef<symbol>();
-  const filtersRef = useRef<CompanyFiltersType | undefined>();
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
+  const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [isOffline, setIsOffline] = useState(false);
   const [role, setRole] = useState("");
   const [statsData, setStatsData] = useState<StatsDataType>();
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const smallSpacing = Device.deviceType !== 1 ? 6 : 4;
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
   const isSimulator = Device.isDevice === false;
 
   const getCheckInData = async (uuid: string) => {
@@ -62,9 +57,8 @@ export default function Content(props: ContentProps) {
           uuid: uuid,
           start: convertToISO(start),
           end: convertToISO(end),
-          role: true, // Will remove
-          ...(props.filters.locations.length !== undefined && { locations: props.filters.locations }),
-          ...(props.filters.teams.length !== undefined && { teams: props.filters.teams }),
+          ...(companyFilters.locations.length !== undefined && { locations: companyFilters.locations }),
+          ...(companyFilters.teams.length !== undefined && { teams: companyFilters.teams }),
         }
       );
 
@@ -76,7 +70,7 @@ export default function Content(props: ContentProps) {
         alert("Access denied.");
       }
 
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -89,21 +83,20 @@ export default function Content(props: ContentProps) {
     const network = await Network.getNetworkStateAsync();
 
     if (uuid && network.isInternetReachable) {
-      const checkInData = await getCheckInData(uuid); // Get check-ins from Supabase
+      const data = await getCheckInData(uuid); // Get check-ins from Supabase
 
       if (latestQueryRef.current === currentQuery) {
-        props.setCheckIns(checkInData && checkInData.checkInsData ? checkInData.checkInsData : []);
-        filtersRef.current = props.filters;
+        props.setCheckIns(data && data.checkInsData ? data.checkInsData : []);
 
         // Assign user's role
-        if (checkInData && checkInData.role) {
-          setRole(checkInData.role);
-          setStoredVal("admin", checkInData.role === "admin" ? "true" : "false"); // Remember admin
+        if (data && data.role) {
+          setRole(data.role);
+          setStoredVal("admin", data.role === "admin" ? "true" : "false"); // Remember admin role
         }
 
         // Stats
-        if (checkInData && checkInData.stats) {
-          setStatsData(checkInData.stats);
+        if (data && data.stats) {
+          setStatsData(data.stats);
         }
       }
     } else if (!network.isInternetReachable) {
@@ -112,118 +105,72 @@ export default function Content(props: ContentProps) {
   };
 
   useEffect(() => {
-    props.setCheckIns(undefined); // Show loader
-
-    const timeout = setTimeout(() => {
-      getCheckIns();
-    }, 500); // Delay to avoid flash of loader
-
-    return () => clearTimeout(timeout);
-  }, [companyDates]);
-
-  useFocusEffect(
-    useCallback(() => {
-      if (filtersRef.current && props.filters !== filtersRef.current) {
-        getCheckIns(); // Filters have changed
-      }
-    }, [props.filters])
-  );
+    getCheckIns();
+  }, [companyDates, companyFilters]);
 
   return (
     <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={{ flex: props.checkIns?.length ? 0 : 1, alignItems: "center" }}
+      contentContainerStyle={{
+        paddingHorizontal: theme.spacing.base,
+        paddingBottom: insets.bottom + theme.spacing.base,
+        gap: theme.spacing.base,
+        width: "100%",
+        maxWidth: 768,
+        margin: "auto",
+      }}
     >
-      <View
-        style={[
-          styles.wrapper,
-          {
-            paddingBottom: insets.bottom + spacing,
-            gap: spacing,
-            paddingHorizontal: spacing,
-          },
-        ]}
-      >
-        {props.checkIns?.length ? (
-          <>
-            <Insights checkIns={props.checkIns} dates={companyDates} />
-            {role !== "user" && <Role text={role} />}
-            <Stats checkIns={props.checkIns} statsData={statsData} role={role} />
-            <Note />
-            <Categories checkIns={props.checkIns} role={role} />
-          </>
-        ) : isOffline ? (
-          <View style={{ gap: smallSpacing, alignItems: "center" }}>
-            <Text
-              style={[
-                styles.text,
-                {
-                  color: colors.opaque,
-                  fontSize: fontSize,
-                },
-              ]}
-            >
-              {"You must be online to view\ncompany insights."}
-            </Text>
+      {props.checkIns?.length ? (
+        <>
+          <CompanyInsights checkIns={props.checkIns} dates={companyDates} />
+          {role !== "user" && <Role text={role} />}
+          <Stats checkIns={props.checkIns} statsData={statsData} role={role} />
+          <Note />
+          <Categories checkIns={props.checkIns} role={role} />
+        </>
+      ) : isOffline ? (
+        <View style={{ gap: theme.spacing.base / 4, alignItems: "center" }}>
+          <Text
+            style={{
+              color: theme.color.opaque,
+              fontSize: theme.fontSize.body,
+              fontFamily: "Circular-Book",
+              textAlign: "center",
+            }}
+          >
+            You must be online to view insights.
+          </Text>
 
-            <Pressable onPress={getCheckIns} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
-              <Text
-                style={[
-                  styles.button,
-                  {
-                    color: colors.primary,
-                    fontSize: fontSize,
-                    padding: smallSpacing,
-                  },
-                ]}
-                allowFontScaling={false}
-              >
-                Try again
-              </Text>
-            </Pressable>
-          </View>
-        ) : props.checkIns !== undefined ? (
-          <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
+          <Pressable onPress={getCheckIns} style={({ pressed }) => pressedDefault(pressed)} hitSlop={8}>
             <Text
-              style={[
-                styles.text,
-                {
-                  color: colors.opaque,
-                  fontSize: fontSize,
-                },
-              ]}
+              style={{
+                color: theme.color.primary,
+                fontSize: theme.fontSize.body,
+                fontFamily: "Circular-Book",
+                textDecorationLine: "underline",
+              }}
               allowFontScaling={false}
             >
-              No check-ins found
+              Try again
             </Text>
-          </Animated.View>
-        ) : (
-          <ActivityIndicator color={colors.primary} size="large" />
-        )}
-      </View>
+          </Pressable>
+        </View>
+      ) : props.checkIns !== undefined ? (
+        <Animated.View entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}>
+          <Text
+            style={{
+              color: theme.color.opaque,
+              fontFamily: "Circular-Book",
+              fontSize: theme.fontSize.body,
+              textAlign: "center",
+            }}
+            allowFontScaling={false}
+          >
+            No data found
+          </Text>
+        </Animated.View>
+      ) : (
+        <ActivityIndicator color={theme.color.primary} size="large" />
+      )}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    maxWidth: 720 + 48,
-  },
-  role: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 999,
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-  button: {
-    fontFamily: "Circular-Book",
-    textDecorationLine: "underline",
-  },
-});
