@@ -173,7 +173,7 @@ export default function Stats(props: StatsProps) {
         style={{
           gap: theme.spacing.base / 2,
           paddingHorizontal: theme.spacing.small,
-          height: theme.spacing.base * 2,
+          height: Device.deviceType === 1 ? 28 : 36,
           flexDirection: "row",
           backgroundColor: "white",
           borderRadius: 999,
