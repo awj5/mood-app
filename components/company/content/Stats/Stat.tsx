@@ -1,6 +1,7 @@
 import { Text, Pressable, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
+import * as Device from "expo-device";
 import { getTheme, pressedDefault } from "utils/helpers";
 
 type StatProps = {
@@ -49,12 +50,12 @@ export default function Stat(props: StatProps) {
     >
       <Image
         source={emojis[props.text as keyof typeof emojis]}
-        style={{ aspectRatio: "1/1", width: theme.icon.small.size }}
+        style={{ aspectRatio: "1/1", width: Device.deviceType === 1 ? theme.icon.small.size : theme.icon.base.size }}
       />
 
       <Text
         style={{
-          fontSize: theme.fontSize.xSmall,
+          fontSize: Device.deviceType === 1 ? theme.fontSize.xSmall : theme.fontSize.small,
           fontFamily: "Circular-Book",
           color: "white",
         }}

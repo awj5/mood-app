@@ -74,7 +74,7 @@ export default function Stats(props: StatsProps) {
         color: mood.color,
         text: ((value.length / props.checkIns.length) * 100).toFixed(0) + "%",
         tooltipText: mood.name,
-        shiftTextX: -4,
+        shiftTextX: -3,
         shiftTextY: 4,
         textColor: Number(key) >= 6 && Number(key) <= 11 ? "white" : "black",
         onPress: () => press(mood.name),
@@ -93,7 +93,7 @@ export default function Stats(props: StatsProps) {
         color: "white",
         text: ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%",
         tooltipText: "Other",
-        shiftTextX: -4,
+        shiftTextX: -3,
         shiftTextY: 4,
         textColor: "black",
       });
@@ -171,7 +171,7 @@ export default function Stats(props: StatsProps) {
 
       <View
         style={{
-          gap: theme.spacing.small,
+          gap: theme.spacing.base / 2,
           paddingHorizontal: theme.spacing.small,
           height: theme.spacing.base * 2,
           flexDirection: "row",
