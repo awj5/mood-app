@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
-import * as Device from "expo-device";
-import { theme } from "utils/helpers";
+import { View, Text, useColorScheme } from "react-native";
+import { getTheme } from "utils/helpers";
 
 type HeaderProps = {
   title: string;
@@ -8,44 +7,31 @@ type HeaderProps = {
 };
 
 export default function Header(props: HeaderProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const Icon = props.icon;
-  const iconSize = Device.deviceType !== 1 ? 32 : 24;
 
   return (
-    <View>
+    <View style={{ flexDirection: "row", justifyContent: "space-between", gap: theme.spacing.base / 4 }}>
       <Text
-        style={[
-          styles.text,
-          {
-            fontSize: Device.deviceType !== 1 ? 16 : 12,
-            color: colors.primary,
-            paddingRight: iconSize,
-          },
-        ]}
+        style={{
+          fontSize: theme.fontSize.xSmall,
+          color: theme.color.primary,
+          fontFamily: "Circular-Bold",
+          textTransform: "uppercase",
+          flex: 1,
+        }}
         allowFontScaling={false}
       >
         {props.title}
       </Text>
 
       <Icon
-        color={colors.primary}
-        size={iconSize}
+        color={theme.color.primary}
+        size={theme.icon.large.size}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
-        style={[styles.icon, { margin: Device.deviceType !== 1 ? -2.5 : -2 }]}
+        strokeWidth={theme.icon.large.stroke}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: "Circular-Bold",
-    textTransform: "uppercase",
-  },
-  icon: {
-    position: "absolute",
-    right: 0,
-  },
-});

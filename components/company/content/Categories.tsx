@@ -54,9 +54,8 @@ export default function Categories(props: CategoriesProps) {
     const groups: Record<string, CompanyCheckInType[]> = {};
 
     // Loop all check-ins and group into categories
-    for (let i = 0; i < props.checkIns.length; i++) {
-      let checkIn = props.checkIns[i];
-      let category = Math.trunc(checkIn.value.competency);
+    for (const checkIn of props.checkIns) {
+      const category = Math.trunc(checkIn.value.competency);
       if (!groups[category]) groups[category] = []; // Create category if doesn't exist
       groups[category].push(checkIn);
     }
@@ -65,7 +64,7 @@ export default function Categories(props: CategoriesProps) {
 
     // Loop groups and get category details
     Object.entries(groups).forEach(([key, value]) => {
-      let category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
+      const category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
       const moods: number[] = [];
       const responses: number[] = [];
 

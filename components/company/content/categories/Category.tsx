@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
 import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CategoryType } from "app/category";
 import Header from "./category/Header";
-import { pressedDefault, theme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 
 type CategoryProps = {
   data: CategoryType;
@@ -14,19 +14,19 @@ type CategoryProps = {
 };
 
 export default function Category(props: CategoryProps) {
-  const colors = theme();
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [score, setScore] = useState(0);
   const Icon =
     props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
   let range = "";
 
   switch (true) {
     case props.data.score >= 90:
-      range = "Outstanding";
+      range = "Amazing";
       break;
     case props.data.score >= 80:
       range = "Excellent";
@@ -38,13 +38,13 @@ export default function Category(props: CategoryProps) {
       range = "Good";
       break;
     case props.data.score >= 40:
-      range = "Moderate";
+      range = "Needs attention";
       break;
     default:
       range = "Needs attention";
   }
 
-  const click = () => {
+  const press = () => {
     router.push({
       pathname: "category",
       params: {
@@ -80,52 +80,56 @@ export default function Category(props: CategoryProps) {
 
   return (
     <Pressable
-      onPress={click}
+      onPress={press}
       style={({ pressed }) => [
         pressedDefault(pressed),
         {
-          width: (parentWidth - spacing * 3) / 2, // 2 columns
-          aspectRatio: Device.deviceType !== 1 ? "3/2" : "4/4",
-          backgroundColor: colors.opaqueBg,
-          borderRadius: spacing,
-          padding: spacing,
+          width: (parentWidth - theme.spacing.base * 3) / 2, // 2 columns
+          aspectRatio: Device.deviceType === 1 ? "4/4" : "3/2",
+          backgroundColor: theme.color.opaqueBg,
+          borderRadius: theme.spacing.base,
+          padding: theme.spacing.base,
           justifyContent: "space-between",
+          borderWidth: 1,
+          borderColor: theme.color.opaqueStroke,
         },
       ]}
       hitSlop={8}
     >
       <Header title={props.data.title} icon={props.data.icon} />
 
-      <View style={{ gap: props.role === "user" ? (Device.deviceType !== 1 ? 6 : 4) : 0 }}>
+      <View style={{ gap: theme.spacing.base / 4 }}>
         <Icon
-          color={colors.primary}
-          size={Device.deviceType !== 1 ? 32 : 24}
+          color={theme.color.primary}
+          size={theme.icon.large.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2.5 : 2}
+          strokeWidth={theme.icon.large.stroke}
         />
 
-        <Text
-          style={{
-            fontFamily: "Circular-Bold",
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? (props.role === "user" ? 30 : 48) : props.role === "user" ? 22 : 36,
-            lineHeight: Device.deviceType !== 1 ? (props.role === "user" ? 32 : 50) : props.role === "user" ? 26 : 38,
-          }}
-          allowFontScaling={false}
-        >
-          {props.role === "user" ? range : `${score}%`}
-        </Text>
+        <View style={{ gap: props.role === "user" ? theme.spacing.base / 4 : 0 }}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: theme.color.primary,
+              fontSize: props.role === "user" ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
+              lineHeight: props.role === "user" ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
+            }}
+            allowFontScaling={false}
+          >
+            {props.role === "user" ? range : `${score}%`}
+          </Text>
 
-        <Text
-          style={{
-            fontFamily: "Circular-Book",
-            color: colors.opaque,
-            fontSize: Device.deviceType !== 1 ? 14 : 10,
-          }}
-          allowFontScaling={false}
-        >
-          SENTIMENT INDEX
-        </Text>
+          <Text
+            style={{
+              fontFamily: "Circular-Book",
+              color: theme.color.opaque,
+              fontSize: theme.fontSize.xxSmall,
+            }}
+            allowFontScaling={false}
+          >
+            SENTIMENT INDEX
+          </Text>
+        </View>
       </View>
     </Pressable>
   );
