@@ -35,7 +35,7 @@ export default function Participation(props: ParticipationProps) {
         paddingHorizontal: theme.spacing.small,
         height: Device.deviceType === 1 ? 28 : 36,
         flexDirection: "row",
-        backgroundColor: "white",
+        backgroundColor: theme.color.inverted,
         borderRadius: 999,
         alignSelf: "center",
       }}
@@ -66,7 +66,7 @@ function Metric(props: MetricProps) {
     <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
       {props.userView && (
         <Activity
-          color="black"
+          color={theme.color.primary}
           size={theme.icon.small.size}
           absoluteStrokeWidth
           strokeWidth={theme.icon.small.stroke}
@@ -75,7 +75,7 @@ function Metric(props: MetricProps) {
 
       <View style={{ flexDirection: "row", alignItems: "baseline" }}>
         <Text
-          style={{ fontSize: theme.fontSize.xSmall, fontFamily: "Circular-Bold", color: "black" }}
+          style={{ fontSize: theme.fontSize.xSmall, fontFamily: "Circular-Bold", color: theme.color.primary }}
           allowFontScaling={false}
         >
           {props.data}
@@ -85,7 +85,7 @@ function Metric(props: MetricProps) {
           style={{
             fontSize: props.userView ? theme.fontSize.xSmall : theme.fontSize.xxSmall,
             fontFamily: "Circular-Book",
-            color: "black",
+            color: theme.color.primary,
           }}
           allowFontScaling={false}
         >

@@ -56,8 +56,8 @@ export default function Stat(props: StatProps) {
       <Text
         style={{
           fontSize: Device.deviceType === 1 ? theme.fontSize.xSmall : theme.fontSize.small,
-          fontFamily: "Circular-Book",
-          color: "white",
+          fontFamily: "Circular-Medium",
+          color: theme.color.inverted,
         }}
         allowFontScaling={false}
       >

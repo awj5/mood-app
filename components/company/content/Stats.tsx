@@ -97,7 +97,7 @@ export default function Stats(props: StatsProps) {
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
           gap: theme.spacing.base,
-          backgroundColor: "black",
+          backgroundColor: theme.color.invertedBg,
         },
       ]}
     >
@@ -107,7 +107,7 @@ export default function Stats(props: StatsProps) {
             style={{
               fontSize: theme.fontSize.xSmall,
               fontFamily: "Circular-Bold",
-              color: "white",
+              color: theme.color.inverted,
             }}
             allowFontScaling={false}
           >
@@ -150,7 +150,7 @@ export default function Stats(props: StatsProps) {
             font="Circular-Book"
             textSize={theme.fontSize.xSmall}
             labelsPosition="outward"
-            innerCircleColor="black"
+            innerCircleColor={theme.color.invertedBg}
           />
         </View>
       </View>
