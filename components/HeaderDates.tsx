@@ -51,8 +51,8 @@ export default function HeaderDates(props: HeaderDatesProps) {
         style={{
           backgroundColor: props.dates.rangeStart ? theme.color.link : "transparent",
           paddingHorizontal: props.dates.rangeStart ? theme.spacing.small : 0,
-          paddingTop: Platform.OS === "ios" ? theme.spacing.base / 2 : theme.spacing.small / 2,
-          paddingBottom: theme.spacing.small / 2,
+          paddingTop: Platform.OS === "ios" ? theme.spacing.small / 2 : theme.spacing.base / 4,
+          paddingBottom: Platform.OS === "ios" ? theme.spacing.base / 4 : theme.spacing.small / 2,
           justifyContent: "center",
           borderRadius: 999,
         }}

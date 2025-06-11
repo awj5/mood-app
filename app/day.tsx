@@ -146,7 +146,13 @@ export default function Day() {
         <BlurView
           intensity={50}
           tint={colorScheme as "light" | "dark"}
-          style={{ height: trueHeaderHeight, position: "absolute", width: "100%" }}
+          style={{
+            height: trueHeaderHeight,
+            position: "absolute",
+            width: "100%",
+            borderBottomWidth: 1,
+            borderColor: theme.color.opaqueStroke,
+          }}
         />
       ) : null}
     </>

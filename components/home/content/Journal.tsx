@@ -53,6 +53,8 @@ export default function Journal(props: JournalProps) {
           aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
           backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
+          borderWidth: 1,
+          borderColor: theme.color.invertedOpaqueStroke,
         },
       ]}
     >
@@ -74,7 +76,7 @@ export default function Journal(props: JournalProps) {
             height="28"
             viewBox="0 0 22 28"
             fill={theme.color.inverted}
-            style={{ position: "absolute", right: theme.spacing.base }}
+            style={{ position: "absolute", right: theme.spacing.base, top: -1 }}
           >
             <Path d="M21.7778 28L10.8889 21.7778L0 28V3.11111V0H3.11111H18.6667H21.7778V3.11111V28Z" />
           </Svg>
@@ -84,7 +86,7 @@ export default function Journal(props: JournalProps) {
             height="40"
             viewBox="0 0 32 40"
             fill={theme.color.inverted}
-            style={{ position: "absolute", right: theme.spacing.base }}
+            style={{ position: "absolute", right: theme.spacing.base, top: -1 }}
           >
             <Path d="M31.1111 40L15.5556 31.1111L0 40V4.44444V0H4.44445H26.6667H31.1111V4.44444V40Z" />
           </Svg>

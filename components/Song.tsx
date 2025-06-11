@@ -74,6 +74,8 @@ export default function Song(props: SongProps) {
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
           gap: theme.spacing.base,
+          borderWidth: 1,
+          borderColor: theme.color.opaqueStroke,
         },
       ]}
     >

@@ -71,6 +71,8 @@ export default function Quote(props: QuoteProps) {
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
           gap: theme.spacing.base,
+          borderWidth: 1,
+          borderColor: theme.color.opaqueStroke,
         },
       ]}
     >
