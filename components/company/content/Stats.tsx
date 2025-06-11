@@ -8,7 +8,7 @@ import moodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { StatsDataType } from "../Content";
 import Stat from "./Stats/Stat";
-import Data from "./Stats/Data";
+import Participation from "./Stats/Participation";
 import { CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
 
@@ -25,21 +25,7 @@ export default function Stats(props: StatsProps) {
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [moodData, setMoodData] = useState<pieDataItem[]>([]);
-  const participationScore = props.statsData?.participation ?? 0;
   const chartSize = Device.deviceType === 1 ? 144 : 200;
-
-  const participation =
-    props.role !== "user"
-      ? participationScore + "%"
-      : participationScore >= 80
-      ? "Very high"
-      : participationScore >= 60
-      ? "High"
-      : participationScore >= 40
-      ? "Moderate"
-      : participationScore >= 20
-      ? "Limited"
-      : "Low";
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -164,31 +150,12 @@ export default function Stats(props: StatsProps) {
             font="Circular-Book"
             textSize={theme.fontSize.xSmall}
             labelsPosition="outward"
-            innerCircleColor="#000000"
+            innerCircleColor="black"
           />
         </View>
       </View>
 
-      <View
-        style={{
-          gap: theme.spacing.base / 2,
-          paddingHorizontal: theme.spacing.small,
-          height: Device.deviceType === 1 ? 28 : 36,
-          flexDirection: "row",
-          backgroundColor: "white",
-          borderRadius: 999,
-          alignSelf: "center",
-        }}
-      >
-        {props.role !== "user" && (
-          <>
-            <Data number={String(props.statsData?.checkIns)} text="CHECK-INS" />
-            <Data number={String(props.statsData?.users)} text="USERS" />
-          </>
-        )}
-
-        <Data number={participation.toUpperCase()} text="PARTICIPATION" userView={props.role === "user"} />
-      </View>
+      <Participation role={props.role} statsData={props.statsData} />
     </Animated.View>
   );
 }
