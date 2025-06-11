@@ -38,7 +38,7 @@ export default function Category(props: CategoryProps) {
       range = "Good";
       break;
     case props.data.score >= 40:
-      range = "Needs attention";
+      range = "Moderate";
       break;
     default:
       range = "Needs attention";
