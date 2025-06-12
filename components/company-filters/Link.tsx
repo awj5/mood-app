@@ -1,20 +1,19 @@
 import { useContext } from "react";
-import { StyleSheet, Text, Pressable, View } from "react-native";
-import * as Device from "expo-device";
+import { Text, Pressable, View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } from "context/company-filters";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 type LinkProps = {
   title: string;
 };
 
 export default function Link(props: LinkProps) {
-  const colors = theme();
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
   const count = companyFilters[props.title.toLowerCase() as keyof CompanyFiltersType].length;
 
   return (
@@ -27,55 +26,44 @@ export default function Link(props: LinkProps) {
           },
         })
       }
-      style={({ pressed }) => [pressedDefault(pressed), styles.container]}
+      style={({ pressed }) => [
+        pressedDefault(pressed),
+        { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+      ]}
       hitSlop={16}
     >
       <Text
         style={{
-          color: colors.primary,
+          color: theme.color.primary,
           fontFamily: "Circular-Medium",
-          fontSize: fontSize,
+          fontSize: theme.fontSize.body,
         }}
         allowFontScaling={false}
       >
         {props.title}
       </Text>
 
-      <View style={[styles.count, { gap: Device.deviceType !== 1 ? 10 : 6 }]}>
+      <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
         {count ? (
           <Text
             style={{
-              color: colors.primary,
+              color: theme.color.primary,
               fontFamily: "Circular-Book",
-              fontSize: fontSize,
+              fontSize: theme.fontSize.body,
             }}
             allowFontScaling={false}
           >
             {count}
           </Text>
-        ) : (
-          <></>
-        )}
+        ) : null}
 
         <ChevronRight
-          color={colors.secondary}
-          size={Device.deviceType !== 1 ? 28 : 20}
+          color={theme.color.secondary}
+          size={theme.icon.base.size}
           absoluteStrokeWidth
-          strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+          strokeWidth={theme.icon.base.stroke}
         />
       </View>
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  count: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});

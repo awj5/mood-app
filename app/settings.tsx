@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, useColorScheme } from "react-native";
+import { View, ScrollView, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton } from "@react-navigation/elements";
@@ -21,7 +21,13 @@ export default function Settings() {
   const [reminderVisible, setReminderVisible] = useState(false);
   const [company, setCompany] = useState("");
   const [hasPro, setHasPro] = useState(false);
-  const dividerStyle = { backgroundColor: theme.color.secondaryBg, marginVertical: theme.spacing.base };
+
+  const dividerStyle = {
+    backgroundColor: theme.color.secondaryBg,
+    marginVertical: theme.spacing.base,
+    width: "100%" as const,
+    height: 1,
+  };
 
   useEffect(() => {
     (async () => {
@@ -55,43 +61,35 @@ export default function Settings() {
       <HeaderTitle text="Settings" />
 
       <ScrollView
-        style={{ flex: 1 }}
         contentContainerStyle={{
           padding: theme.spacing.base,
           paddingBottom: insets.bottom + theme.spacing.base,
         }}
       >
         <Name />
-        <View style={[styles.divider, dividerStyle]} />
+        <View style={dividerStyle} />
         <Reminder reminderVisible={reminderVisible} setReminderVisible={setReminderVisible} />
-        <View style={[styles.divider, dividerStyle]} />
+        <View style={dividerStyle} />
 
         {company && (
           <>
             <Company company={company} setCompany={setCompany} />
-            <View style={[styles.divider, dividerStyle]} />
+            <View style={dividerStyle} />
           </>
         )}
 
         {(!company || (company && hasPro)) && (
           <>
             <Pro hasPro={hasPro} />
-            <View style={[styles.divider, dividerStyle]} />
+            <View style={dividerStyle} />
           </>
         )}
 
         <Version />
-        <View style={[styles.divider, dividerStyle]} />
+        <View style={dividerStyle} />
       </ScrollView>
 
       <ReminderOverlay visible={reminderVisible} setVisible={setReminderVisible} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  divider: {
-    width: "100%",
-    height: 1,
-  },
-});

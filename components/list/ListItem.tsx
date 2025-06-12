@@ -1,10 +1,9 @@
 import { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, Pressable } from "react-native";
-import * as Device from "expo-device";
+import { Text, Pressable, useColorScheme } from "react-native";
 import { Check } from "lucide-react-native";
 import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } from "context/company-filters";
 import { ListItemType } from "app/company-filters/list";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 type ListItemProps = {
   data: ListItemType;
@@ -12,19 +11,20 @@ type ListItemProps = {
 };
 
 export default function ListItem(props: ListItemProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [checked, setChecked] = useState(false);
 
   const press = () => {
     if (companyFilters[props.type as keyof CompanyFiltersType].includes(props.data.id)) {
-      // Remove from context
+      // Remove
       setCompanyFilters({
         ...companyFilters,
         [props.type]: companyFilters[props.type as keyof CompanyFiltersType].filter((item) => item !== props.data.id),
       });
     } else {
-      // Add to context
+      // Add
       setCompanyFilters({
         ...companyFilters,
         [props.type]: [...companyFilters[props.type as keyof CompanyFiltersType], props.data.id],
@@ -37,12 +37,19 @@ export default function ListItem(props: ListItemProps) {
   }, [companyFilters]);
 
   return (
-    <Pressable onPress={press} style={({ pressed }) => [pressedDefault(pressed), styles.container]} hitSlop={16}>
+    <Pressable
+      onPress={press}
+      style={({ pressed }) => [
+        pressedDefault(pressed),
+        { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+      ]}
+      hitSlop={16}
+    >
       <Text
         style={{
-          color: colors.primary,
+          color: theme.color.primary,
           fontFamily: "Circular-Medium",
-          fontSize: Device.deviceType !== 1 ? 20 : 16,
+          fontSize: theme.fontSize.body,
         }}
         allowFontScaling={false}
       >
@@ -50,20 +57,12 @@ export default function ListItem(props: ListItemProps) {
       </Text>
 
       <Check
-        color={colors.primary}
-        size={Device.deviceType !== 1 ? 28 : 20}
+        color={theme.color.primary}
+        size={theme.icon.base.size}
         absoluteStrokeWidth
-        strokeWidth={Device.deviceType !== 1 ? 2 : 1.5}
+        strokeWidth={theme.icon.base.stroke}
         style={{ opacity: checked ? 1 : 0 }}
       />
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-});

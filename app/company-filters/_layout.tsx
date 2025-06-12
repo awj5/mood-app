@@ -1,22 +1,25 @@
+import { useColorScheme } from "react-native";
 import { Stack } from "expo-router";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 export default function Layout() {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
 
   return (
     <Stack
       screenOptions={{
         contentStyle: {
-          backgroundColor: colors.primaryBg,
+          backgroundColor: theme.color.primaryBg,
         },
         headerShadowVisible: false,
         headerStyle: {
-          backgroundColor: colors.primaryBg,
+          backgroundColor: theme.color.primaryBg,
         },
-        headerTintColor: colors.primary,
+        headerTintColor: theme.color.primary,
       }}
     >
+      <Stack.Screen name="index" />
       <Stack.Screen name="list" />
     </Stack>
   );

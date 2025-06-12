@@ -61,7 +61,7 @@ export default function Done(props: DoneProps) {
 
             if (props.focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
         }
       } catch (error) {

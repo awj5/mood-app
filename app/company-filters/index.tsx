@@ -1,22 +1,27 @@
 import { useContext } from "react";
-import { Pressable, ScrollView, Text, View, StyleSheet } from "react-native";
+import { Pressable, ScrollView, Text, View, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CompanyFiltersContext, CompanyFiltersContextType } from "context/company-filters";
 import HeaderTitle from "components/HeaderTitle";
 import Link from "components/company-filters/Link";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 export default function CompanyFilters() {
   const localization = getLocales();
-  const colors = theme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
+
+  const dividerStyle = {
+    backgroundColor: theme.color.secondaryBg,
+    marginVertical: theme.spacing.base,
+    width: "100%" as const,
+    height: 1,
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -28,9 +33,9 @@ export default function CompanyFilters() {
             <Pressable onPress={() => router.back()} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
               <Text
                 style={{
-                  fontFamily: "Circular-Book",
-                  fontSize: Device.deviceType !== 1 ? 20 : 16,
-                  color: colors.link,
+                  fontFamily: "Circular-Bold",
+                  fontSize: theme.fontSize.body,
+                  color: theme.color.link,
                 }}
                 allowFontScaling={false}
               >
@@ -49,47 +54,40 @@ export default function CompanyFilters() {
       />
 
       <ScrollView
-        style={{ flex: 1 }}
         contentContainerStyle={{
-          padding: spacing,
-          paddingBottom: insets.bottom + spacing,
+          padding: theme.spacing.base,
+          paddingBottom: insets.bottom + theme.spacing.base,
         }}
       >
         <Link title="Locations" />
-        <View style={[styles.divider, dividerStyle]} />
+        <View style={dividerStyle} />
         <Link title="Teams" />
-        <View style={[styles.divider, dividerStyle]} />
+        <View style={dividerStyle} />
 
-        <Pressable
-          onPress={() => setCompanyFilters({ locations: [], teams: [] })}
-          style={({ pressed }) => [
-            pressedDefault(pressed),
-            {
-              alignItems: "center",
-              display: companyFilters.locations.length || companyFilters.teams.length ? "flex" : "none",
-            },
-          ]}
-          hitSlop={16}
-        >
-          <Text
-            style={{
-              fontFamily: "Circular-Book",
-              fontSize: Device.deviceType !== 1 ? 20 : 16,
-              color: colors.link,
-            }}
-            allowFontScaling={false}
+        {companyFilters.locations.length || companyFilters.teams.length ? (
+          <Pressable
+            onPress={() => setCompanyFilters({ locations: [], teams: [] })}
+            style={({ pressed }) => [
+              pressedDefault(pressed),
+              {
+                alignItems: "center",
+              },
+            ]}
+            hitSlop={16}
           >
-            Clear all
-          </Text>
-        </Pressable>
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                fontSize: theme.fontSize.body,
+                color: theme.color.link,
+              }}
+              allowFontScaling={false}
+            >
+              Clear all
+            </Text>
+          </Pressable>
+        ) : null}
       </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  divider: {
-    width: "100%",
-    height: 1,
-  },
-});

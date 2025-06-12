@@ -22,7 +22,7 @@ export default function Company() {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const { companyDates, setCompanyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
-  const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
+  const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [hasAccess, setHasAccess] = useState(false);
   const [checkIns, setCheckIns] = useState<CompanyCheckInType[]>();
   const [company, setCompany] = useState("");
@@ -47,6 +47,8 @@ export default function Company() {
       rangeEnd: today,
       title: "PAST 90 DAYS'",
     });
+
+    setCompanyFilters({ locations: [], teams: [] }); // Reset
   }, []);
 
   return (

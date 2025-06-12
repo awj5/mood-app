@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, Text, ActivityIndicator, Pressable } from "react-native";
+import { View, ScrollView, Text, ActivityIndicator, Pressable, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
-import Constants from "expo-constants";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
@@ -11,7 +10,7 @@ import { CompanyFiltersContext, CompanyFiltersContextType, CompanyFiltersType } 
 import HeaderTitle from "components/HeaderTitle";
 import ListItem from "components/list/ListItem";
 import Search from "components/list/Search";
-import { getStoredVal, removeAccess, theme, pressedDefault } from "utils/helpers";
+import { getStoredVal, removeAccess, pressedDefault, getTheme } from "utils/helpers";
 
 export type ListItemType = {
   id: number;
@@ -20,21 +19,20 @@ export type ListItemType = {
 
 export default function List() {
   const params = useLocalSearchParams<{ title: string }>();
-  const colors = theme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { companyFilters, setCompanyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [items, setItems] = useState<ListItemType[]>([]);
   const [searchText, setSearchText] = useState("");
   const [isOffline, setIsOffline] = useState(false);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const dividerStyle = { backgroundColor: colors.secondaryBg, marginVertical: spacing };
-  const fontSize = Device.deviceType !== 1 ? 20 : 16;
+  const isSimulator = Device.isDevice === false;
 
   const getItemsData = async (uuid: string) => {
     try {
       const response = await axios.post(
-        Constants.appOwnership !== "expo"
+        !isSimulator
           ? `https://mood-web-zeta.vercel.app/api/${params.title.toLowerCase()}`
           : `http://localhost:3000/api/${params.title.toLowerCase()}`,
         {
@@ -50,24 +48,22 @@ export default function List() {
         alert("Access denied.");
       }
 
-      console.log(error);
-    }
-  };
-
-  const getItems = async () => {
-    const uuid = await getStoredVal("uuid"); // Check if customer employee
-    const network = await Network.getNetworkStateAsync();
-
-    if (uuid && network.isInternetReachable) {
-      const itemsData = await getItemsData(uuid);
-      setItems(itemsData);
-    } else if (!network.isInternetReachable) {
-      setIsOffline(true);
+      console.error(error);
     }
   };
 
   useEffect(() => {
-    getItems();
+    (async () => {
+      const uuid = await getStoredVal("uuid"); // Check if customer employee
+      const network = await Network.getNetworkStateAsync();
+
+      if (uuid && network.isInternetReachable) {
+        const itemsData = await getItemsData(uuid);
+        setItems(itemsData);
+      } else if (!network.isInternetReachable) {
+        setIsOffline(true);
+      }
+    })();
   }, []);
 
   return (
@@ -79,8 +75,8 @@ export default function List() {
             <HeaderBackButton
               onPress={() => router.dismissAll()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: fontSize }}
-              tintColor={colors.link}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
+              tintColor={theme.color.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -103,8 +99,8 @@ export default function List() {
               <Text
                 style={{
                   fontFamily: "Circular-Book",
-                  fontSize: fontSize,
-                  color: colors.link,
+                  fontSize: theme.fontSize.body,
+                  color: theme.color.link,
                 }}
                 allowFontScaling={false}
               >
@@ -124,18 +120,25 @@ export default function List() {
           <ScrollView
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
-            style={{ flex: 1 }}
             contentContainerStyle={{
-              padding: spacing,
-              paddingBottom: insets.bottom + spacing,
+              padding: theme.spacing.base,
+              paddingBottom: insets.bottom + theme.spacing.base,
             }}
           >
-            {items.map((item, index) => {
+            {items.map((item) => {
               if (searchText === "" || item.name.toLowerCase().includes(searchText.toLowerCase())) {
                 return (
-                  <View key={index}>
+                  <View key={item.id}>
                     <ListItem data={item} type={params.title.toLowerCase()} />
-                    <View style={[styles.divider, dividerStyle]} />
+
+                    <View
+                      style={{
+                        backgroundColor: theme.color.secondaryBg,
+                        marginVertical: theme.spacing.base,
+                        width: "100%",
+                        height: 1,
+                      }}
+                    />
                   </View>
                 );
               }
@@ -143,40 +146,30 @@ export default function List() {
           </ScrollView>
         </View>
       ) : isOffline ? (
-        <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
+        <View style={{ paddingBottom: insets.bottom, flex: 1, justifyContent: "center", alignItems: "center" }}>
           <Text
-            style={[
-              styles.text,
-              {
-                color: colors.secondary,
-                fontSize: fontSize,
-              },
-            ]}
+            style={{
+              color: theme.color.secondary,
+              fontSize: theme.fontSize.body,
+              fontFamily: "Circular-Book",
+              textAlign: "center",
+            }}
           >
-            {"You must be online to display\ncompany locations."}
+            {`You must be online to display\ncompany ${params.title.toLowerCase()}.`}
           </Text>
         </View>
       ) : (
-        <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
-          <ActivityIndicator color={colors.primary} size="large" />
+        <View
+          style={{
+            paddingBottom: insets.bottom,
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ActivityIndicator color={theme.color.primary} size="large" />
         </View>
       )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  divider: {
-    width: "100%",
-    height: 1,
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

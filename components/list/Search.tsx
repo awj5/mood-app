@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
-import { StyleSheet, TextInput, View, Pressable } from "react-native";
-import * as Device from "expo-device";
+import { TextInput, View, Pressable, useColorScheme } from "react-native";
 import { SearchIcon, X } from "lucide-react-native";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme } from "utils/helpers";
 
 type SearchProps = {
   text: string;
@@ -10,12 +9,10 @@ type SearchProps = {
 };
 
 export default function Search(props: SearchProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const inputRef = useRef<TextInput | null>(null);
   const [focused, setFocused] = useState(false);
-  const stroke = Device.deviceType !== 1 ? 2 : 1.5;
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const iconSize = Device.deviceType !== 1 ? 28 : 20;
 
   const clear = () => {
     inputRef.current?.blur();
@@ -24,23 +21,23 @@ export default function Search(props: SearchProps) {
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          borderWidth: Device.deviceType !== 1 ? 2.5 : 2,
-          borderColor: focused ? colors.primary : colors.secondary,
-          marginHorizontal: spacing,
-          paddingHorizontal: spacing / 1.5,
-          marginBottom: spacing,
-        },
-      ]}
+      style={{
+        borderWidth: theme.stroke,
+        borderColor: focused ? theme.color.primary : theme.color.secondary,
+        marginHorizontal: theme.spacing.base,
+        paddingHorizontal: theme.spacing.small,
+        marginBottom: theme.spacing.base / 2,
+        flexDirection: "row",
+        alignItems: "center",
+        borderRadius: 999,
+      }}
     >
       <Pressable onPress={() => inputRef.current?.focus()} hitSlop={8}>
         <SearchIcon
-          color={focused ? colors.primary : colors.secondary}
-          size={iconSize}
+          color={focused ? theme.color.primary : theme.color.secondary}
+          size={theme.icon.base.size}
           absoluteStrokeWidth
-          strokeWidth={stroke}
+          strokeWidth={theme.icon.base.stroke}
         />
       </Pressable>
 
@@ -49,16 +46,15 @@ export default function Search(props: SearchProps) {
         onChangeText={props.setText}
         value={props.text}
         placeholder="Search"
-        placeholderTextColor={colors.secondary}
-        style={[
-          styles.input,
-          {
-            color: colors.primary,
-            fontSize: Device.deviceType !== 1 ? 24 : 18,
-            paddingHorizontal: spacing / 2,
-            paddingVertical: spacing / 2,
-          },
-        ]}
+        placeholderTextColor={theme.color.secondary}
+        style={{
+          color: theme.color.primary,
+          fontSize: theme.fontSize.large,
+          paddingHorizontal: theme.spacing.base / 2,
+          paddingVertical: theme.spacing.base / 2,
+          fontFamily: "Circular-Book",
+          flex: 1,
+        }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         allowFontScaling={false}
@@ -69,20 +65,13 @@ export default function Search(props: SearchProps) {
         style={({ pressed }) => [pressedDefault(pressed), { display: focused ? "flex" : "none" }]}
         hitSlop={8}
       >
-        <X color={colors.primary} size={iconSize} absoluteStrokeWidth strokeWidth={stroke} />
+        <X
+          color={theme.color.primary}
+          size={theme.icon.base.size}
+          absoluteStrokeWidth
+          strokeWidth={theme.icon.base.stroke}
+        />
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 999,
-  },
-  input: {
-    fontFamily: "Circular-Book",
-    flex: 1,
-  },
-});
