@@ -87,7 +87,7 @@ export default function Burnout(props: BurnoutProps) {
           backgroundColor: theme.color.opaqueBg,
           borderRadius: theme.spacing.base,
           borderWidth: 1,
-          borderColor: theme.color.opaqueBg,
+          borderColor: theme.color.opaqueStroke,
         },
       ]}
     >
