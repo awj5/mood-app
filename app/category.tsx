@@ -122,7 +122,7 @@ export default function Category() {
             <Text
               style={{
                 fontFamily: "Circular-Black",
-                fontSize: theme.fontSize.xLarge,
+                fontSize: theme.fontSize.xxLarge,
                 color: theme.color.primary,
               }}
               allowFontScaling={false}
