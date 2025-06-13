@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
+import { View, Text, ScrollView, Platform, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -29,7 +28,7 @@ import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
 import Role from "components/Role";
 import { CompanyCheckInType } from "types";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 export type CategoryType = {
   id: number;
@@ -52,12 +51,12 @@ export default function Category() {
     role: string;
   }>();
 
-  const colors = theme();
   const router = useRouter();
   const headerHeight = useHeaderHeight();
   const insets = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
 
   const icons = {
     Compass,
@@ -91,8 +90,8 @@ export default function Category() {
             <HeaderBackButton
               onPress={() => router.back()}
               label="Back"
-              labelStyle={{ fontFamily: "Circular-Book", fontSize: Device.deviceType !== 1 ? 20 : 16 }}
-              tintColor={colors.link}
+              labelStyle={{ fontFamily: "Circular-Book", fontSize: theme.fontSize.body }}
+              tintColor={theme.color.link}
               allowFontScaling={false}
               style={{ marginLeft: -8 }}
             />
@@ -100,29 +99,31 @@ export default function Category() {
         }}
       />
 
-      <Bg checkIns={JSON.parse(params.checkIns)} topOffset={Device.deviceType === 1 ? 96 : 128} />
+      <Bg checkIns={JSON.parse(params.checkIns)} />
 
       <View style={{ marginTop: Platform.OS === "android" ? 106 : headerHeight, flex: 1 }}>
         <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={[
-            styles.wrapper,
-            { padding: spacing, paddingBottom: spacing + insets.bottom, gap: spacing },
-          ]}
+          contentContainerStyle={{
+            padding: theme.spacing.base,
+            paddingBottom: theme.spacing.base + insets.bottom,
+            gap: theme.spacing.base,
+            maxWidth: 768,
+            alignSelf: "center",
+          }}
         >
-          <View style={{ alignItems: "center", gap: spacing / 2 }}>
+          <View style={{ alignItems: "center", gap: theme.spacing.base / 2 }}>
             <Icon
-              color={colors.primary}
-              size={Device.deviceType !== 1 ? 64 : 48}
+              color={theme.color.primary}
+              size={theme.icon.xxLarge.size}
               absoluteStrokeWidth
-              strokeWidth={Device.deviceType !== 1 ? 4 : 3.25}
+              strokeWidth={theme.icon.xxLarge.stroke}
             />
 
             <Text
               style={{
                 fontFamily: "Circular-Black",
-                fontSize: Device.deviceType !== 1 ? 30 : 24,
-                color: colors.primary,
+                fontSize: theme.fontSize.xLarge,
+                color: theme.color.primary,
               }}
               allowFontScaling={false}
             >
@@ -133,7 +134,7 @@ export default function Category() {
           <CompanyInsights checkIns={JSON.parse(params.checkIns)} dates={companyDates} category={Number(params.id)} />
           {params.role !== "user" && <Role text={params.role} />}
 
-          <View style={{ flexDirection: "row", gap: spacing }}>
+          <View style={{ flexDirection: "row", gap: theme.spacing.base }}>
             <Sentiment score={Number(params.score)} trend={params.trend} role={params.role} />
             <Article category={params.id} />
           </View>
@@ -144,11 +145,3 @@ export default function Category() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    maxWidth: 720 + 48,
-    alignSelf: "center",
-    width: "100%",
-  },
-});

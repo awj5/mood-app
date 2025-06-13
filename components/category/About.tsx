@@ -1,7 +1,6 @@
-import { StyleSheet, View, Text } from "react-native";
-import * as Device from "expo-device";
+import { View, Text, useColorScheme } from "react-native";
 import competenciesData from "data/competencies.json";
-import { theme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type AboutProps = {
   id: number;
@@ -9,28 +8,25 @@ type AboutProps = {
 };
 
 export default function About(props: AboutProps) {
-  const colors = theme();
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const invertedColor = colors.primary === "white" ? "black" : "white";
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const description = competenciesData[0].categories.filter((item) => item.id === props.id)[0].description;
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: colors.primary !== "white" ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.4)",
-          borderRadius: spacing,
-          padding: spacing * 1.5,
-          gap: spacing,
-        },
-      ]}
+      style={{
+        backgroundColor: theme.color.invertedOpaqueBg,
+        borderRadius: theme.spacing.base,
+        padding: theme.spacing.small * 2,
+        gap: theme.spacing.base / 2,
+        alignItems: "center",
+      }}
     >
       <Text
         style={{
           fontFamily: "Circular-Bold",
-          fontSize: Device.deviceType !== 1 ? 16 : 12,
-          color: invertedColor,
+          fontSize: theme.fontSize.small,
+          color: theme.color.inverted,
         }}
         allowFontScaling={false}
       >
@@ -38,27 +34,15 @@ export default function About(props: AboutProps) {
       </Text>
 
       <Text
-        style={[
-          styles.text,
-          {
-            fontSize: Device.deviceType !== 1 ? 18 : 14,
-            color: invertedColor,
-          },
-        ]}
+        style={{
+          fontSize: theme.fontSize.small,
+          color: theme.color.inverted,
+          fontFamily: "Circular-Book",
+          textAlign: "center",
+        }}
       >
         {description}
       </Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    alignItems: "center",
-  },
-  text: {
-    fontFamily: "Circular-Book",
-    textAlign: "center",
-  },
-});

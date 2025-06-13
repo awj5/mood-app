@@ -64,7 +64,7 @@ export default function Article(props: ArticleProps) {
         animatedStyles,
         {
           flex: 1,
-          aspectRatio: Device.deviceType === 1 ? "4/4" : "5/3",
+          aspectRatio: Device.deviceType === 1 ? "4/4" : "4/3",
           borderRadius: theme.spacing.base,
           overflow: "hidden",
         },

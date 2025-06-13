@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import * as WebBrowser from "expo-web-browser";
 import { TrendingUp, TrendingDown, MoveRight, Info } from "lucide-react-native";
-import { theme, pressedDefault } from "utils/helpers";
+import { pressedDefault, getTheme, getSentimentRange } from "utils/helpers";
 
 type SentimentProps = {
   score: number;
@@ -12,32 +12,10 @@ type SentimentProps = {
 };
 
 export default function Sentiment(props: SentimentProps) {
-  const colors = theme();
+  const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const [score, setScore] = useState(0);
-  const spacing = Device.deviceType !== 1 ? 24 : 16;
-  const fontSize = Device.deviceType !== 1 ? 16 : 12;
   const Icon = props.trend === "increasing" ? TrendingUp : props.trend === "decreasing" ? TrendingDown : MoveRight;
-  let range = "";
-
-  switch (true) {
-    case props.score >= 90:
-      range = "Outstanding";
-      break;
-    case props.score >= 80:
-      range = "Excellent";
-      break;
-    case props.score >= 70:
-      range = "Great";
-      break;
-    case props.score >= 60:
-      range = "Good";
-      break;
-    case props.score >= 40:
-      range = "Moderate";
-      break;
-    default:
-      range = "Needs attention";
-  }
 
   useEffect(() => {
     let currentScore = 0;
@@ -62,70 +40,64 @@ export default function Sentiment(props: SentimentProps) {
     <View
       style={{
         flex: 1,
-        aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
-        backgroundColor: colors.opaqueBg,
-        borderRadius: spacing,
+        aspectRatio: Device.deviceType === 1 ? "4/4" : "4/3",
+        backgroundColor: theme.color.opaqueBg,
+        borderRadius: theme.spacing.base,
       }}
     >
-      <View style={[styles.wrapper, { padding: spacing }]}>
+      <View style={{ padding: theme.spacing.base, flex: 1, justifyContent: "space-between" }}>
         <Text
           style={{
+            fontSize: theme.fontSize.xSmall,
+            color: theme.color.primary,
             fontFamily: "Circular-Bold",
-            color: colors.primary,
-            fontSize: fontSize,
           }}
           allowFontScaling={false}
         >
           SENTIMENT INDEX
         </Text>
 
-        <View>
+        <View style={{ gap: theme.spacing.base / 4 }}>
           <Icon
-            color={colors.primary}
-            size={Device.deviceType !== 1 ? 40 : 32}
+            color={theme.color.primary}
+            size={theme.icon.large.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 3 : 2.5}
+            strokeWidth={theme.icon.large.stroke}
           />
 
           <Text
             style={{
               fontFamily: "Circular-Bold",
-              color: colors.primary,
-              fontSize:
-                Device.deviceType !== 1
-                  ? props.role === "user"
-                    ? 30
-                    : 60
-                  : props.role === "user"
-                  ? range === "Outstanding"
-                    ? 20
-                    : 24
-                  : 48,
-              lineHeight: Device.deviceType !== 1 ? (props.role === "user" ? 32 : 62) : props.role === "user" ? 26 : 50,
+              color: theme.color.primary,
+              fontSize: props.role === "user" ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
+              lineHeight: props.role === "user" ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
             }}
             allowFontScaling={false}
           >
-            {props.role === "user" ? range : `${score}%`}
+            {props.role === "user" ? getSentimentRange(props.score) : `${score}%`}
           </Text>
         </View>
 
         <Pressable
           onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/sentiment-index/?iab=1")}
-          style={({ pressed }) => [pressedDefault(pressed), styles.info, { gap: spacing / 4 }]}
+          style={({ pressed }) => [
+            pressedDefault(pressed),
+            { gap: theme.spacing.base / 4, flexDirection: "row", alignItems: "center" },
+          ]}
           hitSlop={16}
         >
           <Info
-            color={colors.opaque}
-            size={Device.deviceType !== 1 ? 20 : 16}
+            color={theme.color.opaque}
+            size={theme.icon.small.size}
             absoluteStrokeWidth
-            strokeWidth={Device.deviceType !== 1 ? 1.5 : 1}
+            strokeWidth={theme.icon.small.stroke}
           />
 
           <Text
             style={{
               fontFamily: "Circular-Book",
-              color: colors.opaque,
-              fontSize: fontSize,
+              color: theme.color.opaque,
+              fontSize: theme.fontSize.xSmall,
             }}
             allowFontScaling={false}
           >
@@ -136,14 +108,3 @@ export default function Sentiment(props: SentimentProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: "space-between",
-  },
-  info: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-});

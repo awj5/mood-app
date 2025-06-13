@@ -1,4 +1,3 @@
-import { useColorScheme } from "react-native"; // WILL REMOVE!!!
 import * as Device from "expo-device";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -57,22 +56,6 @@ export const getTheme = (colorScheme: string | null | undefined) => {
   };
 };
 
-// WILL REMOVE!!!
-export const theme = () => {
-  const colorScheme = useColorScheme();
-
-  return {
-    primary: colorScheme === "light" ? "black" : "white",
-    secondary: colorScheme === "light" ? "#999999" : "#666666",
-    link: "#0080FF",
-    destructive: "#FF0000",
-    opaque: colorScheme === "light" ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.4)",
-    primaryBg: colorScheme === "light" ? "#EEEEEE" : "#222222",
-    secondaryBg: colorScheme === "light" ? "#DDDDDD" : "#333333",
-    opaqueBg: colorScheme === "light" ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.3)",
-  };
-};
-
 export const shuffleArray = (array: any[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const rand = Math.floor(Math.random() * (i + 1));
@@ -95,6 +78,23 @@ export const slugify = (text: string) => {
     .replace(/[^a-zA-Z0-9 ]/g, "")
     .replace(/ /g, "-")
     .toLowerCase();
+};
+
+export const getSentimentRange = (score: number) => {
+  switch (true) {
+    case score >= 90:
+      return "Amazing";
+    case score >= 80:
+      return "Excellent";
+    case score >= 70:
+      return "Great";
+    case score >= 60:
+      return "Good";
+    case score >= 40:
+      return "Moderate";
+    default:
+      return "Needs attention";
+  }
 };
 
 /* Storage */

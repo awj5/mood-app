@@ -82,7 +82,7 @@ export default function Fact(props: FactProps) {
         animatedStyles,
         {
           flex: 1,
-          aspectRatio: Device.deviceType === 1 ? "4/4" : "5/3",
+          aspectRatio: Device.deviceType === 1 ? "4/4" : "4/3",
           backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
           borderWidth: 1,

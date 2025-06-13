@@ -6,7 +6,7 @@ import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { CategoryType } from "app/category";
 import Header from "./category/Header";
-import { getTheme, pressedDefault } from "utils/helpers";
+import { getSentimentRange, getTheme, pressedDefault } from "utils/helpers";
 
 type CategoryProps = {
   data: CategoryType;
@@ -22,27 +22,6 @@ export default function Category(props: CategoryProps) {
   const Icon =
     props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
-  let range = "";
-
-  switch (true) {
-    case props.data.score >= 90:
-      range = "Amazing";
-      break;
-    case props.data.score >= 80:
-      range = "Excellent";
-      break;
-    case props.data.score >= 70:
-      range = "Great";
-      break;
-    case props.data.score >= 60:
-      range = "Good";
-      break;
-    case props.data.score >= 40:
-      range = "Moderate";
-      break;
-    default:
-      range = "Needs attention";
-  }
 
   const press = () => {
     router.push({
@@ -116,7 +95,7 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {props.role === "user" ? range : `${score}%`}
+            {props.role === "user" ? getSentimentRange(score) : `${score}%`}
           </Text>
 
           <Text
