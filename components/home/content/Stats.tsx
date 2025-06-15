@@ -252,7 +252,7 @@ export default function Stats(props: StatsProps) {
           }
           height={Device.deviceType === 1 ? 80 : 112}
           barWidth={theme.spacing.small}
-          spacing={Device.deviceType === 1 ? theme.spacing.base : theme.spacing.base * 2}
+          spacing={Device.deviceType === 1 ? theme.spacing.small : theme.spacing.base * 2}
           yAxisThickness={0}
           xAxisThickness={0}
           maxValue={100}
