@@ -12,7 +12,7 @@ export default function Header(props: HeaderProps) {
   const Icon = props.icon;
 
   return (
-    <View style={{ flexDirection: "row", justifyContent: "space-between", gap: theme.spacing.base / 4 }}>
+    <View style={{ flexDirection: "row", justifyContent: "space-between", gap: theme.spacing.base / 8 }}>
       <Text
         style={{
           fontSize: theme.fontSize.xSmall,

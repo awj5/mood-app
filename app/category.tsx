@@ -124,6 +124,7 @@ export default function Category() {
                 fontFamily: "Circular-Black",
                 fontSize: theme.fontSize.xxLarge,
                 color: theme.color.primary,
+                textAlign: "center",
               }}
               allowFontScaling={false}
             >

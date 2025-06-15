@@ -58,7 +58,10 @@ export default function Stats(props: StatsProps) {
       moods.push({
         value: value.length,
         color: mood.color,
-        text: ((value.length / props.checkIns.length) * 100).toFixed(0) + "%",
+        text:
+          (value.length / props.checkIns.length) * 100 >= 5
+            ? ((value.length / props.checkIns.length) * 100).toFixed(0) + "%"
+            : "",
         tooltipText: mood.name,
         shiftTextX: -3,
         shiftTextY: 4,
@@ -77,7 +80,10 @@ export default function Stats(props: StatsProps) {
       topMoods.push({
         value: otherTotal,
         color: "white",
-        text: ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%",
+        text:
+          (otherTotal / props.checkIns.length) * 100 >= 5
+            ? ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%"
+            : "",
         tooltipText: "Other",
         shiftTextX: -3,
         shiftTextY: 4,

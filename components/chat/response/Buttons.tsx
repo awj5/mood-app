@@ -1,7 +1,8 @@
 import { View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
 import Animated, { Easing, FadeIn } from "react-native-reanimated";
-import { Sparkles, ChartSpline } from "lucide-react-native";
+import { Sparkles, ChartSpline, Headset } from "lucide-react-native";
 import Button from "components/Button";
 import { MessageType } from "types";
 import { getTheme } from "utils/helpers";
@@ -22,7 +23,9 @@ export default function Buttons(props: ButtonsProps) {
   const theme = getTheme(colorScheme);
 
   const buttonClick = () => {
-    if (props.message.button === "upsell") {
+    if (props.message.button === "help") {
+      WebBrowser.openBrowserAsync("https://articles.mood.ai/urgent/?iab=1");
+    } else if (props.message.button === "upsell") {
       router.push("pro");
     } else {
       router.dismissAll();
@@ -43,13 +46,17 @@ export default function Buttons(props: ButtonsProps) {
           func={buttonClick}
           large={props.message.button === "upsell"}
           icon={
-            props.message.button === "upsell" || (props.message.button !== "respond" && props.message.hasPro)
+            props.message.button === "help"
+              ? Headset
+              : props.message.button === "upsell" || (props.message.button !== "respond" && props.message.hasPro)
               ? Sparkles
               : undefined
           }
           gradient={props.message.button === "upsell"}
         >
-          {props.message.button === "upsell"
+          {props.message.button === "help"
+            ? "Get urgent help"
+            : props.message.button === "upsell"
             ? "Try Pro for FREE"
             : props.message.button === "respond"
             ? "Not right now"

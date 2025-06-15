@@ -9,6 +9,7 @@ import { getLocales } from "expo-localization";
 import { useHeaderHeight, HeaderBackButton } from "@react-navigation/elements";
 import { ChartSpline } from "lucide-react-native";
 import MoodsData from "data/moods.json";
+import HelpData from "data/help.json";
 import Response from "components/chat/Response";
 import Message from "components/chat/Message";
 import Input from "components/chat/Input";
@@ -92,6 +93,7 @@ export default function Chat() {
     const proID = await getStoredVal("pro-id"); // Check if Pro subscriber
     const latestMessage = messages[messages.length - 1];
     const aiResponseCount = chatHistoryRef.current.filter((message) => message.role === "assistant").length;
+    let help = false;
 
     // Check if last message is user's name
     if (!name) {
@@ -107,6 +109,7 @@ export default function Chat() {
         },
       ];
     } else if (messages.length) {
+      help = HelpData.some((string) => latestMessage.content.toLowerCase().includes(string.toLowerCase())); // Detect words to trigger urgent care link
       chatHistoryRef.current = [...chatHistoryRef.current, latestMessage]; // Add user message to chat history
       if (!uuid && !proID) noteRef.current = `${noteRef.current}${noteRef.current && "\n\n"}${latestMessage.content}`; // Add message to note if user doesn't have Pro
     }
@@ -127,6 +130,8 @@ export default function Chat() {
     const aiResponse =
       proID || uuid
         ? await requestAIResponse("chat", chatHistoryRef.current, uuid, proID)
+        : help
+        ? `Feeling overwhelmed, unsafe, or having thoughts of self-harm? You're not alone, ${name}. Support is available.\n\nTap the link below to connect with trusted, confidential services that can help right now.`
         : aiResponseCount >= 2
         ? "I've updated this check-in with your message."
         : aiResponseCount
@@ -151,12 +156,13 @@ export default function Chat() {
         : "Sorry, you must be online to chat with me.";
 
       // Button
-      updatedMessages[updatedMessages.length - 1].button =
-        !aiResponseCount && aiResponse && network.isInternetReachable
-          ? "respond"
-          : !uuid && !proID && aiResponseCount === 1
-          ? "upsell"
-          : undefined;
+      updatedMessages[updatedMessages.length - 1].button = help
+        ? "help"
+        : !aiResponseCount && aiResponse && network.isInternetReachable
+        ? "respond"
+        : !uuid && !proID && aiResponseCount === 1
+        ? "upsell"
+        : undefined;
 
       return updatedMessages;
     });
