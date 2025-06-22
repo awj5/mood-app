@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import * as Notifications from "expo-notifications";
 import Button from "components/Button";
 
@@ -6,6 +7,21 @@ type RemoveProps = {
 };
 
 export default function Remove(props: RemoveProps) {
+  const confirm = () => {
+    Alert.alert(
+      "Remove Reminder",
+      "Are you sure you want to remove check-in reminder notifications? Reminders help you stay on track.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "Delete", onPress: remove, style: "destructive" },
+      ]
+    );
+  };
+
   const remove = async () => {
     try {
       await Notifications.cancelAllScheduledNotificationsAsync(); // Remove all existing notifications
@@ -16,7 +32,7 @@ export default function Remove(props: RemoveProps) {
   };
 
   return (
-    <Button func={remove} destructive large>
+    <Button func={confirm} large>
       Remove
     </Button>
   );
