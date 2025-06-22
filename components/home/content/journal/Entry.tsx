@@ -85,7 +85,7 @@ export default function Entry(props: EntryProps) {
           <ParsedText
             parse={[
               {
-                pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red/,
+                pattern: /\b(Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red)\b/,
                 style: { textDecorationLine: "underline" },
                 onPress: colorPress,
               },

@@ -126,7 +126,7 @@ export default function Summary(props: SummaryProps) {
       <ParsedText
         parse={[
           {
-            pattern: /Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red/,
+            pattern: /\b(Orange|Yellow|Lime|Green|Mint|Cyan|Azure|Blue|Violet|Plum|Maroon|Red)\b/,
             style: { textDecorationLine: "underline", fontFamily: "Circular-Medium" },
             onPress: colorPress,
           },
