@@ -87,9 +87,8 @@ export default function CheckIn() {
 
   const getCategories = async () => {
     const uuid = await getStoredVal("uuid");
-    const send = await getStoredVal("send-check-ins");
 
-    if (uuid && send) {
+    if (uuid) {
       try {
         const response = await axios.post(
           !isSimulator ? `https://mood-web-zeta.vercel.app/api/categories` : `http://localhost:3000/api/categories`,
