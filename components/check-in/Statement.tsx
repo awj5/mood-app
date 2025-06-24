@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Platform, Text, useColorScheme, View } from "react-native";
 import Animated, {
   Easing,
@@ -11,6 +11,7 @@ import Animated, {
 import Slider from "@react-native-community/slider";
 import tagsData from "data/tags.json";
 import competenciesData from "data/competencies.json";
+import { FocusedCategoryContext, FocusedCategoryContextType } from "context/focused-category";
 import Category from "./statement/Category";
 import { CompetencyType, MoodType } from "app/check-in";
 import { getStoredVal, shuffleArray, getMostCommon, getTheme } from "utils/helpers";
@@ -23,14 +24,13 @@ type StatementProps = {
   setCompetency: React.Dispatch<React.SetStateAction<CompetencyType>>;
   selectedTags: number[];
   categories: number[];
-  focusedCategory: number;
-  setFocusedCategory: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Statement(props: StatementProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
+  const { focusedCategory, setFocusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const [company, setCompany] = useState("");
   const [category, setCategory] = useState(0);
   const margin = Platform.OS === "ios" ? 8 : 0; // Used to remove extra horizontal space on iOS
@@ -67,10 +67,10 @@ export default function Statement(props: StatementProps) {
     const tagTypes = []; // Pos or neg
     let companyRandom = false;
 
-    if (props.focusedCategory) {
+    if (focusedCategory) {
       const focused = await getStoredVal("focused-statement"); // Last statement shown
 
-      if (focused && Math.floor(Number(focused)) === props.focusedCategory) {
+      if (focused && Math.floor(Number(focused)) === focusedCategory) {
         // Continue category
         const next = Number((Number(focused) + 0.01).toFixed(2));
         const exists = competenciesData[0].competencies.filter((item) => item.id === next);
@@ -80,12 +80,12 @@ export default function Statement(props: StatementProps) {
           competencies.push(next);
         } else {
           // Not more statements in category
-          props.setFocusedCategory(0); // Prevent statement from being stored on submit
+          setFocusedCategory(0); // Prevent statement from being stored on submit
           companyRandom = true; // Can show any competency in company available categories
         }
       } else {
         // Start category
-        competencies.push(props.focusedCategory + 0.01);
+        competencies.push(focusedCategory + 0.01);
       }
     }
 
@@ -98,7 +98,7 @@ export default function Statement(props: StatementProps) {
       for (const competency of tagData.competencies) {
         if (
           !props.categories.length ||
-          (!props.focusedCategory && companyCompetencies.includes(competency)) ||
+          (!focusedCategory && companyCompetencies.includes(competency)) ||
           (companyRandom && companyCompetencies.includes(competency))
         ) {
           competencies.push(competency);

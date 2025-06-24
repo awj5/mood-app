@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import { useSQLiteContext } from "expo-sqlite";
 import { useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { SharedValue } from "react-native-reanimated";
 import axios from "axios";
 import Next from "./Next";
+import { FocusedCategoryContext, FocusedCategoryContextType } from "context/focused-category";
 import { CompetencyType, MoodType } from "app/check-in";
 import { CheckInMoodType } from "types";
 import { getStoredVal, setStoredVal } from "utils/helpers";
@@ -13,7 +15,6 @@ type DoneProps = {
   foreground: string;
   sliderVal: SharedValue<number>;
   wheelSize: number;
-  focusedCategory: number;
   selectedTags: number[];
   mood: MoodType;
   competency: CompetencyType;
@@ -22,6 +23,7 @@ type DoneProps = {
 export default function Done(props: DoneProps) {
   const db = useSQLiteContext();
   const router = useRouter();
+  const { focusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const isSimulator = Device.isDevice === false;
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
@@ -52,14 +54,14 @@ export default function Done(props: DoneProps) {
               }
             );
 
-            // Record check-in locally (users can only send 1 check-in per day to cpmpany insights)
+            // Record check-in locally (users can only send 1 check-in per day to company insights)
             try {
               await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;");
             } catch (error) {
               console.error(error);
             }
 
-            if (props.focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
+            if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
           } catch (error) {
             console.error(error);
           }

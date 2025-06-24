@@ -15,6 +15,7 @@ import axios from "axios";
 import Purchases from "react-native-purchases";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { initDB } from "database";
+import { FocusedCategoryContext } from "context/focused-category";
 import { LayoutReadyContext } from "context/layout-ready";
 import { DimensionsContext, DimensionsType } from "context/dimensions";
 import { HomeDatesContext } from "context/home-dates";
@@ -42,6 +43,7 @@ export default function Layout() {
   const [homeDates, setHomeDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const [companyDates, setCompanyDates] = useState<CalendarDatesType>({ weekStart: new Date() });
   const [companyFilters, setCompanyFilters] = useState<CompanyFiltersType>({ locations: [], teams: [] });
+  const [focusedCategory, setFocusedCategory] = useState(0);
   const initWidth = width;
   const initHeight = height;
   const initOrientation = width > height ? "landscape" : "portrait";
@@ -193,57 +195,59 @@ export default function Layout() {
             <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
               <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
                 <CompanyFiltersContext.Provider value={{ companyFilters, setCompanyFilters }}>
-                  <Stack
-                    screenOptions={{
-                      contentStyle: {
-                        backgroundColor: theme.color.primaryBg,
-                      },
-                      headerShadowVisible: false,
-                      headerStyle: {
-                        backgroundColor: theme.color.primaryBg,
-                      },
-                      headerTintColor: theme.color.primary,
-                    }}
-                  >
-                    <Stack.Screen name="index" />
-                    <Stack.Screen name="check-in" />
-                    <Stack.Screen name="company" />
-                    <Stack.Screen name="settings" />
-                    <Stack.Screen name="chat" />
-                    <Stack.Screen name="day" />
-                    <Stack.Screen name="category" />
-
-                    <Stack.Screen
-                      name="date-filters"
-                      options={{
-                        presentation: "modal",
+                  <FocusedCategoryContext.Provider value={{ focusedCategory, setFocusedCategory }}>
+                    <Stack
+                      screenOptions={{
+                        contentStyle: {
+                          backgroundColor: theme.color.primaryBg,
+                        },
+                        headerShadowVisible: false,
+                        headerStyle: {
+                          backgroundColor: theme.color.primaryBg,
+                        },
+                        headerTintColor: theme.color.primary,
                       }}
-                    />
+                    >
+                      <Stack.Screen name="index" />
+                      <Stack.Screen name="check-in" />
+                      <Stack.Screen name="company" />
+                      <Stack.Screen name="settings" />
+                      <Stack.Screen name="chat" />
+                      <Stack.Screen name="day" />
+                      <Stack.Screen name="category" />
 
-                    <Stack.Screen
-                      name="mood"
-                      options={{
-                        presentation: "modal",
-                      }}
-                    />
+                      <Stack.Screen
+                        name="date-filters"
+                        options={{
+                          presentation: "modal",
+                        }}
+                      />
 
-                    <Stack.Screen
-                      name="pro"
-                      options={{
-                        presentation: "modal",
-                      }}
-                    />
+                      <Stack.Screen
+                        name="mood"
+                        options={{
+                          presentation: "modal",
+                        }}
+                      />
 
-                    <Stack.Screen
-                      name="company-filters"
-                      options={{
-                        presentation: "modal",
-                        headerShown: false,
-                      }}
-                    />
-                  </Stack>
+                      <Stack.Screen
+                        name="pro"
+                        options={{
+                          presentation: "modal",
+                        }}
+                      />
 
-                  <StatusBar style="auto" />
+                      <Stack.Screen
+                        name="company-filters"
+                        options={{
+                          presentation: "modal",
+                          headerShown: false,
+                        }}
+                      />
+                    </Stack>
+
+                    <StatusBar style="auto" />
+                  </FocusedCategoryContext.Provider>
                 </CompanyFiltersContext.Provider>
               </CompanyDatesContext.Provider>
             </HomeDatesContext.Provider>

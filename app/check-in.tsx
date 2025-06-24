@@ -9,6 +9,7 @@ import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
 import { LayoutReadyContext, LayoutReadyContextType } from "context/layout-ready";
+import { FocusedCategoryContext, FocusedCategoryContextType } from "context/focused-category";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
@@ -53,6 +54,7 @@ export default function CheckIn() {
   const wheelActivatedRef = useRef(false);
   const isFocusedRef = useRef(true);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
+  const { setFocusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [foregroundColor, setForegroundColor] = useState("");
@@ -60,7 +62,6 @@ export default function CheckIn() {
   const [showStatement, setShowStatement] = useState(false);
   const [isFirstCheckIn, setIsFirstCheckIn] = useState(false);
   const [categories, setCategories] = useState<number[]>([]);
-  const [focusedCategory, setFocusedCategory] = useState(0);
   const [competency, setCompetency] = useState<CompetencyType>({ id: 0, statement: "", type: "" });
   const wheelSize = Device.deviceType === 1 ? 304 : 448; // Smaller on phones
   const isSimulator = Device.isDevice === false;
@@ -215,7 +216,6 @@ export default function CheckIn() {
                 foreground={foregroundColor}
                 sliderVal={sliderVal}
                 wheelSize={wheelSize}
-                focusedCategory={focusedCategory}
                 selectedTags={selectedTags}
                 mood={selectedMood}
                 competency={competency}
@@ -229,8 +229,6 @@ export default function CheckIn() {
                 setCompetency={setCompetency}
                 selectedTags={selectedTags}
                 categories={categories}
-                focusedCategory={focusedCategory}
-                setFocusedCategory={setFocusedCategory}
               />
             </>
           )}
