@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as WebBrowser from "expo-web-browser";
+import * as Device from "expo-device";
+import { useSQLiteContext } from "expo-sqlite";
+import axios from "axios";
 import { ChartSpline, ShieldCheck } from "lucide-react-native";
+import { FocusedCategoryContext, FocusedCategoryContextType } from "context/focused-category";
 import Button from "components/Button";
-import { pressedDefault, setStoredVal, getTheme } from "utils/helpers";
+import { CheckInMoodType, CheckInType } from "types";
+import { pressedDefault, setStoredVal, getTheme, getStoredVal } from "utils/helpers";
+import { convertToISO } from "utils/dates";
 
 type DisclaimerProps = {
   company: string;
@@ -10,12 +17,76 @@ type DisclaimerProps = {
 };
 
 export default function Disclaimer(props: DisclaimerProps) {
+  const db = useSQLiteContext();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const { focusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
+  const isSimulator = Device.isDevice === false;
 
-  const press = () => {
-    setStoredVal("send-check-ins", "true");
-    props.setHasAccess(true);
+  const postCheckIn = async (checkIn: CheckInMoodType) => {
+    const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const deviceUUID = await getStoredVal("device-uuid"); // Unique device UUID
+
+    if (uuid) {
+      const today = new Date();
+
+      try {
+        // Count today's recorded check-ins
+        const rows = await db.getAllAsync(
+          `SELECT id FROM check_in_record WHERE DATE(datetime(date, 'localtime')) = ?`,
+          [convertToISO(today)]
+        );
+
+        if (rows.length < 1) {
+          // Save to Supabase
+          try {
+            await axios.post(
+              !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
+              {
+                uuid: uuid,
+                deviceUUID: deviceUUID,
+                value: checkIn,
+                date: convertToISO(today),
+              }
+            );
+
+            // Record check-in locally (users can only send 1 check-in per day to company insights)
+            try {
+              await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;");
+            } catch (error) {
+              console.error(error);
+            }
+
+            if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const press = async () => {
+    // Send latest check-in to DB
+    try {
+      const row: CheckInType | null = await db.getFirstAsync("SELECT * FROM check_ins ORDER BY id DESC"); // Get latest
+
+      if (row) {
+        try {
+          await postCheckIn(JSON.parse(row.mood)); // Send
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      // Will fire even if send to DB fails
+      setStoredVal("send-check-ins", "true");
+      props.setHasAccess(true);
+    }
   };
 
   return (
