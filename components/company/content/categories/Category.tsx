@@ -95,7 +95,7 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {props.role === "user" ? getSentimentRange(score) : `${score}%`}
+            {props.role === "user" ? getSentimentRange(props.data.score) : `${score}%`}
           </Text>
 
           <Text
