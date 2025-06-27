@@ -87,6 +87,7 @@ export default function CheckIn() {
   };
 
   const getCategories = async () => {
+    setFocusedCategory(0); // Reset
     const uuid = await getStoredVal("uuid");
 
     if (uuid) {

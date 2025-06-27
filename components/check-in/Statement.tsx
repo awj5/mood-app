@@ -69,6 +69,7 @@ export default function Statement(props: StatementProps) {
 
     if (focusedCategory) {
       const focused = await getStoredVal("focused-statement"); // Last statement shown
+      const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
 
       if (focused && Math.floor(Number(focused)) === focusedCategory) {
         // Continue category
@@ -83,9 +84,10 @@ export default function Statement(props: StatementProps) {
           setFocusedCategory(0); // Prevent statement from being stored on submit
           companyRandom = true; // Can show any competency in company available categories
         }
+      } else if (send) {
+        competencies.push(focusedCategory + 0.01); // Start category
       } else {
-        // Start category
-        competencies.push(focusedCategory + 0.01);
+        companyRandom = true; // Has not agreed to share check-ins
       }
     }
 
