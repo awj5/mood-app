@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import * as Device from "expo-device";
@@ -21,6 +21,7 @@ export default function Disclaimer(props: DisclaimerProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const { focusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
+  const [submitting, setSubmitting] = useState(false);
   const isSimulator = Device.isDevice === false;
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
@@ -69,6 +70,8 @@ export default function Disclaimer(props: DisclaimerProps) {
   };
 
   const press = async () => {
+    setSubmitting(true);
+
     // Send latest check-in to DB
     try {
       const row: CheckInType | null = await db.getFirstAsync("SELECT * FROM check_ins ORDER BY id DESC"); // Get latest
@@ -205,7 +208,7 @@ export default function Disclaimer(props: DisclaimerProps) {
         <View
           style={{ width: "100%", maxWidth: 512, paddingHorizontal: theme.spacing.base, marginTop: theme.spacing.base }}
         >
-          <Button func={press} fill large>
+          <Button func={press} fill large disabled={submitting}>
             Agree and continue
           </Button>
         </View>
