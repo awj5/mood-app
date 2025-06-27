@@ -54,20 +54,14 @@ export default function Done(props: DoneProps) {
               }
             );
 
-            // Record check-in locally (users can only send 1 check-in per day to company insights)
-            try {
-              await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;");
-            } catch (error) {
-              console.error(error);
-            }
-
+            await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;"); // Record check-in locally (users can only send 1 check-in per day to company insights)
             if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
           } catch (error) {
-            console.error(error);
+            console.error("Failed to save check-in:", error);
           }
         }
       } catch (error) {
-        console.error(error);
+        console.error("Failed to query check-ins:", error);
       }
     }
   };
