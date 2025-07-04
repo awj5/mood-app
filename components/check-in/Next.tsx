@@ -67,9 +67,10 @@ export default function Next(props: NextProps) {
   );
 
   useAnimatedReaction(
-    () => props.sliderVal && props.sliderVal.value,
-    () => {
-      if (opacity.value === 0.25) opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    () => props.sliderVal?.value,
+    (currentVal) => {
+      if (typeof currentVal === "number" && opacity.value === 0.25)
+        opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     }
   );
 
