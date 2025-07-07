@@ -59,7 +59,7 @@ export default function Next(props: NextProps) {
   useAnimatedReaction(
     () => props.mood?.value,
     (currentVal, previousVal) => {
-      if (currentVal !== previousVal && currentVal?.color && opacity.value === 0.25 && !fadedInRef.current) {
+      if (currentVal !== previousVal && currentVal?.color && opacity.value > 0 && !fadedInRef.current) {
         opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
         fadedInRef.current = true;
       }
