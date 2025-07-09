@@ -28,7 +28,6 @@ export default function Done(props: DoneProps) {
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid"); // Check if customer employee
-    const deviceUUID = await getStoredVal("device-uuid"); // Unique device UUID
     const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
 
     if (uuid && send) {
@@ -48,7 +47,6 @@ export default function Done(props: DoneProps) {
               !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
               {
                 uuid: uuid,
-                deviceUUID: deviceUUID,
                 value: checkIn,
                 date: convertToISO(today),
               }

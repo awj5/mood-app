@@ -82,7 +82,6 @@ export default function Layout() {
 
           if (response.data) {
             setStoredVal("uuid", queryParams.uuid as string); // Store UUID
-            setStoredVal("device-uuid", Crypto.randomUUID()); // Create a UUID for this device
             setStoredVal("company-name", response.data); // Store company name
             removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
             removeStoredVal("send-check-ins");
