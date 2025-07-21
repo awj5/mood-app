@@ -234,7 +234,12 @@ export default function CheckIn() {
             </>
           )}
 
-          <Close setShowTags={setShowTags} setShowStatement={setShowStatement} foreground={foregroundColor} />
+          <Close
+            setShowTags={setShowTags}
+            setShowStatement={setShowStatement}
+            setSelectedTags={setSelectedTags}
+            foreground={foregroundColor}
+          />
         </>
       )}
     </View>

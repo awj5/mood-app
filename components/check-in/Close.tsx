@@ -6,6 +6,7 @@ import { getTheme, pressedDefault } from "utils/helpers";
 type CloseProps = {
   setShowTags: React.Dispatch<React.SetStateAction<boolean>>;
   setShowStatement: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   foreground: string;
 };
 
@@ -15,6 +16,7 @@ export default function Close(props: CloseProps) {
   const theme = getTheme(colorScheme);
 
   const press = () => {
+    props.setSelectedTags([]); // Clear
     props.setShowTags(false);
     props.setShowStatement(false);
   };
