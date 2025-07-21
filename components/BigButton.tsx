@@ -7,6 +7,7 @@ import Animated, {
   cancelAnimation,
   Easing,
   useAnimatedStyle,
+  useReducedMotion,
   useSharedValue,
   withDelay,
   withRepeat,
@@ -29,6 +30,7 @@ export default function BigButton(props: BigButtonProps) {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const reduceMotion = useReducedMotion();
   const scale = useSharedValue(1);
   const Icon = props.icon;
 
@@ -47,7 +49,7 @@ export default function BigButton(props: BigButtonProps) {
   }));
 
   useEffect(() => {
-    if (props.bounce) {
+    if (!reduceMotion && props.bounce) {
       // Start bounce animation
       scale.value = withRepeat(
         withSequence(

@@ -10,6 +10,7 @@ import Animated, {
   Easing,
   FadeIn,
   cancelAnimation,
+  useReducedMotion,
 } from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 import { getTheme } from "utils/helpers";
@@ -21,6 +22,7 @@ type IconProps = {
 export default function Icon(props: IconProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const reduceMotion = useReducedMotion();
   const rotation = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -28,7 +30,7 @@ export default function Icon(props: IconProps) {
   }));
 
   useEffect(() => {
-    if (props.generating) {
+    if (!reduceMotion && props.generating) {
       rotation.value = withRepeat(withTiming(1, { duration: 700, easing: Easing.linear }), -1, false); // Start
     } else {
       cancelAnimation(rotation); // Stop
