@@ -2,7 +2,14 @@ import { useContext, useEffect } from "react";
 import { Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { getTheme } from "utils/helpers";
 
@@ -15,10 +22,11 @@ type HeadingProps = {
 };
 
 export default function Heading(props: HeadingProps) {
-  const opacity = useSharedValue(0);
   const insets = useSafeAreaInsets();
+  const reduceMotion = useReducedMotion();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const opacity = useSharedValue(reduceMotion ? 1 : 0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -26,10 +34,11 @@ export default function Heading(props: HeadingProps) {
   }));
 
   useEffect(() => {
-    opacity.value = withDelay(
-      props.delay ? props.delay : 0,
-      withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
-    );
+    if (!reduceMotion)
+      opacity.value = withDelay(
+        props.delay ? props.delay : 0,
+        withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
+      );
   }, []);
 
   return (

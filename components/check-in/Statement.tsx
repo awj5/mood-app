@@ -4,6 +4,7 @@ import Animated, {
   Easing,
   SharedValue,
   useAnimatedStyle,
+  useReducedMotion,
   useSharedValue,
   withDelay,
   withTiming,
@@ -27,9 +28,10 @@ type StatementProps = {
 };
 
 export default function Statement(props: StatementProps) {
+  const reduceMotion = useReducedMotion();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const opacity = useSharedValue(0);
+  const opacity = useSharedValue(reduceMotion ? 1 : 0);
   const { focusedCategory, setFocusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const [company, setCompany] = useState("");
   const [category, setCategory] = useState(0);
@@ -129,7 +131,8 @@ export default function Statement(props: StatementProps) {
     })();
 
     setStatement();
-    opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    if (!reduceMotion)
+      opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
 
   return (

@@ -8,7 +8,6 @@ import Animated, {
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withTiming,
 } from "react-native-reanimated";
 import { MoodType } from "app/check-in";
@@ -42,7 +41,11 @@ export default function Emoji(props: EmojiProps) {
   }));
 
   useEffect(() => {
-    opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    const timeout = setTimeout(() => {
+      opacity.value = withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) });
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

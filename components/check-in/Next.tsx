@@ -8,7 +8,6 @@ import Animated, {
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withTiming,
 } from "react-native-reanimated";
 import { CircleArrowRight, CircleCheck } from "lucide-react-native";
@@ -79,10 +78,17 @@ export default function Next(props: NextProps) {
     if (!props.disabled) {
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
     } else {
-      opacity.value = withDelay(
-        !opacity.value ? props.delay : 0,
-        withTiming(0.25, { duration: 300, easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic) })
+      const timeout = setTimeout(
+        () => {
+          opacity.value = withTiming(0.25, {
+            duration: 300,
+            easing: !opacity.value ? Easing.in(Easing.cubic) : Easing.out(Easing.cubic),
+          });
+        },
+        !opacity.value ? props.delay : 0
       );
+
+      return () => clearTimeout(timeout);
     }
   }, [props.disabled]);
 

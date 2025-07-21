@@ -8,7 +8,6 @@ import Animated, {
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
   withTiming,
 } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
@@ -62,7 +61,11 @@ export default function Background(props: BackgroundProps) {
   }, [props.showTags]);
 
   useEffect(() => {
-    opacity.value = withDelay(1000, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    const timeout = setTimeout(() => {
+      opacity.value = withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) });
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return <Animated.View style={[animatedStyles, { zIndex: props.showTags ? 1 : 0, position: "absolute" }]} />;
