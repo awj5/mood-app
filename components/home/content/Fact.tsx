@@ -85,8 +85,6 @@ export default function Fact(props: FactProps) {
           aspectRatio: Device.deviceType === 1 ? "4/4" : "4/3",
           backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
-          borderWidth: 1,
-          borderColor: theme.color.invertedOpaqueStroke,
         },
       ]}
     >

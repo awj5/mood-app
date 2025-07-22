@@ -25,8 +25,6 @@ export default function CheckIn(props: CheckInProps) {
         paddingVertical: theme.spacing.base,
         borderRadius: theme.spacing.base,
         height: props.itemHeight,
-        borderWidth: 1,
-        borderColor: theme.color.opaqueStroke,
       }}
     >
       <Header id={props.data.id} mood={mood} date={props.data.date} getCheckIns={props.getCheckIns} />

@@ -69,8 +69,6 @@ export default function Category(props: CategoryProps) {
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
           justifyContent: "space-between",
-          borderWidth: 1,
-          borderColor: theme.color.opaqueStroke,
         },
       ]}
       hitSlop={8}

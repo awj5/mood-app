@@ -150,8 +150,6 @@ export default function Day() {
             height: trueHeaderHeight,
             position: "absolute",
             width: "100%",
-            borderBottomWidth: 1,
-            borderColor: theme.color.opaqueStroke,
           }}
         />
       ) : null}

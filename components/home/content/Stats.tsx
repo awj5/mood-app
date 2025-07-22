@@ -141,8 +141,6 @@ export default function Stats(props: StatsProps) {
           backgroundColor: theme.color.opaqueBg,
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
-          borderWidth: 1,
-          borderColor: theme.color.opaqueStroke,
         },
       ]}
     >

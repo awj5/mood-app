@@ -86,8 +86,6 @@ export default function Burnout(props: BurnoutProps) {
           aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
           backgroundColor: theme.color.opaqueBg,
           borderRadius: theme.spacing.base,
-          borderWidth: 1,
-          borderColor: theme.color.opaqueStroke,
         },
       ]}
     >

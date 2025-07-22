@@ -53,8 +53,6 @@ export default function Journal(props: JournalProps) {
           aspectRatio: Device.deviceType !== 1 ? "4/3" : "4/4",
           backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
-          borderWidth: 1,
-          borderColor: theme.color.invertedOpaqueStroke,
         },
       ]}
     >
