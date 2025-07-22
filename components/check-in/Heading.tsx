@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Text, useColorScheme } from "react-native";
+import { Text, useColorScheme, View } from "react-native";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
@@ -83,17 +83,33 @@ export default function Heading(props: HeadingProps) {
             },
       ]}
     >
-      <Text
-        style={{
-          color: props.foreground ? props.foreground : theme.color.primary,
-          fontSize: theme.fontSize.xxLarge,
-          fontFamily: "Circular-Black",
-          textAlign: "center",
-        }}
-        allowFontScaling={false}
-      >
-        {text}
-      </Text>
+      <View style={{ flexDirection: "row" }}>
+        {text !== props.text && (
+          <Text
+            style={{
+              color: props.foreground ? props.foreground : theme.color.primary,
+              fontSize: theme.fontSize.xxLarge,
+              fontFamily: "Circular-Book",
+              textAlign: "center",
+            }}
+            allowFontScaling={false}
+          >
+            I feel&nbsp;
+          </Text>
+        )}
+
+        <Text
+          style={{
+            color: props.foreground ? props.foreground : theme.color.primary,
+            fontSize: theme.fontSize.xxLarge,
+            fontFamily: "Circular-Black",
+            textAlign: "center",
+          }}
+          allowFontScaling={false}
+        >
+          {text}
+        </Text>
+      </View>
 
       {props.description && text === props.text && (
         <Text

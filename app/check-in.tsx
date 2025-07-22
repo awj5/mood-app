@@ -166,7 +166,7 @@ export default function CheckIn() {
       />
 
       <Heading
-        text="How do you feel right now?"
+        text="How do you feel?"
         wheelSize={wheelSize}
         description={
           isFirstCheckIn
