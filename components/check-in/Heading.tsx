@@ -1,9 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   Easing,
+  runOnJS,
+  SharedValue,
+  useAnimatedReaction,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -11,6 +14,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
+import { MoodType } from "app/check-in";
 import { getTheme } from "utils/helpers";
 
 type HeadingProps = {
@@ -19,6 +23,7 @@ type HeadingProps = {
   description?: string;
   delay?: number;
   foreground?: string;
+  mood?: SharedValue<MoodType>;
 };
 
 export default function Heading(props: HeadingProps) {
@@ -27,11 +32,19 @@ export default function Heading(props: HeadingProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(reduceMotion ? 1 : 0);
+  const [text, setText] = useState<string | undefined>(props.text);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
+
+  useAnimatedReaction(
+    () => props.mood?.value,
+    (currentVal, previousVal) => {
+      if (currentVal !== previousVal && opacity.value === 1) runOnJS(setText)(currentVal?.heading);
+    }
+  );
 
   useEffect(() => {
     if (!reduceMotion)
@@ -79,10 +92,10 @@ export default function Heading(props: HeadingProps) {
         }}
         allowFontScaling={false}
       >
-        {props.text}
+        {text}
       </Text>
 
-      {props.description && (
+      {props.description && text === props.text && (
         <Text
           style={{
             color: props.foreground ? props.foreground : theme.color.primary,

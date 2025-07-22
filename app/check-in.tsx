@@ -27,6 +27,7 @@ import { getStoredVal, removeAccess, removeStoredVal } from "utils/helpers";
 export type MoodType = {
   id: number;
   name: string;
+  heading: string;
   color: string;
   tags: number[];
 };
@@ -50,7 +51,7 @@ export default function CheckIn() {
   const localization = getLocales();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
-  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [] });
+  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", heading: "", color: "", tags: [] });
   const wheelActivatedRef = useRef(false);
   const isFocusedRef = useRef(true);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
@@ -58,7 +59,7 @@ export default function CheckIn() {
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [foregroundColor, setForegroundColor] = useState("");
-  const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, name: "", color: "", tags: [] });
+  const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, name: "", heading: "", color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
   const [isFirstCheckIn, setIsFirstCheckIn] = useState(false);
   const [categories, setCategories] = useState<number[]>([]);
@@ -165,7 +166,7 @@ export default function CheckIn() {
       />
 
       <Heading
-        text="How's work?"
+        text="How do you feel right now?"
         wheelSize={wheelSize}
         description={
           isFirstCheckIn
@@ -175,6 +176,7 @@ export default function CheckIn() {
             : ""
         }
         delay={1000}
+        mood={wheelMood}
       />
 
       <Instructions wheelSize={wheelSize} />
@@ -186,7 +188,7 @@ export default function CheckIn() {
       {showTags && (
         <>
           <Heading
-            text="How do you feel right now?"
+            text="How's work?"
             wheelSize={wheelSize}
             description={isFirstCheckIn ? "Select at least one word" : ""}
             delay={500}

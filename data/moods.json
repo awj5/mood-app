@@ -2,6 +2,7 @@
   {
     "id": 12,
     "name": "Orange",
+    "heading": "I'm alert",
     "color": "#FF8000",
     "stress": 60,
     "energy": 90,
@@ -18,6 +19,7 @@
   {
     "id": 1,
     "name": "Yellow",
+    "heading": "I'm excited",
     "color": "#FFD500",
     "stress": 0,
     "energy": 100,
@@ -31,6 +33,7 @@
   {
     "id": 2,
     "name": "Lime",
+    "heading": "I'm hopeful",
     "color": "#AAFF00",
     "stress": 5,
     "energy": 85,
@@ -48,6 +51,7 @@
   {
     "id": 3,
     "name": "Green",
+    "heading": "I'm glad",
     "color": "#00FF00",
     "stress": 10,
     "energy": 70,
@@ -64,6 +68,7 @@
   {
     "id": 4,
     "name": "Mint",
+    "heading": "I'm content",
     "color": "#00FFAA",
     "stress": 15,
     "energy": 55,
@@ -82,6 +87,7 @@
   {
     "id": 5,
     "name": "Cyan",
+    "heading": "I'm relaxed",
     "color": "#00D5FF",
     "stress": 5,
     "energy": 30,
@@ -98,6 +104,7 @@
   {
     "id": 6,
     "name": "Azure",
+    "heading": "I'm tired",
     "color": "#0080FF",
     "stress": 30,
     "energy": 15,
@@ -115,6 +122,7 @@
   {
     "id": 7,
     "name": "Blue",
+    "heading": "I'm sad",
     "color": "#0000FF",
     "stress": 30,
     "energy": 0,
@@ -131,6 +139,7 @@
   {
     "id": 8,
     "name": "Violet",
+    "heading": "I'm discouraged",
     "color": "#6600CC",
     "stress": 65,
     "energy": 25,
@@ -149,6 +158,7 @@
   {
     "id": 9,
     "name": "Plum",
+    "heading": "I'm upset",
     "color": "#990099",
     "stress": 80,
     "energy": 50,
@@ -165,6 +175,7 @@
   {
     "id": 10,
     "name": "Maroon",
+    "heading": "I'm overwhelmed",
     "color": "#CC0066",
     "stress": 95,
     "energy": 65,
@@ -183,6 +194,7 @@
   {
     "id": 11,
     "name": "Red",
+    "heading": "I'm mad",
     "color": "#FF0000",
     "stress": 100,
     "energy": 95,
