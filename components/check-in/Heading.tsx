@@ -87,10 +87,9 @@ export default function Heading(props: HeadingProps) {
         {text !== props.text && (
           <Text
             style={{
-              color: props.foreground ? props.foreground : theme.color.primary,
+              color: theme.color.primary,
               fontSize: theme.fontSize.xxLarge,
               fontFamily: "Circular-Book",
-              textAlign: "center",
             }}
             allowFontScaling={false}
           >
