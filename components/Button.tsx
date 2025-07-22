@@ -29,7 +29,7 @@ export default function Button(props: ButtonProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         {
-          height: Device.deviceType === 1 ? (props.large ? 52 : 36) : props.large ? 72 : 48,
+          height: Device.deviceType === 1 ? (props.large ? 48 : 36) : props.large ? 64 : 48,
           borderWidth: props.destructive || props.fill || props.gradient ? 0 : theme.stroke,
           borderColor: theme.color.primary,
           backgroundColor: props.destructive

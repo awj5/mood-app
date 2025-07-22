@@ -134,7 +134,7 @@ export default function Layout() {
         requestAnimationFrame(() => {
           SplashScreen.hideAsync(); // Hide splash
         });
-      }, 0);
+      }, 100);
 
       if (!isSimulator) {
         Purchases.configure({ apiKey: APIKeys[Platform.OS as keyof typeof APIKeys] }); // Init RevenueCat
