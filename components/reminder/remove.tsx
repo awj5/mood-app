@@ -32,7 +32,7 @@ export default function Remove(props: RemoveProps) {
   };
 
   return (
-    <Button func={confirm} large>
+    <Button func={confirm} large destructive>
       Remove
     </Button>
   );

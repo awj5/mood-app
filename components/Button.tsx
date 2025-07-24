@@ -29,7 +29,7 @@ export default function Button(props: ButtonProps) {
       style={({ pressed }) => [
         pressedDefault(pressed),
         {
-          height: Device.deviceType === 1 ? (props.large ? 48 : 36) : props.large ? 64 : 48,
+          height: Device.deviceType === 1 ? (props.large ? 52 : 36) : props.large ? 72 : 48,
           borderWidth: props.destructive || props.fill || props.gradient ? 0 : theme.stroke,
           borderColor: theme.color.primary,
           backgroundColor: props.destructive
@@ -57,7 +57,7 @@ export default function Button(props: ButtonProps) {
       <View
         style={{
           gap: theme.spacing.small / 2,
-          paddingHorizontal: Device.deviceType === 1 ? (props.large ? 20 : 12) : props.large ? 24 : 16,
+          paddingHorizontal: Device.deviceType === 1 ? (props.large ? 24 : 12) : props.large ? 32 : 16,
           flex: 1,
           alignItems: "center",
           justifyContent: "center",

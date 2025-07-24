@@ -59,7 +59,7 @@ export default function Stats(props: StatsProps) {
         value: value.length,
         color: mood.color,
         text:
-          (value.length / props.checkIns.length) * 100 >= 10
+          (value.length / props.checkIns.length) * 100 >= 8
             ? ((value.length / props.checkIns.length) * 100).toFixed(0) + "%"
             : "",
         tooltipText: mood.name,
@@ -81,7 +81,7 @@ export default function Stats(props: StatsProps) {
         value: otherTotal,
         color: "white",
         text:
-          (otherTotal / props.checkIns.length) * 100 >= 10
+          (otherTotal / props.checkIns.length) * 100 >= 8
             ? ((otherTotal / props.checkIns.length) * 100).toFixed(0) + "%"
             : "",
         tooltipText: "Other",

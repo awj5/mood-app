@@ -17,7 +17,7 @@ export default function NoCheckIns(props: NoCheckInsProps) {
   return (
     <Animated.View
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
-      style={{ alignItems: "center", gap: theme.spacing.base }}
+      style={{ alignItems: "center", gap: theme.spacing.base * 2 }}
     >
       <Text
         style={{

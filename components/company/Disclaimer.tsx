@@ -25,38 +25,26 @@ export default function Disclaimer(props: DisclaimerProps) {
   const isSimulator = Device.isDevice === false;
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
-    const uuid = await getStoredVal("uuid"); // Check if customer employee
+    const uuid = await getStoredVal("uuid");
 
     if (uuid) {
       const today = new Date();
 
+      // Save to Supabase
       try {
-        // Count today's recorded check-ins
-        const rows = await db.getAllAsync(
-          `SELECT id FROM check_in_record WHERE DATE(datetime(date, 'localtime')) = ?`,
-          [convertToISO(today)]
+        await axios.post(
+          !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
+          {
+            uuid: uuid,
+            value: checkIn,
+            date: convertToISO(today),
+          }
         );
 
-        if (rows.length < 1) {
-          // Save to Supabase
-          try {
-            await axios.post(
-              !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
-              {
-                uuid: uuid,
-                value: checkIn,
-                date: convertToISO(today),
-              }
-            );
-
-            await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;"); // Record check-in locally (users can only send 1 check-in per day to company insights)
-            if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
-          } catch (error) {
-            console.error("Failed to save check-in:", error);
-          }
-        }
+        await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;"); // Record check-in locally (users can only send 1 check-in per day to company insights)
+        if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
       } catch (error) {
-        console.error("Failed to query check-ins:", error);
+        console.error("Failed to save check-in:", error);
       }
     }
   };
