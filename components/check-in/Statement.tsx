@@ -1,14 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Platform, Text, useColorScheme, View } from "react-native";
-import Animated, {
-  Easing,
-  SharedValue,
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { Easing, SharedValue, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import Slider from "@react-native-community/slider";
 import tagsData from "data/tags.json";
 import competenciesData from "data/competencies.json";
@@ -28,10 +20,9 @@ type StatementProps = {
 };
 
 export default function Statement(props: StatementProps) {
-  const reduceMotion = useReducedMotion();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const opacity = useSharedValue(reduceMotion ? 1 : 0);
+  const opacity = useSharedValue(0);
   const { focusedCategory, setFocusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const [company, setCompany] = useState("");
   const [category, setCategory] = useState(0);
@@ -132,8 +123,11 @@ export default function Statement(props: StatementProps) {
 
     setStatement();
 
-    if (!reduceMotion)
-      opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
+    const timeout = setTimeout(() => {
+      opacity.value = withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) });
+    }, 200);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

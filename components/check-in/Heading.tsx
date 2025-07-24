@@ -8,9 +8,7 @@ import Animated, {
   SharedValue,
   useAnimatedReaction,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
-  withDelay,
   withTiming,
 } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
@@ -30,10 +28,9 @@ type HeadingProps = {
 
 export default function Heading(props: HeadingProps) {
   const insets = useSafeAreaInsets();
-  const reduceMotion = useReducedMotion();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const opacity = useSharedValue(reduceMotion ? 1 : 0);
+  const opacity = useSharedValue(0);
   const [mood, setMood] = useState<number | undefined>();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
@@ -49,11 +46,14 @@ export default function Heading(props: HeadingProps) {
   );
 
   useEffect(() => {
-    if (!reduceMotion)
-      opacity.value = withDelay(
-        props.delay ? props.delay : 0,
-        withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) })
-      );
+    const timeout = setTimeout(
+      () => {
+        opacity.value = withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) });
+      },
+      props.delay ? props.delay : 0
+    );
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

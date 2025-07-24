@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pressable, Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { TagType } from "app/check-in";
 import { getTheme, pressedDefault } from "utils/helpers";
 
@@ -21,10 +14,9 @@ type TagProps = {
 };
 
 export default function Tag(props: TagProps) {
-  const reduceMotion = useReducedMotion();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const scale = useSharedValue(reduceMotion ? 1 : 0);
+  const scale = useSharedValue(0);
   const [selected, setSelected] = useState(false);
 
   const press = () => {
@@ -47,8 +39,11 @@ export default function Tag(props: TagProps) {
   }));
 
   useEffect(() => {
-    if (!reduceMotion)
-      scale.value = withDelay(1000 + 20 * props.num, withTiming(1, { duration: 200, easing: Easing.elastic(1) }));
+    const timeout = setTimeout(() => {
+      scale.value = withTiming(1, { duration: 200, easing: Easing.elastic(1) });
+    }, 1000 + 20 * props.num);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

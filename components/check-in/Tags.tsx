@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import tagsData from "data/tags.json";
 import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
+import Busyness from "./tags/Busyness";
 import { getTheme, shuffleArray } from "utils/helpers";
 
 type TagsProps = {
@@ -11,6 +12,8 @@ type TagsProps = {
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   selectedTags: number[];
   foreground: string;
+  busyness: number;
+  setBusyness: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Tags(props: TagsProps) {
@@ -36,31 +39,34 @@ export default function Tags(props: TagsProps) {
     }
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
+    props.setBusyness(2);
   }, [props.tags]);
 
   return (
     <View
       style={{
-        gap: theme.spacing.small,
         maxWidth: 448 + 48,
         paddingHorizontal: theme.spacing.base,
         position: "absolute",
         zIndex: 1,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
+        gap: theme.spacing.base * 2,
+        alignItems: "center",
       }}
     >
-      {tags.map((item, index) => (
-        <Tag
-          key={item.id}
-          tag={item}
-          num={index}
-          foreground={props.foreground}
-          selectedTags={props.selectedTags}
-          setSelectedTags={props.setSelectedTags}
-        />
-      ))}
+      <Busyness foreground={props.foreground} level={props.busyness} setLevel={props.setBusyness} />
+
+      <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
+        {tags.map((item, index) => (
+          <Tag
+            key={item.id}
+            tag={item}
+            num={index}
+            foreground={props.foreground}
+            selectedTags={props.selectedTags}
+            setSelectedTags={props.setSelectedTags}
+          />
+        ))}
+      </View>
 
       <StatusBar style={props.foreground === "white" ? "light" : "dark"} />
     </View>

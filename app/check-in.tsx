@@ -57,6 +57,7 @@ export default function CheckIn() {
   const { setFocusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [busyness, setBusyness] = useState(2);
   const [foregroundColor, setForegroundColor] = useState("");
   const [selectedMood, setSelectedMood] = useState<MoodType>({ id: 0, name: "", color: "", tags: [] });
   const [showStatement, setShowStatement] = useState(false);
@@ -208,6 +209,8 @@ export default function CheckIn() {
             setSelectedTags={setSelectedTags}
             selectedTags={selectedTags}
             foreground={foregroundColor}
+            busyness={busyness}
+            setBusyness={setBusyness}
           />
 
           {showStatement && (

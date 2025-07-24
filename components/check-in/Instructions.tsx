@@ -1,13 +1,6 @@
 import { useEffect } from "react";
 import { Text, Dimensions, useColorScheme } from "react-native";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { getTheme } from "utils/helpers";
 
 type InstructionsProps = {
@@ -16,18 +9,20 @@ type InstructionsProps = {
 
 export default function Instructions(props: InstructionsProps) {
   const height = Dimensions.get("screen").height;
-  const reduceMotion = useReducedMotion();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const opacity = useSharedValue(reduceMotion ? 1 : 0);
+  const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
 
   useEffect(() => {
-    if (!reduceMotion)
-      opacity.value = withDelay(1500, withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) }));
+    const timeout = setTimeout(() => {
+      opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
+    }, 1500);
+
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
