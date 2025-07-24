@@ -22,17 +22,17 @@ export default function Tags(props: TagsProps) {
     const moodTags = tagsData.filter((item) => props.tags.includes(item.id));
     const shuffled = shuffleArray(moodTags);
 
-    // Display a balance of 16 pos and neg tags
+    // Display a balance of 12 pos and neg tags
     let pos = shuffled.filter((item) => item.type === "pos");
     let neg = shuffled.filter((item) => item.type === "neg");
 
-    if (pos.length < 8) {
-      neg = neg.slice(0, 16 - pos.length); // Adjust neg if not enough pos
-    } else if (neg.length < 8) {
-      pos = pos.slice(0, 16 - neg.length); // Adjust pos if not enough neg
+    if (pos.length < 6) {
+      neg = neg.slice(0, 12 - pos.length); // Adjust neg if not enough pos
+    } else if (neg.length < 6) {
+      pos = pos.slice(0, 12 - neg.length); // Adjust pos if not enough neg
     } else {
-      pos = pos.slice(0, 8);
-      neg = neg.slice(0, 8);
+      pos = pos.slice(0, 6);
+      neg = neg.slice(0, 6);
     }
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));

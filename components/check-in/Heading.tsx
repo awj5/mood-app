@@ -15,6 +15,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { MoodType } from "app/check-in";
+import Mood from "./heading/Mood";
 import { getTheme } from "utils/helpers";
 
 type HeadingProps = {
@@ -32,7 +33,7 @@ export default function Heading(props: HeadingProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(reduceMotion ? 1 : 0);
-  const [text, setText] = useState<string | undefined>(props.text);
+  const [mood, setMood] = useState<number | undefined>();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -42,7 +43,7 @@ export default function Heading(props: HeadingProps) {
   useAnimatedReaction(
     () => props.mood?.value,
     (currentVal, previousVal) => {
-      if (currentVal !== previousVal && opacity.value === 1) runOnJS(setText)(currentVal?.heading);
+      if (currentVal !== previousVal && opacity.value === 1) runOnJS(setMood)(currentVal?.id);
     }
   );
 
@@ -79,49 +80,40 @@ export default function Heading(props: HeadingProps) {
               paddingBottom: props.wheelSize / 2,
               height: "50%",
               top: 0,
-              maxWidth: Device.deviceType === 1 ? 320 : 512,
+              maxWidth: Device.deviceType === 1 ? 336 : 512,
             },
       ]}
     >
-      <View style={{ flexDirection: "row" }}>
-        {text !== props.text && (
+      {mood ? (
+        <Mood id={mood} />
+      ) : (
+        <>
           <Text
             style={{
-              color: theme.color.primary,
+              color: props.foreground ? props.foreground : theme.color.primary,
               fontSize: theme.fontSize.xxLarge,
-              fontFamily: "Circular-Book",
+              fontFamily: "Circular-Black",
+              textAlign: "center",
             }}
             allowFontScaling={false}
           >
-            I feel&nbsp;
+            {props.text}
           </Text>
-        )}
 
-        <Text
-          style={{
-            color: props.foreground ? props.foreground : theme.color.primary,
-            fontSize: theme.fontSize.xxLarge,
-            fontFamily: "Circular-Black",
-            textAlign: "center",
-          }}
-          allowFontScaling={false}
-        >
-          {text}
-        </Text>
-      </View>
-
-      {props.description && text === props.text && (
-        <Text
-          style={{
-            color: props.foreground ? props.foreground : theme.color.primary,
-            fontSize: theme.fontSize.large,
-            fontFamily: "Circular-Book",
-            textAlign: "center",
-          }}
-          allowFontScaling={false}
-        >
-          {props.description}
-        </Text>
+          {props.description && (
+            <Text
+              style={{
+                color: props.foreground ? props.foreground : theme.color.primary,
+                fontSize: theme.fontSize.large,
+                fontFamily: "Circular-Book",
+                textAlign: "center",
+              }}
+              allowFontScaling={false}
+            >
+              {props.description}
+            </Text>
+          )}
+        </>
       )}
     </Animated.View>
   );

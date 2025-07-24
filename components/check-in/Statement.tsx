@@ -131,6 +131,7 @@ export default function Statement(props: StatementProps) {
     })();
 
     setStatement();
+
     if (!reduceMotion)
       opacity.value = withDelay(200, withTiming(1, { duration: 500, easing: Easing.in(Easing.cubic) }));
   }, []);
