@@ -1,4 +1,4 @@
-import { View, useColorScheme, Text } from "react-native";
+import { View, useColorScheme, Text, Pressable } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -8,11 +8,12 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
-import { getTheme } from "utils/helpers";
+import { getTheme, pressedDefault } from "utils/helpers";
 import { useEffect, useState } from "react";
 
 type MoodProps = {
   id: number;
+  colorPress: (() => void) | undefined;
 };
 
 export default function Mood(props: MoodProps) {
@@ -49,16 +50,18 @@ export default function Mood(props: MoodProps) {
           I'm feeling&nbsp;
         </Text>
 
-        <Text
-          style={{
-            color: theme.color.primary,
-            fontSize: theme.fontSize.xxLarge,
-            fontFamily: "Circular-Bold",
-          }}
-          allowFontScaling={false}
-        >
-          {name}
-        </Text>
+        <Pressable onPress={props.colorPress} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
+          <Text
+            style={{
+              color: theme.color.primary,
+              fontSize: theme.fontSize.xxLarge,
+              fontFamily: "Circular-Bold",
+            }}
+            allowFontScaling={false}
+          >
+            {name}
+          </Text>
+        </Pressable>
       </View>
 
       <Text

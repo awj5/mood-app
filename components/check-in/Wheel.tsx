@@ -9,7 +9,7 @@ import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 
 type WheelProps = {
   rotation: SharedValue<number>;
-  longPress: () => void;
+  colorPress: () => void;
   wheelSize: number;
 };
 
@@ -110,7 +110,7 @@ export default function Wheel(props: WheelProps) {
     if (hasRotated.value) {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       pressRotationRef.current = 0; // Reset to cancel regular press
-      props.longPress();
+      props.colorPress();
     }
   };
 

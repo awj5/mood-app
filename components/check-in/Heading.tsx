@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Text, useColorScheme, View } from "react-native";
+import { Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
@@ -25,6 +25,7 @@ type HeadingProps = {
   delay?: number;
   foreground?: string;
   mood?: SharedValue<MoodType>;
+  colorPress?: () => void;
 };
 
 export default function Heading(props: HeadingProps) {
@@ -85,7 +86,7 @@ export default function Heading(props: HeadingProps) {
       ]}
     >
       {mood ? (
-        <Mood id={mood} />
+        <Mood id={mood} colorPress={props.colorPress} />
       ) : (
         <>
           <Text

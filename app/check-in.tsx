@@ -66,7 +66,7 @@ export default function CheckIn() {
   const wheelSize = Device.deviceType === 1 ? 304 : 448; // Smaller on phones
   const isSimulator = Device.isDevice === false;
 
-  const longPress = () => {
+  const colorPress = () => {
     router.push({
       pathname: "mood",
       params: {
@@ -176,11 +176,12 @@ export default function CheckIn() {
         }
         delay={1000}
         mood={wheelMood}
+        colorPress={colorPress}
       />
 
       <Instructions wheelSize={wheelSize} />
       <Background showTags={showTags} mood={wheelMood} />
-      <Wheel rotation={rotation} longPress={longPress} wheelSize={wheelSize} />
+      <Wheel rotation={rotation} colorPress={colorPress} wheelSize={wheelSize} />
       <Emoji showTags={showTags} mood={wheelMood} wheelSize={wheelSize} />
       <Next setState={setShowTags} delay={1500} disabled mood={wheelMood} wheelSize={wheelSize} />
 
