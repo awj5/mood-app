@@ -31,7 +31,7 @@ export default function Heading(props: HeadingProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
-  const [mood, setMood] = useState<number | undefined>();
+  const [moodData, setMoodData] = useState<MoodType>();
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -41,7 +41,7 @@ export default function Heading(props: HeadingProps) {
   useAnimatedReaction(
     () => props.mood?.value,
     (currentVal, previousVal) => {
-      if (currentVal !== previousVal && opacity.value === 1) runOnJS(setMood)(currentVal?.id);
+      if (currentVal !== previousVal && opacity.value === 1) runOnJS(setMoodData)(currentVal);
     }
   );
 
@@ -85,8 +85,8 @@ export default function Heading(props: HeadingProps) {
             },
       ]}
     >
-      {mood ? (
-        <Mood id={mood} colorPress={props.colorPress} />
+      {moodData ? (
+        <Mood data={moodData} colorPress={props.colorPress} />
       ) : (
         <>
           <Text

@@ -1,11 +1,11 @@
+import { useEffect } from "react";
 import { View, useColorScheme, Text, Pressable } from "react-native";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import MoodsData from "data/moods.json";
+import { MoodType } from "app/check-in";
 import { getTheme, pressedDefault } from "utils/helpers";
-import { useEffect, useState } from "react";
 
 type MoodProps = {
-  id: number;
+  data: MoodType;
   colorPress: (() => void) | undefined;
 };
 
@@ -13,25 +13,21 @@ export default function Mood(props: MoodProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
-  const [name, setName] = useState("");
-  const [summary, setSummary] = useState("");
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
 
   useEffect(() => {
+    // Fade in on mood change
     opacity.value = 0;
-    const mood = MoodsData.filter((mood) => mood.id === props.id)[0];
-    setName(mood.name);
-    setSummary(mood.shortSummary);
 
     const timeout = setTimeout(() => {
       opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
-    }, 100);
+    }, 200);
 
     return () => clearTimeout(timeout);
-  }, [props.id]);
+  }, [props.data]);
 
   return (
     <Animated.View style={[animatedStyles, { alignItems: "center", gap: theme.spacing.base / 2 }]}>
@@ -50,13 +46,13 @@ export default function Mood(props: MoodProps) {
         <Pressable onPress={props.colorPress} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
           <Text
             style={{
-              color: theme.color.primary,
+              color: props.data.color,
               fontSize: theme.fontSize.xxLarge,
               fontFamily: "Circular-Bold",
             }}
             allowFontScaling={false}
           >
-            {name}
+            {props.data.name}
           </Text>
         </Pressable>
       </View>
@@ -70,7 +66,7 @@ export default function Mood(props: MoodProps) {
         }}
         allowFontScaling={false}
       >
-        {summary}
+        {props.data.shortSummary}
       </Text>
     </Animated.View>
   );
