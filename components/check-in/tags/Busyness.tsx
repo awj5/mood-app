@@ -35,10 +35,10 @@ export default function Busyness(props: BusynessProps) {
           borderColor: props.foreground,
           flexDirection: "row",
           borderWidth: theme.stroke,
-          borderRadius: 999,
-          height: Device.deviceType === 1 ? 48 : 64,
+          borderRadius: theme.spacing.base,
+          height: Device.deviceType === 1 ? 36 : 48,
           overflow: "hidden",
-          maxWidth: Device.deviceType === 1 ? 256 : 320,
+          maxWidth: Device.deviceType === 1 ? 288 : 320,
         },
       ]}
     >
@@ -46,13 +46,13 @@ export default function Busyness(props: BusynessProps) {
         Slow
       </Button>
 
-      <Divider foreground={props.foreground} />
+      <View style={{ backgroundColor: props.foreground, width: theme.stroke, height: "100%" }} />
 
       <Button id={2} level={props.level} setLevel={props.setLevel} foreground={props.foreground}>
         Steady
       </Button>
 
-      <Divider foreground={props.foreground} />
+      <View style={{ backgroundColor: props.foreground, width: theme.stroke, height: "100%" }} />
 
       <Button id={3} level={props.level} setLevel={props.setLevel} foreground={props.foreground}>
         Busy
@@ -89,7 +89,7 @@ function Button(props: ButtonProps) {
     >
       <Text
         style={{
-          fontFamily: "Circular-Bold",
+          fontFamily: "Circular-Medium",
           color: selected && props.foreground === "black" ? "white" : selected ? "black" : props.foreground,
           fontSize: theme.fontSize.body,
         }}
@@ -99,14 +99,4 @@ function Button(props: ButtonProps) {
       </Text>
     </Pressable>
   );
-}
-
-type DividerProps = {
-  foreground: string;
-};
-
-function Divider(props: DividerProps) {
-  const colorScheme = useColorScheme();
-  const theme = getTheme(colorScheme);
-  return <View style={{ backgroundColor: props.foreground, width: theme.stroke, height: "100%" }} />;
 }
