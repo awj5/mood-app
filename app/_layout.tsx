@@ -9,7 +9,6 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as Linking from "expo-linking";
-import * as Crypto from "expo-crypto";
 import { SQLiteProvider } from "expo-sqlite";
 import axios from "axios";
 import Purchases from "react-native-purchases";

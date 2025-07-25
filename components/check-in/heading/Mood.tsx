@@ -60,13 +60,14 @@ export default function Mood(props: MoodProps) {
       <Text
         style={{
           color: theme.color.primary,
-          fontSize: theme.fontSize.large,
-          fontFamily: "Circular-Book",
+          fontSize: theme.fontSize.body,
+          lineHeight: theme.fontSize.xLarge,
+          fontFamily: "Tiempos-RegularItalic",
           textAlign: "center",
         }}
         allowFontScaling={false}
       >
-        {props.data.shortSummary}
+        {props.data.feelings}
       </Text>
     </Animated.View>
   );
