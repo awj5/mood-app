@@ -60,7 +60,7 @@ export default function Mood(props: MoodProps) {
       <Text
         style={{
           color: theme.color.primary,
-          fontSize: theme.fontSize.body,
+          fontSize: theme.fontSize.large,
           lineHeight: theme.fontSize.xLarge,
           fontFamily: "Tiempos-RegularItalic",
           textAlign: "center",

@@ -58,7 +58,7 @@ export default function CheckIn() {
   const { setFocusedCategory } = useContext<FocusedCategoryContextType>(FocusedCategoryContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const [busyness, setBusyness] = useState(2);
+  const [busyness, setBusyness] = useState(1);
   const [foregroundColor, setForegroundColor] = useState("");
   const [selectedMood, setSelectedMood] = useState<MoodType>({
     id: 0,

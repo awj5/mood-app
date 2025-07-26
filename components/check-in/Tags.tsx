@@ -39,7 +39,7 @@ export default function Tags(props: TagsProps) {
     }
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
-    props.setBusyness(2);
+    props.setBusyness(1);
   }, [props.tags]);
 
   return (

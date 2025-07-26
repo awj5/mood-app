@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import { useColorScheme, Text, Pressable, View } from "react-native";
+import { useColorScheme } from "react-native";
 import * as Device from "expo-device";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { getTheme, pressedDefault } from "utils/helpers";
+import { getTheme } from "utils/helpers";
 
 type BusynessProps = {
   foreground: string;
@@ -32,71 +33,18 @@ export default function Busyness(props: BusynessProps) {
       style={[
         animatedStyles,
         {
-          borderColor: props.foreground,
-          flexDirection: "row",
-          borderWidth: theme.stroke,
-          borderRadius: theme.spacing.base,
-          height: Device.deviceType === 1 ? 36 : 48,
-          overflow: "hidden",
+          width: "100%",
           maxWidth: Device.deviceType === 1 ? 288 : 320,
         },
       ]}
     >
-      <Button id={1} level={props.level} setLevel={props.setLevel} foreground={props.foreground}>
-        Slow
-      </Button>
-
-      <View style={{ backgroundColor: props.foreground, width: theme.stroke, height: "100%" }} />
-
-      <Button id={2} level={props.level} setLevel={props.setLevel} foreground={props.foreground}>
-        Steady
-      </Button>
-
-      <View style={{ backgroundColor: props.foreground, width: theme.stroke, height: "100%" }} />
-
-      <Button id={3} level={props.level} setLevel={props.setLevel} foreground={props.foreground}>
-        Busy
-      </Button>
+      <SegmentedControl
+        values={["Slow", "Steady", "Busy"]}
+        selectedIndex={props.level}
+        onChange={(e) => props.setLevel(e.nativeEvent.selectedSegmentIndex)}
+        fontStyle={{ fontFamily: "Circular-Medium", fontSize: theme.fontSize.body }}
+        appearance={props.foreground === "white" ? "dark" : "light"}
+      />
     </Animated.View>
-  );
-}
-
-type ButtonProps = {
-  children: string;
-  id: number;
-  level: number;
-  setLevel: React.Dispatch<React.SetStateAction<number>>;
-  foreground: string;
-};
-
-function Button(props: ButtonProps) {
-  const colorScheme = useColorScheme();
-  const theme = getTheme(colorScheme);
-  const selected = props.level === props.id;
-
-  return (
-    <Pressable
-      onPress={() => props.setLevel(props.id)}
-      style={({ pressed }) => [
-        pressedDefault(pressed),
-        {
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: selected ? props.foreground : "transparent",
-        },
-      ]}
-    >
-      <Text
-        style={{
-          fontFamily: "Circular-Medium",
-          color: selected && props.foreground === "black" ? "white" : selected ? "black" : props.foreground,
-          fontSize: theme.fontSize.body,
-        }}
-        allowFontScaling={false}
-      >
-        {props.children}
-      </Text>
-    </Pressable>
   );
 }
