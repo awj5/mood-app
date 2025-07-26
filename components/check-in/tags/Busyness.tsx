@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { Platform, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
@@ -33,8 +33,7 @@ export default function Busyness(props: BusynessProps) {
       style={[
         animatedStyles,
         {
-          width: "100%",
-          maxWidth: Device.deviceType === 1 ? 288 : 320,
+          width: Device.deviceType === 1 ? 288 : 320,
         },
       ]}
     >
@@ -43,7 +42,15 @@ export default function Busyness(props: BusynessProps) {
         selectedIndex={props.level}
         onChange={(e) => props.setLevel(e.nativeEvent.selectedSegmentIndex)}
         fontStyle={{ fontFamily: "Circular-Medium", fontSize: theme.fontSize.body }}
-        appearance={props.foreground === "white" ? "dark" : "light"}
+        appearance={
+          Platform.OS === "android"
+            ? props.foreground === "white"
+              ? "light"
+              : "dark"
+            : props.foreground === "white"
+            ? "dark"
+            : "light"
+        }
       />
     </Animated.View>
   );

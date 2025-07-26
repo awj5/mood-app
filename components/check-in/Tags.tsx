@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useColorScheme, View } from "react-native";
+import { useColorScheme, View, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import tagsData from "data/tags.json";
 import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
@@ -19,7 +20,12 @@ type TagsProps = {
 export default function Tags(props: TagsProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const opacity = useSharedValue(0);
   const [tags, setTags] = useState<TagType[]>([]);
+
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   useEffect(() => {
     const moodTags = tagsData.filter((item) => props.tags.includes(item.id));
@@ -39,7 +45,14 @@ export default function Tags(props: TagsProps) {
     }
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
-    props.setBusyness(1);
+    props.setBusyness(1); // Reset
+
+    // Fade in sub-heading
+    const timeout = setTimeout(() => {
+      opacity.value = withTiming(1, { duration: 200, easing: Easing.in(Easing.cubic) });
+    }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [props.tags]);
 
   return (
@@ -55,17 +68,32 @@ export default function Tags(props: TagsProps) {
     >
       <Busyness foreground={props.foreground} level={props.busyness} setLevel={props.setBusyness} />
 
-      <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
-        {tags.map((item, index) => (
-          <Tag
-            key={item.id}
-            tag={item}
-            num={index}
-            foreground={props.foreground}
-            selectedTags={props.selectedTags}
-            setSelectedTags={props.setSelectedTags}
-          />
-        ))}
+      <View style={{ alignItems: "center", gap: theme.spacing.base }}>
+        <Animated.View style={animatedStyles}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              color: props.foreground,
+              fontSize: theme.fontSize.xSmall,
+            }}
+            allowFontScaling={false}
+          >
+            PICK AT LEAST ONE
+          </Text>
+        </Animated.View>
+
+        <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
+          {tags.map((item, index) => (
+            <Tag
+              key={item.id}
+              tag={item}
+              num={index}
+              foreground={props.foreground}
+              selectedTags={props.selectedTags}
+              setSelectedTags={props.setSelectedTags}
+            />
+          ))}
+        </View>
       </View>
 
       <StatusBar style={props.foreground === "white" ? "light" : "dark"} />
