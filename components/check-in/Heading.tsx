@@ -81,7 +81,7 @@ export default function Heading(props: HeadingProps) {
               paddingBottom: props.wheelSize / 2,
               height: "50%",
               top: 0,
-              maxWidth: Device.deviceType === 1 ? 384 : 512,
+              maxWidth: Device.deviceType === 1 ? 344 : 512,
             },
       ]}
     >
