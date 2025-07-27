@@ -122,13 +122,21 @@ export default function Mood() {
           style={{
             color: foreground,
             fontSize: theme.fontSize.body,
-            paddingBottom: theme.spacing.base,
+            paddingBottom: theme.spacing.base / 2,
             fontFamily: "Circular-Book",
             textAlign: "center",
           }}
         >
           {mood.summary}
         </Text>
+
+        <TextBlock
+          title={`${mood.name.toUpperCase()} WORDS`}
+          text={mood.feelings}
+          background={mood.color}
+          color={foreground}
+          list
+        />
 
         <TextBlock
           title={`${mood.name.toUpperCase()} SCIENCE`}

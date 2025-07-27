@@ -6,6 +6,7 @@ type TextBlockProps = {
   text: string;
   background: string;
   color: string;
+  list?: boolean;
 };
 
 export default function TextBlock(props: TextBlockProps) {
@@ -20,6 +21,8 @@ export default function TextBlock(props: TextBlockProps) {
         padding: theme.spacing.small * 2,
         gap: theme.spacing.base / 2,
         alignItems: "center",
+        borderWidth: props.list ? theme.stroke : undefined,
+        borderColor: props.color,
       }}
     >
       <Text
@@ -35,9 +38,10 @@ export default function TextBlock(props: TextBlockProps) {
 
       <Text
         style={{
-          fontSize: theme.fontSize.small,
+          fontSize: props.list ? theme.fontSize.large : theme.fontSize.small,
+          lineHeight: props.list ? theme.fontSize.xLarge : undefined,
           color: props.color,
-          fontFamily: "Circular-Book",
+          fontFamily: props.list ? "Tiempos-RegularItalic" : "Circular-Book",
           textAlign: "center",
         }}
       >
