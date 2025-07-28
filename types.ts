@@ -7,6 +7,7 @@ export type CalendarDatesType = {
 
 export type CheckInMoodType = {
   color: number;
+  busyness: number;
   tags: number[];
   competency: number;
   statementResponse: number;

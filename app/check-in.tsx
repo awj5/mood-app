@@ -227,6 +227,7 @@ export default function CheckIn() {
                 wheelSize={wheelSize}
                 selectedTags={selectedTags}
                 mood={selectedMood}
+                busyness={busyness}
                 competency={competency}
               />
 
