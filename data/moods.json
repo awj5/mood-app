@@ -10,10 +10,10 @@
       2, 7, 8, 9, 13, 14, 15, 25, 31, 47, 62, 63, 69, 70, 72, 73, 74, 76, 78, 79, 83, 84, 85, 87, 89, 93, 112, 114, 116,
       117, 121, 127, 134, 135, 141, 142, 153, 155, 156, 166, 174, 175, 176, 181, 182, 199, 200, 204, 208
     ],
-    "summary": "When you're in the Orange zone, you're wired. There's energy and urgency \u2013 maybe excitement, maybe panic. You're on the edge of something.",
-    "feelings": "primed, jittery, restless, wired, activated, charged",
-    "description": "Orange is wired urgency. It's a restless state — full of drive, anticipation, or pressure. You might feel like something big needs to happen now. It can tip toward panic or push you toward action.",
-    "science": "This blend of dopamine and adrenaline creates a sense of urgency. It can fuel bold action or chaotic spirals, depending on how it's channelled.",
+    "summary": "I'm wired and running on adrenaline",
+    "feelings": "wired, jittery, activated, primed, charged, restless",
+    "description": "When you're in the Orange zone, you're feeling wired and running on adrenaline.",
+    "science": "In this zone, your brain enters high alert, flooded with stimulation and urgency. Cortisol levels rise, sharpening your senses and preparing you for action.",
     "strategies": "Start by noticing the surge \u2013 you're buzzing with potential or pressure. Then, choose one thing to channel it into before it spirals. Finally, act decisively but gently, and build in a pause to reset before moving onto the next thing."
   },
   {
@@ -24,10 +24,10 @@
     "energy": 100,
     "burnout": -10,
     "tags": [9, 25, 31, 69, 70, 72, 73, 74, 76, 79, 93, 112, 117, 121, 127, 142, 155, 174, 199, 200, 204],
-    "summary": "When you're in the Yellow zone, you're buzzing. This is full-beam energy, joy, and confidence. Everything feels possible and you're lighting up the room.",
-    "feelings": "joyful, energetic, enthusiastic, excited, vibrant, playful",
-    "description": "Yellow is where vitality shines brightest. It's the feeling of being energised, enthusiastic, and ready for anything. This is a zone of motivation, bold ideas, and visible momentum — when you're switched on, confident, and thriving.",
-    "science": "In the Yellow zone, your brain is likely riding a wave of dopamine \u2013 the reward chemical that fuels motivation and action. The prefrontal cortex is switched on, meaning you're focused, creative, and ready to take on challenges.",
+    "summary": "I'm excited and elevated inside",
+    "feelings": "excited, enthusiastic, energetic, vibrant, joyful, playful",
+    "description": "When you're in the Yellow zone, you're feeling excited and elevated inside.",
+    "science": "In this zone, your brain releases a surge of dopamine, boosting your energy and brightening your mind. You're switched on, buzzing, and ready to engage.",
     "strategies": "First, ride the wave \u2013 let your energy expand and fuel what matters most. Then, focus it with intention by picking one bold action that lights you up. Finally, take a moment to reflect on how good it feels to be in your element."
   },
   {
@@ -42,10 +42,10 @@
       93, 95, 96, 101, 102, 107, 108, 109, 110, 112, 117, 118, 120, 121, 127, 130, 131, 132, 138, 140, 142, 143, 146,
       147, 151, 155, 159, 161, 162, 163, 174, 177, 178, 179, 194, 199, 200, 202, 203, 204
     ],
-    "summary": "When you're in the Lime zone, you're switched on and feeling good. Motivated, clear, and steady \u2013 like you're ready to have a really productive day.",
-    "feelings": "inspired, eager, encouraged, uplifted, hopeful, optimistic",
-    "description": "Lime reflects focused optimism. It's that energised clarity you get when you feel capable, aligned, and up for a challenge. It's balanced drive — strong enough to move forward, grounded enough to stay steady.",
-    "science": "This zone reflects a sweet spot between dopamine and serotonin. You're energised but not overwhelmed \u2013 with emotional stability and a sense of control that supports meaningful progress.",
+    "summary": "I'm optimistic and looking ahead",
+    "feelings": "optimistic, hopeful, uplifted, encouraged, inspired, curious",
+    "description": "When you're in the Lime zone, you're feeling optimistic and looking ahead.",
+    "science": "In this zone, your brain leans into possibility, guided by gentle dopamine and forward-focused thinking. Motivation builds as you imagine what's next.",
     "strategies": "Start by noticing how steady and capable you feel \u2013 this is your zone of sustainable drive. Then, use this clarity to map out what needs your attention today. Finally, lean in \u2013 you've got the presence and energy to make real progress."
   },
   {
@@ -59,10 +59,10 @@
       3, 4, 5, 6, 11, 16, 19, 22, 28, 30, 32, 36, 38, 41, 43, 45, 75, 77, 86, 90, 95, 96, 101, 102, 107, 108, 109, 110,
       118, 120, 130, 131, 132, 138, 140, 143, 146, 147, 151, 159, 161, 162, 163, 177, 178, 179, 194, 202, 203
     ],
-    "summary": "When you're in the Green zone, you're grounded and content. Calm but engaged. You feel balanced \u2013 like things are flowing exactly as they should.",
-    "feelings": "seen, heard, understood, assured, glad, proud",
-    "description": "Green is emotional balance. It's the state where calm meets confidence — where you feel connected, present, and clear. This is your zone of calm productivity, relational ease, and quiet strength.",
-    "science": "High serotonin and low cortisol make the Green zone a stable emotional anchor. It promotes prosocial behaviour, long-term thinking, and a sense of connection \u2013 both with others and yourself.",
+    "summary": "I'm glad and emotionally balanced",
+    "feelings": "glad, proud, assured, seen, heard, understood",
+    "description": "When you're in the Green zone, you're feeling glad and emotionally balanced.",
+    "science": "In this zone, your brain recognises emotional safety and social connection. Oxytocin and serotonin support trust, belonging, and steady internal balance.",
     "strategies": "First, anchor yourself in the calm \u2013 this is emotional equilibrium. Then, reach out or reconnect with something meaningful: a person, a purpose, a plan. Finally, protect this balance by moving slowly and choosing what to let in."
   },
   {
@@ -78,10 +78,10 @@
       143, 145, 146, 147, 148, 149, 151, 152, 158, 159, 161, 162, 163, 164, 165, 171, 172, 177, 178, 179, 184, 185, 190,
       193, 194, 202, 203
     ],
-    "summary": "When you're in the Mint zone, you're calm, focused, and steady. There's quiet optimism here \u2013 a gentle space to think, plan, or just be.",
-    "feelings": "relieved, content, satisfied, fulfilled, comfortable, settled",
-    "description": "Mint represents gentle focus. You're composed, thoughtful, and unhurried — able to reflect, plan, or simply breathe. This is the zone of calm clarity and self-trust, without the push.",
-    "science": "Your parasympathetic nervous system (the “rest and digest” mode) is activated here. GABA levels help reduce overstimulation while serotonin keeps your mood balanced \u2013 perfect for gentle focus.",
+    "summary": "I'm content and at ease with life",
+    "feelings": "content, satisfied, fulfilled, comfortable, settled, relieved",
+    "description": "When you're in the Mint zone, you're feeling content and at ease with life.",
+    "science": "In this zone, your brain registers low threat and high satisfaction. Your parasympathetic system promotes rest, digestion, and a quiet sense of ease.",
     "strategies": "Begin by taking a deep breath and noticing the space you're in \u2013 soft, open, unhurried. Then, bring gentle focus to something that requires care or detail. Finally, give yourself permission to move at your own pace \u2013 it's more than enough."
   },
   {
@@ -95,10 +95,10 @@
       17, 20, 21, 27, 29, 33, 34, 35, 37, 42, 44, 71, 88, 91, 92, 94, 98, 136, 137, 145, 148, 149, 152, 158, 164, 165,
       171, 172, 184, 185, 190, 193
     ],
-    "summary": "When you're in the Cyan zone, you're deeply relaxed. Nothing feels urgent. You've slowed down, softened your edges, and made room to breathe.",
-    "feelings": "peaceful, relaxed, calm, chilled, tranquil, serene",
-    "description": "Cyan reflects deep rest and release. You're at ease here — emotionally relaxed and free from pressure. It's the feeling of floating, resting, or softly letting go.",
-    "science": "This is the zone of true nervous system recovery. GABA is active, cortisol is low, and your brain is resting in a way that supports healing, sleep, and emotional regulation.",
+    "summary": "I'm relaxed and my body is at rest",
+    "feelings": "relaxed, calm, peaceful, tranquil, serene, chilled",
+    "description": "When you're in the Cyan zone, you're feeling relaxed and your body is at rest.",
+    "science": "In this zone, your brain signals safety and downregulation. Muscles soften, breathing slows, and your body returns to a restful baseline.",
     "strategies": "First, drop your shoulders and let the tension go \u2013 you're safe to exhale here. Then, let your mind drift without needing to solve or perform. Finally, protect your peace by avoiding unnecessary input or urgency for a little while longer."
   },
   {
@@ -113,10 +113,10 @@
       91, 92, 94, 97, 98, 99, 103, 115, 119, 122, 123, 124, 136, 137, 139, 145, 148, 149, 152, 157, 158, 164, 165, 168,
       169, 170, 171, 172, 184, 185, 190, 193, 195, 207
     ],
-    "summary": "When you're in the Azure zone, you're quiet and low on fuel. Things feel slow, maybe even flat, but not heavy. This is a gentle pause \u2013 a moment between doing and being.",
-    "feelings": "flat, drained, tired, drowsy, weary, sleepy",
-    "description": "Azure is a quiet pause. You may feel foggy, flat, or low-energy — not overwhelmed, just distant from the action. It's a soft withdrawal from the noise, a moment to be still.",
-    "science": "Here, dopamine dips and your nervous system is in a low-activation state. Your brain is slowing down, asking for stillness without emotional strain. You're in idle mode \u2013 resting, not retreating.",
+    "summary": "I'm tired and running on empty",
+    "feelings": "tired, drowsy, sleepy, weary, flat, meh",
+    "description": "When you're in the Azure zone, you're feeling tired and running on empty.",
+    "science": "In this zone, your brain shows signs of low alertness and reduced stimulation. Energy reserves run low, making it harder to focus, respond, or stay engaged.",
     "strategies": "Start by noticing the stillness \u2013 you don't have to force clarity. Then, lean into simple comforts or solitude without needing to push. Finally, trust that slowness is a signal, not a setback."
   },
   {
@@ -130,10 +130,10 @@
       12, 48, 50, 51, 52, 53, 55, 57, 58, 65, 66, 67, 68, 81, 82, 97, 99, 103, 115, 119, 122, 123, 124, 139, 157, 168,
       169, 170, 195, 207
     ],
-    "summary": "When you're in the Blue zone, you're flat. Your energy is empty, and even simple things feel like a stretch. It's not crisis \u2013 it's depletion. A cue to recharge, not retreat.",
-    "feelings": "down, lonely, gloomy, sad, heavy, low",
-    "description": "Blue is emotional depletion. It's the feeling of being completely drained, with little energy to give. You're not broken — just flat, low, and in need of space to recharge.",
-    "science": "In this state, dopamine and drive are low, which can make even basic tasks feel out of reach. The brain is slowing things down as a protective response \u2013 conserving resources, not giving up.",
+    "summary": "I'm sad and weighed down inside",
+    "feelings": "sad, gloomy, heavy, low, lonely, down",
+    "description": "When you're in the Blue zone, you're feeling sad and weighed down inside.",
+    "science": "In this zone, your brain is low in dopamine, which reduces motivation and slows cognitive processing. Emotions feel heavier, and it's harder to get moving or stay engaged.",
     "strategies": "First, name the flatness without judgement. Then, give yourself full permission to go gently \u2013 you're not lazy, you're low. Finally, choose the smallest act of care you can manage, and let that be enough."
   },
   {
@@ -149,10 +149,10 @@
       150, 154, 157, 160, 167, 168, 169, 170, 173, 180, 183, 186, 187, 188, 189, 191, 192, 195, 196, 197, 198, 201, 205,
       206, 207
     ],
-    "summary": "When you're in the Violet zone, you're uneasy. Something doesn't feel right, even if it's hard to name. You may need comfort or clarity.",
-    "feelings": "discouraged, hopeless, disappointed, defeated, ashamed, embarrassed",
-    "description": "Violet represents unease and emotional vulnerability. There's a sense that something's off — maybe hesitation, doubt, or quiet discomfort. It's the first stirrings of stress, just below the surface.",
-    "science": "This zone often activates mild amygdala alerts \u2013 the emotional radar sensing potential threat or ambiguity. Cortisol may rise slightly, pulling your attention toward safety or belonging.",
+    "summary": "I'm discouraged and losing my way",
+    "feelings": "discouraged, disappointed, defeated, hopeless, ashamed, embarrassed",
+    "description": "When you're in the Violet zone, you're feeling discouraged and losing your way.",
+    "science": "In this zone, your brain struggles to see a way forward, with dopamine pathways quieting. You may feel stuck, withdrawn, or unsure of your worth.",
     "strategies": "Start by saying, even quietly, “Something feels off.” Then, ask yourself if you need comfort, clarity, or just time. Finally, choose one small step that helps you feel a little more anchored — even a warm drink or a deep breath counts."
   },
   {
@@ -166,10 +166,10 @@
       1, 10, 18, 23, 24, 26, 39, 40, 46, 49, 54, 56, 59, 60, 61, 64, 80, 100, 104, 105, 106, 111, 113, 125, 126, 128,
       129, 133, 144, 150, 154, 160, 167, 173, 180, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206
     ],
-    "summary": "When you're in the Plum zone, you're hurting. There's tension here \u2013 emotional pain, exclusion, or a sense of being off-centre.",
-    "feelings": "hurt, uneasy, vulnerable, upset, neglected, unsettled",
-    "description": "Plum is where hurt and tension mix. There's emotional weight here — a sense of being pushed out, misunderstood, or carrying pain. It's more active than sadness, but still heavy with strain.",
-    "science": "Emotional pain lights up the same brain regions as physical pain \u2013 especially the anterior cingulate cortex. The need for connection is primal here, and oxytocin may be low.",
+    "summary": "I'm upset and emotionally shaken",
+    "feelings": "upset, uneasy, unsettled, vulnerable, hurt, neglected",
+    "description": "When you're in the Plum zone, you're feeling upset and emotionally shaken.",
+    "science": "In this zone, your brain senses emotional disconnection or threat. Stress responses activate as you scan for signs of rejection, exclusion, or pain.",
     "strategies": "First, give yourself permission to feel what hurts \u2013 pain is valid and real. Then, consider whether it helps to be alone or to be heard. Finally, take a step toward healing \u2013 through connection, compassion, or simply naming what's true for you."
   },
   {
@@ -185,10 +185,10 @@
       156, 160, 166, 167, 173, 175, 176, 180, 181, 182, 183, 186, 187, 188, 189, 191, 192, 196, 197, 198, 201, 205, 206,
       208
     ],
-    "summary": "When you're in the Maroon zone, you're irritated or agitated. Frustration is simmering, and you might be close to snapping.",
-    "feelings": "stressed, frustrated, anxious, uncomfortable, overwhelmed, panicked",
-    "description": "Maroon is agitation and emotional pressure. It's frustration simmering close to the surface — tense, reactive, and easy to trigger. This zone is intense but not yet explosive.",
-    "science": "Cortisol and adrenaline are both elevated here, narrowing your focus and priming you for reactivity. This is your body bracing \u2013 a cue to step back before you react.",
+    "summary": "I'm overwhelmed and at capacity",
+    "feelings": "overwhelmed, panicked, anxious, stressed, frustrated, uncomfortable",
+    "description": "When you're in the Maroon zone, you're feeling overwhelmed and at capacity.",
+    "science": "In this zone, your brain responds to overload and escalating demand. Your stress system narrows focus and diverts energy to immediate survival.",
     "strategies": "Begin by recognising the friction \u2013 irritation is often a messenger. Then, pause before reacting and explore what's underneath the surface. Finally, release the heat through movement, breath, or expression \u2013 before it builds too high."
   },
   {
@@ -202,10 +202,10 @@
       2, 7, 8, 13, 14, 15, 47, 62, 63, 78, 83, 84, 85, 87, 89, 114, 116, 134, 135, 141, 153, 156, 166, 175, 176, 181,
       182, 208
     ],
-    "summary": "When you're in the Red zone, you're maxed out. Angry, anxious, or overwhelmed. Everything is turned up to 11. You need space or release.",
-    "feelings": "irritated, angry, offended, tense, annoyed, mad",
-    "description": "Red is emotional overload. It's where stress peaks and everything feels turned up too high — anxiety, anger, or urgency with nowhere to go. It's loud, intense, and hard to hold.",
-    "science": "This is the fight-or-flight zone. Your amygdala is highly active, flooding your body with stress hormones. Thinking becomes reactive, not reflective. Regulation is essential.",
+    "summary": "I'm mad and my body is fired up",
+    "feelings": "mad, angry, irritated, annoyed, offended, tense",
+    "description": "When you're in the Red zone, you're feeling mad and your body is fired up.",
+    "science": "In this zone, your brain perceives threat and prepares for conflict. Muscles tighten, breathing quickens, and your body shifts into mobilisation.",
     "strategies": "First, stop and create space \u2013 emotional overwhelm needs room to breathe. Then, ground yourself with something physical: water, movement, even counting. Finally, don't rush the calm \u2013 give your body time to come back to centre."
   }
 ]

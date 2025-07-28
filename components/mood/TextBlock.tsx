@@ -38,7 +38,7 @@ export default function TextBlock(props: TextBlockProps) {
 
       <Text
         style={{
-          fontSize: props.list ? theme.fontSize.large : theme.fontSize.small,
+          fontSize: props.list ? theme.fontSize.body : theme.fontSize.small,
           lineHeight: props.list ? theme.fontSize.xLarge : undefined,
           color: props.color,
           fontFamily: props.list ? "Tiempos-RegularItalic" : "Circular-Book",

@@ -40,7 +40,7 @@ export default function Mood(props: MoodProps) {
           }}
           allowFontScaling={false}
         >
-          I'm feeling&nbsp;
+          I feel&nbsp;
         </Text>
 
         <Pressable onPress={props.colorPress} style={({ pressed }) => pressedDefault(pressed)} hitSlop={16}>
@@ -59,15 +59,14 @@ export default function Mood(props: MoodProps) {
 
       <Text
         style={{
-          color: theme.color.primary,
+          color: theme.color.secondary,
           fontSize: theme.fontSize.large,
-          lineHeight: theme.fontSize.xLarge,
-          fontFamily: "Tiempos-RegularItalic",
+          fontFamily: "Circular-Book",
           textAlign: "center",
         }}
         allowFontScaling={false}
       >
-        {props.data.feelings}
+        {props.data.summary}
       </Text>
     </Animated.View>
   );

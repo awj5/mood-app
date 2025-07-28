@@ -29,7 +29,7 @@ export type MoodType = {
   name: string;
   color: string;
   tags: number[];
-  feelings: string;
+  summary: string;
 };
 
 export type TagType = {
@@ -51,7 +51,7 @@ export default function CheckIn() {
   const localization = getLocales();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
-  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [], feelings: "" });
+  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [], summary: "" });
   const wheelActivatedRef = useRef(false);
   const isFocusedRef = useRef(true);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
@@ -65,7 +65,7 @@ export default function CheckIn() {
     name: "",
     color: "",
     tags: [],
-    feelings: "",
+    summary: "",
   });
   const [showStatement, setShowStatement] = useState(false);
   const [isFirstCheckIn, setIsFirstCheckIn] = useState(false);
@@ -173,17 +173,17 @@ export default function CheckIn() {
       />
 
       <Heading
-        text="How are you feeling?"
+        text="How do you feel?"
         wheelSize={wheelSize}
-        description={`Start your ${isFirstCheckIn ? "first " : ""}check-in by choosing a mood ${
+        description={`Start your ${isFirstCheckIn ? "first " : ""}check-in by dragging the ${
           localization[0].languageTag === "en-US" ? "color" : "colour"
-        }`}
+        } wheel to choose your mood`}
         delay={1000}
         mood={wheelMood}
         colorPress={colorPress}
       />
 
-      <Instructions wheelSize={wheelSize} />
+      {/* <Instructions wheelSize={wheelSize} /> */}
       <Background showTags={showTags} mood={wheelMood} />
       <Wheel rotation={rotation} colorPress={colorPress} wheelSize={wheelSize} />
       <Emoji showTags={showTags} mood={wheelMood} wheelSize={wheelSize} />

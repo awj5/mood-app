@@ -127,16 +127,10 @@ export default function Mood() {
             textAlign: "center",
           }}
         >
-          {mood.summary}
+          {mood.description}
         </Text>
 
-        <TextBlock
-          title={`${mood.name.toUpperCase()} WORDS`}
-          text={mood.feelings}
-          background={mood.color}
-          color={foreground}
-          list
-        />
+        <TextBlock title="I'M FEELING..." text={mood.feelings} background={mood.color} color={foreground} list />
 
         <TextBlock
           title={`${mood.name.toUpperCase()} SCIENCE`}
