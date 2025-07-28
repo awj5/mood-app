@@ -24,6 +24,18 @@ export default function Header(props: HeaderProps) {
   const local = new Date(utc);
   const time = local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
   const color = MoodsData.filter((mood) => mood.id === props.mood.color)[0];
+  let busyness = "";
+
+  switch (props.mood.busyness) {
+    case 0:
+      busyness = "Slow";
+      break;
+    case 2:
+      busyness = "Busy";
+      break;
+    default:
+      busyness = "Steady";
+  }
 
   const emojis = {
     1: require("../../../assets/img/emoji/small/yellow.png"),
@@ -105,7 +117,7 @@ export default function Header(props: HeaderProps) {
           }}
           allowFontScaling={false}
         >
-          {time}
+          {busyness} at {time}
         </Text>
       </Pressable>
 

@@ -12,6 +12,7 @@ type ButtonProps = {
   large?: boolean;
   icon?: React.ElementType;
   disabled?: boolean;
+  deactivated?: boolean; // Not tappable only
   destructive?: boolean;
   gradient?: boolean;
   count?: number;
@@ -42,7 +43,7 @@ export default function Button(props: ButtonProps) {
         },
         props.disabled && { opacity: 0.25 },
       ]}
-      disabled={props.disabled}
+      disabled={props.disabled || props.deactivated}
       hitSlop={8}
     >
       {props.gradient && (
