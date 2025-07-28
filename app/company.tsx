@@ -35,17 +35,17 @@ export default function Company() {
       if (name && send) setHasAccess(true);
     })();
 
-    // Always set date range to past 90 days on mount (UTC)
+    // Always set date range to past 30 days on mount (UTC)
     const today = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
     today.setHours(0, 0, 0, 0);
     const daysAgo = new Date(today);
-    daysAgo.setDate(today.getDate() - 90);
+    daysAgo.setDate(today.getDate() - 30);
 
     setCompanyDates({
       weekStart: getMonday(daysAgo),
       rangeStart: daysAgo,
       rangeEnd: today,
-      title: "PAST 90 DAYS'",
+      title: "PAST 30 DAYS'",
     });
 
     setCompanyFilters({ locations: [], teams: [] }); // Reset

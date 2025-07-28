@@ -19,6 +19,7 @@ import { convertToISO } from "utils/dates";
 
 export type StatsDataType = {
   checkIns: number;
+  active: number;
   users: number;
   participation: number;
 };

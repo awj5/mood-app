@@ -43,7 +43,7 @@ export default function Participation(props: ParticipationProps) {
       {props.role !== "user" && (
         <>
           <Metric data={String(props.statsData?.checkIns)} text="CHECK-INS" />
-          <Metric data={String(props.statsData?.users)} text="USERS" />
+          <Metric data={`${String(props.statsData?.active)} of ${String(props.statsData?.users)}`} text="USERS" />
         </>
       )}
 
