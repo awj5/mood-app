@@ -3,99 +3,85 @@
     "id": 1,
     "name": "abandoned",
     "type": "neg",
-    "competencies": [3.01, 5.02],
-    "def": ""
+    "competencies": [3.01, 5.02]
   },
   {
     "id": 2,
     "name": "abused",
     "type": "neg",
-    "competencies": [13.01, 13.02],
-    "def": ""
+    "competencies": [13.01, 13.02]
   },
   {
     "id": 3,
     "name": "accepted",
     "type": "pos",
-    "competencies": [6.01, 13.08, 13.11],
-    "def": ""
+    "competencies": [6.01, 13.08, 13.11]
   },
   {
     "id": 4,
     "name": "accepting",
     "type": "pos",
-    "competencies": [11.04, 12.02],
-    "def": ""
+    "competencies": [11.04, 12.02]
   },
   {
     "id": 5,
     "name": "acknowledged",
     "type": "pos",
-    "competencies": [7.02, 13.04],
-    "def": ""
+    "competencies": [7.02, 13.04]
   },
   {
     "id": 6,
     "name": "affirmed",
     "type": "pos",
-    "competencies": [4.03, 7.03],
-    "def": ""
+    "competencies": [4.03, 7.03]
   },
   {
     "id": 7,
     "name": "agitated",
     "type": "neg",
-    "competencies": [2.03, 12.04, 14.02, 14.06, 14.14],
-    "def": ""
+    "competencies": [2.03, 12.04, 14.02, 14.06, 14.14]
   },
   {
     "id": 8,
     "name": "alarmed",
     "type": "neg",
-    "competencies": [2.02, 14.03],
-    "def": ""
+    "competencies": [2.02, 14.03]
   },
   {
     "id": 9,
     "name": "alert",
     "type": "pos",
-    "competencies": [14.01, 14.12],
-    "def": ""
+    "competencies": [14.01, 14.12]
   },
   {
     "id": 10,
     "name": "alienated",
     "type": "neg",
-    "competencies": [4.04, 8.01, 11.01, 11.02, 11.04, 12.04, 13.11],
-    "def": ""
+    "competencies": [4.04, 8.01, 11.01, 11.02, 11.04, 12.04, 13.11]
   },
   {
     "id": 11,
     "name": "aligned",
     "type": "pos",
-    "competencies": [4.04, 6.03, 11.03],
-    "def": ""
+    "competencies": [11.01, 11.02, 11.03, 11.04]
   },
   {
     "id": 12,
     "name": "alone",
     "type": "neg",
-    "competencies": [3.01, 3.02],
-    "def": ""
+    "competencies": [3.01, 3.02]
   },
   {
     "id": 13,
     "name": "angry",
     "type": "neg",
-    "competencies": [12.01, 13.02, 13.04, 13.07],
-    "def": ""
+    "competencies": [12.01, 13.02, 13.04, 13.07]
   },
   {
     "id": 14,
     "name": "annoyed",
     "type": "neg",
-    "competencies": [6.02, 12.02, 14.14],
-    "def": ""
+    "competencies": [6.02, 12.02, 14.14]
   },
   {
     "id": 15,
@@ -105,168 +91,139 @@
       1.01, 1.02, 1.03, 2.01, 2.02, 2.04, 3.01, 3.02, 3.03, 4.01, 4.02, 4.04, 5.01, 5.02, 5.03, 6.01, 6.02, 6.03, 6.04,
       8.01, 8.02, 8.03, 8.04, 9.01, 9.02, 9.03, 10.01, 10.02, 10.03, 10.04, 11.01, 11.02, 11.03, 11.04, 12.02, 12.03,
       13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.09, 13.1, 13.11, 14.02, 14.03, 14.05, 14.06
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 16,
     "name": "appreciated",
     "type": "pos",
-    "competencies": [5.01, 5.03, 5.04, 7.01, 12.03, 12.04, 13.01, 13.03, 13.05, 13.06, 14.09],
-    "def": ""
+    "competencies": [5.01, 5.03, 5.04, 7.01, 12.03, 12.04, 13.01, 13.03, 13.05, 13.06, 14.09]
   },
   {
     "id": 17,
     "name": "appreciative",
     "type": "pos",
-    "competencies": [2.01, 5.01, 12.02, 13.1],
-    "def": ""
+    "competencies": [7.01, 7.02, 7.03]
   },
   {
     "id": 18,
     "name": "apprehensive",
     "type": "neg",
-    "competencies": [4.03, 10.02],
-    "def": ""
+    "competencies": [4.03, 10.02]
   },
   {
     "id": 19,
     "name": "assured",
     "type": "pos",
-    "competencies": [2.03, 3.03, 4.02, 6.03, 6.04],
-    "def": ""
+    "competencies": [2.03, 3.03, 4.02, 6.03, 6.04]
   },
   {
     "id": 20,
     "name": "at ease",
     "type": "pos",
-    "competencies": [2.03, 3.03, 4.03, 10.04, 14.02, 14.07, 14.14],
-    "def": ""
+    "competencies": [2.03, 3.03, 4.03, 10.04, 14.02, 14.07, 14.14]
   },
   {
     "id": 21,
     "name": "backed up",
     "type": "pos",
-    "competencies": [3.02, 5.02],
-    "def": ""
+    "competencies": [3.02, 5.02]
   },
   {
     "id": 22,
     "name": "balanced",
     "type": "pos",
-    "competencies": [1.03, 2.01, 2.04, 9.03, 14.02, 14.03],
-    "def": ""
+    "competencies": [2.01, 2.02, 2.03, 2.04]
   },
   {
     "id": 23,
     "name": "belittled",
     "type": "neg",
-    "competencies": [13.02, 13.03, 13.06, 13.08],
-    "def": ""
+    "competencies": [13.02, 13.03, 13.06, 13.08]
   },
   {
     "id": 24,
     "name": "betrayed",
     "type": "neg",
-    "competencies": [3.02, 8.01, 12.01, 13.05, 13.09, 13.1],
-    "def": ""
+    "competencies": [3.02, 8.01, 12.01, 13.05, 13.09, 13.1]
   },
   {
     "id": 25,
     "name": "bright",
     "type": "pos",
-    "competencies": [14.01, 14.04, 14.08, 14.1, 14.12],
-    "def": ""
+    "competencies": [14.01, 14.04, 14.08, 14.1, 14.12]
   },
   {
     "id": 26,
     "name": "burdened",
     "type": "neg",
-    "competencies": [2.01, 9.02, 14.07],
-    "def": ""
+    "competencies": [2.01, 9.02, 14.07]
   },
   {
     "id": 27,
     "name": "calm",
     "type": "pos",
-    "competencies": [
-      1.03, 2.01, 2.02, 2.03, 4.01, 4.02, 4.03, 5.03, 6.03, 8.04, 9.01, 9.03, 10.02, 12.03, 13.08, 14.02, 14.03, 14.06,
-      14.07, 14.11
-    ],
-    "def": ""
+    "competencies": [9.01, 9.02, 9.03]
   },
   {
     "id": 28,
     "name": "capable",
     "type": "pos",
-    "competencies": [2.02, 4.01, 14.07, 14.09, 14.13],
-    "def": ""
+    "competencies": [2.02, 4.01, 14.07, 14.09, 14.13]
   },
   {
     "id": 29,
     "name": "cared for",
     "type": "pos",
-    "competencies": [3.01, 12.04, 13.05],
-    "def": ""
+    "competencies": [3.01, 12.04, 13.05]
   },
   {
     "id": 30,
     "name": "certain",
     "type": "pos",
-    "competencies": [4.03, 4.04, 14.07],
-    "def": ""
+    "competencies": [4.03, 4.04, 14.07]
   },
   {
     "id": 31,
     "name": "cheerful",
     "type": "pos",
-    "competencies": [14.08, 14.1],
-    "def": ""
+    "competencies": [14.08, 14.1]
   },
   {
     "id": 32,
     "name": "clear",
     "type": "pos",
-    "competencies": [10.02, 10.03],
-    "def": ""
+    "competencies": [10.01, 10.02, 10.03, 10.04, 4.01, 4.02, 4.03, 4.04, 6.01, 6.02, 6.03, 6.04]
   },
   {
     "id": 33,
     "name": "collected",
     "type": "pos",
-    "competencies": [2.03, 14.03, 14.06, 14.07],
-    "def": ""
+    "competencies": [2.03, 14.03, 14.06, 14.07]
   },
   {
     "id": 34,
     "name": "comfortable",
     "type": "pos",
-    "competencies": [
-      1.03, 2.01, 2.03, 3.04, 4.02, 4.03, 4.04, 5.01, 5.04, 6.01, 6.03, 6.04, 8.02, 8.04, 9.01, 10.03, 11.04, 12.03,
-      13.04, 13.06, 14.11
-    ],
-    "def": ""
+    "competencies": [9.01, 9.02, 9.03]
   },
   {
     "id": 35,
     "name": "comforted",
     "type": "pos",
-    "competencies": [3.01, 3.02, 3.03, 5.03, 13.02, 13.07, 13.09],
-    "def": ""
+    "competencies": [3.01, 3.02, 3.03, 5.03, 13.02, 13.07, 13.09]
   },
   {
     "id": 36,
     "name": "competent",
     "type": "pos",
-    "competencies": [2.04, 4.02],
-    "def": ""
+    "competencies": [2.04, 4.02]
   },
   {
     "id": 37,
     "name": "composed",
     "type": "pos",
-    "competencies": [9.01, 14.02, 14.03, 14.06],
-    "def": ""
+    "competencies": [9.01, 14.02, 14.03, 14.06]
   },
   {
     "id": 38,
@@ -275,358 +232,307 @@
     "competencies": [
       1.01, 2.02, 2.03, 2.04, 3.02, 3.03, 4.01, 4.03, 5.01, 5.03, 6.01, 6.02, 6.03, 6.04, 8.04, 10.02, 10.04, 13.02,
       13.06, 14.03, 14.07, 14.09
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 39,
     "name": "conflicted",
     "type": "neg",
-    "competencies": [6.01, 6.02, 6.03, 6.04, 11.01, 11.03],
-    "def": ""
+    "competencies": [6.01, 6.02, 6.03, 6.04, 11.01, 11.03]
   },
   {
     "id": 40,
     "name": "confused",
     "type": "neg",
-    "competencies": [4.01, 4.04, 6.03, 10.02, 13.02],
-    "def": ""
+    "competencies": [4.01, 4.04, 6.03, 10.02, 13.02]
   },
   {
     "id": 41,
     "name": "connected",
     "type": "pos",
-    "competencies": [5.01, 11.03, 12.04, 13.05],
-    "def": ""
+    "competencies": [5.01, 5.02, 5.03, 5.04]
   },
   {
     "id": 42,
     "name": "consoled",
     "type": "pos",
-    "competencies": [3.04, 5.04],
-    "def": ""
+    "competencies": [3.04, 5.04]
   },
   {
     "id": 43,
     "name": "constructive",
     "type": "pos",
-    "competencies": [11.02, 13.07],
-    "def": ""
+    "competencies": [11.01, 11.02, 11.03, 11.04]
   },
   {
     "id": 44,
     "name": "content",
     "type": "pos",
-    "competencies": [1.03, 2.01, 6.01, 7.01, 8.04, 9.02, 11.03, 11.04, 12.03, 13.02, 13.06, 13.11, 14.02, 14.04, 14.14],
-    "def": ""
+    "competencies": [1.03, 2.01, 6.01, 7.01, 8.04, 9.02, 11.03, 11.04, 12.03, 13.02, 13.06, 13.11, 14.02, 14.04, 14.14]
   },
   {
     "id": 45,
     "name": "cooperative",
     "type": "pos",
-    "competencies": [5.01, 6.01, 6.02, 11.03, 11.04],
-    "def": ""
+    "competencies": [5.01, 6.01, 6.02, 11.03, 11.04]
   },
   {
     "id": 46,
     "name": "defeated",
     "type": "neg",
-    "competencies": [2.02, 3.01, 8.02, 8.03, 13.07, 14.04, 14.09],
-    "def": ""
+    "competencies": [2.02, 3.01, 8.02, 8.03, 13.07, 14.04, 14.09]
   },
   {
     "id": 47,
     "name": "defensive",
     "type": "neg",
-    "competencies": [11.02, 12.02],
-    "def": ""
+    "competencies": [11.02, 12.02]
   },
   {
     "id": 48,
     "name": "dejected",
     "type": "neg",
-    "competencies": [7.01, 14.08],
-    "def": ""
+    "competencies": [7.01, 14.08]
   },
   {
     "id": 49,
     "name": "demeaned",
     "type": "neg",
-    "competencies": [13.06, 14.09],
-    "def": ""
+    "competencies": [13.06, 14.09]
   },
   {
     "id": 50,
     "name": "demoralised",
     "type": "neg",
-    "competencies": [3.02, 5.03, 7.03, 13.03, 13.07, 14.04, 14.16],
-    "def": ""
+    "competencies": [3.02, 5.03, 7.03, 13.03, 13.07, 14.04, 14.16]
   },
   {
     "id": 51,
     "name": "demotivated",
     "type": "neg",
-    "competencies": [3.03, 4.01, 7.01, 14.1],
-    "def": ""
+    "competencies": [3.03, 4.01, 7.01, 14.1]
   },
   {
     "id": 52,
     "name": "depleted",
     "type": "neg",
-    "competencies": [14.11, 14.13, 14.15, 14.16],
-    "def": ""
+    "competencies": [14.11, 14.13, 14.15, 14.16]
   },
   {
     "id": 53,
     "name": "depressed",
     "type": "neg",
-    "competencies": [13.04, 13.11, 14.08, 14.1, 14.12],
-    "def": ""
+    "competencies": [13.04, 13.11, 14.08, 14.1, 14.12]
   },
   {
     "id": 54,
     "name": "deserted",
     "type": "neg",
-    "competencies": [3.03, 5.01],
-    "def": ""
+    "competencies": [3.03, 5.01]
   },
   {
     "id": 55,
     "name": "despairing",
     "type": "neg",
-    "competencies": [2.04, 14.04, 14.1],
-    "def": ""
+    "competencies": [2.04, 14.04, 14.1]
   },
   {
     "id": 56,
     "name": "disappointed",
     "type": "neg",
-    "competencies": [5.01, 5.02, 7.01, 7.03, 11.01, 11.03, 11.04, 13.05],
-    "def": ""
+    "competencies": [5.01, 5.02, 7.01, 7.03, 11.01, 11.03, 11.04, 13.05]
   },
   {
     "id": 57,
     "name": "discouraged",
     "type": "neg",
-    "competencies": [2.04, 3.01, 4.02, 6.02, 7.02, 7.03, 10.04, 14.14],
-    "def": ""
+    "competencies": [2.04, 3.01, 4.02, 6.02, 7.02, 7.03, 10.04, 14.14]
   },
   {
     "id": 58,
     "name": "disheartened",
     "type": "neg",
-    "competencies": [1.01, 6.01, 12.03, 14.14],
-    "def": ""
+    "competencies": [1.01, 6.01, 12.03, 14.14]
   },
   {
     "id": 59,
     "name": "dismissed",
     "type": "neg",
-    "competencies": [10.01, 10.04],
-    "def": ""
+    "competencies": [10.01, 10.04]
   },
   {
     "id": 60,
     "name": "disregarded",
     "type": "neg",
-    "competencies": [3.03, 3.04, 5.04, 10.01, 11.03, 12.04, 14.09],
-    "def": ""
+    "competencies": [3.03, 3.04, 5.04, 10.01, 11.03, 12.04, 14.09]
   },
   {
     "id": 61,
     "name": "disrespected",
     "type": "neg",
-    "competencies": [3.04, 5.04, 13.05],
-    "def": ""
+    "competencies": [3.04, 5.04, 13.05]
   },
   {
     "id": 62,
     "name": "distraught",
     "type": "neg",
-    "competencies": [12.04, 14.03, 14.06, 14.08],
-    "def": ""
+    "competencies": [12.04, 14.03, 14.06, 14.08]
   },
   {
     "id": 63,
     "name": "distressed",
     "type": "neg",
-    "competencies": [9.01, 9.03, 13.01, 13.1, 14.04],
-    "def": ""
+    "competencies": [9.01, 9.03, 13.01, 13.1, 14.04]
   },
   {
     "id": 64,
     "name": "distrustful",
     "type": "neg",
-    "competencies": [5.03, 13.09],
-    "def": ""
+    "competencies": [5.03, 13.09]
   },
   {
     "id": 65,
     "name": "doubtful",
     "type": "neg",
-    "competencies": [4.03, 8.04, 10.03],
-    "def": ""
+    "competencies": [4.03, 8.04, 10.03]
   },
   {
     "id": 66,
     "name": "down",
     "type": "neg",
-    "competencies": [7.02, 14.01, 14.1, 7.03, 14.08],
-    "def": ""
+    "competencies": [7.02, 14.01, 14.1, 7.03, 14.08]
   },
   {
     "id": 67,
     "name": "drained",
     "type": "neg",
-    "competencies": [2.01, 6.02, 9.02, 14.01, 14.07, 14.1, 14.11, 14.12, 14.13, 14.15, 14.16],
-    "def": ""
+    "competencies": [2.01, 6.02, 9.02, 14.01, 14.07, 14.1, 14.11, 14.12, 14.13, 14.15, 14.16]
   },
   {
     "id": 68,
     "name": "dull",
     "type": "neg",
-    "competencies": [14.11, 14.12],
-    "def": ""
+    "competencies": [14.11, 14.12]
   },
   {
     "id": 69,
     "name": "dynamic",
     "type": "pos",
-    "competencies": [14.12, 14.15],
-    "def": ""
+    "competencies": [14.12, 14.15]
   },
   {
     "id": 70,
     "name": "eager",
     "type": "pos",
-    "competencies": [14.04, 14.16],
-    "def": ""
+    "competencies": [14.04, 14.16]
   },
   {
     "id": 71,
     "name": "easygoing",
     "type": "pos",
-    "competencies": [8.04, 14.05],
-    "def": ""
+    "competencies": [8.04, 14.05]
   },
   {
     "id": 72,
     "name": "empowered",
     "type": "pos",
-    "competencies": [1.01, 4.02, 5.02, 10.01, 14.09, 14.16],
-    "def": ""
+    "competencies": [1.01, 4.02, 5.02, 10.01, 14.09, 14.16]
   },
   {
     "id": 73,
     "name": "encouraged",
     "type": "pos",
-    "competencies": [2.02, 3.01, 3.02, 5.02, 6.02, 7.02, 8.02, 11.02, 12.04, 13.01, 13.04, 13.07, 13.1, 14.04],
-    "def": ""
+    "competencies": [2.02, 3.01, 3.02, 5.02, 6.02, 7.02, 8.02, 11.02, 12.04, 13.01, 13.04, 13.07, 13.1, 14.04]
   },
   {
     "id": 74,
     "name": "energetic",
     "type": "pos",
-    "competencies": [14.01, 14.1, 14.12, 11.02, 14.11, 14.15],
-    "def": ""
+    "competencies": [14.01, 14.1, 14.12, 11.02, 14.11, 14.15]
   },
   {
     "id": 75,
     "name": "engaged",
     "type": "pos",
-    "competencies": [1.01, 4.04, 10.01, 10.03, 10.04],
-    "def": ""
+    "competencies": [1.01, 4.04, 10.01, 10.03, 10.04]
   },
   {
     "id": 76,
     "name": "enthusiastic",
     "type": "pos",
-    "competencies": [1.02, 4.04, 14.01, 14.1, 14.12, 14.16],
-    "def": ""
+    "competencies": [1.02, 4.04, 14.01, 14.1, 14.12, 14.16]
   },
   {
     "id": 77,
     "name": "esteemed",
     "type": "pos",
-    "competencies": [7.02, 13.08],
-    "def": ""
+    "competencies": [7.02, 13.08]
   },
   {
     "id": 78,
     "name": "exasperated",
     "type": "neg",
-    "competencies": [2.03, 11.01, 12.02, 14.07],
-    "def": ""
+    "competencies": [2.03, 11.01, 12.02, 14.07]
   },
   {
     "id": 79,
     "name": "excited",
     "type": "pos",
-    "competencies": [13.03, 14.16],
-    "def": ""
+    "competencies": [13.03, 14.16]
   },
   {
     "id": 80,
     "name": "excluded",
     "type": "neg",
-    "competencies": [5.02, 10.01, 12.01, 13.06],
-    "def": ""
+    "competencies": [5.02, 10.01, 12.01, 13.06]
   },
   {
     "id": 81,
     "name": "exhausted",
     "type": "neg",
-    "competencies": [2.01, 9.02, 14.01, 14.11, 14.12, 14.13, 14.15, 14.16],
-    "def": ""
+    "competencies": [2.01, 9.02, 14.01, 14.11, 14.12, 14.13, 14.15, 14.16]
   },
   {
     "id": 82,
     "name": "fatigued",
     "type": "neg",
-    "competencies": [14.01, 14.07, 14.11, 14.13],
-    "def": ""
+    "competencies": [14.01, 14.07, 14.11, 14.13]
   },
   {
     "id": 83,
     "name": "fearful",
     "type": "neg",
-    "competencies": [2.03, 3.02, 13.1],
-    "def": ""
+    "competencies": [2.03, 3.02, 13.1]
   },
   {
     "id": 84,
     "name": "fidgety",
     "type": "neg",
-    "competencies": [14.05, 14.06],
-    "def": ""
+    "competencies": [14.05, 14.06]
   },
   {
     "id": 85,
     "name": "flustered",
     "type": "neg",
-    "competencies": [2.03, 4.02],
-    "def": ""
+    "competencies": [2.03, 4.02]
   },
   {
     "id": 86,
     "name": "focused",
     "type": "pos",
-    "competencies": [4.01, 14.01],
-    "def": ""
+    "competencies": [4.01, 14.01]
   },
   {
     "id": 87,
     "name": "frantic",
     "type": "neg",
-    "competencies": [2.02, 14.03],
-    "def": ""
+    "competencies": [2.02, 14.03]
   },
   {
     "id": 88,
     "name": "free",
     "type": "pos",
-    "competencies": [1.01, 1.03],
-    "def": ""
+    "competencies": [1.01, 1.03]
   },
   {
     "id": 89,
@@ -635,421 +541,361 @@
     "competencies": [
       1.01, 2.01, 3.02, 3.04, 4.01, 4.04, 5.04, 6.01, 6.03, 7.01, 7.02, 8.01, 8.02, 8.03, 8.04, 9.02, 11.01, 11.02,
       11.04, 12.01, 12.04, 13.03, 13.07
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 90,
     "name": "fulfilled",
     "type": "pos",
-    "competencies": [4.04, 9.02, 14.14],
-    "def": ""
+    "competencies": [4.04, 9.02, 14.14]
   },
   {
     "id": 91,
     "name": "grateful",
     "type": "pos",
-    "competencies": [3.02, 3.04, 5.01, 5.02, 5.04, 7.01, 7.03, 9.02, 13.04, 13.05, 13.07, 14.14],
-    "def": ""
+    "competencies": [3.02, 3.04, 5.01, 5.02, 5.04, 7.01, 7.03, 9.02, 13.04, 13.05, 13.07, 14.14]
   },
   {
     "id": 92,
     "name": "guided",
     "type": "pos",
-    "competencies": [3.01, 13.07],
-    "def": ""
+    "competencies": [3.01, 3.02, 3.03, 3.04]
   },
   {
     "id": 93,
     "name": "happy",
     "type": "pos",
-    "competencies": [7.02, 13.03, 14.08],
-    "def": ""
+    "competencies": [7.02, 13.03, 14.08]
   },
   {
     "id": 94,
     "name": "harmonious",
     "type": "pos",
-    "competencies": [6.01, 6.03, 11.04, 12.01],
-    "def": ""
+    "competencies": [12.01, 12.02, 12.03, 12.04]
   },
   {
     "id": 95,
     "name": "healthy",
     "type": "pos",
-    "competencies": [9.03, 14.13],
-    "def": ""
+    "competencies": [9.03, 14.13]
   },
   {
     "id": 96,
     "name": "heard",
     "type": "pos",
-    "competencies": [1.02, 3.04, 5.04, 8.03, 10.01],
-    "def": ""
+    "competencies": [1.02, 3.04, 5.04, 8.03, 10.01]
   },
   {
     "id": 97,
     "name": "heavy",
     "type": "neg",
-    "competencies": [14.1, 14.11],
-    "def": ""
+    "competencies": [14.1, 14.11]
   },
   {
     "id": 98,
     "name": "helped",
     "type": "pos",
-    "competencies": [3.03, 5.02],
-    "def": ""
+    "competencies": [3.03, 5.02]
   },
   {
     "id": 99,
     "name": "helpless",
     "type": "neg",
-    "competencies": [1.01, 2.04, 14.03, 14.04, 14.09],
-    "def": ""
+    "competencies": [1.01, 2.04, 14.03, 14.04, 14.09]
   },
   {
     "id": 100,
     "name": "hesitant",
     "type": "neg",
-    "competencies": [4.02, 10.03],
-    "def": ""
+    "competencies": [4.02, 10.03]
   },
   {
     "id": 101,
     "name": "honoured",
     "type": "pos",
-    "competencies": [7.02, 13.02],
-    "def": ""
+    "competencies": [7.02, 13.02]
   },
   {
     "id": 102,
     "name": "hopeful",
     "type": "pos",
-    "competencies": [2.02, 3.01, 8.03, 10.02, 13.1, 14.04, 14.1],
-    "def": ""
+    "competencies": [2.02, 3.01, 8.03, 10.02, 13.1, 14.04, 14.1]
   },
   {
     "id": 103,
     "name": "hopeless",
     "type": "neg",
-    "competencies": [2.02, 14.04, 14.08, 14.1],
-    "def": ""
+    "competencies": [2.02, 14.04, 14.08, 14.1]
   },
   {
     "id": 104,
     "name": "humiliated",
     "type": "neg",
-    "competencies": [13.01, 13.02, 13.03, 13.07, 13.08, 13.09],
-    "def": ""
+    "competencies": [13.01, 13.02, 13.03, 13.07, 13.08, 13.09]
   },
   {
     "id": 105,
     "name": "hurt",
     "type": "neg",
-    "competencies": [12.01, 12.04, 13.01, 13.05, 13.06, 13.11],
-    "def": ""
+    "competencies": [12.01, 12.04, 13.01, 13.05, 13.06, 13.11]
   },
   {
     "id": 106,
     "name": "ignored",
     "type": "neg",
-    "competencies": [1.02, 5.03, 7.02, 8.03, 10.04],
-    "def": ""
+    "competencies": [1.02, 5.03, 7.02, 8.03, 10.04]
   },
   {
     "id": 107,
     "name": "in control",
     "type": "pos",
-    "competencies": [1.03, 2.03, 2.04, 4.01, 4.03, 14.03, 14.07],
-    "def": ""
+    "competencies": [1.03, 2.03, 2.04, 4.01, 4.03, 14.03, 14.07]
   },
   {
     "id": 108,
     "name": "in sync",
     "type": "pos",
-    "competencies": [6.04, 12.03],
-    "def": ""
+    "competencies": [6.04, 12.03]
   },
   {
     "id": 109,
     "name": "included",
     "type": "pos",
-    "competencies": [5.02, 5.03, 5.04, 8.03, 10.04, 12.04, 13.04, 13.06, 13.09, 13.11],
-    "def": ""
+    "competencies": [5.02, 5.03, 5.04, 8.03, 10.04, 12.04, 13.04, 13.06, 13.09, 13.11]
   },
   {
     "id": 110,
     "name": "informed",
     "type": "pos",
-    "competencies": [4.02, 4.04, 10.02],
-    "def": ""
+    "competencies": [4.02, 4.04, 10.02]
   },
   {
     "id": 111,
     "name": "insecure",
     "type": "neg",
-    "competencies": [2.02, 3.01, 3.02, 4.01, 4.03, 5.04, 6.03, 7.01, 8.02, 10.01, 10.02, 10.04, 13.05, 13.09, 14.09],
-    "def": ""
+    "competencies": [2.02, 3.01, 3.02, 4.01, 4.03, 5.04, 6.03, 7.01, 8.02, 10.01, 10.02, 10.04, 13.05, 13.09, 14.09]
   },
   {
     "id": 112,
     "name": "inspired",
     "type": "pos",
-    "competencies": [7.03, 14.04, 14.16],
-    "def": ""
+    "competencies": [7.03, 14.04, 14.16]
   },
   {
     "id": 113,
     "name": "insulted",
     "type": "neg",
-    "competencies": [13.04, 13.05, 13.08],
-    "def": ""
+    "competencies": [13.04, 13.05, 13.08]
   },
   {
     "id": 114,
     "name": "irritated",
     "type": "neg",
-    "competencies": [11.04, 12.02, 14.14],
-    "def": ""
+    "competencies": [11.04, 12.02, 14.14]
   },
   {
     "id": 115,
     "name": "isolated",
     "type": "neg",
-    "competencies": [3.04, 5.01, 6.01, 13.06],
-    "def": ""
+    "competencies": [3.04, 5.01, 6.01, 13.06]
   },
   {
     "id": 116,
     "name": "jittery",
     "type": "neg",
-    "competencies": [14.02, 14.05],
-    "def": ""
+    "competencies": [14.02, 14.05]
   },
   {
     "id": 117,
     "name": "joyful",
     "type": "pos",
-    "competencies": [9.02, 14.08, 14.1],
-    "def": ""
+    "competencies": [9.02, 14.08, 14.1]
   },
   {
     "id": 118,
     "name": "knowledgeable",
     "type": "pos",
-    "competencies": [4.02, 4.03],
-    "def": ""
+    "competencies": [4.02, 4.03]
   },
   {
     "id": 119,
     "name": "lethargic",
     "type": "neg",
-    "competencies": [14.01, 14.11],
-    "def": ""
+    "competencies": [14.01, 14.11]
   },
   {
     "id": 120,
     "name": "liberated",
     "type": "pos",
-    "competencies": [1.01, 10.04, 12.03],
-    "def": ""
+    "competencies": [1.01, 10.04, 12.03]
   },
   {
     "id": 121,
     "name": "lively",
     "type": "pos",
-    "competencies": [14.01, 14.1, 14.15],
-    "def": ""
+    "competencies": [14.01, 14.1, 14.15]
   },
   {
     "id": 122,
     "name": "lonely",
     "type": "neg",
-    "competencies": [5.01, 5.04, 12.04, 13.06],
-    "def": ""
+    "competencies": [5.01, 5.04, 12.04, 13.06]
   },
   {
     "id": 123,
     "name": "lost",
     "type": "neg",
-    "competencies": [4.01, 10.02, 10.03],
-    "def": ""
+    "competencies": [4.01, 10.02, 10.03]
   },
   {
     "id": 124,
     "name": "miserable",
     "type": "neg",
-    "competencies": [14.08, 14.1, 14.14],
-    "def": ""
+    "competencies": [14.08, 14.1, 14.14]
   },
   {
     "id": 125,
     "name": "mistrustful",
     "type": "neg",
-    "competencies": [5.02, 8.01, 13.01],
-    "def": ""
+    "competencies": [5.02, 8.01, 13.01]
   },
   {
     "id": 126,
     "name": "misunderstood",
     "type": "neg",
-    "competencies": [3.04, 5.04, 6.01, 6.02, 6.03, 6.04],
-    "def": ""
+    "competencies": [3.04, 5.04, 6.01, 6.02, 6.03, 6.04]
   },
   {
     "id": 127,
     "name": "motivated",
     "type": "pos",
-    "competencies": [1.01, 4.04, 7.01, 7.03, 13.03, 14.12, 14.16],
-    "def": ""
+    "competencies": [1.01, 4.04, 7.01, 7.03, 13.03, 14.12, 14.16]
   },
   {
     "id": 128,
     "name": "neglected",
     "type": "neg",
-    "competencies": [3.01, 3.03, 3.04, 4.04, 7.03, 8.03, 14.09],
-    "def": ""
+    "competencies": [3.01, 3.03, 3.04, 4.04, 7.03, 8.03, 14.09]
   },
   {
     "id": 129,
     "name": "offended",
     "type": "neg",
-    "competencies": [12.01, 12.02, 13.03, 13.04, 13.08],
-    "def": ""
+    "competencies": [12.01, 12.02, 13.03, 13.04, 13.08]
   },
   {
     "id": 130,
     "name": "open",
     "type": "pos",
-    "competencies": [8.03, 8.04, 11.02],
-    "def": ""
+    "competencies": [8.03, 8.04, 11.02]
   },
   {
     "id": 131,
     "name": "optimistic",
     "type": "pos",
-    "competencies": [1.01, 2.02, 3.03, 5.03, 8.02, 10.02, 11.04, 12.01, 13.01, 13.04, 13.1, 14.04, 14.08, 14.1, 14.12],
-    "def": ""
+    "competencies": [1.01, 2.02, 3.03, 5.03, 8.02, 10.02, 11.04, 12.01, 13.01, 13.04, 13.1, 14.04, 14.08, 14.1, 14.12]
   },
   {
     "id": 132,
     "name": "organised",
     "type": "pos",
-    "competencies": [2.02, 4.01],
-    "def": ""
+    "competencies": [2.02, 4.01]
   },
   {
     "id": 133,
     "name": "overlooked",
     "type": "neg",
-    "competencies": [4.04, 5.03, 7.01],
-    "def": ""
+    "competencies": [4.04, 5.03, 7.01]
   },
   {
     "id": 134,
     "name": "overwhelmed",
     "type": "neg",
-    "competencies": [1.03, 2.01, 2.04, 4.02, 6.02, 6.04, 9.01, 9.02, 14.03, 14.12],
-    "def": ""
+    "competencies": [1.03, 2.01, 2.04, 4.02, 6.02, 6.04, 9.01, 9.02, 14.03, 14.12]
   },
   {
     "id": 135,
     "name": "panicked",
     "type": "neg",
-    "competencies": [2.02, 14.03],
-    "def": ""
+    "competencies": [2.02, 14.03]
   },
   {
     "id": 136,
     "name": "peaceful",
     "type": "pos",
-    "competencies": [8.02, 9.01, 9.02, 11.01, 12.03, 13.02, 13.08, 14.02, 14.06, 14.14],
-    "def": ""
+    "competencies": [8.02, 9.01, 9.02, 11.01, 12.03, 13.02, 13.08, 14.02, 14.06, 14.14]
   },
   {
     "id": 137,
     "name": "poised",
     "type": "pos",
-    "competencies": [14.03, 14.06],
-    "def": ""
+    "competencies": [14.03, 14.06]
   },
   {
     "id": 138,
     "name": "positive",
     "type": "pos",
-    "competencies": [6.03, 10.01, 11.02, 14.04, 14.08, 14.1, 14.12, 14.16],
-    "def": ""
+    "competencies": [6.03, 10.01, 11.02, 14.04, 14.08, 14.1, 14.12, 14.16]
   },
   {
     "id": 139,
     "name": "powerless",
     "type": "neg",
-    "competencies": [1.01, 3.03, 5.03, 8.03, 10.01, 10.04, 13.08, 13.1, 13.11, 14.16],
-    "def": ""
+    "competencies": [1.01, 3.03, 5.03, 8.03, 10.01, 10.04, 13.08, 13.1, 13.11, 14.16]
   },
   {
     "id": 140,
     "name": "prepared",
     "type": "pos",
-    "competencies": [4.01, 4.02, 10.02, 10.03, 14.07, 14.12],
-    "def": ""
+    "competencies": [4.01, 4.02, 10.02, 10.03, 14.07, 14.12]
   },
   {
     "id": 141,
     "name": "pressured",
     "type": "neg",
-    "competencies": [1.03, 2.01, 2.04, 6.02, 6.04, 9.02],
-    "def": ""
+    "competencies": [1.03, 2.01, 2.04, 6.02, 6.04, 9.02]
   },
   {
     "id": 142,
     "name": "proud",
     "type": "pos",
-    "competencies": [1.02, 2.04, 6.01, 7.01, 7.02, 8.01, 13.05, 13.09, 14.09],
-    "def": ""
+    "competencies": [1.02, 2.04, 6.01, 7.01, 7.02, 8.01, 13.05, 13.09, 14.09]
   },
   {
     "id": 143,
     "name": "purposeful",
     "type": "pos",
-    "competencies": [1.02, 4.04],
-    "def": ""
+    "competencies": [4.01, 4.02, 4.03, 4.04]
   },
   {
     "id": 144,
     "name": "puzzled",
     "type": "neg",
-    "competencies": [4.03, 10.02],
-    "def": ""
+    "competencies": [4.03, 10.02]
   },
   {
     "id": 145,
     "name": "reassured",
     "type": "pos",
-    "competencies": [2.02, 3.04, 5.01, 5.03, 8.02, 10.04, 12.04, 13.08],
-    "def": ""
+    "competencies": [2.02, 3.04, 5.01, 5.03, 8.02, 10.04, 12.04, 13.08]
   },
   {
     "id": 146,
     "name": "recognised",
     "type": "pos",
-    "competencies": [1.02, 7.01, 7.03, 11.03, 13.03, 13.09],
-    "def": ""
+    "competencies": [1.02, 7.01, 7.03, 11.03, 13.03, 13.09]
   },
   {
     "id": 147,
     "name": "refreshed",
     "type": "pos",
-    "competencies": [14.11, 14.15],
-    "def": ""
+    "competencies": [14.11, 14.15]
   },
   {
     "id": 148,
     "name": "relaxed",
     "type": "pos",
-    "competencies": [1.03, 9.01, 12.03, 14.02, 14.03, 14.05, 14.06, 14.11],
-    "def": ""
+    "competencies": [1.03, 9.01, 12.03, 14.02, 14.03, 14.05, 14.06, 14.11]
   },
   {
     "id": 149,
@@ -1058,8 +904,7 @@
     "competencies": [
       2.01, 2.04, 3.01, 3.02, 3.03, 5.01, 5.02, 6.04, 8.02, 8.03, 10.01, 11.01, 13.01, 13.02, 13.03, 13.04, 13.05,
       13.06, 13.07, 13.09, 13.1, 13.11
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 150,
@@ -1068,78 +913,67 @@
     "competencies": [
       1.01, 1.03, 3.02, 5.03, 6.03, 7.01, 7.02, 7.03, 8.01, 8.02, 8.03, 10.01, 10.03, 10.04, 11.02, 11.03, 12.01, 12.02,
       13.06, 13.08, 13.09, 14.14
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 151,
     "name": "respected",
     "type": "pos",
-    "competencies": [1.02, 3.02, 3.04, 5.04, 7.02, 8.01, 8.03, 8.04, 10.01, 12.02, 13.01, 13.04, 13.08],
-    "def": ""
+    "competencies": [1.02, 3.02, 3.04, 5.04, 7.02, 8.01, 8.03, 8.04, 10.01, 12.02, 13.01, 13.04, 13.08]
   },
   {
     "id": 152,
     "name": "restful",
     "type": "pos",
-    "competencies": [9.03, 14.05],
-    "def": ""
+    "competencies": [9.03, 14.05]
   },
   {
     "id": 153,
     "name": "restless",
     "type": "neg",
-    "competencies": [14.02, 14.03, 14.05, 14.06, 14.14],
-    "def": ""
+    "competencies": [14.02, 14.03, 14.05, 14.06, 14.14]
   },
   {
     "id": 154,
     "name": "restricted",
     "type": "neg",
-    "competencies": [1.01, 1.02, 10.04],
-    "def": ""
+    "competencies": [1.01, 1.02, 10.04]
   },
   {
     "id": 155,
     "name": "revived",
     "type": "pos",
-    "competencies": [14.11, 14.15],
-    "def": ""
+    "competencies": [14.11, 14.15]
   },
   {
     "id": 156,
     "name": "rushed",
     "type": "neg",
-    "competencies": [1.03, 2.03],
-    "def": ""
+    "competencies": [1.03, 2.03]
   },
   {
     "id": 157,
     "name": "sad",
     "type": "neg",
-    "competencies": [3.04, 14.1],
-    "def": ""
+    "competencies": [3.04, 14.1]
   },
   {
     "id": 158,
     "name": "safe",
     "type": "pos",
-    "competencies": [5.04, 12.01, 12.02, 12.04, 13.01, 13.02, 13.04, 13.09, 13.1, 13.11],
-    "def": ""
+    "competencies": [13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.08, 13.09, 13.1, 13.11]
   },
   {
     "id": 159,
     "name": "satisfied",
     "type": "pos",
-    "competencies": [2.01, 2.04, 4.01, 6.04, 7.02, 8.04, 9.02, 11.01, 11.03, 12.01, 14.02, 14.08, 14.14],
-    "def": ""
+    "competencies": [2.01, 2.04, 4.01, 6.04, 7.02, 8.04, 9.02, 11.01, 11.03, 12.01, 14.02, 14.08, 14.14]
   },
   {
     "id": 160,
     "name": "sceptical",
     "type": "neg",
-    "competencies": [8.01, 8.04, 10.02],
-    "def": ""
+    "competencies": [8.01, 8.04, 10.02]
   },
   {
     "id": 161,
@@ -1148,172 +982,145 @@
     "competencies": [
       1.02, 2.01, 2.03, 2.04, 3.01, 3.02, 3.03, 4.01, 5.02, 5.03, 6.01, 6.02, 6.04, 7.01, 8.01, 8.04, 9.03, 10.01,
       10.02, 10.03, 11.03, 13.02, 13.03, 13.06, 13.08, 13.11, 14.06, 14.09
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 162,
     "name": "seen",
     "type": "pos",
-    "competencies": [7.02, 13.06],
-    "def": ""
+    "competencies": [7.02, 13.06]
   },
   {
     "id": 163,
     "name": "self-assured",
     "type": "pos",
-    "competencies": [1.01, 2.03, 4.02, 14.03, 14.07, 14.09],
-    "def": ""
+    "competencies": [1.01, 2.03, 4.02, 14.03, 14.07, 14.09]
   },
   {
     "id": 164,
     "name": "serene",
     "type": "pos",
-    "competencies": [9.01, 9.02, 14.05],
-    "def": ""
+    "competencies": [9.01, 9.02, 14.05]
   },
   {
     "id": 165,
     "name": "settled",
     "type": "pos",
-    "competencies": [9.01, 14.05, 14.14],
-    "def": ""
+    "competencies": [9.01, 14.05, 14.14]
   },
   {
     "id": 166,
     "name": "shaken",
     "type": "neg",
-    "competencies": [9.01, 13.11],
-    "def": ""
+    "competencies": [9.01, 13.11]
   },
   {
     "id": 167,
     "name": "silenced",
     "type": "neg",
-    "competencies": [3.04, 5.04, 8.03, 10.04],
-    "def": ""
+    "competencies": [3.04, 5.04, 8.03, 10.04]
   },
   {
     "id": 168,
     "name": "sluggish",
     "type": "neg",
-    "competencies": [14.01, 14.11, 14.12],
-    "def": ""
+    "competencies": [14.01, 14.11, 14.12]
   },
   {
     "id": 169,
     "name": "sorrowful",
     "type": "neg",
-    "competencies": [14.04, 14.08],
-    "def": ""
+    "competencies": [14.04, 14.08]
   },
   {
     "id": 170,
     "name": "spent",
     "type": "neg",
-    "competencies": [9.03, 14.16],
-    "def": ""
+    "competencies": [9.03, 14.16]
   },
   {
     "id": 171,
     "name": "stable",
     "type": "pos",
-    "competencies": [9.01, 9.03, 10.03, 13.07, 13.1, 14.03, 14.13, 14.14],
-    "def": ""
+    "competencies": [9.01, 9.03, 10.03, 13.07, 13.1, 14.03, 14.13, 14.14]
   },
   {
     "id": 172,
     "name": "steady",
     "type": "pos",
-    "competencies": [1.03, 2.01, 4.03],
-    "def": ""
+    "competencies": [1.03, 2.01, 4.03]
   },
   {
     "id": 173,
     "name": "stifled",
     "type": "neg",
-    "competencies": [1.01, 11.02],
-    "def": ""
+    "competencies": [1.01, 11.02]
   },
   {
     "id": 174,
     "name": "stimulated",
     "type": "pos",
-    "competencies": [11.02, 14.15],
-    "def": ""
+    "competencies": [11.02, 14.15]
   },
   {
     "id": 175,
     "name": "strained",
     "type": "neg",
-    "competencies": [6.02, 12.03, 14.07],
-    "def": ""
+    "competencies": [6.02, 12.03, 14.07]
   },
   {
     "id": 176,
     "name": "stressed",
     "type": "neg",
-    "competencies": [1.03, 2.02, 2.04, 3.03, 4.01, 4.03, 5.01, 6.01, 6.04, 9.01, 9.02, 11.03, 14.07],
-    "def": ""
+    "competencies": [1.03, 2.02, 2.04, 3.03, 4.01, 4.03, 5.01, 6.01, 6.04, 9.01, 9.02, 11.03, 14.07]
   },
   {
     "id": 177,
     "name": "strong",
     "type": "pos",
-    "competencies": [14.07, 14.13],
-    "def": ""
+    "competencies": [14.07, 14.13]
   },
   {
     "id": 178,
     "name": "supported",
     "type": "pos",
-    "competencies": [2.02, 3.01, 3.04, 5.01, 6.01, 7.03, 8.02, 13.01, 13.05, 13.07, 13.09],
-    "def": ""
+    "competencies": [2.02, 3.01, 3.04, 5.01, 6.01, 7.03, 8.02, 13.01, 13.05, 13.07, 13.09]
   },
   {
     "id": 179,
     "name": "supportive",
     "type": "pos",
-    "competencies": [12.02, 12.03, 13.1],
-    "def": ""
+    "competencies": [12.01, 12.02, 12.03, 12.04, 5.01, 5.02, 5.03, 5.04, 3.01, 3.02, 3.03, 3.04]
   },
   {
     "id": 180,
     "name": "suspicious",
     "type": "neg",
-    "competencies": [8.02, 8.04, 10.03, 12.03],
-    "def": ""
+    "competencies": [8.02, 8.04, 10.03, 12.03]
   },
   {
     "id": 181,
     "name": "tense",
     "type": "neg",
-    "competencies": [
-      1.03, 2.01, 2.03, 3.04, 5.02, 5.03, 5.04, 6.03, 9.02, 9.03, 11.01, 11.04, 12.01, 12.03, 14.02, 14.03, 14.05,
-      14.06, 14.07
-    ],
-    "def": ""
+    "competencies": [12.01, 12.02, 12.03, 12.04]
   },
   {
     "id": 182,
     "name": "threatened",
     "type": "neg",
-    "competencies": [13.01, 13.02, 13.04, 13.05, 13.11],
-    "def": ""
+    "competencies": [13.01, 13.02, 13.04, 13.05, 13.11]
   },
   {
     "id": 183,
     "name": "torn",
     "type": "neg",
-    "competencies": [6.01, 6.04],
-    "def": ""
+    "competencies": [6.01, 6.04]
   },
   {
     "id": 184,
     "name": "tranquil",
     "type": "pos",
-    "competencies": [14.02, 14.05],
-    "def": ""
+    "competencies": [14.02, 14.05]
   },
   {
     "id": 185,
@@ -1322,50 +1129,43 @@
     "competencies": [
       3.02, 5.02, 8.01, 8.02, 8.03, 8.04, 10.01, 10.02, 10.03, 10.04, 11.01, 11.03, 12.01, 12.03, 13.01, 13.02, 13.04,
       13.1, 13.11
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 186,
     "name": "unacknowledged",
     "type": "neg",
-    "competencies": [7.02, 7.03],
-    "def": ""
+    "competencies": [7.02, 7.03]
   },
   {
     "id": 187,
     "name": "uncertain",
     "type": "neg",
-    "competencies": [1.03, 2.03, 3.03, 4.01, 4.04, 6.01, 6.03, 6.04, 8.04, 10.01, 10.02, 11.01, 11.03],
-    "def": ""
+    "competencies": [10.01, 10.02, 10.03, 10.04]
   },
   {
     "id": 188,
     "name": "uncomfortable",
     "type": "neg",
-    "competencies": [11.04, 12.03],
-    "def": ""
+    "competencies": [11.04, 12.03]
   },
   {
     "id": 189,
     "name": "undermined",
     "type": "neg",
-    "competencies": [5.01, 8.02, 11.03, 13.01, 13.07],
-    "def": ""
+    "competencies": [5.01, 8.02, 11.03, 13.01, 13.07]
   },
   {
     "id": 190,
     "name": "understood",
     "type": "pos",
-    "competencies": [3.04, 5.04, 13.11],
-    "def": ""
+    "competencies": [3.04, 5.04, 13.11]
   },
   {
     "id": 191,
     "name": "undervalued",
     "type": "neg",
-    "competencies": [1.01, 10.01],
-    "def": ""
+    "competencies": [1.01, 10.01]
   },
   {
     "id": 192,
@@ -1374,64 +1174,55 @@
     "competencies": [
       1.02, 1.03, 2.01, 3.01, 3.02, 3.03, 3.04, 4.03, 5.01, 5.02, 5.04, 6.01, 6.02, 6.03, 6.04, 8.01, 8.04, 9.01, 10.03,
       10.04, 11.01, 11.02, 11.03, 12.01, 12.02, 12.03, 12.04, 13.05, 13.06, 13.07, 13.1, 13.11, 14.02, 14.05, 14.06
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 193,
     "name": "unhurried",
     "type": "pos",
-    "competencies": [1.03, 2.03],
-    "def": ""
+    "competencies": [1.03, 2.03]
   },
   {
     "id": 194,
     "name": "unified",
     "type": "pos",
-    "competencies": [6.02, 8.01, 11.01, 11.04, 12.01],
-    "def": ""
+    "competencies": [6.02, 8.01, 11.01, 11.04, 12.01]
   },
   {
     "id": 195,
     "name": "unmotivated",
     "type": "neg",
-    "competencies": [4.04, 14.12, 14.16],
-    "def": ""
+    "competencies": [4.04, 14.12, 14.16]
   },
   {
     "id": 196,
     "name": "unprepared",
     "type": "neg",
-    "competencies": [2.02, 4.02],
-    "def": ""
+    "competencies": [2.02, 4.02]
   },
   {
     "id": 197,
     "name": "unsettled",
     "type": "neg",
-    "competencies": [4.03, 5.01, 5.03, 9.01, 9.03, 11.04, 13.02, 14.02, 14.06],
-    "def": ""
+    "competencies": [4.03, 5.01, 5.03, 9.01, 9.03, 11.04, 13.02, 14.02, 14.06]
   },
   {
     "id": 198,
     "name": "unsupported",
     "type": "neg",
-    "competencies": [3.01, 3.02, 5.02, 8.04, 12.04],
-    "def": ""
+    "competencies": [3.01, 3.02, 5.02, 8.04, 12.04]
   },
   {
     "id": 199,
     "name": "upbeat",
     "type": "pos",
-    "competencies": [2.04, 9.02, 13.01, 14.1, 14.12],
-    "def": ""
+    "competencies": [2.04, 9.02, 13.01, 14.1, 14.12]
   },
   {
     "id": 200,
     "name": "uplifted",
     "type": "pos",
-    "competencies": [3.03, 6.02, 7.01, 7.03, 12.04, 13.03, 13.09, 13.11, 14.08],
-    "def": ""
+    "competencies": [3.03, 6.02, 7.01, 7.03, 12.04, 13.03, 13.09, 13.11, 14.08]
   },
   {
     "id": 201,
@@ -1440,8 +1231,7 @@
     "competencies": [
       5.04, 7.02, 7.03, 8.01, 8.03, 9.01, 9.02, 10.03, 12.02, 12.03, 12.04, 13.01, 13.03, 13.04, 13.06, 13.08, 13.09,
       13.1
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 202,
@@ -1450,49 +1240,395 @@
     "competencies": [
       1.02, 3.04, 5.03, 6.01, 6.02, 6.03, 6.04, 7.02, 7.03, 8.01, 8.02, 8.03, 8.04, 10.04, 11.03, 13.01, 13.03, 13.05,
       13.07, 13.08, 13.09, 13.1, 14.09
-    ],
-    "def": ""
+    ]
   },
   {
     "id": 203,
     "name": "valued",
     "type": "pos",
-    "competencies": [1.01, 3.01, 3.03, 4.04, 5.04, 7.01, 8.03, 10.01, 12.04, 13.06, 14.09],
-    "def": ""
+    "competencies": [1.01, 3.01, 3.03, 4.04, 5.04, 7.01, 8.03, 10.01, 12.04, 13.06, 14.09]
   },
   {
     "id": 204,
     "name": "vibrant",
     "type": "pos",
-    "competencies": [14.01, 14.13],
-    "def": ""
+    "competencies": [14.01, 14.13]
   },
   {
     "id": 205,
     "name": "vulnerable",
     "type": "neg",
-    "competencies": [4.02, 5.02, 9.03, 13.02, 13.07],
-    "def": ""
+    "competencies": [4.02, 5.02, 9.03, 13.02, 13.07]
   },
   {
     "id": 206,
     "name": "wary",
     "type": "neg",
-    "competencies": [5.02, 8.02],
-    "def": ""
+    "competencies": [5.02, 8.02]
   },
   {
     "id": 207,
     "name": "weary",
     "type": "neg",
-    "competencies": [14.01, 14.07, 14.11, 14.13, 14.14, 14.16],
-    "def": ""
+    "competencies": [14.01, 14.07, 14.11, 14.13, 14.14, 14.16]
   },
   {
     "id": 208,
     "name": "worried",
     "type": "neg",
-    "competencies": [2.03, 3.01, 3.03, 4.03, 5.01, 8.04, 9.03, 10.01, 10.02, 13.04, 13.09, 14.02],
-    "def": ""
+    "competencies": [2.03, 3.01, 3.03, 4.03, 5.01, 8.04, 9.03, 10.01, 10.02, 13.04, 13.09, 14.02]
+  },
+  {
+    "id": 209,
+    "name": "abusive",
+    "type": "neg",
+    "competencies": [13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.08, 13.09, 13.1, 13.11]
+  },
+  {
+    "id": 210,
+    "name": "aimless",
+    "type": "neg",
+    "competencies": [4.01, 4.02, 4.03, 4.04]
+  },
+  {
+    "id": 211,
+    "name": "autonomous",
+    "type": "pos",
+    "competencies": [1.01, 1.02, 1.03]
+  },
+  {
+    "id": 212,
+    "name": "biased",
+    "type": "neg",
+    "competencies": [8.01, 8.02, 8.03, 8.04]
+  },
+  {
+    "id": 213,
+    "name": "chaotic",
+    "type": "neg",
+    "competencies": [10.01, 10.02, 10.03, 10.04]
+  },
+  {
+    "id": 214,
+    "name": "coherent",
+    "type": "pos",
+    "competencies": [6.01, 6.02, 6.03, 6.04]
+  },
+  {
+    "id": 215,
+    "name": "collaborative",
+    "type": "pos",
+    "competencies": [10.01, 10.02, 10.03, 10.04, 12.01, 12.02, 12.03, 12.04]
+  },
+  {
+    "id": 216,
+    "name": "conflicting",
+    "type": "neg",
+    "competencies": [6.01, 6.02, 6.03, 6.04]
+  },
+  {
+    "id": 217,
+    "name": "confusing",
+    "type": "neg",
+    "competencies": [10.01, 10.02, 10.03, 10.04, 4.01, 4.02, 4.03, 4.04]
+  },
+  {
+    "id": 218,
+    "name": "contentious",
+    "type": "neg",
+    "competencies": [11.01, 11.02, 11.03, 11.04]
+  },
+  {
+    "id": 219,
+    "name": "controlling",
+    "type": "neg",
+    "competencies": [1.01, 1.02, 1.03]
+  },
+  {
+    "id": 220,
+    "name": "defined",
+    "type": "pos",
+    "competencies": [4.01, 4.02, 4.03, 4.04]
+  },
+  {
+    "id": 221,
+    "name": "depressing",
+    "type": "neg",
+    "competencies": [
+      14.01, 14.02, 14.03, 14.04, 14.05, 14.06, 14.07, 14.08, 14.09, 14.1, 14.11, 14.12, 14.13, 14.14, 14.15, 14.16
+    ]
+  },
+  {
+    "id": 222,
+    "name": "discouraging",
+    "type": "neg",
+    "competencies": [7.01, 7.02, 7.03]
+  },
+  {
+    "id": 223,
+    "name": "disjointed",
+    "type": "neg",
+    "competencies": [6.01, 6.02, 6.03, 6.04]
+  },
+  {
+    "id": 224,
+    "name": "dismissive",
+    "type": "neg",
+    "competencies": [7.01, 7.02, 7.03]
+  },
+  {
+    "id": 225,
+    "name": "draining",
+    "type": "neg",
+    "competencies": [
+      9.01, 9.02, 9.03, 14.01, 14.02, 14.03, 14.04, 14.05, 14.06, 14.07, 14.08, 14.09, 14.1, 14.11, 14.12, 14.13, 14.14,
+      14.15, 14.16, 5.01, 5.02, 5.03, 5.04
+    ]
+  },
+  {
+    "id": 226,
+    "name": "empowering",
+    "type": "pos",
+    "competencies": [1.01, 1.02, 1.03]
+  },
+  {
+    "id": 227,
+    "name": "encouraging",
+    "type": "pos",
+    "competencies": [7.01, 7.02, 7.03]
+  },
+  {
+    "id": 228,
+    "name": "energising",
+    "type": "pos",
+    "competencies": [
+      14.01, 14.02, 14.03, 14.04, 14.05, 14.06, 14.07, 14.08, 14.09, 14.1, 14.11, 14.12, 14.13, 14.14, 14.15, 14.16
+    ]
+  },
+  {
+    "id": 229,
+    "name": "fair",
+    "type": "pos",
+    "competencies": [8.01, 8.02, 8.03, 8.04]
+  },
+  {
+    "id": 230,
+    "name": "flexible",
+    "type": "pos",
+    "competencies": [1.01, 1.02, 1.03]
+  },
+  {
+    "id": 231,
+    "name": "flowing",
+    "type": "pos",
+    "competencies": [11.01, 11.02, 11.03, 11.04]
+  },
+  {
+    "id": 232,
+    "name": "fractured",
+    "type": "neg",
+    "competencies": [12.01, 12.02, 12.03, 12.04]
+  },
+  {
+    "id": 233,
+    "name": "frustrating",
+    "type": "neg",
+    "competencies": [11.01, 11.02, 11.03, 11.04]
+  },
+  {
+    "id": 234,
+    "name": "grounded",
+    "type": "pos",
+    "competencies": [9.01, 9.02, 9.03]
+  },
+  {
+    "id": 235,
+    "name": "hostile",
+    "type": "neg",
+    "competencies": [13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.08, 13.09, 13.1, 13.11]
+  },
+  {
+    "id": 236,
+    "name": "inclusive",
+    "type": "pos",
+    "competencies": [13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.08, 13.09, 13.1, 13.11]
+  },
+  {
+    "id": 237,
+    "name": "isolating",
+    "type": "neg",
+    "competencies": [5.01, 5.02, 5.03, 5.04]
+  },
+  {
+    "id": 238,
+    "name": "manageable",
+    "type": "pos",
+    "competencies": [6.01, 6.02, 6.03, 6.04, 2.01, 2.02, 2.03, 2.04]
+  },
+  {
+    "id": 239,
+    "name": "neglectful",
+    "type": "neg",
+    "competencies": [3.01, 3.02, 3.03, 3.04]
+  },
+  {
+    "id": 240,
+    "name": "oppressive",
+    "type": "neg",
+    "competencies": [1.01, 1.02, 1.03]
+  },
+  {
+    "id": 241,
+    "name": "overloaded",
+    "type": "neg",
+    "competencies": [2.01, 2.02, 2.03, 2.04]
+  },
+  {
+    "id": 242,
+    "name": "overwhelming",
+    "type": "neg",
+    "competencies": [
+      14.01, 14.02, 14.03, 14.04, 14.05, 14.06, 14.07, 14.08, 14.09, 14.1, 14.11, 14.12, 14.13, 14.14, 14.15, 14.16,
+      9.01, 9.02, 9.03
+    ]
+  },
+  {
+    "id": 243,
+    "name": "performative",
+    "type": "neg",
+    "competencies": [9.01, 9.02, 9.03]
+  },
+  {
+    "id": 244,
+    "name": "predictable",
+    "type": "pos",
+    "competencies": [10.01, 10.02, 10.03, 10.04]
+  },
+  {
+    "id": 245,
+    "name": "reassuring",
+    "type": "pos",
+    "competencies": [3.01, 3.02, 3.03, 3.04]
+  },
+  {
+    "id": 246,
+    "name": "relentless",
+    "type": "neg",
+    "competencies": [2.01, 2.02, 2.03, 2.04]
+  },
+  {
+    "id": 247,
+    "name": "reliable",
+    "type": "pos",
+    "competencies": [5.01, 5.02, 5.03, 5.04]
+  },
+  {
+    "id": 248,
+    "name": "respectful",
+    "type": "pos",
+    "competencies": [8.01, 8.02, 8.03, 8.04, 13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.08, 13.09, 13.1, 13.11]
+  },
+  {
+    "id": 249,
+    "name": "rewarding",
+    "type": "pos",
+    "competencies": [7.01, 7.02, 7.03]
+  },
+  {
+    "id": 250,
+    "name": "rigid",
+    "type": "neg",
+    "competencies": [1.01, 1.02, 1.03]
+  },
+  {
+    "id": 251,
+    "name": "silencing",
+    "type": "neg",
+    "competencies": [8.01, 8.02, 8.03, 8.04]
+  },
+  {
+    "id": 252,
+    "name": "stalled",
+    "type": "neg",
+    "competencies": [11.01, 11.02, 11.03, 11.04]
+  },
+  {
+    "id": 253,
+    "name": "sustainable",
+    "type": "pos",
+    "competencies": [
+      2.01, 2.02, 2.03, 2.04, 14.01, 14.02, 14.03, 14.04, 14.05, 14.06, 14.07, 14.08, 14.09, 14.1, 14.11, 14.12, 14.13,
+      14.14, 14.15, 14.16
+    ]
+  },
+  {
+    "id": 254,
+    "name": "thankless",
+    "type": "neg",
+    "competencies": [7.01, 7.02, 7.03]
+  },
+  {
+    "id": 255,
+    "name": "toxic",
+    "type": "neg",
+    "competencies": [
+      13.01, 13.02, 13.03, 13.04, 13.05, 13.06, 13.07, 13.08, 13.09, 13.1, 13.11, 12.01, 12.02, 12.03, 12.04
+    ]
+  },
+  {
+    "id": 256,
+    "name": "transparent",
+    "type": "pos",
+    "competencies": [8.01, 8.02, 8.03, 8.04]
+  },
+  {
+    "id": 257,
+    "name": "unclear",
+    "type": "neg",
+    "competencies": [4.01, 4.02, 4.03, 4.04]
+  },
+  {
+    "id": 258,
+    "name": "unfair",
+    "type": "neg",
+    "competencies": [5.01, 5.02, 5.03, 5.04]
+  },
+  {
+    "id": 259,
+    "name": "unhelpful",
+    "type": "neg",
+    "competencies": [3.01, 3.02, 3.03, 3.04]
+  },
+  {
+    "id": 260,
+    "name": "unjust",
+    "type": "neg",
+    "competencies": [8.01, 8.02, 8.03, 8.04]
+  },
+  {
+    "id": 261,
+    "name": "unrealistic",
+    "type": "neg",
+    "competencies": [2.01, 2.02, 2.03, 2.04]
+  },
+  {
+    "id": 262,
+    "name": "unreasonable",
+    "type": "neg",
+    "competencies": [6.01, 6.02, 6.03, 6.04]
+  },
+  {
+    "id": 263,
+    "name": "unsupportive",
+    "type": "neg",
+    "competencies": [3.01, 3.02, 3.03, 3.04]
+  },
+  {
+    "id": 264,
+    "name": "uplifting",
+    "type": "pos",
+    "competencies": [
+      14.01, 14.02, 14.03, 14.04, 14.05, 14.06, 14.07, 14.08, 14.09, 14.1, 14.11, 14.12, 14.13, 14.14, 14.15, 14.16
+    ]
   }
 ]

@@ -57,7 +57,7 @@ export default function Purchase(props: PurchaseProps) {
       // Use for testing
       setStoredVal("pro-id", "testing123");
       setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
-      alert("Pro enabled for testing!");
+      alert("Pro enabled for this session!");
       if (isFocusedRef.current) router.back(); // Close modal
     }
 

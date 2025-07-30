@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable, PixelRatio, useColorScheme } from "r
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
 import * as WebBrowser from "expo-web-browser";
+import Svg, { Line } from "react-native-svg";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Info } from "lucide-react-native";
 import { BarChart, barDataItem } from "react-native-gifted-charts";
@@ -24,6 +25,7 @@ export default function Stats(props: StatsProps) {
   const opacity = useSharedValue(0);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [data, setData] = useState<barDataItem[]>([]);
+  const [busyness, setBusyness] = useState(66);
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   const months = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
@@ -70,6 +72,8 @@ export default function Stats(props: StatsProps) {
       }
     }
 
+    const busynessScores = [];
+
     for (const date of dates) {
       // Get date check-ins
       const checkIns = props.checkIns.filter((item) => {
@@ -91,6 +95,20 @@ export default function Stats(props: StatsProps) {
         const mood: CheckInMoodType = JSON.parse(checkIn.mood);
         energyScores.push(MoodsData.filter((item) => item.id === mood.color)[0].energy);
         stressScores.push(MoodsData.filter((item) => item.id === mood.color)[0].stress);
+        let busynessScore;
+
+        switch (mood.busyness) {
+          case 0:
+            busynessScore = 0;
+            break;
+          case 2:
+            busynessScore = 100;
+            break;
+          default:
+            busynessScore = 50;
+        }
+
+        busynessScores.push(busynessScore);
       }
 
       // Energy
@@ -129,6 +147,7 @@ export default function Stats(props: StatsProps) {
       }); // Stress
     }
 
+    setBusyness(busynessScores.reduce((sum, num) => sum + num, 0) / busynessScores.length);
     setData(dataItems);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [props.checkIns, colorScheme]);
@@ -237,6 +256,31 @@ export default function Stats(props: StatsProps) {
               Stress
             </Text>
           </View>
+
+          <View style={[styles.key, { gap: theme.spacing.small / 2 }]}>
+            <Svg height={theme.stroke} width={theme.spacing.small}>
+              <Line
+                x1="0"
+                y1={theme.stroke / 2}
+                x2={theme.spacing.small}
+                y2={theme.stroke / 2}
+                stroke={theme.color.primary}
+                strokeWidth={theme.stroke}
+                strokeDasharray={theme.stroke * 2}
+              />
+            </Svg>
+
+            <Text
+              style={{
+                fontFamily: "Circular-Medium",
+                color: theme.color.primary,
+                fontSize: theme.fontSize.small,
+              }}
+              allowFontScaling={false}
+            >
+              Workload
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -266,8 +310,16 @@ export default function Stats(props: StatsProps) {
           }}
           yAxisExtraHeight={theme.spacing.base}
           initialSpacing={theme.spacing.base / 2}
-          rulesColor={theme.color.invertedOpaqueBg}
+          rulesColor={theme.color.primary === "black" ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.1)"}
+          rulesType="solid"
           disablePress
+          showReferenceLine1
+          referenceLine1Position={busyness}
+          referenceLine1Config={{
+            type: "dashed",
+            color: theme.color.primary,
+            thickness: theme.stroke,
+          }}
         />
       </View>
     </Animated.View>

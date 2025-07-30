@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useColorScheme, View, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import tagsData from "data/tags.json";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
 import Busyness from "./tags/Busyness";
@@ -21,6 +22,7 @@ export default function Tags(props: TagsProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [tags, setTags] = useState<TagType[]>([]);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -31,17 +33,18 @@ export default function Tags(props: TagsProps) {
     const moodTags = tagsData.filter((item) => props.tags.includes(item.id));
     const shuffled = shuffleArray(moodTags);
 
-    // Display a balance of 12 pos and neg tags
+    // Display a balance of 16 (12 on iPhone SE) pos and neg tags
+    const total = dimensions.width <= 375 ? 12 : 16;
     let pos = shuffled.filter((item) => item.type === "pos");
     let neg = shuffled.filter((item) => item.type === "neg");
 
-    if (pos.length < 6) {
-      neg = neg.slice(0, 12 - pos.length); // Adjust neg if not enough pos
-    } else if (neg.length < 6) {
-      pos = pos.slice(0, 12 - neg.length); // Adjust pos if not enough neg
+    if (pos.length < total / 2) {
+      neg = neg.slice(0, total - pos.length); // Adjust neg if not enough pos
+    } else if (neg.length < total / 2) {
+      pos = pos.slice(0, total - neg.length); // Adjust pos if not enough neg
     } else {
-      pos = pos.slice(0, 6);
-      neg = neg.slice(0, 6);
+      pos = pos.slice(0, total / 2);
+      neg = neg.slice(0, total / 2);
     }
 
     setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
