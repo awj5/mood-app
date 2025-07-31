@@ -11,8 +11,8 @@
     "summary": "I'm wired and running on adrenaline",
     "feelings": "wired, jittery, activated, primed, charged, restless",
     "description": "When you're in the Orange zone, you're feeling wired and running on adrenaline.",
-    "science": "In this zone, your brain enters high alert, flooded with stimulation and urgency. Cortisol levels rise, sharpening your senses and preparing you for action.",
-    "strategies": "Start by noticing the surge \u2013 you're buzzing with potential or pressure. Then, choose one thing to channel it into before it spirals. Finally, act decisively but gently, and build in a pause to reset before moving onto the next thing."
+    "science": "In this zone, your brain is high in noradrenaline and dopamine. This high-arousal state makes you hyper-alert, sharpens your senses, and drives fast, impulsive action.",
+    "strategies": "First, notice the heightened state without chasing it. Then, ask if this urgency is helpful or unhelpful. Finally, ground yourself with one slow, steady action."
   },
   {
     "id": 1,
@@ -29,8 +29,8 @@
     "summary": "I'm excited and elevated inside",
     "feelings": "excited, enthusiastic, energetic, vibrant, joyful, playful",
     "description": "When you're in the Yellow zone, you're feeling excited and elevated inside.",
-    "science": "In this zone, your brain releases a surge of dopamine, boosting your energy and brightening your mind. You're switched on, buzzing, and ready to engage.",
-    "strategies": "First, ride the wave \u2013 let your energy expand and fuel what matters most. Then, focus it with intention by picking one bold action that lights you up. Finally, take a moment to reflect on how good it feels to be in your element."
+    "science": "In this zone, your brain is high in dopamine. This lights up your reward system, making emotions feel brighter, your focus sharper, and the world more engaging.",
+    "strategies": "First, enjoy the buzz and let yourself feel alive. Then, notice what’s energising you and why it matters. Finally, channel that energy into something meaningful."
   },
   {
     "id": 2,
@@ -49,8 +49,8 @@
     "summary": "I'm optimistic and looking ahead",
     "feelings": "optimistic, hopeful, uplifted, encouraged, inspired, curious",
     "description": "When you're in the Lime zone, you're feeling optimistic and looking ahead.",
-    "science": "In this zone, your brain leans into possibility, guided by gentle dopamine and forward-focused thinking. Motivation builds as you imagine what's next.",
-    "strategies": "Start by noticing how steady and capable you feel \u2013 this is your zone of sustainable drive. Then, use this clarity to map out what needs your attention today. Finally, lean in \u2013 you've got the presence and energy to make real progress."
+    "science": "In this zone, your brain is high in dopamine and serotonin. This blend supports forward-thinking, helping you imagine better outcomes and form new neural pathways.",
+    "strategies": "First, soak in the hope and let it lift you. Then, picture the future taking shape in your mind. Finally, take one small step toward what you've imagined."
   },
   {
     "id": 3,
@@ -67,8 +67,8 @@
     "summary": "I'm glad and emotionally balanced",
     "feelings": "glad, proud, assured, seen, heard, understood",
     "description": "When you're in the Green zone, you're feeling glad and emotionally balanced.",
-    "science": "In this zone, your brain recognises emotional safety and social connection. Oxytocin and serotonin support trust, belonging, and steady internal balance.",
-    "strategies": "First, anchor yourself in the calm \u2013 this is emotional equilibrium. Then, reach out or reconnect with something meaningful: a person, a purpose, a plan. Finally, protect this balance by moving slowly and choosing what to let in."
+    "science": "In this zone, your brain is high in serotonin. This supports pleasant emotions and steady connection, helping you feel grounded and secure in who you are.",
+    "strategies": "First, let yourself feel steady and seen. Then, tune in to what's grounding you right now. Finally, offer that same attuned presence to someone else."
   },
   {
     "id": 4,
@@ -87,8 +87,8 @@
     "summary": "I'm content and at ease with life",
     "feelings": "content, satisfied, fulfilled, comfortable, settled, relieved",
     "description": "When you're in the Mint zone, you're feeling content and at ease with life.",
-    "science": "In this zone, your brain registers low threat and high satisfaction. Your parasympathetic system promotes rest, digestion, and a quiet sense of ease.",
-    "strategies": "Begin by taking a deep breath and noticing the space you're in \u2013 soft, open, unhurried. Then, bring gentle focus to something that requires care or detail. Finally, give yourself permission to move at your own pace \u2013 it's more than enough."
+    "science": "In this zone, your brain is high in serotonin and low in noradrenaline. This gentle mix activates the parasympathetic system, helping you savour the present moment.",
+    "strategies": "First, enjoy the comfort and let it settle in. Then, notice one small thing you appreciate in this moment. Finally, carry that gratitude into whatever comes next."
   },
   {
     "id": 5,
@@ -105,8 +105,8 @@
     "summary": "I'm relaxed and my body is at rest",
     "feelings": "relaxed, calm, peaceful, tranquil, serene, chilled",
     "description": "When you're in the Cyan zone, you're feeling relaxed and your body is at rest.",
-    "science": "In this zone, your brain signals safety and downregulation. Muscles soften, breathing slows, and your body returns to a restful baseline.",
-    "strategies": "First, drop your shoulders and let the tension go \u2013 you're safe to exhale here. Then, let your mind drift without needing to solve or perform. Finally, protect your peace by avoiding unnecessary input or urgency for a little while longer."
+    "science": "In this zone, your brain is low in noradrenaline. This cues a rest-and-digest response, loosening your muscles and inviting a deep sense of somatic release.",
+    "strategies": "First, breathe in the calm and let your body soften. Then, notice where tension has melted away. Finally, stay here a little longer than you think you need."
   },
   {
     "id": 6,
@@ -120,8 +120,8 @@
     "summary": "I'm tired and running on empty",
     "feelings": "tired, drowsy, sleepy, weary, flat, meh",
     "description": "When you're in the Azure zone, you're feeling tired and running on empty.",
-    "science": "In this zone, your brain shows signs of low alertness and reduced stimulation. Energy reserves run low, making it harder to focus, respond, or stay engaged.",
-    "strategies": "Start by noticing the stillness \u2013 you don't have to force clarity. Then, lean into simple comforts or solitude without needing to push. Finally, trust that slowness is a signal, not a setback."
+    "science": "In this zone, your brain is low in noradrenaline and dopamine. This slows both momentum and mental sharpness, leaving you foggy, drained, and somewhat lethargic.",
+    "strategies": "First, notice the weariness and let it be there. Then, ask yourself what kind of reset your body needs. Finally, give yourself permission to pause, recover, or sleep."
   },
   {
     "id": 7,
@@ -138,8 +138,8 @@
     "summary": "I'm sad and weighed down inside",
     "feelings": "sad, gloomy, heavy, low, lonely, down",
     "description": "When you're in the Blue zone, you're feeling sad and weighed down inside.",
-    "science": "In this zone, your brain is low in dopamine, which reduces motivation and slows cognitive processing. Emotions feel heavier, and it's harder to get moving or stay engaged.",
-    "strategies": "First, name the flatness without judgement. Then, give yourself full permission to go gently \u2013 you're not lazy, you're low. Finally, choose the smallest act of care you can manage, and let that be enough."
+    "science": "In this zone, your brain is low in dopamine. This dims your capacity to feel joy or interest, making everyday experiences feel dull and emotionally distant.",
+    "strategies": "First, acknowledge the sadness without pushing it away. Then, gently name what feels heavy underneath. Finally, reach out to someone, even just to say you feel low."
   },
   {
     "id": 8,
@@ -159,8 +159,8 @@
     "summary": "I'm discouraged and losing my way",
     "feelings": "discouraged, disappointed, defeated, hopeless, ashamed, embarrassed",
     "description": "When you're in the Violet zone, you're feeling discouraged and losing your way.",
-    "science": "In this zone, your brain struggles to see a way forward, with dopamine pathways quieting. You may feel stuck, withdrawn, or unsure of your worth.",
-    "strategies": "Start by saying, even quietly, “Something feels off.” Then, ask yourself if you need comfort, clarity, or just time. Finally, choose one small step that helps you feel a little more anchored — even a warm drink or a deep breath counts."
+    "science": "In this zone, your brain is low in dopamine and serotonin. This combination can amplify negativity bias, making it harder to reframe your thinking when things go wrong.",
+    "strategies": "First, admit that life is feeling hard right now. Then, notice the story your mind is looping through. Finally, look for one small truth that gently shifts the spiral."
   },
   {
     "id": 9,
@@ -177,8 +177,8 @@
     "summary": "I'm upset and emotionally shaken",
     "feelings": "upset, uneasy, unsettled, vulnerable, hurt, neglected",
     "description": "When you're in the Plum zone, you're feeling upset and emotionally shaken.",
-    "science": "In this zone, your brain senses emotional disconnection or threat. Stress responses activate as you scan for signs of rejection, exclusion, or pain.",
-    "strategies": "First, give yourself permission to feel what hurts \u2013 pain is valid and real. Then, consider whether it helps to be alone or to be heard. Finally, take a step toward healing \u2013 through connection, compassion, or simply naming what's true for you."
+    "science": "In this zone, your brain is low in serotonin. This lowers emotional resilience and skews toward unpleasant feelings, leaving you more sensitive and unsettled.",
+    "strategies": "First, name what's upsetting you with self-compassion. Then, notice which part of you feels most tender. Finally, offer yourself the kindness you'd give a friend."
   },
   {
     "id": 10,
@@ -198,8 +198,8 @@
     "summary": "I'm overwhelmed and at capacity",
     "feelings": "overwhelmed, panicked, anxious, stressed, frustrated, uncomfortable",
     "description": "When you're in the Maroon zone, you're feeling overwhelmed and at capacity.",
-    "science": "In this zone, your brain responds to overload and escalating demand. Your stress system narrows focus and diverts energy to immediate survival.",
-    "strategies": "Begin by recognising the friction \u2013 irritation is often a messenger. Then, pause before reacting and explore what's underneath the surface. Finally, release the heat through movement, breath, or expression \u2013 before it builds too high."
+    "science": "In this zone, your brain is low in serotonin and high in noradrenaline. This sharp imbalance activates the sympathetic system, triggering cortisol and putting you on edge.",
+    "strategies": "First, recognise that you've hit your limit. Then, name what's tipping you into overload. Finally, slow your breathing and focus on the next smallest step."
   },
   {
     "id": 11,
@@ -216,7 +216,7 @@
     "summary": "I'm mad and my body is fired up",
     "feelings": "mad, angry, irritated, annoyed, offended, tense",
     "description": "When you're in the Red zone, you're feeling mad and your body is fired up.",
-    "science": "In this zone, your brain perceives threat and prepares for conflict. Muscles tighten, breathing quickens, and your body shifts into mobilisation.",
-    "strategies": "First, stop and create space \u2013 emotional overwhelm needs room to breathe. Then, ground yourself with something physical: water, movement, even counting. Finally, don't rush the calm \u2013 give your body time to come back to centre."
+    "science": "In this zone, your brain is high in noradrenaline. This triggers a fight-or-flight response, tightening your body and fuelling a heightened state of raw defensiveness.",
+    "strategies": "First, feel the emotional heat without judging it. Then, name the boundary that feels crossed or threatened. Finally, release the tension in a constructive way."
   }
 ]
