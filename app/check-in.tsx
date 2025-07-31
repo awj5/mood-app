@@ -177,7 +177,7 @@ export default function CheckIn() {
       <Heading
         text="How do you feel?"
         wheelSize={wheelSize}
-        description={`Start your ${isFirstCheckIn ? "first " : ""}check-in by dragging the ${
+        description={`Start your ${isFirstCheckIn ? "first " : ""}check-in by moving the ${
           localization[0].languageTag === "en-US" ? "color" : "colour"
         } wheel to choose your mood`}
         delay={1000}

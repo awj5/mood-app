@@ -48,7 +48,7 @@ export default function Mood(props: MoodProps) {
             style={{
               color: props.data.color,
               fontSize: theme.fontSize.xxLarge,
-              fontFamily: "Circular-Bold",
+              fontFamily: "Circular-Black",
             }}
             allowFontScaling={false}
           >

@@ -38,6 +38,7 @@ export type PromptCheckInType = {
   time?: string;
   mood: number;
   feelings: string[];
+  workload: string;
   note: string;
 };
 

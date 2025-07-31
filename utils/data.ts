@@ -80,10 +80,25 @@ export const getPromptCheckIns = (checkIns: CheckInType[] | CompanyCheckInType[]
     const local = new Date(utc.getTime() ? utc : checkIn.date); // Don't use UTC if date doesn't include time (company check-in)
     const mood: CheckInMoodType = "mood" in checkIn ? JSON.parse(checkIn.mood) : checkIn.value; // Determine if company check-in
     const tags = [];
+    let busyness = "";
 
     // Get tag names
     for (const tag of mood.tags) {
       tags.push(tagsData.filter((item) => item.id === tag)[0].name);
+    }
+
+    switch (mood.busyness) {
+      case 0:
+        busyness = "Slow";
+        break;
+      case 2:
+        busyness = "Busy";
+        break;
+      case 3:
+        busyness = "Maxed out";
+        break;
+      default:
+        busyness = "Steady";
     }
 
     data.push({
@@ -92,6 +107,7 @@ export const getPromptCheckIns = (checkIns: CheckInType[] | CompanyCheckInType[]
       ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }), // Is user check-in
       mood: mood.color,
       feelings: tags,
+      workload: busyness,
       note:
         "note" in checkIn && checkIn.note
           ? checkIn.note.replace("[NOTE FROM USER]:", "")
