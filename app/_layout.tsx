@@ -80,16 +80,26 @@ export default function Layout() {
           );
 
           if (response.data) {
-            setStoredVal("uuid", queryParams.uuid as string); // Store UUID
-            setStoredVal("company-name", response.data); // Store company name
-            removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
-            removeStoredVal("send-check-ins");
-            removeStoredVal("admin");
-            setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
-
             Alert.alert(
               "You've Gone Pro!",
-              `${response.data} has granted you access to their company insights and a MOOD.ai Pro subscription.`
+              `${response.data} has given you access to their company insights and a MOOD.ai Pro subscription.\n\nBy accepting, you agree to share your check-ins anonymously with ${response.data}.\n\nNeither ${response.data} or MOOD.ai can identify individual check-ins or access your private chats.`,
+              [
+                {
+                  text: "Reject",
+                  onPress: () => null,
+                },
+                {
+                  text: "Accept",
+                  onPress: () => {
+                    setStoredVal("uuid", queryParams.uuid as string); // Store UUID
+                    setStoredVal("company-name", response.data); // Store company name
+                    setStoredVal("send-check-ins", "true"); // Moved here from company disclaimer page
+                    removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
+                    removeStoredVal("admin");
+                    setHomeDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Trigger dashboard refresh
+                  },
+                },
+              ]
             );
           }
         } catch (error) {
