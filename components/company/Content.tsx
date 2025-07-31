@@ -13,6 +13,7 @@ import Categories from "./content/Categories";
 import Stats from "./content/Stats";
 import Role from "components/Role";
 import Note from "./content/Note";
+import WordCloud from "components/WordCloud";
 import { CompanyCheckInType } from "types";
 import { getStoredVal, pressedDefault, removeAccess, setStoredVal, getTheme } from "utils/helpers";
 import { convertToISO } from "utils/dates";
@@ -126,6 +127,7 @@ export default function Content(props: ContentProps) {
           {role !== "user" && <Role text={role} />}
           <Stats checkIns={props.checkIns} role={role} statsData={statsData} />
           <Note />
+          {/*<WordCloud />*/}
           <Categories checkIns={props.checkIns} role={role} />
         </>
       ) : isOffline ? (

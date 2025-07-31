@@ -126,6 +126,7 @@ export default function Stats(props: StatsProps) {
           : 0,
         spacing: theme.spacing.small / 4,
         frontColor: theme.color.inverted,
+        gradientColor: theme.color.secondaryBg,
         labelTextStyle: {
           fontFamily: "Circular-Medium",
           fontSize:
@@ -144,6 +145,7 @@ export default function Stats(props: StatsProps) {
           ? Math.max(Math.floor(stressScores.reduce((sum, num) => sum + num, 0) / stressScores.length), 0)
           : 0,
         frontColor: theme.color.primary,
+        gradientColor: theme.color.secondary,
       }); // Stress
     }
 
@@ -320,6 +322,7 @@ export default function Stats(props: StatsProps) {
             color: theme.color.primary,
             thickness: theme.stroke,
           }}
+          showGradient
         />
       </View>
     </Animated.View>

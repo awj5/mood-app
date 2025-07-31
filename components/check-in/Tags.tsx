@@ -11,6 +11,7 @@ import { getTheme, shuffleArray } from "utils/helpers";
 
 type TagsProps = {
   tags: number[];
+  secondaryTags: number[];
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   selectedTags: number[];
   foreground: string;
@@ -30,7 +31,7 @@ export default function Tags(props: TagsProps) {
   }));
 
   useEffect(() => {
-    const moodTags = tagsData.filter((item) => props.tags.includes(item.id));
+    const moodTags = tagsData.filter((item) => props.tags.includes(item.id) || props.secondaryTags.includes(item.id));
     const shuffled = shuffleArray(moodTags);
 
     // Display a balance of 16 (12 on iPhone SE) pos and neg tags

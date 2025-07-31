@@ -151,18 +151,8 @@
   },
   {
     "tag": 11,
-    "icon": "HeartHandshake",
-    "fact": "Shared values boost bonds and build belonging."
-  },
-  {
-    "tag": 11,
     "icon": "Brain",
-    "fact": "Alignment with personal goals boosts long-term happiness."
-  },
-  {
-    "tag": 11,
-    "icon": "Footprints",
-    "fact": "Movement helps keep mental and physical alignment."
+    "fact": "Shared goals help you stay focused and motivated."
   },
   {
     "tag": 12,
@@ -241,18 +231,8 @@
   },
   {
     "tag": 17,
-    "icon": "HeartHandshake",
-    "fact": "Gratitude builds bonds and builds social trust."
-  },
-  {
-    "tag": 17,
     "icon": "MessageSquare",
-    "fact": "Expressing appreciation boosts dopamine and serotonin."
-  },
-  {
-    "tag": 17,
-    "icon": "NotebookPen",
-    "fact": "Writing about gratitude rewires the brain for positivity."
+    "fact": "Expressing appreciation boosts relationships and wellbeing."
   },
   {
     "tag": 18,
@@ -316,18 +296,8 @@
   },
   {
     "tag": 22,
-    "icon": "Footprints",
-    "fact": "Regular exercise boosts mental and emotional balance."
-  },
-  {
-    "tag": 22,
-    "icon": "Utensils",
-    "fact": "A nutrient-rich diet stabilises energy and emotions."
-  },
-  {
-    "tag": 22,
-    "icon": "Brain",
-    "fact": "Mental balance boosts decision-making and focus."
+    "icon": "Bed",
+    "fact": "Balancing effort with rest supports long-term wellbeing."
   },
   {
     "tag": 23,
@@ -391,18 +361,8 @@
   },
   {
     "tag": 27,
-    "icon": "Footprints",
-    "fact": "Light stretching relieves tension and boosts calmness."
-  },
-  {
-    "tag": 27,
     "icon": "Cloudy",
-    "fact": "Long, slow exhales activate the body's relaxation response."
-  },
-  {
-    "tag": 27,
-    "icon": "Bed",
-    "fact": "Relaxation before bed boosts sleep quality and calmness."
+    "fact": "Slow, steady breathing supports calm and balance."
   },
   {
     "tag": 28,
@@ -466,18 +426,8 @@
   },
   {
     "tag": 32,
-    "icon": "Brain",
-    "fact": "Mental clarity boosts when distractions are reduced."
-  },
-  {
-    "tag": 32,
-    "icon": "Bed",
-    "fact": "Quality sleep boosts cognitive clarity and decision-making."
-  },
-  {
-    "tag": 32,
-    "icon": "Footprints",
-    "fact": "Light cardio boosts focus and helps mental clarity."
+    "icon": "NotebookPen",
+    "fact": "Writing your thoughts down can help bring clarity and order."
   },
   {
     "tag": 33,
@@ -496,18 +446,8 @@
   },
   {
     "tag": 34,
-    "icon": "Bed",
-    "fact": "A comfortable environment boosts sleep quality and duration."
-  },
-  {
-    "tag": 34,
-    "icon": "NotebookPen",
-    "fact": "Journaling about comfort helps sustain positive emotions."
-  },
-  {
-    "tag": 34,
-    "icon": "HeartHandshake",
-    "fact": "Feeling comfortable with others builds relationships."
+    "icon": "Cloudy",
+    "fact": "Gentle breathing comforts the body and clears the mind."
   },
   {
     "tag": 35,
@@ -602,17 +542,7 @@
   {
     "tag": 41,
     "icon": "HeartHandshake",
-    "fact": "Strong relationships improve emotional and mental resilience."
-  },
-  {
-    "tag": 41,
-    "icon": "MessageSquare",
-    "fact": "Sharing positive emotions builds feelings of connection."
-  },
-  {
-    "tag": 41,
-    "icon": "Brain",
-    "fact": "Feeling connected boosts the brain's reward centres."
+    "fact": "Meaningful connection helps regulate your nervous system."
   },
   {
     "tag": 42,
@@ -631,18 +561,8 @@
   },
   {
     "tag": 43,
-    "icon": "Brain",
-    "fact": "Constructive thinking builds problem-solving abilities."
-  },
-  {
-    "tag": 43,
     "icon": "Milestone",
-    "fact": "Breaking down tasks boosts productivity and focus."
-  },
-  {
-    "tag": 43,
-    "icon": "HeartHandshake",
-    "fact": "Collaboration encourages constructive ideas and dialogue."
+    "fact": "Taking positive action can help move things forward."
   },
   {
     "tag": 44,
@@ -1367,17 +1287,7 @@
   {
     "tag": 92,
     "icon": "HeartHandshake",
-    "fact": "Feeling guided builds emotional security and confidence."
-  },
-  {
-    "tag": 92,
-    "icon": "Brain",
-    "fact": "Guidance boosts clarity and decision-making."
-  },
-  {
-    "tag": 92,
-    "icon": "MessageSquare",
-    "fact": "Expressing gratitude for guidance builds mutual trust."
+    "fact": "Supportive leadership reduces stress and builds trust."
   },
   {
     "tag": 93,
@@ -1396,18 +1306,8 @@
   },
   {
     "tag": 94,
-    "icon": "Footprints",
-    "fact": "Gentle yoga builds harmony between body and mind."
-  },
-  {
-    "tag": 94,
     "icon": "HeartHandshake",
-    "fact": "Shared goals promote harmony and mutual understanding."
-  },
-  {
-    "tag": 94,
-    "icon": "Brain",
-    "fact": "Inner harmony cuts stress and boosts emotional balance."
+    "fact": "Relational harmony supports serotonin and mood stability."
   },
   {
     "tag": 95,
@@ -2132,17 +2032,7 @@
   {
     "tag": 143,
     "icon": "Brain",
-    "fact": "Focusing on meaningful goals boosts motivation and fulfilment."
-  },
-  {
-    "tag": 143,
-    "icon": "HeartHandshake",
-    "fact": "Collaborating with others builds a shared sense of purpose."
-  },
-  {
-    "tag": 143,
-    "icon": "Milestone",
-    "fact": "Engaging in meaningful activities boosts a sense of purpose."
+    "fact": "Knowing your 'why' increases emotional resilience."
   },
   {
     "tag": 144,
@@ -2356,18 +2246,8 @@
   },
   {
     "tag": 158,
-    "icon": "HeartHandshake",
-    "fact": "Feeling safe with others builds trust and emotional security."
-  },
-  {
-    "tag": 158,
-    "icon": "Bed",
-    "fact": "A sense of safety boosts the depth and quality of sleep."
-  },
-  {
-    "tag": 158,
-    "icon": "Brain",
-    "fact": "Safety cuts cortisol, supporting long-term mental health."
+    "icon": "Cloudy",
+    "fact": "Feeling safe calms your nervous system and restores ease."
   },
   {
     "tag": 159,
@@ -2672,17 +2552,7 @@
   {
     "tag": 179,
     "icon": "HeartHandshake",
-    "fact": "Supporting others builds mutual trust and emotional security."
-  },
-  {
-    "tag": 179,
-    "icon": "MessageSquare",
-    "fact": "Expressing support builds stronger connections and bonds."
-  },
-  {
-    "tag": 179,
-    "icon": "Brain",
-    "fact": "Being supportive boosts self-esteem and relational growth."
+    "fact": "Supportive relationships lower stress and improve wellbeing."
   },
   {
     "tag": 180,
@@ -2702,17 +2572,7 @@
   {
     "tag": 181,
     "icon": "Cloudy",
-    "fact": "Slow, deep breaths release muscle tension and calm nerves."
-  },
-  {
-    "tag": 181,
-    "icon": "Footprints",
-    "fact": "Gentle movement cuts physical and emotional tension."
-  },
-  {
-    "tag": 181,
-    "icon": "Bed",
-    "fact": "Relaxing before bed boosts sleep quality and cuts tension."
+    "fact": "Slow, conscious breathing helps relieve inner tension."
   },
   {
     "tag": 182,
@@ -2791,18 +2651,8 @@
   },
   {
     "tag": 187,
-    "icon": "Brain",
-    "fact": "Certainty grows when you focus on controllable factors."
-  },
-  {
-    "tag": 187,
-    "icon": "HeartHandshake",
-    "fact": "Talking to others cuts doubt and builds clarity."
-  },
-  {
-    "tag": 187,
-    "icon": "Cloudy",
-    "fact": "Deep breaths ease anxiety caused by uncertainty."
+    "icon": "NotebookPen",
+    "fact": "Journalling helps you stay grounded in uncertainty."
   },
   {
     "tag": 188,
@@ -3118,5 +2968,285 @@
     "tag": 208,
     "icon": "HeartHandshake",
     "fact": "Talking about worries cuts mental and emotional strain."
+  },
+  {
+    "tag": 209,
+    "icon": "HeartHandshake",
+    "fact": "Support helps buffer the impact of unsafe environments."
+  },
+  {
+    "tag": 210,
+    "icon": "NotebookPen",
+    "fact": "Writing down your goals can restore clarity and purpose."
+  },
+  {
+    "tag": 211,
+    "icon": "Milestone",
+    "fact": "Greater autonomy boosts calmness and self-assurance."
+  },
+  {
+    "tag": 212,
+    "icon": "MessageSquare",
+    "fact": "Naming bias can support fairness and emotional safety."
+  },
+  {
+    "tag": 213,
+    "icon": "Brain",
+    "fact": "Clear routines can calm the mind and reduce stress."
+  },
+  {
+    "tag": 214,
+    "icon": "Brain",
+    "fact": "Thinking through your values can restore inner alignment."
+  },
+  {
+    "tag": 215,
+    "icon": "HeartHandshake",
+    "fact": "Working together increases dopamine and builds trust."
+  },
+  {
+    "tag": 216,
+    "icon": "NotebookPen",
+    "fact": "Writing down both sides can ease inner and outer conflict."
+  },
+  {
+    "tag": 217,
+    "icon": "NotebookPen",
+    "fact": "Taking a moment to journal can help untangle confusion."
+  },
+  {
+    "tag": 218,
+    "icon": "Cloudy",
+    "fact": "Deep breathing helps settle emotional tension in conflict."
+  },
+  {
+    "tag": 219,
+    "icon": "Brain",
+    "fact": "Letting go of small things can restore ease and balance."
+  },
+  {
+    "tag": 220,
+    "icon": "Brain",
+    "fact": "Clear roles support confidence and reduce decision fatigue."
+  },
+  {
+    "tag": 221,
+    "icon": "Footprints",
+    "fact": "Moving your body helps lift low mood and energy."
+  },
+  {
+    "tag": 222,
+    "icon": "Brain",
+    "fact": "Kind self-talk can restore motivation after setbacks."
+  },
+  {
+    "tag": 223,
+    "icon": "NotebookPen",
+    "fact": "Writing helps connect the dots when things feel scattered."
+  },
+  {
+    "tag": 224,
+    "icon": "MessageSquare",
+    "fact": "Speaking up calmly can help you feel seen and heard."
+  },
+  {
+    "tag": 225,
+    "icon": "Bed",
+    "fact": "Prioritising rest helps replenish emotional energy."
+  },
+  {
+    "tag": 226,
+    "icon": "Milestone",
+    "fact": "Taking ownership of small tasks can lift self-belief."
+  },
+  {
+    "tag": 227,
+    "icon": "MessageSquare",
+    "fact": "Positive feedback boosts mood and helps build momentum."
+  },
+  {
+    "tag": 228,
+    "icon": "Footprints",
+    "fact": "Movement keeps dopamine flowing and energy high."
+  },
+  {
+    "tag": 229,
+    "icon": "Brain",
+    "fact": "Fairness activates a sense of safety and emotional balance."
+  },
+  {
+    "tag": 230,
+    "icon": "Brain",
+    "fact": "Flexibility reduces stress and improves emotional agility."
+  },
+  {
+    "tag": 231,
+    "icon": "Milestone",
+    "fact": "Purposeful action supports focus and flow."
+  },
+  {
+    "tag": 232,
+    "icon": "HeartHandshake",
+    "fact": "Connecting with one person can restore trust and calm."
+  },
+  {
+    "tag": 233,
+    "icon": "Cloudy",
+    "fact": "Slow breathing helps regulate rising frustration."
+  },
+  {
+    "tag": 234,
+    "icon": "Cloudy",
+    "fact": "Soothing breath and movement help keep you grounded."
+  },
+  {
+    "tag": 235,
+    "icon": "HeartHandshake",
+    "fact": "Supportive relationships protect against emotional harm."
+  },
+  {
+    "tag": 236,
+    "icon": "HeartHandshake",
+    "fact": "Feeling included boosts safety and emotional resilience."
+  },
+  {
+    "tag": 237,
+    "icon": "HeartHandshake",
+    "fact": "Social connection helps ease feelings of isolation."
+  },
+  {
+    "tag": 238,
+    "icon": "Milestone",
+    "fact": "Breaking things into small steps builds emotional control."
+  },
+  {
+    "tag": 239,
+    "icon": "HeartHandshake",
+    "fact": "Being heard by someone safe can ease emotional pain."
+  },
+  {
+    "tag": 240,
+    "icon": "Footprints",
+    "fact": "Gentle movement can help release stress from control."
+  },
+  {
+    "tag": 241,
+    "icon": "Bed",
+    "fact": "Small breaks help regulate stress and prevent burnout."
+  },
+  {
+    "tag": 242,
+    "icon": "Cloudy",
+    "fact": "Slowing your breath helps regulate emotional overload."
+  },
+  {
+    "tag": 243,
+    "icon": "MessageSquare",
+    "fact": "Naming your feelings can reconnect you with what's real."
+  },
+  {
+    "tag": 244,
+    "icon": "Brain",
+    "fact": "Routine supports nervous system regulation and safety."
+  },
+  {
+    "tag": 245,
+    "icon": "HeartHandshake",
+    "fact": "Reassurance from others can reduce emotional reactivity."
+  },
+  {
+    "tag": 246,
+    "icon": "Bed",
+    "fact": "Building in rest supports emotional sustainability."
+  },
+  {
+    "tag": 247,
+    "icon": "HeartHandshake",
+    "fact": "Reliable friendships reduce emotional strain and build trust."
+  },
+  {
+    "tag": 248,
+    "icon": "HeartHandshake",
+    "fact": "Feeling respected helps reduce emotional vigilance."
+  },
+  {
+    "tag": 249,
+    "icon": "MessageSquare",
+    "fact": "Celebrating small wins builds confidence and reward."
+  },
+  {
+    "tag": 250,
+    "icon": "Brain",
+    "fact": "Staying mentally flexible supports emotional wellbeing."
+  },
+  {
+    "tag": 251,
+    "icon": "MessageSquare",
+    "fact": "Expressing your truth gently can restore your voice."
+  },
+  {
+    "tag": 252,
+    "icon": "Milestone",
+    "fact": "Small progress can help shift emotional stuckness."
+  },
+  {
+    "tag": 253,
+    "icon": "Bed",
+    "fact": "Balancing work and rest protects your wellbeing long-term."
+  },
+  {
+    "tag": 254,
+    "icon": "Brain",
+    "fact": "Acknowledging your own effort can protect motivation."
+  },
+  {
+    "tag": 255,
+    "icon": "HeartHandshake",
+    "fact": "Emotional support helps buffer the effects of toxic stress."
+  },
+  {
+    "tag": 256,
+    "icon": "MessageSquare",
+    "fact": "Clear communication reduces stress and improves trust."
+  },
+  {
+    "tag": 257,
+    "icon": "Brain",
+    "fact": "Clarifying your goals helps ease mental fog."
+  },
+  {
+    "tag": 258,
+    "icon": "HeartHandshake",
+    "fact": "Talking to someone you trust can help restore perspective."
+  },
+  {
+    "tag": 259,
+    "icon": "MessageSquare",
+    "fact": "Asking clearly for what you need supports emotional clarity."
+  },
+  {
+    "tag": 260,
+    "icon": "MessageSquare",
+    "fact": "Naming injustice safely helps you reclaim agency."
+  },
+  {
+    "tag": 261,
+    "icon": "Bed",
+    "fact": "Rest helps reset expectations and emotional energy."
+  },
+  {
+    "tag": 262,
+    "icon": "Brain",
+    "fact": "Self-validation helps protect your emotional boundaries."
+  },
+  {
+    "tag": 263,
+    "icon": "HeartHandshake",
+    "fact": "Leaning on safe people can reduce the sting of isolation."
+  },
+  {
+    "tag": 264,
+    "icon": "Footprints",
+    "fact": "Physical movement can help you sustain elevated mood."
   }
 ]

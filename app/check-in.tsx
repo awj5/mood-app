@@ -29,6 +29,7 @@ export type MoodType = {
   name: string;
   color: string;
   tags: number[];
+  secondaryTags: number[];
   summary: string;
 };
 
@@ -51,7 +52,7 @@ export default function CheckIn() {
   const localization = getLocales();
   const rotation = useSharedValue(-360);
   const sliderVal = useSharedValue(50);
-  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [], summary: "" });
+  const wheelMood = useSharedValue<MoodType>({ id: 0, name: "", color: "", tags: [], secondaryTags: [], summary: "" });
   const wheelActivatedRef = useRef(false);
   const isFocusedRef = useRef(true);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
@@ -65,6 +66,7 @@ export default function CheckIn() {
     name: "",
     color: "",
     tags: [],
+    secondaryTags: [],
     summary: "",
   });
   const [showStatement, setShowStatement] = useState(false);
@@ -209,6 +211,7 @@ export default function CheckIn() {
 
           <Tags
             tags={selectedMood.tags}
+            secondaryTags={selectedMood.secondaryTags}
             setSelectedTags={setSelectedTags}
             selectedTags={selectedTags}
             foreground={foregroundColor}
