@@ -99,9 +99,12 @@ export default function Stats(props: StatsProps) {
 
         switch (mood.busyness) {
           case 0:
-            busynessScore = 0;
+            busynessScore = 25;
             break;
           case 2:
+            busynessScore = 75;
+            break;
+          case 3:
             busynessScore = 100;
             break;
           default:

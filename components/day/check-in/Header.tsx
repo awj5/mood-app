@@ -33,6 +33,9 @@ export default function Header(props: HeaderProps) {
     case 2:
       busyness = "Busy";
       break;
+    case 3:
+      busyness = "Maxed";
+      break;
     default:
       busyness = "Steady";
   }

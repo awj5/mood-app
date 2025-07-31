@@ -33,12 +33,12 @@ export default function Busyness(props: BusynessProps) {
       style={[
         animatedStyles,
         {
-          width: Device.deviceType === 1 ? 288 : 320,
+          width: Device.deviceType === 1 ? 320 : 384,
         },
       ]}
     >
       <SegmentedControl
-        values={["Slow", "Steady", "Busy"]}
+        values={["Slow", "Steady", "Busy", "Maxed"]}
         selectedIndex={props.level}
         onChange={(e) => props.setLevel(e.nativeEvent.selectedSegmentIndex)}
         fontStyle={{ fontFamily: "Circular-Medium", fontSize: theme.fontSize.body }}
