@@ -129,5 +129,4 @@ export const removeAccess = () => {
   // User doesn't exist or has removed company
   removeStoredVal("uuid");
   removeStoredVal("company-name");
-  removeStoredVal("send-check-ins");
 };

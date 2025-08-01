@@ -152,7 +152,7 @@ export default function Stats(props: StatsProps) {
       }); // Stress
     }
 
-    setBusyness(busynessScores.reduce((sum, num) => sum + num, 0) / busynessScores.length);
+    setBusyness(busynessScores.reduce((sum, num) => sum + num, 0) / busynessScores.length); // Average
     setData(dataItems);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [props.checkIns, colorScheme]);

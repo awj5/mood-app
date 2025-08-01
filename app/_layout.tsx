@@ -80,6 +80,8 @@ export default function Layout() {
           );
 
           if (response.data) {
+            removeStoredVal("send-check-ins"); // Reset
+
             Alert.alert(
               "You've Gone Pro!",
               `${response.data} has given you access to their company insights and a MOOD.ai Pro subscription.\n\nBy accepting, you agree to share your check-ins anonymously with ${response.data}.\n\nNeither ${response.data} or MOOD.ai can identify individual check-ins or access your private chats.`,
