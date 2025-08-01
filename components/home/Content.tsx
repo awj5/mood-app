@@ -18,6 +18,7 @@ import Journal from "./content/Journal";
 import Stats from "./content/Stats";
 import Button from "components/Button";
 import NoCheckIns from "./content/NoCheckIns";
+import WordCloud from "components/WordCloud";
 import { CheckInType } from "types";
 import { shuffleArray, getStoredVal, getTheme } from "utils/helpers";
 
@@ -47,6 +48,7 @@ export default function Content(props: ContentProps) {
         <Quote checkIns={props.checkIns} dates={homeDates} />,
         <Gifs checkIns={props.checkIns} dates={homeDates} />,
         <Song checkIns={props.checkIns} dates={homeDates} />,
+        <WordCloud checkIns={props.checkIns} />,
       ];
 
       const smallWidgets = [

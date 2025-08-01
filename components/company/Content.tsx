@@ -28,6 +28,7 @@ export type StatsDataType = {
 type ContentProps = {
   checkIns: CompanyCheckInType[] | undefined;
   setCheckIns: React.Dispatch<React.SetStateAction<CompanyCheckInType[] | undefined>>;
+  company: string;
 };
 
 export default function Content(props: ContentProps) {
@@ -127,7 +128,7 @@ export default function Content(props: ContentProps) {
           {role !== "user" && <Role text={role} />}
           <Stats checkIns={props.checkIns} role={role} statsData={statsData} />
           <Note />
-          {/*<WordCloud />*/}
+          {role !== "user" && <WordCloud checkIns={props.checkIns} company={props.company.toUpperCase()} />}
           <Categories checkIns={props.checkIns} role={role} />
         </>
       ) : isOffline ? (
