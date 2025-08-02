@@ -27,6 +27,15 @@ export default function WordCloud(props: WordCloudProps) {
     opacity: opacity.value,
   }));
 
+  const getFontSize = (percentage: number) => {
+    if (percentage >= 20) return theme.fontSize.xxxLarge;
+    if (percentage >= 15) return theme.fontSize.xxLarge;
+    if (percentage >= 10) return theme.fontSize.xLarge;
+    if (percentage >= 5) return theme.fontSize.large;
+    if (percentage >= 2.5) return theme.fontSize.body;
+    return theme.fontSize.small;
+  };
+
   useEffect(() => {
     const tagsWithCount: Record<number, { id: number; name: string; count: number }> = {};
 
@@ -62,7 +71,7 @@ export default function WordCloud(props: WordCloudProps) {
       style={[
         animatedStyles,
         {
-          backgroundColor: theme.color.opaqueBg,
+          backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
           padding: theme.spacing.small * 2,
           gap: theme.spacing.base / 2,
@@ -73,37 +82,35 @@ export default function WordCloud(props: WordCloudProps) {
       <Text
         style={{
           fontFamily: "Circular-Bold",
-          fontSize: theme.fontSize.xSmall,
-          color: theme.color.primary,
+          fontSize: theme.fontSize.small,
+          color: theme.color.inverted,
         }}
         allowFontScaling={false}
       >
         {props.company ? `${props.company} FEELS...` : "WORK'S BEEN..."}
       </Text>
 
-      <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "center" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "baseline",
+          justifyContent: "center",
+          gap: theme.spacing.base / 4,
+        }}
+      >
         {words.map((item, index) => (
           <Text
             key={item.id}
             style={{
               fontFamily: "Circular-Book",
-              color: theme.color.primary,
-              fontSize:
-                item.percentage >= 20
-                  ? theme.fontSize.xxxLarge
-                  : item.percentage >= 15
-                  ? theme.fontSize.xxLarge
-                  : item.percentage >= 10
-                  ? theme.fontSize.xLarge
-                  : item.percentage >= 5
-                  ? theme.fontSize.large
-                  : item.percentage >= 2.5
-                  ? theme.fontSize.body
-                  : theme.fontSize.small,
+              color: theme.color.inverted,
+              fontSize: getFontSize(item.percentage),
+              lineHeight: getFontSize(item.percentage),
             }}
           >
             {item.text}
-            {index + 1 !== words.length && ", "}
+            {index + 1 !== words.length && ","}
           </Text>
         ))}
       </View>
