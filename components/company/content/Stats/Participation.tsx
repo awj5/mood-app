@@ -35,10 +35,9 @@ export default function Participation(props: ParticipationProps) {
         paddingHorizontal: theme.spacing.small,
         height: Device.deviceType === 1 ? 28 : 36,
         flexDirection: "row",
+        backgroundColor: theme.color.opaqueBg,
         borderRadius: 999,
         alignSelf: "center",
-        borderWidth: theme.stroke,
-        borderColor: theme.color.inverted,
       }}
     >
       {props.role !== "user" && (
