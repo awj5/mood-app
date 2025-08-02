@@ -18,7 +18,7 @@ export default function Role(props: RoleProps) {
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
       style={{
         gap: theme.spacing.small / 2,
-        backgroundColor: theme.color.inverted,
+        backgroundColor: theme.color.invertedOpaque,
         paddingHorizontal: theme.spacing.small,
         height: Device.deviceType === 1 ? 28 : 36,
         flexDirection: "row",
