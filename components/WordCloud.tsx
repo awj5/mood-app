@@ -44,13 +44,14 @@ export default function WordCloud(props: WordCloudProps) {
 
       for (const tag of mood.tags) {
         const data = tagsData.filter((item) => item.id === tag)[0];
-        if (!tagsWithCount[tag]) tagsWithCount[tag] = { id: tag, name: data.name, count: 0 };
+        if (!tagsWithCount[tag]) tagsWithCount[tag] = { id: tag, name: data.name, count: 0 }; // Create record
         tagsWithCount[tag].count += 1;
       }
     }
 
     const totalTagCount = Object.values(tagsWithCount).reduce((sum, tag) => sum + tag.count, 0);
 
+    // Get top 20 tags
     const countedWords: WordType[] = Object.values(tagsWithCount)
       .map(({ id, name, count }) => ({
         id,

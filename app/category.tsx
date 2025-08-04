@@ -27,6 +27,7 @@ import CompanyInsights from "components/CompanyInsights";
 import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
 import Role from "components/Role";
+import Statements from "components/category/Statements";
 import { CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
 
@@ -108,6 +109,7 @@ export default function Category() {
             paddingBottom: theme.spacing.base + insets.bottom,
             gap: theme.spacing.base,
             maxWidth: 768,
+            width: "100%",
             alignSelf: "center",
           }}
         >
@@ -140,6 +142,7 @@ export default function Category() {
             <Article category={params.id} />
           </View>
 
+          <Statements checkIns={JSON.parse(params.checkIns)} />
           <About id={Number(params.id)} title={params.title.toUpperCase()} />
         </ScrollView>
       </View>
