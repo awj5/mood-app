@@ -11,19 +11,18 @@ type TagProps = {
   foreground: string;
   selectedTags: number[];
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
+  delay: number;
 };
 
 export default function Tag(props: TagProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const scale = useSharedValue(0);
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(props.selectedTags.includes(props.tag.id));
 
   const press = () => {
-    const isSelected = props.selectedTags.includes(props.tag.id);
-
     // Add/remove from tags array
-    if (isSelected) {
+    if (selected) {
       // Remove
       props.setSelectedTags(props.selectedTags.filter((id) => id !== props.tag.id));
       setSelected(false);
@@ -41,7 +40,7 @@ export default function Tag(props: TagProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       scale.value = withTiming(1, { duration: 200, easing: Easing.elastic(1) });
-    }, 1000 + 20 * props.num);
+    }, props.delay + 20 * props.num);
 
     return () => clearTimeout(timeout);
   }, []);

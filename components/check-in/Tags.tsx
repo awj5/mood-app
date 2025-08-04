@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { useColorScheme, View, Text } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { useColorScheme, View, Text, Pressable } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import tagsData from "data/tags.json";
-import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
 import Busyness from "./tags/Busyness";
@@ -23,32 +22,56 @@ export default function Tags(props: TagsProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
-  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
+  const initRef = useRef(false);
   const [tags, setTags] = useState<TagType[]>([]);
+  const [delay, setDelay] = useState(1000);
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
 
-  useEffect(() => {
-    const moodTags = tagsData.filter((item) => props.tags.includes(item.id) || props.secondaryTags.includes(item.id));
+  const loadTags = () => {
+    const selectedTags = tagsData.filter((item) => props.selectedTags.includes(item.id)); // Tags that have already been selected
+
+    const moodTags = tagsData.filter(
+      (item) =>
+        (props.tags.includes(item.id) || props.secondaryTags.includes(item.id)) && !props.selectedTags.includes(item.id)
+    );
+
     const shuffled = shuffleArray(moodTags);
 
-    // Display a balance of 16 (12 on iPhone SE) pos and neg tags
-    const total = dimensions.width <= 375 ? 12 : 16;
+    // Display a balance of pos and neg tags
+    const total = 12 - selectedTags.length; // Show 12 tags (including already selected)
     let pos = shuffled.filter((item) => item.type === "pos");
     let neg = shuffled.filter((item) => item.type === "neg");
+    let nonSelectedTags = [];
 
-    if (pos.length < total / 2) {
-      neg = neg.slice(0, total - pos.length); // Adjust neg if not enough pos
-    } else if (neg.length < total / 2) {
-      pos = pos.slice(0, total - neg.length); // Adjust pos if not enough neg
+    if (total === 1) {
+      const random = moodTags[Math.floor(Math.random() * moodTags.length)];
+      nonSelectedTags.push(random);
     } else {
-      pos = pos.slice(0, total / 2);
-      neg = neg.slice(0, total / 2);
+      if (pos.length < total / 2) {
+        neg = neg.slice(0, total - pos.length); // Adjust neg if not enough pos
+      } else if (neg.length < total / 2) {
+        pos = pos.slice(0, total - neg.length); // Adjust pos if not enough neg
+      } else {
+        const half = Math.floor(total / 2);
+        pos = pos.slice(0, half + (total % 2)); // Extra pos tag if total is odd
+        neg = neg.slice(0, half);
+      }
+
+      nonSelectedTags = shuffleArray([...pos, ...neg]);
     }
 
-    setTags(shuffled.filter((item) => pos.includes(item) || neg.includes(item)));
+    const combined = [...selectedTags, ...nonSelectedTags];
+    if (initRef.current) setDelay(0);
+    setTags(combined);
+    initRef.current = true;
+  };
+
+  useEffect(() => {
+    initRef.current = false;
+    loadTags();
     props.setBusyness(1); // Reset
 
     // Fade in sub-heading
@@ -95,9 +118,14 @@ export default function Tags(props: TagsProps) {
               foreground={props.foreground}
               selectedTags={props.selectedTags}
               setSelectedTags={props.setSelectedTags}
+              delay={delay}
             />
           ))}
         </View>
+
+        <Pressable onPress={loadTags}>
+          <Text>Refresh</Text>
+        </Pressable>
       </View>
 
       <StatusBar style={props.foreground === "white" ? "light" : "dark"} />
