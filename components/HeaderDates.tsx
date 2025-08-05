@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pressable, Text, View, useColorScheme, Platform } from "react-native";
 import { useRouter } from "expo-router";
-import * as Device from "expo-device";
 import { CalendarDays, CalendarRange } from "lucide-react-native";
 import { CalendarDatesType } from "types";
 import { getTheme, pressedDefault } from "utils/helpers";

@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useColorScheme, View, Text, Pressable } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { RefreshCw } from "lucide-react-native";
 import tagsData from "data/tags.json";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { TagType } from "app/check-in";
 import Tag from "./tags/Tag";
 import Busyness from "./tags/Busyness";
-import { getTheme, shuffleArray } from "utils/helpers";
+import { getTheme, pressedDefault, shuffleArray } from "utils/helpers";
 
 type TagsProps = {
   tags: number[];
@@ -23,8 +25,10 @@ export default function Tags(props: TagsProps) {
   const theme = getTheme(colorScheme);
   const opacity = useSharedValue(0);
   const initRef = useRef(false);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [tags, setTags] = useState<TagType[]>([]);
   const [delay, setDelay] = useState(1000);
+  const [loadedID, setLoadedID] = useState<number>();
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -41,7 +45,7 @@ export default function Tags(props: TagsProps) {
     const shuffled = shuffleArray(moodTags);
 
     // Display a balance of pos and neg tags
-    const total = 12 - selectedTags.length; // Show 12 tags (including already selected)
+    const total = (dimensions.width <= 375 ? 10 : 14) - selectedTags.length; // Show 14 (10 on SE) tags (including already selected)
     let pos = shuffled.filter((item) => item.type === "pos");
     let neg = shuffled.filter((item) => item.type === "neg");
     let nonSelectedTags = [];
@@ -65,6 +69,7 @@ export default function Tags(props: TagsProps) {
 
     const combined = [...selectedTags, ...nonSelectedTags];
     if (initRef.current) setDelay(0);
+    setLoadedID(Date.now()); // Used to force tag animations
     setTags(combined);
     initRef.current = true;
   };
@@ -89,7 +94,7 @@ export default function Tags(props: TagsProps) {
         paddingHorizontal: theme.spacing.base,
         position: "absolute",
         zIndex: 1,
-        gap: theme.spacing.base * 2,
+        gap: theme.spacing.small * 2,
         alignItems: "center",
       }}
     >
@@ -112,7 +117,7 @@ export default function Tags(props: TagsProps) {
         <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
           {tags.map((item, index) => (
             <Tag
-              key={item.id}
+              key={`${item.id}-${loadedID}`}
               tag={item}
               num={index}
               foreground={props.foreground}
@@ -123,9 +128,38 @@ export default function Tags(props: TagsProps) {
           ))}
         </View>
 
-        <Pressable onPress={loadTags}>
-          <Text>Refresh</Text>
-        </Pressable>
+        <Animated.View style={[animatedStyles, { position: "absolute", top: "100%", marginTop: theme.spacing.base }]}>
+          <Pressable
+            onPress={loadTags}
+            style={({ pressed }) => [
+              pressedDefault(pressed),
+              {
+                gap: theme.spacing.small / 2,
+                flexDirection: "row",
+                alignItems: "center",
+              },
+            ]}
+            hitSlop={theme.spacing.small}
+          >
+            <RefreshCw
+              color={props.foreground}
+              size={theme.icon.base.size}
+              absoluteStrokeWidth
+              strokeWidth={theme.icon.base.stroke}
+            />
+
+            <Text
+              style={{
+                fontFamily: "Circular-Book",
+                color: props.foreground,
+                fontSize: theme.fontSize.body,
+              }}
+              allowFontScaling={false}
+            >
+              Refresh
+            </Text>
+          </Pressable>
+        </Animated.View>
       </View>
 
       <StatusBar style={props.foreground === "white" ? "light" : "dark"} />
