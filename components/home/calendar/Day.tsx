@@ -150,7 +150,7 @@ export default function Day(props: DayProps) {
           style={{
             fontFamily: isToday ? "Circular-Bold" : "Circular-Book",
             fontSize: !isThisYear ? theme.fontSize.xxSmall : theme.fontSize.small,
-            color: checkInMood ? theme.color.primary : theme.color.secondary,
+            color: checkInMood ? theme.color.link : theme.color.secondary,
           }}
           allowFontScaling={false}
         >

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useColorScheme, Text, View } from "react-native";
+import * as Device from "expo-device";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import tagsData from "data/tags.json";
 import { CheckInMoodType, CheckInType, CompanyCheckInType } from "types";
@@ -31,7 +32,7 @@ export default function WordCloud(props: WordCloudProps) {
     if (percentage >= 20) return theme.fontSize.xxxLarge;
     if (percentage >= 15) return theme.fontSize.xxLarge;
     if (percentage >= 10) return theme.fontSize.xLarge;
-    if (percentage >= 5) return theme.fontSize.large;
+    if (percentage >= 5) return Device.deviceType === 1 ? 20 : 24; // Theme large is too subtle
     if (percentage >= 2.5) return theme.fontSize.body;
     return theme.fontSize.small;
   };

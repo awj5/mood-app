@@ -45,7 +45,7 @@ export default function Tags(props: TagsProps) {
     const shuffled = shuffleArray(moodTags);
 
     // Display a balance of pos and neg tags
-    const total = (dimensions.width <= 375 ? 10 : 14) - selectedTags.length; // Show 14 (10 on SE) tags (including already selected)
+    const total = (dimensions.width <= 375 ? 10 : 12) - selectedTags.length; // Show 12 (10 on SE) tags (including already selected)
     let pos = shuffled.filter((item) => item.type === "pos");
     let neg = shuffled.filter((item) => item.type === "neg");
     let nonSelectedTags = [];
@@ -94,26 +94,13 @@ export default function Tags(props: TagsProps) {
         paddingHorizontal: theme.spacing.base,
         position: "absolute",
         zIndex: 1,
-        gap: theme.spacing.small * 2,
+        gap: theme.spacing.base * 2,
         alignItems: "center",
       }}
     >
       <Busyness foreground={props.foreground} level={props.busyness} setLevel={props.setBusyness} />
 
-      <View style={{ alignItems: "center", gap: theme.spacing.base }}>
-        <Animated.View style={animatedStyles}>
-          <Text
-            style={{
-              fontFamily: "Circular-Bold",
-              color: props.foreground,
-              fontSize: theme.fontSize.xSmall,
-            }}
-            allowFontScaling={false}
-          >
-            PICK AT LEAST ONE
-          </Text>
-        </Animated.View>
-
+      <View style={{ alignItems: "center" }}>
         <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
           {tags.map((item, index) => (
             <Tag
@@ -128,7 +115,9 @@ export default function Tags(props: TagsProps) {
           ))}
         </View>
 
-        <Animated.View style={[animatedStyles, { position: "absolute", top: "100%", marginTop: theme.spacing.base }]}>
+        <Animated.View
+          style={[animatedStyles, { position: "absolute", top: "100%", marginTop: theme.spacing.small * 2 }]}
+        >
           <Pressable
             onPress={loadTags}
             style={({ pressed }) => [
