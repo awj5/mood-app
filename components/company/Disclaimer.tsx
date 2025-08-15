@@ -26,6 +26,7 @@ export default function Disclaimer(props: DisclaimerProps) {
 
   const postCheckIn = async (checkIn: CheckInMoodType) => {
     const uuid = await getStoredVal("uuid");
+    const deviceUUID = await getStoredVal("device-uuid"); // Unique device UUID
 
     if (uuid) {
       const today = new Date();
@@ -36,6 +37,7 @@ export default function Disclaimer(props: DisclaimerProps) {
           !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
           {
             uuid: uuid,
+            deviceID: deviceUUID,
             value: checkIn,
             date: convertToISO(today),
           }

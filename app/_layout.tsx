@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Dimensions, Alert, Platform, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Network from "expo-network";
+import * as Crypto from "expo-crypto";
 import { useFonts } from "expo-font";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { StatusBar } from "expo-status-bar";
@@ -67,6 +68,7 @@ export default function Layout() {
 
     if (queryParams?.uuid) {
       // Link includes UUID
+      const deviceUUID = await getStoredVal("device-uuid"); // Unique device UUID
       const network = await Network.getNetworkStateAsync();
 
       if (network.isInternetReachable) {
@@ -94,6 +96,7 @@ export default function Layout() {
                   text: "Accept",
                   onPress: () => {
                     setStoredVal("uuid", queryParams.uuid as string); // Store UUID
+                    if (!deviceUUID) setStoredVal("device-uuid", Crypto.randomUUID()); // Create a UUID for this device if doesn't exist already
                     setStoredVal("company-name", response.data); // Store company name
                     setStoredVal("send-check-ins", "true"); // Moved here from company disclaimer page
                     removeStoredVal("focused-statement"); // Reset MOOD Diagnostics
