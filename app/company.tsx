@@ -31,8 +31,8 @@ export default function Company() {
     (async () => {
       const name = await getStoredVal("company-name");
       const send = await getStoredVal("send-check-ins"); // Has agreed to send check-ins to company insights
-      if (name) setCompany(name);
       if (name && send) setHasAccess(true);
+      if (name) setCompany(name);
     })();
 
     // Always set date range to past 30 days on mount (UTC)

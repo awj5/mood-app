@@ -25,6 +25,7 @@ import { getMostCommon, getTheme } from "utils/helpers";
 
 type CategoriesProps = {
   checkIns: CompanyCheckInType[];
+  availableCategories: number[];
   role: string;
 };
 
@@ -56,8 +57,12 @@ export default function Categories(props: CategoriesProps) {
     // Loop all check-ins and group into categories
     for (const checkIn of props.checkIns) {
       const category = Math.trunc(checkIn.value.competency);
-      if (!groups[category]) groups[category] = []; // Create category if doesn't exist
-      groups[category].push(checkIn);
+
+      // Only display categories company has enabled
+      if (props.availableCategories.includes(category)) {
+        if (!groups[category]) groups[category] = []; // Create category if doesn't exist
+        groups[category].push(checkIn);
+      }
     }
 
     const list: CategoryType[] = [];

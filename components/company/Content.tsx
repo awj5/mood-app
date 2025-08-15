@@ -41,6 +41,7 @@ export default function Content(props: ContentProps) {
   const [isOffline, setIsOffline] = useState(false);
   const [role, setRole] = useState("");
   const [statsData, setStatsData] = useState<StatsDataType>();
+  const [availableCategories, setSAvailableCategories] = useState([]);
   const isSimulator = Device.isDevice === false;
 
   const getCheckInData = async (uuid: string) => {
@@ -89,6 +90,7 @@ export default function Content(props: ContentProps) {
       const data = await getCheckInData(uuid); // Get check-ins from Supabase
 
       if (latestQueryRef.current === currentQuery) {
+        if (data && data.categories) setSAvailableCategories(data.categories); // Categories
         props.setCheckIns(data && data.checkInsData ? data.checkInsData : []);
 
         // Assign user's role
@@ -97,10 +99,7 @@ export default function Content(props: ContentProps) {
           setStoredVal("admin", data.role === "admin" ? "true" : "false"); // Remember admin role
         }
 
-        // Stats
-        if (data && data.stats) {
-          setStatsData(data.stats);
-        }
+        if (data && data.stats) setStatsData(data.stats); // Stats
       }
     } else if (!network.isInternetReachable) {
       setIsOffline(true);
@@ -129,7 +128,7 @@ export default function Content(props: ContentProps) {
           <Stats checkIns={props.checkIns} role={role} statsData={statsData} />
           <Note />
           {role !== "user" && <WordCloud checkIns={props.checkIns} company={props.company.toUpperCase()} />}
-          <Categories checkIns={props.checkIns} role={role} />
+          <Categories checkIns={props.checkIns} availableCategories={availableCategories} role={role} />
         </>
       ) : isOffline ? (
         <View style={{ gap: theme.spacing.base / 4, alignItems: "center" }}>
