@@ -41,7 +41,6 @@ export default function Content(props: ContentProps) {
   const [isOffline, setIsOffline] = useState(false);
   const [role, setRole] = useState("");
   const [statsData, setStatsData] = useState<StatsDataType>();
-  const [oldData, setOldData] = useState(false); // Will retire Oct 1st 2025
   const [availableCategories, setAvailableCategories] = useState([]);
   const isSimulator = Device.isDevice === false;
 
@@ -99,11 +98,7 @@ export default function Content(props: ContentProps) {
           setStoredVal("admin", data.role === "admin" ? "true" : "false"); // Remember admin role
         }
 
-        if (data && data.stats) {
-          setStatsData(data.stats); // Stats
-          if (data.stats.oldData) setOldData(true); // Will retire Oct 1st 2025
-        }
-
+        if (data && data.stats) setStatsData(data.stats); // Stats
         props.setCheckIns(data && data.checkInsData ? data.checkInsData : []);
       }
     } else if (!network.isInternetReachable) {
