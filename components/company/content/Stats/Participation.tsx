@@ -47,7 +47,7 @@ export default function Participation(props: ParticipationProps) {
         </>
       )}
 
-      <Metric data={participation} text="PARTICIPATION" userView={props.role === "user"} />
+      <Metric data={participation} text="WEEKLY ACTIVITY" userView={props.role === "user"} />
     </View>
   );
 }
