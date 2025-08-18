@@ -36,6 +36,7 @@ export type ReminderType = {
 export type PromptCheckInType = {
   date: string;
   id: number;
+  uuid?: string;
   time?: string;
   mood: number;
   feelings: string[];

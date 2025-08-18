@@ -105,6 +105,7 @@ export const getPromptCheckIns = (checkIns: CheckInType[] | CompanyCheckInType[]
     data.push({
       date: local.toDateString(),
       id: checkIn.id,
+      ...(!("mood" in checkIn) && { uuid: checkIn.uuid }), // Is company check-in
       ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }), // Is user check-in
       mood: mood.color,
       feelings: tags,
