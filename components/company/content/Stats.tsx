@@ -7,10 +7,11 @@ import { PieChart, pieDataItem } from "react-native-gifted-charts";
 import moodsData from "data/moods.json";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { StatsDataType } from "../Content";
-import Stat from "./Stats/Stat";
-import Participation from "./Stats/Participation";
+import Stat from "./stats/Stat";
+import Participation from "./stats/Participation";
 import { CompanyCheckInType } from "types";
-import { getTheme } from "utils/helpers";
+import { getMostCommon, getTheme } from "utils/helpers";
+import { groupCheckIns } from "utils/data";
 
 type StatsProps = {
   checkIns: CompanyCheckInType[];
@@ -41,27 +42,36 @@ export default function Stats(props: StatsProps) {
   };
 
   useEffect(() => {
-    const groups: Record<string, CompanyCheckInType[]> = {};
+    const moods: Record<string, number> = {};
+    const grouped = groupCheckIns(props.checkIns);
 
-    // Loop all check-ins and group into moods
-    for (const checkIn of props.checkIns) {
-      const mood = checkIn.value.color;
-      if (!groups[mood]) groups[mood] = []; // Create mood if doesn't exist
-      groups[mood].push(checkIn);
+    // Loop users
+    for (const [, weeks] of Object.entries(grouped)) {
+      // Loop weeks
+      for (const [, checkIns] of Object.entries(weeks)) {
+        const checkInMoods = [];
+
+        // Loop check-ins
+        for (const checkIn of checkIns) {
+          checkInMoods.push(checkIn.value.color);
+        }
+
+        const mood = getMostCommon(checkInMoods);
+        if (!moods[mood]) moods[mood] = 0; // Create mood if doesn't exist
+        moods[mood] += 1; // Add count for mood
+      }
     }
 
-    const moods: pieDataItem[] = [];
+    const total = Object.values(moods).reduce((sum, value) => sum + value, 0); // Combined mood count
+    const moodData: pieDataItem[] = [];
 
-    Object.entries(groups).forEach(([key, value]) => {
+    Object.entries(moods).forEach(([key, value]) => {
       const mood = moodsData.filter((item) => item.id === Number(key))[0];
 
-      moods.push({
-        value: value.length,
+      moodData.push({
+        value: value,
         color: mood.color,
-        text:
-          (value.length / props.checkIns.length) * 100 >= 8
-            ? ((value.length / props.checkIns.length) * 100).toFixed(0) + "%"
-            : "",
+        text: (value / total) * 100 >= 8 ? ((value / total) * 100).toFixed(0) + "%" : "",
         tooltipText: mood.name,
         shiftTextX: -4,
         shiftTextY: 4,
@@ -70,9 +80,9 @@ export default function Stats(props: StatsProps) {
       });
     });
 
-    moods.sort((a, b) => b.value - a.value); // Highest first
-    const topMoods = moods.slice(0, 7);
-    const otherMoods = moods.slice(7);
+    moodData.sort((a, b) => b.value - a.value); // Highest first
+    const topMoods = moodData.slice(0, 7);
+    const otherMoods = moodData.slice(7);
 
     if (otherMoods.length > 0) {
       const otherTotal = otherMoods.reduce((sum, item) => sum + item.value, 0);

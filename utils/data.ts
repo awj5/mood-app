@@ -6,6 +6,7 @@ import tagsData from "data/tags.json";
 import competenciesData from "data/competencies.json";
 import { CheckInType, CheckInMoodType, PromptCheckInType, MessageType, CompanyCheckInType } from "types";
 import { removeAccess } from "./helpers";
+import { getMonday } from "./dates";
 
 export const requestAIResponse = async (
   type: string,
@@ -125,4 +126,17 @@ export const getPromptCheckIns = (checkIns: CheckInType[] | CompanyCheckInType[]
 export const generateHash = async (ids: number[]) => {
   const json = JSON.stringify(ids);
   return await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, json);
+};
+
+export const groupCheckIns = (checkIns: CompanyCheckInType[]) => {
+  const checkInsByUser: Record<string, Record<string, CompanyCheckInType[]>> = {}; // Group by UUID and then week (monday)
+
+  for (const checkIn of checkIns) {
+    const monday = getMonday(new Date(checkIn.date)).toISOString().slice(0, 10); // Remove time
+    if (!checkInsByUser[checkIn.uuid]) checkInsByUser[checkIn.uuid] = {}; // Add user
+    if (!checkInsByUser[checkIn.uuid][monday]) checkInsByUser[checkIn.uuid][monday] = []; // Add week
+    checkInsByUser[checkIn.uuid][monday].push(checkIn); // Add check-in
+  }
+
+  return checkInsByUser;
 };

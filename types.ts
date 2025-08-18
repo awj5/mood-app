@@ -23,6 +23,7 @@ export type CheckInType = {
 
 export type CompanyCheckInType = {
   id: number;
+  uuid: string;
   value: CheckInMoodType;
   date: Date;
 };
