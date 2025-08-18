@@ -35,7 +35,6 @@ export type CategoryType = {
   id: number;
   title: string;
   icon: LucideIcon;
-  mood: number;
   score: number;
   trend: string;
   checkIns: CompanyCheckInType[];
@@ -142,7 +141,7 @@ export default function Category() {
             <Article category={params.id} />
           </View>
 
-          <Statements checkIns={JSON.parse(params.checkIns)} />
+          {params.role !== "user" && <Statements checkIns={JSON.parse(params.checkIns)} />}
           <About id={Number(params.id)} title={params.title.toUpperCase()} />
         </ScrollView>
       </View>

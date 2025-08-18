@@ -21,7 +21,8 @@ import competenciesData from "data/competencies.json";
 import { CategoryType } from "app/category";
 import Category from "./categories/Category";
 import { CompanyCheckInType } from "types";
-import { getMostCommon, getTheme } from "utils/helpers";
+import { getTheme } from "utils/helpers";
+import { groupCheckIns } from "utils/data";
 
 type CategoriesProps = {
   checkIns: CompanyCheckInType[];
@@ -70,26 +71,35 @@ export default function Categories(props: CategoriesProps) {
     // Loop groups and get category details
     Object.entries(groups).forEach(([key, value]) => {
       const category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
-      const moods: number[] = [];
-      const responses: number[] = [];
+      const allResponses: number[] = [];
+      const grouped = groupCheckIns(value);
 
-      // Loop category check-ins to get mood and statement response
-      value.forEach((checkIn) => {
-        moods.push(checkIn.value.color);
-        responses.push(checkIn.value.statementResponse);
-      });
+      // Loop users to get statement responses
+      for (const [, weeks] of Object.entries(grouped)) {
+        // Loop weeks
+        for (const [, checkIns] of Object.entries(weeks)) {
+          const responses = [];
 
-      const mood = getMostCommon(moods); // Get most common mood in check-ins
-      const score = Math.round((responses.reduce((sum, num) => sum + num, 0) / responses.length) * 100); // Average response
+          // Loop check-ins
+          for (const checkIn of checkIns) {
+            responses.push(checkIn.value.statementResponse);
+          }
+
+          const response = responses.reduce((sum, num) => sum + num, 0) / responses.length; // Average response from user for week
+          allResponses.push(response);
+        }
+      }
+
+      const score = Math.round((allResponses.reduce((sum, num) => sum + num, 0) / allResponses.length) * 100); // Average response for all users
 
       // Determine trend of responses
       let increases = 0;
       let decreases = 0;
 
-      for (let i = 1; i < responses.length; i++) {
-        if (responses[i] > responses[i - 1]) {
+      for (let i = 1; i < allResponses.length; i++) {
+        if (allResponses[i] > allResponses[i - 1]) {
           increases++;
-        } else if (responses[i] < responses[i - 1]) {
+        } else if (allResponses[i] < allResponses[i - 1]) {
           decreases++;
         }
       }
@@ -100,7 +110,6 @@ export default function Categories(props: CategoriesProps) {
         id: Number(key),
         title: category.title,
         icon: icons[category.icon as keyof typeof icons],
-        mood: mood,
         score: score,
         trend: trend,
         checkIns: value,
