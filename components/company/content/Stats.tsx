@@ -42,11 +42,11 @@ export default function Stats(props: StatsProps) {
   };
 
   useEffect(() => {
-    const moods: Record<string, number> = {};
-    const grouped = groupCheckIns(props.checkIns); // Group by user and week
+    const groupedCheckIns = groupCheckIns(props.checkIns); // Group by user and week
+    const moodsRecord: Record<string, number> = {};
 
     // Loop users
-    for (const [, weeks] of Object.entries(grouped)) {
+    for (const [, weeks] of Object.entries(groupedCheckIns)) {
       // Loop weeks
       for (const [, checkIns] of Object.entries(weeks)) {
         const checkInMoods = [];
@@ -56,19 +56,19 @@ export default function Stats(props: StatsProps) {
           checkInMoods.push(checkIn.value.color);
         }
 
-        const mood = getMostCommon(checkInMoods);
-        if (!moods[mood]) moods[mood] = 0; // Create mood if doesn't exist
-        moods[mood] += 1; // Add count for mood
+        const checkInMood = getMostCommon(checkInMoods);
+        if (!moodsRecord[checkInMood]) moodsRecord[checkInMood] = 0; // Create mood if doesn't exist
+        moodsRecord[checkInMood] += 1; // Add count for mood
       }
     }
 
-    const total = Object.values(moods).reduce((sum, value) => sum + value, 0); // Combined mood count
-    const moodData: pieDataItem[] = [];
+    const total = Object.values(moodsRecord).reduce((sum, value) => sum + value, 0); // Combined mood count
+    const moods: pieDataItem[] = [];
 
-    Object.entries(moods).forEach(([key, value]) => {
+    Object.entries(moodsRecord).forEach(([key, value]) => {
       const mood = moodsData.filter((item) => item.id === Number(key))[0];
 
-      moodData.push({
+      moods.push({
         value: value,
         color: mood.color,
         text: (value / total) * 100 >= 8 ? ((value / total) * 100).toFixed(0) + "%" : "",
@@ -80,9 +80,9 @@ export default function Stats(props: StatsProps) {
       });
     });
 
-    moodData.sort((a, b) => b.value - a.value); // Highest first
-    const topMoods = moodData.slice(0, 7);
-    const otherMoods = moodData.slice(7);
+    moods.sort((a, b) => b.value - a.value); // Highest first
+    const topMoods = moods.slice(0, 7);
+    const otherMoods = moods.slice(7);
 
     if (otherMoods.length > 0) {
       const otherTotal = otherMoods.reduce((sum, item) => sum + item.value, 0);

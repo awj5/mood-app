@@ -33,7 +33,7 @@ type CategoriesProps = {
 export default function Categories(props: CategoriesProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const [categories, setCategories] = useState<CategoryType[]>();
+  const [categoriesData, setCategoriesData] = useState<CategoryType[]>();
 
   const icons = {
     Compass,
@@ -53,7 +53,7 @@ export default function Categories(props: CategoriesProps) {
   };
 
   useEffect(() => {
-    const groups: Record<string, CompanyCheckInType[]> = {};
+    const categoriesRecord: Record<string, CompanyCheckInType[]> = {};
 
     // Loop all check-ins and group into categories
     for (const checkIn of props.checkIns) {
@@ -61,52 +61,51 @@ export default function Categories(props: CategoriesProps) {
 
       // Only display categories company has enabled
       if (props.availableCategories.includes(category)) {
-        if (!groups[category]) groups[category] = []; // Create category if doesn't exist
-        groups[category].push(checkIn);
+        if (!categoriesRecord[category]) categoriesRecord[category] = []; // Create category if doesn't exist
+        categoriesRecord[category].push(checkIn);
       }
     }
 
-    const list: CategoryType[] = [];
+    const categories: CategoryType[] = [];
 
-    // Loop groups and get category details
-    Object.entries(groups).forEach(([key, value]) => {
+    Object.entries(categoriesRecord).forEach(([key, value]) => {
       const category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
-      const allResponses: number[] = [];
-      const grouped = groupCheckIns(value); // Group by user and week
+      const groupedCheckIns = groupCheckIns(value); // Group by user and week
+      const responses: number[] = [];
 
       // Loop users to get statement responses
-      for (const [, weeks] of Object.entries(grouped)) {
+      for (const [, weeks] of Object.entries(groupedCheckIns)) {
         // Loop weeks
         for (const [, checkIns] of Object.entries(weeks)) {
-          const responses = [];
+          const checkInResponses = [];
 
           // Loop check-ins
           for (const checkIn of checkIns) {
-            responses.push(checkIn.value.statementResponse);
+            checkInResponses.push(checkIn.value.statementResponse);
           }
 
-          const response = responses.reduce((sum, num) => sum + num, 0) / responses.length; // Average response from user for week
-          allResponses.push(response);
+          const checkInResponse = checkInResponses.reduce((sum, num) => sum + num, 0) / checkInResponses.length; // Average response from user for week
+          responses.push(checkInResponse);
         }
       }
 
-      const score = Math.round((allResponses.reduce((sum, num) => sum + num, 0) / allResponses.length) * 100); // Average response for all users
+      const score = Math.round((responses.reduce((sum, num) => sum + num, 0) / responses.length) * 100); // Average response for all users
 
       // Determine trend of responses
       let increases = 0;
       let decreases = 0;
 
-      for (let i = 1; i < allResponses.length; i++) {
-        if (allResponses[i] > allResponses[i - 1]) {
+      for (let i = 1; i < responses.length; i++) {
+        if (responses[i] > responses[i - 1]) {
           increases++;
-        } else if (allResponses[i] < allResponses[i - 1]) {
+        } else if (responses[i] < responses[i - 1]) {
           decreases++;
         }
       }
 
       const trend = increases > decreases ? "increasing" : decreases > increases ? "decreasing" : "stable";
 
-      list.push({
+      categories.push({
         id: Number(key),
         title: category.title,
         icon: icons[category.icon as keyof typeof icons],
@@ -116,8 +115,8 @@ export default function Categories(props: CategoriesProps) {
       });
     });
 
-    list.sort((a, b) => b.score - a.score); // Sort by score in descending order
-    setCategories(list);
+    categories.sort((a, b) => b.score - a.score); // Sort by score in descending order
+    setCategoriesData(categories);
   }, [JSON.stringify(props.checkIns)]);
 
   return (
@@ -125,7 +124,7 @@ export default function Categories(props: CategoriesProps) {
       entering={FadeIn.duration(300).easing(Easing.in(Easing.cubic))}
       style={{ gap: theme.spacing.base, flexDirection: "row", flexWrap: "wrap" }}
     >
-      {categories?.map((item) => (
+      {categoriesData?.map((item) => (
         <Category key={item.id} data={item} role={props.role} />
       ))}
     </Animated.View>

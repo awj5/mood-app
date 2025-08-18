@@ -23,53 +23,50 @@ export default function Statements(props: StatementsProps) {
   const [statements, setStatements] = useState<StatementDataType[]>([]);
 
   useEffect(() => {
-    const groups: Record<string, CompanyCheckInType[]> = {};
+    const competenciesRecord: Record<string, CompanyCheckInType[]> = {};
 
-    // Loop check-ins and group by statement
+    // Loop check-ins and group by competency
     for (const checkIn of props.checkIns) {
       const id = checkIn.value.competency;
-      if (!groups[id]) groups[id] = []; // Create record
-      groups[id].push(checkIn); // Add check-in
+      if (!competenciesRecord[id]) competenciesRecord[id] = []; // Create record
+      competenciesRecord[id].push(checkIn); // Add check-in
     }
 
-    const list: StatementDataType[] = [];
+    const competencies: StatementDataType[] = [];
 
-    Object.entries(groups).forEach(([key, value]) => {
+    Object.entries(competenciesRecord).forEach(([key, value]) => {
       const competency = competenciesData[0].competencies.filter((item) => item.id === Number(key))[0];
-      const allResponses: number[] = [];
-      const grouped = groupCheckIns(value); // Group by user and week
+      const groupedCheckIns = groupCheckIns(value); // Group by user and week
+      const responses: number[] = [];
 
       // Loop users to get statement responses
-      for (const [, weeks] of Object.entries(grouped)) {
+      for (const [, weeks] of Object.entries(groupedCheckIns)) {
         // Loop weeks
         for (const [, checkIns] of Object.entries(weeks)) {
-          const responses = [];
+          const checkInResponses = [];
 
           // Loop check-ins
           for (const checkIn of checkIns) {
-            responses.push(checkIn.value.statementResponse);
+            checkInResponses.push(checkIn.value.statementResponse);
           }
 
-          const response = responses.reduce((sum, num) => sum + num, 0) / responses.length; // Average response from user for week
-          allResponses.push(response);
+          const checkInResponse = checkInResponses.reduce((sum, num) => sum + num, 0) / checkInResponses.length; // Average response from user for week
+          responses.push(checkInResponse);
         }
       }
 
-      list.push({
+      competencies.push({
         id: Number(key),
         text: competency.posStatement,
-        average: Math.round((allResponses.reduce((sum, num) => sum + num, 0) / allResponses.length) * 100), // Average response for all users
-        count: Object.keys(grouped).length,
+        average: Math.round((responses.reduce((sum, num) => sum + num, 0) / responses.length) * 100), // Average response for all users
+        count: Object.keys(groupedCheckIns).length,
       });
     });
 
     setStatements(
-      list.sort((a, b) => {
-        if (b.count !== a.count) {
-          return b.count - a.count; // primary sort: most users
-        }
-
-        return b.average - a.average; // secondary sort: highest average
+      competencies.sort((a, b) => {
+        if (b.count !== a.count) return b.count - a.count; // Most users
+        return b.average - a.average; // Highest average (secondary)
       })
     );
   }, []);
