@@ -7,6 +7,7 @@ import { getMonday } from "utils/dates";
 
 type ShortcutsProps = {
   setDates: (dates: CalendarDatesType) => void;
+  type: string;
 };
 
 export default function Shortcuts(props: ShortcutsProps) {
@@ -98,6 +99,23 @@ export default function Shortcuts(props: ShortcutsProps) {
     router.back(); // Close
   };
 
+  const setPrevWeeks = (weeks: number) => {
+    const monday = getMonday();
+    const rangeStart = new Date(monday);
+    rangeStart.setDate(monday.getDate() - weeks * 7); // First Monday
+    const rangeEnd = new Date(monday);
+    rangeEnd.setDate(monday.getDate() - 1); // Last Sunday
+
+    props.setDates({
+      weekStart: rangeStart,
+      rangeStart,
+      rangeEnd,
+      title: `PAST ${weeks} WEEKS'`,
+    });
+
+    router.back(); // Close
+  };
+
   return (
     <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap" }}>
       <Text
@@ -114,12 +132,24 @@ export default function Shortcuts(props: ShortcutsProps) {
 
       <Button func={setThisWeek}>This week</Button>
       <Button func={setLastWeek}>Last week</Button>
+
+      {props.type === "company" ? (
+        <>
+          <Button func={() => setPrevWeeks(4)}>Past 4 weeks</Button>
+          <Button func={() => setPrevWeeks(8)}>Past 8 weeks</Button>
+          <Button func={() => setPrevWeeks(12)}>Past 12 weeks</Button>
+        </>
+      ) : (
+        <>
+          <Button func={() => setPrevDays(30)}>Past 30 days</Button>
+          <Button func={() => setPrevDays(60)}>Past 60 days</Button>
+          <Button func={() => setPrevDays(90)}>Past 90 days</Button>
+        </>
+      )}
+
       <Button func={setThisMonth}>This month</Button>
-      <Button func={setLastMonth}>Last month</Button>
-      <Button func={() => setPrevDays(30)}>Past 30 days</Button>
-      <Button func={() => setPrevDays(60)}>Past 60 days</Button>
-      <Button func={() => setPrevDays(90)}>Past 90 days</Button>
       <Button func={setThisYear}>This year</Button>
+      <Button func={setLastMonth}>Last month</Button>
       <Button func={setLastYear}>Last year</Button>
     </View>
   );

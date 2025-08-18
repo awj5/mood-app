@@ -61,7 +61,7 @@ export default function DateFilters() {
           setDates={params.type === "company" ? setCompanyDates : setHomeDates}
         />
 
-        <Shortcuts setDates={params.type === "company" ? setCompanyDates : setHomeDates} />
+        <Shortcuts setDates={params.type === "company" ? setCompanyDates : setHomeDates} type={params.type} />
       </View>
     </View>
   );

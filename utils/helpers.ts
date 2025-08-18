@@ -65,7 +65,7 @@ export const shuffleArray = (array: any[]) => {
 
 export const getMostCommon = (array: any[]) => {
   return Array.from(new Set(array)).reduce((prev, curr) =>
-    array.filter((item) => item === curr).length > array.filter((item) => item === prev).length ? curr : prev
+    array.filter((item) => item === curr).length >= array.filter((item) => item === prev).length ? curr : prev
   );
 };
 
