@@ -43,7 +43,7 @@ export default function Stats(props: StatsProps) {
 
   useEffect(() => {
     const moods: Record<string, number> = {};
-    const grouped = groupCheckIns(props.checkIns);
+    const grouped = groupCheckIns(props.checkIns); // Group by user and week
 
     // Loop users
     for (const [, weeks] of Object.entries(grouped)) {

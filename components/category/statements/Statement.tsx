@@ -39,7 +39,7 @@ export default function Statement(props: StatementProps) {
           }}
           allowFontScaling={false}
         >
-          {Math.round(props.average * 100)}%
+          {props.average}%
         </Text>
 
         <Text
@@ -50,7 +50,7 @@ export default function Statement(props: StatementProps) {
           }}
           allowFontScaling={false}
         >
-          {props.count} CHECK-INS
+          {props.count} USERS
         </Text>
       </View>
     </View>

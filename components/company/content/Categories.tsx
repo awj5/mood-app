@@ -72,7 +72,7 @@ export default function Categories(props: CategoriesProps) {
     Object.entries(groups).forEach(([key, value]) => {
       const category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
       const allResponses: number[] = [];
-      const grouped = groupCheckIns(value);
+      const grouped = groupCheckIns(value); // Group by user and week
 
       // Loop users to get statement responses
       for (const [, weeks] of Object.entries(grouped)) {

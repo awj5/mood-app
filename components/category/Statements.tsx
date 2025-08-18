@@ -4,6 +4,7 @@ import competenciesData from "data/competencies.json";
 import Statement from "./statements/Statement";
 import { CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
+import { groupCheckIns } from "utils/data";
 
 type StatementDataType = {
   id: number;
@@ -22,27 +23,55 @@ export default function Statements(props: StatementsProps) {
   const [statements, setStatements] = useState<StatementDataType[]>([]);
 
   useEffect(() => {
-    const statementsData: Record<number, { id: number; text: string; responses: number[] }> = {};
+    const groups: Record<string, CompanyCheckInType[]> = {};
 
-    // Loop check-ins and get statement responses
+    // Loop check-ins and group by statement
     for (const checkIn of props.checkIns) {
       const id = checkIn.value.competency;
-      const response = checkIn.value.statementResponse;
-      const data = competenciesData[0].competencies.filter((item) => item.id === id)[0];
-
-      if (!statementsData[id]) {
-        statementsData[id] = { id: id, text: data.posStatement, responses: [response] }; // Create record
-      } else {
-        statementsData[id].responses.push(response); // Add response
-      }
+      if (!groups[id]) groups[id] = []; // Create record
+      groups[id].push(checkIn); // Add check-in
     }
 
-    const averaged: StatementDataType[] = Object.values(statementsData).map(({ id, text, responses }) => {
-      const average = responses.reduce((sum, val) => sum + val, 0) / responses.length;
-      return { id, text, average, count: responses.length };
+    const list: StatementDataType[] = [];
+
+    Object.entries(groups).forEach(([key, value]) => {
+      const competency = competenciesData[0].competencies.filter((item) => item.id === Number(key))[0];
+      const allResponses: number[] = [];
+      const grouped = groupCheckIns(value); // Group by user and week
+
+      // Loop users to get statement responses
+      for (const [, weeks] of Object.entries(grouped)) {
+        // Loop weeks
+        for (const [, checkIns] of Object.entries(weeks)) {
+          const responses = [];
+
+          // Loop check-ins
+          for (const checkIn of checkIns) {
+            responses.push(checkIn.value.statementResponse);
+          }
+
+          const response = responses.reduce((sum, num) => sum + num, 0) / responses.length; // Average response from user for week
+          allResponses.push(response);
+        }
+      }
+
+      list.push({
+        id: Number(key),
+        text: competency.posStatement,
+        average: Math.round((allResponses.reduce((sum, num) => sum + num, 0) / allResponses.length) * 100), // Average response for all users
+        count: Object.keys(grouped).length,
+      });
     });
 
-    setStatements(averaged.sort((a, b) => b.count - a.count)); // Order by most responses
+    setStatements(
+      list.sort((a, b) => {
+        if (b.count !== a.count) {
+          return b.count - a.count; // primary sort: most users
+        }
+
+        return b.average - a.average; // secondary sort: highest average
+      })
+    );
   }, []);
 
   return (
