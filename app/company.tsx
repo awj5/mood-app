@@ -35,18 +35,11 @@ export default function Company() {
       if (name) setCompany(name);
     })();
 
-    // Always set date range to past 30 days on mount (UTC)
-    const today = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
-    today.setHours(0, 0, 0, 0);
-    const daysAgo = new Date(today);
-    daysAgo.setDate(today.getDate() - 30);
-
-    setCompanyDates({
-      weekStart: getMonday(daysAgo),
-      rangeStart: daysAgo,
-      rangeEnd: today,
-      title: "PAST 30 DAYS'",
-    });
+    // Always set date range to last week on mount (UTC)
+    const monday = getMonday();
+    const prevMonday = new Date(monday);
+    prevMonday.setDate(monday.getDate() - 7);
+    setCompanyDates({ weekStart: prevMonday, rangeStart: undefined, rangeEnd: undefined });
 
     setCompanyFilters({ locations: [], teams: [] }); // Reset
   }, []);
