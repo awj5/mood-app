@@ -35,12 +35,7 @@ export default function Company() {
       if (name) setCompany(name);
     })();
 
-    // Always set date range to last week on mount (UTC)
-    const monday = getMonday();
-    const prevMonday = new Date(monday);
-    prevMonday.setDate(monday.getDate() - 7);
-    setCompanyDates({ weekStart: prevMonday, rangeStart: undefined, rangeEnd: undefined });
-
+    setCompanyDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Always set date range to current week on mount (UTC)
     setCompanyFilters({ locations: [], teams: [] }); // Reset
   }, []);
 
