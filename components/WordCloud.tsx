@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useColorScheme, Text, View } from "react-native";
 import * as Device from "expo-device";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import tagsData from "data/tags.json";
 import { CheckInMoodType, CheckInType, CompanyCheckInType } from "types";
@@ -52,7 +53,7 @@ export default function WordCloud(props: WordCloudProps) {
 
     const totalTagCount = Object.values(tagsWithCount).reduce((sum, tag) => sum + tag.count, 0);
 
-    // Get top 20 tags
+    // Get top 16 tags
     const countedWords: WordType[] = Object.values(tagsWithCount)
       .map(({ id, name, count }) => ({
         id,
@@ -61,7 +62,7 @@ export default function WordCloud(props: WordCloudProps) {
         percentage: totalTagCount > 0 ? (count / totalTagCount) * 100 : 0,
       }))
       .sort((a, b) => b.count - a.count)
-      .slice(0, 20);
+      .slice(0, 16);
 
     const shuffled = shuffleArray(countedWords);
     setWords(shuffled);
@@ -75,46 +76,59 @@ export default function WordCloud(props: WordCloudProps) {
         {
           backgroundColor: theme.color.invertedOpaqueBg,
           borderRadius: theme.spacing.base,
-          padding: theme.spacing.small * 2,
-          gap: theme.spacing.base / 2,
-          alignItems: "center",
+          overflow: "hidden",
         },
       ]}
     >
-      <Text
+      <FontAwesome6
+        name="cloud"
+        size={280}
+        color={theme.color.inverted}
         style={{
-          fontFamily: "Circular-Bold",
-          fontSize: theme.fontSize.small,
-          color: theme.color.inverted,
+          position: "absolute",
+          alignSelf: "center",
+          justifySelf: "center",
+          opacity: 0.2,
+          transform: [{ scaleX: 1.1 }, { scaleY: 0.9 }],
         }}
-        allowFontScaling={false}
-      >
-        {props.company ? `${props.company} FEELS...` : "WORK'S BEEN..."}
-      </Text>
+      />
 
-      <View
-        style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "baseline",
-          justifyContent: "center",
-          gap: theme.spacing.base / 4,
-        }}
-      >
-        {words.map((item, index) => (
-          <Text
-            key={item.id}
-            style={{
-              fontFamily: "Circular-Book",
-              color: theme.color.inverted,
-              fontSize: getFontSize(item.percentage),
-              lineHeight: getFontSize(item.percentage),
-            }}
-          >
-            {item.text}
-            {index + 1 !== words.length && ","}
-          </Text>
-        ))}
+      <View style={{ padding: theme.spacing.small * 2, gap: theme.spacing.base / 2, alignItems: "center" }}>
+        <Text
+          style={{
+            fontFamily: "Circular-Bold",
+            fontSize: theme.fontSize.small,
+            color: theme.color.inverted,
+          }}
+          allowFontScaling={false}
+        >
+          {props.company ? `${props.company} FEELS...` : "WORK'S BEEN..."}
+        </Text>
+
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "baseline",
+            justifyContent: "center",
+            gap: theme.spacing.base / 4,
+          }}
+        >
+          {words.map((item, index) => (
+            <Text
+              key={item.id}
+              style={{
+                fontFamily: "Circular-Book",
+                color: theme.color.inverted,
+                fontSize: getFontSize(item.percentage),
+                lineHeight: getFontSize(item.percentage),
+              }}
+            >
+              {item.text}
+              {index + 1 !== words.length && ","}
+            </Text>
+          ))}
+        </View>
       </View>
     </Animated.View>
   );
