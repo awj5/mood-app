@@ -44,9 +44,9 @@ export default function Stats(props: StatsProps) {
       // Range
       start = new Date(props.dates.rangeStart);
       end = new Date(props.dates.rangeEnd);
-      const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1; // Calculate no. of days
+      const daysCount = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1; // Calculate no. of days
 
-      if (days <= 62) {
+      if (daysCount <= 62) {
         // Day view
         for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
           dates.push(new Date(date));
@@ -152,7 +152,7 @@ export default function Stats(props: StatsProps) {
       }); // Stress
     }
 
-    setBusyness(busynessScores.reduce((sum, num) => sum + num, 0) / busynessScores.length); // Average
+    if (busynessScores.length) setBusyness(busynessScores.reduce((sum, num) => sum + num, 0) / busynessScores.length); // Average
     setData(dataItems);
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [props.checkIns, colorScheme]);
