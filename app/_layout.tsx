@@ -85,15 +85,15 @@ export default function Layout() {
             removeStoredVal("send-check-ins"); // Reset
 
             Alert.alert(
-              "You've Gone Pro!",
-              `${response.data} has given you access to their company insights and a MOOD.ai Pro subscription.\n\nBy accepting, you agree to share your check-ins anonymously with ${response.data}.\n\nNeither ${response.data} or MOOD.ai can identify individual check-ins or access your private chats.`,
+              "You're Activated!",
+              `${response.data} has given you access to their company insights and a MOOD.ai Pro subscription.\n\nBy continuing, you agree to share your check-ins anonymously with ${response.data}.\n\nNeither ${response.data} or MOOD.ai can identify individual check-ins or access your private chats.`,
               [
                 {
-                  text: "Reject",
+                  text: "Not now",
                   onPress: () => null,
                 },
                 {
-                  text: "Accept",
+                  text: "Continue",
                   onPress: () => {
                     setStoredVal("uuid", queryParams.uuid as string); // Store UUID
                     if (!deviceUUID) setStoredVal("device-uuid", Crypto.randomUUID()); // Create a UUID for this device if doesn't exist already
