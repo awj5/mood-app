@@ -17,7 +17,6 @@ type ResponseProps = {
   setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusInput: React.Dispatch<React.SetStateAction<boolean>>;
   company?: string;
-  insightsSeen?: boolean;
 };
 
 export default function Response(props: ResponseProps) {
@@ -135,7 +134,6 @@ export default function Response(props: ResponseProps) {
             setShowInput={props.setShowInput}
             setFocusInput={props.setFocusInput}
             company={props.company}
-            insightsSeen={props.insightsSeen}
           />
         ) : null}
       </View>

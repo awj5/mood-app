@@ -2,7 +2,7 @@
   "expo": {
     "name": "MOOD.ai",
     "slug": "mood",
-    "version": "1.0.15",
+    "version": "1.0.16",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon-light.png",

@@ -14,7 +14,6 @@ type ButtonsProps = {
   setShowInput: React.Dispatch<React.SetStateAction<boolean>>;
   setFocusInput: React.Dispatch<React.SetStateAction<boolean>>;
   company?: string;
-  insightsSeen?: boolean;
 };
 
 export default function Buttons(props: ButtonsProps) {
@@ -65,7 +64,7 @@ export default function Buttons(props: ButtonsProps) {
       </View>
 
       {((props.company && !props.message.button && !props.displayedText.includes("?")) ||
-        (props.company && props.message.button === "respond" && !props.insightsSeen)) && (
+        (props.company && props.message.button === "respond")) && (
         <View style={{ alignSelf: "flex-start" }}>
           <Button route="company" icon={ChartSpline}>{`View ${props.company} insights`}</Button>
         </View>

@@ -33,7 +33,6 @@ export default function Chat() {
   const [showInput, setShowInput] = useState(false);
   const [focusInput, setFocusInput] = useState(false);
   const [company, setCompany] = useState("");
-  const [insightsSeen, setInsightsSeen] = useState(false);
 
   const getCheckInHistoryData = async () => {
     try {
@@ -76,7 +75,9 @@ export default function Chat() {
             history?.length === 1 ? "You've just completed your first check-in. Nice one!\n\n" : ""
           }I'm MOOD, I use ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
-          } and emotion science to help you understand your feelings at work, all privately of course.\n\nWhat's your first name?`,
+          } and emotion science to help you understand your feelings at ${
+            company ? company : "work"
+          }, all privately of course.\n\nWhat's your first name?`,
           height: Device.deviceType !== 1 ? 160 : 112,
         },
       ]);
@@ -213,11 +214,9 @@ export default function Chat() {
     }, 500); // Wait for screen transition
 
     (async () => {
-      // Check if user has a company and has view company insights
+      // Check if user has a company
       const companyName = await getStoredVal("company-name");
-      const send = await getStoredVal("send-check-ins");
       if (companyName) setCompany(companyName);
-      if (send) setInsightsSeen(true);
     })();
 
     const didShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -228,7 +227,7 @@ export default function Chat() {
       clearTimeout(timer);
       didShowListener.remove();
     };
-  }, []);
+  }, [company]);
 
   return (
     <KeyboardAvoidingView
@@ -293,7 +292,6 @@ export default function Chat() {
               setShowInput={setShowInput}
               setFocusInput={setFocusInput}
               company={company}
-              insightsSeen={insightsSeen}
             />
           ) : (
             <Message key={index} text={item.content} />
