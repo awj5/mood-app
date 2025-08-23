@@ -178,7 +178,7 @@ export default function Chat() {
       if (chatHistoryRef.current.filter((message) => message.role === "assistant").length >= 2) {
         const aiSummary =
           uuid || proID
-            ? await requestAIResponse("summarize_chat", chatHistoryRef.current, uuid, proID)
+            ? await requestAIResponse("summarize_chat", chatHistoryRef.current.slice(1), uuid, proID)
             : "[NOTE FROM USER]:" + noteRef.current;
 
         if (aiSummary) {
