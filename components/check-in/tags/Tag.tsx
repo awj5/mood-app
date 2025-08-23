@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pressable, Text, useColorScheme } from "react-native";
 import * as Device from "expo-device";
+import * as Haptics from "expo-haptics";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { TagType } from "app/check-in";
 import { getTheme, pressedDefault } from "utils/helpers";
@@ -30,6 +31,7 @@ export default function Tag(props: TagProps) {
       // Add
       props.setSelectedTags([...props.selectedTags, props.tag.id]);
       setSelected(true);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
   };
 
