@@ -102,21 +102,24 @@ export const getPromptCheckIns = (checkIns: CheckInType[] | CompanyCheckInType[]
         busyness = "Steady";
     }
 
-    data.push({
-      date: local.toDateString(),
-      id: checkIn.id,
-      ...(!("mood" in checkIn) && { uuid: checkIn.uuid }), // Is company check-in
-      ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }), // Is user check-in
-      mood: mood.color,
-      feelings: tags,
-      workload: busyness,
-      note:
-        "note" in checkIn && checkIn.note
-          ? checkIn.note.replace("[NOTE FROM USER]:", "")
-          : !("note" in checkIn)
-          ? getStatement(mood.competency, mood.statementResponse, "pos", mood.company)
-          : "",
-    });
+    // Check for ID because demo data will not have one
+    if (checkIn.id) {
+      data.push({
+        date: local.toDateString(),
+        id: checkIn.id,
+        ...(!("mood" in checkIn) && { uuid: checkIn.uuid }), // Is company check-in
+        ...("mood" in checkIn && { time: local.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }) }), // Is user check-in
+        mood: mood.color,
+        feelings: tags,
+        workload: busyness,
+        note:
+          "note" in checkIn && checkIn.note
+            ? checkIn.note.replace("[NOTE FROM USER]:", "")
+            : !("note" in checkIn)
+            ? getStatement(mood.competency, mood.statementResponse, "pos", mood.company)
+            : "",
+      });
+    }
 
     ids.push(checkIn.id);
   }
