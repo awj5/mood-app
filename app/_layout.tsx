@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Dimensions, Alert, Platform, useColorScheme } from "react-native";
-import { Stack, useRouter } from "expo-router";
+import { Stack, useNavigation, useRouter } from "expo-router";
 import * as Network from "expo-network";
 import * as Crypto from "expo-crypto";
 import { useFonts } from "expo-font";
@@ -34,6 +34,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const router = useRouter();
+  const nav = useNavigation();
   const height = Dimensions.get("screen").height;
   const width = Dimensions.get("screen").width;
   const colorScheme = useColorScheme();
@@ -123,6 +124,7 @@ export default function Layout() {
   };
 
   const handleDeepLink = (e: { url: string }) => {
+    if (nav.canGoBack()) router.dismissAll(); // Reset stack
     checkforUUID(e.url);
   };
 
