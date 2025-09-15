@@ -84,7 +84,7 @@ export default function Done(props: DoneProps) {
     // Save check-in to local DB
     try {
       if (manualDate) {
-        const date = "2025-08-12 09:00:00"; // UTC so make time in morning to show same day as Sydney
+        const date = "2025-09-12 07:00:00"; // UTC so make time in morning to show same day as Sydney
 
         await db.runAsync("INSERT INTO check_ins (date, mood) VALUES (?, ?) RETURNING *", [
           date,
