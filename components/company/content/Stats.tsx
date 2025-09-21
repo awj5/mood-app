@@ -158,16 +158,18 @@ export default function Stats(props: StatsProps) {
         </View>
 
         <View style={{ height: chartSize, alignItems: "center", width: "50%" }}>
-          <PieChart
-            data={moodData}
-            donut
-            radius={chartSize / 2}
-            showText
-            font="Circular-Book"
-            textSize={theme.fontSize.xSmall}
-            labelsPosition="outward"
-            innerCircleColor={theme.color.invertedBg}
-          />
+          {moodData.length ? (
+            <PieChart
+              data={moodData}
+              donut
+              radius={chartSize / 2}
+              showText
+              font="Circular-Book"
+              textSize={theme.fontSize.xSmall}
+              labelsPosition="outward"
+              innerCircleColor={theme.color.invertedBg}
+            />
+          ) : null}
         </View>
       </View>
 
