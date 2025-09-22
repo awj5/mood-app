@@ -79,6 +79,7 @@ export default function Layout() {
             !isSimulator ? "https://mood-web-zeta.vercel.app/api/uuid" : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
+              os: Platform.OS,
             }
           );
 
