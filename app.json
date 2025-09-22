@@ -12,7 +12,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.moodplatforms.moodai",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIDesignRequiresCompatibility": true
       },
       "icon": {
         "dark": "./assets/icon-dark.png",
