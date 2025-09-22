@@ -102,7 +102,7 @@ export default function Statement(props: StatementProps) {
     }
 
     if (!competencies.length && companyCompetencies.length) competencies = companyCompetencies; // All available statements for company
-    const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
+    //const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
     const shuffled = shuffleArray(competencies);
     const mostFrequent = getMostCommon(shuffled); // Get most common competency in selected tags
     const competency = competenciesData[0].competencies.filter((item) => item.id === mostFrequent)[0];
@@ -110,8 +110,10 @@ export default function Statement(props: StatementProps) {
 
     props.setCompetency({
       id: competency.id,
-      statement: primaryTagType === "neg" ? competency.negStatement : competency.posStatement,
-      type: primaryTagType,
+      statement: competency.posStatement,
+      type: "pos",
+      //statement: primaryTagType === "neg" ? competency.negStatement : competency.posStatement,
+      //type: primaryTagType,
     });
   };
 
