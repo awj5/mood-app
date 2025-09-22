@@ -55,7 +55,7 @@ export default function Set(props: SetProps) {
           try {
             await Notifications.scheduleNotificationAsync({
               content: {
-                title: "How's work?",
+                title: "How are you feeling?",
                 body: "It's time to check-in.",
                 sound: true,
                 data: { route: "/check-in" },
