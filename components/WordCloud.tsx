@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useColorScheme, Text, View } from "react-native";
 import * as Device from "expo-device";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { Image } from "expo-image";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import tagsData from "data/tags.json";
 import { CheckInMoodType, CheckInType, CompanyCheckInType } from "types";
@@ -28,6 +28,11 @@ export default function WordCloud(props: WordCloudProps) {
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
+
+  const images = {
+    light: require("../assets/img/cloud.svg"),
+    dark: require("../assets/img/cloud-dark.svg"),
+  };
 
   const getFontSize = (percentage: number) => {
     if (percentage >= 20) return theme.fontSize.xxxLarge;
@@ -80,17 +85,20 @@ export default function WordCloud(props: WordCloudProps) {
         },
       ]}
     >
-      <FontAwesome6
-        name="cloud"
-        size={280}
-        color={theme.color.inverted}
+      <Image
+        source={images[colorScheme as "light" | "dark"]}
         style={{
-          position: "absolute",
-          alignSelf: "center",
-          justifySelf: "center",
+          width: "100%",
+          left: Device.deviceType === 1 ? 0 : "50%",
+          marginLeft: Device.deviceType === 1 ? 0 : -240,
+          maxWidth: Device.deviceType === 1 ? undefined : 480,
+          aspectRatio: 1,
           opacity: 0.2,
-          transform: [{ scaleX: 1.1 }, { scaleY: 0.9 }],
+          position: "absolute",
+          bottom: -1, // Avoid tiny gap
         }}
+        contentFit="contain"
+        contentPosition="bottom center"
       />
 
       <View style={{ padding: theme.spacing.small * 2, gap: theme.spacing.base / 2, alignItems: "center" }}>
