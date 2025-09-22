@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, useColorScheme } from "react-native";
+import { View, ScrollView, useColorScheme, Pressable, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton } from "@react-navigation/elements";
 import Name from "components/settings/Name";
@@ -11,7 +12,7 @@ import HeaderTitle from "components/HeaderTitle";
 import Company from "components/settings/Company";
 import Pro from "components/settings/Pro";
 import Support from "components/settings/Support";
-import { getStoredVal, getTheme } from "utils/helpers";
+import { getStoredVal, getTheme, pressedDefault } from "utils/helpers";
 
 export default function Settings() {
   const router = useRouter();
@@ -85,6 +86,43 @@ export default function Settings() {
           </>
         )}
 
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/terms/?iab=1")}
+          style={({ pressed }) => pressedDefault(pressed)}
+          hitSlop={16}
+        >
+          <Text
+            style={{
+              color: theme.color.link,
+              fontFamily: "Circular-Book",
+              fontSize: theme.fontSize.body,
+            }}
+            allowFontScaling={false}
+          >
+            Terms of Use
+          </Text>
+        </Pressable>
+
+        <View style={dividerStyle} />
+
+        <Pressable
+          onPress={() => WebBrowser.openBrowserAsync("https://articles.mood.ai/privacy-policy/?iab=1")}
+          style={({ pressed }) => pressedDefault(pressed)}
+          hitSlop={16}
+        >
+          <Text
+            style={{
+              color: theme.color.link,
+              fontFamily: "Circular-Book",
+              fontSize: theme.fontSize.body,
+            }}
+            allowFontScaling={false}
+          >
+            Privacy Policy
+          </Text>
+        </Pressable>
+
+        <View style={dividerStyle} />
         <Version />
         <View style={dividerStyle} />
       </ScrollView>
