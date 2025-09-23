@@ -29,6 +29,7 @@
       "package": "com.moodplatforms.moodai"
     },
     "plugins": [
+      "expo-android-keyboard-fix",
       "expo-router",
       "expo-localization",
       [
