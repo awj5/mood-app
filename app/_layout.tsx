@@ -76,7 +76,7 @@ export default function Layout() {
         // Validate UUID
         try {
           const response = await axios.post(
-            !isSimulator ? "https://mood-web-zeta.vercel.app/api/uuid" : "http://localhost:3000/api/uuid",
+            !isSimulator ? "https://www.workwithmood.com/api/uuid" : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
               os: Platform.OS,

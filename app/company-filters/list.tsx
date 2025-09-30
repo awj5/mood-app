@@ -33,7 +33,7 @@ export default function List() {
     try {
       const response = await axios.post(
         !isSimulator
-          ? `https://mood-web-zeta.vercel.app/api/${params.title.toLowerCase()}`
+          ? `https://www.workwithmood.com/api/${params.title.toLowerCase()}`
           : `http://localhost:3000/api/${params.title.toLowerCase()}`,
         {
           uuid: uuid,

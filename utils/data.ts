@@ -20,7 +20,7 @@ export const requestAIResponse = async (
 
   try {
     const response = await axios.post(
-      !isSimulator ? "https://mood-web-zeta.vercel.app/api/ai" : "http://localhost:3000/api/ai",
+      !isSimulator ? "https://www.workwithmood.com/api/ai" : "http://localhost:3000/api/ai",
       {
         type: type,
         message: message,

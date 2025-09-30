@@ -56,7 +56,7 @@ export default function Content(props: ContentProps) {
 
     try {
       const response = await axios.post(
-        !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-ins" : "http://localhost:3000/api/check-ins",
+        !isSimulator ? "https://www.workwithmood.com/api/check-ins" : "http://localhost:3000/api/check-ins",
         {
           uuid: uuid,
           start: convertToISO(start),

@@ -34,7 +34,7 @@ export default function Disclaimer(props: DisclaimerProps) {
       // Save to Supabase
       try {
         await axios.post(
-          !isSimulator ? "https://mood-web-zeta.vercel.app/api/check-in" : "http://localhost:3000/api/check-in",
+          !isSimulator ? "https://www.workwithmood.com/api/check-in" : "http://localhost:3000/api/check-in",
           {
             uuid: uuid,
             deviceID: deviceUUID,

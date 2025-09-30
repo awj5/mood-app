@@ -24,7 +24,7 @@ export default function CompanyInsights(props: CompanyInsightsProps) {
   const getStoredInsights = async (hash: string, uuid: string) => {
     try {
       const response = await axios.post(
-        !isSimulator ? "https://mood-web-zeta.vercel.app/api/insights" : "http://localhost:3000/api/insights",
+        !isSimulator ? "https://www.workwithmood.com/api/insights" : "http://localhost:3000/api/insights",
         {
           uuid: uuid,
           hash: hash,
@@ -78,7 +78,7 @@ export default function CompanyInsights(props: CompanyInsightsProps) {
           try {
             await axios.post(
               !isSimulator
-                ? "https://mood-web-zeta.vercel.app/api/insights/save"
+                ? "https://www.workwithmood.com/api/insights/save"
                 : "http://localhost:3000/api/insights/save",
               {
                 uuid: uuid,

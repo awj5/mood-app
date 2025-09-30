@@ -45,7 +45,7 @@ export default function Report(props: ReportProps) {
       try {
         await axios.post(
           !isSimulator
-            ? "https://mood-web-zeta.vercel.app/api/insights/delete"
+            ? "https://www.workwithmood.com/api/insights/delete"
             : "http://localhost:3000/api/insights/delete",
           {
             uuid: uuid,
@@ -90,12 +90,9 @@ export default function Report(props: ReportProps) {
 
     // Send email to team
     try {
-      await axios.post(
-        !isSimulator ? "https://mood-web-zeta.vercel.app/api/report" : "http://localhost:3000/api/report",
-        {
-          text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text, // Redact user's name
-        }
-      );
+      await axios.post(!isSimulator ? "https://www.workwithmood.com/api/report" : "http://localhost:3000/api/report", {
+        text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text, // Redact user's name
+      });
     } catch (error) {
       console.error(error);
     }
