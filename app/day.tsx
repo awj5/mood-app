@@ -47,7 +47,7 @@ export default function Day() {
       setGradientHeight(rows.length * itemHeight + theme.spacing.base * (rows.length - 1)); // Gradient height needs to be fixed
       const checkInColors = [];
 
-      // Get check in colors from check-ins
+      // Get check-in colors from check-ins
       for (const row of rows) {
         const mood: CheckInMoodType = JSON.parse(row.mood);
         const data = MoodsData.filter((item) => item.id === mood.color);
