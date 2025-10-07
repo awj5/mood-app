@@ -29,6 +29,7 @@ export default function Response(props: ResponseProps) {
   const words = props.message.content
     .replace(/\n\n/g, " \n\n") // Handle double linebreaks
     .replace(/(?<!\n)\n(?!\n)/g, " \n") // Handle single linebreaks (exclude doubles)
+    .replace(/\*\*/g, "") // double asterisks (mark up)
     .split(" ");
 
   const colorPress = (name: string) => {

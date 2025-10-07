@@ -72,7 +72,7 @@ export default function Burnout(props: BurnoutProps) {
     }
 
     let total = subTotal + bonus;
-    total = Math.min(Math.max(total, 0), 100); // Clamp 0 – 100
+    total = Math.min(Math.max(total, 0), 100); // Clamp 0 - 100
     setValue(-90 + (180 * total) / 100); // Convert to rotation range
     opacity.value = withTiming(1, { duration: 300, easing: Easing.in(Easing.cubic) });
   }, [JSON.stringify(props.checkIns)]);
