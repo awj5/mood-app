@@ -12,12 +12,12 @@ type ParticipationProps = {
 export default function Participation(props: ParticipationProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const score = props.statsData?.participation ?? 0;
+  const score = Math.round(((props.statsData?.active ?? 0) / (props.statsData?.users ?? 0)) * 100);
 
   // Only show number for admins and managers
   const participation =
     props.role !== "user"
-      ? score + "%"
+      ? `${score}%`
       : score >= 80
       ? "VERY HIGH"
       : score >= 60
@@ -40,18 +40,9 @@ export default function Participation(props: ParticipationProps) {
         alignSelf: "center",
       }}
     >
-      {props.role !== "user" && (
-        <>
-          <Metric data={String(props.statsData?.checkIns)} text="CHECK-INS" />
-          <Metric data={`${String(props.statsData?.active)} of ${String(props.statsData?.users)}`} text="USERS" />
-        </>
-      )}
-
-      <Metric
-        data={participation}
-        text={props.role === "user" ? "PARTICIPATION" : "WEEKLY ACTIVITY"}
-        userView={props.role === "user"}
-      />
+      {props.role !== "user" && <Metric data={String(props.statsData?.checkIns)} text="CHECK-INS" />}
+      <Metric data={participation} text="PARTICIPATION" userView={props.role === "user"} />
+      {props.role !== "user" && <Metric data={`${props.statsData?.participation}%`} text="WEEKLY" />}
     </View>
   );
 }

@@ -35,7 +35,12 @@ export default function Company() {
       if (name) setCompany(name);
     })();
 
-    setCompanyDates({ weekStart: getMonday(), rangeStart: undefined, rangeEnd: undefined }); // Always set date range to current week on mount (UTC)
+    const monday = getMonday();
+    const rangeStart = new Date(monday);
+    rangeStart.setDate(monday.getDate() - 12 * 7); // First Monday
+    const rangeEnd = new Date(monday);
+    rangeEnd.setDate(monday.getDate() - 1); // Last Sunday
+    setCompanyDates({ weekStart: rangeStart, rangeStart: rangeStart, rangeEnd: rangeEnd, title: "PAST 12 WEEKS'" }); // Always set date range to past 12 weeks on mount (UTC)
     setCompanyFilters({ locations: [], teams: [] }); // Reset
   }, []);
 
