@@ -11,6 +11,7 @@ import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as Linking from "expo-linking";
 import { SQLiteProvider } from "expo-sqlite";
+import { ReducedMotionConfig, ReduceMotion } from "react-native-reanimated";
 import axios from "axios";
 import Purchases from "react-native-purchases";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -262,6 +263,7 @@ export default function Layout() {
                       />
                     </Stack>
 
+                    <ReducedMotionConfig mode={ReduceMotion.Never} />
                     <StatusBar style="auto" />
                   </FocusedCategoryContext.Provider>
                 </CompanyFiltersContext.Provider>
