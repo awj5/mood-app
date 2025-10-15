@@ -110,7 +110,7 @@ export default function WordCloud(props: WordCloudProps) {
           }}
           allowFontScaling={false}
         >
-          {props.company ? `${props.company} FEELS...` : "WORK'S BEEN..."}
+          {props.company ? `${props.company} FEELS...` : "WORK FEELS..."}
         </Text>
 
         <View

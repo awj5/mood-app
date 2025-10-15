@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Platform, useColorScheme } from "react-native";
+import { Platform, useColorScheme, Text } from "react-native";
 import * as Device from "expo-device";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
@@ -34,9 +34,22 @@ export default function Busyness(props: BusynessProps) {
         animatedStyles,
         {
           width: Device.deviceType === 1 ? 320 : 384,
+          gap: theme.spacing.base,
         },
       ]}
     >
+      <Text
+        style={{
+          fontFamily: "Circular-Bold",
+          fontSize: theme.fontSize.small,
+          color: props.foreground,
+          alignSelf: "center",
+        }}
+        allowFontScaling={false}
+      >
+        WORK'S BEEN...
+      </Text>
+
       <SegmentedControl
         values={["Slow", "Steady", "Busy", "Maxed"]}
         selectedIndex={props.level}

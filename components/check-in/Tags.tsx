@@ -37,15 +37,19 @@ export default function Tags(props: TagsProps) {
   const loadTags = () => {
     const selectedTags = tagsData.filter((item) => props.selectedTags.includes(item.id)); // Tags that have already been selected
 
+    // If refreshed select all available tags
     const moodTags = tagsData.filter(
       (item) =>
-        (props.tags.includes(item.id) || props.secondaryTags.includes(item.id)) && !props.selectedTags.includes(item.id)
+        (!initRef.current &&
+          (props.tags.includes(item.id) || props.secondaryTags.includes(item.id)) &&
+          !props.selectedTags.includes(item.id)) ||
+        (initRef.current && !props.selectedTags.includes(item.id))
     );
 
     const shuffled = shuffleArray(moodTags);
 
     // Display a balance of pos and neg tags
-    const total = (dimensions.width <= 375 ? 10 : 12) - selectedTags.length; // Show 12 (10 on SE) tags (including already selected)
+    const total = (dimensions.width <= 375 ? 8 : 12) - selectedTags.length; // Show 12 (8 on SE) tags (including already selected)
     let pos = shuffled.filter((item) => item.type === "pos");
     let neg = shuffled.filter((item) => item.type === "neg");
     let nonSelectedTags = [];
@@ -100,7 +104,21 @@ export default function Tags(props: TagsProps) {
     >
       <Busyness foreground={props.foreground} level={props.busyness} setLevel={props.setBusyness} />
 
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: "center", gap: theme.spacing.base }}>
+        <Animated.View style={animatedStyles}>
+          <Text
+            style={{
+              fontFamily: "Circular-Bold",
+              fontSize: theme.fontSize.small,
+              color: props.foreground,
+              alignSelf: "center",
+            }}
+            allowFontScaling={false}
+          >
+            WORK FEELS...
+          </Text>
+        </Animated.View>
+
         <View style={{ gap: theme.spacing.small, flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
           {tags.map((item, index) => (
             <Tag
@@ -115,9 +133,7 @@ export default function Tags(props: TagsProps) {
           ))}
         </View>
 
-        <Animated.View
-          style={[animatedStyles, { position: "absolute", top: "100%", marginTop: theme.spacing.small * 2 }]}
-        >
+        <Animated.View style={[animatedStyles, { position: "absolute", top: "100%", marginTop: theme.spacing.base }]}>
           <Pressable
             onPress={loadTags}
             style={({ pressed }) => [

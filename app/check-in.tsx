@@ -201,7 +201,7 @@ export default function CheckIn() {
           <Heading
             text="How's work?"
             wheelSize={wheelSize}
-            description="Select your workload and at least one word that describes work right now"
+            //description="Select your workload and at least one word that describes work right now"
             delay={500}
             foreground={foregroundColor}
           />
