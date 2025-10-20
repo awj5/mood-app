@@ -104,7 +104,7 @@ export default function Shortcuts(props: ShortcutsProps) {
     const rangeStart = new Date(monday);
     rangeStart.setDate(monday.getDate() - weeks * 7); // First Monday
     const rangeEnd = new Date(monday);
-    rangeEnd.setDate(monday.getDate() - 1); // Last Sunday
+    rangeEnd.setDate(monday.getDate() + 6); // Last Sunday
 
     props.setDates({
       weekStart: rangeStart,

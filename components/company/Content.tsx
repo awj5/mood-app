@@ -168,7 +168,7 @@ export default function Content(props: ContentProps) {
             }}
             allowFontScaling={false}
           >
-            No data found
+            Not enough data yet
           </Text>
         </Animated.View>
       ) : (
