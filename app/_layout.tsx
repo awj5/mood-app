@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Dimensions, Alert, Platform, useColorScheme } from "react-native";
-import { Stack, useNavigation, useRouter } from "expo-router";
+import { Href, Stack, useNavigation, useRouter } from "expo-router";
 import * as Network from "expo-network";
 import * as Crypto from "expo-crypto";
 import { useFonts } from "expo-font";
@@ -176,7 +176,7 @@ export default function Layout() {
     if (layoutReady) {
       const listener = Notifications.addNotificationResponseReceivedListener((response) => {
         const route = response.notification.request.content.data.route;
-        if (route) router.push(route); // Navigate to the route specified in the notification
+        if (route) router.push(route as Href); // Navigate to the route specified in the notification
       });
 
       return () => listener.remove();
@@ -206,13 +206,13 @@ export default function Layout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SQLiteProvider databaseName="mood.db" onInit={initDB}>
-        <LayoutReadyContext.Provider value={{ layoutReady, setLayoutReady }}>
-          <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
-            <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
-              <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
-                <CompanyFiltersContext.Provider value={{ companyFilters, setCompanyFilters }}>
-                  <FocusedCategoryContext.Provider value={{ focusedCategory, setFocusedCategory }}>
+      <LayoutReadyContext.Provider value={{ layoutReady, setLayoutReady }}>
+        <DimensionsContext.Provider value={{ dimensions, setDimensions }}>
+          <HomeDatesContext.Provider value={{ homeDates, setHomeDates }}>
+            <CompanyDatesContext.Provider value={{ companyDates, setCompanyDates }}>
+              <CompanyFiltersContext.Provider value={{ companyFilters, setCompanyFilters }}>
+                <FocusedCategoryContext.Provider value={{ focusedCategory, setFocusedCategory }}>
+                  <SQLiteProvider databaseName="mood.db" onInit={initDB}>
                     <Stack
                       screenOptions={{
                         contentStyle: {
@@ -265,13 +265,13 @@ export default function Layout() {
 
                     <ReducedMotionConfig mode={ReduceMotion.Never} />
                     <StatusBar style="auto" />
-                  </FocusedCategoryContext.Provider>
-                </CompanyFiltersContext.Provider>
-              </CompanyDatesContext.Provider>
-            </HomeDatesContext.Provider>
-          </DimensionsContext.Provider>
-        </LayoutReadyContext.Provider>
-      </SQLiteProvider>
+                  </SQLiteProvider>
+                </FocusedCategoryContext.Provider>
+              </CompanyFiltersContext.Provider>
+            </CompanyDatesContext.Provider>
+          </HomeDatesContext.Provider>
+        </DimensionsContext.Provider>
+      </LayoutReadyContext.Provider>
     </GestureHandlerRootView>
   );
 }

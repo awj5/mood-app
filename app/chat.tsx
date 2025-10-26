@@ -27,7 +27,7 @@ export default function Chat() {
   const scrollViewRef = useRef<ScrollView>(null);
   const chatHistoryRef = useRef<MessageType[]>([]);
   const noteRef = useRef("");
-  const currentCheckInRef = useRef<PromptCheckInType>();
+  const currentCheckInRef = useRef<PromptCheckInType>(null);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [generating, setGenerating] = useState(true);
   const [showInput, setShowInput] = useState(false);

@@ -307,7 +307,7 @@ export default function Stats(props: StatsProps) {
           yAxisLabelWidth={theme.spacing.base * 2.5}
           roundedTop
           roundedBottom
-          yAxisLabelSuffix="%"
+          yAxisLabelTexts={["0%", "25%", "50%", "75%", "100%"]}
           yAxisTextStyle={{
             fontFamily: "Circular-Book",
             fontSize: fontScale >= 1.2 ? theme.fontSize.xxSmall : theme.fontSize.xSmall,

@@ -23,7 +23,7 @@ type InsightsProps = {
 
 export default function Insights(props: InsightsProps) {
   const db = useSQLiteContext();
-  const latestQueryRef = useRef<symbol>();
+  const latestQueryRef = useRef<symbol>(null);
   const [text, setText] = useState("");
   const [dates, setDates] = useState<CalendarDatesType>(props.dates);
   const [isLoading, setIsLoading] = useState(true);

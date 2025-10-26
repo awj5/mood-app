@@ -35,7 +35,7 @@ export default function Content(props: ContentProps) {
   const insets = useSafeAreaInsets();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const latestQueryRef = useRef<symbol>();
+  const latestQueryRef = useRef<symbol>(null);
   const { companyDates } = useContext<CompanyDatesContextType>(CompanyDatesContext);
   const { companyFilters } = useContext<CompanyFiltersContextType>(CompanyFiltersContext);
   const [isOffline, setIsOffline] = useState(false);
