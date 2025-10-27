@@ -16,8 +16,9 @@ type TagsProps = {
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   selectedTags: number[];
   foreground: string;
-  busyness: number;
-  setBusyness: React.Dispatch<React.SetStateAction<number>>;
+  busyness?: number;
+  setBusyness: React.Dispatch<React.SetStateAction<number | undefined>>;
+  background: string;
 };
 
 export default function Tags(props: TagsProps) {
@@ -167,7 +168,11 @@ export default function Tags(props: TagsProps) {
         </Animated.View>
       </View>
 
-      <StatusBar style={props.foreground === "white" ? "light" : "dark"} />
+      <StatusBar
+        style={props.foreground === "white" ? "light" : "dark"}
+        translucent={false}
+        backgroundColor={props.background}
+      />
     </View>
   );
 }

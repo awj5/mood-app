@@ -5,6 +5,7 @@ import { Stack, useFocusEffect, useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import * as Device from "expo-device";
 import { getLocales } from "expo-localization";
+import { StatusBar } from "expo-status-bar";
 import axios from "axios";
 import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import MoodsData from "data/moods.json";
@@ -14,7 +15,7 @@ import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
-import Instructions from "components/check-in/Instructions";
+//import Instructions from "components/check-in/Instructions";
 import Heading from "components/check-in/Heading";
 import Next from "components/check-in/Next";
 import Close from "components/check-in/Close";
@@ -23,7 +24,7 @@ import Done from "components/check-in/Done";
 import Statement from "components/check-in/Statement";
 import BackgroundOverlay from "components/check-in/BackgroundOverlay";
 import { CheckInType } from "types";
-import { getStoredVal, removeAccess, removeStoredVal } from "utils/helpers";
+import { getStoredVal, getTheme, removeAccess, removeStoredVal } from "utils/helpers";
 
 export type MoodType = {
   id: number;
@@ -48,6 +49,7 @@ export type CompetencyType = {
 
 export default function CheckIn() {
   const colorScheme = useColorScheme();
+  const theme = getTheme(colorScheme);
   const db = useSQLiteContext();
   const router = useRouter();
   const localization = getLocales();
@@ -61,7 +63,7 @@ export default function CheckIn() {
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const [busyness, setBusyness] = useState(1);
+  const [busyness, setBusyness] = useState<number | undefined>(1);
   const [foregroundColor, setForegroundColor] = useState("");
   const [selectedMood, setSelectedMood] = useState<MoodType>({
     id: 0,
@@ -222,6 +224,7 @@ export default function CheckIn() {
             foreground={foregroundColor}
             busyness={busyness}
             setBusyness={setBusyness}
+            background={selectedMood.color}
           />
 
           {showStatement && (
@@ -236,6 +239,7 @@ export default function CheckIn() {
                 selectedTags={selectedTags}
                 mood={selectedMood}
                 busyness={busyness}
+                setBusyness={setBusyness}
                 competency={competency}
               />
 
@@ -259,6 +263,8 @@ export default function CheckIn() {
           />
         </>
       )}
+
+      <StatusBar style="auto" translucent={false} backgroundColor={theme.color.inverted} />
     </View>
   );
 }

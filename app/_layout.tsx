@@ -264,7 +264,7 @@ export default function Layout() {
                     </Stack>
 
                     <ReducedMotionConfig mode={ReduceMotion.Never} />
-                    <StatusBar style="auto" />
+                    <StatusBar style="auto" translucent={false} backgroundColor={theme.color.primaryBg} />
                   </SQLiteProvider>
                 </FocusedCategoryContext.Provider>
               </CompanyFiltersContext.Provider>

@@ -303,7 +303,7 @@ export default function Chat() {
         setFocusInput={setFocusInput}
       />
 
-      <StatusBar style="auto" />
+      <StatusBar style="auto" translucent={false} backgroundColor={theme.color.primaryBg} />
     </KeyboardAvoidingView>
   );
 }

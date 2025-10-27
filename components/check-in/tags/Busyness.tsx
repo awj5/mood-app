@@ -7,8 +7,8 @@ import { getTheme } from "utils/helpers";
 
 type BusynessProps = {
   foreground: string;
-  level: number;
-  setLevel: React.Dispatch<React.SetStateAction<number>>;
+  level?: number;
+  setLevel: React.Dispatch<React.SetStateAction<number | undefined>>;
 };
 
 export default function Busyness(props: BusynessProps) {
@@ -50,21 +50,23 @@ export default function Busyness(props: BusynessProps) {
         WORK'S BEEN...
       </Text>
 
-      <SegmentedControl
-        values={["Slow", "Steady", "Busy", "Maxed"]}
-        selectedIndex={props.level}
-        onChange={(e) => props.setLevel(e.nativeEvent.selectedSegmentIndex)}
-        fontStyle={{ fontFamily: "Circular-Medium", fontSize: theme.fontSize.body }}
-        appearance={
-          Platform.OS === "android"
-            ? props.foreground === "white"
-              ? "light"
-              : "dark"
-            : props.foreground === "white"
-            ? "dark"
-            : "light"
-        }
-      />
+      {props.level !== undefined && (
+        <SegmentedControl
+          values={["Slow", "Steady", "Busy", "Maxed"]}
+          selectedIndex={props.level}
+          onChange={(e) => props.setLevel(e.nativeEvent.selectedSegmentIndex)}
+          fontStyle={{ fontFamily: "Circular-Medium", fontSize: theme.fontSize.body }}
+          appearance={
+            Platform.OS === "android"
+              ? props.foreground === "white"
+                ? "light"
+                : "dark"
+              : props.foreground === "white"
+              ? "dark"
+              : "light"
+          }
+        />
+      )}
     </Animated.View>
   );
 }

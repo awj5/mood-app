@@ -101,7 +101,7 @@ export default function Category() {
 
       <Bg checkIns={JSON.parse(params.checkIns)} />
 
-      <View style={{ marginTop: Platform.OS === "android" ? 106 : headerHeight, flex: 1 }}>
+      <View style={{ marginTop: headerHeight, flex: 1 }}>
         <ScrollView
           contentContainerStyle={{
             padding: theme.spacing.base,
