@@ -1,4 +1,5 @@
 import { View, Text, useColorScheme, Linking } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { ChartSpline, Info } from "lucide-react-native";
 import Button from "components/Button";
 import { getTheme } from "utils/helpers";
@@ -65,6 +66,8 @@ export default function Upsell() {
           </Button>
         </View>
       </View>
+
+      <StatusBar style="auto" translucent={false} backgroundColor={theme.color.secondaryBg} />
     </View>
   );
 }

@@ -3,6 +3,7 @@ import { ScrollView, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
+import { StatusBar } from "expo-status-bar";
 import { useSQLiteContext } from "expo-sqlite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -152,6 +153,8 @@ export default function Day() {
           }}
         />
       ) : null}
+
+      <StatusBar style="light" translucent={false} backgroundColor="black" />
     </>
   );
 }
