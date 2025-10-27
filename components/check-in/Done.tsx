@@ -18,7 +18,6 @@ type DoneProps = {
   selectedTags: number[];
   mood: MoodType;
   busyness?: number;
-  setBusyness: React.Dispatch<React.SetStateAction<number | undefined>>;
   competency: CompetencyType;
 };
 
@@ -95,7 +94,6 @@ export default function Done(props: DoneProps) {
         await db.runAsync("INSERT INTO check_ins (mood) VALUES (?) RETURNING *", [JSON.stringify(value)]);
       }
 
-      props.setBusyness(undefined);
       router.push("chat");
       postCheckIn(value);
     } catch (error) {

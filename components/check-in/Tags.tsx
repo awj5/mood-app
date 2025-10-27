@@ -16,8 +16,8 @@ type TagsProps = {
   setSelectedTags: React.Dispatch<React.SetStateAction<number[]>>;
   selectedTags: number[];
   foreground: string;
-  busyness?: number;
-  setBusyness: React.Dispatch<React.SetStateAction<number | undefined>>;
+  busyness: number;
+  setBusyness: React.Dispatch<React.SetStateAction<number>>;
   background: string;
 };
 

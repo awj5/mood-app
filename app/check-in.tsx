@@ -63,7 +63,7 @@ export default function CheckIn() {
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const [busyness, setBusyness] = useState<number | undefined>(1);
+  const [busyness, setBusyness] = useState(1);
   const [foregroundColor, setForegroundColor] = useState("");
   const [selectedMood, setSelectedMood] = useState<MoodType>({
     id: 0,
@@ -239,7 +239,6 @@ export default function CheckIn() {
                 selectedTags={selectedTags}
                 mood={selectedMood}
                 busyness={busyness}
-                setBusyness={setBusyness}
                 competency={competency}
               />
 

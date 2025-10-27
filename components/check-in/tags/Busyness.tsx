@@ -1,19 +1,21 @@
 import { useEffect } from "react";
 import { Platform, useColorScheme, Text } from "react-native";
 import * as Device from "expo-device";
+import { useIsFocused } from "@react-navigation/native";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { getTheme } from "utils/helpers";
 
 type BusynessProps = {
   foreground: string;
-  level?: number;
-  setLevel: React.Dispatch<React.SetStateAction<number | undefined>>;
+  level: number;
+  setLevel: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Busyness(props: BusynessProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const isFocused = useIsFocused();
   const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -50,7 +52,7 @@ export default function Busyness(props: BusynessProps) {
         WORK'S BEEN...
       </Text>
 
-      {props.level !== undefined && (
+      {isFocused && (
         <SegmentedControl
           values={["Slow", "Steady", "Busy", "Maxed"]}
           selectedIndex={props.level}
