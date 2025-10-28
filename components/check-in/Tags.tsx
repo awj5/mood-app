@@ -18,6 +18,7 @@ type TagsProps = {
   foreground: string;
   busyness: number;
   setBusyness: React.Dispatch<React.SetStateAction<number>>;
+  background: string;
 };
 
 export default function Tags(props: TagsProps) {
@@ -167,7 +168,11 @@ export default function Tags(props: TagsProps) {
         </Animated.View>
       </View>
 
-      <StatusBar style={props.foreground === "white" ? "light" : "dark"} />
+      <StatusBar
+        style={props.foreground === "white" ? "light" : "dark"}
+        translucent={false}
+        backgroundColor={props.background}
+      />
     </View>
   );
 }

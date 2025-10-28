@@ -26,7 +26,8 @@ export default function Statement(props: StatementProps) {
     //const primaryTagType = getMostCommon(tagTypes); // Determine if pos or neg statement should be shown
     //const response = primaryTagType === "neg" ? 1 - props.mood.statementResponse : props.mood.statementResponse;
     //setStatement(getStatement(props.mood.competency, response, primaryTagType, props.mood.company));
-    setStatement(getStatement(props.mood.competency, props.mood.statementResponse, "pos", props.mood.company));
+    if (props.mood.competency)
+      setStatement(getStatement(props.mood.competency, props.mood.statementResponse, "pos", props.mood.company));
   }, []);
 
   return (

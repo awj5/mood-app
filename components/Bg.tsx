@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { View, StyleSheet, LayoutChangeEvent, useColorScheme, Platform } from "react-native";
+import { View, StyleSheet, LayoutChangeEvent, useColorScheme } from "react-native";
 import { BlurView } from "expo-blur";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useFocusEffect } from "@react-navigation/native";
@@ -26,8 +26,7 @@ export default function Bg(props: BgProps) {
   const indexRef = useRef(0);
   const stepRef = useRef(0);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 0, height: 0 });
-  const trueHeaderHeight = Platform.OS === "android" ? 106 : headerHeight;
-  const top = props.topOffset ? trueHeaderHeight + props.topOffset : trueHeaderHeight;
+  const top = props.topOffset ? headerHeight + props.topOffset : headerHeight;
   const animationDuration = 3000;
 
   const gradientColors = useDerivedValue(() => {

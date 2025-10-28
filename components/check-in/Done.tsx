@@ -17,7 +17,7 @@ type DoneProps = {
   wheelSize: number;
   selectedTags: number[];
   mood: MoodType;
-  busyness: number;
+  busyness?: number;
   competency: CompetencyType;
 };
 
@@ -73,7 +73,7 @@ export default function Done(props: DoneProps) {
 
     const value: CheckInMoodType = {
       color: props.mood.id,
-      busyness: props.busyness,
+      busyness: props.busyness || 1,
       tags: props.selectedTags,
       competency: props.competency.id,
       statementResponse:

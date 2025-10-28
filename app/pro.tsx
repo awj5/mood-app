@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Pressable, Text, View, Platform, ScrollView, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import * as Device from "expo-device";
+import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import IAP from "components/pro/IAP";
@@ -66,7 +67,7 @@ export default function Pro() {
       />
 
       <ScrollView
-        style={{ marginTop: Platform.OS === "android" ? 106 : headerHeight }}
+        style={{ marginTop: headerHeight }}
         contentContainerStyle={{
           padding: theme.spacing.base,
           paddingTop: Device.deviceType === 1 ? theme.spacing.base : 0,
@@ -103,6 +104,7 @@ export default function Pro() {
       </ScrollView>
 
       <IAP loading={loading} setLoading={setLoading} />
+      <StatusBar style="light" translucent={false} backgroundColor="black" />
     </View>
   );
 }

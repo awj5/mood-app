@@ -15,7 +15,7 @@ type CompanyInsightsProps = {
 };
 
 export default function CompanyInsights(props: CompanyInsightsProps) {
-  const latestQueryRef = useRef<symbol>();
+  const latestQueryRef = useRef<symbol>(null);
   const [text, setText] = useState("");
   const [dates, setDates] = useState<CalendarDatesType>(props.dates);
   const [isLoading, setIsLoading] = useState(true);

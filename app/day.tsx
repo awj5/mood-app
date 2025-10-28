@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Platform, ScrollView, useColorScheme, View } from "react-native";
+import { ScrollView, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
+import { StatusBar } from "expo-status-bar";
 import { useSQLiteContext } from "expo-sqlite";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -30,7 +31,6 @@ export default function Day() {
   const date = new Date(iso);
   const title = date.toDateString();
   const itemHeight = Device.deviceType === 1 ? 384 : 448;
-  const trueHeaderHeight = Platform.OS === "android" ? 106 : headerHeight;
 
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -105,7 +105,7 @@ export default function Day() {
         >
           {/* Gradient background */}
           <View style={{ position: "absolute", width: "100%" }}>
-            <View style={{ height: trueHeaderHeight + theme.spacing.base, backgroundColor: gradientColors[0] }} />
+            <View style={{ height: headerHeight + theme.spacing.base, backgroundColor: gradientColors[0] }} />
 
             {gradientColors.length > 1 && gradientColors.length === gradientLocations.length && (
               <LinearGradient
@@ -119,7 +119,7 @@ export default function Day() {
           {/* Check-ins */}
           <View
             style={{
-              marginTop: trueHeaderHeight,
+              marginTop: headerHeight,
               padding: theme.spacing.base,
               paddingBottom: 0,
               gap: theme.spacing.base,
@@ -147,12 +147,14 @@ export default function Day() {
           intensity={50}
           tint={colorScheme as "light" | "dark"}
           style={{
-            height: trueHeaderHeight,
+            height: headerHeight,
             position: "absolute",
             width: "100%",
           }}
         />
       ) : null}
+
+      <StatusBar style="light" translucent={false} backgroundColor="black" />
     </>
   );
 }

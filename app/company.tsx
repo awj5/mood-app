@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Platform, View, useColorScheme } from "react-native";
+import { View, useColorScheme } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { Settings2 } from "lucide-react-native";
@@ -75,7 +75,7 @@ export default function Company() {
         <>
           <Bg checkIns={checkIns} />
 
-          <View style={{ flex: 1, marginTop: Platform.OS === "android" ? 106 : headerHeight }}>
+          <View style={{ flex: 1, marginTop: headerHeight }}>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
               <HeaderTitle text={company} />
 

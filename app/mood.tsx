@@ -1,6 +1,7 @@
 import { Pressable, Text, View, ScrollView, Platform, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Image } from "expo-image";
+import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderBackButton } from "@react-navigation/elements";
 import MoodsData from "data/moods.json";
@@ -148,6 +149,8 @@ export default function Mood() {
 
         {widgets}
       </ScrollView>
+
+      <StatusBar style={foreground === "white" ? "light" : "dark"} translucent={false} backgroundColor={mood.color} />
     </View>
   );
 }

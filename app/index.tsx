@@ -26,9 +26,9 @@ export default function Home() {
   const db = useSQLiteContext();
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
-  const todayRef = useRef<Date>();
+  const todayRef = useRef<Date>(null);
   const reminderSeenRef = useRef(false);
-  const latestQueryRef = useRef<symbol>();
+  const latestQueryRef = useRef<symbol>(null);
   const { setLayoutReady } = useContext<LayoutReadyContextType>(LayoutReadyContext);
   const { homeDates } = useContext<HomeDatesContextType>(HomeDatesContext);
   const [reminderVisible, setReminderVisible] = useState(false);
@@ -169,7 +169,7 @@ export default function Home() {
 
       <Bg checkIns={checkIns} topOffset={calendarHeight} />
 
-      <View style={{ flex: 1, marginTop: Platform.OS === "android" ? 106 : headerHeight }}>
+      <View style={{ flex: 1, marginTop: headerHeight }}>
         <Calendar height={calendarHeight} appState={appState} />
         <Content checkIns={checkIns} noCheckInToday={noCheckInToday} />
       </View>
