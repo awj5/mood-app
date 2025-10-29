@@ -38,13 +38,13 @@ export default function Tags(props: TagsProps) {
   const loadTags = () => {
     const selectedTags = tagsData.filter((item) => props.selectedTags.includes(item.id)); // Tags that have already been selected
 
-    // If refreshed select all available tags
+    // If refreshed select all available active tags
     const moodTags = tagsData.filter(
       (item) =>
         (!initRef.current &&
           (props.tags.includes(item.id) || props.secondaryTags.includes(item.id)) &&
           !props.selectedTags.includes(item.id)) ||
-        (initRef.current && !props.selectedTags.includes(item.id))
+        (initRef.current && !props.selectedTags.includes(item.id) && item.active)
     );
 
     const shuffled = shuffleArray(moodTags);
