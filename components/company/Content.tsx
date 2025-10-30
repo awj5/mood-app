@@ -42,6 +42,7 @@ export default function Content(props: ContentProps) {
   const [role, setRole] = useState("");
   const [statsData, setStatsData] = useState<StatsDataType>();
   const [availableCategories, setAvailableCategories] = useState([]);
+  const [focusedCategory, setFocusedCategory] = useState(0);
   const isSimulator = Device.isDevice === false;
 
   const getCheckInData = async (uuid: string) => {
@@ -91,6 +92,7 @@ export default function Content(props: ContentProps) {
 
       if (latestQueryRef.current === currentQuery) {
         if (data && data.categories) setAvailableCategories(data.categories); // Categories
+        if (data && data.focused) setFocusedCategory(data.focused); // Focused category
 
         // Assign user's role
         if (data && data.role) {
@@ -128,7 +130,12 @@ export default function Content(props: ContentProps) {
           <Stats checkIns={props.checkIns} role={role} statsData={statsData} />
           <Note />
           {role !== "user" && <WordCloud checkIns={props.checkIns} company={props.company.toUpperCase()} />}
-          <Categories checkIns={props.checkIns} availableCategories={availableCategories} role={role} />
+          <Categories
+            checkIns={props.checkIns}
+            availableCategories={availableCategories}
+            role={role}
+            focusedCategory={focusedCategory}
+          />
         </>
       ) : isOffline ? (
         <View style={{ gap: theme.spacing.base / 4, alignItems: "center" }}>

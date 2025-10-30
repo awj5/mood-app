@@ -4,6 +4,7 @@ import { getTheme } from "utils/helpers";
 type HeaderProps = {
   title: string;
   icon: React.ElementType;
+  focused: boolean;
 };
 
 export default function Header(props: HeaderProps) {
@@ -16,7 +17,7 @@ export default function Header(props: HeaderProps) {
       <Text
         style={{
           fontSize: theme.fontSize.xSmall,
-          color: theme.color.primary,
+          color: props.focused ? theme.color.inverted : theme.color.primary,
           fontFamily: "Circular-Bold",
           textTransform: "uppercase",
           flex: 1,
@@ -27,7 +28,7 @@ export default function Header(props: HeaderProps) {
       </Text>
 
       <Icon
-        color={theme.color.primary}
+        color={props.focused ? theme.color.inverted : theme.color.primary}
         size={theme.icon.large.size}
         absoluteStrokeWidth
         strokeWidth={theme.icon.large.stroke}

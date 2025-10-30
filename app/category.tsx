@@ -1,10 +1,9 @@
 import { useContext } from "react";
-import { View, Text, ScrollView, Platform, useColorScheme } from "react-native";
+import { View, Text, ScrollView, useColorScheme } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { HeaderBackButton, useHeaderHeight } from "@react-navigation/elements";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
-  LucideIcon,
   Compass,
   Waves,
   Users,
@@ -28,17 +27,7 @@ import About from "components/category/About";
 import Sentiment from "components/category/Sentiment";
 import Role from "components/Role";
 import Statements from "components/category/Statements";
-import { CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
-
-export type CategoryType = {
-  id: number;
-  title: string;
-  icon: LucideIcon;
-  score: number;
-  trend: string;
-  checkIns: CompanyCheckInType[];
-};
 
 export default function Category() {
   const params = useLocalSearchParams<{

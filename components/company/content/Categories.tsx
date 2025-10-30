@@ -16,18 +16,28 @@ import {
   Gavel,
   HeartPulse,
   Lightbulb,
+  LucideIcon,
 } from "lucide-react-native";
 import competenciesData from "data/competencies.json";
-import { CategoryType } from "app/category";
 import Category from "./categories/Category";
 import { CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
 import { groupCheckIns } from "utils/data";
 
+export type CategoryType = {
+  id: number;
+  title: string;
+  icon: LucideIcon;
+  score: number;
+  trend: string;
+  checkIns: CompanyCheckInType[];
+};
+
 type CategoriesProps = {
   checkIns: CompanyCheckInType[];
   availableCategories: number[];
   role: string;
+  focusedCategory: number;
 };
 
 export default function Categories(props: CategoriesProps) {
@@ -115,7 +125,17 @@ export default function Categories(props: CategoriesProps) {
       });
     });
 
-    categories.sort((a, b) => b.score - a.score); // Sort by score in descending order
+    // Focused category first then order by highest score
+    if (props.role !== "admin") {
+      categories.sort((a, b) => {
+        if (a.id === props.focusedCategory) return -1;
+        if (b.id === props.focusedCategory) return 1;
+        return b.score - a.score;
+      });
+    } else {
+      categories.sort((a, b) => b.score - a.score);
+    }
+
     setCategoriesData(categories);
   }, [JSON.stringify(props.checkIns)]);
 
@@ -125,7 +145,12 @@ export default function Categories(props: CategoriesProps) {
       style={{ gap: theme.spacing.base, flexDirection: "row", flexWrap: "wrap" }}
     >
       {categoriesData?.map((item) => (
-        <Category key={item.id} data={item} role={props.role} />
+        <Category
+          key={item.id}
+          data={item}
+          role={props.role}
+          focused={item.id === props.focusedCategory && props.role !== "admin"}
+        />
       ))}
     </Animated.View>
   );

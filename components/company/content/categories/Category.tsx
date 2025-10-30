@@ -2,15 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import { TrendingUp, TrendingDown, MoveRight } from "lucide-react-native";
+import { TrendingUp, TrendingDown, MoveRight, ClockFading } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
-import { CategoryType } from "app/category";
 import Header from "./category/Header";
+import { CategoryType } from "../Categories";
 import { getSentimentRange, getTheme, pressedDefault } from "utils/helpers";
 
 type CategoryProps = {
   data: CategoryType;
   role: string;
+  focused: boolean;
 };
 
 export default function Category(props: CategoryProps) {
@@ -19,9 +20,17 @@ export default function Category(props: CategoryProps) {
   const theme = getTheme(colorScheme);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [score, setScore] = useState(0);
-  const Icon =
-    props.data.trend === "increasing" ? TrendingUp : props.data.trend === "decreasing" ? TrendingDown : MoveRight;
+
+  const Icon = props.focused
+    ? ClockFading
+    : props.data.trend === "increasing"
+    ? TrendingUp
+    : props.data.trend === "decreasing"
+    ? TrendingDown
+    : MoveRight;
+
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
+  const textBased = props.role === "user" || props.focused;
 
   const press = () => {
     router.push({
@@ -65,46 +74,49 @@ export default function Category(props: CategoryProps) {
         {
           width: (parentWidth - theme.spacing.base * 3) / 2, // 2 columns
           aspectRatio: Device.deviceType === 1 ? "4/4" : "3/2",
-          backgroundColor: theme.color.opaqueBg,
+          backgroundColor: props.focused ? theme.color.invertedOpaqueBg : theme.color.opaqueBg,
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
           justifyContent: "space-between",
+          borderWidth: props.focused ? theme.stroke : 0,
+          borderColor: theme.color.inverted,
         },
       ]}
       hitSlop={8}
+      disabled={props.focused}
     >
-      <Header title={props.data.title} icon={props.data.icon} />
+      <Header title={props.data.title} icon={props.data.icon} focused={props.focused} />
 
-      <View style={{ gap: theme.spacing.base / 4 }}>
+      <View style={{ gap: theme.spacing.base / (props.focused ? 2 : 4) }}>
         <Icon
-          color={theme.color.primary}
+          color={props.focused ? theme.color.inverted : theme.color.primary}
           size={theme.icon.large.size}
           absoluteStrokeWidth
           strokeWidth={theme.icon.large.stroke}
         />
 
-        <View style={{ gap: props.role === "user" ? theme.spacing.base / 4 : 0 }}>
+        <View style={{ gap: textBased ? theme.spacing.base / 4 : 0 }}>
           <Text
             style={{
               fontFamily: "Circular-Bold",
-              color: theme.color.primary,
-              fontSize: props.role === "user" ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
-              lineHeight: props.role === "user" ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
+              color: props.focused ? theme.color.inverted : theme.color.primary,
+              fontSize: textBased ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
+              lineHeight: textBased ? theme.fontSize.xLarge : theme.fontSize.xxxLarge,
             }}
             allowFontScaling={false}
           >
-            {props.role === "user" ? getSentimentRange(props.data.score) : `${score}%`}
+            {props.focused ? "In focus" : props.role === "user" ? getSentimentRange(props.data.score) : `${score}%`}
           </Text>
 
           <Text
             style={{
               fontFamily: "Circular-Book",
-              color: theme.color.opaque,
+              color: props.focused ? theme.color.invertedOpaque : theme.color.opaque,
               fontSize: theme.fontSize.xxSmall,
             }}
             allowFontScaling={false}
           >
-            SENTIMENT INDEX
+            {props.focused ? "RESULTS SOON" : "SENTIMENT INDEX"}
           </Text>
         </View>
       </View>
