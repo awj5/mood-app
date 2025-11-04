@@ -20,6 +20,7 @@ import {
 } from "lucide-react-native";
 import competenciesData from "data/competencies.json";
 import Category from "./categories/Category";
+import { StatsDataType } from "../Content";
 import { CompanyCheckInType } from "types";
 import { getTheme } from "utils/helpers";
 import { groupCheckIns } from "utils/data";
@@ -38,6 +39,7 @@ type CategoriesProps = {
   availableCategories: number[];
   role: string;
   focusedCategory: number;
+  statsData?: StatsDataType;
 };
 
 export default function Categories(props: CategoriesProps) {
@@ -115,14 +117,22 @@ export default function Categories(props: CategoriesProps) {
 
       const trend = increases > decreases ? "increasing" : decreases > increases ? "decreasing" : "stable";
 
-      categories.push({
-        id: Number(key),
-        title: category.title,
-        icon: icons[category.icon as keyof typeof icons],
-        score: score,
-        trend: trend,
-        checkIns: value,
-      });
+      // Only show category if at least 25% of total users contributed
+      if (
+        props.statsData &&
+        (props.focusedCategory === category.id ||
+          props.statsData.demo ||
+          Object.entries(groupedCheckIns).length >= props.statsData.active / 4)
+      ) {
+        categories.push({
+          id: Number(key),
+          title: category.title,
+          icon: icons[category.icon as keyof typeof icons],
+          score: score,
+          trend: trend,
+          checkIns: value,
+        });
+      }
     });
 
     // Focused category first then order by highest score

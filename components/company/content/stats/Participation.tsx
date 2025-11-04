@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import { Text, useColorScheme, View } from "react-native";
 import * as Device from "expo-device";
 import { Hand } from "lucide-react-native";
+import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import { StatsDataType } from "components/company/Content";
 import { getTheme } from "utils/helpers";
 
@@ -12,6 +14,7 @@ type ParticipationProps = {
 export default function Participation(props: ParticipationProps) {
   const colorScheme = useColorScheme();
   const theme = getTheme(colorScheme);
+  const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const score = Math.round(((props.statsData?.active ?? 0) / (props.statsData?.users ?? 0)) * 100);
 
   // Only show number for admins and managers
@@ -42,7 +45,13 @@ export default function Participation(props: ParticipationProps) {
     >
       {props.role !== "user" && <Metric data={String(props.statsData?.checkIns)} text="CHECK-INS" />}
       <Metric data={participation} text="PARTICIPATION" userView={props.role === "user"} />
-      {props.role !== "user" && <Metric data={`${props.statsData?.participation}%`} text="WEEKLY" />}
+
+      {props.role !== "user" && (
+        <Metric
+          data={`${Math.round(((props.statsData?.active ?? 0) / (props.statsData?.activated ?? 0)) * 100)}%`}
+          text={`ACTIVATED${dimensions.width > 375 ? " USERS" : ""}`}
+        />
+      )}
     </View>
   );
 }

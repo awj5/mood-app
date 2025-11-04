@@ -23,6 +23,8 @@ export type StatsDataType = {
   active: number;
   users: number;
   participation: number;
+  activated: number;
+  demo: boolean;
 };
 
 type ContentProps = {
@@ -135,6 +137,7 @@ export default function Content(props: ContentProps) {
             availableCategories={availableCategories}
             role={role}
             focusedCategory={focusedCategory}
+            statsData={statsData}
           />
         </>
       ) : isOffline ? (
