@@ -1,6 +1,6 @@
 import { Text, useColorScheme, View } from "react-native";
 import * as Device from "expo-device";
-import { Activity } from "lucide-react-native";
+import { Hand } from "lucide-react-native";
 import { StatsDataType } from "components/company/Content";
 import { getTheme } from "utils/helpers";
 
@@ -60,7 +60,7 @@ function Metric(props: MetricProps) {
   return (
     <View style={{ gap: theme.spacing.small / 2, flexDirection: "row", alignItems: "center" }}>
       {props.userView && (
-        <Activity
+        <Hand
           color={theme.color.inverted}
           size={theme.icon.small.size}
           absoluteStrokeWidth

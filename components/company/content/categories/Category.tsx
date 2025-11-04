@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import { TrendingUp, TrendingDown, MoveRight, ClockFading } from "lucide-react-native";
+import { TrendingUp, TrendingDown, MoveRight, Activity } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import Header from "./category/Header";
 import { CategoryType } from "../Categories";
@@ -20,17 +20,17 @@ export default function Category(props: CategoryProps) {
   const theme = getTheme(colorScheme);
   const { dimensions } = useContext<DimensionsContextType>(DimensionsContext);
   const [score, setScore] = useState(0);
+  const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
+  const focusedUser = props.focused && props.role !== "admin";
+  const textBased = props.role === "user" || focusedUser;
 
-  const Icon = props.focused
-    ? ClockFading
+  const Icon = focusedUser
+    ? Activity
     : props.data.trend === "increasing"
     ? TrendingUp
     : props.data.trend === "decreasing"
     ? TrendingDown
     : MoveRight;
-
-  const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
-  const textBased = props.role === "user" || props.focused;
 
   const press = () => {
     router.push({
@@ -78,16 +78,14 @@ export default function Category(props: CategoryProps) {
           borderRadius: theme.spacing.base,
           padding: theme.spacing.base,
           justifyContent: "space-between",
-          borderWidth: props.focused ? theme.stroke : 0,
-          borderColor: theme.color.inverted,
         },
       ]}
       hitSlop={8}
-      disabled={props.focused}
+      disabled={focusedUser}
     >
       <Header title={props.data.title} icon={props.data.icon} focused={props.focused} />
 
-      <View style={{ gap: theme.spacing.base / (props.focused ? 2 : 4) }}>
+      <View style={{ gap: theme.spacing.base / (focusedUser ? 2 : 4) }}>
         <Icon
           color={props.focused ? theme.color.inverted : theme.color.primary}
           size={theme.icon.large.size}
@@ -105,7 +103,7 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {props.focused ? "In focus" : props.role === "user" ? getSentimentRange(props.data.score) : `${score}%`}
+            {focusedUser ? "Pulse active" : props.role === "user" ? getSentimentRange(props.data.score) : `${score}%`}
           </Text>
 
           <Text
@@ -116,7 +114,7 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {props.focused ? "RESULTS SOON" : "SENTIMENT INDEX"}
+            {focusedUser ? "RESULTS PENDING" : props.focused ? "PULSE ACTIVE" : "SENTIMENT INDEX"}
           </Text>
         </View>
       </View>

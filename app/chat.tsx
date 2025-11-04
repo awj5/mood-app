@@ -73,11 +73,11 @@ export default function Chat() {
           role: "assistant",
           content: `${
             history?.length === 1 ? "You've just completed your first check-in. Nice one!\n\n" : ""
-          }I'm MOOD, I use ${
+          }I'm MOOD AI, I use ${
             localization[0].languageTag === "en-US" ? "color" : "colour"
           } and emotion science to help you understand your feelings at ${
             company ? company : "work"
-          }, all privately of course.\n\nWhat's your first name?`,
+          }, all privately of course.\n\nWhat should I call you?`,
           height: Device.deviceType !== 1 ? 160 : 112,
         },
       ]);
@@ -200,7 +200,7 @@ export default function Chat() {
 
   useEffect(() => {
     // Show input if AI has asked for user's name
-    if (!generating && !showInput && messages[messages.length - 1].content.includes("What's your first name?"))
+    if (!generating && !showInput && messages[messages.length - 1].content.includes("What should I call you?"))
       setShowInput(true);
   }, [generating]);
 

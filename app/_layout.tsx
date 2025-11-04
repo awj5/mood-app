@@ -89,7 +89,7 @@ export default function Layout() {
 
             Alert.alert(
               "You're Activated!",
-              `${response.data} has given you access to their company insights and a MOOD.ai Pro subscription.\n\nBy continuing, you agree to share your check-ins anonymously with ${response.data}.\n\nNeither ${response.data} or MOOD.ai can identify individual check-ins or access your private chats.`,
+              `${response.data} has given you access to their company insights and a MOOD.ai Pro subscription.\n\nBy continuing, you choose to share your check-ins anonymously to help your organisation improve wellbeing and psychological safety.\n\nNeither ${response.data} or MOOD.ai can identify individual check-ins or access your private chats.`,
               [
                 {
                   text: "Not now",

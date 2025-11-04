@@ -15,7 +15,7 @@ import { HomeDatesContext, HomeDatesContextType } from "context/home-dates";
 import Wheel from "components/check-in/Wheel";
 import Emoji from "components/check-in/Emoji";
 import Background from "components/check-in/Background";
-//import Instructions from "components/check-in/Instructions";
+import Instructions from "components/check-in/Instructions";
 import Heading from "components/check-in/Heading";
 import Next from "components/check-in/Next";
 import Close from "components/check-in/Close";
@@ -192,7 +192,7 @@ export default function CheckIn() {
         colorPress={colorPress}
       />
 
-      {/* <Instructions wheelSize={wheelSize} /> */}
+      <Instructions wheelSize={wheelSize} />
       <Background showTags={showTags} mood={wheelMood} />
       <Wheel rotation={rotation} colorPress={colorPress} wheelSize={wheelSize} />
       <Emoji showTags={showTags} mood={wheelMood} wheelSize={wheelSize} />
@@ -200,13 +200,7 @@ export default function CheckIn() {
 
       {showTags && (
         <>
-          <Heading
-            text="How's work?"
-            wheelSize={wheelSize}
-            //description="Select your workload and at least one word that describes work right now"
-            delay={500}
-            foreground={foregroundColor}
-          />
+          <Heading text="How's work?" wheelSize={wheelSize} delay={500} foreground={foregroundColor} />
 
           <Next
             setState={setShowStatement}
