@@ -32,6 +32,8 @@ export type CategoryType = {
   score: number;
   trend: string;
   checkIns: CompanyCheckInType[];
+  pending: boolean;
+  userCount: number;
 };
 
 type CategoriesProps = {
@@ -83,6 +85,7 @@ export default function Categories(props: CategoriesProps) {
     Object.entries(categoriesRecord).forEach(([key, value]) => {
       const category = competenciesData[0].categories.filter((item) => item.id === Number(key))[0];
       const groupedCheckIns = groupCheckIns(value); // Group by user and week
+      const userCount = Object.keys(groupedCheckIns).length;
       const responses: number[] = [];
 
       // Loop users to get statement responses
@@ -117,28 +120,29 @@ export default function Categories(props: CategoriesProps) {
 
       const trend = increases > decreases ? "increasing" : decreases > increases ? "decreasing" : "stable";
 
-      // Only show category if at least 25% of total users contributed
-      if (
-        props.statsData &&
-        (props.focusedCategory === category.id ||
-          props.statsData.demo ||
-          Object.entries(groupedCheckIns).length >= props.statsData.active / 4)
-      ) {
-        categories.push({
-          id: Number(key),
-          title: category.title,
-          icon: icons[category.icon as keyof typeof icons],
-          score: score,
-          trend: trend,
-          checkIns: value,
-        });
-      }
+      // Set category as pending if less than 20% of total users contributed
+      categories.push({
+        id: Number(key),
+        title: category.title,
+        icon: icons[category.icon as keyof typeof icons],
+        score,
+        trend,
+        checkIns: value,
+        pending:
+          props.focusedCategory === category.id ||
+          props.statsData?.demo ||
+          (props.statsData && userCount >= props.statsData.active / 5)
+            ? false
+            : true,
+        userCount,
+      });
     });
 
-    // Focused category first then order by highest score
+    // Focused category first then order by most user participation
     categories.sort((a, b) => {
       if (a.id === props.focusedCategory) return -1;
       if (b.id === props.focusedCategory) return 1;
+      if (b.userCount !== a.userCount) return b.userCount - a.userCount;
       return b.score - a.score;
     });
 

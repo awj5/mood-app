@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import { TrendingUp, TrendingDown, MoveRight, Activity } from "lucide-react-native";
+import { TrendingUp, TrendingDown, MoveRight, ClockFading, Eye } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import Header from "./category/Header";
 import { CategoryType } from "../Categories";
@@ -22,10 +22,12 @@ export default function Category(props: CategoryProps) {
   const [score, setScore] = useState(0);
   const parentWidth = dimensions.width >= 768 ? 768 : dimensions.width; // Detect min width
   const focusedUser = props.focused && props.role !== "admin";
-  const textBased = props.role === "user" || focusedUser;
+  const textBased = props.role === "user" || focusedUser || props.data.pending;
 
-  const Icon = focusedUser
-    ? Activity
+  const Icon = props.data.pending
+    ? ClockFading
+    : focusedUser
+    ? Eye
     : props.data.trend === "increasing"
     ? TrendingUp
     : props.data.trend === "decreasing"
@@ -81,11 +83,11 @@ export default function Category(props: CategoryProps) {
         },
       ]}
       hitSlop={8}
-      disabled={focusedUser}
+      disabled={focusedUser || props.data.pending}
     >
       <Header title={props.data.title} icon={props.data.icon} focused={props.focused} />
 
-      <View style={{ gap: theme.spacing.base / (focusedUser ? 2 : 4) }}>
+      <View style={{ gap: theme.spacing.base / (focusedUser || props.data.pending ? 2 : 4) }}>
         <Icon
           color={props.focused ? theme.color.inverted : theme.color.primary}
           size={theme.icon.large.size}
@@ -103,7 +105,13 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {focusedUser ? "Pulse active" : props.role === "user" ? getSentimentRange(props.data.score) : `${score}%`}
+            {props.data.pending
+              ? "Pending"
+              : focusedUser
+              ? "In focus"
+              : props.role === "user"
+              ? getSentimentRange(props.data.score)
+              : `${score}%`}
           </Text>
 
           <Text
@@ -114,7 +122,7 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {focusedUser ? "RESULTS PENDING" : props.focused ? "PULSE ACTIVE" : "SENTIMENT INDEX"}
+            {props.data.pending ? "AWAITING CHECK-INS" : props.focused ? "MOOD CHECK ACTIVE" : "SENTIMENT INDEX"}
           </Text>
         </View>
       </View>
