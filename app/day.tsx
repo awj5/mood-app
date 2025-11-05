@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, useColorScheme, View } from "react-native";
+import { Platform, ScrollView, useColorScheme, View } from "react-native";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import * as Device from "expo-device";
 import { BlurView } from "expo-blur";
@@ -154,7 +154,7 @@ export default function Day() {
         />
       ) : null}
 
-      <StatusBar style="light" translucent={false} backgroundColor="black" />
+      <StatusBar style={Platform.OS === "android" ? "light" : "auto"} translucent={false} backgroundColor="black" />
     </>
   );
 }
