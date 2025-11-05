@@ -3,7 +3,7 @@
     "name": "MOOD.ai",
     "slug": "mood",
     "version": "1.0.25",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon-light.png",
     "userInterfaceStyle": "automatic",
