@@ -26,7 +26,8 @@
         "foregroundImage": "./assets/adaptive-icon-light.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.moodplatforms.moodai"
+      "package": "com.moodplatforms.moodai",
+      "edgeToEdgeEnabled": true
     },
     "plugins": [
       "expo-router",
