@@ -129,9 +129,7 @@ export default function Categories(props: CategoriesProps) {
         trend,
         checkIns: value,
         pending:
-          props.focusedCategory === category.id ||
-          props.statsData?.demo ||
-          (props.statsData && userCount >= props.statsData.active / 5)
+          props.focusedCategory === category.id || (props.statsData && userCount >= props.statsData.active / 5)
             ? false
             : true,
         userCount,

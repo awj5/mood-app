@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
 import * as Device from "expo-device";
 import { useRouter } from "expo-router";
-import { TrendingUp, TrendingDown, MoveRight, ClockFading, Eye } from "lucide-react-native";
+import { TrendingUp, TrendingDown, MoveRight, Eye, Minus } from "lucide-react-native";
 import { DimensionsContext, DimensionsContextType } from "context/dimensions";
 import Header from "./category/Header";
 import { CategoryType } from "../Categories";
@@ -25,7 +25,7 @@ export default function Category(props: CategoryProps) {
   const textBased = props.role === "user" || focusedUser || props.data.pending;
 
   const Icon = props.data.pending
-    ? ClockFading
+    ? Minus
     : focusedUser
     ? Eye
     : props.data.trend === "increasing"
@@ -87,7 +87,7 @@ export default function Category(props: CategoryProps) {
     >
       <Header title={props.data.title} icon={props.data.icon} focused={props.focused} />
 
-      <View style={{ gap: theme.spacing.base / (focusedUser || props.data.pending ? 2 : 4) }}>
+      <View style={{ gap: theme.spacing.base / (focusedUser ? 2 : 4) }}>
         <Icon
           color={props.focused ? theme.color.inverted : theme.color.primary}
           size={theme.icon.large.size}
@@ -106,7 +106,7 @@ export default function Category(props: CategoryProps) {
             allowFontScaling={false}
           >
             {props.data.pending
-              ? "Pending"
+              ? "Low data"
               : focusedUser
               ? "In focus"
               : props.role === "user"
@@ -122,7 +122,7 @@ export default function Category(props: CategoryProps) {
             }}
             allowFontScaling={false}
           >
-            {props.data.pending ? "AWAITING CHECK-INS" : props.focused ? "MOOD CHECK ACTIVE" : "SENTIMENT INDEX"}
+            {props.data.pending ? "TOO FEW CHECK-INS" : props.focused ? "MOOD CHECK ACTIVE" : "SENTIMENT INDEX"}
           </Text>
         </View>
       </View>
