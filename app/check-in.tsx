@@ -107,7 +107,7 @@ export default function CheckIn() {
     if (uuid) {
       try {
         const response = await axios.post(
-          !isSimulator ? `https://www.workwithmood.com/api/categories` : `http://localhost:3000/api/categories`,
+          !isSimulator ? `https://os.moodcheck.co/api/categories` : `http://localhost:3000/api/categories`,
           {
             uuid: uuid,
           }
