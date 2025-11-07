@@ -87,7 +87,7 @@ export default function Category(props: CategoryProps) {
     >
       <Header title={props.data.title} icon={props.data.icon} focused={props.focused} />
 
-      <View style={{ gap: theme.spacing.base / (focusedUser ? 2 : 4) }}>
+      <View style={{ gap: theme.spacing.base / 4 }}>
         <Icon
           color={props.focused ? theme.color.inverted : theme.color.primary}
           size={theme.icon.large.size}
