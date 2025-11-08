@@ -44,7 +44,7 @@ export default function Report(props: ReportProps) {
       // Company check-ins
       try {
         await axios.post(
-          !isSimulator ? "https://os.moodcheck.co/api/insights/delete" : "http://localhost:3000/api/insights/delete",
+          !isSimulator ? "https://www.moodcheck.co/api/insights/delete" : "http://localhost:3000/api/insights/delete",
           {
             uuid: uuid,
             hash: hash,
@@ -88,7 +88,7 @@ export default function Report(props: ReportProps) {
 
     // Send email to team
     try {
-      await axios.post(!isSimulator ? "https://os.moodcheck.co/api/report" : "http://localhost:3000/api/report", {
+      await axios.post(!isSimulator ? "https://www.moodcheck.co/api/report" : "http://localhost:3000/api/report", {
         text: name ? props.text.replace(new RegExp(name, "gi"), "[USER]") : props.text, // Redact user's name
       });
     } catch (error) {

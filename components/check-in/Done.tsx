@@ -46,7 +46,7 @@ export default function Done(props: DoneProps) {
           // Save to Supabase
           try {
             await axios.post(
-              !isSimulator ? "https://os.moodcheck.co/api/check-in" : "http://localhost:3000/api/check-in",
+              !isSimulator ? "https://www.moodcheck.co/api/check-in" : "http://localhost:3000/api/check-in",
               {
                 uuid: uuid,
                 deviceID: deviceUUID,
