@@ -19,17 +19,14 @@ export const requestAIResponse = async (
   const isSimulator = Device.isDevice === false;
 
   try {
-    const response = await axios.post(
-      !isSimulator ? "https://www.moodcheck.co/api/ai" : "http://localhost:3000/api/ai",
-      {
-        type: type,
-        message: message,
-        loc: localization[0].languageTag,
-        ...(uuid && uuid != null && { uuid: uuid }),
-        ...(proID && proID != null && { proid: proID }),
-        ...(category && { category: category }),
-      }
-    );
+    const response = await axios.post(!isSimulator ? "https://www.mood.ai/api/ai" : "http://localhost:3000/api/ai", {
+      type: type,
+      message: message,
+      loc: localization[0].languageTag,
+      ...(uuid && uuid != null && { uuid: uuid }),
+      ...(proID && proID != null && { proid: proID }),
+      ...(category && { category: category }),
+    });
 
     return response.data.response;
   } catch (error) {

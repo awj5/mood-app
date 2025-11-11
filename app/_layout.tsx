@@ -77,7 +77,7 @@ export default function Layout() {
         // Validate UUID
         try {
           const response = await axios.post(
-            !isSimulator ? "https://www.moodcheck.co/api/uuid" : "http://localhost:3000/api/uuid",
+            !isSimulator ? "https://www.mood.ai/api/uuid" : "http://localhost:3000/api/uuid",
             {
               uuid: queryParams.uuid,
               os: Platform.OS,

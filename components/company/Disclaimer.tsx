@@ -33,15 +33,12 @@ export default function Disclaimer(props: DisclaimerProps) {
 
       // Save to Supabase
       try {
-        await axios.post(
-          !isSimulator ? "https://www.moodcheck.co/api/check-in" : "http://localhost:3000/api/check-in",
-          {
-            uuid: uuid,
-            deviceID: deviceUUID,
-            value: checkIn,
-            date: convertToISO(today),
-          }
-        );
+        await axios.post(!isSimulator ? "https://www.mood.ai/api/check-in" : "http://localhost:3000/api/check-in", {
+          uuid: uuid,
+          deviceID: deviceUUID,
+          value: checkIn,
+          date: convertToISO(today),
+        });
 
         await db.runAsync("INSERT INTO check_in_record DEFAULT VALUES;"); // Record check-in locally (users can only send 1 check-in per day to company insights)
         if (focusedCategory) setStoredVal("focused-statement", String(checkIn.competency));
