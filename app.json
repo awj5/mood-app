@@ -8,6 +8,7 @@
     "icon": "./assets/icon-light.png",
     "userInterfaceStyle": "automatic",
     "scheme": "moodai",
+    "owner": "psychsignal",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.moodplatforms.moodai",

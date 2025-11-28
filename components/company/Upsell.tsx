@@ -61,7 +61,7 @@ export default function Upsell() {
         <View
           style={{ width: "100%", maxWidth: 512, paddingHorizontal: theme.spacing.base, marginTop: theme.spacing.base }}
         >
-          <Button func={() => Linking.openURL("https://mood.ai")} gradient fill large icon={Info}>
+          <Button func={() => Linking.openURL("https://workwithmood.com")} gradient fill large icon={Info}>
             Learn more
           </Button>
         </View>
