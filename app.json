@@ -28,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.moodplatforms.moodai",
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": false
     },
     "plugins": [
       "expo-router",

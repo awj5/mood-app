@@ -31,6 +31,7 @@ export default function Name() {
         gap: theme.spacing.base,
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
       <Text
